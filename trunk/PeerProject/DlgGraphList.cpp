@@ -1,7 +1,7 @@
 //
 // DlgGraphList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -79,7 +79,7 @@ BOOL CGraphListDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CGraphListDlg"), IDR_TRAFFICFRAME );
+	SkinMe( L"CGraphListDlg", IDR_TRAFFICFRAME );
 
 	m_gdiImageList.Create( IDB_COLORDOT, 16, 0, RGB(0,255,0) );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );

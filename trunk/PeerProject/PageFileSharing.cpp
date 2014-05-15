@@ -1,7 +1,7 @@
 //
 // PageFileSharing.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -73,7 +73,7 @@ BOOL CFileSharingPage::OnInitDialog()
 {
 	CFilePropertiesPage::OnInitDialog();
 
-	m_wndTags.AddString( _T("") );
+	m_wndTags.AddString( L"" );
 
 	{
 		CQuickLock oLock( UploadQueues.m_pSection );
@@ -96,8 +96,8 @@ BOOL CFileSharingPage::OnInitDialog()
 
 		if ( pAdded.IsEmpty() )
 		{
-			m_wndTags.AddString( _T("Release") );
-			m_wndTags.AddString( _T("Popular") );
+			m_wndTags.AddString( L"Release" );
+			m_wndTags.AddString( L"Popular" );
 		}
 	}
 

@@ -52,21 +52,21 @@ CModule::~CModule()
 
 bool CModule::Load7zx()
 {
-	LPCTSTR sz7zxa = _T("7zxa.dll");
+	LPCTSTR sz7zxa = L"7zxa.dll";
 	m_h7zx = LoadLibrary( sz7zxa );
 	if ( ! m_h7zx )
 	{
 		TCHAR szPath[ MAX_PATH ] = {};
 		GetModuleFileName( _AtlBaseModule.GetModuleInstance(), szPath, MAX_PATH );
-		LPTSTR c = _tcsrchr( szPath, _T('\\') );
+		LPTSTR c = _tcsrchr( szPath, L'\\' );
 		if ( ! c )
 			return false;
 		lstrcpy( c + 1, sz7zxa );
 		m_h7zx = LoadLibrary( szPath );
 		if ( ! m_h7zx )
 		{
-			*c = _T('\0');
-			c = _tcsrchr( szPath, _T('\\') );
+			*c = L'\0';
+			c = _tcsrchr( szPath, L'\\' );
 			if ( ! c )
 				return false;
 			lstrcpy( c + 1, sz7zxa );
@@ -118,22 +118,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }

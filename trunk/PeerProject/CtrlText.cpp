@@ -33,6 +33,13 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+#define LINE_BUFFER_LIMIT		4096
+#define LINE_BUFFER_BLOCK		64
+
+#define LINE_GAP				1	// px
+#define OFFSET					4	// px
+
+
 IMPLEMENT_DYNCREATE(CTextCtrl, CWnd)
 
 BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
@@ -45,12 +52,6 @@ BEGIN_MESSAGE_MAP(CTextCtrl, CWnd)
 	ON_WM_MOUSEWHEEL()
 	ON_WM_VSCROLL()
 END_MESSAGE_MAP()
-
-#define LINE_BUFFER_LIMIT		4096
-#define LINE_BUFFER_BLOCK		64
-
-#define LINE_GAP				1	// px
-#define OFFSET					4	// px
 
 /////////////////////////////////////////////////////////////////////////////
 // CTextCtrl construction
@@ -89,13 +90,13 @@ void CTextCtrl::Add(const CLogMessage* pMsg)
 {
 	CString strTime;
 	if ( Settings.General.ShowTimestamp )
-		strTime.Format( _T("[%02d:%02d:%02d]  "), pMsg->m_Time.GetHour(), pMsg->m_Time.GetMinute(), pMsg->m_Time.GetSecond() );
+		strTime.Format( L"[%02d:%02d:%02d]  ", pMsg->m_Time.GetHour(), pMsg->m_Time.GetMinute(), pMsg->m_Time.GetSecond() );
 
 	CQuickLock pLock( m_pSection );
 
 	for ( int pos = 0 ; ; )
 	{
-		CString strLine = pMsg->m_strLog.Tokenize( _T("\r\n"), pos );
+		CString strLine = pMsg->m_strLog.Tokenize( L"\r\n", pos );
 		if ( strLine.IsEmpty() )
 			break;
 		if ( Settings.General.ShowTimestamp )
@@ -237,7 +238,7 @@ void CTextCtrl::OnPaint()
 
 	if ( ! m_nHeight )
 	{
-		CSize size = dc.GetTextExtent( _T("X") );
+		CSize size = dc.GetTextExtent( L"X" );
 		m_nHeight = size.cy += LINE_GAP;
 	}
 
@@ -337,7 +338,7 @@ void CTextCtrl::CopyText() const
 			CTextLine* pLineTemp = m_pLines.GetAt( i );
 			if ( pLineTemp->m_bSelected )
 			{
-				str += pLineTemp->m_sText + _T("\r\n");
+				str += pLineTemp->m_sText + L"\r\n";
 				bGotIt = TRUE;
 			}
 		}
@@ -537,7 +538,7 @@ int CTextLine::Process(CDC* pDC, int nWidth)
 	}
 
 	// Multi-line wrap
-	static const CSize size = pDC->GetTextExtent( _T("X") );
+	static const CSize size = pDC->GetTextExtent( L"X" );
 	const int nMax = nWidth / size.cx + 4;
 
 	int nLength = 0;

@@ -36,11 +36,12 @@ public:
 public:
 	CString 	m_sNick;
 	CWorldGPS*	m_pWorld;
+	CComboBox	m_wndAge;
+	CComboBox	m_wndCity;
+	CComboBoxEx	m_wndCountry;
+	CImageList	m_gdiFlags;
 	CString		m_sLocCity;
 	CString		m_sLocCountry;
-	CComboBox	m_wndCity;
-	CComboBox	m_wndCountry;
-	CComboBox	m_wndAge;
 	int 		m_nAge;
 	int			m_nGender;
 	CEdit		m_wndComments;

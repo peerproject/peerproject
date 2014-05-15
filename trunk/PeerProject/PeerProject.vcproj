@@ -416,7 +416,15 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="BitTorrentDHT/dht.c"
+				>
+			</File>
+			<File
 				RelativePath="AlbumFolder.cpp"
+				>
+			</File>
+			<File
+				RelativePath="AntiVirus.cpp"
 				>
 			</File>
 			<File
@@ -432,7 +440,7 @@
 				>
 			</File>
 			<File
-				RelativePath="BitprintDownloader.cpp"
+				RelativePath="BitprintsDownloader.cpp"
 				>
 			</File>
 			<File
@@ -545,6 +553,10 @@
 			</File>
 			<File
 				RelativePath="DiscoveryServices.cpp"
+				>
+			</File>
+			<File
+				RelativePath="DisplayData.cpp"
 				>
 			</File>
 			<File
@@ -817,6 +829,10 @@
 			</File>
 			<File
 				RelativePath="MetaList.cpp"
+				>
+			</File>
+			<File
+				RelativePath="MiniUPnP.cpp"
 				>
 			</File>
 			<File
@@ -1185,6 +1201,10 @@
 			</File>
 			<File
 				RelativePath="UPnPFinder.cpp"
+				>
+			</File>
+			<File
+				RelativePath="UPnPNAT.cpp"
 				>
 			</File>
 			<File
@@ -2079,7 +2099,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgBitprintDownload.cpp"
+					RelativePath="DlgBitprintsDownload.cpp"
 					>
 				</File>
 				<File
@@ -2176,6 +2196,10 @@
 				</File>
 				<File
 					RelativePath="DlgHelp.cpp"
+					>
+				</File>
+				<File
+					RelativePath="DlgHex.cpp"
 					>
 				</File>
 				<File
@@ -2579,7 +2603,7 @@
 					>
 				</File>
 				<File
-					RelativePath="PageProfileFavourites.cpp"
+					RelativePath="PageProfileFavorites.cpp"
 					>
 				</File>
 				<File
@@ -2697,7 +2721,15 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="BitTorrentDHT/dht.h"
+				>
+			</File>
+			<File
 				RelativePath="AlbumFolder.h"
+				>
+			</File>
+			<File
+				RelativePath="AntiVirus.h"
 				>
 			</File>
 			<File
@@ -2713,7 +2745,7 @@
 				>
 			</File>
 			<File
-				RelativePath="BitprintDownloader.h"
+				RelativePath="BitprintsDownloader.h"
 				>
 			</File>
 			<File
@@ -2826,6 +2858,10 @@
 			</File>
 			<File
 				RelativePath="DiscoveryServices.h"
+				>
+			</File>
+			<File
+				RelativePath="DisplayData.h"
 				>
 			</File>
 			<File
@@ -3106,6 +3142,10 @@
 			</File>
 			<File
 				RelativePath="MetaList.h"
+				>
+			</File>
+			<File
+				RelativePath="MiniUPnP.h"
 				>
 			</File>
 			<File
@@ -3405,7 +3445,15 @@
 				>
 			</File>
 			<File
+				RelativePath="UPnP.h"
+				>
+			</File>
+			<File
 				RelativePath="UPnPFinder.h"
+				>
+			</File>
+			<File
+				RelativePath="UPnPNAT.h"
 				>
 			</File>
 			<File
@@ -3848,7 +3896,7 @@
 					>
 				</File>
 				<File
-					RelativePath="DlgBitprintDownload.h"
+					RelativePath="DlgBitprintsDownload.h"
 					>
 				</File>
 				<File
@@ -3945,6 +3993,10 @@
 				</File>
 				<File
 					RelativePath="DlgHelp.h"
+					>
+				</File>
+				<File
+					RelativePath="DlgHex.h"
 					>
 				</File>
 				<File
@@ -4140,7 +4192,7 @@
 					>
 				</File>
 				<File
-					RelativePath="PageProfileFavourites.h"
+					RelativePath="PageProfileFavorites.h"
 					>
 				</File>
 				<File
@@ -4256,19 +4308,19 @@
 				Name="Augment"
 				>
 				<File
-					RelativePath="..\Services\Augment\Augment.hpp"
+					RelativePath="Augment\Augment.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\Services\Augment\auto_array.hpp"
+					RelativePath="Augment\auto_array.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\Services\Augment\auto_ptr.hpp"
+					RelativePath="Augment\auto_ptr.hpp"
 					>
 				</File>
 				<File
-					RelativePath="..\Services\Augment\IUnknownImplementation.hpp"
+					RelativePath="Augment\IUnknownImplementation.hpp"
 					>
 				</File>
 			</Filter>

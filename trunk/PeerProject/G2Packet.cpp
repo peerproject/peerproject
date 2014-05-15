@@ -549,7 +549,7 @@ CString CG2Packet::Dump(DWORD nTotal)
 		DWORD nOffset = m_nPosition + nLength;
 
 		if ( ! sASCII.IsEmpty() )
-			sASCII += _T(", ");
+			sASCII += L", ";
 
 		CStringA sType;
 		sType.Append( (LPCSTR)&nType, G2_TYPE_LEN( nType ) );
@@ -558,24 +558,24 @@ CString CG2Packet::Dump(DWORD nTotal)
 		if ( nLength )
 		{
 			CString sTmp;
-			sTmp.Format( _T("[%u]="), nLength );
+			sTmp.Format( L"[%u]=", nLength );
 			sASCII += sTmp;
 
 			if ( bCompound )
 			{
-				sASCII += _T("{ ") + Dump( m_nPosition + nLength ) + _T(" }");
+				sASCII += L"{ " + Dump( m_nPosition + nLength ) + L" }";
 			}
 			else if ( nType == G2_PACKET_HUB_STATUS )
 			{
 				WORD nLeafCount = ReadShortBE();
 				WORD nLeafLimit = ReadShortBE();
-				sTmp.Format( _T("%u/%u"), nLeafCount, nLeafLimit );
+				sTmp.Format( L"%u/%u", nLeafCount, nLeafLimit );
 				sASCII += sTmp;
 			}
 			else if ( nType == G2_PACKET_TIMESTAMP )
 			{
 				DWORD tSeen = ReadLongBE();
-				sTmp.Format( _T("%u"), tSeen );
+				sTmp.Format( L"%u", tSeen );
 				sASCII += sTmp;
 			}
 			else if ( nType == G2_PACKET_QUERY_DONE )
@@ -587,7 +587,7 @@ CString CG2Packet::Dump(DWORD nTotal)
 				WORD nLeaves = 0;
 				if ( nLength >= 8 )
 					nLeaves = ReadShortBE();
-				sTmp.Format( _T("%hs:%u/%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, nLeaves );
+				sTmp.Format( L"%hs:%u/%u", inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, nLeaves );
 				sASCII += sTmp;
 			}
 			else if ( nType == G2_PACKET_QUERY_SEARCH )
@@ -597,21 +597,21 @@ CString CG2Packet::Dump(DWORD nTotal)
 				DWORD tSeen = 0;
 				if ( nLength >= 10 )
 					tSeen = ReadLongBE();
-				sTmp.Format( _T("%hs:%u+%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, tSeen );
+				sTmp.Format( L"%hs:%u+%u", inet_ntoa( *(IN_ADDR*)&nAddress ), nPort, tSeen );
 				sASCII += sTmp;
 			}
 			else if ( nType == G2_PACKET_LIBRARY_STATUS )
 			{
 				DWORD nFileCount = ReadLongBE();
 				DWORD nFileVolume = ReadLongBE();
-				sTmp.Format( _T("%lu/%lu"), nFileCount, nFileVolume );
+				sTmp.Format( L"%lu/%lu", nFileCount, nFileVolume );
 				sASCII += sTmp;
 			}
 			else if ( nType == G2_PACKET_NODE_ADDRESS || nType == G2_PACKET_UDP )
 			{
 				DWORD nAddress = ReadLongLE();
 				WORD nPort = ReadShortBE();
-				sTmp.Format( _T("%hs:%u"), inet_ntoa( *(IN_ADDR*)&nAddress ), nPort );
+				sTmp.Format( L"%hs:%u", inet_ntoa( *(IN_ADDR*)&nAddress ), nPort );
 				sASCII += sTmp;
 			}
 			else
@@ -623,7 +623,7 @@ CString CG2Packet::Dump(DWORD nTotal)
 					c[ i ] = ( m_pBuffer[ m_nPosition + i ] < ' ' ) ? '.' : m_pBuffer[ m_nPosition + i ];
 				}
 				sDump.ReleaseBuffer( nLength );
-				sASCII += _T("\"") + UTF8Decode( (LPCSTR)sDump, nLength ) + _T("\"");
+				sASCII += L"\"" + UTF8Decode( (LPCSTR)sDump, nLength ) + L"\"";
 			}
 		}
 
@@ -703,7 +703,7 @@ BOOL CG2Packet::OnPacket(const SOCKADDR_IN* pHost)
 #ifdef _DEBUG
 	default:
 		CString str;
-		str.Format( _T("Received unexpected UDP packet from %s:%u"),
+		str.Format( L"Received unexpected UDP packet from %s:%u",
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 			htons( pHost->sin_port ) );
 		Debug( str );
@@ -756,8 +756,8 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 	{
 		if ( ! pSearch || ! pSearch->m_bUDP )
 		{
-			DEBUG_ONLY( Debug( ( pSearch && ! pSearch->m_bUDP ) ? _T("G2 Firewalled Query.") : _T("G2 Malformed Query.") ) );
-			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+			DEBUG_ONLY( Debug( ( pSearch && ! pSearch->m_bUDP ) ? L"G2 Firewalled Query." : L"G2 Malformed Query." ) );
+			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, L"G2", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		}
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
@@ -775,7 +775,7 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 		DWORD nKey = Network.QueryKeys->Create( pSearch->m_pEndpoint.sin_addr.S_un.S_addr );
 
 		CString strNode( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) );
-		theApp.Message( MSG_DEBUG, _T("Issuing correction for node %s's query key for %s"),
+		theApp.Message( MSG_DEBUG, L"Issuing correction for node %s's query key for %s",
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), (LPCTSTR)strNode );
 
 		CG2Packet* pAnswer = CG2Packet::New( G2_PACKET_QUERY_KEY_ANS, TRUE );
@@ -820,7 +820,7 @@ BOOL CG2Packet::OnQuery(const SOCKADDR_IN* pHost)
 			Neighbours.CreateQueryWeb( pSearch->m_oGUID, false, NULL, false ) );
 
 		theApp.Message( MSG_WARNING, IDS_PROTOCOL_EXCEEDS_LIMIT,
-			(LPCTSTR)( CString( inet_ntoa( pHost->sin_addr ) ) + _T(" [UDP]") ),
+			(LPCTSTR)( CString( inet_ntoa( pHost->sin_addr ) ) + L" [UDP]" ),
 			(LPCTSTR)CString( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) ) );
 
 		Statistics.Current.Gnutella2.Dropped++;
@@ -883,7 +883,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 	if ( pHits == NULL )
 	{
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)HostToString( pHost ) );
-		DEBUG_ONLY( Debug( _T("Malformed Hit") ) );
+		DEBUG_ONLY( Debug( L"Malformed Hit" ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
 	}
@@ -893,7 +893,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 	if ( pHits->m_pAddress.S_un.S_addr != pHost->sin_addr.S_un.S_addr )
 	{
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)HostToString( pHost ) );
-		DEBUG_ONLY( Debug( _T("Hit sender IP does not match \"Node Address\"") ) );
+		DEBUG_ONLY( Debug( L"Hit sender IP does not match \"Node Address\"" ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		pHits->Delete();
 		return TRUE;
@@ -901,7 +901,7 @@ BOOL CG2Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
-	//	DEBUG_ONLY( Debug( _T("Security manager denied Hit") ) );
+	//	DEBUG_ONLY( Debug( L"Security manager denied Hit" ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		pHits->Delete();
 		return TRUE;
@@ -980,7 +980,7 @@ BOOL CG2Packet::OnQueryKeyRequest(const SOCKADDR_IN* pHost)
 
 	Datagrams.Send( (IN_ADDR*)&nRequestedAddress, nRequestedPort, pAnswer, TRUE );
 
-	theApp.Message( MSG_DEBUG, _T("Node %s asked for a query key (0x%08x) for node %s:%i"),
+	theApp.Message( MSG_DEBUG, L"Node %s asked for a query key (0x%08x) for node %s:%i",
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), nKey,
 		(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nRequestedAddress ) ), nRequestedPort );
 
@@ -1016,7 +1016,7 @@ BOOL CG2Packet::OnQueryKeyAnswer(const SOCKADDR_IN* pHost)
 		m_nPosition = nOffset;
 	}
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("Got a query key for %s:%lu: 0x%x"),
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, L"Got a query key for %s:%lu: 0x%x",
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ), nKey );
 
 	{
@@ -1035,7 +1035,7 @@ BOOL CG2Packet::OnQueryKeyAnswer(const SOCKADDR_IN* pHost)
 
 			if ( pOut == NULL )
 				return TRUE;
-				// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CDatagrams::OnQueryKeyAnswer()") );
+				// theApp.Message( MSG_DEBUG, L"Memory allocation error in CDatagrams::OnQueryKeyAnswer()" );
 
 			*pOut++ = 0x50;
 			*pOut++ = 6;
@@ -1074,7 +1074,7 @@ BOOL CG2Packet::OnPush(const SOCKADDR_IN* pHost)
 
 	if ( ! SkipCompound( nLength, 6 ) )
 	{
-		theApp.Message( MSG_ERROR, _T("[G2] UDP: Invalid PUSH packet received from %s"), (LPCTSTR)inet_ntoa( pHost->sin_addr ) );
+		theApp.Message( MSG_ERROR, L"[G2] UDP: Invalid PUSH packet received from %s", (LPCTSTR)inet_ntoa( pHost->sin_addr ) );
 		Statistics.Current.Gnutella2.Dropped++;
 		return FALSE;
 	}
@@ -1166,17 +1166,17 @@ BOOL CG2Packet::OnCrawlRequest(const SOCKADDR_IN* pHost)
 
 	if ( ! strNick.IsEmpty() )
 	{
-		pPacket->WritePacket( G2_PACKET_NAME, pPacket->GetStringLen( strNick) );
+		pPacket->WritePacket( G2_PACKET_NAME, pPacket->GetStringLen( strNick ) );
 		pPacket->WriteString( strNick, FALSE );
 	}
 	if ( ! vendorCode.IsEmpty() )
 	{
-		pPacket->WritePacket( G2_PACKET_VENDOR, pPacket->GetStringLen( vendorCode) );
+		pPacket->WritePacket( G2_PACKET_VENDOR, pPacket->GetStringLen( vendorCode ) );
 		pPacket->WriteString( vendorCode, FALSE );
 	}
 	if ( ! currentVersion.IsEmpty() )
 	{
-		pPacket->WritePacket( G2_PACKET_VERSION, pPacket->GetStringLen( currentVersion) );
+		pPacket->WritePacket( G2_PACKET_VERSION, pPacket->GetStringLen( currentVersion ) );
 		pPacket->WriteString( currentVersion, FALSE );
 	}
 

@@ -546,7 +546,7 @@ void CCoolMenu::DrawWatermark(CDC* pDC, CRect* pRect, int nOffX, int nOffY)
 // CCoolMenu border effects
 
 HHOOK	CCoolMenu::m_hMsgHook	= NULL;
-LPCTSTR CCoolMenu::wpnOldProc	= _T("PEER_MenuOldWndProc");
+LPCTSTR CCoolMenu::wpnOldProc	= L"PEER_MenuOldWndProc";
 BOOL	CCoolMenu::m_bPrinted	= TRUE;
 int		CCoolMenu::m_nEdgeLeft	= 0;
 int		CCoolMenu::m_nEdgeTop	= 0;
@@ -672,7 +672,7 @@ LRESULT CALLBACK CCoolMenu::MsgHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 		TCHAR szClassName[16];
 		int nClassName = GetClassName( pCWP->hwnd, szClassName, 16 );
-		if ( nClassName != 6 || _tcscmp( szClassName, _T("#32768") ) != 0 ) break;
+		if ( nClassName != 6 || _tcscmp( szClassName, L"#32768" ) != 0 ) break;
 
 		if ( ::GetProp( pCWP->hwnd, wpnOldProc ) != NULL ) break;
 

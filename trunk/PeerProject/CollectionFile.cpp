@@ -1,7 +1,7 @@
 //
 // CollectionFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -67,18 +67,18 @@ BOOL CCollectionFile::Open(LPCTSTR lpszFileName)
 	const int nLength = (int)_tcslen( lpszFileName );
 	if ( nLength < 4 ) return FALSE;
 
-	if ( _tcsicmp( lpszFileName + nLength - 3, _T(".co") ) == 0 ||
-		 nLength > 11 && _tcsicmp( lpszFileName + nLength - 11, _T(".collection") ) == 0 )
+	if ( _tcsicmp( lpszFileName + nLength - 3, L".co" ) == 0 ||
+		 nLength > 11 && _tcsicmp( lpszFileName + nLength - 11, L".collection" ) == 0 )
 	{
 		if ( LoadCollection( lpszFileName ) )
 			return TRUE;
 	}
-	else if ( nLength > 16 && _tcsicmp( lpszFileName + nLength - 16, _T(".emulecollection") ) == 0 )
+	else if ( nLength > 16 && _tcsicmp( lpszFileName + nLength - 16, L".emulecollection" ) == 0 )
 	{
 		if ( LoadEMule( lpszFileName ) )
 			return TRUE;
 	}
-	else if ( nLength > 8  && _tcsicmp( lpszFileName + nLength - 8, _T(".xml.bz2") ) == 0 )
+	else if ( nLength > 8  && _tcsicmp( lpszFileName + nLength - 8, L".xml.bz2" ) == 0 )
 	{
 		if ( LoadDC( lpszFileName ) )
 			return TRUE;
@@ -185,7 +185,7 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 	CZIPFile pZIP;
 	if ( ! pZIP.Open( pszFile ) ) return FALSE;
 
-	CZIPFile::File* pFile = pZIP.GetFile( _T("Collection.xml"), TRUE );
+	CZIPFile::File* pFile = pZIP.GetFile( L"Collection.xml", TRUE );
 	if ( ! pFile ) return FALSE;
 
 	if ( pZIP.GetCount() == 1 )		// xml-only
@@ -196,18 +196,18 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 
 	auto_ptr< CXMLElement > pXML ( CXMLElement::FromString( pBuffer->ReadString( pBuffer->m_nLength, CP_UTF8 ), TRUE ) );
 	if ( ! pXML.get() ) return FALSE;
-	if ( ! pXML->IsNamed( _T("collection") ) ) return FALSE;
+	if ( ! pXML->IsNamed( L"collection" ) ) return FALSE;
 
-	CXMLElement* pProperties = pXML->GetElementByName( _T("properties") );
+	CXMLElement* pProperties = pXML->GetElementByName( L"properties" );
 	if ( ! pProperties ) return FALSE;
 
-	CXMLElement* pContents = pXML->GetElementByName( _T("contents") );
+	CXMLElement* pContents = pXML->GetElementByName( L"contents" );
 	if ( ! pContents ) return FALSE;
 
 	for ( POSITION pos = pContents->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pContents->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("file") ) )
+		if ( pElement->IsNamed( L"file" ) )
 		{
 			auto_ptr< File > pNewFile( new File( this ) );
 			if ( pNewFile.get() && pNewFile->Parse( pElement ) )
@@ -215,23 +215,23 @@ BOOL CCollectionFile::LoadCollection(LPCTSTR pszFile)
 		}
 	}
 
-	if ( CXMLElement* pMetadata = pProperties->GetElementByName( _T("metadata") ) )
+	if ( CXMLElement* pMetadata = pProperties->GetElementByName( L"metadata" ) )
 	{
 		m_pMetadata = CloneMetadata( pMetadata );
 		if ( m_pMetadata )
 			m_sThisURI = m_pMetadata->GetAttributeValue( CXMLAttribute::schemaName );
 	}
 
-	if ( CXMLElement* pTitle = pProperties->GetElementByName( _T("title") ) )
+	if ( CXMLElement* pTitle = pProperties->GetElementByName( L"title" ) )
 		m_sTitle = pTitle->GetValue();
 
-	if ( CXMLElement* pMounting = pProperties->GetElementByName( _T("mounting") ) )
+	if ( CXMLElement* pMounting = pProperties->GetElementByName( L"mounting" ) )
 	{
-		if ( CXMLElement* pParent = pMounting->GetElementByName( _T("parent") ) )
-			m_sParentURI = pParent->GetAttributeValue( _T("uri") );
+		if ( CXMLElement* pParent = pMounting->GetElementByName( L"parent" ) )
+			m_sParentURI = pParent->GetAttributeValue( L"uri" );
 
-		if ( CXMLElement* pThis = pMounting->GetElementByName( _T("this") ) )
-			m_sThisURI = pThis->GetAttributeValue( _T("uri") );
+		if ( CXMLElement* pThis = pMounting->GetElementByName( L"this" ) )
+			m_sThisURI = pThis->GetAttributeValue( L"uri" );
 	}
 
 	if ( m_sThisURI.IsEmpty() )
@@ -338,10 +338,10 @@ BOOL CCollectionFile::LoadDC(LPCTSTR pszFile)
 
 	// <FileListing Version="1" CID="SKCB4ZF4PZUDF7RKQ5LX6SVAARQER7QEVELZ2TY" Base="/" Generator="DC++ 0.762">
 
-	if ( ! pXML->IsNamed( _T("FileListing") ) )
+	if ( ! pXML->IsNamed( L"FileListing" ) )
 		return FALSE;	// Invalid XML file format
 
-	m_sTitle = pXML->GetAttributeValue( _T("CID") );
+	m_sTitle = pXML->GetAttributeValue( L"CID" );
 
 	LoadDC( pXML.get() );
 
@@ -353,13 +353,13 @@ void CCollectionFile::LoadDC(CXMLElement* pRoot)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("Directory") ) )
+		if ( pElement->IsNamed( L"Directory" ) )
 		{
 			// <Directory Name="Downloads">
 
 			LoadDC( pElement );
 		}
-		else if ( pElement->IsNamed( _T("File") ) )
+		else if ( pElement->IsNamed( L"File" ) )
 		{
 			// <File Name="music.mp3" Size="100000" TTH="3A6D6T2NDRLU6BGSTSJNW3R3QWTV6A44M6AGXMA"/>
 
@@ -383,7 +383,7 @@ BOOL CCollectionFile::LoadText(LPCTSTR pszFile)
 
 	// Make collection title from file name
 	m_sTitle = PathFindFileName( pszFile );
-	int nPos = m_sTitle.ReverseFind( _T('.') );
+	int nPos = m_sTitle.ReverseFind( L'.' );
 	if ( nPos != -1 )
 		m_sTitle = m_sTitle.Left( nPos );
 
@@ -412,7 +412,7 @@ BOOL CCollectionFile::LoadText(LPCTSTR pszFile)
 
 CXMLElement* CCollectionFile::CloneMetadata(CXMLElement* pMetadata)
 {
-	CString strURI = pMetadata->GetAttributeValue( _T("xmlns:s") );
+	CString strURI = pMetadata->GetAttributeValue( L"xmlns:s" );
 	if ( strURI.IsEmpty() ) return NULL;
 
 	CXMLElement* pCore = pMetadata->GetFirstElement();
@@ -432,18 +432,18 @@ CXMLElement* CCollectionFile::CloneMetadata(CXMLElement* pMetadata)
 	pMetadata->AddElement( pCore );
 
 	CString strName = pMetadata->GetName();
-	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+	if ( _tcsnicmp( strName, L"s:", 2 ) == 0 )
 		pMetadata->SetName( strName.Mid( 2 ) );
 
 	strName = pCore->GetName();
-	if ( _tcsnicmp( strName, _T("s:"), 2 ) == 0 )
+	if ( _tcsnicmp( strName, L"s:", 2 ) == 0 )
 		pCore->SetName( strName.Mid( 2 ) );
 
 	for ( POSITION pos = pCore->GetElementIterator() ; pos ; )
 	{
 		CXMLNode* pNode = pCore->GetNextElement( pos );
 		CString strNodeName = pNode->GetName();
-		if ( _tcsnicmp( strNodeName, _T("s:"), 2 ) == 0 )
+		if ( _tcsnicmp( strNodeName, L"s:", 2 ) == 0 )
 			pNode->SetName( strNodeName.Mid( 2 ) );
 	}
 
@@ -451,7 +451,7 @@ CXMLElement* CCollectionFile::CloneMetadata(CXMLElement* pMetadata)
 	{
 		CXMLNode* pNode = pCore->GetNextAttribute( pos );
 		CString strNodeName = pNode->GetName();
-		if ( _tcsnicmp( strNodeName, _T("s:"), 2 ) == 0 )
+		if ( _tcsnicmp( strNodeName, L"s:", 2 ) == 0 )
 			pNode->SetName( strNodeName.Mid( 2 ) );
 	}
 
@@ -462,18 +462,18 @@ void CCollectionFile::Render(CString& strBuffer) const
 {
 	strBuffer.Preallocate( GetFileCount() * 128 + 256 );
 
-	strBuffer.Format( _T("<html>\n<head>\n")
-		_T("<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n")
-		_T("<title>%s</title>\n")
-		_T("<style type=\"text/css\">\n")
-		_T("body  { margin: 0px; padding: 0px; background-color: #ffffff; color: #000000; font-family: %s; font-size: %upx; }\n")
-		_T("h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://PeerProject.exe/312); }\n")
-		_T("table { font-size: 8pt; width: 100%%; }\n")
-		_T("td    { background-color: #e0e8f0; padding: 4px; }\n")
-		_T(".num  { width: 40px; text-align: center; }\n")
-		_T(".url  { text-align: left; cursor: hand; }\n")
-		_T(".size { width: 100px; text-align: center; }\n")
-		_T("</style>\n</head>\n<body>\n<h1>%s</h1>\n<table>\n"),
+	strBuffer.Format( L"<html>\n<head>\n"
+		L"<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n"
+		L"<title>%s</title>\n"
+		L"<style type=\"text/css\">\n"
+		L"body  { margin: 0px; padding: 0px; background-color: #ffffff; color: #000000; font-family: %s; font-size: %upx; }\n"
+		L"h1    { text-align: left; color: #ffffff; height: 64px; margin: 0px; padding: 20px; font-size: 10pt; font-weight: bold; background-image: url(res://PeerProject.exe/312); }\n"
+		L"table { font-size: 8pt; width: 100%%; }\n"
+		L"td    { background-color: #e0e8f0; padding: 4px; }\n"
+		L".num  { width: 40px; text-align: center; }\n"
+		L".url  { text-align: left; cursor: hand; }\n"
+		L".size { width: 100px; text-align: center; }\n"
+		L"</style>\n</head>\n<body>\n<h1>%s</h1>\n<table>\n",
 		(LPCTSTR)GetTitle(),
 		(LPCTSTR)Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize,
 		(LPCTSTR)GetTitle() );
@@ -496,15 +496,15 @@ void CCollectionFile::Render(CString& strBuffer) const
 			strURN = pFile->m_oBTH.toUrn();
 
 		CString strTemp;
-		strTemp.Format( _T("<tr><td class=\"num\">%u</td>")
-			_T("<td class=\"url\" onclick=\"if ( ! window.external.open('%s') ) window.external.download('%s');\" onmouseover=\"window.external.hover('%s');\" onmouseout=\"window.external.hover('');\">%s</td>")
-			_T("<td class=\"size\">%s</td></tr>\n"),
+		strTemp.Format( L"<tr><td class=\"num\">%u</td>"
+			L"<td class=\"url\" onclick=\"if ( ! window.external.open('%s') ) window.external.download('%s');\" onmouseover=\"window.external.hover('%s');\" onmouseout=\"window.external.hover('');\">%s</td>"
+			L"<td class=\"size\">%s</td></tr>\n",
 			i, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)strURN, (LPCTSTR)pFile->m_sName,
 			(LPCTSTR)Settings.SmartVolume( pFile->m_nSize ) );
 		strBuffer += strTemp;
 	}
 
-	strBuffer += _T("</table>\n</body>\n</html>");
+	strBuffer += L"</table>\n</body>\n</html>";
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -526,13 +526,13 @@ CCollectionFile::File::~File()
 
 BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 {
-	//if ( ! pRoot->IsNamed( _T("file") ) ) return FALSE;	// Discards DC++
+	//if ( ! pRoot->IsNamed( L"file" ) ) return FALSE;	// Discards DC++
 
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pRoot->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("id") ) )
+		if ( pXML->IsNamed( L"id" ) )
 		{
 			if ( ! m_oSHA1 )  m_oSHA1.fromUrn( pXML->GetValue() );
 			if ( ! m_oTiger ) m_oTiger.fromUrn( pXML->GetValue() );
@@ -541,25 +541,25 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 			if ( ! m_oBTH )   m_oBTH.fromUrn( pXML->GetValue() );
 			if ( ! m_oBTH )   m_oBTH.fromUrn< Hashes::base16Encoding >( pXML->GetValue() );
 		}
-		else if ( pXML->IsNamed( _T("description") ) )
+		else if ( pXML->IsNamed( L"description" ) )
 		{
-			if ( CXMLElement* pName = pXML->GetElementByName( _T("name") ) )
+			if ( CXMLElement* pName = pXML->GetElementByName( L"name" ) )
 				m_sName = pName->GetValue();
 
-			if ( CXMLElement* pSize = pXML->GetElementByName( _T("size") ) )
+			if ( CXMLElement* pSize = pXML->GetElementByName( L"size" ) )
 			{
-				if ( _stscanf( pSize->GetValue(), _T("%I64i"), &m_nSize ) != 1 )
+				if ( _stscanf( pSize->GetValue(), L"%I64i", &m_nSize ) != 1 )
 					return FALSE;
 			}
 		}
-		else if ( pXML->IsNamed( _T("metadata") ) )
+		else if ( pXML->IsNamed( L"metadata" ) )
 		{
 			if ( m_pMetadata ) delete m_pMetadata;
 			m_pMetadata = CCollectionFile::CloneMetadata( pXML );
 		}
-		//else if ( pXML->IsNamed( _T("packaged") ) )
+		//else if ( pXML->IsNamed( L"packaged" ) )
 		//{
-		//	if ( CXMLElement* pSource = pXML->GetElementByName( _T("source") ) )
+		//	if ( CXMLElement* pSource = pXML->GetElementByName( L"source" ) )
 		//		/*m_sSource =*/ pSource->GetValue();	// ToDo: Use Sources?
 		//}
 	}
@@ -567,9 +567,9 @@ BOOL CCollectionFile::File::Parse(CXMLElement* pRoot)
 	// DC++ format
 	if ( m_sName.IsEmpty() && ! m_oTiger && m_nSize == SIZE_UNKNOWN )
 	{
-		m_sName = pRoot->GetAttributeValue( _T("Name") );
-		_stscanf( pRoot->GetAttributeValue( _T("Size") ), _T("%I64i"), &m_nSize );
-		m_oTiger.fromString( pRoot->GetAttributeValue( _T("TTH") ) );
+		m_sName = pRoot->GetAttributeValue( L"Name" );
+		_stscanf( pRoot->GetAttributeValue( L"Size" ), L"%I64i", &m_nSize );
+		m_oTiger.fromString( pRoot->GetAttributeValue( L"TTH" ) );
 	}
 
 	return HasHash();

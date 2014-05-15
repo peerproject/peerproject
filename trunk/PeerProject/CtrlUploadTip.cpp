@@ -108,7 +108,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 
 	m_sAddress = inet_ntoa( pUpload->m_pHost.sin_addr );
 	if ( ! pUpload->m_sRemoteNick.IsEmpty() )
-		m_sAddress = pUpload->m_sRemoteNick + _T(" (") + m_sAddress + _T(")");
+		m_sAddress = pUpload->m_sRemoteNick + L" (" + m_sAddress + L")";
 
 	m_pHeaderName.RemoveAll();
 	m_pHeaderValue.RemoveAll();
@@ -120,7 +120,7 @@ void CUploadTipCtrl::OnCalcSize(CDC* pDC)
 			CString strName  = pUpload->m_pHeaderName.GetAt( nHeader );
 			CString strValue = pUpload->m_pHeaderValue.GetAt( nHeader );
 
-			if ( strValue.GetLength() > 64 ) strValue = strValue.Left( 64 ) + _T("...");
+			if ( strValue.GetLength() > 64 ) strValue = strValue.Left( 64 ) + L"...";
 
 			m_pHeaderName.Add( strName );
 			m_pHeaderValue.Add( strValue );
@@ -189,14 +189,13 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	{
 		Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y,
 			( Images.m_bmToolTip.m_hObject ) ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
-		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + FLAG_WIDTH, pt.y + 16 );
 	}
 
-	pt.x += 25;
+	pt.x += FLAG_WIDTH + 9;
 	pt.y += 2;
-
 	DrawText( pDC, &pt, pUpload->m_sCountryName );
-	pt.x -= 25;
+	pt.x -= FLAG_WIDTH + 9;
 	pt.y += TIP_TEXTHEIGHT + 2;
 
 	DrawRule( pDC, &pt );
@@ -206,7 +205,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 
 	if ( pUpload->GetMaxSpeed() > 10 )
 	{
-		strSpeed.Format( _T("%s %s %s  (%s)"),
+		strSpeed.Format( L"%s %s %s  (%s)",
 			(LPCTSTR)Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
 			(LPCTSTR)strOf,
 			(LPCTSTR)Settings.SmartSpeed( pUpload->m_nBandwidth ),
@@ -214,7 +213,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 	}
 	else
 	{
-		strSpeed.Format( _T("%s %s %s"),
+		strSpeed.Format( L"%s %s %s",
 			(LPCTSTR)Settings.SmartSpeed( pUpload->GetMeasuredSpeed() ),
 			(LPCTSTR)strOf,
 			(LPCTSTR)Settings.SmartSpeed( pUpload->m_nBandwidth ) );
@@ -222,7 +221,7 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 
 	if ( pUpload->m_nSize > 1 )
 	{
-		strTransfer.Format( _T("%s %s %s  (%.2f%%)"),
+		strTransfer.Format( L"%s %s %s  (%.2f%%)",
 			(LPCTSTR)Settings.SmartVolume( pUpload->m_nUploaded ),
 			(LPCTSTR)strOf,
 			(LPCTSTR)Settings.SmartVolume( pUpload->m_nSize ),
@@ -243,19 +242,19 @@ void CUploadTipCtrl::OnPaint(CDC* pDC)
 		if ( pUpload->m_nState == upsQueued )
 		{
 			LoadString( strText, IDS_TIP_NEXT );
-			strStatus.Format( _T("%s: %s"),
+			strStatus.Format( L"%s: %s",
 				(LPCTSTR)pUpload->m_pQueue->m_sName, (LPCTSTR)strText );
 		}
 		else
 		{
 			LoadString( strText, pUpload->m_bPriority ? IDS_TIP_PRIORITY : IDS_STATUS_ACTIVE );
-			strStatus.Format( _T("%s: %s"),
+			strStatus.Format( L"%s: %s",
 				(LPCTSTR)pUpload->m_pQueue->m_sName, (LPCTSTR)strText );
 		}
 	}
 	else if ( nQueue > 0 )
 	{
-		strStatus.Format( _T("%s: %i %s %u"),
+		strStatus.Format( L"%s: %i %s %u",
 			(LPCTSTR)pUpload->m_pQueue->m_sName,
 			nQueue, (LPCTSTR)strOf, pUpload->m_pQueue->GetQueuedCount() );
 	}
@@ -377,7 +376,7 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 				CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH );		// Transfers lock required
 				pLock.Unlock();
 				if ( pDownload && pDownload->m_pTorrent.ScrapeTracker() )		// No transfers lock allowed
-					m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),		// ToDo: Translation ?
+					m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",		// ToDo: Translation ?
 						pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 			}
 		}

@@ -22,7 +22,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "GFLReader.h"
 
 HRESULT CGFLReader::FinalConstruct() throw()
@@ -314,7 +314,7 @@ STDMETHODIMP CGFLReader::SaveToMemory (
 					ATLASSERT( size );
 					hr = E_OUTOFMEMORY;
 					*ppMemory = SafeArrayCreateVector( VT_UI1, 0, size );
-					if (*ppMemory)
+					if ( *ppMemory )
 					{
 						BYTE* pDestination = NULL;
 						hr = SafeArrayAccessData( *ppMemory, (void**) &pDestination );

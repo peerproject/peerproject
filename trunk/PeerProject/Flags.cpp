@@ -1,7 +1,7 @@
 //
 // Flags.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -29,9 +29,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-#define SOURCE_FLAG_WIDTH 		16
+#define SOURCE_FLAG_WIDTH 		18
 #define SOURCE_FLAG_HEIGHT		12
-#define IMAGELIST_FLAG_WIDTH	16
+#define IMAGELIST_FLAG_WIDTH	FLAG_WIDTH	// 18
 #define IMAGELIST_FLAG_HEIGHT	16
 
 
@@ -53,11 +53,11 @@ BOOL CFlags::Load()
 {
 	Clear();
 
-	const CString strFile = Settings.General.Path + _T("\\Data\\Flags.png");	// Settings.General.DataPath ?
+	const CString strFile = Settings.General.Path + L"\\Data\\Flags.png";	// Settings.General.DataPath ?
 
 	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR32|ILC_MASK, 26 * 26, 8 ) ||
-		m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR24|ILC_MASK, 26 * 26, 8 ) ||
-		m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR16|ILC_MASK, 26 * 26, 8 );
+	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR24|ILC_MASK, 26 * 26, 8 ) ||
+	m_pImage.Create( IMAGELIST_FLAG_WIDTH, IMAGELIST_FLAG_HEIGHT, ILC_COLOR16|ILC_MASK, 26 * 26, 8 );
 
 	CImageFile pImage;
 
@@ -177,6 +177,8 @@ int CFlags::GetFlagIndex(const CString& sCountry) const
 		// but GeoIP can also return some combinations that aren't all letters (A1, A2, etc.)
 		if ( nFirstLetter >= 0 && nFirstLetter < 26 && nSecondLetter >= 0 && nSecondLetter < 26 )
 			return nFirstLetter * 26 + nSecondLetter;
+		if ( nFirstLetter == 0 && nSecondLetter < 0 )
+			return 0;
 	}
 	return -1;
 }

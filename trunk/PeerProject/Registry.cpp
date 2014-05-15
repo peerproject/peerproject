@@ -1,7 +1,7 @@
 //
 // Registry.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,11 +31,11 @@ static char THIS_FILE[] = __FILE__;
 
 CString CRegistry::GetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszDefault, LPCTSTR pszSubKey, BOOL bIgnoreHKCU)
 {
-	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
+	CString strSection( pszSubKey ? pszSubKey : L"Software\\PeerProject\\PeerProject" );
 	if ( pszSection && *pszSection )
 	{
-		if ( pszSection[0] != _T('\\') )
-			strSection += _T("\\");
+		if ( pszSection[0] != L'\\' )
+			strSection += L"\\";
 		strSection += pszSection;
 	}
 
@@ -61,11 +61,11 @@ CString CRegistry::GetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszDef
 
 DWORD CRegistry::GetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nDefault, LPCTSTR pszSubKey)
 {
-	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
+	CString strSection( pszSubKey ? pszSubKey : L"Software\\PeerProject\\PeerProject" );
 	if ( pszSection && *pszSection )
 	{
-		if ( pszSection[0] != _T('\\') )
-			strSection += _T("\\");
+		if ( pszSection[0] != L'\\' )
+			strSection += L"\\";
 		strSection += pszSection;
 	}
 
@@ -85,11 +85,11 @@ DWORD CRegistry::GetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nDefault, L
 
 BOOL CRegistry::SetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszValue, LPCTSTR pszSubKey)
 {
-	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
+	CString strSection( pszSubKey ? pszSubKey : L"Software\\PeerProject\\PeerProject" );
 	if ( pszSection && *pszSection )
 	{
-		if ( pszSection[0] != _T('\\') )
-			strSection += _T("\\");
+		if ( pszSection[0] != L'\\' )
+			strSection += L"\\";
 		strSection += pszSection;
 	}
 
@@ -103,11 +103,11 @@ BOOL CRegistry::SetString(LPCTSTR pszSection, LPCTSTR pszName, LPCTSTR pszValue,
 
 BOOL CRegistry::SetDword(LPCTSTR pszSection, LPCTSTR pszName, DWORD nValue, LPCTSTR pszSubKey)
 {
-	CString strSection( pszSubKey ? pszSubKey : _T("Software\\PeerProject\\PeerProject") );
+	CString strSection( pszSubKey ? pszSubKey : L"Software\\PeerProject\\PeerProject" );
 	if ( pszSection && *pszSection )
 	{
-		if ( pszSection[0] != _T('\\') )
-			strSection += _T("\\");
+		if ( pszSection[0] != L'\\' )
+			strSection += L"\\";
 		strSection += pszSection;
 	}
 

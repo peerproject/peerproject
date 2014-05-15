@@ -1,7 +1,7 @@
 //
 // PageDownloadEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -92,7 +92,7 @@ BOOL CDownloadEditPage::OnInitDialog()
 	m_sName = pDownload->m_sName;
 	m_sDiskName = pDownload->m_sPath;
 	if ( pDownload->m_nSize != SIZE_UNKNOWN )
-		m_sFileSize.Format( _T("%I64u"), pDownload->m_nSize );
+		m_sFileSize.Format( L"%I64u", pDownload->m_nSize );
 
 	m_wndDate.SetTime( &pDownload->m_tDate );
 
@@ -141,35 +141,35 @@ BOOL CDownloadEditPage::OnApply()
 
 	if ( ! m_sSHA1.IsEmpty() && ! oSHA1 )
 	{
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), _T("SHA1") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), L"SHA1" );
 		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_URN_SHA1 )->SetFocus();
 		return FALSE;
 	}
 	if ( ! m_sTiger.IsEmpty() && ! oTiger )
 	{
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), _T("Tiger-Root") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), L"Tiger-Root" );
 		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_URN_TIGER )->SetFocus();
 		return FALSE;
 	}
 	if ( ! m_sED2K.IsEmpty() && ! oED2K )
 	{
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), _T("ED2K") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), L"ED2K" );
 		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_URN_ED2K )->SetFocus();
 		return FALSE;
 	}
 	if ( ! m_sMD5.IsEmpty() && ! oMD5 )
 	{
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), _T("MD5") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), L"MD5" );
 		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_URN_MD5 )->SetFocus();
 		return FALSE;
 	}
 	if ( ! m_sBTH.IsEmpty() && ! oBTH )
 	{
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), _T("BitTorrent") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_BAD_HASH ), L"BitTorrent" );
 		MsgBox( strMessage, MB_ICONEXCLAMATION );
 		GetDlgItem( IDC_URN_BTH )->SetFocus();
 		return FALSE;
@@ -205,7 +205,7 @@ BOOL CDownloadEditPage::OnApply()
 	}
 
 	QWORD nNewSize = 0;
-	if ( _stscanf( m_sFileSize, _T("%I64u"), &nNewSize ) == 1 && nNewSize != pDownload->m_nSize )
+	if ( _stscanf( m_sFileSize, L"%I64u", &nNewSize ) == 1 && nNewSize != pDownload->m_nSize )
 	{
 		pLock.Unlock();
 		if ( MsgBox( IDS_DOWNLOAD_EDIT_CHANGE_SIZE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
@@ -227,7 +227,7 @@ BOOL CDownloadEditPage::OnApply()
 		|| validAndUnequal( pDownload->m_oSHA1, oSHA1 ) )
 	{
 		pLock.Unlock();
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), _T("SHA1"), _T("SHA1") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), L"SHA1", L"SHA1" );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();
@@ -243,7 +243,7 @@ BOOL CDownloadEditPage::OnApply()
 		|| validAndUnequal( pDownload->m_oTiger, oTiger ) )
 	{
 		pLock.Unlock();
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), _T("Tiger-Root"), _T("Tiger-Root") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), L"Tiger-Root", L"Tiger-Root" );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();
@@ -259,7 +259,7 @@ BOOL CDownloadEditPage::OnApply()
 		|| validAndUnequal( pDownload->m_oED2K, oED2K ) )
 	{
 		pLock.Unlock();
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), _T("ED2K"), _T("ED2K") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), L"ED2K", L"ED2K" );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();
@@ -275,7 +275,7 @@ BOOL CDownloadEditPage::OnApply()
 		|| validAndUnequal( pDownload->m_oMD5, oMD5 ) )
 	{
 		pLock.Unlock();
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), _T("MD5"), _T("MD5") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), L"MD5", L"MD5" );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();
@@ -291,7 +291,7 @@ BOOL CDownloadEditPage::OnApply()
 		|| validAndUnequal( pDownload->m_oBTH, oBTH ) )
 	{
 		pLock.Unlock();
-		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), _T("BitTorrent"), _T("BitTorrent") );
+		strMessage.Format( LoadString( IDS_DOWNLOAD_EDIT_CHANGE_HASH ), L"BitTorrent", L"BitTorrent" );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return FALSE;
 		pLock.Lock();
 		pDownload = pSheet->GetDownload();

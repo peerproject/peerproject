@@ -17,7 +17,7 @@
 //
 
 // Note: Consolidated library external web service interfaces
-// (Bitprint listing, MusicBrainz, legacy ShareMonkey)
+// Bitprints (Bitzi), MusicBrainz, legacy ShareMonkey
 // Moved from CtrlLibraryFileView, CFileExecutor
 
 
@@ -32,7 +32,7 @@
 #include "SchemaCache.h"
 #include "SharedFile.h"
 #include "Library.h"
-#include "DlgBitprintDownload.h"
+#include "DlgBitprintsDownload.h"
 //#include "ShareMonkeyData.h"
 
 #ifdef _DEBUG
@@ -43,10 +43,10 @@ static char THIS_FILE[] = __FILE__;
 
 // Move from CLibraryFileView?
 //BEGIN_MESSAGE_MAP(CWebServices)
-//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
-//	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
-//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_DOWNLOAD, OnUpdateLibraryBitprintDownload)
-//	ON_COMMAND(ID_LIBRARY_BITPRINT_DOWNLOAD, OnLibraryBitprintDownload)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINTS_WEB, OnUpdateLibraryBitprintsWeb)
+//	ON_COMMAND(ID_LIBRARY_BITPRINTS_WEB, OnLibraryBitprintsWeb)
+//	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINTS_DOWNLOAD, OnUpdateLibraryBitprintsDownload)
+//	ON_COMMAND(ID_LIBRARY_BITPRINTS_DOWNLOAD, OnLibraryBitprintsDownload)
 //	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 //	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 //	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -96,17 +96,17 @@ static char THIS_FILE[] = __FILE__;
 
 
 /////////////////////////////////////////////////////////////////////
-// BitprintTicket Services
+// BitprintsTicket Services
 
-//void CWebServices::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
+//void CWebServices::OnUpdateLibraryBitprintsWeb(CCmdUI* pCmdUI)
 //{
 //	if ( m_bGhostFolder )
 //		pCmdUI->Enable( FALSE );
 //	else
-//		pCmdUI->Enable( GetSelectedCount() == 1 && ! Settings.WebServices.BitprintWebSubmit.IsEmpty() );
+//		pCmdUI->Enable( GetSelectedCount() == 1 && ! Settings.WebServices.BitprintsWebSubmit.IsEmpty() );
 //}
 
-//void CWebServices::OnLibraryBitprintWeb()
+//void CWebServices::OnLibraryBitprintsWeb()
 //{
 //	CSingleLock pLock( &Library.m_pSection, TRUE );
 //
@@ -114,33 +114,33 @@ static char THIS_FILE[] = __FILE__;
 //	{
 //		DWORD nIndex = pFile->m_nIndex;
 //		pLock.Unlock();
-//		ShowBitprintTicket( nIndex );
+//		ShowBitprintsTicket( nIndex );
 //	}
 //}
 
-//void CWebServices::OnUpdateLibraryBitprintDownload(CCmdUI* pCmdUI)
+//void CWebServices::OnUpdateLibraryBitprintsDownload(CCmdUI* pCmdUI)
 //{
 //	if ( m_bGhostFolder || m_bRequestingService )
 //		pCmdUI->Enable( FALSE );
 //	else
-//		pCmdUI->Enable( GetSelectedCount() > 0 && ! Settings.WebServices.BitprintXML.IsEmpty() );
+//		pCmdUI->Enable( GetSelectedCount() > 0 && ! Settings.WebServices.BitprintsXML.IsEmpty() );
 //}
 
-//void WebServices::OnLibraryBitprintDownload()
+//void WebServices::OnLibraryBitprintsDownload()
 //{
 //	GetFrame()->SetDynamicBar( NULL );
 //
-//	if ( ! Settings.WebServices.BitprintOkay )
+//	if ( ! Settings.WebServices.BitprintsOkay )
 //	{
 //		CString strFormat;
-//		Skin.LoadString( strFormat, IDS_LIBRARY_BITPRINT_MESSAGE );
+//		Skin.LoadString( strFormat, IDS_LIBRARY_BITPRINTS_MESSAGE );
 //		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-//		Settings.WebServices.BitprintOkay = true;
+//		Settings.WebServices.BitprintsOkay = true;
 //		Settings.Save();
 //	}
 //
 //	CSingleLock pLock( &Library.m_pSection, TRUE );
-//	CBitprintDownloadDlg dlg;
+//	CBitprintsDownloadDlg dlg;
 //
 //	POSITION posSel = StartSelectedFileLoop();
 //	while ( CLibraryFile* pFile = GetNextSelectedFile( posSel ) )
@@ -266,7 +266,7 @@ static char THIS_FILE[] = __FILE__;
 //	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbpuid" );
 //	CString strURL = L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + pAttribute->GetValue();
 //
-//	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+//	ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 //}
 
 //void CWebServices::OnUpdateMusicBrainzAlbums(CCmdUI* pCmdUI)
@@ -290,7 +290,7 @@ static char THIS_FILE[] = __FILE__;
 //	CXMLAttribute* pAttribute = pFile->m_pMetadata->GetAttribute( L"mbartistid" );
 //	CString strURL = L"http://musicbrainz.org/artist/" + pAttribute->GetValue();
 //
-//	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+//	ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 //}
 
 
@@ -544,7 +544,7 @@ static char THIS_FILE[] = __FILE__;
 //	}
 //
 //	if ( pData && pData->m_sComparisonURL.GetLength() )
-//		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sComparisonURL, NULL, NULL, SW_SHOWNORMAL );
+//		ShellExecute( GetSafeHwnd(), L"open", pData->m_sComparisonURL, NULL, NULL, SW_SHOWNORMAL );
 //}
 
 //void CWebServices::OnUpdateShareMonkeyBuy(CCmdUI* pCmdUI)
@@ -564,22 +564,22 @@ static char THIS_FILE[] = __FILE__;
 //	}
 //
 //	if ( pData && pData->m_sBuyURL.GetLength() )
-//		ShellExecute( GetSafeHwnd(), _T("open"), pData->m_sBuyURL, NULL, NULL, SW_SHOWNORMAL );
+//		ShellExecute( GetSafeHwnd(), L"open", pData->m_sBuyURL, NULL, NULL, SW_SHOWNORMAL );
 //}
 
 
 //////////////////////////////////////////////////////////////////////
-// CWebServices show Bitprint listing	(Format URL)
+// CWebServices show Bitprints listing	(Format URL)
 //
 // Note: Moved from CFileExecutor
 
-BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
+BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 {
-	if ( ! Settings.WebServices.BitprintOkay )
+	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
-		Settings.WebServices.BitprintOkay = true;
+		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
 	}
 
@@ -591,22 +591,22 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 	if ( ! pFile->m_oSHA1 || ! pFile->m_oTiger || ! pFile->m_oED2K )
 	{
 		CString strMessage;
-		strMessage.Format( LoadString( IDS_LIBRARY_BITPRINT_HASHED ), (LPCTSTR)pFile->m_sName );
+		strMessage.Format( LoadString( IDS_LIBRARY_BITPRINTS_HASHED ), (LPCTSTR)pFile->m_sName );
 		pLock.Unlock();
 		MsgBox( strMessage, MB_ICONINFORMATION );
 		return FALSE;
 	}
 
-	CString str, strURL = Settings.WebServices.BitprintWebView;
+	CString str, strURL = Settings.WebServices.BitprintsWebView;
 
 	CFile hFile;
 	if ( hFile.Open( pFile->GetPath(), CFile::modeRead|CFile::shareDenyNone ) )
 	{
-		strURL = Settings.WebServices.BitprintWebSubmit;
+		strURL = Settings.WebServices.BitprintsWebSubmit;
 
 		if ( hFile.GetLength() > 0 )
 		{
-			static LPCTSTR pszHex = _T("0123456789ABCDEF");
+			static LPCTSTR pszHex = L"0123456789ABCDEF";
 			BYTE nBuffer[20];
 			int nPeek = hFile.Read( nBuffer, 20 );
 			hFile.Close();
@@ -617,33 +617,33 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 				str += pszHex[ (BYTE)nBuffer[ nByte ] & 15 ];
 			}
 
-			strURL.Replace( _T("(FIRST20)"), str );
+			strURL.Replace( L"(FIRST20)", str );
 		}
 		else
-			strURL.Replace( _T("(FIRST20)"), _T("0") );
+			strURL.Replace( L"(FIRST20)", L"0" );
 	}
 	else
-		strURL.Replace( _T("(URN)"), pFile->m_oSHA1.toString() + _T(".") + pFile->m_oTiger.toString() );
+		strURL.Replace( L"(URN)", pFile->m_oSHA1.toString() + L"." + pFile->m_oTiger.toString() );
 
 	CString strName = pFile->m_sName;
 	LPCTSTR pszExt = _tcsrchr( strName, '.' );
 	int nExtLen = pszExt ? static_cast< int >( _tcslen( pszExt ) - 1 ) : 0;
 	const CString strExt = strName.Right( nExtLen ).Trim().MakeUpper();
 
-	strURL.Replace( _T("(NAME)"), URLEncode( strName ) );
-	strURL.Replace( _T("(SHA1)"), pFile->m_oSHA1.toString() );
-	strURL.Replace( _T("(TTH)"), pFile->m_oTiger.toString() );
-	strURL.Replace( _T("(ED2K)"), pFile->m_oED2K.toString() );
-	strURL.Replace( _T("(AGENT)"), URLEncode( Settings.SmartAgent() ) );
+	strURL.Replace( L"(NAME)", URLEncode( strName ) );
+	strURL.Replace( L"(SHA1)", pFile->m_oSHA1.toString() );
+	strURL.Replace( L"(TTH)", pFile->m_oTiger.toString() );
+	strURL.Replace( L"(ED2K)", pFile->m_oED2K.toString() );
+	strURL.Replace( L"(AGENT)", URLEncode( Settings.SmartAgent() ) );
 
-	str.Format( _T("%I64i"), pFile->GetSize() );
-	strURL.Replace( _T("(SIZE)"), str );
+	str.Format( L"%I64i", pFile->GetSize() );
+	strURL.Replace( L"(SIZE)", str );
 
-	CString strINFO = _T("&tag.tiger.tree=") + pFile->m_oTiger.toString();
+	CString strINFO = L"&tag.tiger.tree=" + pFile->m_oTiger.toString();
 	if ( pFile->m_oMD5 )
-		strINFO += _T("&tag.md5.md5=") + pFile->m_oMD5.toString();
+		strINFO += L"&tag.md5.md5=" + pFile->m_oMD5.toString();
 	if ( ! pFile->m_sComments.Trim().IsEmpty() )
-		strINFO += _T("&tag.subjective.comment=") + URLEncode( pFile->m_sComments );
+		strINFO += L"&tag.subjective.comment=" + URLEncode( pFile->m_sComments );
 
 //	BOOL bAudioSchema = FALSE, bVideoSchema = FALSE, bImageSchema = FALSE, bAppSchema = FALSE;
 //	if ( pFile->m_pSchema->CheckURI( CSchema::uriAudio ) )
@@ -669,58 +669,58 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 			strReplace = pNode->GetValue();
 			str.MakeLower();
 
-			if ( str == _T("link") )
+			if ( str == L"link" )
 			{
-				strINFO += _T("&tag.url.url=") + URLEncode( strReplace );
+				strINFO += L"&tag.url.url=" + URLEncode( strReplace );
 			}
-			else if ( str == _T("description") )
+			else if ( str == L"description" )
 			{
-				strDescription = URLEncode( strReplace.Trim() );	// _T("&tag.objective.description=") +
+				strDescription = URLEncode( strReplace.Trim() );	// L"&tag.objective.description=" +
 			}
 			else if ( pFile->m_pSchema->CheckURI( CSchema::uriAudio ) )
 			{
-				if ( str == _T("title") )
-					strINFO += _T("&tag.audiotrack.title=") + URLEncode( strReplace.Trim() );
-				else if ( str == _T("artist") )
-					strINFO += _T("&tag.audiotrack.artist=") + URLEncode( strReplace.Trim() );
-				else if ( str == _T("album") )
-					strINFO += _T("&tag.audiotrack.album=") + URLEncode( strReplace.Trim() );
-				else if ( str == _T("track") )
+				if ( str == L"title" )
+					strINFO += L"&tag.audiotrack.title=" + URLEncode( strReplace.Trim() );
+				else if ( str == L"artist" )
+					strINFO += L"&tag.audiotrack.artist=" + URLEncode( strReplace.Trim() );
+				else if ( str == L"album" )
+					strINFO += L"&tag.audiotrack.album=" + URLEncode( strReplace.Trim() );
+				else if ( str == L"track" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.audiotrack.tracknumber=") + strReplace;
+					strINFO += L"&tag.audiotrack.tracknumber=" + strReplace;
 				}
-				else if ( str == _T("year") )
+				else if ( str == L"year" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.audiotrack.year=") + strReplace;
+					strINFO += L"&tag.audiotrack.year=" + strReplace;
 				}
-				else if ( strExt == _T("MP3") || strExt == _T("OGG") || strExt == _T("WAV") )
+				else if ( strExt == L"MP3" || strExt == L"OGG" || strExt == L"WAV" )
 				{
-					// ToDo: Read WAV information in FileExecutor.cpp, Bitprint submit is already ready
-					if ( str == _T("bitrate") )
+					// ToDo: Read WAV information in FileExecutor.cpp, Bitprints submit is already ready
+					if ( str == L"bitrate" )
 					{
-						if ( strExt == _T("MP3") )
+						if ( strExt == L"MP3" )
 						{
-							strAudioTag += _T("&tag.mp3.vbr=");
+							strAudioTag += L"&tag.mp3.vbr=";
 
-							if ( _tcsstr( strReplace, _T("~") ) )
-								strAudioTag += _T("y");
+							if ( _tcsstr( strReplace, L"~" ) )
+								strAudioTag += L"y";
 							else
-								strAudioTag += _T("n");
+								strAudioTag += L"n";
 						}
 
 						nTemp = _ttoi( strReplace );
-						strReplace.Format( _T("%d"), nTemp );
+						strReplace.Format( L"%d", nTemp );
 
-						if ( strExt == _T("MP3") )
-							strAudioTag += _T("&tag.mp3.bitrate=");
-						else if ( strExt == _T("OGG") )
-							strAudioTag += _T("&tag.vorbis.bitrate=");
+						if ( strExt == L"MP3" )
+							strAudioTag += L"&tag.mp3.bitrate=";
+						else if ( strExt == L"OGG" )
+							strAudioTag += L"&tag.vorbis.bitrate=";
 						else
 							strReplace.Empty();
 
@@ -730,29 +730,29 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 							nAudioTag++;
 						}
 					}
-					// ToDo: Read sampleSize of WAV in FileExecutor.cpp, Bitprint submit is already ready
-					else if ( str == _T("sampleSize") )
+					// ToDo: Read sampleSize of WAV in FileExecutor.cpp, Bitprints submit is already ready
+					else if ( str == L"sampleSize" )
 					{
 						nTemp = _ttoi( strReplace );
-						strReplace.Format( _T("%d"), nTemp );
+						strReplace.Format( L"%d", nTemp );
 
-						if ( strExt == _T("WAV") )
+						if ( strExt == L"WAV" )
 						{
-							strAudioTag += _T("&tag.wav.samplesize=") + strReplace;
+							strAudioTag += L"&tag.wav.samplesize=" + strReplace;
 							nAudioTag++;
 						}
 					}
-					else if ( str == _T("seconds") )
+					else if ( str == L"seconds" )
 					{
 						nTemp = (int)( _wtof( strReplace ) * 1000 );
-						strReplace.Format( _T("%d"), nTemp );
+						strReplace.Format( L"%d", nTemp );
 
-						if ( strExt == _T("MP3") )
-							strAudioTag += _T("&tag.mp3.duration=");
-						else if ( strExt == _T("OGG") )
-							strAudioTag += _T("&tag.vorbis.duration=");
-						else if ( strExt == _T("WAV") )
-							strAudioTag += _T("&tag.wav.duration=");
+						if ( strExt == L"MP3" )
+							strAudioTag += L"&tag.mp3.duration=";
+						else if ( strExt == L"OGG" )
+							strAudioTag += L"&tag.vorbis.duration=";
+						else if ( strExt == L"WAV" )
+							strAudioTag += L"&tag.wav.duration=";
 						else
 							strReplace.Empty();
 
@@ -762,17 +762,17 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 							nAudioTag++;
 						}
 					}
-					else if ( str == _T("sampleRate") )
+					else if ( str == L"sampleRate" )
 					{
 						nTemp = _ttoi( strReplace );
-						strReplace.Format( _T("%d"), nTemp );
+						strReplace.Format( L"%d", nTemp );
 
-						if ( strExt == _T("MP3") )
-							strAudioTag += _T("&tag.mp3.samplerate=");
-						else if ( strExt == _T("OGG") )
-							strAudioTag += _T("&tag.vorbis.samplerate=");
-						else if ( strExt == _T("WAV") )
-							strAudioTag += _T("&tag.wav.samplerate=");
+						if ( strExt == L"MP3" )
+							strAudioTag += L"&tag.mp3.samplerate=";
+						else if ( strExt == L"OGG" )
+							strAudioTag += L"&tag.vorbis.samplerate=";
+						else if ( strExt == L"WAV" )
+							strAudioTag += L"&tag.wav.samplerate=";
 						else
 							strReplace.Empty();
 
@@ -782,15 +782,15 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 							nAudioTag++;
 						}
 					}
-					else if ( str == _T("channels") )
+					else if ( str == L"channels" )
 					{
 						nTemp = _ttoi( strReplace );
-						strReplace.Format( _T("%d"), nTemp );
+						strReplace.Format( L"%d", nTemp );
 
-						if ( strExt == _T("OGG") )
-							strAudioTag += _T("&tag.vorbis.channels=");
-						else if ( strExt == _T("WAV") )
-							strAudioTag += _T("&tag.wav.channels=");
+						if ( strExt == L"OGG" )
+							strAudioTag += L"&tag.vorbis.channels=";
+						else if ( strExt == L"WAV" )
+							strAudioTag += L"&tag.wav.channels=";
 						else
 							strReplace.Empty();
 
@@ -800,14 +800,14 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 							nAudioTag++;
 						}
 					}
-					else if ( str == _T("soundType") )
+					else if ( str == L"soundType" )
 					{
-						if ( strExt == _T("MP3") )
+						if ( strExt == L"MP3" )
 						{
-							if ( strReplace.CompareNoCase( _T("Stereo") ) == 0 || strReplace.CompareNoCase( _T("Joint Stereo" ) ) == 0 || strReplace.CompareNoCase( _T("Dual Channel") ) == 0 )
-								strAudioTag += _T("&tag.mp3.stereo=y");
-							else if ( strReplace.CompareNoCase( _T("Single Channel") ) == 0 || strReplace.CompareNoCase( _T("Mono" ) ) == 0 )
-								strAudioTag += _T("&tag.mp3.stereo=n");
+							if ( strReplace.CompareNoCase( L"Stereo" ) == 0 || strReplace.CompareNoCase( L"Joint Stereo" ) == 0 || strReplace.CompareNoCase( L"Dual Channel" ) == 0 )
+								strAudioTag += L"&tag.mp3.stereo=y";
+							else if ( strReplace.CompareNoCase( L"Single Channel" ) == 0 || strReplace.CompareNoCase( L"Mono" ) == 0 )
+								strAudioTag += L"&tag.mp3.stereo=n";
 							else
 								strReplace.Empty();
 						}
@@ -815,12 +815,12 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 						if ( ! strReplace.IsEmpty() )
 							nAudioTag++;
 					}
-					else if ( str == _T("encoder") )
+					else if ( str == L"encoder" )
 					{
-						if ( strExt == _T("MP3") )
-							strAudioTag += _T("&tag.mp3.encoder=");
-						else if ( strExt == _T("OGG") )
-							strAudioTag += _T("&tag.vorbis.encoder=");
+						if ( strExt == L"MP3" )
+							strAudioTag += L"&tag.mp3.encoder=";
+						else if ( strExt == L"OGG" )
+							strAudioTag += L"&tag.vorbis.encoder=";
 						else
 							strReplace.Empty();
 
@@ -834,20 +834,20 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 				if ( str == "width" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strImageTag += _T("&tag.image.width=") + strReplace;
+					strImageTag += L"&tag.image.width=" + strReplace;
 					nImageTag++;
 				}
-				else if ( str == _T("height") )
+				else if ( str == L"height" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strImageTag += _T("&tag.image.height=") + strReplace;
+					strImageTag += L"&tag.image.height=" + strReplace;
 					nImageTag++;
 				}
-				else if ( str == _T("colors") )
+				else if ( str == L"colors" )
 				{
 					if ( strReplace == "2" ) strReplace = "1";
 					else if ( strReplace == "16" ) strReplace = "4";
@@ -858,64 +858,64 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 
 					if ( ! strReplace.IsEmpty() )
 					{
-						strImageTag += _T("&tag.image.bpp=") + strReplace;
+						strImageTag += L"&tag.image.bpp=" + strReplace;
 						nImageTag++;
 					}
 				}
 			}
 			else if ( pFile->m_pSchema->CheckURI( CSchema::uriVideo ) )
 			{
-				if ( str == _T("realdescription") )
+				if ( str == L"realdescription" )
 				{
-					strDescription = URLEncode( strReplace.Trim() );	// _T("&tag.objective.description=") +
+					strDescription = URLEncode( strReplace.Trim() );	// L"&tag.objective.description=" +
 				}
 				else if ( str == "width" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.video.width=") + strReplace;
+					strINFO += L"&tag.video.width=" + strReplace;
 				}
-				else if ( str == _T("height") )
+				else if ( str == L"height" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.video.height=") + strReplace;
+					strINFO += L"&tag.video.height=" + strReplace;
 				}
-				else if ( str == _T("frameRate") )
+				else if ( str == L"frameRate" )
 				{
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.video.fps=") + strReplace;
+					strINFO += L"&tag.video.fps=" + strReplace;
 				}
-				else if ( str == _T("minutes") )
+				else if ( str == L"minutes" )
 				{
 					nTemp = (int)( _wtof( strReplace ) * 60 * 1000 );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.video.duration=") + strReplace;
+					strINFO += L"&tag.video.duration=" + strReplace;
 				}
-				else if ( str == _T("bitrate") )
+				else if ( str == L"bitrate" )
 				{
-					// ToDo: Read video's bitrate in FileExecutor.cpp, Bitprint submit is already ready
+					// ToDo: Read video's bitrate in FileExecutor.cpp, Bitprints submit is already ready
 					nTemp = _ttoi( strReplace );
-					strReplace.Format( _T("%d"), nTemp );
+					strReplace.Format( L"%d", nTemp );
 
-					strINFO += _T("&tag.video.bitrate=") + strReplace;
+					strINFO += L"&tag.video.bitrate=" + strReplace;
 				}
-				else if ( str == _T("codec") )
+				else if ( str == L"codec" )
 				{
 					strReplace.MakeUpper();
-					strINFO += _T("&tag.video.codec=") + URLEncode( strReplace );
+					strINFO += L"&tag.video.codec=" + URLEncode( strReplace );
 				}
 			}
 			else if ( pFile->m_pSchema->CheckURI( CSchema::uriApplication ) )
 			{
-				if ( str == _T("filedescription") )
+				if ( str == L"filedescription" )
 					strDescription = URLEncode( strReplace.Trim() );
-				else if ( str == _T("title") && strDescription.IsEmpty() )
+				else if ( str == L"title" && strDescription.IsEmpty() )
 					strDescription = URLEncode( strReplace.Trim() );
 			}
 		} // end for pos
@@ -926,7 +926,7 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 			strINFO += strImageTag;		// Handle extensions below
 
 		if ( ! strDescription.IsEmpty() )
-			strINFO += _T("&tag.objective.description=") + strDescription;
+			strINFO += L"&tag.objective.description=" + strDescription;
 	} // end if
 
 	// Video Extensions		// +Images	ToDo: Handle any other types?
@@ -995,65 +995,65 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 		switch ( FileExt[ strExt ] )
 		{
 		case 'a':		// avi
-			strINFO += _T("&tag.video.format=AVI");
+			strINFO += L"&tag.video.format=AVI";
 			break;
 		case 'k':		// mkv
-			strINFO += _T("&tag.video.format=Matroska");
+			strINFO += L"&tag.video.format=Matroska";
 			break;
 		case 'q':		// mov hdmov qt
-			strINFO += _T("&tag.video.format=QuickTime");
+			strINFO += L"&tag.video.format=QuickTime";
 			break;
 		case 'r':		// rm rmvb rv ram rpm?
-			strINFO += _T("&tag.video.format=Real");
+			strINFO += L"&tag.video.format=Real";
 			break;
 		case 'm':		// mpg mpeg mpe
-			strINFO += _T("&tag.video.format=MPEG");
+			strINFO += L"&tag.video.format=MPEG";
 			break;
 		case '1':		// m1v
-			strINFO += _T("&tag.video.format=MPEG-1");
+			strINFO += L"&tag.video.format=MPEG-1";
 			break;
 		case '2':		// mp2 m2p mpv2 m2ts
-			strINFO += _T("&tag.video.format=MPEG-2");
+			strINFO += L"&tag.video.format=MPEG-2";
 			break;
 		case '4':		// mp4 m4v
-			strINFO += _T("&tag.video.format=MPEG-4");
+			strINFO += L"&tag.video.format=MPEG-4";
 			break;
 		case 'v':		// divx (div/tix?)
-			strINFO += _T("&tag.video.format=DivX");
+			strINFO += L"&tag.video.format=DivX";
 			break;
 		case 'x':		// xvid
-			strINFO += _T("&tag.video.format=XviD");
+			strINFO += L"&tag.video.format=XviD";
 			break;
 		case 'w':		// wmv wm wmd? asf
-			strINFO += _T("&tag.video.format=") + URLEncode( L"Windows Media");
+			strINFO += L"&tag.video.format=" + URLEncode( L"Windows Media" );
 			break;
 		case 'o':		// ogm ogv
-			strINFO += _T("&tag.video.format=") + URLEncode( L"Ogg Media File");
+			strINFO += L"&tag.video.format=" + URLEncode( L"Ogg Media File" );
 			break;
 		case 'g':		// 3gp
-			strINFO += _T("&tag.video.format=3GP");
+			strINFO += L"&tag.video.format=3GP";
 			break;
 		case '6':		// vp6
-			strINFO += _T("&tag.video.format=VP6");
+			strINFO += L"&tag.video.format=VP6";
 			break;
 		case 'b':		// vob
-			strINFO += _T("&tag.video.format=DVD");
+			strINFO += L"&tag.video.format=DVD";
 			break;
 		case 'i':		// ivf
-			strINFO += _T("&tag.video.format=Indeo");
+			strINFO += L"&tag.video.format=Indeo";
 			break;
 		case 'f':		// swf flv
-			strINFO += _T("&tag.video.format=Flash");
+			strINFO += L"&tag.video.format=Flash";
 			break;
 		case 'e':		// webm
-			strINFO += _T("&tag.video.format=WebM");
+			strINFO += L"&tag.video.format=WebM";
 			break;
 
 		case 'P':		// png gif bmp psd tif webp ico svg
-			strINFO += _T("&tag.image.format=") + strExt;
+			strINFO += L"&tag.image.format=" + strExt;
 			break;
 		case 'J':		// jpg jpeg jpe jfif
-			strINFO += _T("&tag.image.format=JPEG");
+			strINFO += L"&tag.image.format=JPEG";
 			break;
 
 		case 'X':		// Skip common non-video types
@@ -1061,15 +1061,15 @@ BOOL CWebServices::ShowBitprintTicket(DWORD nIndex)
 
 		default:		// Unknown extension, try video schema
 			if ( pFile->m_pSchema != NULL && pFile->m_pSchema->CheckURI( CSchema::uriVideo ) )
-				strINFO += _T("&tag.video.format=") + URLEncode( strExt );
+				strINFO += L"&tag.video.format=" + URLEncode( strExt );
 		}
 	}
 
 	pLock.Unlock();
 
-	strURL.Replace( _T("&(INFO)"), strINFO );
+	strURL.Replace( L"&(INFO)", strINFO );
 
-	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 
 	return TRUE;
 }

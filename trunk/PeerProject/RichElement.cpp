@@ -1,7 +1,7 @@
 //
 // RichElement.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -54,7 +54,7 @@ CRichElement::CRichElement(int nType, LPCTSTR pszText, LPCTSTR pszLink, DWORD nF
 	if ( pszText )
 	{
 		if ( ( m_nType == retBitmap || m_nType == retIcon ) && HIWORD(pszText) == 0 )
-			m_sText.Format( _T("%Iu"), (size_t)pszText );
+			m_sText.Format( L"%Iu", (size_t)pszText );
 		else
 			m_sText = pszText;
 	}
@@ -177,7 +177,7 @@ void CRichElement::PrePaint(CDC* pDC, BOOL bHover)
 		pFont = NULL;
 		break;
 	case retEmoticon:
-		_stscanf( m_sText, _T("%i"), &m_nImageIndex );			// ToDo:
+		_stscanf( m_sText, L"%i", &m_nImageIndex );			// ToDo:
 		m_hImage = NULL;
 		pFont = NULL;
 		break;
@@ -218,10 +218,10 @@ void CRichElement::PrePaintBitmap(CDC* /*pDC*/)
 {
 	if ( m_hImage != NULL ) return;
 
-	if ( _tcsnicmp( m_sText, _T("res:"), 4 ) == 0 )
+	if ( _tcsnicmp( m_sText, L"res:", 4 ) == 0 )
 	{
 		UINT nID = 0;
-		if ( _stscanf( (LPCTSTR)m_sText + 4, _T("%lu"), &nID ) != 1 )
+		if ( _stscanf( (LPCTSTR)m_sText + 4, L"%lu", &nID ) != 1 )
 			return;
 
 		m_hImage = CImageFile::LoadBitmapFromResource( nID );
@@ -244,7 +244,7 @@ void CRichElement::PrePaintIcon(CDC* /*pDC*/)
 	if ( m_hImage != NULL || m_sText.IsEmpty() ) return;
 
 	UINT nID = 0, nWidth = 16, nHeight = 16;
-	_stscanf( m_sText, _T("%lu.%i.%i"), &nID, &nWidth, &nHeight );
+	_stscanf( m_sText, L"%lu.%i.%i", &nID, &nWidth, &nHeight );
 	//ASSERT( ( nWidth == 16 && nHeight == 16 ) || ( nWidth == 32 && nHeight == 32 ) );
 	ASSERT( nWidth >= 16 );		// Allow for custom (re)sizes
 
@@ -262,7 +262,7 @@ CSize CRichElement::GetSize() const
 
 	if ( m_nType == retGap )
 	{
-		_stscanf( m_sText, _T("%lu"), &sz.cx );
+		_stscanf( m_sText, L"%lu", &sz.cx );
 	}
 	else if ( m_nType == retBitmap && m_hImage != NULL )
 	{
@@ -276,7 +276,7 @@ CSize CRichElement::GetSize() const
 	{
 		sz.cx = sz.cy = 16;
 		UINT nID = 0;
-		_stscanf( m_sText, _T("%lu.%i.%i"), &nID, &sz.cx, &sz.cy );
+		_stscanf( m_sText, L"%lu.%i.%i", &nID, &sz.cx, &sz.cy );
 	}
 	else if ( m_nType == retEmoticon || m_nType == retCmdIcon )
 	{
@@ -285,7 +285,7 @@ CSize CRichElement::GetSize() const
 	else if ( m_nType == retAnchor )
 	{
 		sz.cx = sz.cy = 16;
-		_stscanf( m_sText, _T("%i.%i"), &sz.cx, &sz.cy );
+		_stscanf( m_sText, L"%i.%i", &sz.cx, &sz.cy );
 	}
 
 	return sz;

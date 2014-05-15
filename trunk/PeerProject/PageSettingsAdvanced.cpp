@@ -1,7 +1,7 @@
 //
 // PageSettingsAdvanced.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -80,11 +80,11 @@ BOOL CAdvancedSettingsPage::OnInitDialog()
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
-	m_wndList.InsertColumn( 0, _T("Setting"), LVCFMT_LEFT, rc.right - 100, 0 );
-	m_wndList.InsertColumn( 1, _T("Value"), LVCFMT_LEFT, 100, 1 );
+	m_wndList.InsertColumn( 0, L"Setting", LVCFMT_LEFT, rc.right - 100, 0 );
+	m_wndList.InsertColumn( 1, L"Value", LVCFMT_LEFT, 100, 1 );
 	m_wndList.SetExtendedStyle( /*m_wndList.GetExtendedStyle()|*/ LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	Skin.Translate( _T("CAdvancedSettingsList"), m_wndList.GetHeaderCtrl() );
+	Skin.Translate( L"CAdvancedSettingsList", m_wndList.GetHeaderCtrl() );
 
 	AddSettings();
 
@@ -159,15 +159,15 @@ void CAdvancedSettingsPage::UpdateListItem(int nItem)
 	{
 		ASSERT( pItem->m_pItem->m_nScale == 1 &&
 			pItem->m_pItem->m_nMin == 0 && pItem->m_pItem->m_nMax == 1 );
-		strValue = pItem->m_bValue ? _T("True") : _T("False");
+		strValue = pItem->m_bValue ? L"True" : L"False";
 	}
 	else if ( pItem->m_pItem->m_pDword )
 	{
 		ASSERT( pItem->m_pItem->m_nScale &&
 			pItem->m_pItem->m_nMin <= pItem->m_pItem->m_nMax );
-		strValue.Format( _T("%lu"), pItem->m_nValue / pItem->m_pItem->m_nScale );
+		strValue.Format( L"%lu", pItem->m_nValue / pItem->m_pItem->m_nScale );
 		if ( Settings.General.LanguageRTL )
-			strValue = _T("\x200E") + strValue + pItem->m_pItem->m_szSuffix;
+			strValue = L"\x200E" + strValue + pItem->m_pItem->m_szSuffix;
 		else
 			strValue += pItem->m_pItem->m_szSuffix;
 	}
@@ -236,7 +236,7 @@ void CAdvancedSettingsPage::UpdateInputArea()
 		if ( pItem->m_pItem->m_pDword )
 		{
 			CString strValue;
-			strValue.Format( _T("%lu"), pItem->m_nValue / pItem->m_pItem->m_nScale );
+			strValue.Format( L"%lu", pItem->m_nValue / pItem->m_pItem->m_nScale );
 			m_wndValue.ShowWindow( SW_SHOW );
 			m_wndValue.EnableWindow( bEnable );
 			m_wndValueSpin.ShowWindow( SW_SHOW );
@@ -290,7 +290,7 @@ void CAdvancedSettingsPage::OnChangeValue()
 			DWORD nValue;
 			CString strValue;
 			m_wndValue.GetWindowText( strValue );
-			if ( _stscanf( strValue, _T("%lu"), &nValue ) != 1 )
+			if ( _stscanf( strValue, L"%lu", &nValue ) != 1 )
 				return;
 			pItem->m_nValue = max( pItem->m_pItem->m_nMin, min( pItem->m_pItem->m_nMax, nValue ) ) * pItem->m_pItem->m_nScale;
 		}

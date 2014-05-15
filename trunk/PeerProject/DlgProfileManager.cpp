@@ -1,7 +1,7 @@
 //
 // DlgProfileManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,7 +28,7 @@
 #include "PageProfileProfile.h"
 #include "PageProfileBio.h"
 #include "PageProfileAvatar.h"
-#include "PageProfileFavourites.h"
+#include "PageProfileFavorites.h"
 #include "PageProfileFiles.h"
 #include "PageProfileCertificate.h"
 #include "PageSettingsRich.h"
@@ -76,7 +76,7 @@ INT_PTR CProfileManagerDlg::DoModal(LPCTSTR pszWindow)
 	CProfileProfilePage			pProfile;
 	CBioProfilePage				pBio;
 	CFilesProfilePage			pFiles;
-	CFavouritesProfilePage		pFavourites;
+	CFavoritesProfilePage		pFavorites;
 	CCertificateProfilePage 	pCertificate;
 
 	AddGroup( &pIdentity );		// IDD_PROFILE_IDENTITY
@@ -85,7 +85,7 @@ INT_PTR CProfileManagerDlg::DoModal(LPCTSTR pszWindow)
 	AddPage( &pContact );		// IDD_PROFILE_CONTACT
 	AddPage( &pBio );			// IDD_PROFILE_BIO
 	AddGroup( &pFiles );		// IDD_PROFILE_FILES
-	AddPage( &pFavourites );	// IDD_PROFILE_FAVOURITES
+	AddPage( &pFavorites );		// IDD_PROFILE_FAVORITES
 	AddGroup( &pCertificate );	// IDD_PROFILE_CERTIFICATE
 
 	if ( pszWindow ) SetActivePage( GetPage( pszWindow ) );
@@ -130,6 +130,18 @@ BOOL CProfileManagerDlg::OnInitDialog()
 	return TRUE;
 }
 
+void CProfileManagerDlg::OnOK()
+{
+	CSettingsSheet::OnOK();
+	MyProfile.Save();
+}
+
+void CProfileManagerDlg::OnApply()
+{
+	CSettingsSheet::OnApply();
+	MyProfile.Save();
+}
+
 // Obsolete: Banner handled by WndSettingsPage
 //void CProfileManagerDlg::DoPaint(CDC& dc)
 //{
@@ -147,15 +159,3 @@ BOOL CProfileManagerDlg::OnInitDialog()
 //
 //	CSettingsSheet::DoPaint( dc );
 //}
-
-void CProfileManagerDlg::OnOK()
-{
-	CSettingsSheet::OnOK();
-	MyProfile.Save();
-}
-
-void CProfileManagerDlg::OnApply()
-{
-	CSettingsSheet::OnApply();
-	MyProfile.Save();
-}

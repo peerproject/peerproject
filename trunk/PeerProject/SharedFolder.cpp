@@ -104,15 +104,15 @@ CXMLElement* CLibraryFolder::CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, Xml
 	switch ( nType )
 	{
 	case xmlDC:
-		pFolder = pRoot->AddElement( _T("Directory") );
+		pFolder = pRoot->AddElement( L"Directory" );
 		if ( pFolder )
-			pFolder->AddAttribute( _T("Name"), m_sName );
+			pFolder->AddAttribute( L"Name", m_sName );
 		break;
 
 	default:
-		pFolder = pRoot->AddElement( _T("folder") );
+		pFolder = pRoot->AddElement( L"folder" );
 		if ( pFolder )
-			pFolder->AddAttribute( _T("name"), m_sName );
+			pFolder->AddAttribute( L"name", m_sName );
 	}
 
 	if ( pFolder )
@@ -153,7 +153,7 @@ CLibraryFolder* CLibraryFolder::GetFolderByName(LPCTSTR pszName) const
 	ToLower( strName );
 
 	CString strNextName;
-	int nPos = strName.Find( _T('\\') );
+	int nPos = strName.Find( L'\\' );
 	if ( nPos != -1 )
 	{
 		strNextName = strName.Mid( nPos + 1 );
@@ -376,7 +376,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 		{
 			CLibraryFolder* pFolder = new CLibraryFolder( this );
 			if ( ! pFolder )
-				break;		// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
+				break;		// theApp.Message( MSG_DEBUG, L"Memory allocation error in CLibraryFolder::Serialize" );
 
 			pFolder->Serialize( ar, nVersion );
 
@@ -395,7 +395,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			CAutoPtr< CLibraryFile > pFile( new CLibraryFile( this ) );
 			if ( ! pFile )
 				AfxThrowMemoryException();
-				// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFolder::Serialize") );
+				// theApp.Message( MSG_DEBUG, L"Memory allocation error in CLibraryFolder::Serialize" );
 
 			pFile->Serialize( ar, nVersion );
 
@@ -424,7 +424,7 @@ void CLibraryFolder::PathToName()
 CString CLibraryFolder::GetRelativeName() const
 {
 	if ( m_pParent )
-		return m_pParent->GetRelativeName() + _T("\\") + m_sName;
+		return m_pParent->GetRelativeName() + L"\\" + m_sName;
 
 	return m_sName;
 }
@@ -440,7 +440,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 		return FALSE;
 
 	WIN32_FIND_DATA pFind;
-	HANDLE hSearch = FindFirstFile( SafePath( m_sPath + _T("\\*.*") ), &pFind );
+	HANDLE hSearch = FindFirstFile( SafePath( m_sPath + L"\\*.*" ), &pFind );
 
 	m_nScanCookie	= nScanCookie;
 	nScanCookie		= Library.GetScanCookie();
@@ -466,7 +466,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 					{
 						m_pFolders.RemoveKey( pFolder->m_sNameLC );
 						pFolder->OnDelete();
-						pFolder = new CLibraryFolder( this, m_sPath + _T("\\") + pFind.cFileName );
+						pFolder = new CLibraryFolder( this, m_sPath + L"\\" + pFind.cFileName );
 						m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
 						m_nUpdateCookie++;
 						bChanged = TRUE;
@@ -474,7 +474,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 				}
 				else
 				{
-					pFolder = new CLibraryFolder( this, m_sPath + _T("\\") + pFind.cFileName );
+					pFolder = new CLibraryFolder( this, m_sPath + L"\\" + pFind.cFileName );
 					m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
 					m_nUpdateCookie++;
 					bChanged = TRUE;
@@ -804,18 +804,18 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 	if ( ! Settings.Library.UseCustomFolders )
 		bAdd = FALSE;
 
-	CString strDesktopINI( m_sPath + _T("\\desktop.ini") );
+	CString strDesktopINI( m_sPath + L"\\desktop.ini" );
 	DWORD dwDesktopINIAttr = GetFileAttributes( strDesktopINI );
 
 	CString strIconResource;
 	CString strInfoTip = LoadString( IDS_FOLDER_TIP );
-	CString strIconIndex = _T("0");
+	CString strIconIndex = L"0";
 	CString strIconFile = Settings.General.Path + ( theApp.m_nWinVer >= WIN_VISTA ?
-		_T("\\Schemas\\WindowsFolder.ico") : _T("\\Schemas\\WindowsFolder.Safe.ico") );
+		L"\\Schemas\\WindowsFolder.ico" : L"\\Schemas\\WindowsFolder.Safe.ico" );
 	if ( ! PathFileExists( strIconFile ) )
 	{
 		strIconResource = Skin.GetImagePath( IDI_COLLECTION );
-		int nPos = strIconResource.ReverseFind( _T(',') );
+		int nPos = strIconResource.ReverseFind( L',' );
 		strIconIndex = strIconResource.Mid( nPos + 1 );
 		strIconFile  = strIconResource.Left( nPos );
 	}
@@ -838,14 +838,14 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 	else
 	{
 		CString strIconFileGet;
-		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), _T(""),
+		GetPrivateProfileString( L".ShellClassInfo", L"IconFile", L"",
 			strIconFileGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
 		strIconFileGet.ReleaseBuffer();
 		strIconFileGet.Trim();
 
 		if ( ! strIconFileGet.IsEmpty() &&
 			 ! StartsWith( strIconFileGet, Settings.General.Path ) &&
-			 strIconFileGet.Find( _T("PeerProject") ) == -1 )
+			 strIconFileGet.Find( L"PeerProject" ) == -1 )
 			return;		// Not ours, no action required (ToDo: Handle Shareaza?)
 
 		if ( ! bAdd )
@@ -858,17 +858,17 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 
 		CString strInfoTipGet, strIconIndexGet, strIconResourceGet;
 
-		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), _T(""),
+		GetPrivateProfileString( L".ShellClassInfo", L"IconIndex", L"",
 			strIconIndexGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
 		strIconIndexGet.ReleaseBuffer();
 		strIconIndexGet.Trim();
 
-		GetPrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), _T(""),
+		GetPrivateProfileString( L".ShellClassInfo", L"InfoTip", L"",
 			strInfoTipGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
 		strInfoTipGet.ReleaseBuffer();
 		strInfoTipGet.Trim();
 
-		GetPrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), _T(""),
+		GetPrivateProfileString( L".ShellClassInfo", L"IconResource", L"",
 			strIconResourceGet.GetBuffer( MAX_PATH ), MAX_PATH, strDesktopINI );
 		strIconResourceGet.ReleaseBuffer();
 		strIconResourceGet.Trim();
@@ -887,12 +887,12 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 			SetFileAttributes( strDesktopINI, dwDesktopINIAttr & ~( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
 	}
 
-	WritePrivateProfileString( _T(".ShellClassInfo"), _T("ConfirmFileOp"), _T("0"), strDesktopINI );
-	WritePrivateProfileString( _T(".ShellClassInfo"), _T("InfoTip"), strInfoTip, strDesktopINI );
-	WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconFile"), strIconFile, strDesktopINI );
-	WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconIndex"), strIconIndex, strDesktopINI );
+	WritePrivateProfileString( L".ShellClassInfo", L"ConfirmFileOp", L"0", strDesktopINI );
+	WritePrivateProfileString( L".ShellClassInfo", L"InfoTip", strInfoTip, strDesktopINI );
+	WritePrivateProfileString( L".ShellClassInfo", L"IconFile", strIconFile, strDesktopINI );
+	WritePrivateProfileString( L".ShellClassInfo", L"IconIndex", strIconIndex, strDesktopINI );
 	if ( ! strIconResource.IsEmpty() )
-		WritePrivateProfileString( _T(".ShellClassInfo"), _T("IconResource"), strIconResource, strDesktopINI );
+		WritePrivateProfileString( L".ShellClassInfo", L"IconResource", strIconResource, strDesktopINI );
 
 	SetFileAttributes( strDesktopINI, dwDesktopINIAttr | ( FILE_ATTRIBUTE_HIDDEN | FILE_ATTRIBUTE_SYSTEM ) );
 

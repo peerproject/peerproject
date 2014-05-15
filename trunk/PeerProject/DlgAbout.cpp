@@ -1,7 +1,7 @@
 //
 // DlgAbout.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -58,12 +58,12 @@ BOOL CAboutDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CAboutDlg"), IDR_MAINFRAME );
+	SkinMe( L"CAboutDlg", IDR_MAINFRAME );
 
 	CString strCaption;
 
 	GetWindowText( strCaption );
-	strCaption += _T(" v");
+	strCaption += L" v";
 	strCaption += theApp.m_sVersion;
 	SetWindowText( strCaption );
 	m_wndTitle.SetWindowText( theApp.m_sVersionLong );		// PeerProject 1.x.x.x 32/64-bit (date rXXXX) Debug
@@ -129,8 +129,8 @@ void CAboutDlg::OnLButtonDown(UINT nFlags, CPoint point)
 	{
 		const CString strWebSite( WEB_SITE );
 
-		ShellExecute( GetSafeHwnd(), _T("open"),
-			strWebSite + _T("?Version=") + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
+		ShellExecute( GetSafeHwnd(), L"open",
+			strWebSite + L"?Version=" + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
 	}
 }
 
@@ -149,7 +149,7 @@ void CAboutDlg::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 		return;
 
 #ifndef _DEBUG
-	if ( MsgBox( _T("\nDo you wish to trigger a program crash?"), MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
+	if ( MsgBox( L"\nDo you wish to trigger a program crash?", MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES )
 		return;
 #endif
 

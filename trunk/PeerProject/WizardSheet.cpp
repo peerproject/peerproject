@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -92,7 +92,7 @@ BOOL CWizardSheet::RunWizard(CWnd* pParent)
 
 CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 {
-	Construct( _T(""), pParentWnd, iSelectPage );
+	Construct( L"", pParentWnd, iSelectPage );
 
 	SetWizardMode();
 }
@@ -147,7 +147,7 @@ BOOL CWizardSheet::OnInitDialog()
 	// ATL_IDC_STATIC1?
 	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
 
-	//m_bmHeader.Attach( Skin.GetWatermark( _T("Banner") ) );	// Use Images.m_bmBanner
+	//m_bmHeader.Attach( Skin.GetWatermark( L"Banner" ) );	// Use Images.m_bmBanner
 
 	return TRUE;
 }
@@ -176,9 +176,9 @@ BOOL CWizardSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
-		if ( !_tcscmp( szName, _T("Static") ) )
+		if ( !_tcscmp( szName, L"Static" ) )
 			pWnd->SetFont( &theApp.m_gdiFont, FALSE );
-		else if ( _tcscmp( szName, _T("RICHEDIT") ) )
+		else if ( _tcscmp( szName, L"RICHEDIT" ) )
 			pWnd->SetFont( &theApp.m_gdiFont, TRUE );
 
 		pWnd = pWnd->GetNextWindow();
@@ -306,7 +306,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		TCHAR szName[32];
 		GetClassName( pChild->GetSafeHwnd(), szName, 32 );
 
-		if ( _tcscmp( szName, _T("Static") ) ) continue;
+		if ( _tcscmp( szName, L"Static" ) ) continue;
 
 		CString strText;
 		pChild->GetWindowText( strText );

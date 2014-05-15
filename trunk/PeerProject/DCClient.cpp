@@ -1,7 +1,7 @@
 //
 // DCClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -364,7 +364,7 @@ BOOL CDCClient::OnRead()
 		if ( ! ReadCommand( strLine ) )
 			break;
 
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s|"), (LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strLine.c_str() ) );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> %s|", (LPCTSTR)m_sAddress, (LPCTSTR)CA2CT( strLine.c_str() ) );
 
 		std::string strCommand, strParams;
 		std::string::size_type nPos = strLine.find( ' ' );
@@ -530,7 +530,7 @@ BOOL CDCClient::OnSupports(const std::string& strParams)
 	m_oFeatures.RemoveAll();
 	for ( CString strFeatures( strParams.c_str() ) ; ! strFeatures.IsEmpty() ; )
 	{
-		CString strFeature = strFeatures.SpanExcluding( _T(" ") );
+		CString strFeature = strFeatures.SpanExcluding( L" " );
 		strFeatures = strFeatures.Mid( strFeature.GetLength() + 1 );
 		if ( strFeature.IsEmpty() )
 			continue;
@@ -910,8 +910,8 @@ BOOL CDCClient::Handshake()
 	Write( _P(DC_CLIENT_SUPPORTS) );	// "$Supports ..."
 
 	CString strDirection;
-	strDirection.Format( _T("$Direction %s %i|"),
-		( m_pDownloadTransfer ? _T("Download") : _T("Upload") ), m_nNumber );
+	strDirection.Format( L"$Direction %s %i|",
+		( m_pDownloadTransfer ? L"Download" : L"Upload" ), m_nNumber );
 	Write( strDirection );
 
 	m_bNumberSent = TRUE;

@@ -81,569 +81,570 @@ CSettings::~CSettings()
 void CSettings::Load()
 {
 	// Add all settings
-	Add( _T(""), _T("DebugBTSources"), &General.DebugBTSources, false );
-	Add( _T(""), _T("DebugLog"), &General.DebugLog, false );
-	Add( _T(""), _T("DiskSpaceStop"), &General.DiskSpaceStop, 50, 1, 0, 1000, _T(" MB") );
-	Add( _T(""), _T("DiskSpaceWarning"), &General.DiskSpaceWarning, 550, 1, 1, 2000, _T(" MB") );
-	Add( _T(""), _T("HashIntegrity"), &General.HashIntegrity, true );
-	Add( _T(""), _T("ItWasLimited"), &General.ItWasLimited, false, true );
-	Add( _T(""), _T("MaxDebugLogSize"), &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, _T(" MB") );
-	Add( _T(""), _T("MinTransfersRest"), &General.MinTransfersRest, 40, 1, 1, 100, _T(" ms") );
-	Add( _T(""), _T("MultiUser"), &General.MultiUser, false, true );
-	Add( _T(""), _T("Path"), &General.Path, NULL, false, setReadOnly );
-	Add( _T(""), _T("UserPath"), &General.UserPath, NULL, false, setReadOnly );
-	Add( _T(""), _T("DataPath"), &General.DataPath, NULL, false, setReadOnly );
-	Add( _T(""), _T("LogLevel"), &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, _T(" level") );
-	Add( _T(""), _T("SearchLog"), &General.SearchLog, true );
-	Add( _T(""), _T("DialogScan"), &General.DialogScan, false );
+	Add( L"", L"DebugBTSources", &General.DebugBTSources, false );
+	Add( L"", L"DebugLog", &General.DebugLog, false );
+	Add( L"", L"DiskSpaceStop", &General.DiskSpaceStop, 50, 1, 0, 1000, L" MB" );
+	Add( L"", L"DiskSpaceWarning", &General.DiskSpaceWarning, 550, 1, 1, 2000, L" MB" );
+	Add( L"", L"HashIntegrity", &General.HashIntegrity, true );
+	Add( L"", L"ItWasLimited", &General.ItWasLimited, false, true );
+	Add( L"", L"MaxDebugLogSize", &General.MaxDebugLogSize, 10*MegaByte, MegaByte, 0, 100, L" MB" );
+	Add( L"", L"MinTransfersRest", &General.MinTransfersRest, 40, 1, 1, 100, L" ms" );
+	Add( L"", L"MultiUser", &General.MultiUser, false, true );
+	Add( L"", L"Path", &General.Path, NULL, false, setReadOnly );
+	Add( L"", L"UserPath", &General.UserPath, NULL, false, setReadOnly );
+	Add( L"", L"DataPath", &General.DataPath, NULL, false, setReadOnly );
+	Add( L"", L"LogLevel", &General.LogLevel, MSG_INFO, 1, MSG_ERROR, MSG_DEBUG, L" level" );
+	Add( L"", L"SearchLog", &General.SearchLog, true );
+	Add( L"", L"DialogScan", &General.DialogScan, false );
 
-	Add( _T("Settings"), _T("AlwaysOpenURLs"), &General.AlwaysOpenURLs, false );
-	Add( _T("Settings"), _T("CloseMode"), &General.CloseMode, 0, 1, 0, 3 );
-	Add( _T("Settings"), _T("FirstRun"), &General.FirstRun, true, true );
-	Add( _T("Settings"), _T("GUIMode"), &General.GUIMode, GUI_TABBED );
-	Add( _T("Settings"), _T("IgnoreXPsp2"), &General.IgnoreXPsp2, false );
-	Add( _T("Settings"), _T("Language"), &General.Language, _T("en") );
-	Add( _T("Settings"), _T("LanguageRTL"), &General.LanguageRTL, false );
-	Add( _T("Settings"), _T("LanguageDefault"), &General.LanguageDefault, true );
-	Add( _T("Settings"), _T("LastSettingsPage"), &General.LastSettingsPage, NULL, true );
-	Add( _T("Settings"), _T("LastSettingsIndex"), &General.LastSettingsIndex, 0 );
-	Add( _T("Settings"), _T("LockTimeout"), &General.LockTimeout, 2000, 1, 1, 30000, _T(" ms") );
-	Add( _T("Settings"), _T("RatesInBytes"), &General.RatesInBytes, true );
-	Add( _T("Settings"), _T("RatesUnit"), &General.RatesUnit, 0, 1, 0, 3 );
-	Add( _T("Settings"), _T("Running"), &General.Running, false, true );
-	Add( _T("Settings"), _T("ShowTimestamp"), &General.ShowTimestamp, true );
-	Add( _T("Settings"), _T("SizeLists"), &General.SizeLists, false );
-	Add( _T("Settings"), _T("SmartVersion"), &General.SmartVersion, SMART_VERSION );
-	Add( _T("Settings"), _T("TrayMinimise"), &General.TrayMinimise, false );
+	Add( L"Settings", L"AlwaysOpenURLs", &General.AlwaysOpenURLs, false );
+	Add( L"Settings", L"AntiVirus", &General.AntiVirus, L"" );
+	Add( L"Settings", L"CloseMode", &General.CloseMode, 0, 1, 0, 3 );
+	Add( L"Settings", L"FirstRun", &General.FirstRun, true, true );
+	Add( L"Settings", L"GUIMode", &General.GUIMode, GUI_TABBED );
+	Add( L"Settings", L"IgnoreXPsp2", &General.IgnoreXPsp2, false );
+	Add( L"Settings", L"Language", &General.Language, L"en" );
+	Add( L"Settings", L"LanguageRTL", &General.LanguageRTL, false );
+	Add( L"Settings", L"LanguageDefault", &General.LanguageDefault, true );
+	Add( L"Settings", L"LastSettingsPage", &General.LastSettingsPage, NULL, true );
+	Add( L"Settings", L"LastSettingsIndex", &General.LastSettingsIndex, 0 );
+	Add( L"Settings", L"LockTimeout", &General.LockTimeout, 2000, 1, 1, 30000, L" ms" );
+	Add( L"Settings", L"RatesInBytes", &General.RatesInBytes, true );
+	Add( L"Settings", L"RatesUnit", &General.RatesUnit, 0, 1, 0, 3 );
+	Add( L"Settings", L"Running", &General.Running, false, true );
+	Add( L"Settings", L"ShowTimestamp", &General.ShowTimestamp, true );
+	Add( L"Settings", L"SizeLists", &General.SizeLists, false );
+	Add( L"Settings", L"SmartVersion", &General.SmartVersion, SMART_VERSION );
+	Add( L"Settings", L"TrayMinimise", &General.TrayMinimise, false );
 
-	Add( _T("VersionCheck"), _T("NextCheck"), &VersionCheck.NextCheck, 0 );
-	Add( _T("VersionCheck"), _T("Quote"), &VersionCheck.Quote );
-	Add( _T("VersionCheck"), _T("UpdateCheck"), &VersionCheck.UpdateCheck, true );
-//	Add( _T("VersionCheck"), _T("UpdateCheckURL"), &VersionCheck.UpdateCheckURL, UPDATE_URL );
-	Add( _T("VersionCheck"), _T("UpgradeFile"), &VersionCheck.UpgradeFile );
-	Add( _T("VersionCheck"), _T("UpgradePrompt"), &VersionCheck.UpgradePrompt );
-	Add( _T("VersionCheck"), _T("UpgradeSHA1"), &VersionCheck.UpgradeSHA1 );
-	Add( _T("VersionCheck"), _T("UpgradeSize"), &VersionCheck.UpgradeSize );
-	Add( _T("VersionCheck"), _T("UpgradeSources"), &VersionCheck.UpgradeSources );
-	Add( _T("VersionCheck"), _T("UpgradeTiger"), &VersionCheck.UpgradeTiger );
-	Add( _T("VersionCheck"), _T("UpgradeVersion"), &VersionCheck.UpgradeVersion );
+	Add( L"VersionCheck", L"NextCheck", &VersionCheck.NextCheck, 0 );
+	Add( L"VersionCheck", L"Quote", &VersionCheck.Quote );
+	Add( L"VersionCheck", L"UpdateCheck", &VersionCheck.UpdateCheck, true );
+//	Add( L"VersionCheck", L"UpdateCheckURL", &VersionCheck.UpdateCheckURL, UPDATE_URL );
+	Add( L"VersionCheck", L"UpgradeFile", &VersionCheck.UpgradeFile );
+	Add( L"VersionCheck", L"UpgradePrompt", &VersionCheck.UpgradePrompt );
+	Add( L"VersionCheck", L"UpgradeSHA1", &VersionCheck.UpgradeSHA1 );
+	Add( L"VersionCheck", L"UpgradeSize", &VersionCheck.UpgradeSize );
+	Add( L"VersionCheck", L"UpgradeSources", &VersionCheck.UpgradeSources );
+	Add( L"VersionCheck", L"UpgradeTiger", &VersionCheck.UpgradeTiger );
+	Add( L"VersionCheck", L"UpgradeVersion", &VersionCheck.UpgradeVersion );
 
-	Add( _T("Interface"), _T("AutoComplete"), &Interface.AutoComplete, true );
-	Add( _T("Interface"), _T("CoolMenuEnable"), &Interface.CoolMenuEnable, true );
-	Add( _T("Interface"), _T("LowResMode"), &Interface.LowResMode, false );
-	Add( _T("Interface"), _T("SaveOpenWindows"), &Interface.SaveOpenWindows, General.GUIMode != GUI_BASIC );
-	Add( _T("Interface"), _T("RefreshRateGraph"), &Interface.RefreshRateGraph, 72, 1, 10, 60000, _T(" ms") );	// 30sec display areas
-	Add( _T("Interface"), _T("RefreshRateText"), &Interface.RefreshRateText, 650, 1, 10, 10000, _T(" ms") );	// 3x per 2 sec.
-	Add( _T("Interface"), _T("RefreshRateUI"), &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 300 : 100, 1, 10, 2000, _T(" ms") );	// 3/10x per sec. (Button status)
-	Add( _T("Interface"), _T("TipDelay"), &Interface.TipDelay, 500, 1, 100, 5000, _T(" ms") );
-	Add( _T("Interface"), _T("TipAlpha"), &Interface.TipAlpha, 240, 1, 50, 255 );
-	Add( _T("Interface"), _T("TipDownloads"), &Interface.TipDownloads, true );
-	Add( _T("Interface"), _T("TipUploads"), &Interface.TipUploads, true );
-	Add( _T("Interface"), _T("TipLibrary"), &Interface.TipLibrary, true );
-	Add( _T("Interface"), _T("TipNeighbours"), &Interface.TipNeighbours, true );
-	Add( _T("Interface"), _T("TipMedia"), &Interface.TipMedia, true );
-	Add( _T("Interface"), _T("TipSearch"), &Interface.TipSearch, true );
-	Add( _T("Interface"), _T("TipShadow"), &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
-	Add( _T("Interface"), _T("Snarl"), &Interface.Snarl, true );	// Use notifications (getsnarl.info)
+	Add( L"Interface", L"AutoComplete", &Interface.AutoComplete, true );
+	Add( L"Interface", L"CoolMenuEnable", &Interface.CoolMenuEnable, true );
+	Add( L"Interface", L"LowResMode", &Interface.LowResMode, false );
+	Add( L"Interface", L"SaveOpenWindows", &Interface.SaveOpenWindows, General.GUIMode != GUI_BASIC );
+	Add( L"Interface", L"RefreshRateGraph", &Interface.RefreshRateGraph, 72, 1, 10, 60000, L" ms" );	// 30sec display areas
+	Add( L"Interface", L"RefreshRateText", &Interface.RefreshRateText, 650, 1, 10, 10000, L" ms" );	// 3x per 2 sec.
+	Add( L"Interface", L"RefreshRateUI", &Interface.RefreshRateUI, theApp.m_nWinVer < WIN_XP_64 ? 300 : 100, 1, 10, 2000, L" ms" );	// 3/10x per sec. (Button status)
+	Add( L"Interface", L"TipDelay", &Interface.TipDelay, 500, 1, 100, 5000, L" ms" );
+	Add( L"Interface", L"TipAlpha", &Interface.TipAlpha, 240, 1, 50, 255 );
+	Add( L"Interface", L"TipDownloads", &Interface.TipDownloads, true );
+	Add( L"Interface", L"TipUploads", &Interface.TipUploads, true );
+	Add( L"Interface", L"TipLibrary", &Interface.TipLibrary, true );
+	Add( L"Interface", L"TipNeighbours", &Interface.TipNeighbours, true );
+	Add( L"Interface", L"TipMedia", &Interface.TipMedia, true );
+	Add( L"Interface", L"TipSearch", &Interface.TipSearch, true );
+	Add( L"Interface", L"TipShadow", &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
+	Add( L"Interface", L"Snarl", &Interface.Snarl, true );	// Use notifications (getsnarl.info)
 
-	Add( _T("Skin"), _T("DropMenu"), &Skin.DropMenu, false );
-	Add( _T("Skin"), _T("DropMenuLabel"), &Skin.DropMenuLabel, 0, 1, 0, 100, _T(" char") );
-	Add( _T("Skin"), _T("MenuBorders"), &Skin.MenuBorders, true );
-	Add( _T("Skin"), _T("MenuGripper"), &Skin.MenuGripper, true );
-	Add( _T("Skin"), _T("RoundedSelect"), &Skin.RoundedSelect, false );
-	Add( _T("Skin"), _T("ButtonEdge"), &Skin.ButtonEdge, 4, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("MenubarHeight"), &Skin.MenubarHeight, 28, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("ToolbarHeight"), &Skin.ToolbarHeight, 28, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("TaskbarHeight"), &Skin.TaskbarHeight, 26, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("TaskbarTabWidth"), &Skin.TaskbarTabWidth, 200, 1, 0, 1000, _T(" px") );
-	Add( _T("Skin"), _T("GroupsbarHeight"), &Skin.GroupsbarHeight, 24, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("HeaderbarHeight"), &Skin.HeaderbarHeight, 64, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("MonitorbarWidth"), &Skin.MonitorbarWidth, 120, 1, 0, 1000, _T(" px") );
-	Add( _T("Skin"), _T("SidebarWidth"), &Skin.SidebarWidth, 200, 1, 0, 500, _T(" px") );
-	Add( _T("Skin"), _T("SidebarPadding"), &Skin.SidebarPadding, 12, 1, 0, 100, _T(" px") );
-	Add( _T("Skin"), _T("Splitter"), &Skin.Splitter, 6, 1, 1, 100, _T(" px") );
-	Add( _T("Skin"), _T("RowSize"), &Skin.RowSize, 17, 1, 16, 20, _T(" px") );
-	Add( _T("Skin"), _T("LibIconsX"), &Skin.LibIconsX, 220, 1, 30, 500, _T(" px") );
-	Add( _T("Skin"), _T("LibIconsY"), &Skin.LibIconsY, 56, 1, 30, 100, _T(" px") );
+	Add( L"Skin", L"DropMenu", &Skin.DropMenu, false );
+	Add( L"Skin", L"DropMenuLabel", &Skin.DropMenuLabel, 0, 1, 0, 100, L" char" );
+	Add( L"Skin", L"MenuBorders", &Skin.MenuBorders, true );
+	Add( L"Skin", L"MenuGripper", &Skin.MenuGripper, true );
+	Add( L"Skin", L"RoundedSelect", &Skin.RoundedSelect, false );
+	Add( L"Skin", L"ButtonEdge", &Skin.ButtonEdge, 4, 1, 0, 100, L" px" );
+	Add( L"Skin", L"MenubarHeight", &Skin.MenubarHeight, 28, 1, 0, 100, L" px" );
+	Add( L"Skin", L"ToolbarHeight", &Skin.ToolbarHeight, 28, 1, 0, 100, L" px" );
+	Add( L"Skin", L"TaskbarHeight", &Skin.TaskbarHeight, 26, 1, 0, 100, L" px" );
+	Add( L"Skin", L"TaskbarTabWidth", &Skin.TaskbarTabWidth, 200, 1, 0, 1000, L" px" );
+	Add( L"Skin", L"GroupsbarHeight", &Skin.GroupsbarHeight, 24, 1, 0, 100, L" px" );
+	Add( L"Skin", L"HeaderbarHeight", &Skin.HeaderbarHeight, 64, 1, 0, 100, L" px" );
+	Add( L"Skin", L"MonitorbarWidth", &Skin.MonitorbarWidth, 120, 1, 0, 1000, L" px" );
+	Add( L"Skin", L"SidebarWidth", &Skin.SidebarWidth, 200, 1, 0, 500, L" px" );
+	Add( L"Skin", L"SidebarPadding", &Skin.SidebarPadding, 12, 1, 0, 100, L" px" );
+	Add( L"Skin", L"Splitter", &Skin.Splitter, 6, 1, 1, 100, L" px" );
+	Add( L"Skin", L"RowSize", &Skin.RowSize, 17, 1, 16, 20, L" px" );
+	Add( L"Skin", L"LibIconsX", &Skin.LibIconsX, 220, 1, 30, 500, L" px" );
+	Add( L"Skin", L"LibIconsY", &Skin.LibIconsY, 56, 1, 30, 100, L" px" );
 
-	Add( _T("Windows"), _T("RunWizard"), &Windows.RunWizard, false );
-	Add( _T("Windows"), _T("RunWarnings"), &Windows.RunWarnings, false );
-	Add( _T("Windows"), _T("RunPromote"), &Windows.RunPromote, false );
+	Add( L"Windows", L"RunWizard", &Windows.RunWizard, false );
+	Add( L"Windows", L"RunWarnings", &Windows.RunWarnings, false );
+	Add( L"Windows", L"RunPromote", &Windows.RunPromote, false );
 
-	Add( _T("Toolbars"), _T("ShowRemote"), &Toolbars.ShowRemote, true );
-	Add( _T("Toolbars"), _T("ShowMonitor"), &Toolbars.ShowMonitor, true );
+	Add( L"Toolbars", L"ShowRemote", &Toolbars.ShowRemote, true );
+	Add( L"Toolbars", L"ShowMonitor", &Toolbars.ShowMonitor, true );
 
-	Add( _T("Fonts"), _T("DefaultFont"), &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma"), false, setFont );
-	Add( _T("Fonts"), _T("SystemLogFont"), &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : _T("Tahoma"), false, setFont );
-	Add( _T("Fonts"), _T("PacketDumpFont"), &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? _T("Consolas") : _T("Lucida Console"), false, setFont );
-	Add( _T("Fonts"), _T("DefaultSize"), &Fonts.DefaultSize, 11, 1, 9, 12, _T(" px") );
+	Add( L"Fonts", L"DefaultFont", &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : L"Tahoma", false, setFont );
+	Add( L"Fonts", L"SystemLogFont", &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : L"Tahoma", false, setFont );
+	Add( L"Fonts", L"PacketDumpFont", &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? L"Consolas" : L"Lucida Console", false, setFont );
+	Add( L"Fonts", L"DefaultSize", &Fonts.DefaultSize, 11, 1, 9, 12, L" px" );
 
-	Add( _T("Library"), _T("CreateGhosts"), &Library.CreateGhosts, true );
-	Add( _T("Library"), _T("FilterURI"), &Library.FilterURI );
-//	Add( _T("Library"), _T("LastUsedView"), &Library.LastUsedView );
-	Add( _T("Library"), _T("HashWindow"), &Library.HashWindow, true );
-	Add( _T("Library"), _T("HighPriorityHash"), &Library.HighPriorityHash, true );
-	Add( _T("Library"), _T("HighPriorityHashing"), &Library.HighPriorityHashing, 32, 1, 2, 100, _T(" MB/s") );
-	Add( _T("Library"), _T("LowPriorityHashing"), &Library.LowPriorityHashing, 4, 1, 1, 50, _T(" MB/s") );
-	Add( _T("Library"), _T("HistoryDays"), &Library.HistoryDays, 10, 1, 0, 365, _T(" d") );
-	Add( _T("Library"), _T("HistoryTotal"), &Library.HistoryTotal, 36, 1, 0, 150, _T(" files") );
-	Add( _T("Library"), _T("QueryRouteSize"), &Library.QueryRouteSize, 20, 1, 8, 24 );
-	Add( _T("Library"), _T("MarkFileAsDownload"), &Library.MarkFileAsDownload, true );
-	Add( _T("Library"), _T("ManyFilesWarning"), &Library.ManyFilesWarning, 0, 1, 0, 2 );
-	Add( _T("Library"), _T("ManyFilesCount"), &Library.ManyFilesCount, 18, 1, 0, 1000, _T(" files") );
-	Add( _T("Library"), _T("MaliciousFileCount"), &Library.MaliciousFileCount, 5, 1, 2, 50, _T(" files") );
-	Add( _T("Library"), _T("MaliciousFileSize"), &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, _T(" KB") );
-	Add( _T("Library"), _T("MaliciousFileTypes"), &Library.MaliciousFileTypes, _T("|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|") );
-	Add( _T("Library"), _T("PrivateTypes"), &Library.PrivateTypes, _T("|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|crdownload|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|") );
-	Add( _T("Library"), _T("SafeExecute"), &Library.SafeExecute, _T("|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|flac|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|") );
-	Add( _T("Library"), _T("SchemaURI"), &Library.SchemaURI, CSchema::uriAudio );
-	Add( _T("Library"), _T("ScanAPE"), &Library.ScanAPE, true );
-	Add( _T("Library"), _T("ScanASF"), &Library.ScanASF, true );
-	Add( _T("Library"), _T("ScanAVI"), &Library.ScanAVI, true );
-	Add( _T("Library"), _T("ScanCHM"), &Library.ScanCHM, true );
-	Add( _T("Library"), _T("ScanEXE"), &Library.ScanEXE, true );
-	Add( _T("Library"), _T("ScanImage"), &Library.ScanImage, true );
-	Add( _T("Library"), _T("ScanMP3"), &Library.ScanMP3, true );
-	Add( _T("Library"), _T("ScanMPEG"), &Library.ScanMPEG, true );
-	Add( _T("Library"), _T("ScanMSI"), &Library.ScanMSI, true );
-	Add( _T("Library"), _T("ScanOGG"), &Library.ScanOGG, true );
-	Add( _T("Library"), _T("ScanPDF"), &Library.ScanPDF, true );
-//	Add( _T("Library"), _T("ShowCoverArt"), &Library.ShowCoverArt, true );
-	Add( _T("Library"), _T("ShowPanel"), &Library.ShowPanel, true );
-	Add( _T("Library"), _T("ShowVirtual"), &Library.ShowVirtual, true );
-	Add( _T("Library"), _T("SourceMesh"), &Library.SourceMesh, true );
-	Add( _T("Library"), _T("SourceExpire"), &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, _T(" m") );
-	Add( _T("Library"), _T("TigerHeight"), &Library.TigerHeight, 9, 1, 1, 64 );
-	Add( _T("Library"), _T("ThumbQuality"), &Library.ThumbQuality, 75, 1, 10, 99, _T(" %") );
-	Add( _T("Library"), _T("ThumbSize"), &Library.ThumbSize, 128, 1, 16, 256, _T(" px") );
-	Add( _T("Library"), _T("TreeSize"), &Library.TreeSize, 200, 1, 0, 1024, _T(" px") );
-	Add( _T("Library"), _T("PanelSize"), &Library.PanelSize, 120, 1, 0, 1024, _T(" px") );
-	Add( _T("Library"), _T("URLExportFormat"), &Library.URLExportFormat, _T("<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>") );
-	Add( _T("Library"), _T("UseCustomFolders"), &Library.UseCustomFolders, true );	// Desktop.ini
-	Add( _T("Library"), _T("UseWindowsLibrary"), &Library.UseWindowsLibrary, theApp.m_nWinVer >= WIN_7 );
-	Add( _T("Library"), _T("UseFolderGUID"), &Library.UseFolderGUID, true );
-	Add( _T("Library"), _T("VirtualFiles"), &Library.VirtualFiles, false );
-	Add( _T("Library"), _T("WatchFolders"), &Library.WatchFolders, true );
-	Add( _T("Library"), _T("WatchFoldersTimeout"), &Library.WatchFoldersTimeout, 10, 1, 1, 60, _T(" s") );
-	Add( _T("Library"), _T("SmartSeriesDetection"), &Library.SmartSeriesDetection, true );
+	Add( L"Library", L"CreateGhosts", &Library.CreateGhosts, true );
+	Add( L"Library", L"FilterURI", &Library.FilterURI );
+//	Add( L"Library", L"LastUsedView", &Library.LastUsedView );
+	Add( L"Library", L"HashWindow", &Library.HashWindow, true );
+	Add( L"Library", L"HighPriorityHash", &Library.HighPriorityHash, true );
+	Add( L"Library", L"HighPriorityHashing", &Library.HighPriorityHashing, 32, 1, 2, 100, L" MB/s" );
+	Add( L"Library", L"LowPriorityHashing", &Library.LowPriorityHashing, 4, 1, 1, 50, L" MB/s" );
+	Add( L"Library", L"HistoryDays", &Library.HistoryDays, 10, 1, 0, 365, L" d" );
+	Add( L"Library", L"HistoryTotal", &Library.HistoryTotal, 36, 1, 0, 150, L" files" );
+	Add( L"Library", L"QueryRouteSize", &Library.QueryRouteSize, 20, 1, 8, 24 );
+	Add( L"Library", L"MarkFileAsDownload", &Library.MarkFileAsDownload, true );
+	Add( L"Library", L"ManyFilesWarning", &Library.ManyFilesWarning, 0, 1, 0, 2 );
+	Add( L"Library", L"ManyFilesCount", &Library.ManyFilesCount, 18, 1, 0, 1000, L" files" );
+	Add( L"Library", L"MaliciousFileCount", &Library.MaliciousFileCount, 5, 1, 2, 50, L" files" );
+	Add( L"Library", L"MaliciousFileSize", &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, L" KB" );
+	Add( L"Library", L"MaliciousFileTypes", &Library.MaliciousFileTypes, L"|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|" );
+	Add( L"Library", L"PrivateTypes", &Library.PrivateTypes, L"|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|crdownload|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|" );
+	Add( L"Library", L"SafeExecute", &Library.SafeExecute, L"|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|flac|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|" );
+	Add( L"Library", L"SchemaURI", &Library.SchemaURI, CSchema::uriAudio );
+	Add( L"Library", L"ScanAPE", &Library.ScanAPE, true );
+	Add( L"Library", L"ScanASF", &Library.ScanASF, true );
+	Add( L"Library", L"ScanAVI", &Library.ScanAVI, true );
+	Add( L"Library", L"ScanCHM", &Library.ScanCHM, true );
+	Add( L"Library", L"ScanEXE", &Library.ScanEXE, true );
+	Add( L"Library", L"ScanImage", &Library.ScanImage, true );
+	Add( L"Library", L"ScanMP3", &Library.ScanMP3, true );
+	Add( L"Library", L"ScanMPEG", &Library.ScanMPEG, true );
+	Add( L"Library", L"ScanMSI", &Library.ScanMSI, true );
+	Add( L"Library", L"ScanOGG", &Library.ScanOGG, true );
+	Add( L"Library", L"ScanPDF", &Library.ScanPDF, true );
+//	Add( L"Library", L"ShowCoverArt", &Library.ShowCoverArt, true );
+	Add( L"Library", L"ShowPanel", &Library.ShowPanel, true );
+	Add( L"Library", L"ShowVirtual", &Library.ShowVirtual, true );
+	Add( L"Library", L"SourceMesh", &Library.SourceMesh, true );
+	Add( L"Library", L"SourceExpire", &Library.SourceExpire, 24*60*60, 60, 60, 7*24*60*60, L" m" );
+	Add( L"Library", L"TigerHeight", &Library.TigerHeight, 9, 1, 1, 64 );
+	Add( L"Library", L"ThumbQuality", &Library.ThumbQuality, 75, 1, 10, 99, L" %" );
+	Add( L"Library", L"ThumbSize", &Library.ThumbSize, 128, 1, 16, 256, L" px" );
+	Add( L"Library", L"TreeSize", &Library.TreeSize, 200, 1, 0, 1024, L" px" );
+	Add( L"Library", L"PanelSize", &Library.PanelSize, 120, 1, 0, 1024, L" px" );
+	Add( L"Library", L"URLExportFormat", &Library.URLExportFormat, L"<a href=\"magnet:?xt=urn:bitprint:[SHA1].[TIGER]&amp;xt=urn:ed2khash:[ED2K]&amp;xt=urn:md5:[MD5]&amp;xl=[ByteSize]&amp;dn=[NameURI]\">[Name]</a><br>" );
+	Add( L"Library", L"UseCustomFolders", &Library.UseCustomFolders, true );	// Desktop.ini
+	Add( L"Library", L"UseWindowsLibrary", &Library.UseWindowsLibrary, theApp.m_nWinVer >= WIN_7 );
+	Add( L"Library", L"UseFolderGUID", &Library.UseFolderGUID, true );
+	Add( L"Library", L"VirtualFiles", &Library.VirtualFiles, false );
+	Add( L"Library", L"WatchFolders", &Library.WatchFolders, true );
+	Add( L"Library", L"WatchFoldersTimeout", &Library.WatchFoldersTimeout, 10, 1, 1, 60, L" s" );
+	Add( L"Library", L"SmartSeriesDetection", &Library.SmartSeriesDetection, true );
 
-	Add( _T("WebServices"), _T("BitprintAgent"), &WebServices.BitprintAgent, _T(".") );
-	Add( _T("WebServices"), _T("BitprintOkay"), &WebServices.BitprintOkay, false, true );
-	Add( _T("WebServices"), _T("BitprintWebSubmit"), &WebServices.BitprintWebSubmit, _T("http://peerproject.org/bitprint/lookup/(SHA1).(TTH)?fl=(SIZE)&ff=(FIRST20)&fn=(NAME)&tag.ed2k.ed2khash=(ED2K)&(INFO)&a=(AGENT)&v=Q0.4&ref=peerproject") );
-	Add( _T("WebServices"), _T("BitprintWebView"), &WebServices.BitprintWebView, _T("http://peerproject.org/bitprint/lookup/(URN)?v=detail&ref=peerproject") );
-	Add( _T("WebServices"), _T("BitprintXML"), &WebServices.BitprintXML, _T("http://peerproject.org/bitprint/rdf/(SHA1)") );
-//	Add( _T("WebServices"), _T("ShareMonkeyCid"), &WebServices.ShareMonkeyCid );
-//	Add( _T("WebServices"), _T("ShareMonkeyOkay"), &WebServices.ShareMonkeyOkay, false, true );
-//	Add( _T("WebServices"), _T("ShareMonkeySaveThumbnail"), &WebServices.ShareMonkeySaveThumbnail, false, true );
-//	Add( _T("WebServices"), _T("ShareMonkeyBaseURL"), &WebServices.ShareMonkeyBaseURL, _T("http://tools.sharemonkey.com/xml/") );	// Obsolete: Does not exist
+	Add( L"WebServices", L"BitprintsAgent", &WebServices.BitprintsAgent, L"." );
+	Add( L"WebServices", L"BitprintsOkay", &WebServices.BitprintsOkay, false, true );
+	Add( L"WebServices", L"BitprintsWebSubmit", &WebServices.BitprintsWebSubmit, L"http://bitprints.peerproject.org/lookup/(SHA1).(TTH)?fl=(SIZE)&ff=(FIRST20)&fn=(NAME)&tag.ed2k.ed2khash=(ED2K)&(INFO)&a=(AGENT)&v=Q0.5&ref=peerproject" );
+	Add( L"WebServices", L"BitprintsWebView", &WebServices.BitprintsWebView, L"http://bitprints.peerproject.org/lookup/(URN)?v=detail&ref=peerproject" );
+	Add( L"WebServices", L"BitprintsXML", &WebServices.BitprintsXML, L"http://bitprints.peerproject.org/rdf/(SHA1)" );
+//	Add( L"WebServices", L"ShareMonkeyCid", &WebServices.ShareMonkeyCid );
+//	Add( L"WebServices", L"ShareMonkeyOkay", &WebServices.ShareMonkeyOkay, false, true );
+//	Add( L"WebServices", L"ShareMonkeySaveThumbnail", &WebServices.ShareMonkeySaveThumbnail, false, true );
+//	Add( L"WebServices", L"ShareMonkeyBaseURL", &WebServices.ShareMonkeyBaseURL, L"http://tools.sharemonkey.com/xml/" );	// Obsolete: Does not exist
 
-	Add( _T("Search"), _T("AdultFilter"), &Search.AdultFilter, false );
-	Add( _T("Search"), _T("AutoPreview"), &Search.AutoPreview, true );
-	Add( _T("Search"), _T("AdvancedPanel"), &Search.AdvancedPanel, true );
-	Add( _T("Search"), _T("BlankSchemaURI"), &Search.BlankSchemaURI, CSchema::uriAudio );
-	Add( _T("Search"), _T("BrowseTreeSize"), &Search.BrowseTreeSize, 180 );
-	Add( _T("Search"), _T("DetailPanelSize"), &Search.DetailPanelSize, 100 );
-	Add( _T("Search"), _T("DetailPanelVisible"), &Search.DetailPanelVisible, true );
-	Add( _T("Search"), _T("ExpandMatches"), &Search.ExpandMatches, false );
-	Add( _T("Search"), _T("FilterMask"), &Search.FilterMask, 0x280 );	// 01010000000 (Reverse Order Options)
-	Add( _T("Search"), _T("GeneralThrottle"), &Search.GeneralThrottle, 200, 1, 200, 1000, _T(" ms") );
-	Add( _T("Search"), _T("HideSearchPanel"), &Search.HideSearchPanel, false );
-	Add( _T("Search"), _T("HighlightNew"), &Search.HighlightNew, true );
-	Add( _T("Search"), _T("LastSchemaURI"), &Search.LastSchemaURI );
-	Add( _T("Search"), _T("MaxPreviewLength"), &Search.MaxPreviewLength, 20*KiloByte, KiloByte, 1, 5*KiloByte, _T(" KB") );
-	Add( _T("Search"), _T("MonitorFilter"), &Search.MonitorFilter );
-	Add( _T("Search"), _T("MonitorQueue"), &Search.MonitorQueue, 128, 1, 1, 4096 );
-	Add( _T("Search"), _T("MonitorSchemaURI"), &Search.MonitorSchemaURI, CSchema::uriAudio );
-	Add( _T("Search"), _T("ResultsPanel"), &Search.ResultsPanel, true );
-	Add( _T("Search"), _T("SearchPanel"), &Search.SearchPanel, true );
-	Add( _T("Search"), _T("ShowNames"), &Search.ShowNames, true );
-	Add( _T("Search"), _T("SchemaTypes"), &Search.SchemaTypes, true );
-	Add( _T("Search"), _T("SpamFilterThreshold"), &Search.SpamFilterThreshold, 20, 1, 0, 100, _T("%") );
-	Add( _T("Search"), _T("SwitchToTransfers"), &Search.SwitchToTransfers, true );
-	Add( _T("Search"), _T("SanityCheck"), &Search.SanityCheck, true );
-	Add( _T("Search"), _T("ClearPrevious"), &Search.ClearPrevious, 0, 1, 0, 2 );
+	Add( L"Search", L"AdultFilter", &Search.AdultFilter, false );
+	Add( L"Search", L"AutoPreview", &Search.AutoPreview, true );
+	Add( L"Search", L"AdvancedPanel", &Search.AdvancedPanel, true );
+	Add( L"Search", L"BlankSchemaURI", &Search.BlankSchemaURI, CSchema::uriAudio );
+	Add( L"Search", L"BrowseTreeSize", &Search.BrowseTreeSize, 180 );
+	Add( L"Search", L"DetailPanelSize", &Search.DetailPanelSize, 100 );
+	Add( L"Search", L"DetailPanelVisible", &Search.DetailPanelVisible, true );
+	Add( L"Search", L"ExpandMatches", &Search.ExpandMatches, false );
+	Add( L"Search", L"FilterMask", &Search.FilterMask, 0x280 );	// 01010000000 (Reverse Order Options)
+	Add( L"Search", L"GeneralThrottle", &Search.GeneralThrottle, 200, 1, 200, 1000, L" ms" );
+	Add( L"Search", L"HideSearchPanel", &Search.HideSearchPanel, false );
+	Add( L"Search", L"HighlightNew", &Search.HighlightNew, true );
+	Add( L"Search", L"LastSchemaURI", &Search.LastSchemaURI );
+	Add( L"Search", L"MaxPreviewLength", &Search.MaxPreviewLength, 20*KiloByte, KiloByte, 1, 5*KiloByte, L" KB" );
+	Add( L"Search", L"MonitorFilter", &Search.MonitorFilter );
+	Add( L"Search", L"MonitorQueue", &Search.MonitorQueue, 128, 1, 1, 4096 );
+	Add( L"Search", L"MonitorSchemaURI", &Search.MonitorSchemaURI, CSchema::uriAudio );
+	Add( L"Search", L"ResultsPanel", &Search.ResultsPanel, true );
+	Add( L"Search", L"SearchPanel", &Search.SearchPanel, true );
+	Add( L"Search", L"ShowNames", &Search.ShowNames, true );
+	Add( L"Search", L"SchemaTypes", &Search.SchemaTypes, true );
+	Add( L"Search", L"SpamFilterThreshold", &Search.SpamFilterThreshold, 20, 1, 0, 100, L"%" );
+	Add( L"Search", L"SwitchToTransfers", &Search.SwitchToTransfers, true );
+	Add( L"Search", L"SanityCheck", &Search.SanityCheck, true );
+	Add( L"Search", L"ClearPrevious", &Search.ClearPrevious, 0, 1, 0, 2 );
 
-	Add( _T("MediaPlayer"), _T("Aspect"), &MediaPlayer.Aspect, smaDefault );
-	Add( _T("MediaPlayer"), _T("EnableEnqueue"), &MediaPlayer.EnableEnqueue, true );
-	Add( _T("MediaPlayer"), _T("EnablePlay"), &MediaPlayer.EnablePlay, true );
-	Add( _T("MediaPlayer"), _T("FileTypes"), &MediaPlayer.FileTypes, _T("|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|ogg|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|") );
-	Add( _T("MediaPlayer"), _T("ListSize"), &MediaPlayer.ListSize, 200 );
-	Add( _T("MediaPlayer"), _T("ListVisible"), &MediaPlayer.ListVisible, true );
-	Add( _T("MediaPlayer"), _T("Random"), &MediaPlayer.Random, false );
-	Add( _T("MediaPlayer"), _T("Repeat"), &MediaPlayer.Repeat, false );
-	Add( _T("MediaPlayer"), _T("ServicePath"), &MediaPlayer.ServicePath, _T("") );
-	Add( _T("MediaPlayer"), _T("ShortPaths"), &MediaPlayer.ShortPaths, false );
-	Add( _T("MediaPlayer"), _T("StatusVisible"), &MediaPlayer.StatusVisible, true );
-	Add( _T("MediaPlayer"), _T("VisPath"), &MediaPlayer.VisPath );
-	Add( _T("MediaPlayer"), _T("VisSize"), &MediaPlayer.VisSize, 1 );
-	Add( _T("MediaPlayer"), _T("Volume"), &MediaPlayer.Volume, 1.0f );
-	Add( _T("MediaPlayer"), _T("Zoom"), (DWORD*)&MediaPlayer.Zoom, smzOne );
+	Add( L"MediaPlayer", L"Aspect", &MediaPlayer.Aspect, smaDefault );
+	Add( L"MediaPlayer", L"EnableEnqueue", &MediaPlayer.EnableEnqueue, true );
+	Add( L"MediaPlayer", L"EnablePlay", &MediaPlayer.EnablePlay, true );
+	Add( L"MediaPlayer", L"FileTypes", &MediaPlayer.FileTypes, L"|aac|asx|wax|m3u|wvx|wmx|asf|wav|snd|au|aif|aifc|aiff|flac|mp3|ogg|wma|cda|mid|rmi|midi|avi|flv|mkv|mpeg|mpg|m1v|mp2|mp4|mpa|mpe|ogm|wmv|" );
+	Add( L"MediaPlayer", L"ListSize", &MediaPlayer.ListSize, 200 );
+	Add( L"MediaPlayer", L"ListVisible", &MediaPlayer.ListVisible, true );
+	Add( L"MediaPlayer", L"Random", &MediaPlayer.Random, false );
+	Add( L"MediaPlayer", L"Repeat", &MediaPlayer.Repeat, false );
+	Add( L"MediaPlayer", L"ServicePath", &MediaPlayer.ServicePath, L"" );
+	Add( L"MediaPlayer", L"ShortPaths", &MediaPlayer.ShortPaths, false );
+	Add( L"MediaPlayer", L"StatusVisible", &MediaPlayer.StatusVisible, true );
+	Add( L"MediaPlayer", L"VisPath", &MediaPlayer.VisPath );
+	Add( L"MediaPlayer", L"VisSize", &MediaPlayer.VisSize, 1 );
+	Add( L"MediaPlayer", L"Volume", &MediaPlayer.Volume, 1.0f );
+	Add( L"MediaPlayer", L"Zoom", (DWORD*)&MediaPlayer.Zoom, smzOne );
 
-	Add( _T("MediaPlayer"), _T("MediaServicesCLSID"), &MediaPlayer.MediaServicesCLSID, _T("{CCE7B109-15D6-4223-B6FF-0C6C851B6680}") );
-//	Add( _T("MediaPlayer"), _T("AviPreviewCLSID"), &MediaPlayer.AviPreviewCLSID, _T("{394011F0-6D5C-42a3-96C6-24B9AD6B010C}") );
-//	Add( _T("MediaPlayer"), _T("Mp3PreviewCLSID"), &MediaPlayer.Mp3PreviewCLSID, _T("{BF00DBCC-90A2-4f46-8171-7D4F929D035F}") );
-//	Add( _T("MediaPlayer"), _T("Mpeg1PreviewCLSID"), &MediaPlayer.Mpeg1PreviewCLSID, _T("{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}") );
-//	Add( _T("MediaPlayer"), _T("VisWrapperCLSID"), &MediaPlayer.VisWrapperCLSID, _T("{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}") );
-//	Add( _T("MediaPlayer"), _T("VisSoniqueCLSID"), &MediaPlayer.VisSoniqueCLSID, _T("{D07E630D-A850-4f11-AD29-3D3848B67EFE}") );
-	Add( _T("MediaPlayer"), _T("VisCLSID"), &MediaPlayer.VisCLSID, _T("{591A5CFF-3172-4020-A067-238542DDE9C2}") );
+	Add( L"MediaPlayer", L"MediaServicesCLSID", &MediaPlayer.MediaServicesCLSID, L"{CCE7B109-15D6-4223-B6FF-0C6C851B6680}" );
+//	Add( L"MediaPlayer", L"AviPreviewCLSID", &MediaPlayer.AviPreviewCLSID, L"{394011F0-6D5C-42a3-96C6-24B9AD6B010C}" );
+//	Add( L"MediaPlayer", L"Mp3PreviewCLSID", &MediaPlayer.Mp3PreviewCLSID, L"{BF00DBCC-90A2-4f46-8171-7D4F929D035F}" );
+//	Add( L"MediaPlayer", L"Mpeg1PreviewCLSID", &MediaPlayer.Mpeg1PreviewCLSID, L"{9AA8DF47-B8FE-47da-AB1A-2DAA0DA0B646}" );
+//	Add( L"MediaPlayer", L"VisWrapperCLSID", &MediaPlayer.VisWrapperCLSID, L"{C3B7B25C-6B8B-481A-BC48-59F9A6F7B69A}" );
+//	Add( L"MediaPlayer", L"VisSoniqueCLSID", &MediaPlayer.VisSoniqueCLSID, L"{D07E630D-A850-4f11-AD29-3D3848B67EFE}" );
+	Add( L"MediaPlayer", L"VisCLSID", &MediaPlayer.VisCLSID, L"{591A5CFF-3172-4020-A067-238542DDE9C2}" );
 
-	Add( _T("Web"), _T("Torrent"), &Web.Torrent, ( CRegistry::GetString( _T("Software\\Classes\\.torrent"), NULL, NULL, NULL ).GetLength() < 4 ) );
-//	Add( _T("Web"), _T("Metalink"), &Web.Metalink, true );
-	Add( _T("Web"), _T("Magnet"), &Web.Magnet, true );
-	Add( _T("Web"), _T("Gnutella"), &Web.Gnutella, true );
-	Add( _T("Web"), _T("ED2K"), &Web.ED2K, true );
-	Add( _T("Web"), _T("DC"), &Web.DC, true );
-	Add( _T("Web"), _T("Foxy"), &Web.Foxy, true );
-	Add( _T("Web"), _T("Piolet"), &Web.Piolet, true );
+	Add( L"Web", L"Torrent", &Web.Torrent, ( CRegistry::GetString( L"Software\\Classes\\.torrent", NULL, NULL, NULL ).GetLength() < 4 ) );
+//	Add( L"Web", L"Metalink", &Web.Metalink, true );
+	Add( L"Web", L"Magnet", &Web.Magnet, true );
+	Add( L"Web", L"Gnutella", &Web.Gnutella, true );
+	Add( L"Web", L"ED2K", &Web.ED2K, true );
+	Add( L"Web", L"DC", &Web.DC, true );
+	Add( L"Web", L"Foxy", &Web.Foxy, true );
+	Add( L"Web", L"Piolet", &Web.Piolet, true );
 
-	Add( _T("Connection"), _T("AutoConnect"), &Connection.AutoConnect, true );
-	Add( _T("Connection"), _T("ConnectThrottle"), &Connection.ConnectThrottle, 0, 1, 0, 5000, _T(" ms") );
-	Add( _T("Connection"), _T("DeleteFirewallException"), &Connection.DeleteFirewallException, false );
-	Add( _T("Connection"), _T("DeleteUPnPPorts"), &Connection.DeleteUPnPPorts, true );
-	Add( _T("Connection"), _T("DetectConnectionLoss"), &Connection.DetectConnectionLoss, true );
-	Add( _T("Connection"), _T("DetectConnectionReset"), &Connection.DetectConnectionReset, false );
-	Add( _T("Connection"), _T("EnableFirewallException"), &Connection.EnableFirewallException, true );
-	Add( _T("Connection"), _T("EnableUPnP"), &Connection.EnableUPnP, true );
-	Add( _T("Connection"), _T("FailureLimit"), &Connection.FailureLimit, 3, 1, 1, 512 );
-	Add( _T("Connection"), _T("FailurePenalty"), &Connection.FailurePenalty, 300, 1, 30, 3600, _T(" s") );
-	Add( _T("Connection"), _T("FirewallState"), &Connection.FirewallState, CONNECTION_AUTO, 1, CONNECTION_AUTO, CONNECTION_OPEN_UDPONLY );
-	Add( _T("Connection"), _T("ForceConnectedState"), &Connection.ForceConnectedState, true );
-	Add( _T("Connection"), _T("IgnoreLocalIP"), &Connection.IgnoreLocalIP, true );
-	Add( _T("Connection"), _T("IgnoreOwnIP"), &Connection.IgnoreOwnIP, true );
-	Add( _T("Connection"), _T("IgnoreOwnUDP"), &Connection.IgnoreOwnUDP, true );
-	Add( _T("Connection"), _T("InBind"), &Connection.InBind, false );
-	Add( _T("Connection"), _T("InHost"), &Connection.InHost );
-	Add( _T("Connection"), _T("InPort"), &Connection.InPort, protocolPorts[ PROTOCOL_NULL ], 1, 1, 65535 );	// 6480... or 6346?
-	Add( _T("Connection"), _T("InSpeed"), &Connection.InSpeed, 4096 );	// , 25000
-	Add( _T("Connection"), _T("OutSpeed"), &Connection.OutSpeed, 768 );	// , 15000
-	Add( _T("Connection"), _T("OutHost"), &Connection.OutHost );
-	Add( _T("Connection"), _T("RandomPort"), &Connection.RandomPort, false );
-	Add( _T("Connection"), _T("RequireForTransfers"), &Connection.RequireForTransfers, true );
-	Add( _T("Connection"), _T("SendBuffer"), &Connection.SendBuffer, 8*KiloByte, 1, 0, 64*KiloByte, _T(" B") );
-	Add( _T("Connection"), _T("SkipWANIPSetup"), &Connection.SkipWANIPSetup, false );
-	Add( _T("Connection"), _T("SkipWANPPPSetup"), &Connection.SkipWANPPPSetup, false );
-	Add( _T("Connection"), _T("SlowConnect"), &Connection.SlowConnect, false );
-	Add( _T("Connection"), _T("TimeoutConnect"), &Connection.TimeoutConnect, 15*1000, 1000, 1, 2*60, _T(" s") );
-	Add( _T("Connection"), _T("TimeoutHandshake"), &Connection.TimeoutHandshake, 40*1000, 1000, 1, 5*60, _T(" s") );
-	Add( _T("Connection"), _T("TimeoutTraffic"), &Connection.TimeoutTraffic, 140*1000, 1000, 10, 60*60, _T(" s") );
-	Add( _T("Connection"), _T("UPnPTimeout"), &Connection.UPnPTimeout, 5*1000, 1, 0, 60*1000, _T(" ms") );
-	Add( _T("Connection"), _T("UPnPRefreshTime"), &Connection.UPnPRefreshTime, 30*60*1000, 60*1000, 5, 24*60, _T(" m") );
-	Add( _T("Connection"), _T("ZLibCompressionLevel"), &Connection.ZLibCompressionLevel, 7, 1, 0, 9 );
+	Add( L"Connection", L"AutoConnect", &Connection.AutoConnect, true );
+	Add( L"Connection", L"ConnectThrottle", &Connection.ConnectThrottle, 0, 1, 0, 5000, L" ms" );
+	Add( L"Connection", L"DeleteFirewallException", &Connection.DeleteFirewallException, false );
+	Add( L"Connection", L"DeleteUPnPPorts", &Connection.DeleteUPnPPorts, true );
+	Add( L"Connection", L"DetectConnectionLoss", &Connection.DetectConnectionLoss, true );
+	Add( L"Connection", L"DetectConnectionReset", &Connection.DetectConnectionReset, false );
+	Add( L"Connection", L"EnableFirewallException", &Connection.EnableFirewallException, true );
+	Add( L"Connection", L"EnableUPnP", &Connection.EnableUPnP, true );
+	Add( L"Connection", L"FailureLimit", &Connection.FailureLimit, 3, 1, 1, 512 );
+	Add( L"Connection", L"FailurePenalty", &Connection.FailurePenalty, 300, 1, 30, 3600, L" s" );
+	Add( L"Connection", L"FirewallState", &Connection.FirewallState, CONNECTION_AUTO, 1, CONNECTION_AUTO, CONNECTION_OPEN_UDPONLY );
+	Add( L"Connection", L"ForceConnectedState", &Connection.ForceConnectedState, true );
+	Add( L"Connection", L"IgnoreLocalIP", &Connection.IgnoreLocalIP, true );
+	Add( L"Connection", L"IgnoreOwnIP", &Connection.IgnoreOwnIP, true );
+	Add( L"Connection", L"IgnoreOwnUDP", &Connection.IgnoreOwnUDP, true );
+	Add( L"Connection", L"InBind", &Connection.InBind, false );
+	Add( L"Connection", L"InHost", &Connection.InHost );
+	Add( L"Connection", L"InPort", &Connection.InPort, protocolPorts[ PROTOCOL_NULL ], 1, 1, 65535 );	// 6480... or 6346?
+	Add( L"Connection", L"InSpeed", &Connection.InSpeed, 4096 );	// , 25000
+	Add( L"Connection", L"OutSpeed", &Connection.OutSpeed, 768 );	// , 15000
+	Add( L"Connection", L"OutHost", &Connection.OutHost );
+	Add( L"Connection", L"RandomPort", &Connection.RandomPort, false );
+	Add( L"Connection", L"RequireForTransfers", &Connection.RequireForTransfers, true );
+	Add( L"Connection", L"SendBuffer", &Connection.SendBuffer, 8*KiloByte, 1, 0, 64*KiloByte, L" B" );
+	Add( L"Connection", L"SkipWANIPSetup", &Connection.SkipWANIPSetup, false );
+	Add( L"Connection", L"SkipWANPPPSetup", &Connection.SkipWANPPPSetup, false );
+	Add( L"Connection", L"SlowConnect", &Connection.SlowConnect, false );
+	Add( L"Connection", L"TimeoutConnect", &Connection.TimeoutConnect, 15*1000, 1000, 1, 2*60, L" s" );
+	Add( L"Connection", L"TimeoutHandshake", &Connection.TimeoutHandshake, 40*1000, 1000, 1, 5*60, L" s" );
+	Add( L"Connection", L"TimeoutTraffic", &Connection.TimeoutTraffic, 140*1000, 1000, 10, 60*60, L" s" );
+	Add( L"Connection", L"UPnPTimeout", &Connection.UPnPTimeout, 5*1000, 1, 0, 60*1000, L" ms" );
+	Add( L"Connection", L"UPnPRefreshTime", &Connection.UPnPRefreshTime, 30*60*1000, 60*1000, 5, 24*60, L" m" );
+	Add( L"Connection", L"ZLibCompressionLevel", &Connection.ZLibCompressionLevel, 8, 1, 0, 9 );
 
-	Add( _T("Bandwidth"), _T("Downloads"), &Bandwidth.Downloads, 0 );
-	Add( _T("Bandwidth"), _T("HubIn"), &Bandwidth.HubIn, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("HubOut"), &Bandwidth.HubOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("HubUploads"), &Bandwidth.HubUploads, 50, 1, 1, 90, _T(" %") );
-	Add( _T("Bandwidth"), _T("LeafIn"), &Bandwidth.LeafIn, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("LeafOut"), &Bandwidth.LeafOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("PeerIn"), &Bandwidth.PeerIn, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("PeerOut"), &Bandwidth.PeerOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("Request"), &Bandwidth.Request, 32*128, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("UdpOut"), &Bandwidth.UdpOut, 0, 128, 0, 8192, _T(" Kb/s") );
-	Add( _T("Bandwidth"), _T("Uploads"), &Bandwidth.Uploads, 0 );
+	Add( L"Bandwidth", L"Downloads", &Bandwidth.Downloads, 0 );
+	Add( L"Bandwidth", L"HubIn", &Bandwidth.HubIn, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"HubOut", &Bandwidth.HubOut, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"HubUploads", &Bandwidth.HubUploads, 50, 1, 1, 90, L" %" );
+	Add( L"Bandwidth", L"LeafIn", &Bandwidth.LeafIn, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"LeafOut", &Bandwidth.LeafOut, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"PeerIn", &Bandwidth.PeerIn, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"PeerOut", &Bandwidth.PeerOut, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"Request", &Bandwidth.Request, 32*128, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"UdpOut", &Bandwidth.UdpOut, 0, 128, 0, 8192, L" Kb/s" );
+	Add( L"Bandwidth", L"Uploads", &Bandwidth.Uploads, 0 );
 
-	Add( _T("Community"), _T("AwayMessageIdleTime"), &Community.AwayMessageIdleTime, 20*60, 60, 5, 60, _T(" m") );
-	Add( _T("Community"), _T("ChatAllNetworks"), &Community.ChatAllNetworks, true );
-	Add( _T("Community"), _T("ChatCensor"), &Community.ChatCensor, false );
-	Add( _T("Community"), _T("ChatEnable"), &Community.ChatEnable, true );
-	Add( _T("Community"), _T("ChatFilter"), &Community.ChatFilter, true );
-	Add( _T("Community"), _T("ChatFilterED2K"), &Community.ChatFilterED2K, true );
-	Add( _T("Community"), _T("ServeFiles"), &Community.ServeFiles, true );
-	Add( _T("Community"), _T("ServeProfile"), &Community.ServeProfile, true );
-	Add( _T("Community"), _T("Timestamp"), &Community.Timestamp, true );
-	Add( _T("Community"), _T("UserPanelSize"), &Community.UserPanelSize, 150, 1, 0, 1024, _T(" px") );
+	Add( L"Community", L"AwayMessageIdleTime", &Community.AwayMessageIdleTime, 20*60, 60, 5, 60, L" m" );
+	Add( L"Community", L"ChatAllNetworks", &Community.ChatAllNetworks, true );
+	Add( L"Community", L"ChatCensor", &Community.ChatCensor, false );
+	Add( L"Community", L"ChatEnable", &Community.ChatEnable, true );
+	Add( L"Community", L"ChatFilter", &Community.ChatFilter, true );
+	Add( L"Community", L"ChatFilterED2K", &Community.ChatFilterED2K, true );
+	Add( L"Community", L"ServeFiles", &Community.ServeFiles, true );
+	Add( L"Community", L"ServeProfile", &Community.ServeProfile, true );
+	Add( L"Community", L"Timestamp", &Community.Timestamp, true );
+	Add( L"Community", L"UserPanelSize", &Community.UserPanelSize, 150, 1, 0, 1024, L" px" );
 
-	Add( _T("Discovery"), _T("AccessThrottle"), &Discovery.AccessThrottle, 60*60, 60, 1, 180, _T(" m") );
-	Add( _T("Discovery"), _T("BootstrapCount"), &Discovery.BootstrapCount, 10, 1, 0, 20 );
-	Add( _T("Discovery"), _T("CacheCount"), &Discovery.CacheCount, 50, 1, 1, 256 );
-	Add( _T("Discovery"), _T("DefaultUpdate"), &Discovery.DefaultUpdate, 60*60, 60, 1, 60*24, _T(" m") );
-	Add( _T("Discovery"), _T("EnableG1GWC"), &Discovery.EnableG1GWC, true );
-	Add( _T("Discovery"), _T("FailureLimit"), &Discovery.FailureLimit, 2, 1, 1, 512 );
-	Add( _T("Discovery"), _T("Lowpoint"), &Discovery.Lowpoint, 10, 1, 1, 512 );
-	Add( _T("Discovery"), _T("UpdatePeriod"), &Discovery.UpdatePeriod, 30*60, 60, 1, 60*24, _T(" m") );
+	Add( L"Discovery", L"AccessThrottle", &Discovery.AccessThrottle, 60*60, 60, 1, 180, L" m" );
+	Add( L"Discovery", L"BootstrapCount", &Discovery.BootstrapCount, 10, 1, 0, 20 );
+	Add( L"Discovery", L"CacheCount", &Discovery.CacheCount, 50, 1, 1, 256 );
+	Add( L"Discovery", L"DefaultUpdate", &Discovery.DefaultUpdate, 60*60, 60, 1, 60*24, L" m" );
+	Add( L"Discovery", L"EnableG1GWC", &Discovery.EnableG1GWC, true );
+	Add( L"Discovery", L"FailureLimit", &Discovery.FailureLimit, 2, 1, 1, 512 );
+	Add( L"Discovery", L"Lowpoint", &Discovery.Lowpoint, 10, 1, 1, 512 );
+	Add( L"Discovery", L"UpdatePeriod", &Discovery.UpdatePeriod, 30*60, 60, 1, 60*24, L" m" );
 
-	Add( _T("Gnutella"), _T("ConnectFactor"), &Gnutella.ConnectFactor, 4, 1, 1, 20, _T("x") );
-	Add( _T("Gnutella"), _T("ConnectThrottle"), &Gnutella.ConnectThrottle, 30, 1, 0, 60*60, _T(" s") );
-	Add( _T("Gnutella"), _T("DeflateHub2Hub"), &Gnutella.DeflateHub2Hub, true );
-	Add( _T("Gnutella"), _T("DeflateHub2Leaf"), &Gnutella.DeflateHub2Leaf, true );
-	Add( _T("Gnutella"), _T("DeflateLeaf2Hub"), &Gnutella.DeflateLeaf2Hub, true );
-	Add( _T("Gnutella"), _T("HostCacheSize"), &Gnutella.HostCacheSize, 1024, 1, 32, 16384, _T(" hosts") );
-	Add( _T("Gnutella"), _T("HostCacheView"), &Gnutella.HostCacheView, PROTOCOL_ED2K );
-	Add( _T("Gnutella"), _T("HitsPerPacket"), &Gnutella.HitsPerPacket, 8, 1, 1, 255, _T(" files") );
-	Add( _T("Gnutella"), _T("MaxResults"), &Gnutella.MaxResults, 150, 1, 1, 300, _T(" hits") );
-	Add( _T("Gnutella"), _T("MaxHits"), &Gnutella.MaxHits, 64, 1, 0, 4096, _T(" files") );
-	Add( _T("Gnutella"), _T("MaxHitWords"), &Gnutella.MaxHitWords, 30, 1, 3, 100, _T(" words") );
-	Add( _T("Gnutella"), _T("MaxHitLength"), &Gnutella.MaxHitLength, 180, 1, 50, 255, _T(" chars") );
-	Add( _T("Gnutella"), _T("MaximumPacket"), &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, _T(" KB") );
-	Add( _T("Gnutella"), _T("RouteCache"), &Gnutella.RouteCache, 600, 60, 1, 120, _T(" m") );
-	Add( _T("Gnutella"), _T("SpecifyProtocol"), &Gnutella.SpecifyProtocol, true );
+	Add( L"Gnutella", L"ConnectFactor", &Gnutella.ConnectFactor, 4, 1, 1, 20, L"x" );
+	Add( L"Gnutella", L"ConnectThrottle", &Gnutella.ConnectThrottle, 30, 1, 0, 60*60, L" s" );
+	Add( L"Gnutella", L"DeflateHub2Hub", &Gnutella.DeflateHub2Hub, true );
+	Add( L"Gnutella", L"DeflateHub2Leaf", &Gnutella.DeflateHub2Leaf, true );
+	Add( L"Gnutella", L"DeflateLeaf2Hub", &Gnutella.DeflateLeaf2Hub, true );
+	Add( L"Gnutella", L"HostCacheSize", &Gnutella.HostCacheSize, 1024, 1, 32, 16384, L" hosts" );
+	Add( L"Gnutella", L"HostCacheView", &Gnutella.HostCacheView, PROTOCOL_ED2K );
+	Add( L"Gnutella", L"HitsPerPacket", &Gnutella.HitsPerPacket, 8, 1, 1, 255, L" files" );
+	Add( L"Gnutella", L"MaxResults", &Gnutella.MaxResults, 150, 1, 1, 300, L" hits" );
+	Add( L"Gnutella", L"MaxHits", &Gnutella.MaxHits, 64, 1, 0, 4096, L" files" );
+	Add( L"Gnutella", L"MaxHitWords", &Gnutella.MaxHitWords, 30, 1, 3, 100, L" words" );
+	Add( L"Gnutella", L"MaxHitLength", &Gnutella.MaxHitLength, 180, 1, 50, 255, L" chars" );
+	Add( L"Gnutella", L"MaximumPacket", &Gnutella.MaximumPacket, 64*KiloByte, KiloByte, 32, 256, L" KB" );
+	Add( L"Gnutella", L"RouteCache", &Gnutella.RouteCache, 600, 60, 1, 120, L" m" );
+	Add( L"Gnutella", L"SpecifyProtocol", &Gnutella.SpecifyProtocol, true );
 
-	Add( _T("Gnutella1"), _T("ShowInterface"), &Gnutella1.ShowInterface, true );
-	Add( _T("Gnutella1"), _T("ClientMode"), &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );		// ToDo: MODE_LEAF until Ultrapeer updated/validated
-	Add( _T("Gnutella1"), _T("DefaultTTL"), &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
-	Add( _T("Gnutella1"), _T("EnableAlways"), &Gnutella1.EnableAlways, true );
-	Add( _T("Gnutella1"), _T("EnableGGEP"), &Gnutella1.EnableGGEP, true );
-	Add( _T("Gnutella1"), _T("EnableOOB"), &Gnutella1.EnableOOB, false );	// ToDo: Set true when OOB fully implemented/verified (out of band query hits)
-	Add( _T("Gnutella1"), _T("HostCount"), &Gnutella1.HostCount, 15, 1, 1, 50 );
-	Add( _T("Gnutella1"), _T("HostExpire"), &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
-	Add( _T("Gnutella1"), _T("MulticastPingRate"), &Gnutella1.MulticastPingRate, 60*1000, 1000, 60, 60*60, _T(" s") );
-	Add( _T("Gnutella1"), _T("MaxHostsInPongs"), &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
-	Add( _T("Gnutella1"), _T("MaximumQuery"), &Gnutella1.MaximumQuery, 256, 1, 32, 262144 );
-	Add( _T("Gnutella1"), _T("MaximumTTL"), &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
-	Add( _T("Gnutella1"), _T("NumHubs"), &Gnutella1.NumHubs, 3, 1, 1, 6 );
-	Add( _T("Gnutella1"), _T("NumLeafs"), &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
-	Add( _T("Gnutella1"), _T("NumPeers"), &Gnutella1.NumPeers, 32, 1, 15, 64 );		// For X-Degree
-	Add( _T("Gnutella1"), _T("PacketBufferSize"), &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, _T(" packets") );
-	Add( _T("Gnutella1"), _T("PacketBufferTime"), &Gnutella1.PacketBufferTime, 60000, 1000, 10, 180, _T(" s") );
-	Add( _T("Gnutella1"), _T("PingFlood"), &Gnutella1.PingFlood, 3000, 1000, 0, 30, _T(" s") );
-	Add( _T("Gnutella1"), _T("PingRate"), &Gnutella1.PingRate, 30000, 1000, 15, 180, _T(" s") );
-	Add( _T("Gnutella1"), _T("PongCache"), &Gnutella1.PongCache, 10000, 1000, 1, 180, _T(" s") );
-	Add( _T("Gnutella1"), _T("PongCount"), &Gnutella1.PongCount, 10, 1, 1, 64 );
-	Add( _T("Gnutella1"), _T("QueryHitUTF8"), &Gnutella1.QueryHitUTF8, true );
-	Add( _T("Gnutella1"), _T("QuerySearchUTF8"), &Gnutella1.QuerySearchUTF8, true );
-	Add( _T("Gnutella1"), _T("QueryThrottle"), &Gnutella1.QueryThrottle, 60, 1, 20, 30*60, _T(" s") );
-	Add( _T("Gnutella1"), _T("QueryGlobalThrottle"), &Gnutella1.QueryGlobalThrottle, 60*1000, 1000, 60, 60*60, _T(" s") );
-//	Add( _T("Gnutella1"), _T("QueueLimiter"), &Gnutella1.HitQueueLimit, 100 );	// Currently unused
-	Add( _T("Gnutella1"), _T("RequeryDelay"), &Gnutella1.RequeryDelay, 30, 1, 5, 60, _T(" s") );
-	Add( _T("Gnutella1"), _T("SearchTTL"), &Gnutella1.SearchTTL, 3, 1, 1, 3 );
-	Add( _T("Gnutella1"), _T("TranslateTTL"), &Gnutella1.TranslateTTL, 2, 1, 1, 2 );
-	Add( _T("Gnutella1"), _T("VendorMsg"), &Gnutella1.VendorMsg, true );
+	Add( L"Gnutella1", L"ShowInterface", &Gnutella1.ShowInterface, true );
+	Add( L"Gnutella1", L"ClientMode", &Gnutella1.ClientMode, MODE_LEAF, 1, MODE_AUTO, MODE_HUB );		// ToDo: MODE_LEAF until Ultrapeer updated/validated
+	Add( L"Gnutella1", L"DefaultTTL", &Gnutella1.DefaultTTL, 3, 1, 1, 3 );
+	Add( L"Gnutella1", L"EnableAlways", &Gnutella1.EnableAlways, true );
+	Add( L"Gnutella1", L"EnableGGEP", &Gnutella1.EnableGGEP, true );
+	Add( L"Gnutella1", L"EnableOOB", &Gnutella1.EnableOOB, false );	// ToDo: Set true when OOB fully implemented/verified (out of band query hits)
+	Add( L"Gnutella1", L"HostCount", &Gnutella1.HostCount, 15, 1, 1, 50 );
+	Add( L"Gnutella1", L"HostExpire", &Gnutella1.HostExpire, 2*24*60*60, 24*60*60, 1, 100, L" d" );
+	Add( L"Gnutella1", L"MulticastPingRate", &Gnutella1.MulticastPingRate, 60*1000, 1000, 60, 60*60, L" s" );
+	Add( L"Gnutella1", L"MaxHostsInPongs", &Gnutella1.MaxHostsInPongs, 10, 1, 5, 30 );
+	Add( L"Gnutella1", L"MaximumQuery", &Gnutella1.MaximumQuery, 256, 1, 32, 262144 );
+	Add( L"Gnutella1", L"MaximumTTL", &Gnutella1.MaximumTTL, 10, 1, 1, 10 );
+	Add( L"Gnutella1", L"NumHubs", &Gnutella1.NumHubs, 3, 1, 1, 6 );
+	Add( L"Gnutella1", L"NumLeafs", &Gnutella1.NumLeafs, 50, 1, 5, 1024 );
+	Add( L"Gnutella1", L"NumPeers", &Gnutella1.NumPeers, 32, 1, 15, 64 );		// For X-Degree
+	Add( L"Gnutella1", L"PacketBufferSize", &Gnutella1.PacketBufferSize, 64, 1, 1, 1024, L" packets" );
+	Add( L"Gnutella1", L"PacketBufferTime", &Gnutella1.PacketBufferTime, 60000, 1000, 10, 180, L" s" );
+	Add( L"Gnutella1", L"PingFlood", &Gnutella1.PingFlood, 3000, 1000, 0, 30, L" s" );
+	Add( L"Gnutella1", L"PingRate", &Gnutella1.PingRate, 30000, 1000, 15, 180, L" s" );
+	Add( L"Gnutella1", L"PongCache", &Gnutella1.PongCache, 10000, 1000, 1, 180, L" s" );
+	Add( L"Gnutella1", L"PongCount", &Gnutella1.PongCount, 10, 1, 1, 64 );
+	Add( L"Gnutella1", L"QueryHitUTF8", &Gnutella1.QueryHitUTF8, true );
+	Add( L"Gnutella1", L"QuerySearchUTF8", &Gnutella1.QuerySearchUTF8, true );
+	Add( L"Gnutella1", L"QueryThrottle", &Gnutella1.QueryThrottle, 60, 1, 20, 30*60, L" s" );
+	Add( L"Gnutella1", L"QueryGlobalThrottle", &Gnutella1.QueryGlobalThrottle, 60*1000, 1000, 60, 60*60, L" s" );
+//	Add( L"Gnutella1", L"QueueLimiter", &Gnutella1.HitQueueLimit, 100 );	// Currently unused
+	Add( L"Gnutella1", L"RequeryDelay", &Gnutella1.RequeryDelay, 30, 1, 5, 60, L" s" );
+	Add( L"Gnutella1", L"SearchTTL", &Gnutella1.SearchTTL, 3, 1, 1, 3 );
+	Add( L"Gnutella1", L"TranslateTTL", &Gnutella1.TranslateTTL, 2, 1, 1, 2 );
+	Add( L"Gnutella1", L"VendorMsg", &Gnutella1.VendorMsg, true );
 
-	Add( _T("Gnutella2"), _T("ClientMode"), &Gnutella2.ClientMode, MODE_AUTO );
-	Add( _T("Gnutella2"), _T("EnableAlways"), &Gnutella2.EnableAlways, true );
-	Add( _T("Gnutella2"), _T("HAWPeriod"), &Gnutella2.HAWPeriod, 300*1000, 1000, 1, 60*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("HostCount"), &Gnutella2.HostCount, 15, 1, 1, 50 );
-	Add( _T("Gnutella2"), _T("HostCurrent"), &Gnutella2.HostCurrent, 10*60, 60, 1, 24*60, _T(" m") );
-	Add( _T("Gnutella2"), _T("HostExpire"), &Gnutella2.HostExpire, 2*24*60*60, 24*60*60, 1, 100, _T(" d") );
-	Add( _T("Gnutella2"), _T("HubHorizonSize"), &Gnutella2.HubHorizonSize, 128, 1, 32, 512 );
-	Add( _T("Gnutella2"), _T("HubVerified"), &Gnutella2.HubVerified, false );
-	Add( _T("Gnutella2"), _T("KHLHubCount"), &Gnutella2.KHLHubCount, 50, 1, 1, 256 );
-	Add( _T("Gnutella2"), _T("KHLPeriod"), &Gnutella2.KHLPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("LNIPeriod"), &Gnutella2.LNIPeriod, 60*1000, 1000, 1, 60*60, _T(" s") );
+	Add( L"Gnutella2", L"ClientMode", &Gnutella2.ClientMode, MODE_AUTO );
+	Add( L"Gnutella2", L"EnableAlways", &Gnutella2.EnableAlways, true );
+	Add( L"Gnutella2", L"HAWPeriod", &Gnutella2.HAWPeriod, 300*1000, 1000, 1, 60*60, L" s" );
+	Add( L"Gnutella2", L"HostCount", &Gnutella2.HostCount, 15, 1, 1, 50 );
+	Add( L"Gnutella2", L"HostCurrent", &Gnutella2.HostCurrent, 10*60, 60, 1, 24*60, L" m" );
+	Add( L"Gnutella2", L"HostExpire", &Gnutella2.HostExpire, 2*24*60*60, 24*60*60, 1, 100, L" d" );
+	Add( L"Gnutella2", L"HubHorizonSize", &Gnutella2.HubHorizonSize, 128, 1, 32, 512 );
+	Add( L"Gnutella2", L"HubVerified", &Gnutella2.HubVerified, false );
+	Add( L"Gnutella2", L"KHLHubCount", &Gnutella2.KHLHubCount, 50, 1, 1, 256 );
+	Add( L"Gnutella2", L"KHLPeriod", &Gnutella2.KHLPeriod, 60*1000, 1000, 1, 60*60, L" s" );
+	Add( L"Gnutella2", L"LNIPeriod", &Gnutella2.LNIPeriod, 60*1000, 1000, 1, 60*60, L" s" );
 	if ( Experimental.LAN_Mode )	// #ifdef LAN_MODE
 	{
-		Add( _T("Gnutella2"), _T("NumHubs"),  &Gnutella2.NumHubs, 1, 1, 1, 3 );
-		Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
-		Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 1, 1, 0, 64 );
+		Add( L"Gnutella2", L"NumHubs",  &Gnutella2.NumHubs, 1, 1, 1, 3 );
+		Add( L"Gnutella2", L"NumLeafs", &Gnutella2.NumLeafs, 1024, 1, 50, 1024 );
+		Add( L"Gnutella2", L"NumPeers", &Gnutella2.NumPeers, 1, 1, 0, 64 );
 	}
 	else // Default
 	{
-		Add( _T("Gnutella2"), _T("NumHubs"),  &Gnutella2.NumHubs, 2, 1, 1, 3 );
-		Add( _T("Gnutella2"), _T("NumLeafs"), &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
-		Add( _T("Gnutella2"), _T("NumPeers"), &Gnutella2.NumPeers, 6, 1, 2, 64 );
+		Add( L"Gnutella2", L"NumHubs",  &Gnutella2.NumHubs, 2, 1, 1, 3 );
+		Add( L"Gnutella2", L"NumLeafs", &Gnutella2.NumLeafs, 300, 1, 50, 1024 );
+		Add( L"Gnutella2", L"NumPeers", &Gnutella2.NumPeers, 6, 1, 2, 64 );
 	}
-	Add( _T("Gnutella2"), _T("PingRate"), &Gnutella2.PingRate, 15000, 1000, 5, 180, _T(" s") );
-	Add( _T("Gnutella2"), _T("PingRelayLimit"), &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
-	Add( _T("Gnutella2"), _T("QueryThrottle"), &Gnutella2.QueryThrottle, 120, 1, 20, 30*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("QueryGlobalThrottle"), &Gnutella2.QueryGlobalThrottle, 125, 1, 1, 60*1000, _T(" ms") );
-	Add( _T("Gnutella2"), _T("QueryHostDeadline"), &Gnutella2.QueryHostDeadline, 10*60, 1, 1, 120*60, _T(" s") );
-	Add( _T("Gnutella2"), _T("QueryLimit"), &Gnutella2.QueryLimit, 2400, 1, 0, 10000 );
-	Add( _T("Gnutella2"), _T("RequeryDelay"), &Gnutella2.RequeryDelay, 4*60*60, 60*60, 1, 24, _T(" h") );
-	Add( _T("Gnutella2"), _T("UdpBuffers"), &Gnutella2.UdpBuffers, 512, 1, 16, 2048 );
-	Add( _T("Gnutella2"), _T("UdpGlobalThrottle"), &Gnutella2.UdpGlobalThrottle, 1, 1, 0, 10000 );
-	Add( _T("Gnutella2"), _T("UdpInExpire"), &Gnutella2.UdpInExpire, 30000, 1000, 1, 300, _T(" s") );
-	Add( _T("Gnutella2"), _T("UdpInFrames"), &Gnutella2.UdpInFrames, 256, 1, 16, 2048 );
-	Add( _T("Gnutella2"), _T("UdpOutExpire"), &Gnutella2.UdpOutExpire, 26000, 1000, 1, 300, _T(" s") );
-	Add( _T("Gnutella2"), _T("UdpOutFrames"), &Gnutella2.UdpOutFrames, 256, 1, 16, 2048 );
-	Add( _T("Gnutella2"), _T("UdpOutResend"), &Gnutella2.UdpOutResend, 6000, 1000, 1, 300, _T(" s") );
-	Add( _T("Gnutella2"), _T("UdpMTU"), &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
+	Add( L"Gnutella2", L"PingRate", &Gnutella2.PingRate, 15000, 1000, 5, 180, L" s" );
+	Add( L"Gnutella2", L"PingRelayLimit", &Gnutella2.PingRelayLimit, 10, 1, 10, 30 );
+	Add( L"Gnutella2", L"QueryThrottle", &Gnutella2.QueryThrottle, 120, 1, 20, 30*60, L" s" );
+	Add( L"Gnutella2", L"QueryGlobalThrottle", &Gnutella2.QueryGlobalThrottle, 125, 1, 1, 60*1000, L" ms" );
+	Add( L"Gnutella2", L"QueryHostDeadline", &Gnutella2.QueryHostDeadline, 10*60, 1, 1, 120*60, L" s" );
+	Add( L"Gnutella2", L"QueryLimit", &Gnutella2.QueryLimit, 2400, 1, 0, 10000 );
+	Add( L"Gnutella2", L"RequeryDelay", &Gnutella2.RequeryDelay, 4*60*60, 60*60, 1, 24, L" h" );
+	Add( L"Gnutella2", L"UdpBuffers", &Gnutella2.UdpBuffers, 512, 1, 16, 2048 );
+	Add( L"Gnutella2", L"UdpGlobalThrottle", &Gnutella2.UdpGlobalThrottle, 1, 1, 0, 10000 );
+	Add( L"Gnutella2", L"UdpInExpire", &Gnutella2.UdpInExpire, 30000, 1000, 1, 300, L" s" );
+	Add( L"Gnutella2", L"UdpInFrames", &Gnutella2.UdpInFrames, 256, 1, 16, 2048 );
+	Add( L"Gnutella2", L"UdpOutExpire", &Gnutella2.UdpOutExpire, 26000, 1000, 1, 300, L" s" );
+	Add( L"Gnutella2", L"UdpOutFrames", &Gnutella2.UdpOutFrames, 256, 1, 16, 2048 );
+	Add( L"Gnutella2", L"UdpOutResend", &Gnutella2.UdpOutResend, 6000, 1000, 1, 300, L" s" );
+	Add( L"Gnutella2", L"UdpMTU", &Gnutella2.UdpMTU, 500, 1, 16, 10*KiloByte );
 
-	Add( _T("eDonkey"), _T("ShowInterface"), &eDonkey.ShowInterface, true );
-	Add( _T("eDonkey"), _T("DefaultServerFlags"), &eDonkey.DefaultServerFlags, 0xFFFFFFFF );
-	Add( _T("eDonkey"), _T("DequeueTime"), &eDonkey.DequeueTime, 3600, 60, 2, 512, _T(" m") );
-	Add( _T("eDonkey"), _T("EnableAlways"), &eDonkey.EnableAlways, true );
-	Add( _T("eDonkey"), _T("Endgame"), &eDonkey.Endgame, true );
-	Add( _T("eDonkey"), _T("ExtendedRequest"), &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
-	Add( _T("eDonkey"), _T("FastConnect"), &eDonkey.FastConnect, false );
-	Add( _T("eDonkey"), _T("ForceHighID"), &eDonkey.ForceHighID, true );
-	Add( _T("eDonkey"), _T("FrameSize"), &eDonkey.FrameSize, 30*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );	// eMule max 10, 90 may work, ~512 others (lugdunum server max 250000 = 244?)
-	Add( _T("eDonkey"), _T("GetSourcesThrottle"), &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, _T(" h") );
-	Add( _T("eDonkey"), _T("LargeFileSupport"), &eDonkey.LargeFileSupport, true );
-	Add( _T("eDonkey"), _T("LearnNewServers"), &eDonkey.LearnNewServers, false );
-	Add( _T("eDonkey"), _T("LearnNewServersClient"), &eDonkey.LearnNewServersClient, false );
-	Add( _T("eDonkey"), _T("MagnetSearch"), &eDonkey.MagnetSearch, true );
-	Add( _T("eDonkey"), _T("MaxLinks"), &eDonkey.MaxLinks, 200, 1, 1, 2048 );
-	Add( _T("eDonkey"), _T("MaxResults"), &eDonkey.MaxResults, 400, 1, 1, 999 );
-	Add( _T("eDonkey"), _T("MaxShareCount"), &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
-	Add( _T("eDonkey"), _T("MetAutoQuery"), &eDonkey.MetAutoQuery, true );
-	Add( _T("eDonkey"), _T("MinServerFileSize"), &eDonkey.MinServerFileSize, 0, 1, 0, 50, _T(" MB") );
-	Add( _T("eDonkey"), _T("NumServers"), &eDonkey.NumServers, 1, 1, 0, 2 );
-	Add( _T("eDonkey"), _T("PacketThrottle"), &eDonkey.PacketThrottle, 500, 1, 250, 5000, _T(" ms") );
-	Add( _T("eDonkey"), _T("QueryFileThrottle"), &eDonkey.QueryFileThrottle, 60*60*1000, 60*1000, 30, 120, _T(" m") );
-	Add( _T("eDonkey"), _T("QueryGlobalThrottle"), &eDonkey.QueryGlobalThrottle, 1000, 1, 1000, 20000, _T(" ms") );
-	Add( _T("eDonkey"), _T("QueueRankThrottle"), &eDonkey.QueueRankThrottle, 2*60*1000, 1000, 60, 600, _T(" s") );
-	Add( _T("eDonkey"), _T("QueryThrottle"), &eDonkey.QueryThrottle, 120, 1, 60, 10*60, _T(" s") );
-	Add( _T("eDonkey"), _T("ReAskTime"), &eDonkey.ReAskTime, 29*60, 60, 20, 360, _T(" m") );
-	Add( _T("eDonkey"), _T("RequestPipe"), &eDonkey.RequestPipe, 3, 1, 1, 10 );
-	Add( _T("eDonkey"), _T("RequestSize"), &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, KiloByte, _T(" KB") );
-	Add( _T("eDonkey"), _T("SendPortServer"), &eDonkey.SendPortServer, false );
-	Add( _T("eDonkey"), _T("ServerListURL"), &eDonkey.ServerListURL, _T("http://peerates.net/servers.php") );
-	Add( _T("eDonkey"), _T("ServerWalk"), &eDonkey.ServerWalk, true );
-	Add( _T("eDonkey"), _T("SourceThrottle"), &eDonkey.SourceThrottle, 1000, 1, 250, 5000, _T(" ms") );
-	Add( _T("eDonkey"), _T("StatsGlobalThrottle"), &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, _T(" m") );
-	Add( _T("eDonkey"), _T("StatsServerThrottle"), &eDonkey.StatsServerThrottle, 4*60*60, 60, 1, 7*24*60, _T(" m") );
+	Add( L"eDonkey", L"ShowInterface", &eDonkey.ShowInterface, true );
+	Add( L"eDonkey", L"DefaultServerFlags", &eDonkey.DefaultServerFlags, 0xFFFFFFFF );
+	Add( L"eDonkey", L"DequeueTime", &eDonkey.DequeueTime, 3600, 60, 2, 512, L" m" );
+	Add( L"eDonkey", L"EnableAlways", &eDonkey.EnableAlways, true );
+	Add( L"eDonkey", L"Endgame", &eDonkey.Endgame, true );
+	Add( L"eDonkey", L"ExtendedRequest", &eDonkey.ExtendedRequest, 2, 1, 0, 2 );
+	Add( L"eDonkey", L"FastConnect", &eDonkey.FastConnect, false );
+	Add( L"eDonkey", L"ForceHighID", &eDonkey.ForceHighID, true );
+	Add( L"eDonkey", L"FrameSize", &eDonkey.FrameSize, 30*KiloByte, KiloByte, 1, KiloByte, L" KB" );	// eMule max 10, 90 may work, ~512 others (lugdunum server max 250000 = 244?)
+	Add( L"eDonkey", L"GetSourcesThrottle", &eDonkey.GetSourcesThrottle, 8*60*60*1000, 60*60*1000, 1, 24, L" h" );
+	Add( L"eDonkey", L"LargeFileSupport", &eDonkey.LargeFileSupport, true );
+	Add( L"eDonkey", L"LearnNewServers", &eDonkey.LearnNewServers, false );
+	Add( L"eDonkey", L"LearnNewServersClient", &eDonkey.LearnNewServersClient, false );
+	Add( L"eDonkey", L"MagnetSearch", &eDonkey.MagnetSearch, true );
+	Add( L"eDonkey", L"MaxLinks", &eDonkey.MaxLinks, 200, 1, 1, 2048 );
+	Add( L"eDonkey", L"MaxResults", &eDonkey.MaxResults, 400, 1, 1, 999 );
+	Add( L"eDonkey", L"MaxShareCount", &eDonkey.MaxShareCount, 1000, 1, 25, 20000 );
+	Add( L"eDonkey", L"MetAutoQuery", &eDonkey.MetAutoQuery, true );
+	Add( L"eDonkey", L"MinServerFileSize", &eDonkey.MinServerFileSize, 0, 1, 0, 50, L" MB" );
+	Add( L"eDonkey", L"NumServers", &eDonkey.NumServers, 1, 1, 0, 2 );
+	Add( L"eDonkey", L"PacketThrottle", &eDonkey.PacketThrottle, 500, 1, 250, 5000, L" ms" );
+	Add( L"eDonkey", L"QueryFileThrottle", &eDonkey.QueryFileThrottle, 60*60*1000, 60*1000, 30, 120, L" m" );
+	Add( L"eDonkey", L"QueryGlobalThrottle", &eDonkey.QueryGlobalThrottle, 1000, 1, 1000, 20000, L" ms" );
+	Add( L"eDonkey", L"QueueRankThrottle", &eDonkey.QueueRankThrottle, 2*60*1000, 1000, 60, 600, L" s" );
+	Add( L"eDonkey", L"QueryThrottle", &eDonkey.QueryThrottle, 120, 1, 60, 10*60, L" s" );
+	Add( L"eDonkey", L"ReAskTime", &eDonkey.ReAskTime, 29*60, 60, 20, 360, L" m" );
+	Add( L"eDonkey", L"RequestPipe", &eDonkey.RequestPipe, 3, 1, 1, 10 );
+	Add( L"eDonkey", L"RequestSize", &eDonkey.RequestSize, 90*KiloByte, KiloByte, 10, KiloByte, L" KB" );
+	Add( L"eDonkey", L"SendPortServer", &eDonkey.SendPortServer, false );
+	Add( L"eDonkey", L"ServerListURL", &eDonkey.ServerListURL, L"http://peerates.net/servers.php" );
+	Add( L"eDonkey", L"ServerWalk", &eDonkey.ServerWalk, true );
+	Add( L"eDonkey", L"SourceThrottle", &eDonkey.SourceThrottle, 1000, 1, 250, 5000, L" ms" );
+	Add( L"eDonkey", L"StatsGlobalThrottle", &eDonkey.StatsGlobalThrottle, 30*60*1000, 60*1000, 30, 120, L" m" );
+	Add( L"eDonkey", L"StatsServerThrottle", &eDonkey.StatsServerThrottle, 4*60*60, 60, 1, 7*24*60, L" m" );
 
-	Add( _T("DC"), _T("ShowInterface"), &DC.ShowInterface, true );
-	Add( _T("DC"), _T("EnableAlways"), &DC.EnableAlways, false );
-	Add( _T("DC"), _T("NumServers"), &DC.NumServers, 1, 1, 0, 5 );
-	Add( _T("DC"), _T("QueryThrottle"), &DC.QueryThrottle, 2*60, 1, 30, 60*60, _T(" s") );
-	Add( _T("DC"), _T("ReAskTime"), &DC.ReAskTime, 60*1000, 1000, 30, 60*60, _T(" s") );
-	Add( _T("DC"), _T("DequeueTime"), &DC.DequeueTime, 5*60*1000, 1000, 2*60, 60*60, _T(" s") );
-	Add( _T("DC"), _T("HubListURL"), &DC.HubListURL, _T("http://dchublist.com/hublist.xml.bz2") );
+	Add( L"DC", L"ShowInterface", &DC.ShowInterface, true );
+	Add( L"DC", L"EnableAlways", &DC.EnableAlways, false );
+	Add( L"DC", L"NumServers", &DC.NumServers, 1, 1, 0, 5 );
+	Add( L"DC", L"QueryThrottle", &DC.QueryThrottle, 2*60, 1, 30, 60*60, L" s" );
+	Add( L"DC", L"ReAskTime", &DC.ReAskTime, 60*1000, 1000, 30, 60*60, L" s" );
+	Add( L"DC", L"DequeueTime", &DC.DequeueTime, 5*60*1000, 1000, 2*60, 60*60, L" s" );
+	Add( L"DC", L"HubListURL", &DC.HubListURL, L"http://dchublist.com/hublist.xml.bz2" );
 
-	Add( _T("BitTorrent"), _T("AutoClear"), &BitTorrent.AutoClear, false );
-	Add( _T("BitTorrent"), _T("AutoMerge"), &BitTorrent.AutoMerge, true );
-	Add( _T("BitTorrent"), _T("AutoSeed"), &BitTorrent.AutoSeed, true );
-	Add( _T("BitTorrent"), _T("BandwidthPercentage"), &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, _T(" %") );
-	Add( _T("BitTorrent"), _T("ClearRatio"), &BitTorrent.ClearRatio, 120, 1, 100, 999, _T(" %") );
-	Add( _T("BitTorrent"), _T("ConnectThrottle"), &BitTorrent.ConnectThrottle, 6*60, 1, 0, 60*60, _T(" s") );	// DHT
-	Add( _T("BitTorrent"), _T("DefaultTracker"), &BitTorrent.DefaultTracker, _T("http://tracker.publicbt.com/announce") );
-	Add( _T("BitTorrent"), _T("DefaultTrackerPeriod"), &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, _T(" m") );
-	Add( _T("BitTorrent"), _T("DownloadConnections"), &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
-	Add( _T("BitTorrent"), _T("DownloadTorrents"), &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
-	Add( _T("BitTorrent"), _T("EnableDHT"), &BitTorrent.EnableDHT, true );
-	Add( _T("BitTorrent"), _T("EnableAlways"), &BitTorrent.EnableAlways, true );
-	Add( _T("BitTorrent"), _T("Enabled"), &BitTorrent.Enabled, true );
-	Add( _T("BitTorrent"), _T("Endgame"), &BitTorrent.Endgame, true );
-	Add( _T("BitTorrent"), _T("PeerID"), &BitTorrent.PeerID, _T("") );	// Alternate to PE1000 for trackers
-	Add( _T("BitTorrent"), _T("PreferenceBTSources"), &BitTorrent.PreferenceBTSources, true );
-	Add( _T("BitTorrent"), _T("LinkPing"), &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, _T(" s") );
-	Add( _T("BitTorrent"), _T("LinkTimeout"), &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, _T(" s") );
-	Add( _T("BitTorrent"), _T("HostExpire"), &BitTorrent.HostExpire, 60*24*60*60, 24*60*60, 1, 120, _T(" d") );	// DHT
-	Add( _T("BitTorrent"), _T("QueryHostDeadline"), &BitTorrent.QueryHostDeadline, 30, 1, 1, 60*60, _T(" s") );	// DHT
-	Add( _T("BitTorrent"), _T("UtPexPeriod"), &BitTorrent.UtPexPeriod, 60*1000, 1000, 10, 60*10, _T(" s") );
-	Add( _T("BitTorrent"), _T("RandomPeriod"), &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, _T(" s") );
-	Add( _T("BitTorrent"), _T("RequestLimit"), &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, _T(" KB") );
-	Add( _T("BitTorrent"), _T("RequestPipe"), &BitTorrent.RequestPipe, 4, 1, 1, 10 );
-	Add( _T("BitTorrent"), _T("RequestSize"), &BitTorrent.RequestSize, 16*KiloByte, KiloByte, 8, 128, _T(" KB") );
-	Add( _T("BitTorrent"), _T("SourceExchangePeriod"), &BitTorrent.SourceExchangePeriod, 10, 1, 1, 60*5, _T(" m") );
-	Add( _T("BitTorrent"), _T("SkipPaddingFiles"), &BitTorrent.SkipPaddingFiles, true );
-	Add( _T("BitTorrent"), _T("SkipTrackerFiles"), &BitTorrent.SkipTrackerFiles, false );	// Breaks seeding?
-	Add( _T("BitTorrent"), _T("TorrentCodePage"), &BitTorrent.TorrentCodePage, 0, 1, 0, 9999999 );
-	Add( _T("BitTorrent"), _T("TorrentCreatorPath"), &BitTorrent.TorrentCreatorPath );
-	Add( _T("BitTorrent"), _T("TrackerKey"), &BitTorrent.TrackerKey, true );
-	Add( _T("BitTorrent"), _T("UploadCount"), &BitTorrent.UploadCount, 4, 1, 2, 20 );
+	Add( L"BitTorrent", L"AutoClear", &BitTorrent.AutoClear, false );
+	Add( L"BitTorrent", L"AutoMerge", &BitTorrent.AutoMerge, true );
+	Add( L"BitTorrent", L"AutoSeed", &BitTorrent.AutoSeed, true );
+	Add( L"BitTorrent", L"BandwidthPercentage", &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, L" %" );
+	Add( L"BitTorrent", L"ClearRatio", &BitTorrent.ClearRatio, 120, 1, 100, 999, L" %" );
+	Add( L"BitTorrent", L"ConnectThrottle", &BitTorrent.ConnectThrottle, 6*60, 1, 0, 60*60, L" s" );	// DHT
+	Add( L"BitTorrent", L"DefaultTracker", &BitTorrent.DefaultTracker, L"http://tracker.publicbt.com/announce" );
+	Add( L"BitTorrent", L"DefaultTrackerPeriod", &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, L" m" );
+	Add( L"BitTorrent", L"DownloadConnections", &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
+	Add( L"BitTorrent", L"DownloadTorrents", &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
+	Add( L"BitTorrent", L"EnableDHT", &BitTorrent.EnableDHT, true );
+	Add( L"BitTorrent", L"EnableAlways", &BitTorrent.EnableAlways, true );
+	Add( L"BitTorrent", L"Enabled", &BitTorrent.Enabled, true );
+	Add( L"BitTorrent", L"Endgame", &BitTorrent.Endgame, true );
+	Add( L"BitTorrent", L"PeerID", &BitTorrent.PeerID, L"" );	// Alternate to PE1000 for trackers
+	Add( L"BitTorrent", L"PreferenceBTSources", &BitTorrent.PreferenceBTSources, true );
+	Add( L"BitTorrent", L"LinkPing", &BitTorrent.LinkPing, 120*1000, 1000, 10, 60*10, L" s" );
+	Add( L"BitTorrent", L"LinkTimeout", &BitTorrent.LinkTimeout, 180*1000, 1000, 10, 60*10, L" s" );
+	Add( L"BitTorrent", L"HostExpire", &BitTorrent.HostExpire, 60*24*60*60, 24*60*60, 1, 120, L" d" );	// DHT
+	Add( L"BitTorrent", L"QueryHostDeadline", &BitTorrent.QueryHostDeadline, 30, 1, 1, 60*60, L" s" );	// DHT
+	Add( L"BitTorrent", L"UtPexPeriod", &BitTorrent.UtPexPeriod, 60*1000, 1000, 10, 60*10, L" s" );
+	Add( L"BitTorrent", L"RandomPeriod", &BitTorrent.RandomPeriod, 30*1000, 1000, 1, 60*5, L" s" );
+	Add( L"BitTorrent", L"RequestLimit", &BitTorrent.RequestLimit, 128*KiloByte, KiloByte, 1, KiloByte, L" KB" );
+	Add( L"BitTorrent", L"RequestPipe", &BitTorrent.RequestPipe, 4, 1, 1, 10 );
+	Add( L"BitTorrent", L"RequestSize", &BitTorrent.RequestSize, 16*KiloByte, KiloByte, 8, 128, L" KB" );
+	Add( L"BitTorrent", L"SourceExchangePeriod", &BitTorrent.SourceExchangePeriod, 10, 1, 1, 60*5, L" m" );
+	Add( L"BitTorrent", L"SkipPaddingFiles", &BitTorrent.SkipPaddingFiles, true );
+	Add( L"BitTorrent", L"SkipTrackerFiles", &BitTorrent.SkipTrackerFiles, false );	// Breaks seeding?
+	Add( L"BitTorrent", L"TorrentCodePage", &BitTorrent.TorrentCodePage, 0, 1, 0, 9999999 );
+	Add( L"BitTorrent", L"TorrentCreatorPath", &BitTorrent.TorrentCreatorPath );
+	Add( L"BitTorrent", L"TrackerKey", &BitTorrent.TrackerKey, true );
+	Add( L"BitTorrent", L"UploadCount", &BitTorrent.UploadCount, 4, 1, 2, 20 );
 
-	Add( _T("Downloads"), _T("AllowBackwards"), &Downloads.AllowBackwards, true );
-	Add( _T("Downloads"), _T("AutoClear"), &Downloads.AutoClear, false );
-	Add( _T("Downloads"), _T("AutoExpand"), &Downloads.AutoExpand, false );
-	Add( _T("Downloads"), _T("BufferSize"), &Downloads.BufferSize, 80*KiloByte, KiloByte, 0, 512, _T(" KB") );
-	Add( _T("Downloads"), _T("ChunkSize"), &Downloads.ChunkSize, 512*KiloByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
-	Add( _T("Downloads"), _T("ChunkStrap"), &Downloads.ChunkStrap, 128*KiloByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
-	Add( _T("Downloads"), _T("ClearDelay"), &Downloads.ClearDelay, 60*1000, 1000, 1, 30*60, _T(" s") );
-	Add( _T("Downloads"), _T("ConnectThrottle"), &Downloads.ConnectThrottle, 250, 1, 0, 5000, _T(" ms") );
-	Add( _T("Downloads"), _T("CollectionPath"), &Downloads.CollectionPath );
-	Add( _T("Downloads"), _T("CompletePath"), &Downloads.CompletePath );
-	Add( _T("Downloads"), _T("IncompletePath"), &Downloads.IncompletePath );
-	Add( _T("Downloads"), _T("TorrentPath"), &Downloads.TorrentPath );
-	Add( _T("Downloads"), _T("FilterMask"), &Downloads.FilterMask, 0xFFFFFFFF );
-	Add( _T("Downloads"), _T("FlushPD"), &Downloads.FlushPD, true );
-	Add( _T("Downloads"), _T("MaxAllowedFailures"), &Downloads.MaxAllowedFailures, 10, 1, 3, 40 );
-	Add( _T("Downloads"), _T("MaxConnectingSources"), &Downloads.MaxConnectingSources, 28, 1, 5, 99 );
-	Add( _T("Downloads"), _T("MaxFileSearches"), &Downloads.MaxFileSearches, 2, 1, 0, 8 );
-	Add( _T("Downloads"), _T("MaxFileTransfers"), &Downloads.MaxFileTransfers, 40, 1, 1, 200 );
-	Add( _T("Downloads"), _T("MaxFiles"), &Downloads.MaxFiles, 200, 1, 1, 400 );
-	Add( _T("Downloads"), _T("MaxTransfers"), &Downloads.MaxTransfers, 100, 1, 1, 400 );
-	Add( _T("Downloads"), _T("MaxReviews"), &Downloads.MaxReviews, 64, 1, 0, 256 );
-	Add( _T("Downloads"), _T("Metadata"), &Downloads.Metadata, true );
-	Add( _T("Downloads"), _T("MinSources"), &Downloads.MinSources, 1, 1, 0, 6 );
-	Add( _T("Downloads"), _T("NeverDrop"), &Downloads.NeverDrop, false );
-	Add( _T("Downloads"), _T("PushTimeout"), &Downloads.PushTimeout, 45*1000, 1000, 5, 180, _T(" s") );
-	Add( _T("Downloads"), _T("QueueLimit"), &Downloads.QueueLimit, 0, 1, 0, 20000 );
-	Add( _T("Downloads"), _T("RequestHTTP11"), &Downloads.RequestHTTP11, true );
-	Add( _T("Downloads"), _T("RequestHash"), &Downloads.RequestHash, true );
-	Add( _T("Downloads"), _T("RequestURLENC"), &Downloads.RequestURLENC, true );
-	Add( _T("Downloads"), _T("RenameExisting"), &Downloads.RenameExisting, true );
-	Add( _T("Downloads"), _T("RetryDelay"), &Downloads.RetryDelay, 10*60*1000, 1000, 120, 60*60, _T(" s") );
-	Add( _T("Downloads"), _T("SaveInterval"), &Downloads.SaveInterval, 60*1000, 1000, 1, 120, _T(" s") );
-	Add( _T("Downloads"), _T("SearchPeriod"), &Downloads.SearchPeriod, 120*1000, 1000, 10, 4*60, _T(" s") );
-	Add( _T("Downloads"), _T("ShowGroups"), &Downloads.ShowGroups, true );
-	Add( _T("Downloads"), _T("ShowMonitorURLs"), &Downloads.ShowMonitorURLs, true );
-	Add( _T("Downloads"), _T("ShowPercent"), &Downloads.ShowPercent, false );
-	Add( _T("Downloads"), _T("ShowSources"), &Downloads.ShowSources, false );
-	Add( _T("Downloads"), _T("SimpleBar"), &Downloads.SimpleBar, false );
-	Add( _T("Downloads"), _T("SortColumns"), &Downloads.SortColumns, true );
-	Add( _T("Downloads"), _T("SortSources"), &Downloads.SortSources, true );
-	Add( _T("Downloads"), _T("SourcesWanted"), &Downloads.SourcesWanted, 800, 1, 10, 5000 );
-	Add( _T("Downloads"), _T("SparseThreshold"), &Downloads.SparseThreshold, 8*KiloByte, KiloByte, 0, 256, _T(" MB") );
-	Add( _T("Downloads"), _T("StaggardStart"), &Downloads.StaggardStart, false );
-	Add( _T("Downloads"), _T("StartDroppingFailedSourcesNumber"), &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
-	Add( _T("Downloads"), _T("StarveGiveUp"), &Downloads.StarveGiveUp, 3, 1, 3, 120, _T(" h") );
-	Add( _T("Downloads"), _T("StarveTimeout"), &Downloads.StarveTimeout, 30*60*1000, 60*1000, 20, 24*60, _T(" m") );
-	Add( _T("Downloads"), _T("VerifyED2K"), &Downloads.VerifyED2K, true );
-	Add( _T("Downloads"), _T("VerifyFiles"), &Downloads.VerifyFiles, true );
-	Add( _T("Downloads"), _T("VerifyTiger"), &Downloads.VerifyTiger, true );
-	Add( _T("Downloads"), _T("NoRandomFragments"), &Downloads.NoRandomFragments, false );	// ToDo: Streaming Download and Rarest Piece Selection
-	Add( _T("Downloads"), _T("WebHookEnable"), &Downloads.WebHookEnable, true );
-	Add( _T("Downloads"), _T("WebHookExtensions"), &Downloads.WebHookExtensions, _T("|zip|7z|gz|rar|r0|tgz|ace|z|tar|arj|lzh|sit|hqx|fml|grs|mp3|iso|msi|exe|bin|") );
+	Add( L"Downloads", L"AllowBackwards", &Downloads.AllowBackwards, true );
+	Add( L"Downloads", L"AutoClear", &Downloads.AutoClear, false );
+	Add( L"Downloads", L"AutoExpand", &Downloads.AutoExpand, false );
+	Add( L"Downloads", L"BufferSize", &Downloads.BufferSize, 80*KiloByte, KiloByte, 0, 512, L" KB" );
+	Add( L"Downloads", L"ChunkSize", &Downloads.ChunkSize, 512*KiloByte, KiloByte, 0, 10*KiloByte, L" KB" );
+	Add( L"Downloads", L"ChunkStrap", &Downloads.ChunkStrap, 128*KiloByte, KiloByte, 0, 10*KiloByte, L" KB" );
+	Add( L"Downloads", L"ClearDelay", &Downloads.ClearDelay, 60*1000, 1000, 1, 30*60, L" s" );
+	Add( L"Downloads", L"ConnectThrottle", &Downloads.ConnectThrottle, 250, 1, 0, 5000, L" ms" );
+	Add( L"Downloads", L"CollectionPath", &Downloads.CollectionPath );
+	Add( L"Downloads", L"CompletePath", &Downloads.CompletePath );
+	Add( L"Downloads", L"IncompletePath", &Downloads.IncompletePath );
+	Add( L"Downloads", L"TorrentPath", &Downloads.TorrentPath );
+	Add( L"Downloads", L"FilterMask", &Downloads.FilterMask, 0xFFFFFFFF );
+	Add( L"Downloads", L"FlushPD", &Downloads.FlushPD, true );
+	Add( L"Downloads", L"MaxAllowedFailures", &Downloads.MaxAllowedFailures, 10, 1, 3, 40 );
+	Add( L"Downloads", L"MaxConnectingSources", &Downloads.MaxConnectingSources, 28, 1, 5, 99 );
+	Add( L"Downloads", L"MaxFileSearches", &Downloads.MaxFileSearches, 2, 1, 0, 8 );
+	Add( L"Downloads", L"MaxFileTransfers", &Downloads.MaxFileTransfers, 40, 1, 1, 300 );
+	Add( L"Downloads", L"MaxFiles", &Downloads.MaxFiles, 200, 1, 1, 400 );
+	Add( L"Downloads", L"MaxTransfers", &Downloads.MaxTransfers, 100, 1, 1, 400 );
+	Add( L"Downloads", L"MaxReviews", &Downloads.MaxReviews, 64, 1, 0, 256 );
+	Add( L"Downloads", L"Metadata", &Downloads.Metadata, true );
+	Add( L"Downloads", L"MinSources", &Downloads.MinSources, 1, 1, 0, 6 );
+	Add( L"Downloads", L"NeverDrop", &Downloads.NeverDrop, false );
+	Add( L"Downloads", L"PushTimeout", &Downloads.PushTimeout, 45*1000, 1000, 5, 180, L" s" );
+	Add( L"Downloads", L"QueueLimit", &Downloads.QueueLimit, 0, 1, 0, 20000 );
+	Add( L"Downloads", L"RequestHTTP11", &Downloads.RequestHTTP11, true );
+	Add( L"Downloads", L"RequestHash", &Downloads.RequestHash, true );
+	Add( L"Downloads", L"RequestURLENC", &Downloads.RequestURLENC, true );
+	Add( L"Downloads", L"RenameExisting", &Downloads.RenameExisting, true );
+	Add( L"Downloads", L"RetryDelay", &Downloads.RetryDelay, 10*60*1000, 1000, 120, 60*60, L" s" );
+	Add( L"Downloads", L"SaveInterval", &Downloads.SaveInterval, 60*1000, 1000, 1, 120, L" s" );
+	Add( L"Downloads", L"SearchPeriod", &Downloads.SearchPeriod, 120*1000, 1000, 10, 4*60, L" s" );
+	Add( L"Downloads", L"ShowGroups", &Downloads.ShowGroups, true );
+	Add( L"Downloads", L"ShowMonitorURLs", &Downloads.ShowMonitorURLs, true );
+	Add( L"Downloads", L"ShowPercent", &Downloads.ShowPercent, false );
+	Add( L"Downloads", L"ShowSources", &Downloads.ShowSources, false );
+	Add( L"Downloads", L"SimpleBar", &Downloads.SimpleBar, false );
+	Add( L"Downloads", L"SortColumns", &Downloads.SortColumns, true );
+	Add( L"Downloads", L"SortSources", &Downloads.SortSources, true );
+	Add( L"Downloads", L"SourcesWanted", &Downloads.SourcesWanted, 800, 1, 10, 5000 );
+	Add( L"Downloads", L"SparseThreshold", &Downloads.SparseThreshold, 8*KiloByte, KiloByte, 0, 256, L" MB" );
+	Add( L"Downloads", L"StaggardStart", &Downloads.StaggardStart, false );
+	Add( L"Downloads", L"StartDroppingFailedSourcesNumber", &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
+	Add( L"Downloads", L"StarveGiveUp", &Downloads.StarveGiveUp, 3, 1, 3, 120, L" h" );
+	Add( L"Downloads", L"StarveTimeout", &Downloads.StarveTimeout, 30*60*1000, 60*1000, 20, 24*60, L" m" );
+	Add( L"Downloads", L"VerifyED2K", &Downloads.VerifyED2K, true );
+	Add( L"Downloads", L"VerifyFiles", &Downloads.VerifyFiles, true );
+	Add( L"Downloads", L"VerifyTiger", &Downloads.VerifyTiger, true );
+	Add( L"Downloads", L"NoRandomFragments", &Downloads.NoRandomFragments, false );	// ToDo: Streaming Download and Rarest Piece Selection
+	Add( L"Downloads", L"WebHookEnable", &Downloads.WebHookEnable, true );
+	Add( L"Downloads", L"WebHookExtensions", &Downloads.WebHookExtensions, L"|zip|7z|gz|rar|r0|tgz|ace|z|tar|arj|lzh|sit|hqx|fml|grs|mp3|iso|msi|exe|bin|" );
 
-	Add( _T("Uploads"), _T("AllowBackwards"), &Uploads.AllowBackwards, true );
-	Add( _T("Uploads"), _T("AutoClear"), &Uploads.AutoClear, false );
-	Add( _T("Uploads"), _T("BlockAgents"), &Uploads.BlockAgents, _T("|Mozilla|Foxy|") );
-	Add( _T("Uploads"), _T("ChunkSize"), &Uploads.ChunkSize, 1000*1024, 1024, 1, 2048, _T(" KB") );
-	Add( _T("Uploads"), _T("ClampdownFactor"), &Uploads.ClampdownFactor, 20, 1, 0, 100, _T("%") );
-	Add( _T("Uploads"), _T("ClampdownFloor"), &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, _T(" Kb/s") );
-	Add( _T("Uploads"), _T("ClearDelay"), &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, _T(" s") );
-	Add( _T("Uploads"), _T("DynamicPreviews"), &Uploads.DynamicPreviews, true );
-	Add( _T("Uploads"), _T("FairUseMode"), &Uploads.FairUseMode, false );	// ToDo: Implement this
-	Add( _T("Uploads"), _T("FilterMask"), &Uploads.FilterMask, 0xFFFFFFFD );
-	Add( _T("Uploads"), _T("FreeBandwidthFactor"), &Uploads.FreeBandwidthFactor, 8, 1, 0, 99, _T("%") );
-	Add( _T("Uploads"), _T("FreeBandwidthValue"), &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, _T(" Kb/s") );
-	Add( _T("Uploads"), _T("HubUnshare"), &Uploads.HubUnshare, true );
-	Add( _T("Uploads"), _T("History"), &Uploads.History, 30, 1, 1, 500, _T(" Max") );
-	Add( _T("Uploads"), _T("MaxPerHost"), &Uploads.MaxPerHost, 2, 1, 1, 64 );
-	Add( _T("Uploads"), _T("PreviewQuality"), &Uploads.PreviewQuality, 80, 1, 5, 100, _T("%") );
-	Add( _T("Uploads"), _T("PreviewTransfers"), &Uploads.PreviewTransfers, 3, 1, 1, 64 );
-	Add( _T("Uploads"), _T("QueuePollMax"), &Uploads.QueuePollMax, 120*1000, 1000, 30, 180, _T(" s") );
-	Add( _T("Uploads"), _T("QueuePollMin"), &Uploads.QueuePollMin, 45*1000, 1000, 0, 60, _T(" s") );
-	Add( _T("Uploads"), _T("RewardQueuePercentage"), &Uploads.RewardQueuePercentage, 10, 1, 0, 99, _T("%") );
-	Add( _T("Uploads"), _T("RotateChunkLimit"), &Uploads.RotateChunkLimit, MegaByte, KiloByte, 0, 10*KiloByte, _T(" KB") );
-	Add( _T("Uploads"), _T("ShareHashset"), &Uploads.ShareHashset, true );
-	Add( _T("Uploads"), _T("ShareMetadata"), &Uploads.ShareMetadata, true );
-	Add( _T("Uploads"), _T("SharePartials"), &Uploads.SharePartials, true );
-	Add( _T("Uploads"), _T("SharePreviews"), &Uploads.SharePreviews, true );
-	Add( _T("Uploads"), _T("ShareTiger"), &Uploads.ShareTiger, true );
-	Add( _T("Uploads"), _T("ThrottleMode"), &Uploads.ThrottleMode, false );
+	Add( L"Uploads", L"AllowBackwards", &Uploads.AllowBackwards, true );
+	Add( L"Uploads", L"AutoClear", &Uploads.AutoClear, false );
+	Add( L"Uploads", L"BlockAgents", &Uploads.BlockAgents, L"|Mozilla|Foxy|" );
+	Add( L"Uploads", L"ChunkSize", &Uploads.ChunkSize, 1000*1024, 1024, 1, 2048, L" KB" );
+	Add( L"Uploads", L"ClampdownFactor", &Uploads.ClampdownFactor, 20, 1, 0, 100, L"%" );
+	Add( L"Uploads", L"ClampdownFloor", &Uploads.ClampdownFloor, 8*128, 128, 0, 4096, L" Kb/s" );
+	Add( L"Uploads", L"ClearDelay", &Uploads.ClearDelay, 60*1000, 1000, 1, 1800, L" s" );
+	Add( L"Uploads", L"DynamicPreviews", &Uploads.DynamicPreviews, true );
+	Add( L"Uploads", L"FairUseMode", &Uploads.FairUseMode, false );	// ToDo: Implement this
+	Add( L"Uploads", L"FilterMask", &Uploads.FilterMask, 0xFFFFFFFD );
+	Add( L"Uploads", L"FreeBandwidthFactor", &Uploads.FreeBandwidthFactor, 8, 1, 0, 99, L"%" );
+	Add( L"Uploads", L"FreeBandwidthValue", &Uploads.FreeBandwidthValue, 20*128, 128, 0, 4096, L" Kb/s" );
+	Add( L"Uploads", L"HubUnshare", &Uploads.HubUnshare, true );
+	Add( L"Uploads", L"History", &Uploads.History, 30, 1, 1, 500, L" Max" );
+	Add( L"Uploads", L"MaxPerHost", &Uploads.MaxPerHost, 2, 1, 1, 64 );
+	Add( L"Uploads", L"PreviewQuality", &Uploads.PreviewQuality, 80, 1, 5, 100, L"%" );
+	Add( L"Uploads", L"PreviewTransfers", &Uploads.PreviewTransfers, 3, 1, 1, 64 );
+	Add( L"Uploads", L"QueuePollMax", &Uploads.QueuePollMax, 120*1000, 1000, 30, 180, L" s" );
+	Add( L"Uploads", L"QueuePollMin", &Uploads.QueuePollMin, 45*1000, 1000, 0, 60, L" s" );
+	Add( L"Uploads", L"RewardQueuePercentage", &Uploads.RewardQueuePercentage, 10, 1, 0, 99, L"%" );
+	Add( L"Uploads", L"RotateChunkLimit", &Uploads.RotateChunkLimit, MegaByte, KiloByte, 0, 10*KiloByte, L" KB" );
+	Add( L"Uploads", L"ShareHashset", &Uploads.ShareHashset, true );
+	Add( L"Uploads", L"ShareMetadata", &Uploads.ShareMetadata, true );
+	Add( L"Uploads", L"SharePartials", &Uploads.SharePartials, true );
+	Add( L"Uploads", L"SharePreviews", &Uploads.SharePreviews, true );
+	Add( L"Uploads", L"ShareTiger", &Uploads.ShareTiger, true );
+	Add( L"Uploads", L"ThrottleMode", &Uploads.ThrottleMode, false );
 
-	Add( _T("IRC"), _T("Colors[0]"), &IRC.Colors[0], RGB(254,254,252) );	// ID_COLOR_CHATWINDOW
-	Add( _T("IRC"), _T("Colors[1]"), &IRC.Colors[1], RGB(0,0,0) );			// ID_COLOR_TEXT
-	Add( _T("IRC"), _T("Colors[2]"), &IRC.Colors[2], RGB(40,40,40) );		// ID_COLOR_TEXTLOCAL
-	Add( _T("IRC"), _T("Colors[3]"), &IRC.Colors[3], RGB(10,140,10) );		// ID_COLOR_CHANNELACTION
-	Add( _T("IRC"), _T("Colors[4]"), &IRC.Colors[4], RGB(180,120,220) );	// ID_COLOR_ME
-	Add( _T("IRC"), _T("Colors[5]"), &IRC.Colors[5], RGB(0,0,0) );			// ID_COLOR_MSG
-	Add( _T("IRC"), _T("Colors[6]"), &IRC.Colors[6], RGB(240,20,10) );		// ID_COLOR_NEWMSG
-	Add( _T("IRC"), _T("Colors[7]"), &IRC.Colors[7], RGB(10,20,240) );		// ID_COLOR_SERVERMSG
-	Add( _T("IRC"), _T("Colors[8]"), &IRC.Colors[8], RGB(200,100,120) );	// ID_COLOR_TOPIC
-	Add( _T("IRC"), _T("Colors[9]"), &IRC.Colors[9], RGB(240,20,10) );		// ID_COLOR_NOTICE
-	Add( _T("IRC"), _T("Colors[10]"), &IRC.Colors[10], RGB(200,30,30) );	// ID_COLOR_SERVERERROR
-	Add( _T("IRC"), _T("Colors[11]"), &IRC.Colors[11], RGB(230,230,230) );	// ID_COLOR_TABS
-	Add( _T("IRC"), _T("Show"), &IRC.Show, true );
-	Add( _T("IRC"), _T("Nick"), &IRC.Nick );
-	Add( _T("IRC"), _T("Alternate"), &IRC.Alternate );
-	Add( _T("IRC"), _T("ServerName"), &IRC.ServerName, _T("irc.p2pchat.net") );
-	Add( _T("IRC"), _T("ServerPort"), &IRC.ServerPort, 6667, 1, 1024, 65530 );
-	Add( _T("IRC"), _T("FloodEnable"), &IRC.FloodEnable, true );
-	Add( _T("IRC"), _T("FloodLimit"), &IRC.FloodLimit, 24, 1, 2, 100 );
-	Add( _T("IRC"), _T("Timestamp"), &IRC.Timestamp, false );
-	Add( _T("IRC"), _T("UserName"), &IRC.UserName, _T("PeerIRC") );
-	Add( _T("IRC"), _T("RealName"), &IRC.RealName, _T("PeerIRC") );
-	Add( _T("IRC"), _T("ScreenFont"), &IRC.ScreenFont, theApp.m_bIsVistaOrNewer ? _T("Segoe UI") : NULL, false, setFont );
-	Add( _T("IRC"), _T("FontSize"), &IRC.FontSize, 12, 1, 6, 50, _T(" px") );
-	Add( _T("IRC"), _T("OnConnect"), &IRC.OnConnect, _T("") );
+	Add( L"IRC", L"Colors[0]", &IRC.Colors[0], RGB(254,254,252) );	// ID_COLOR_CHATWINDOW
+	Add( L"IRC", L"Colors[1]", &IRC.Colors[1], RGB(0,0,0) );			// ID_COLOR_TEXT
+	Add( L"IRC", L"Colors[2]", &IRC.Colors[2], RGB(40,40,40) );		// ID_COLOR_TEXTLOCAL
+	Add( L"IRC", L"Colors[3]", &IRC.Colors[3], RGB(10,140,10) );		// ID_COLOR_CHANNELACTION
+	Add( L"IRC", L"Colors[4]", &IRC.Colors[4], RGB(180,120,220) );	// ID_COLOR_ME
+	Add( L"IRC", L"Colors[5]", &IRC.Colors[5], RGB(0,0,0) );			// ID_COLOR_MSG
+	Add( L"IRC", L"Colors[6]", &IRC.Colors[6], RGB(240,20,10) );		// ID_COLOR_NEWMSG
+	Add( L"IRC", L"Colors[7]", &IRC.Colors[7], RGB(10,20,240) );		// ID_COLOR_SERVERMSG
+	Add( L"IRC", L"Colors[8]", &IRC.Colors[8], RGB(200,100,120) );	// ID_COLOR_TOPIC
+	Add( L"IRC", L"Colors[9]", &IRC.Colors[9], RGB(240,20,10) );		// ID_COLOR_NOTICE
+	Add( L"IRC", L"Colors[10]", &IRC.Colors[10], RGB(200,30,30) );	// ID_COLOR_SERVERERROR
+	Add( L"IRC", L"Colors[11]", &IRC.Colors[11], RGB(230,230,230) );	// ID_COLOR_TABS
+	Add( L"IRC", L"Show", &IRC.Show, true );
+	Add( L"IRC", L"Nick", &IRC.Nick );
+	Add( L"IRC", L"Alternate", &IRC.Alternate );
+	Add( L"IRC", L"ServerName", &IRC.ServerName, L"irc.p2pchat.net" );
+	Add( L"IRC", L"ServerPort", &IRC.ServerPort, 6667, 1, 1024, 65530 );
+	Add( L"IRC", L"FloodEnable", &IRC.FloodEnable, true );
+	Add( L"IRC", L"FloodLimit", &IRC.FloodLimit, 24, 1, 2, 100 );
+	Add( L"IRC", L"Timestamp", &IRC.Timestamp, false );
+	Add( L"IRC", L"UserName", &IRC.UserName, L"PeerIRC" );
+	Add( L"IRC", L"RealName", &IRC.RealName, L"PeerIRC" );
+	Add( L"IRC", L"ScreenFont", &IRC.ScreenFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : NULL, false, setFont );
+	Add( L"IRC", L"FontSize", &IRC.FontSize, 12, 1, 6, 50, L" px" );
+	Add( L"IRC", L"OnConnect", &IRC.OnConnect, L"" );
 
-	Add( _T("Remote"), _T("Enable"), &Remote.Enable, false );
-	Add( _T("Remote"), _T("Password"), &Remote.Password );
-	Add( _T("Remote"), _T("Username"), &Remote.Username );
+	Add( L"Remote", L"Enable", &Remote.Enable, false );
+	Add( L"Remote", L"Password", &Remote.Password );
+	Add( L"Remote", L"Username", &Remote.Username );
 
-	Add( _T("Live"), _T("BandwidthScaleIn"), &Live.BandwidthScaleIn, 101, 1, 0, 101, _T(" %") );
-	Add( _T("Live"), _T("BandwidthScaleOut"), &Live.BandwidthScaleOut, 101, 1, 0, 101, _T(" %") );
+	Add( L"Live", L"BandwidthScaleIn", &Live.BandwidthScaleIn, 101, 1, 0, 101, L" %" );
+	Add( L"Live", L"BandwidthScaleOut", &Live.BandwidthScaleOut, 101, 1, 0, 101, L" %" );
 
-	Add( _T("Security"), _T("ListRangeLimit"), &Security.ListRangeLimit, 100, 1, 1, 65550 );	// 256*256
-	Add( _T("Security"), _T("DefaultBan"), &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, _T(" d") );
-	Add( _T("Scheduler"), _T("ValidityPeriod"), &Scheduler.ValidityPeriod, 60, 1, 1, 1400, _T(" m") );
+	Add( L"Security", L"ListRangeLimit", &Security.ListRangeLimit, 100, 1, 1, 65550 );	// 256*256
+	Add( L"Security", L"DefaultBan", &Security.DefaultBan, 100*24*3600, 24*3600, 1, 1000, L" d" );
+	Add( L"Scheduler", L"ValidityPeriod", &Scheduler.ValidityPeriod, 60, 1, 1, 1400, L" m" );
 
-	Add( _T("Experimental"), _T("EnableDIPPSupport (GDNA)"), &Experimental.EnableDIPPSupport, true );
-	Add( _T("Experimental"), _T("LAN_Mode"), &Experimental.LAN_Mode, false );		// #ifdef LAN_MODE
+	Add( L"Experimental", L"EnableDIPPSupport (GDNA)", &Experimental.EnableDIPPSupport, true );
+	Add( L"Experimental", L"LAN_Mode", &Experimental.LAN_Mode, false );		// #ifdef LAN_MODE
 
 
 	// Load settings
@@ -662,7 +663,7 @@ void CSettings::Load()
 	if ( Library.ScanMSI )
 	{
 		// Check if Windows installer library is present
-		HINSTANCE hMSI = LoadLibrary( _T("Msi.dll") );
+		HINSTANCE hMSI = LoadLibrary( L"Msi.dll" );
 		if ( ! hMSI )
 			Library.ScanMSI = false;
 		else
@@ -676,11 +677,11 @@ void CSettings::Load()
 	if ( General.MultiUser )
 	{
 		if ( General.UserPath.IsEmpty() )
-			General.UserPath = theApp.GetAppDataFolder() + _T("\\PeerProject");
+			General.UserPath = theApp.GetAppDataFolder() + L"\\PeerProject";
 		if ( General.DataPath.IsEmpty() )
-			General.DataPath = General.UserPath + _T("\\Data\\");
+			General.DataPath = General.UserPath + L"\\Data\\";
 		if ( Downloads.IncompletePath.IsEmpty() )
-			Downloads.IncompletePath = theApp.GetLocalAppDataFolder() + _T("\\PeerProject\\Incomplete");
+			Downloads.IncompletePath = theApp.GetLocalAppDataFolder() + L"\\PeerProject\\Incomplete";
 		if ( Downloads.CompletePath.IsEmpty() )
 			Downloads.CompletePath = theApp.GetDownloadsFolder();
 	}
@@ -689,20 +690,20 @@ void CSettings::Load()
 		if ( General.UserPath.IsEmpty() )
 			General.UserPath = General.Path;
 		if ( General.DataPath.IsEmpty() )
-			General.DataPath = General.UserPath + _T("\\Data\\");
+			General.DataPath = General.UserPath + L"\\Data\\";
 		if ( Downloads.IncompletePath.IsEmpty() )
-			Downloads.IncompletePath = General.Path + _T("\\Incomplete");
+			Downloads.IncompletePath = General.Path + L"\\Incomplete";
 		if ( Downloads.CompletePath.IsEmpty() )
-			Downloads.CompletePath = theApp.GetDownloadsFolder();	//General.Path + _T("\\Downloads");
+			Downloads.CompletePath = theApp.GetDownloadsFolder();	//General.Path + L"\\Downloads";
 	}
 
 	if ( Downloads.CollectionPath.IsEmpty() )
-		Downloads.CollectionPath = General.UserPath + _T("\\Collections");
+		Downloads.CollectionPath = General.UserPath + L"\\Collections";
 	if ( Downloads.TorrentPath.IsEmpty() )
-		Downloads.TorrentPath = Downloads.CompletePath + _T("\\Torrents");
+		Downloads.TorrentPath = Downloads.CompletePath + L"\\Torrents";
 
-	if ( ! StartsWith( BitTorrent.DefaultTracker, _PT("http://") ) &&
-		 ! StartsWith( BitTorrent.DefaultTracker, _PT("udp://") ) )
+	if ( ! StartsWith( BitTorrent.DefaultTracker, _P( L"http://" ) ) &&
+		 ! StartsWith( BitTorrent.DefaultTracker, _P( L"udp://" ) ) )
 		SetDefault( &BitTorrent.DefaultTracker );
 
 	Live.FirstRun = General.FirstRun;
@@ -714,8 +715,8 @@ void CSettings::Load()
 	// ToDo: Detect PeerProject restarted after a crash ?
 
 	// Make sure some needed paths exist
-	CreateDirectory( General.Path + _T("\\Data") );
-	CreateDirectory( General.DataPath.Left( General.DataPath.GetLength() - 1 ) );		// General.UserPath + _T("\\Data")
+	CreateDirectory( General.Path + L"\\Data" );
+	CreateDirectory( General.DataPath.Left( General.DataPath.GetLength() - 1 ) );		// General.UserPath + L"\\Data"
 	CreateDirectory( Downloads.IncompletePath );
 	CreateDirectory( Downloads.CompletePath );
 	CreateDirectory( Downloads.TorrentPath );
@@ -729,11 +730,11 @@ void CSettings::Load()
 	// Re-set languauge (new user)
 	if ( Live.FirstRun && IsDefault( &General.Language ) )
 	{
-		CString strDefaultLanguage = CRegistry::GetString( NULL, _T("DefaultLanguage") );
+		CString strDefaultLanguage = CRegistry::GetString( NULL, L"DefaultLanguage" );
 		if ( ! strDefaultLanguage.IsEmpty() )
 		{
 			General.Language = strDefaultLanguage;
-			General.LanguageRTL = CRegistry::GetDword( NULL, _T("DefaultLanguageRTL") ) != 0;
+			General.LanguageRTL = CRegistry::GetDword( NULL, L"DefaultLanguageRTL" ) != 0;
 		}
 	}
 
@@ -764,17 +765,15 @@ void CSettings::Load()
 
 	// Make sure download/incomplete folders aren't the same
 	if ( _tcsicmp( Downloads.IncompletePath, Downloads.CompletePath ) == 0 )
-	{
 		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
-		// Downloads.IncompletePath = General.Path + _T("\\Incomplete");
-	}
+		// Downloads.IncompletePath = General.Path + L"\\Incomplete";
 
-	// UPnP is not supported on servers
-	if ( theApp.m_bIsServer )
-	{
-		Connection.EnableUPnP = false;
-		Connection.DeleteUPnPPorts = false;
-	}
+	// UPnP is not supported on servers?
+	//if ( theApp.m_bIsServer )
+	//{
+	//	Connection.EnableUPnP = false;
+	//	Connection.DeleteUPnPPorts = false;
+	//}
 
 	// UPnP will setup a random port, so we need to reset values after it sets Connection.InPort
 	if ( Connection.RandomPort )
@@ -864,15 +863,15 @@ void CSettings::SmartUpgrade()
 //	}
 
 	// Add OGG handling if needed
-//	if ( Live.FirstRun && ! IsIn( MediaPlayer.FileTypes, _T("ogg") ) )
+//	if ( Live.FirstRun && ! IsIn( MediaPlayer.FileTypes, L"ogg" ) )
 //	{
 //		LONG nReg = 0;
 //
 //		if ( RegQueryValue( HKEY_CLASSES_ROOT,
-//			_T("CLSID\\{02391F44-2767-4E6A-A484-9B47B506F3A4}"), NULL, &nReg )
+//			L"CLSID\\{02391F44-2767-4E6A-A484-9B47B506F3A4}", NULL, &nReg )
 //			== ERROR_SUCCESS && nReg > 0 )
 //		{
-//			MediaPlayer.FileTypes.insert( _T("ogg") );
+//			MediaPlayer.FileTypes.insert( L"ogg" );
 //		}
 //	}
 
@@ -1005,16 +1004,16 @@ BOOL CSettings::LoadWindow(LPCTSTR pszName, CWnd* pWindow)
 	else
 		strEntry = pWindow->GetRuntimeClass()->m_lpszClassName;
 
-	int nShowCmd = CRegistry::GetInt( _T("Windows"), strEntry + _T(".ShowCmd"), -1 );
+	int nShowCmd = CRegistry::GetInt( L"Windows", strEntry + L".ShowCmd", -1 );
 	if ( nShowCmd == -1 ) return FALSE;
 
 	WINDOWPLACEMENT pPos = {};
 	pPos.length = sizeof( pPos );
 
-	pPos.rcNormalPosition.left		= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Left"), 0 );
-	pPos.rcNormalPosition.top		= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Top"), 0 );
-	pPos.rcNormalPosition.right		= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Right"), 0 );
-	pPos.rcNormalPosition.bottom	= CRegistry::GetInt( _T("Windows"), strEntry + _T(".Bottom"), 0 );
+	pPos.rcNormalPosition.left		= CRegistry::GetInt( L"Windows", strEntry + L".Left", 0 );
+	pPos.rcNormalPosition.top		= CRegistry::GetInt( L"Windows", strEntry + L".Top", 0 );
+	pPos.rcNormalPosition.right		= CRegistry::GetInt( L"Windows", strEntry + L".Right", 0 );
+	pPos.rcNormalPosition.bottom	= CRegistry::GetInt( L"Windows", strEntry + L".Bottom", 0 );
 
 	if ( pPos.rcNormalPosition.right && pPos.rcNormalPosition.bottom )
 	{
@@ -1042,14 +1041,14 @@ void CSettings::SaveWindow(LPCTSTR pszName, CWnd* pWindow)
 
 	pWindow->GetWindowPlacement( &pPos );
 
-	CRegistry::SetInt( _T("Windows"), strEntry + _T(".ShowCmd"), pPos.showCmd );
+	CRegistry::SetInt( L"Windows", strEntry + L".ShowCmd", pPos.showCmd );
 
 	if ( pPos.showCmd != SW_SHOWNORMAL ) return;
 
-	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Left"), pPos.rcNormalPosition.left );
-	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Top"), pPos.rcNormalPosition.top );
-	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Right"), pPos.rcNormalPosition.right );
-	CRegistry::SetInt( _T("Windows"), strEntry + _T(".Bottom"), pPos.rcNormalPosition.bottom );
+	CRegistry::SetInt( L"Windows", strEntry + L".Left", pPos.rcNormalPosition.left );
+	CRegistry::SetInt( L"Windows", strEntry + L".Top", pPos.rcNormalPosition.top );
+	CRegistry::SetInt( L"Windows", strEntry + L".Right", pPos.rcNormalPosition.right );
+	CRegistry::SetInt( L"Windows", strEntry + L".Bottom", pPos.rcNormalPosition.bottom );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1066,12 +1065,12 @@ BOOL CSettings::LoadList(LPCTSTR pszName, CListCtrl* pCtrl, int nSort)
 	CString strOrdering, strWidths, strItem;
 	BOOL bSuccess = FALSE;
 
-	strItem.Format( _T("%s.Ordering"), pszName );
-	strOrdering = CRegistry::GetString( _T("ListStates"), strItem );
-	strItem.Format( _T("%s.Widths"), pszName );
-	strWidths = CRegistry::GetString( _T("ListStates"), strItem );
-	strItem.Format( _T("%s.Sort"), pszName );
-	nSort = CRegistry::GetInt( _T("ListStates"), strItem, nSort );
+	strItem.Format( L"%s.Ordering", pszName );
+	strOrdering = CRegistry::GetString( L"ListStates", strItem );
+	strItem.Format( L"%s.Widths", pszName );
+	strWidths = CRegistry::GetString( L"ListStates", strItem );
+	strItem.Format( L"%s.Sort", pszName );
+	nSort = CRegistry::GetInt( L"ListStates", strItem, nSort );
 
 	if ( strOrdering.GetLength() == nColumns * 2 &&
 		 strWidths.GetLength() == nColumns * 4 )
@@ -1080,9 +1079,9 @@ BOOL CSettings::LoadList(LPCTSTR pszName, CListCtrl* pCtrl, int nSort)
 
 		for ( int nColumn = 0 ; nColumn < nColumns ; nColumn++ )
 		{
-			_stscanf( strWidths.Mid( nColumn * 4, 4 ), _T("%x"), &pOrdering[ nColumn ] );
+			_stscanf( strWidths.Mid( nColumn * 4, 4 ), L"%x", &pOrdering[ nColumn ] );
 			pCtrl->SetColumnWidth( nColumn, pOrdering[ nColumn ] );
-			_stscanf( strOrdering.Mid( nColumn * 2, 2 ), _T("%x"), &pOrdering[ nColumn ] );
+			_stscanf( strOrdering.Mid( nColumn * 2, 2 ), L"%x", &pOrdering[ nColumn ] );
 		}
 
 		pCtrl->SendMessage( LVM_SETCOLUMNORDERARRAY, nColumns, (LPARAM)pOrdering );
@@ -1114,9 +1113,9 @@ void CSettings::SaveList(LPCTSTR pszName, CListCtrl* pCtrl)
 
 	for ( int nColumn = 0 ; nColumn < nColumns ; nColumn++ )
 	{
-		strItem.Format( _T("%.2x"), pOrdering[ nColumn ] );
+		strItem.Format( L"%.2x", pOrdering[ nColumn ] );
 		strOrdering += strItem;
-		strItem.Format( _T("%.4x"), pCtrl->GetColumnWidth( nColumn ) );
+		strItem.Format( L"%.4x", pCtrl->GetColumnWidth( nColumn ) );
 		strWidths += strItem;
 	}
 
@@ -1124,12 +1123,12 @@ void CSettings::SaveList(LPCTSTR pszName, CListCtrl* pCtrl)
 
 	int nSort = (int)GetWindowLongPtr( pCtrl->GetSafeHwnd(), GWLP_USERDATA );
 
-	strItem.Format( _T("%s.Ordering"), pszName );
-	CRegistry::SetString( _T("ListStates"), strItem, strOrdering);
-	strItem.Format( _T("%s.Widths"), pszName );
-	CRegistry::SetString( _T("ListStates"), strItem, strWidths);
-	strItem.Format( _T("%s.Sort"), pszName );
-	CRegistry::SetInt( _T("ListStates"), strItem, nSort );
+	strItem.Format( L"%s.Ordering", pszName );
+	CRegistry::SetString( L"ListStates", strItem, strOrdering);
+	strItem.Format( L"%s.Widths", pszName );
+	CRegistry::SetString( L"ListStates", strItem, strWidths);
+	strItem.Format( L"%s.Sort", pszName );
+	CRegistry::SetInt( L"ListStates", strItem, nSort );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1140,10 +1139,10 @@ BOOL CSettings::CheckStartup()
 	BOOL bStartup;
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER, _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_QUERY_VALUE, &hKey )
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_QUERY_VALUE, &hKey )
 		!= ERROR_SUCCESS ) return FALSE;
 
-	bStartup = ( RegQueryValueEx( hKey, _T("PeerProject"), NULL, NULL, NULL, NULL ) == ERROR_SUCCESS );
+	bStartup = ( RegQueryValueEx( hKey, L"PeerProject", NULL, NULL, NULL, NULL ) == ERROR_SUCCESS );
 
 	RegCloseKey( hKey );
 
@@ -1154,19 +1153,19 @@ void CSettings::SetStartup(BOOL bStartup)
 {
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER, _T("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run"), 0, KEY_ALL_ACCESS, &hKey )
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_ALL_ACCESS, &hKey )
 		!= ERROR_SUCCESS ) return;
 
 	if ( bStartup )
 	{
 		CString strCommand;
-		strCommand.Format( _T("\"%s\" -tray"), theApp.m_strBinaryPath );
-		RegSetValueEx( hKey, _T("PeerProject"), 0, REG_SZ, (const BYTE*)(LPCTSTR)strCommand,
+		strCommand.Format( L"\"%s\" -tray", theApp.m_strBinaryPath );
+		RegSetValueEx( hKey, L"PeerProject", 0, REG_SZ, (const BYTE*)(LPCTSTR)strCommand,
 			( strCommand.GetLength() + 1 ) * sizeof( TCHAR ) );
 	}
 	else
 	{
-		RegDeleteValue( hKey, _T("PeerProject") );
+		RegDeleteValue( hKey, L"PeerProject" );
 	}
 
 	RegCloseKey( hKey );
@@ -1177,10 +1176,10 @@ void CSettings::ClearSearches()
 	CString strEntry;
 	for ( int i = 1 ; ; i++ )
 	{
-		strEntry.Format( _T("Search.%.2i"), i );
-		if ( theApp.GetProfileString( _T("Search"), strEntry ).IsEmpty() )
+		strEntry.Format( L"Search.%.2i", i );
+		if ( theApp.GetProfileString( L"Search", strEntry ).IsEmpty() )
 			break;
-		theApp.WriteProfileString( _T("Search"), strEntry, NULL );
+		theApp.WriteProfileString( L"Search", strEntry, NULL );
 	}
 }
 
@@ -1193,14 +1192,14 @@ void CSettings::ClearSearches()
 const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTruncate) const
 {
 	CString strVolume;
-	CString strUnit( _T("b/s") );
+	CString strUnit( L"b/s" );
 	int nUnits = bits;
 
 	// Convert to bits or bytes
 	nVolume *= nVolumeUnits;
 	if ( General.RatesInBytes )
 	{
-		strUnit = _T("B/s");
+		strUnit = L"B/s";
 		nVolume /= Bytes;
 		nUnits = Bytes;
 	}
@@ -1209,30 +1208,30 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 	{
 	// Smart units
 	case 0:
-		return SmartVolume( nVolume, nUnits, bTruncate ) + _T("/s");
+		return SmartVolume( nVolume, nUnits, bTruncate ) + L"/s";
 
 	// bits - Bytes
 	case 1:
-		strVolume.Format( _T("%I64u %s"), nVolume, strUnit );
+		strVolume.Format( L"%I64u %s", nVolume, strUnit );
 		break;
 
 	// Kilobits - KiloBytes
 	case 2:
-		strVolume.Format( _T("%.1lf K%s"), nVolume / KiloFloat, strUnit );
+		strVolume.Format( L"%.1lf K%s", nVolume / KiloFloat, strUnit );
 		break;
 
 	// Megabits - MegaBytes
 	case 3:
-		strVolume.Format( _T("%.2lf M%s"), nVolume / MegaFloat, strUnit );
+		strVolume.Format( L"%.2lf M%s", nVolume / MegaFloat, strUnit );
 		break;
 
 	default:
-		TRACE( _T("Unknown RatesUnit - %i"), General.RatesUnit );
+		TRACE( L"Unknown RatesUnit - %i", General.RatesUnit );
 		break;
 	}
 
 	// Add Unicode RTL marker if required
-	return Settings.General.LanguageRTL ? _T("\x200E") + strVolume : strVolume;
+	return Settings.General.LanguageRTL ? L"\x200E" + strVolume : strVolume;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1242,9 +1241,9 @@ const CString CSettings::SmartSpeed(QWORD nVolume, int nVolumeUnits, bool bTrunc
 
 const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTruncate) const
 {
-	LPCTSTR szUnit = ( ! General.RatesInBytes && nVolumeUnits == bits ) ? _T("b") : _T("B");
+	LPCTSTR szUnit = ( ! General.RatesInBytes && nVolumeUnits == bits ) ? L"b" : L"B";
 	CString strVolume;
-	CString strPrecision( bTruncate ? _T("%.0f") : _T("%.2f") );
+	CString strPrecision( bTruncate ? L"%.0f" : L"%.2f" );
 
 	switch ( nVolumeUnits )
 	{
@@ -1253,12 +1252,12 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	case Bytes:
 		if ( nVolume < KiloByte )					// bits - Bytes
 		{
-			strVolume.Format( _T("%I64u %s"), nVolume, szUnit );
+			strVolume.Format( L"%I64u %s", nVolume, szUnit );
 			break;
 		}
 		else if ( nVolume < 10*KiloByte )			// 10 Kilobits - KiloBytes
 		{
-			strVolume.Format( strPrecision + _T(" K%s"), (double)nVolume / KiloFloat, szUnit );
+			strVolume.Format( strPrecision + L" K%s", (double)nVolume / KiloFloat, szUnit );
 			break;
 		}
 
@@ -1270,27 +1269,27 @@ const CString CSettings::SmartVolume(QWORD nVolume, int nVolumeUnits, bool bTrun
 	case KiloBytes:
 		if ( nVolume < KiloByte )					// Kilo
 		{
-			strVolume.Format( _T("%I64u K%s"), nVolume, szUnit );
+			strVolume.Format( L"%I64u K%s", nVolume, szUnit );
 		}
 		else if ( nVolume < MegaFloat )				// Mega
 		{
-			strVolume.Format( strPrecision + _T(" M%s"), (double)nVolume / KiloFloat, szUnit );
+			strVolume.Format( strPrecision + L" M%s", (double)nVolume / KiloFloat, szUnit );
 		}
 		else
 		{
 			if ( nVolume < GigaFloat )				// Giga
-				strVolume.Format( strPrecision + _T(" G%s"), (double)nVolume / MegaFloat, szUnit );
+				strVolume.Format( strPrecision + L" G%s", (double)nVolume / MegaFloat, szUnit );
 			else if ( nVolume < TeraFloat )			// Tera
-				strVolume.Format( strPrecision + _T(" T%s"), (double)nVolume / GigaFloat, szUnit );
+				strVolume.Format( strPrecision + L" T%s", (double)nVolume / GigaFloat, szUnit );
 			else if ( nVolume < PetaFloat )			// Peta
-				strVolume.Format( strPrecision + _T(" P%s"), (double)nVolume / TeraFloat, szUnit );
+				strVolume.Format( strPrecision + L" P%s", (double)nVolume / TeraFloat, szUnit );
 			else									// Exa
-				strVolume.Format( strPrecision + _T(" E%s"), (double)nVolume / PetaFloat, szUnit );
+				strVolume.Format( strPrecision + L" E%s", (double)nVolume / PetaFloat, szUnit );
 		}
 	}
 
 	// Add Unicode RTL marker if required
-	return Settings.General.LanguageRTL ? _T("\x200E") + strVolume : strVolume;
+	return Settings.General.LanguageRTL ? L"\x200E" + strVolume : strVolume;
 }
 
 QWORD CSettings::ParseVolume(const CString& strVolume, int nReturnUnits) const
@@ -1299,33 +1298,33 @@ QWORD CSettings::ParseVolume(const CString& strVolume, int nReturnUnits) const
 	CString strSize( strVolume );
 
 	// Skip Unicode RTL marker if it's present
-	if ( strSize.Left( 1 ) == _T("\x200E") ) strSize = strSize.Mid( 1 );
+	if ( strSize[ 0 ] == L'\x200E' ) strSize = strSize.Mid( 1 );
 
 	// Return early if there is no number in the string
-	if ( _stscanf( strSize, _T("%lf"), &val ) != 1 ) return 0ul;
+	if ( _stscanf( strSize, L"%lf", &val ) != 1 ) return 0ul;
 
 	// Return early if the number is negative
 	if ( val < 0 ) return 0ul;
 
 	// Convert to bits if Bytes were passed in
-	if ( _tcsstr( strSize, _T("B") ) )
+	if ( _tcsstr( strSize, L"B" ) )
 		val *= 8.0f;
 	// If bits or Bytes are not indicated return 0
-	else if ( !_tcsstr( strSize, _T("b") ) )
+	else if ( !_tcsstr( strSize, L"b" ) )
 		return 0ul;
 
 	// Work out what units are represented in the string
-	if ( _tcsstr( strSize, _T("K") ) || _tcsstr( strSize, _T("k") ) )		// Kilo
+	if ( _tcsstr( strSize, L"K" ) || _tcsstr( strSize, L"k" ) )		// Kilo
 		val *= KiloFloat;
-	else if ( _tcsstr( strSize, _T("M") ) || _tcsstr( strSize, _T("m") ) )	// Mega
+	else if ( _tcsstr( strSize, L"M" ) || _tcsstr( strSize, L"m" ) )	// Mega
 		val *= MegaFloat;
-	else if ( _tcsstr( strSize, _T("G") ) || _tcsstr( strSize, _T("g") ) )	// Giga
+	else if ( _tcsstr( strSize, L"G" ) || _tcsstr( strSize, L"g" ) )	// Giga
 		val *= GigaFloat;
-	else if ( _tcsstr( strSize, _T("T") ) || _tcsstr( strSize, _T("t") ) )	// Tera
+	else if ( _tcsstr( strSize, L"T" ) || _tcsstr( strSize, L"t" ) )	// Tera
 		val *= TeraFloat;
-	else if ( _tcsstr( strSize, _T("P") ) || _tcsstr( strSize, _T("p") ) )	// Peta
+	else if ( _tcsstr( strSize, L"P" ) || _tcsstr( strSize, L"p" ) )	// Peta
 		val *= PetaFloat;
-	else if ( _tcsstr( strSize, _T("E") ) || _tcsstr( strSize, _T("e") ) )	// Exa
+	else if ( _tcsstr( strSize, L"E" ) || _tcsstr( strSize, L"e" ) )	// Exa
 		val *= ExaFloat;
 
 	// Convert to required Units
@@ -1448,7 +1447,7 @@ void CSettings::LoadSet(string_set* pSet, LPCTSTR pszString)
 	pSet->clear();
 	for ( LPCTSTR start = pszString ; start && *start ; start++ )
 	{
-		LPCTSTR c = _tcschr( start, _T('|') );
+		LPCTSTR c = _tcschr( start, L'|' );
 		int len = c ? (int) ( c - start ) : (int) _tcslen( start );
 		if ( len > 0 )
 		{
@@ -1467,11 +1466,11 @@ CString CSettings::SaveSet(const string_set* pSet)
 	if ( pSet->begin() == pSet->end() )
 		return CString();
 
-	CString tmp( _T("|") );
+	CString tmp( L"|" );
 	for ( string_set::const_iterator i = pSet->begin() ; i != pSet->end() ; i++ )
 	{
 		tmp += *i;
-		tmp += _T('|');
+		tmp += L'|';
 	}
 	return tmp;
 }

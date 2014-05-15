@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,8 +21,9 @@
 #include "PeerProject.h"
 #include "WizardProfilePage.h"
 #include "GProfile.h"
-#include "WorldGPS.h"
 #include "Network.h"
+#include "WorldGPS.h"
+#include "Flags.h"
 #include "Skin.h"
 #include "XML.h"
 
@@ -36,7 +37,7 @@ IMPLEMENT_DYNCREATE(CWizardProfilePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CWizardProfilePage, CWizardPage)
 	ON_WM_XBUTTONDOWN()
-	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, OnSelChangeCountry)
+	ON_CBN_SELCHANGE(IDC_LOC_COUNTRY, &CWizardProfilePage::OnSelChangeCountry)
 END_MESSAGE_MAP()
 
 
@@ -77,30 +78,67 @@ BOOL CWizardProfilePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardProfilePage"), this );
+	Skin.Apply( L"CWizardProfilePage", this );
+
+	CString str, strYearsOld;
+	LoadString( strYearsOld, IDS_WIZARD_YEARS_OLD );
 
 	for ( int nAge = 13 ; nAge < 91 ; nAge++ )
 	{
-		CString str, strYearsOld;
-		LoadString( strYearsOld, IDS_WIZARD_YEARS_OLD );
-		str.Format( _T(" %i ") + strYearsOld, nAge );
+		str.Format( L" %i " + strYearsOld, nAge );
 		m_wndAge.SetItemData( m_wndAge.AddString( str ), nAge );
 	}
 
-	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes") ) )
+	if ( CXMLElement* pNotes = MyProfile.GetXML( L"notes" ) )
 		m_wndComments.SetWindowText( pNotes->GetValue() );
+
+	const int nFlags = Flags.GetCount();
+	VERIFY( m_gdiFlags.Create( FLAG_WIDTH, 16, ILC_COLOR32|ILC_MASK, nFlags, 0 ) ||
+			m_gdiFlags.Create( FLAG_WIDTH, 16, ILC_COLOR24|ILC_MASK, nFlags, 0 ) ||
+			m_gdiFlags.Create( FLAG_WIDTH, 16, ILC_COLOR16|ILC_MASK, nFlags, 0 ) );
+	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
+	{
+		if ( HICON hIcon = Flags.ExtractIcon( nFlag ) )
+		{
+			VERIFY( m_gdiFlags.Add( hIcon ) != -1 );
+			VERIFY( DestroyIcon( hIcon ) );
+		}
+	}
+	m_wndCountry.SetImageList( &m_gdiFlags );
 
 	m_pWorld = new CWorldGPS();
 	m_pWorld->Load();
 
-	CWorldCountry* pCountry = m_pWorld->m_pCountry;
+	const CWorldCountry* pCountry = m_pWorld->m_pCountry;
 
-	for ( int nCountry = m_pWorld->m_nCountry ; nCountry ; nCountry--, pCountry++ )
+	int nSelect = -1;
+	for ( UINT nCountry = 0 ; nCountry < m_pWorld->m_nCountry ; nCountry++, pCountry++ )
 	{
-		m_wndCountry.SetItemData( m_wndCountry.AddString( pCountry->m_sName ), (LPARAM)pCountry );
-	}
+	//	m_wndCountry.SetItemData( m_wndCountry.AddString( pCountry->m_sName ), (LPARAM)pCountry );
 
-	//UpdateData( FALSE );
+		const int nImage = Flags.GetFlagIndex( CString( pCountry->m_szID, 2 ) );
+		const COMBOBOXEXITEM cbei =
+		{
+			CBEIF_IMAGE | CBEIF_SELECTEDIMAGE | CBEIF_LPARAM | CBEIF_TEXT,
+			nCountry,
+			(LPTSTR)(LPCTSTR)pCountry->m_sName,
+			pCountry->m_sName.GetLength() + 1,
+			nImage,
+			nImage,
+			0,
+			0,
+			(LPARAM)pCountry
+		};
+		m_wndCountry.InsertItem( &cbei );
+		if ( pCountry->m_sName.CompareNoCase( m_sLocCountry ) == 0 )
+			nSelect = nCountry;
+	}
+	m_wndCountry.SetCurSel( nSelect );
+
+//	OnSelChangeCountry();
+//	RecalcDropWidth( &m_wndCountry );	// Not ComboBoxEx
+
+	UpdateData( FALSE );
 
 	return TRUE;
 }
@@ -124,18 +162,18 @@ BOOL CWizardProfilePage::OnSetActive()
 			m_sNick = pBuffer;
 	}
 
-	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals") ) )
+	if ( CXMLElement* pVitals = MyProfile.GetXML( L"vitals" ) )
 	{
-		CString strGender	= pVitals->GetAttributeValue( _T("gender") );
-		CString strAge		= pVitals->GetAttributeValue( _T("age") );
+		CString strGender	= pVitals->GetAttributeValue( L"gender" );
+		CString strAge		= pVitals->GetAttributeValue( L"age" );
 
-		if ( strGender.CompareNoCase( _T("male") ) == 0 )
+		if ( strGender.CompareNoCase( L"male" ) == 0 )
 			m_nGender = 1;
-		else if ( strGender.CompareNoCase( _T("female") ) == 0 )
+		else if ( strGender.CompareNoCase( L"female" ) == 0 )
 			m_nGender = 2;
 
 		int nAge = 0;
-		_stscanf( strAge, _T("%i"), &nAge );
+		_stscanf( strAge, L"%i", &nAge );
 
 		for ( int nAgeItem = 0 ; nAgeItem < m_wndAge.GetCount() ; nAgeItem ++ )
 		{
@@ -147,32 +185,35 @@ BOOL CWizardProfilePage::OnSetActive()
 		}
 	}
 
-	if ( CXMLElement* pLocation = MyProfile.GetXML( _T("location") ) )
+	if ( CXMLElement* pLocation = MyProfile.GetXML( L"location" ) )
 	{
-		if ( CXMLElement* pPolitical = pLocation->GetElementByName( _T("political") ) )
+		if ( CXMLElement* pPolitical = pLocation->GetElementByName( L"political" ) )
 		{
-			m_sLocCountry	= pPolitical->GetAttributeValue( _T("country") );
-			m_sLocCity		= pPolitical->GetAttributeValue( _T("city") ) + _T(", ")
-							+ pPolitical->GetAttributeValue( _T("state") );
+			m_sLocCountry	= pPolitical->GetAttributeValue( L"country" );
+			m_sLocCity		= pPolitical->GetAttributeValue( L"city" ) + L", "
+							+ pPolitical->GetAttributeValue( L"state" );
 		}
 	}
 
 	if ( m_sLocCountry.IsEmpty() && Network.m_pHost.sin_addr.S_un.S_addr )
 		m_sLocCountry = theApp.GetCountryName( Network.m_pHost.sin_addr );
 
-	UpdateData( FALSE );
+	CString strTest;
+	for ( UINT nCountry = 0 ; nCountry < m_pWorld->m_nCountry ; nCountry++ )
+	{
+		m_wndCountry.GetLBText( nCountry, strTest );
+		if ( strTest.CompareNoCase( m_sLocCountry ) == 0 )
+		{
+			m_wndCountry.SetCurSel( nCountry );
+			break;
+		}
+	}
 
 	OnSelChangeCountry();
 
-	return CWizardPage::OnSetActive();
-}
+	UpdateData( FALSE );
 
-void CWizardProfilePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
-{
-	if ( nButton == 1 )
-		GetSheet()->PressButton( PSBTN_BACK );
-	else if ( nButton == 2 )
-		GetSheet()->PressButton( PSBTN_NEXT );
+	return CWizardPage::OnSetActive();
 }
 
 void CWizardProfilePage::OnSelChangeCountry()
@@ -193,7 +234,7 @@ void CWizardProfilePage::OnSelChangeCountry()
 	for ( int nCity = pCountry->m_nCity ; nCity ; nCity--, pCity++ )
 	{
 		if ( ! pCity->m_sName.IsEmpty() && ! pCity->m_sState.IsEmpty() )
-			strCity = pCity->m_sName + _T(", ") + pCity->m_sState;
+			strCity = pCity->m_sName + L", " + pCity->m_sState;
 		else if ( ! pCity->m_sName.IsEmpty() )
 			strCity = pCity->m_sName;
 		else if ( ! pCity->m_sState.IsEmpty() )
@@ -203,6 +244,17 @@ void CWizardProfilePage::OnSelChangeCountry()
 
 		m_wndCity.SetItemData( m_wndCity.AddString( strCity ), (LPARAM)pCity );
 	}
+	RecalcDropWidth( &m_wndCity );
+
+//	UpdateData();
+}
+
+void CWizardProfilePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)
+{
+	if ( nButton == 1 )
+		GetSheet()->PressButton( PSBTN_BACK );
+	else if ( nButton == 2 )
+		GetSheet()->PressButton( PSBTN_NEXT );
 }
 
 LRESULT CWizardProfilePage::OnWizardBack()
@@ -214,17 +266,17 @@ LRESULT CWizardProfilePage::OnWizardNext()
 {
 	UpdateData( TRUE );
 
-	if ( CXMLElement* pIdentity = MyProfile.GetXML( _T("identity"), TRUE ) )
+	if ( CXMLElement* pIdentity = MyProfile.GetXML( L"identity", TRUE ) )
 	{
-		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle"), TRUE ) )
+		if ( CXMLElement* pHandle = pIdentity->GetElementByName( L"handle", TRUE ) )
 		{
-			pHandle->AddAttribute( _T("primary"), m_sNick );
+			pHandle->AddAttribute( L"primary", m_sNick );
 			if ( m_sNick.IsEmpty() )
 				pHandle->Delete();
 		}
 	}
 
-	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes"), TRUE ) )
+	if ( CXMLElement* pNotes = MyProfile.GetXML( L"notes", TRUE ) )
 	{
 		CString str;
 		m_wndComments.GetWindowText( str );
@@ -235,62 +287,62 @@ LRESULT CWizardProfilePage::OnWizardNext()
 		//	pNotes->Delete();
 	}
 
-	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals"), TRUE ) )
+	if ( CXMLElement* pVitals = MyProfile.GetXML( L"vitals", TRUE ) )
 	{
 		if ( m_nAge < 10 )
 		{
-			pVitals->DeleteAttribute( _T("age") );
+			pVitals->DeleteAttribute( L"age" );
 		}
 		else
 		{
 			CString strAge;
-			strAge.Format( _T("%i"), m_wndAge.GetItemData( m_nAge ) );
-			pVitals->AddAttribute( _T("age"), strAge );
+			strAge.Format( L"%i", m_wndAge.GetItemData( m_nAge ) );
+			pVitals->AddAttribute( L"age", strAge );
 		}
 
 		if ( m_nGender == 1 || m_nGender == 3 )
-			pVitals->AddAttribute( _T("gender"), _T("male") );
+			pVitals->AddAttribute( L"gender", L"male" );
 		else if ( m_nGender == 2 || m_nGender == 4 )
-			pVitals->AddAttribute( _T("gender"), _T("female") );
+			pVitals->AddAttribute( L"gender", L"female" );
 		else
-			pVitals->DeleteAttribute( _T("gender") );
+			pVitals->DeleteAttribute( L"gender" );
 
 		if ( pVitals->GetElementCount() == 0 &&
 			 pVitals->GetAttributeCount() == 0 ) pVitals->Delete();
 	}
 
-	if ( CXMLElement* pLocation = MyProfile.GetXML( _T("location"), TRUE ) )
+	if ( CXMLElement* pLocation = MyProfile.GetXML( L"location", TRUE ) )
 	{
-		if ( CXMLElement* pPolitical = pLocation->GetElementByName( _T("political"), TRUE ) )
+		if ( CXMLElement* pPolitical = pLocation->GetElementByName( L"political", TRUE ) )
 		{
 			if ( ! m_sLocCountry.IsEmpty() )
-				pPolitical->AddAttribute( _T("country"), m_sLocCountry );
+				pPolitical->AddAttribute( L"country", m_sLocCountry );
 			else
-				pPolitical->DeleteAttribute( _T("country") );
+				pPolitical->DeleteAttribute( L"country" );
 
-			int nPos = m_sLocCity.Find( _T(", ") );
+			int nPos = m_sLocCity.Find( L", " );
 
 			if ( nPos >= 0 )
 			{
-				pPolitical->AddAttribute( _T("city"), m_sLocCity.Left( nPos ) );
-				pPolitical->AddAttribute( _T("state"), m_sLocCity.Mid( nPos + 2 ) );
+				pPolitical->AddAttribute( L"city", m_sLocCity.Left( nPos ) );
+				pPolitical->AddAttribute( L"state", m_sLocCity.Mid( nPos + 2 ) );
 			}
 			else if ( ! m_sLocCity.IsEmpty() )
 			{
-				pPolitical->AddAttribute( _T("city"), m_sLocCity );
-				pPolitical->DeleteAttribute( _T("state") );
+				pPolitical->AddAttribute( L"city", m_sLocCity );
+				pPolitical->DeleteAttribute( L"state" );
 			}
 			else
 			{
-				pPolitical->DeleteAttribute( _T("city") );
-				pPolitical->DeleteAttribute( _T("state") );
+				pPolitical->DeleteAttribute( L"city" );
+				pPolitical->DeleteAttribute( L"state" );
 			}
 
 			if ( pPolitical->GetElementCount() == 0 && pPolitical->GetAttributeCount() == 0 )
 				pPolitical->Delete();
 		}
 
-		if ( CXMLElement* pCoordinates = pLocation->GetElementByName( _T("coordinates"), TRUE ) )
+		if ( CXMLElement* pCoordinates = pLocation->GetElementByName( L"coordinates", TRUE ) )
 		{
 			int nSel = m_wndCity.GetCurSel();
 			CWorldCity* pCity = (CWorldCity*)m_wndCity.GetItemData( m_wndCity.GetCurSel() );
@@ -299,11 +351,11 @@ LRESULT CWizardProfilePage::OnWizardNext()
 			{
 				CString strValue;
 
-				strValue.Format( _T("%f"), pCity->m_nLatitude );
-				pCoordinates->AddAttribute( _T("latitude"), strValue );
+				strValue.Format( L"%f", pCity->m_nLatitude );
+				pCoordinates->AddAttribute( L"latitude", strValue );
 
-				strValue.Format( _T("%f"), pCity->m_nLongitude );
-				pCoordinates->AddAttribute( _T("longitude"), strValue );
+				strValue.Format( L"%f", pCity->m_nLongitude );
+				pCoordinates->AddAttribute( L"longitude", strValue );
 			}
 			else
 			{
@@ -322,7 +374,7 @@ LRESULT CWizardProfilePage::OnWizardNext()
 	//	MsgBox( IDS_PROFILE_NO_NICK, MB_ICONEXCLAMATION );
 	//	return -1;
 	//}
-	//if ( MyProfile.GetXML( _T("vitals") ) == NULL )
+	//if ( MyProfile.GetXML( L"vitals" ) == NULL )
 	//{
 	//	if ( MsgBox( IDS_PROFILE_NO_VITALS, MB_ICONQUESTION|MB_YESNO|MB_DEFBUTTON2 ) != IDYES ) return -1;
 	//}

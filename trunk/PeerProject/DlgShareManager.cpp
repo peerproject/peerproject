@@ -1,7 +1,7 @@
 //
 // DlgShareManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -67,11 +67,11 @@ BOOL CShareManagerDlg::OnInitDialog()
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
-	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.right - GetSystemMetrics( SM_CXVSCROLL ) );
+	m_wndList.InsertColumn( 0, L"Folder", LVCFMT_LEFT, rc.right - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.EnableToolTips( TRUE );
 	ShellIcons.AttachTo( &m_wndList, 16 );	// m_wndList.SetImageList()
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndList.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( L"CListCtrl" ) ) )		// || m_wndList.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_TRANSPARENTBKGND|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
 	{

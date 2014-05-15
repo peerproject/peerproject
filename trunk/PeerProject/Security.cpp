@@ -265,36 +265,36 @@ void CSecurity::SetHashMap(CString sURN, BYTE nIndex)
 	if ( ! nIndex || sURN.GetLength() < 36 )
 		return;
 
-	const CString strHash = sURN.Mid( sURN.ReverseFind( _T(':') ) + 1 );
+	const CString strHash = sURN.Mid( sURN.ReverseFind( L':' ) + 1 );
 
-	if ( StartsWith( sURN, _PT("urn:sha1:") ) )
+	if ( StartsWith( sURN, _P( L"urn:sha1:" ) ) )
 		m_HashMap[urnSHA][ strHash ] = nIndex;
-	else if ( StartsWith( sURN, _PT("urn:tree:") ) )
+	else if ( StartsWith( sURN, _P( L"urn:tree:" ) ) )
 		m_HashMap[urnTiger][ strHash ] = nIndex;
-	else if ( StartsWith( sURN, _PT("urn:ed2k:") ) )
+	else if ( StartsWith( sURN, _P( L"urn:ed2k:" ) ) )
 		m_HashMap[urnED2K][ strHash ] = nIndex;
-	else if ( StartsWith( sURN, _PT("urn:bth:") ) )
+	else if ( StartsWith( sURN, _P( L"urn:bth:" ) ) )
 		m_HashMap[urnBTH][ strHash ] = nIndex;
-	else if ( StartsWith( sURN, _PT("urn:md5:") ) )
+	else if ( StartsWith( sURN, _P( L"urn:md5:" ) ) )
 		m_HashMap[urnMD5][ strHash ] = nIndex;
 }
 
 BYTE CSecurity::GetHashMap(CString sURN)
 {
-	if ( sURN.GetLength() < 36 || ( sURN[0] != _T('u') && sURN[0] != _T('U') ) )
+	if ( sURN.GetLength() < 36 || ( sURN[0] != L'u' && sURN[0] != L'U' ) )
 		return 0;
 
-	const CString strHash = sURN.Mid( sURN.ReverseFind( _T(':') ) + 1 );
+	const CString strHash = sURN.Mid( sURN.ReverseFind( L':' ) + 1 );
 
-	if ( StartsWith( sURN, _PT("urn:sha1:") ) )
+	if ( StartsWith( sURN, _P( L"urn:sha1:" ) ) )
 		return m_HashMap[urnSHA].count( strHash ) ? m_HashMap[urnSHA][ strHash ] : 0;
-	if ( StartsWith( sURN, _PT("urn:tree:") ) )
+	if ( StartsWith( sURN, _P( L"urn:tree:" ) ) )
 		return m_HashMap[urnTiger].count( strHash ) ? m_HashMap[urnTiger][ strHash ] : 0;
-	if ( StartsWith( sURN, _PT("urn:ed2k:") ) )
+	if ( StartsWith( sURN, _P( L"urn:ed2k:" ) ) )
 		return m_HashMap[urnED2K].count( strHash ) ? m_HashMap[urnED2K][strHash ] : 0;
-	if ( StartsWith( sURN, _PT("urn:bth:") ) )
+	if ( StartsWith( sURN, _P( L"urn:bth:" ) ) )
 		return m_HashMap[urnBTH].count( strHash ) ? m_HashMap[urnBTH][ strHash ] : 0;
-	if ( StartsWith( sURN, _PT("urn:md5:") ) )
+	if ( StartsWith( sURN, _P( L"urn:md5:" ) ) )
 		return m_HashMap[urnMD5].count( strHash ) ? m_HashMap[urnMD5][ strHash ] : 0;
 
 	return 0;
@@ -343,10 +343,10 @@ void CSecurity::Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage
 	{
 		pRule->m_nType = CSecureRule::srContentHash;
 		pRule->SetContentWords(
-			( pFile->m_oSHA1  ? pFile->m_oSHA1.toUrn()  + _T(" ") : CString() ) +
-			( pFile->m_oTiger ? pFile->m_oTiger.toUrn() + _T(" ") : CString() ) +
-			( pFile->m_oED2K  ? pFile->m_oED2K.toUrn()  + _T(" ") : CString() ) +
-			( pFile->m_oMD5   ? pFile->m_oMD5.toUrn()   + _T(" ") : CString() ) +
+			( pFile->m_oSHA1  ? pFile->m_oSHA1.toUrn()  + L" " : CString() ) +
+			( pFile->m_oTiger ? pFile->m_oTiger.toUrn() + L" " : CString() ) +
+			( pFile->m_oED2K  ? pFile->m_oED2K.toUrn()  + L" " : CString() ) +
+			( pFile->m_oMD5   ? pFile->m_oMD5.toUrn()   + L" " : CString() ) +
 			( pFile->m_oBTH   ? pFile->m_oBTH.toUrn()             : CString() ) );
 	}
 
@@ -410,32 +410,32 @@ CSecureRule* CSecurity::NewBanRule(int nBanLength, CString sComment) const
 	{
 	case banSession:
 		pRule->m_nExpire	= CSecureRule::srSession;
-		pRule->m_sComment	= _T("Quick Ban");
+		pRule->m_sComment	= L"Quick Ban";
 		break;
 	case ban5Mins:
 		pRule->m_nExpire	= tNow + 300;
-		pRule->m_sComment	= _T("Temp Ignore");
+		pRule->m_sComment	= L"Temp Ignore";
 		break;
 	case ban30Mins:
 		pRule->m_nExpire	= tNow + 1800;
-		pRule->m_sComment	= _T("Temp Ignore");
+		pRule->m_sComment	= L"Temp Ignore";
 		break;
 	case ban2Hours:
 		pRule->m_nExpire	= tNow + 7200;
-		pRule->m_sComment	= _T("Temp Ignore");
+		pRule->m_sComment	= L"Temp Ignore";
 		break;
 	case banWeek:
 		pRule->m_nExpire	= tNow + 604800;
-		pRule->m_sComment	= _T("Client Block");
+		pRule->m_sComment	= L"Client Block";
 		break;
 	case banCustom:
 		pRule->m_nExpire	= tNow + Settings.Security.DefaultBan + 3600;
-		pRule->m_sComment	= _T("Ban");
+		pRule->m_sComment	= L"Ban";
 		break;
 	case banForever:
 	default:
 		pRule->m_nExpire	= CSecureRule::srIndefinite;
-		pRule->m_sComment	= _T("Ban");
+		pRule->m_sComment	= L"Ban";
 		break;
 	}
 
@@ -496,7 +496,7 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 
 		if ( m_Cache.count( *(DWORD*)pAddress ) )		// Rare crash if unlocked
 			return m_bDenyPolicy;
-			//theApp.Message( MSG_DEBUG, _T("Skipped Repeat IP Security Check  (%i Cached)"), m_Cache.size() );
+			//theApp.Message( MSG_DEBUG, L"Skipped Repeat IP Security Check  (%i Cached)", m_Cache.size() );
 	}
 
 	if ( BYTE nIndex = GetAddressMap( *(DWORD*)pAddress ) )
@@ -548,7 +548,7 @@ BOOL CSecurity::IsDenied(const IN_ADDR* pAddress)
 
 BOOL CSecurity::IsDenied(LPCTSTR pszContent)
 {
-	if ( CString(pszContent).GetLength() > 30 && StartsWith( pszContent, _PT("urn:") ) )
+	if ( CString(pszContent).GetLength() > 30 && StartsWith( pszContent, _P( L"urn:" ) ) )
 	{
 		if ( BYTE nIndex = GetHashMap( pszContent ) )
 		{
@@ -758,7 +758,7 @@ void CSecurity::Expire()
 
 BOOL CSecurity::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("Security.dat");
+	const CString strFile = Settings.General.DataPath + L"Security.dat";
 
 	CFile pFile;
 	if ( pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
@@ -794,14 +794,14 @@ BOOL CSecurity::Load()
 		pFile.Close();
 	}
 
-	theApp.Message( MSG_ERROR, _T("Failed to load security rules: %s"), strFile );
+	theApp.Message( MSG_ERROR, L"Failed to load security rules: %s", strFile );
 	return FALSE;
 }
 
 BOOL CSecurity::Save()
 {
-	const CString strFile = Settings.General.DataPath + _T("Security.dat");
-	const CString strTemp = Settings.General.DataPath + _T("Security.tmp");
+	const CString strFile = Settings.General.DataPath + L"Security.dat";
+	const CString strTemp = Settings.General.DataPath + L"Security.tmp";
 
 	CFile pFile;
 	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
@@ -840,7 +840,7 @@ BOOL CSecurity::Save()
 		DeleteFile( strTemp );
 	}
 
-	theApp.Message( MSG_ERROR, _T("Failed to save security rules: %s"), strFile );
+	theApp.Message( MSG_ERROR, L"Failed to save security rules: %s", strFile );
 	return FALSE;
 }
 
@@ -916,12 +916,12 @@ void CSecurity::Serialize(CArchive& ar)
 //////////////////////////////////////////////////////////////////////
 // CSecurity XML
 
-LPCTSTR CSecurity::xmlns = _T("http://schemas.peerproject.org/Security.xsd");
+LPCTSTR CSecurity::xmlns = L"http://schemas.peerproject.org/Security.xsd";
 
 CXMLElement* CSecurity::ToXML(BOOL bRules)
 {
-	CXMLElement* pXML = new CXMLElement( NULL, _T("security") );
-	pXML->AddAttribute( _T("xmlns"), CSecurity::xmlns );
+	CXMLElement* pXML = new CXMLElement( NULL, L"security" );
+	pXML->AddAttribute( L"xmlns", CSecurity::xmlns );
 
 	if ( bRules )
 	{
@@ -936,7 +936,7 @@ CXMLElement* CSecurity::ToXML(BOOL bRules)
 
 BOOL CSecurity::FromXML(CXMLElement* pXML)
 {
-	if ( ! pXML->IsNamed( _T("security") ) ) return FALSE;
+	if ( ! pXML->IsNamed( L"security" ) ) return FALSE;
 
 	int nCount = 0;
 
@@ -944,11 +944,11 @@ BOOL CSecurity::FromXML(CXMLElement* pXML)
 	{
 		CXMLElement* pElement = pXML->GetNextElement( pos );
 
-		if ( pElement->IsNamed( _T("rule") ) )
+		if ( pElement->IsNamed( L"rule" ) )
 		{
 			CQuickLock oLock( m_pSection );
 			CSecureRule* pRule	= NULL;
-			CString strGUID		= pElement->GetAttributeValue( _T("guid") );
+			CString strGUID		= pElement->GetAttributeValue( L"guid" );
 			BOOL bExisting		= FALSE;
 			GUID pGUID;
 
@@ -1051,76 +1051,76 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 	if ( sUserAgent.IsEmpty() ) 								return TRUE;
 
 	// PeerProject Fakes
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("PeerProject") ) )
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"PeerProject" ) )
 	{
 		szVersion += 11;
-		if ( _tcsistr( sUserAgent, _T(" 1.") ) )				return FALSE;
-	//	if ( _tcsistr( sUserAgent, _T(" 2.") ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, L" 1." ) )				return FALSE;
+	//	if ( _tcsistr( sUserAgent, L" 2." ) )				return FALSE;
 
 		return TRUE;
 	}
 
 	// Shareaza Fakes/Obsolete
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("shareaza") ) )
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"shareaza" ) )
 	{
 		szVersion += 8;
-		if ( _tcsistr( sUserAgent, _T(" 2.0") ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, _T(" 2.") ) )				return FALSE;
-		if ( _tcsistr( sUserAgent, _T("Plus") ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, L" 2.0" ) )				return TRUE;
+		if ( _tcsistr( sUserAgent, L" 2." ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, L"Plus" ) )				return FALSE;
 
 		return TRUE;
 	}
 
 	// Dianlei: Shareaza rip-off
 	// Based on Alpha code, need verification for current 1.x status
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("Dianlei") ) )
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"Dianlei" ) )
 	{
 		szVersion += 7;
-		if ( _tcsistr( szVersion, _T(" 0.") ) )					return TRUE;
+		if ( _tcsistr( szVersion, L" 0." ) )					return TRUE;
 
 		return FALSE;
 	}
 
 	// BearShare Selectivity
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, _T("BearShare") ) )
+	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"BearShare" ) )
 	{
 		szVersion += 9;
-		if ( _tcsistr( szVersion, _T(" 4.") ) )					return FALSE;
-		if ( _tcsistr( szVersion, _T(" 5.") ) )					return FALSE;
+		if ( _tcsistr( szVersion, L" 4." ) )					return FALSE;
+		if ( _tcsistr( szVersion, L" 5." ) )					return FALSE;
 
 		return TRUE;
 	}
 
 	// Any iMesh
-	if ( _tcsistr( sUserAgent, _T("iMesh") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"iMesh" ) )					return TRUE;
 
 	// Other Miscillaneous
 
-	if ( _tcsistr( sUserAgent, _T("Trilix") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"Trilix" ) )					return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("Gnutella Turbo") ) )			return TRUE;
+	if ( _tcsistr( sUserAgent, L"Gnutella Turbo" ) )			return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("Mastermax File Sharing") ) )	return TRUE;
+	if ( _tcsistr( sUserAgent, L"Mastermax File Sharing" ) )	return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("Fildelarprogram") ) )		return TRUE;
+	if ( _tcsistr( sUserAgent, L"Fildelarprogram" ) )		return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("Fastload.TV") ) )			return TRUE;
+	if ( _tcsistr( sUserAgent, L"Fastload.TV" ) )			return TRUE;
 
 	// Other GPL Violaters, Etc.
 
-	if ( _tcsistr( sUserAgent, _T("K-Lite") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"K-Lite" ) )					return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("SlingerX") ) )				return TRUE;
+	if ( _tcsistr( sUserAgent, L"SlingerX" ) )				return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("C -3.0.1") ) )				return TRUE;
+	if ( _tcsistr( sUserAgent, L"C -3.0.1" ) )				return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("vagaa") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"vagaa" ) )					return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("mxie") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"mxie" ) )					return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("WinMX") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"WinMX" ) )					return TRUE;
 
-	if ( _tcsistr( sUserAgent, _T("eTomi") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"eTomi" ) )					return TRUE;
 
 	// Unknown- Assume OK
 	return FALSE;
@@ -1134,10 +1134,10 @@ BOOL CSecurity::IsClientBanned(const CString& sUserAgent)
 		return FALSE;
 
 	// Foxy (Private G2)
-	if ( _tcsistr( sUserAgent, _T("Foxy") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"Foxy" ) )					return TRUE;
 
 	// i2hub leecher client. (Tested, does not upload)
-	if ( _tcsistr( sUserAgent, _T("i2hub") ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"i2hub" ) )					return TRUE;
 
 	// Check by content filter
 	// ToDo: Implement user agent filter type
@@ -1164,7 +1164,7 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent) const
 BOOL CSecurity::IsVendorBlocked(const CString& sVendor) const
 {
 	// Foxy (Private G2)
-	if ( _tcsistr( sVendor, _T("foxy") ) )						return TRUE;
+	if ( _tcsistr( sVendor, L"foxy" ) )						return TRUE;
 
 	// Allow it
 	return FALSE;
@@ -1177,7 +1177,7 @@ CLiveList* CSecurity::GetList() const
 
 	if ( CLiveItem* pDefault = pLiveList->Add( (LPVOID)0 ) )
 	{
-		pDefault->Set( COL_SECURITY_NUM, _T(" - ") );								// Need leading space for proper sort priority (until sorting is fixed)
+		pDefault->Set( COL_SECURITY_NUM, L" - " );								// Need leading space for proper sort priority (until sorting is fixed)
 		pDefault->Set( COL_SECURITY_CONTENT, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
 		pDefault->Set( COL_SECURITY_ACTION,  LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
 		pDefault->SetImage( Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1 );
@@ -1191,7 +1191,7 @@ CLiveList* CSecurity::GetList() const
 		GetNext( pos )->ToList( pLiveList, nCount, tNow );
 	}
 
-	// Unimplemented seperate IP address rules
+	// Unimplemented separate IP address rules
 	//for ( CAddressRuleMap::const_iterator i = m_pIPRules.begin() ; i != m_pIPRules.end() ; ++i, ++nCount )
 	//{
 	//	(*i).second->ToList( pLiveList, nCount, tNow );
@@ -1227,7 +1227,7 @@ void CAdultFilter::Load()
 {
 	CFile pFile;
 	CString strBlockedWords, strDubiousWords, strChildWords;
-	const CString strFile = Settings.General.Path + _T("\\Data\\AdultFilter.dat");	// Settings.General.DataPath ?
+	const CString strFile = Settings.General.Path + L"\\Data\\AdultFilter.dat";	// Settings.General.DataPath ?
 
 	// Delete current adult filters (if present)
 	if ( m_pszBlockedWords ) delete [] m_pszBlockedWords;
@@ -1448,7 +1448,7 @@ BOOL CAdultFilter::Censor(CString& sText) const
 	for ( LPCTSTR pszWord = m_pszBlockedWords ; pszWord && *pszWord ; )
 	{
 		int nWordLen = (int)_tcslen( pszWord );
-		if ( ReplaceNoCase( sText, pszWord, CString( _T('*'), nWordLen ) ) )
+		if ( ReplaceNoCase( sText, pszWord, CString( L'*', nWordLen ) ) )
 			bModified = TRUE;
 		pszWord += nWordLen + 1;
 	}
@@ -1525,7 +1525,7 @@ void CMessageFilter::Load()
 {
 	CFile pFile;
 	CString strFilteredPhrases, strED2KSpamPhrases;
-	const CString strFile = Settings.General.Path + _T("\\Data\\MessageFilter.dat");
+	const CString strFile = Settings.General.Path + L"\\Data\\MessageFilter.dat";
 
 	// Delete current filter (if present)
 	if ( m_pszFilteredPhrases ) delete [] m_pszFilteredPhrases;
@@ -1559,10 +1559,10 @@ void CMessageFilter::Load()
 	// Insert some defaults if there was a read error
 
 	if ( strED2KSpamPhrases.IsEmpty() )
-		strED2KSpamPhrases = _T("Your client is connecting too fast|Join the L33cher Team|PeerFactor|Your client is making too many connections|ZamBoR 2|AUTOMATED MESSAGE:|eMule FX the BEST eMule ever|DI-Emule");
+		strED2KSpamPhrases = L"Your client is connecting too fast|Join the L33cher Team|PeerFactor|Your client is making too many connections|ZamBoR 2|AUTOMATED MESSAGE:|eMule FX the BEST eMule ever|DI-Emule";
 
 	if ( strFilteredPhrases.IsEmpty() )
-		strFilteredPhrases = _T("");
+		strFilteredPhrases = L"";
 
 	// Load the ED2K spam into the filter
 	if ( strED2KSpamPhrases.GetLength() > 3 )
@@ -1749,13 +1749,13 @@ void CListLoader::OnRun()
 
 		CString strCommentBase = pRule->m_sComment;
 		if ( strCommentBase.IsEmpty() )
-			strCommentBase = _T("• %u");
-		else if ( strCommentBase.ReverseFind( _T('•') ) >= 0 )
-			strCommentBase = strCommentBase.Left( strCommentBase.ReverseFind( _T('•') ) + 1 ) + _T(" %u");
+			strCommentBase = L"• %u";
+		else if ( strCommentBase.ReverseFind( L'•' ) >= 0 )
+			strCommentBase = strCommentBase.Left( strCommentBase.ReverseFind( L'•' ) + 1 ) + L" %u";
 		else
-			strCommentBase += _T("  • %u");
+			strCommentBase += L"  • %u";
 
-		if ( strPath[1] != _T(':') )
+		if ( strPath[1] != L':' )
 			strPath = Settings.General.DataPath + strPath;
 
 		CFile pFile;
@@ -1792,8 +1792,8 @@ void CListLoader::OnRun()
 
 				if ( strLine[ 0 ] == '#' )
 				{
-					if ( strLine[ strLine.GetLength() - 1 ] == _T(':') && strLine.Find( _T("urn:") ) > 0 )
-						strURN = strLine.Mid( strLine.Find( _T("urn:") ) );		// Default "# urn:type:"
+					if ( strLine[ strLine.GetLength() - 1 ] == L':' && strLine.Find( L"urn:" ) > 0 )
+						strURN = strLine.Mid( strLine.Find( L"urn:" ) );		// Default "# urn:type:"
 					continue;									// Comment line
 				}
 
@@ -1803,9 +1803,9 @@ void CListLoader::OnRun()
 				if ( ++nCount % 10 == 0 )
 				{
 					if ( pRule->m_sComment.IsEmpty() )
-						strCommentBase = _T("• %u");
-					else if ( pRule->m_sComment.ReverseFind( _T('•') ) < 0 )
-						strCommentBase = pRule->m_sComment + _T("  • %u");
+						strCommentBase = L"• %u";
+					else if ( pRule->m_sComment.ReverseFind( L'•' ) < 0 )
+						strCommentBase = pRule->m_sComment + L"  • %u";
 
 					pRule->m_sComment.Format( strCommentBase, nCount );
 					Sleep( 1 );		// Limit CPU
@@ -1813,12 +1813,12 @@ void CListLoader::OnRun()
 
 				// Hashes:
 
-				if ( ( ! strURN.IsEmpty() && strLine.Find( _T('.'), 5 ) < 0 ) || StartsWith( strLine, _PT("urn:") ) )
+				if ( ( ! strURN.IsEmpty() && strLine.Find( L'.', 5 ) < 0 ) || StartsWith( strLine, _P( L"urn:" ) ) )
 				{
-					nPos = strLine.FindOneOf( _T(" \t") );
+					nPos = strLine.FindOneOf( L" \t" );
 					if ( nPos > 0 )
 						strLine.Truncate( nPos );				// Trim at whitespace (remove any trailing comments)
-					if ( ! strURN.IsEmpty() && ! StartsWith( strLine, _PT("urn:") ) )
+					if ( ! strURN.IsEmpty() && ! StartsWith( strLine, _P( L"urn:" ) ) )
 						strLine = strURN + strLine;				// Default "urn:type:" prepended
 					if ( strLine.GetLength() > 35 )
 						Security.SetHashMap( strLine, nIndex );
@@ -1829,21 +1829,21 @@ void CListLoader::OnRun()
 
 				// IPs:
 
-				nPos = strLine.ReverseFind( _T(':') );
+				nPos = strLine.ReverseFind( L':' );
 				if ( nPos > 0 )
 					strLine = strLine.Mid( nPos + 1 );			// Remove leading comment for some formats
 
-				nPos = strLine.FindOneOf( _T(" \t") );
+				nPos = strLine.FindOneOf( L" \t" );
 				if ( nPos > 0 )
 					strLine.Truncate( nPos );					// Trim at whitespace (remove any trailing comments)
 
-				if ( strLine.GetLength() < 7 || strLine.Find( _T('.') ) < 1 )
+				if ( strLine.GetLength() < 7 || strLine.Find( L'.' ) < 1 )
 				{
 					nCount--;
 					continue;
 				}
 
-				nPos = strLine.Find( _T('-') );					// Possible Range
+				nPos = strLine.Find( L'-' );					// Possible Range
 				if ( nPos < 0 )									// Single IP
 				{
 					Security.SetAddressMap( IPStringToDWORD( strLine, TRUE ), nIndex );
@@ -1867,12 +1867,12 @@ void CListLoader::OnRun()
 					continue;		// Redundant/Invalid
 
 				//if ( Network.IsReserved( (IN_ADDR*)nFirst ) )		// Crash
-				//if ( StartsWith( strFirst, _PT("0.0") ) ||
-				//	 StartsWith( strFirst, _PT("6.0") ) ||
-				//	 StartsWith( strFirst, _PT("7.0") ) ||
-				//	 StartsWith( strFirst, _PT("11.0") ) ||
-				//	 StartsWith( strFirst, _PT("55.0") ) ||
-				//	 StartsWith( strFirst, _PT("127.0") ) )
+				//if ( StartsWith( strFirst, _P( L"0.0" ) ) ||
+				//	 StartsWith( strFirst, _P( L"6.0" ) ) ||
+				//	 StartsWith( strFirst, _P( L"7.0" ) ) ||
+				//	 StartsWith( strFirst, _P( L"11.0" ) ) ||
+				//	 StartsWith( strFirst, _P( L"55.0" ) ) ||
+				//	 StartsWith( strFirst, _P( L"127.0" ) ) )
 				//	continue;		// Redundant
 
 				for ( DWORD nRange = Settings.Security.ListRangeLimit ; nFirst <= nLast && nRange ; nFirst++, nRange-- )

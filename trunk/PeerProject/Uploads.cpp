@@ -358,7 +358,7 @@ void CUploads::OnRun()
 				UploadQueues.m_pTorrentQueue->m_nMinTransfers ++;
 				UploadQueues.m_pTorrentQueue->m_nMeasured += nMeasured;
 
-				//theApp.Message( MSG_NOTICE, _T("Transfer %s, Port: %i"), pTransfer->m_sAddress, pTransfer->m_pHost.sin_port );
+				//theApp.Message( MSG_NOTICE, L"Transfer %s, Port: %i", pTransfer->m_sAddress, pTransfer->m_pHost.sin_port );
 			}
 		}
 		else if ( pTransfer->m_nState == upsUploading )
@@ -397,7 +397,7 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 					return FALSE;
 			}
 
-			theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, remote interface disabled."), (LPCTSTR)pConnection->m_sAddress );
+			theApp.Message( MSG_ERROR, L"Rejecting incoming connection from %s, remote interface disabled.", (LPCTSTR)pConnection->m_sAddress );
 
 			pConnection->SendHTML( IDR_HTML_FILENOTFOUND );
 			pConnection->DelayClose( IDS_CONNECTION_CLOSED );
@@ -419,7 +419,7 @@ BOOL CUploads::OnAccept(CConnection* pConnection)
 		}
 	}
 
-	theApp.Message( MSG_INFO, _T("Rejecting incoming connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );
+	theApp.Message( MSG_INFO, L"Rejecting incoming connection from %s, network core overloaded.", (LPCTSTR)pConnection->m_sAddress );
 
 	pConnection->SendHTML( IDR_HTML_BUSY );
 	pConnection->DelayClose( IDS_CONNECTION_CLOSED );

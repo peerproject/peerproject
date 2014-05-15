@@ -171,7 +171,7 @@ void CLibraryTreeView::PostUpdate()
 BOOL CLibraryTreeView::Create(CWnd* pParentWnd)
 {
 	CRect rect;
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryTreeView"), WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL,
+	return CWnd::CreateEx( 0, NULL, L"CLibraryTreeView", WS_CHILD|WS_VISIBLE|WS_TABSTOP|WS_VSCROLL,
 		rect, pParentWnd, IDC_LIBRARY_TREE, NULL );
 }
 
@@ -800,12 +800,12 @@ BOOL CLibraryTreeView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 		if ( pWnd != this )
 		{
 			const LPCTSTR szScrollable[] = {
-				_T("CPanelCtrl"),
-				_T("CLibraryTreeView"),
-				_T("CLibraryAlbumView"),
-				_T("CLibraryThumbView"),
-				_T("CLibraryTileView"),
-				_T("CLibraryDetailView"),
+				L"CPanelCtrl",
+				L"CLibraryTreeView",
+				L"CLibraryAlbumView",
+				L"CLibraryThumbView",
+				L"CLibraryTileView",
+				L"CLibraryDetailView",
 				NULL
 			};
 			for ( int i = 0 ; szScrollable[ i ] ; ++i )
@@ -1268,7 +1268,7 @@ void CLibraryTreeItem::Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack) 
 		CoolInterface.DrawWatermark( &dc, &rc, &Images.m_bmSelected );
 
 	CString strName = m_sText;
-	if ( Settings.General.LanguageRTL ) strName = _T("\x202A") + strName;
+	if ( Settings.General.LanguageRTL ) strName = L"\x202A" + strName;
 	dc.ExtTextOut( rc.left + 2, rc.top + 1,
 		ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
 		&rc, strName, NULL );
@@ -1344,10 +1344,10 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 		CString strName = pFolder->m_sName;
 		if ( pFolder->m_pParent == NULL && Settings.General.GUIMode != GUI_BASIC )
 		{
-			if ( pFolder->m_sPath[1] == _T(':') )
-				strName += _T("  (") + pFolder->m_sPath.Left( 1 ) + _T(":)");
-			else if ( pFolder->m_sPath[1] == _T('\\') )
-				strName += _T("  (") + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + _T(")");
+			if ( pFolder->m_sPath[1] == L':' )
+				strName += L"  (" + pFolder->m_sPath.Left( 1 ) + L":)";
+			else if ( pFolder->m_sPath[1] == L'\\' )
+				strName += L"  (" + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + L")";
 		}
 		pItem = pParent->addItem( strName );
 		if ( bVisible ) m_nTotal++;
@@ -1615,7 +1615,7 @@ void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	if ( m_bVirtual )
 	{
-		Skin.TrackPopupMenu( _T("CLibraryTree.Virtual"), point, ID_LIBRARY_FOLDER_PROPERTIES );
+		Skin.TrackPopupMenu( L"CLibraryTree.Virtual", point, ID_LIBRARY_FOLDER_PROPERTIES );
 	}
 	else
 	{
@@ -1632,7 +1632,7 @@ void CLibraryTreeView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 		pLock.Unlock();
 
-		Skin.TrackPopupMenu( _T("CLibraryTree.Physical"), point, ID_LIBRARY_EXPLORE, oFiles );
+		Skin.TrackPopupMenu( L"CLibraryTree.Physical", point, ID_LIBRARY_EXPLORE, oFiles );
 	}
 }
 
@@ -1805,7 +1805,7 @@ void CLibraryTreeView::OnLibraryRemove()
 
 void CLibraryTreeView::OnLibraryAdd()
 {
-	CString strPath( BrowseForFolder( _T("Select folder to share:") ) );
+	CString strPath( BrowseForFolder( L"Select folder to share:" ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -2085,17 +2085,17 @@ void CLibraryTreeView::OnLibraryCreateTorrent()
 			if ( ! strPath.IsEmpty() )
 			{
 				CString strCommandLine =
-					_T(" -sourcefile \"") + strPath +
-					_T("\" -destination \"") + Settings.Downloads.TorrentPath +
-					_T("\" -tracker \"" + Settings.BitTorrent.DefaultTracker +
-					_T("\"") );
+					L" -sourcefile \"" + strPath +
+					L"\" -destination \"" + Settings.Downloads.TorrentPath +
+					L"\" -tracker \"" + Settings.BitTorrent.DefaultTracker +
+					L"\"";
 			}
 		}
 		else
 			pLock.Unlock();
 	}
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
+	ShellExecute( GetSafeHwnd(), L"open",
 		Settings.BitTorrent.TorrentCreatorPath, strCommandLine,
 		Settings.Downloads.TorrentPath,
 		SW_SHOWNORMAL );

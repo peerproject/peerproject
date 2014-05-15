@@ -240,7 +240,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -292,7 +291,6 @@
       </OutputFile>
     </Bscmake>
     <PostBuildEvent>
-      <Message>No registration</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -325,9 +323,9 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ZIPBuilder.def" />
     <None Include="Class.rgs" />
     <None Include="ZIPBuilder.rgs" />
+    <None Include="ZIPBuilder.def" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Class.h" />

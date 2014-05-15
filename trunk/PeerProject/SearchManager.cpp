@@ -1,7 +1,7 @@
 //
 // SearchManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -222,7 +222,7 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 	pPacket->Read( oGUID );
 
 	theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH,
-		_T("Processing query acknowledgement from %s (time adjust %+d seconds): %d hubs, %d leaves, %d suggested hubs, retry after %d seconds."),
+		L"Processing query acknowledgement from %s (time adjust %+d seconds): %d hubs, %d leaves, %d suggested hubs, retry after %d seconds.",
 		(LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), tAdjust, nHubs, nLeaves, nSuggestedHubs, nRetryAfter );
 
 	// Update host cache
@@ -248,7 +248,7 @@ BOOL CSearchManager::OnQueryAck(CG2Packet* pPacket, const SOCKADDR_IN* pAddress,
 	CSingleLock oLock( &m_pSection );
 	if ( ! oLock.Lock( 150 ) )
 	{
-		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("Rejecting query ack operation, search manager overloaded.") );
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, L"Rejecting query ack operation, search manager overloaded." );
 		return FALSE;
 	}
 
@@ -282,7 +282,7 @@ BOOL CSearchManager::OnQueryHits(const CQueryHit* pHits)
 	CSingleLock oLock( &m_pSection );
 	if ( ! oLock.Lock( 150 ) )
 	{
-		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("Rejecting query hit operation, search manager overloaded.") );
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, L"Rejecting query hit operation, search manager overloaded." );
 		return FALSE;
 	}
 

@@ -18,45 +18,36 @@
 
 #pragma once
 
-typedef CComPtr< IUPnPDeviceFinder > FinderPointer;
-typedef CComPtr< IUPnPDevice > DevicePointer;
-typedef CComPtr< IUPnPService > ServicePointer;
-
-CString translateUPnPResult(HRESULT hr);
-HRESULT UPnPMessage(HRESULT hr);
+#include "UPnP.h"
 
 
-class CUPnPFinder
+class CUPnPFinder : public CUPnP
 {
 public:
 	CUPnPFinder();
-	~CUPnPFinder();
+	virtual ~CUPnPFinder();
 
 public:
-	void StartDiscovery(bool bSecondTry=false);
-	void StopAsyncFind();
-	void DeletePorts();
+	virtual void DeletePorts();
+	virtual void StartDiscovery();
+	virtual void StopAsyncFind();
+	virtual bool IsAsyncFindRunning();
+
+	typedef CComPtr< IUPnPDeviceFinder > FinderPointer;
+	typedef CComPtr< IUPnPDevice > DevicePointer;
+	typedef CComPtr< IUPnPService > ServicePointer;
+
+	void StartDiscovery(bool bSecondTry);
 	void AddDevice(DevicePointer pDevice, bool bAddChilds, int nLevel = 0);
 	void RemoveDevice(CComBSTR bsUDN);
 	bool OnSearchComplete();
-	bool Init();
 
-	inline bool IsAsyncFindRunning()
-	{
-		if ( m_pDeviceFinder && m_bAsyncFindRunning )
-		{
-			if ( GetTickCount() > m_tLastEvent + 16000 )	 // Timeout ~20 seconds
-			{
-				m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
-				m_bAsyncFindRunning = false;
-			}
-			SafeMessageLoop();
-		}
-
-		return m_bAsyncFindRunning;
-	}
+	static CString translateUPnPResult(HRESULT hr);
+	static HRESULT UPnPMessage(HRESULT hr);
 
 private:
+	bool Init();
+
 	static FinderPointer CreateFinderInstance() throw();
 
 	struct FindDevice : public std::unary_function< DevicePointer, bool >

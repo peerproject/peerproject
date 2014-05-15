@@ -312,7 +312,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ImageViewer.def" />
-    <None Include="Commands.bmp" />
+    <None Include="CommandImages.png" />
     <None Include="GrabMove.cur" />
     <None Include="Image.ico" />
     <None Include="ImageViewer.rgs" />

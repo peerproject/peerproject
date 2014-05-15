@@ -1,7 +1,7 @@
 //
 // DocProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -20,7 +20,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Globals.h"
 #include "DocumentReader.h"
 #include <olectl.h> 	// For OleCreatePictureIndirect
@@ -47,7 +47,7 @@ CDocumentProperties::CDocumentProperties()
 CDocumentProperties::~CDocumentProperties(void)
 {
 	ODS("CDocumentProperties::~CDocumentProperties()\n");
-	ASSERT(m_pStorage == NULL); 	// We should be closed before delete!
+	ASSERT( m_pStorage == NULL ); 	// We should be closed before delete!
 	if ( m_pStorage ) Close( VARIANT_FALSE );
 }
 
@@ -68,38 +68,38 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
 	EnterCritical();
 	// Open method called. Ensure we don't have file already open...
 	ODS("CDocumentProperties::Open\n");
-	ASSERT(m_pStorage == NULL); // We should only load one at a time per object!
-	CHECK_NULL_RETURN((m_pStorage == NULL), /*ReportError(*/E_DOCUMENTOPENED/*, NULL, m_pDispExcep)*/);
+	ASSERT(m_pStorage == NULL);		// Only load one at a time per object
+	CHECK_NULL_RETURN( (m_pStorage == NULL ), /*ReportError(*/E_DOCUMENTOPENED/*, NULL, m_pDispExcep)*/);
 
 	// Validate the name passed and resolve to full path (if relative)...
-	CHECK_NULL_RETURN(sFileName, E_INVALIDARG);
-	if (!FFindQualifiedFileName(sFileName, wszFullName, &ulIdx))
+	CHECK_NULL_RETURN( sFileName, E_INVALIDARG );
+	if ( !FFindQualifiedFileName( sFileName, wszFullName, &ulIdx ) )
 		return /*ReportError(*/STG_E_INVALIDNAME/*, NULL, m_pDispExcep)*/;
 
 	// Save file name and path index from SearchFile API...
 	m_bstrFileName = SysAllocString(wszFullName);
 	m_cFilePartIdx = ulIdx;
-	if ((m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)))
+	if ( (m_cFilePartIdx < 1) || (m_cFilePartIdx > SysStringLen(m_bstrFileName)) )
 		m_cFilePartIdx = 0;
 
 	// Set open mode flags based on ReadOnly flag (the exclusive access is required for
 	// the IPropertySetStorage interface -- which sucks, but we can work around for OLE files)...
 	m_fReadOnly = (ReadOnly != VARIANT_FALSE);
 	m_dwFlags = Options;
-	dwOpenMode = ((m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE));
+	dwOpenMode = ( (m_fReadOnly) ? (STGM_READ | STGM_SHARE_EXCLUSIVE) : (STGM_READWRITE | STGM_SHARE_EXCLUSIVE) );
 
 	// If the file is an OLE Storage DocFile...
-	if (StgIsStorageFile(m_bstrFileName) == S_OK)
+	if ( StgIsStorageFile(m_bstrFileName) == S_OK )
 	{
 		// Get the data from IStorage...
-		hr = StgOpenStorage(m_bstrFileName, NULL, dwOpenMode, NULL, 0, &m_pStorage);
+		hr = StgOpenStorage( m_bstrFileName, NULL, dwOpenMode, NULL, 0, &m_pStorage );
 
 		// If we failed to gain write access, try to just read access if caller allows it.
 		// This function will open the OLE file in transacted read mode,
 		// which covers cases where the file is in use or is on a read-only share.
 		// We can't save after the open so we force the read-only flag on...
-		if (((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
-			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		if ( ((hr == STG_E_ACCESSDENIED) || (hr == STG_E_SHAREVIOLATION)) &&
+			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess) )
 		{
 			m_fReadOnly = TRUE;
 			hr = StgOpenStorage(m_bstrFileName, NULL,
@@ -108,11 +108,11 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
 
 		// If we are lucky, we have a storage to read from, so ask OLE to open the
 		// associated property set for the file and return the IPSS iface...
-		if (SUCCEEDED(hr))
+		if ( SUCCEEDED(hr) )
 			hr = m_pStorage->QueryInterface(IID_IPropertySetStorage, (void**)&m_pPropSetStg);
 	}
-	else if ((v_pfnStgOpenStorageEx) &&
-			 ((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles))
+	else if ( (v_pfnStgOpenStorageEx) &&
+			 ((m_dwFlags & dsoOptionOnlyOpenOLEFiles) != dsoOptionOnlyOpenOLEFiles) )
 	{
 		// On Win2K+ we can try and open plain files on NTFS 5.0 drive and get
 		// the NTFS version of OLE properties (saved in alt stream)...
@@ -121,8 +121,8 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
 
 		// If we failed to gain write access, try to just read access if caller wants us to.
 		// This only works for access block, not share violations...
-		if ((hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
-			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess))
+		if ( (hr == STG_E_ACCESSDENIED) && (!m_fReadOnly) &&
+			(m_dwFlags & dsoOptionOpenReadOnlyIfNoWriteAccess) )
 		{
 			m_fReadOnly = TRUE;
 			hr = (v_pfnStgOpenStorageEx)(m_bstrFileName, (STGM_READ | STGM_SHARE_EXCLUSIVE), STGFMT_FILE,
@@ -138,8 +138,8 @@ HRESULT CDocumentProperties::Open(BSTR sFileName, VARIANT_BOOL ReadOnly, dsoFile
 
 	if ( FAILED(hr) )
 	{
-		//ReportError(hr, NULL, m_pDispExcep);
-		Close( VARIANT_FALSE ); // Force a cleanup on error...
+		//ReportError( hr, NULL, m_pDispExcep );
+		Close( VARIANT_FALSE );		// Force a cleanup on error...
 	}
 
 	LeaveCritical();
@@ -155,7 +155,7 @@ HRESULT CDocumentProperties::Close(VARIANT_BOOL SaveBeforeClose)
 
 	// If caller requests full save on close, try it. Note that this is the
 	// only place where Close will return an error (and NOT close)...
-	if (SaveBeforeClose != VARIANT_FALSE)
+	if ( SaveBeforeClose != VARIANT_FALSE )
 	{
 		HRESULT hr = Save();
 		RETURN_ON_FAILURE(hr);
@@ -164,7 +164,7 @@ HRESULT CDocumentProperties::Close(VARIANT_BOOL SaveBeforeClose)
 	// The rest is just cleanup to restore us back to state where
 	// we can be called again. The Zombie call disconnects sub objects
 	// and should free them if caller has also released them...
-	ZOMBIE_OBJECT(m_pSummProps);
+	ZOMBIE_OBJECT( m_pSummProps );
 
 	m_pPropSetStg->Release();
 	m_pPropSetStg = NULL;
@@ -185,7 +185,7 @@ HRESULT CDocumentProperties::get_IsReadOnly(VARIANT_BOOL* pbReadOnly)
 {
 	ODS("CDocumentProperties::get_IsReadOnly\n");
 	CHECK_NULL_RETURN(pbReadOnly,  E_POINTER);
-	*pbReadOnly = ((m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE);
+	*pbReadOnly = ( (m_fReadOnly) ? VARIANT_TRUE : VARIANT_FALSE );
 	return S_OK;
 }
 
@@ -198,10 +198,10 @@ HRESULT CDocumentProperties::get_IsDirty(VARIANT_BOOL* pbDirty)
 	ODS("CDocumentProperties::get_IsDirty\n");
 
 	// Check the status of summary properties...
-	if ((m_pSummProps) && (m_pSummProps->FIsDirty()))
+	if ( (m_pSummProps) && (m_pSummProps->FIsDirty()) )
 		fDirty = TRUE;
 
-	if (pbDirty) // Return status to caller...
+	if ( pbDirty )	// Return status to caller...
 		*pbDirty = (VARIANT_BOOL)((fDirty) ? VARIANT_TRUE : VARIANT_FALSE);
 
 	return S_OK;
@@ -219,18 +219,16 @@ HRESULT CDocumentProperties::Save()
 	CHECK_FLAG_RETURN(m_fReadOnly, /*ReportError(*/E_DOCUMENTREADONLY/*, NULL, m_pDispExcep)*/);
 
 	// Ask SummaryProperties to save its changes...
-	if (m_pSummProps)
+	if ( m_pSummProps )
 	{
 		hr = m_pSummProps->SaveProperties(TRUE);
-		if (FAILED(hr)) return /*ReportError(*/ hr /*, NULL, m_pDispExcep)*/;
+		if ( FAILED(hr) ) return /*ReportError(*/ hr /*, NULL, m_pDispExcep)*/;
 		fSaveMade = (hr == S_OK);
 	}
 
 	// If save was made, commit the root storage before return...
-	if ((fSaveMade) && (m_pStorage))
-	{
+	if ( (fSaveMade) && (m_pStorage) )
 		hr = m_pStorage->Commit(STGC_DEFAULT);
-	}
 
 	return hr;
 }
@@ -243,19 +241,20 @@ HRESULT CDocumentProperties::get_SummaryProperties(CSummaryProperties** ppSummar
 	HRESULT hr;
 
 	ODS("CDocumentProperties::get_SummaryProperties\n");
-	CHECK_NULL_RETURN(ppSummaryProperties,  E_POINTER);
+	CHECK_NULL_RETURN( ppSummaryProperties,  E_POINTER );
 	*ppSummaryProperties = NULL;
 
-	if (m_pSummProps == NULL)
+	if ( m_pSummProps == NULL )
 	{
 		m_pSummProps = new CSummaryProperties();
-		if (m_pSummProps)
-			{ hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags); }
-		else hr = E_OUTOFMEMORY;
+		if ( m_pSummProps )
+			hr = m_pSummProps->LoadProperties(m_pPropSetStg, m_fReadOnly, m_dwFlags);
+		else
+			hr = E_OUTOFMEMORY;
 
-		if (FAILED(hr))
+		if ( FAILED(hr) )
 		{
-			ZOMBIE_OBJECT(m_pSummProps);
+			ZOMBIE_OBJECT( m_pSummProps );
 			return /*ReportError(*/hr/*, NULL, m_pDispExcep)*/;
 		}
 	}
@@ -275,7 +274,7 @@ HRESULT CDocumentProperties::get_Icon(IDispatch** ppicIcon)
 	CHECK_NULL_RETURN(ppicIcon,  E_POINTER); *ppicIcon = NULL;
 	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
 
-	if ((m_bstrFileName) && FGetIconForFile(m_bstrFileName, &hIco))
+	if ( (m_bstrFileName) && FGetIconForFile( m_bstrFileName, &hIco ) )
 	{
 		PICTDESC  icoDesc;
 		icoDesc.cbSizeofstruct = sizeof(PICTDESC);
@@ -292,11 +291,12 @@ HRESULT CDocumentProperties::get_Icon(IDispatch** ppicIcon)
 HRESULT CDocumentProperties::get_Name(BSTR* pbstrName)
 {
 	ODS("CDocumentProperties::get_Name\n");
-	CHECK_NULL_RETURN(pbstrName,  E_POINTER); *pbstrName = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrName,  E_POINTER );
+	*pbstrName = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
 
-	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
-		*pbstrName = SysAllocString((LPOLESTR)&(m_bstrFileName[m_cFilePartIdx]));
+	if ( m_bstrFileName != NULL && m_cFilePartIdx > 0 )
+		*pbstrName = SysAllocString( (LPOLESTR)&(m_bstrFileName[m_cFilePartIdx]) );
 
 	return S_OK;
 }
@@ -307,11 +307,12 @@ HRESULT CDocumentProperties::get_Name(BSTR* pbstrName)
 HRESULT CDocumentProperties::get_Path(BSTR* pbstrPath)
 {
 	ODS("CDocumentProperties::get_Path\n");
-	CHECK_NULL_RETURN(pbstrPath,  E_POINTER); *pbstrPath = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrPath,  E_POINTER );
+	*pbstrPath = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
 
-	if (m_bstrFileName != NULL && m_cFilePartIdx > 0)
-		*pbstrPath = SysAllocStringLen(m_bstrFileName, m_cFilePartIdx);
+	if ( m_bstrFileName != NULL && m_cFilePartIdx > 0 )
+		*pbstrPath = SysAllocStringLen( m_bstrFileName, m_cFilePartIdx );
 
 	return S_OK;
 }
@@ -322,8 +323,8 @@ HRESULT CDocumentProperties::get_Path(BSTR* pbstrPath)
 HRESULT CDocumentProperties::get_IsOleFile(VARIANT_BOOL* pIsOleFile)
 {
 	ODS("CDocumentProperties::get_IsOleFile\n");
-	CHECK_NULL_RETURN(pIsOleFile,  E_POINTER);
-	*pIsOleFile = ((m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE);
+	CHECK_NULL_RETURN( pIsOleFile,  E_POINTER );
+	*pIsOleFile = ( (m_pStorage) ? VARIANT_TRUE : VARIANT_FALSE );
 	return S_OK;
 }
 
@@ -337,16 +338,17 @@ HRESULT CDocumentProperties::get_CLSID(BSTR* pbstrCLSID)
 	LPOLESTR pwszCLSID = NULL;
 
 	ODS("CDocumentProperties::get_CLSID\n");
-	CHECK_NULL_RETURN(pbstrCLSID,  E_POINTER); *pbstrCLSID = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
-	CHECK_NULL_RETURN(m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrCLSID,  E_POINTER );
+	*pbstrCLSID = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
+	CHECK_NULL_RETURN( m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/ );
 
-	memset(&stat, 0, sizeof(stat));
-	hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
+	memset( &stat, 0, sizeof(stat) );
+	hr = m_pStorage->Stat( &stat, STATFLAG_NONAME );
 	RETURN_ON_FAILURE(hr);
 
-	hr = StringFromCLSID(stat.clsid, &pwszCLSID);
-	if (SUCCEEDED(hr)) *pbstrCLSID = SysAllocString(pwszCLSID);
+	hr = StringFromCLSID( stat.clsid, &pwszCLSID );
+	if ( SUCCEEDED(hr) ) *pbstrCLSID = SysAllocString(pwszCLSID);
 
 	FREE_COTASKMEM(pwszCLSID);
 	return hr;
@@ -362,16 +364,17 @@ HRESULT CDocumentProperties::get_ProgID(BSTR* pbstrProgID)
 	LPOLESTR pwszProgID = NULL;
 
 	ODS("CDocumentProperties::get_ProgID\n");
-	CHECK_NULL_RETURN(pbstrProgID,  E_POINTER); *pbstrProgID = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
-	CHECK_NULL_RETURN(m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrProgID,  E_POINTER );
+	*pbstrProgID = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
+	CHECK_NULL_RETURN( m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/ );
 
 	memset(&stat, 0, sizeof(stat));
-	hr = m_pStorage->Stat(&stat, STATFLAG_NONAME);
+	hr = m_pStorage->Stat( &stat, STATFLAG_NONAME );
 	RETURN_ON_FAILURE(hr);
 
-	hr = ProgIDFromCLSID(stat.clsid, &pwszProgID);
-	if (SUCCEEDED(hr)) *pbstrProgID = SysAllocString(pwszProgID);
+	hr = ProgIDFromCLSID( stat.clsid, &pwszProgID );
+	if ( SUCCEEDED(hr) ) *pbstrProgID = SysAllocString(pwszProgID);
 
 	FREE_COTASKMEM(pwszProgID);
 	return hr;
@@ -386,22 +389,23 @@ HRESULT CDocumentProperties::get_OleDocumentFormat(BSTR* pbstrFormat)
 	CLIPFORMAT cf;
 
 	ODS("CDocumentProperties::get_OleDocumentFormat\n");
-	CHECK_NULL_RETURN(pbstrFormat,  E_POINTER); *pbstrFormat = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
-	CHECK_NULL_RETURN(m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrFormat,  E_POINTER );
+	*pbstrFormat = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
+	CHECK_NULL_RETURN( m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/ );
 
-	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE)
+	if ( SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, &cf, NULL)) == TRUE )
 	{
 		int i;
 		CHAR szName[MAX_PATH] = {0};
 
-		if ((i = GetClipboardFormatName(cf, szName, MAX_PATH)) > 0)
+		if ( (i = GetClipboardFormatName(cf, szName, MAX_PATH)) > 0 )
 			szName[i] = '\0';
 		else
-			wsprintf(szName, "ClipFormat 0x%X (%d)", cf, cf);
+			wsprintf( szName, "ClipFormat 0x%X (%d)", cf, cf );
 
-		*pbstrFormat = ConvertToBSTR(szName, CP_ACP);
-		hr = ((*pbstrFormat) ? S_OK : E_OUTOFMEMORY);
+		*pbstrFormat = ConvertToBSTR( szName, CP_ACP );
+		hr = ( (*pbstrFormat) ? S_OK : E_OUTOFMEMORY );
 	}
 
 	return hr;
@@ -416,14 +420,15 @@ HRESULT CDocumentProperties::get_OleDocumentType(BSTR* pbstrType)
 	LPWSTR lpolestr = NULL;
 
 	ODS("CDocumentProperties::get_OleDocumentType\n");
-	CHECK_NULL_RETURN(pbstrType,  E_POINTER); *pbstrType = NULL;
-	CHECK_NULL_RETURN(m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/);
-	CHECK_NULL_RETURN(m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/);
+	CHECK_NULL_RETURN( pbstrType,  E_POINTER );
+	*pbstrType = NULL;
+	CHECK_NULL_RETURN( m_pPropSetStg, /*ReportError(*/E_DOCUMENTNOTOPEN/*, NULL, m_pDispExcep)*/ );
+	CHECK_NULL_RETURN( m_pStorage, /*ReportError(*/E_MUSTHAVESTORAGE/*, NULL, m_pDispExcep)*/ );
 
-	if (SUCCEEDED(ReadFmtUserTypeStg(m_pStorage, NULL, &lpolestr)) == TRUE)
+	if ( SUCCEEDED( ReadFmtUserTypeStg( m_pStorage, NULL, &lpolestr ) ) == TRUE )
 	{
 		*pbstrType = SysAllocString(lpolestr);
-		hr = ((*pbstrType) ? S_OK : E_OUTOFMEMORY);
+		hr = ( (*pbstrType) ? S_OK : E_OUTOFMEMORY );
 		FREE_COTASKMEM(lpolestr);
 	}
 

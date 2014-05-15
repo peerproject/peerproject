@@ -536,94 +536,7 @@
 	</anchors>
   </windowSkin>
   <!-- end navbar language for es -->
-  <!-- navbar language for es-mx -->
-  <windowSkin>
-	<image type="image" language="es-mx" path="sos_navbar_es.png"/>
-	<image type="watermark" language="es-mx" path="sos_navbarbg.png"/>
-	<target window="CMainTabBarCtrl"/>
-	<target window="CMainTabBarCtrl.Windowed"/>
-	<parts>
-		<part name="_ID_TAB_HOME.Up"		rect="0,0,79,29"/>
-		<part name="_ID_TAB_HOME.Checked"	rect="0,28,79,29"/>
-		<part name="_ID_TAB_HOME.Hover"	rect="0,28,79,29"/>
-		<part name="_ID_TAB_HOME.Down"	rect="0,0,79,29"/>
-		<part name="_ID_TAB_LIBRARY.Up"	rect="79,0,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Checked"	rect="79,28,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Hover"	rect="79,28,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Down"	rect="79,0,135,29"/>
-		<part name="_ID_TAB_MEDIA.Up"		rect="214,0,138,29"/>
-		<part name="_ID_TAB_MEDIA.Checked"	rect="214,28,138,29"/>
-		<part name="_ID_TAB_MEDIA.Hover"	rect="214,28,138,29"/>
-		<part name="_ID_TAB_MEDIA.Down"	rect="214,0,138,29"/>
-		<part name="_ID_TAB_SEARCH.Up"	rect="352,0,90,29"/>
-		<part name="_ID_TAB_SEARCH.Checked"	rect="352,28,90,29"/>
-		<part name="_ID_TAB_SEARCH.Hover"	rect="352,28,90,29"/>
-		<part name="_ID_TAB_SEARCH.Down"	rect="352,0,90,29"/>
-		<part name="_ID_TAB_TRANSFERS.Up"	rect="442,0,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Checked" rect="442,28,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Hover"	rect="442,28,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Down"	rect="442,0,153,29"/>
-		<part name="_ID_TAB_NETWORK.Up"	rect="595,0,60,29"/>
-		<part name="_ID_TAB_NETWORK.Checked"	rect="595,28,60,29"/>
-		<part name="_ID_TAB_NETWORK.Hover"	rect="595,28,60,29"/>
-		<part name="_ID_TAB_NETWORK.Down"	rect="595,0,60,29"/>
-		<part name="_ID_TAB_IRC.Up"		rect="655,0,70,29"/>
-		<part name="_ID_TAB_IRC.Checked"	rect="655,28,70,29"/>
-		<part name="_ID_TAB_IRC.Hover" 	rect="655,28,70,29"/>
-		<part name="_ID_TAB_IRC.Down" 	rect="655,0,70,29"/>
-	</parts>
-	<anchors>
-		<anchor name="Background" 		rect="15,0,750,38"/>
-		<anchor name="_ID_TAB_HOME"		rect="15,2,79,29"/>
-		<anchor name="_ID_TAB_LIBRARY"	rect="94,2,135,29"/>
-		<anchor name="_ID_TAB_MEDIA"		rect="229,2,138,29"/>
-		<anchor name="_ID_TAB_SEARCH" 	rect="367,2,90,29"/>
-		<anchor name="_ID_TAB_TRANSFERS"	rect="457,2,153,29"/>
-		<anchor name="_ID_TAB_NETWORK"	rect="610,2,60,29"/>
-		<anchor name="_ID_TAB_IRC"		rect="670,2,70,29"/>
-	</anchors>
-  </windowSkin>
-  <windowSkin>
-	<image type="image" language="es-mx" path="sos_navbar_es.png"/>
-	<image type="watermark" language="es-mx" path="sos_navbarbg.png"/>
-	<target window="CMainTabBarCtrl.Basic"/>
-	<parts>
-		<part name="_ID_TAB_HOME.Up"		rect="0,0,79,29"/>
-		<part name="_ID_TAB_HOME.Checked"	rect="0,28,79,29"/>
-		<part name="_ID_TAB_HOME.Hover"	rect="0,28,79,29"/>
-		<part name="_ID_TAB_HOME.Down"	rect="0,0,79,29"/>
-		<part name="_ID_TAB_LIBRARY.Up"	rect="79,0,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Checked"	rect="79,28,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Hover"	rect="79,28,135,29"/>
-		<part name="_ID_TAB_LIBRARY.Down"	rect="79,0,135,29"/>
-		<part name="_ID_TAB_MEDIA.Up" 	rect="214,0,138,29"/>
-		<part name="_ID_TAB_MEDIA.Checked"	rect="214,28,138,29"/>
-		<part name="_ID_TAB_MEDIA.Hover"	rect="214,28,138,29"/>
-		<part name="_ID_TAB_MEDIA.Down"	rect="214,0,138,29"/>
-		<part name="_ID_TAB_SEARCH.Up"	rect="352,0,90,29"/>
-		<part name="_ID_TAB_SEARCH.Checked"	rect="352,28,90,29"/>
-		<part name="_ID_TAB_SEARCH.Hover"	rect="352,28,90,29"/>
-		<part name="_ID_TAB_SEARCH.Down"	rect="352,0,90,29"/>
-		<part name="_ID_TAB_TRANSFERS.Up"	rect="442,0,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Checked" rect="442,28,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Hover"	rect="442,28,153,29"/>
-		<part name="_ID_TAB_TRANSFERS.Down"	rect="442,0,153,29"/>
-		<part name="_ID_TAB_IRC.Up"		rect="595,0,70,29"/>
-		<part name="_ID_TAB_IRC.Checked"	rect="595,28,70,29"/>
-		<part name="_ID_TAB_IRC.Hover" 	rect="595,28,70,29"/>
-		<part name="_ID_TAB_IRC.Down" 	rect="595,0,70,29"/>
-	</parts>
-	<anchors>
-		<anchor name="Background" 		rect="15,0,690,38"/>
-		<anchor name="_ID_TAB_HOME"		rect="15,2,79,29"/>
-		<anchor name="_ID_TAB_LIBRARY"	rect="94,2,135,29"/>
-		<anchor name="_ID_TAB_MEDIA"		rect="229,2,138,29"/>
-		<anchor name="_ID_TAB_SEARCH" 	rect="367,2,90,29"/>
-		<anchor name="_ID_TAB_TRANSFERS"	rect="457,2,153,29"/>
-		<anchor name="_ID_TAB_IRC"		rect="610,2,70,29"/>
-	</anchors>
-  </windowSkin>
-  <!-- end navbar language for es-mx -->
+  <!-- -no navbar language for es-mx -->
   <!-- navbar language for ca -->
   <windowSkin>
 	<image type="image" language="ca" path="sos_navbar_es.png"/>
@@ -1418,8 +1331,8 @@
   <!-- end navbar language for nl -->
   <!-- navbar language for pt-br -->
   <windowSkin>
-	<image type="image" language="pt-br" path="sos_navbar_pt-br.png"/>
-	<image type="watermark" language="pt-br" path="sos_navbarbg.png"/>
+	<image type="image" language="pt" path="sos_navbar_pt-br.png"/>
+	<image type="watermark" language="pt" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl"/>
 	<target window="CMainTabBarCtrl.Windowed"/>
 	<parts>
@@ -1464,8 +1377,8 @@
 	</anchors>
   </windowSkin>
   <windowSkin>
-	<image type="image" language="pt-br" path="sos_navbar_pt-br.png"/>
-	<image type="watermark" language="pt-br" path="sos_navbarbg.png"/>
+	<image type="image" language="pt" path="sos_navbar_pt-br.png"/>
+	<image type="watermark" language="pt" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl.Basic"/>
 	<parts>
 		<part name="_ID_TAB_HOME.Up"		rect="0,0,66,29"/>
@@ -1504,94 +1417,7 @@
 	</anchors>
   </windowSkin>
   <!-- end navbar language for pt-br -->
-  <!-- navbar language for cn -->
-  <windowSkin>
-	<image type="image" language="cn" path="sos_navbar_cn.png"/>
-	<image type="watermark" language="cn" path="sos_navbarbg.png"/>
-	<target window="CMainTabBarCtrl"/>
-	<target window="CMainTabBarCtrl.Windowed"/>
-	<parts>
-		<part name="_ID_TAB_HOME.Up"		rect="0,0,81,29"/>
-		<part name="_ID_TAB_HOME.Checked"	rect="0,28,81,29"/>
-		<part name="_ID_TAB_HOME.Hover"	rect="0,28,81,29"/>
-		<part name="_ID_TAB_HOME.Down"	rect="0,0,81,29"/>
-		<part name="_ID_TAB_LIBRARY.Up"	rect="81,0,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Checked"	rect="81,28,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Hover"	rect="81,28,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Down"	rect="81,0,77,29"/>
-		<part name="_ID_TAB_MEDIA.Up"		rect="158,0,78,29"/>
-		<part name="_ID_TAB_MEDIA.Checked"	rect="158,28,78,29"/>
-		<part name="_ID_TAB_MEDIA.Hover"	rect="158,28,78,29"/>
-		<part name="_ID_TAB_MEDIA.Down"	rect="158,0,78,29"/>
-		<part name="_ID_TAB_SEARCH.Up"	rect="236,0,80,29"/>
-		<part name="_ID_TAB_SEARCH.Checked"	rect="236,28,80,29"/>
-		<part name="_ID_TAB_SEARCH.Hover"	rect="236,28,80,29"/>
-		<part name="_ID_TAB_SEARCH.Down"	rect="236,0,80,29"/>
-		<part name="_ID_TAB_TRANSFERS.Up"	rect="316,0,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Checked" rect="316,28,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Hover"	rect="316,28,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Down"	rect="316,0,79,29"/>
-		<part name="_ID_TAB_NETWORK.Up"	rect="395,0,72,29"/>
-		<part name="_ID_TAB_NETWORK.Checked"	rect="395,28,72,29"/>
-		<part name="_ID_TAB_NETWORK.Hover"	rect="395,28,72,29"/>
-		<part name="_ID_TAB_NETWORK.Down"	rect="395,0,72,29"/>
-		<part name="_ID_TAB_IRC.Up"		rect="467,0,70,29"/>
-		<part name="_ID_TAB_IRC.Checked"	rect="467,28,70,29"/>
-		<part name="_ID_TAB_IRC.Hover" 	rect="467,28,70,29"/>
-		<part name="_ID_TAB_IRC.Down" 	rect="467,0,70,29"/>
-	</parts>
-	<anchors>
-		<anchor name="Background" 		rect="15,0,560,38"/>
-		<anchor name="_ID_TAB_HOME"		rect="15,2,81,29"/>
-		<anchor name="_ID_TAB_LIBRARY"	rect="96,2,77,29"/>
-		<anchor name="_ID_TAB_MEDIA"		rect="173,2,78,29"/>
-		<anchor name="_ID_TAB_SEARCH" 	rect="251,2,80,29"/>
-		<anchor name="_ID_TAB_TRANSFERS"	rect="331,2,79,29"/>
-		<anchor name="_ID_TAB_NETWORK"	rect="410,2,72,29"/>
-		<anchor name="_ID_TAB_IRC"		rect="482,2,70,29"/>
-	</anchors>
-  </windowSkin>
-  <windowSkin>
-	<image type="image" language="cn" path="sos_navbar_cn.png"/>
-	<image type="watermark" language="cn" path="sos_navbarbg.png"/>
-	<target window="CMainTabBarCtrl.Basic"/>
-	<parts>
-		<part name="_ID_TAB_HOME.Up"		rect="0,0,81,29"/>
-		<part name="_ID_TAB_HOME.Checked"	rect="0,28,81,29"/>
-		<part name="_ID_TAB_HOME.Hover"	rect="0,28,81,29"/>
-		<part name="_ID_TAB_HOME.Down"	rect="0,0,81,29"/>
-		<part name="_ID_TAB_LIBRARY.Up"	rect="81,0,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Checked"	rect="81,28,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Hover"	rect="81,28,77,29"/>
-		<part name="_ID_TAB_LIBRARY.Down"	rect="81,0,77,29"/>
-		<part name="_ID_TAB_MEDIA.Up"		rect="158,0,78,29"/>
-		<part name="_ID_TAB_MEDIA.Checked"	rect="158,28,78,29"/>
-		<part name="_ID_TAB_MEDIA.Hover"	rect="158,28,78,29"/>
-		<part name="_ID_TAB_MEDIA.Down"	rect="158,0,78,29"/>
-		<part name="_ID_TAB_SEARCH.Up"	rect="236,0,80,29"/>
-		<part name="_ID_TAB_SEARCH.Checked"	rect="236,28,80,29"/>
-		<part name="_ID_TAB_SEARCH.Hover"	rect="236,28,80,29"/>
-		<part name="_ID_TAB_SEARCH.Down"	rect="236,0,80,29"/>
-		<part name="_ID_TAB_TRANSFERS.Up"	rect="316,0,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Checked" rect="316,28,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Hover"	rect="316,28,79,29"/>
-		<part name="_ID_TAB_TRANSFERS.Down"	rect="316,0,79,29"/>
-		<part name="_ID_TAB_IRC.Up"		rect="395,0,70,29"/>
-		<part name="_ID_TAB_IRC.Checked"	rect="395,28,70,29"/>
-		<part name="_ID_TAB_IRC.Hover" 	rect="395,28,70,29"/>
-		<part name="_ID_TAB_IRC.Down" 	rect="395,0,70,29"/>
-	</parts>
-	<anchors>
-		<anchor name="Background" 		rect="15,0,490,38"/>
-		<anchor name="_ID_TAB_HOME"		rect="15,2,81,29"/>
-		<anchor name="_ID_TAB_LIBRARY"	rect="96,2,77,29"/>
-		<anchor name="_ID_TAB_MEDIA"		rect="173,2,78,29"/>
-		<anchor name="_ID_TAB_SEARCH" 	rect="251,2,80,29"/>
-		<anchor name="_ID_TAB_TRANSFERS"	rect="331,2,79,29"/>
-		<anchor name="_ID_TAB_IRC"		rect="410,2,70,29"/>
-	</anchors>
-  </windowSkin>
-  <!-- end navbar language for cn -->
+  <!-- -no navbar language for cn -->
   <!-- navbar language for no -->
   <windowSkin>
 	<image type="image" language="no" path="sos_navbar_no.png"/>
@@ -2122,8 +1948,8 @@
   <!-- end navbar language for sv -->
   <!-- navbar language for heb -->
   <windowSkin>
-	<image type="image" language="heb" path="sos_navbar_heb.png"/>
-	<image type="watermark" language="heb" path="sos_navbarbg.png"/>
+	<image type="image" language="he" path="sos_navbar_heb.png"/>
+	<image type="watermark" language="he" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl"/>
 	<target window="CMainTabBarCtrl.Windowed"/>
 	<parts>
@@ -2168,8 +1994,8 @@
 	</anchors>
   </windowSkin>
   <windowSkin>
-	<image type="image" language="heb" path="sos_navbar_heb.png"/>
-	<image type="watermark" language="heb" path="sos_navbarbg.png"/>
+	<image type="image" language="he" path="sos_navbar_heb.png"/>
+	<image type="watermark" language="he" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl.Basic"/>
 	<parts>
 		<part name="_ID_TAB_HOME.Up"		rect="0,0,82,29"/>
@@ -2298,8 +2124,8 @@
   <!-- end navbar language for fi -->
   <!-- navbar language for kr -->
   <windowSkin>
-	<image type="image" language="kr" path="sos_navbar_kr.png"/>
-	<image type="watermark" language="kr" path="sos_navbarbg.png"/>
+	<image type="image" language="ko" path="sos_navbar_kr.png"/>
+	<image type="watermark" language="ko" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl"/>
 	<target window="CMainTabBarCtrl.Windowed"/>
 	<parts>
@@ -2344,8 +2170,8 @@
 	</anchors>
   </windowSkin>
   <windowSkin>
-	<image type="image" language="kr" path="sos_navbar_kr.png"/>
-	<image type="watermark" language="kr" path="sos_navbarbg.png"/>
+	<image type="image" language="ko" path="sos_navbar_kr.png"/>
+	<image type="watermark" language="ko" path="sos_navbarbg.png"/>
 	<target window="CMainTabBarCtrl.Basic"/>
 	<parts>
 		<part name="_ID_TAB_HOME.Up"		rect="0,0,72,29"/>

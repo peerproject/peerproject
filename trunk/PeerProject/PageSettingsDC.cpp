@@ -127,10 +127,10 @@ void CDCSettingsPage::OnDiscoveryGo()
 {
 	// Load hublist.xml.bz2 from web various ways
 
-	//if ( PathFileExists( Settings.General.DataPath + _T("hublist.xml.bz2") ) &&
+	//if ( PathFileExists( Settings.General.DataPath + L"hublist.xml.bz2" ) &&
 	//	MsgBox( L"Load local file?", MB_ICONQUESTION | MB_YESNO ) == IDYES ) )
 	//{
-	//	theApp.OpenImport( Settings.General.DataPath + _T("hublist.xml.bz2") );
+	//	theApp.OpenImport( Settings.General.DataPath + L"hublist.xml.bz2" );
 	//	return;
 	//}
 
@@ -154,12 +154,12 @@ void CDCSettingsPage::OnOK()
 
 	Settings.DC.Enabled			= m_bEnabled && ( Settings.GetOutgoingBandwidth() >= 2 );
 	Settings.DC.EnableAlways	= m_bEnableAlways && ( Settings.GetOutgoingBandwidth() >= 2 );
-//	Settings.DC.NumServers		= m_nHubs;
+	//Settings.DC.NumServers	= m_nHubs;
 
-//	Settings.Normalize( &Settings.DC.NumServers );
+	//Settings.Normalize( &Settings.DC.NumServers );
 
 	// Update display in case settings were changed
-//	m_nHubs = Settings.DC.NumServers;
+	//m_nHubs = Settings.DC.NumServers;
 	UpdateData( FALSE );
 
 	CSettingsPage::OnOK();

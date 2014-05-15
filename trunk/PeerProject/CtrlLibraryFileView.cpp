@@ -36,7 +36,7 @@
 #include "DlgURLExport.h"
 #include "DlgDeleteFile.h"
 #include "DlgDecodeMetadata.h"
-#include "DlgBitprintDownload.h"
+#include "DlgBitprintsDownload.h"
 #include "WebServices.h"
 #include "RelatedSearch.h"
 #include "Transfers.h"
@@ -101,11 +101,11 @@ BEGIN_MESSAGE_MAP(CLibraryFileView, CLibraryView)
 	ON_COMMAND(ID_LIBRARY_REBUILD_FILE, OnLibraryRebuild)
 	ON_MESSAGE(WM_METADATA, OnServiceDone)
 
-	// Web Services 	ToDo: Move Bitprint/MusicBrainz out to CWebServices?
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
-	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_DOWNLOAD, OnUpdateLibraryBitprintDownload)
-	ON_COMMAND(ID_LIBRARY_BITPRINT_DOWNLOAD, OnLibraryBitprintDownload)
+	// Web Services 	ToDo: Move Bitprints(Bitzi)/MusicBrainz out to CWebServices?
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINTS_WEB, OnUpdateLibraryBitprintsWeb)
+	ON_COMMAND(ID_LIBRARY_BITPRINTS_WEB, OnLibraryBitprintsWeb)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINTS_DOWNLOAD, OnUpdateLibraryBitprintsDownload)
+	ON_COMMAND(ID_LIBRARY_BITPRINTS_DOWNLOAD, OnLibraryBitprintsDownload)
 	ON_UPDATE_COMMAND_UI(ID_WEBSERVICES_MUSICBRAINZ, OnUpdateMusicBrainzLookup)
 	ON_COMMAND(ID_WEBSERVICES_MUSICBRAINZ, OnMusicBrainzLookup)
 	ON_UPDATE_COMMAND_UI(ID_MUSICBRAINZ_MATCHES, OnUpdateMusicBrainzMatches)
@@ -232,7 +232,7 @@ void CLibraryFileView::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		ClientToScreen( &point );
 
 	CString strName( m_pszToolBar );
-//	strName += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");		// For now, CLibraryFileView.Virtual = CLibraryFileView.Physical
+//	strName += Settings.Library.ShowVirtual ? L".Virtual" : L".Physical";		// For now, CLibraryFileView.Virtual = CLibraryFileView.Physical
 
 	Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, oFiles );
 }
@@ -329,7 +329,7 @@ void CLibraryFileView::OnLibraryLaunchFolder()
 	{
 		CString strPath = pFile->GetPath();
 		pLock.Unlock();
-		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
+		ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
 		pLock.Lock();
 	}
 }
@@ -508,19 +508,19 @@ void CLibraryFileView::OnLibraryCreateTorrent()
 			if ( ! strPath.IsEmpty() )
 			{
 				CString strCommandLine =
-					_T(" -sourcefile \"") + strPath +
-					_T("\" -destination \"") + Settings.Downloads.TorrentPath +
-					_T("\" -tracker \"") + Settings.BitTorrent.DefaultTracker +
-					_T("\"");
+					L" -sourcefile \"" + strPath +
+					L"\" -destination \"" + Settings.Downloads.TorrentPath +
+					L"\" -tracker \"" + Settings.BitTorrent.DefaultTracker +
+					L"\"";
 
-				ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), L"open", Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
 
 				return;
 			}
 		}
 	}
 
-	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open", Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
@@ -571,9 +571,9 @@ void CLibraryFileView::OnUpdateLibraryRebuildAnsi(CCmdUI* pCmdUI)
 //					bXmlPossiblyModified = TRUE;
 //			}
 //		}
-//		if ( ( strExtension != _T("mp3") && strExtension != _T("avi") &&
-//			   strExtension != _T("pdf") && strExtension != _T("mpc") &&
-//			   strExtension != _T("mpp") && strExtension != _T("mp+") )
+//		if ( ( strExtension != L"mp3" && strExtension != L"avi" &&
+//			   strExtension != L"pdf" && strExtension != L"mpc" &&
+//			   strExtension != L"mpp" && strExtension != L"mp+" )
 //			  || bXmlPossiblyModified )
 //			nSelected--;
 //	}
@@ -634,7 +634,7 @@ void CLibraryFileView::OnLibraryRefreshMetadata()
 		return;
 	}
 
-	CProgressDialog dlgProgress( LoadString( ID_LIBRARY_REFRESH_METADATA ) + _T("...") );
+	CProgressDialog dlgProgress( LoadString( ID_LIBRARY_REFRESH_METADATA ) + L"..." );
 
 	CQuickLock pLock( Library.m_pSection );
 
@@ -871,7 +871,7 @@ void CLibraryFileView::OnSearchForSeries()
 /////////////////////////////////////////////////////////////////////
 // Web Services Handling
 
-// ToDo: Move below Bitprint/MusicBrainz to WebServices?
+// ToDo: Move below Bitprints(Bitzi)/MusicBrainz to WebServices?
 
 void CLibraryFileView::ClearServicePages()
 {
@@ -889,14 +889,14 @@ void CLibraryFileView::ClearServicePages()
 
 
 /////////////////////////////////////////////////////////////////////
-// Bitprint listing Services
+// Bitprints listing Services
 
-void CLibraryFileView::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
+void CLibraryFileView::OnUpdateLibraryBitprintsWeb(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() == 1 && Settings.WebServices.BitprintWebSubmit.GetLength() );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() == 1 && Settings.WebServices.BitprintsWebSubmit.GetLength() );
 }
 
-void CLibraryFileView::OnLibraryBitprintWeb()
+void CLibraryFileView::OnLibraryBitprintsWeb()
 {
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
@@ -904,27 +904,27 @@ void CLibraryFileView::OnLibraryBitprintWeb()
 	{
 		DWORD nIndex = pFile->m_nIndex;
 		pLock.Unlock();
-		CWebServices::ShowBitprintTicket( nIndex );
+		CWebServices::ShowBitprintsTicket( nIndex );
 	}
 }
 
-void CLibraryFileView::OnUpdateLibraryBitprintDownload(CCmdUI* pCmdUI)
+void CLibraryFileView::OnUpdateLibraryBitprintsDownload(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && ! m_bRequestingService && GetSelectedCount() && Settings.WebServices.BitprintXML.GetLength() );
+	pCmdUI->Enable( ! m_bGhostFolder && ! m_bRequestingService && GetSelectedCount() && Settings.WebServices.BitprintsXML.GetLength() );
 }
 
-void CLibraryFileView::OnLibraryBitprintDownload()
+void CLibraryFileView::OnLibraryBitprintsDownload()
 {
 	GetFrame()->SetDynamicBar( NULL );
 
-	if ( ! Settings.WebServices.BitprintOkay )
+	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.BitprintOkay = true;
+		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
 	}
 
-	CBitprintDownloadDlg dlg;
+	CBitprintsDownloadDlg dlg;
 
 	CSingleLock pLock( &Library.m_pSection, TRUE );
 
@@ -1067,7 +1067,7 @@ void CLibraryFileView::OnMusicBrainzMatches()
 				if ( ! mbpuid.IsEmpty() )
 				{
 					CString strURL = L"http://musicbrainz.org/show/puid/?matchesonly=0&amp;puid=" + mbpuid;
-					ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+					ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 				}
 			}
 		}
@@ -1106,7 +1106,7 @@ void CLibraryFileView::OnMusicBrainzAlbums()
 				pLock.Unlock();
 				CString mbartistid = pAttribute->GetValue();
 				if ( ! mbartistid.IsEmpty() )
-					ShellExecute( GetSafeHwnd(), _T("open"), L"http://musicbrainz.org/artist/" + mbartistid, NULL, NULL, SW_SHOWNORMAL );
+					ShellExecute( GetSafeHwnd(), L"open", L"http://musicbrainz.org/artist/" + mbartistid, NULL, NULL, SW_SHOWNORMAL );
 			}
 		}
 	}

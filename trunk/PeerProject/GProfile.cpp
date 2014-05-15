@@ -1,7 +1,7 @@
 //
 // GProfile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,8 +31,8 @@ static char THIS_FILE[] = __FILE__;
 
 #define WORDLIM(x)  (WORD)( ( (x) < 0 ) ? 0 : ( ( (x) > 65535 ) ? 65535 : (x) ) )
 
-LPCTSTR CGProfile::xmlns = _T("http://schemas.peerproject.org/Profile.xsd");
-LPCTSTR CGProfile::xmlnsLegacy = _T("http://www.shareaza.com/schemas/GProfile.xsd");
+LPCTSTR CGProfile::xmlns = L"http://schemas.peerproject.org/Profile.xsd";
+LPCTSTR CGProfile::xmlnsLegacy = L"http://www.shareaza.com/schemas/GProfile.xsd";
 
 BEGIN_INTERFACE_MAP(CGProfile, CComObject)
 END_INTERFACE_MAP()
@@ -44,10 +44,10 @@ CGProfile	MyProfile;
 // CGProfile construction
 
 CGProfile::CGProfile() :
-	m_pXML( new CXMLElement( NULL, _T("profile") ) )
+	m_pXML( new CXMLElement( NULL, L"profile" ) )
 {
 	ASSERT( m_pXML );
-	VERIFY( m_pXML->AddAttribute( _T("xmlns"), xmlns ) );
+	VERIFY( m_pXML->AddAttribute( L"xmlns", xmlns ) );
 }
 
 //CGProfile::~CGProfile()
@@ -61,8 +61,8 @@ BOOL CGProfile::IsValid() const
 {
 	// The whole identity and location tags are deleted if no attributes are present
 	return ( this && m_pXML && (
-		m_pXML->GetElementByName( _T("identity") ) ||
-		m_pXML->GetElementByName( _T("location") ) ) );
+		m_pXML->GetElementByName( L"identity" ) ||
+		m_pXML->GetElementByName( L"location" ) ) );
 }
 
 CXMLElement* CGProfile::GetXML(LPCTSTR pszElement, BOOL bCreate)
@@ -77,11 +77,11 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 {
 	// Add/Increment browsing counter
 	if ( ! bChallenge )		// Skip G2_PACKET_PROFILE_CHALLENGE
-		if ( CXMLElement* pStats = m_pXML->GetElementByName( _T("statistics"), TRUE ) )
+		if ( CXMLElement* pStats = m_pXML->GetElementByName( L"statistics", TRUE ) )
 		{
-			CString strCount = pStats->GetAttributeValue( _T("hitcount"), _T("0") );
-			strCount.Format( _T("%i"), _tstoi( strCount ) + 1 );
-			pStats->AddAttribute( _T("hitcount"), (LPCTSTR)strCount );
+			CString strCount = pStats->GetAttributeValue( L"hitcount", L"0" );
+			strCount.Format( L"%i", _tstoi( strCount ) + 1 );
+			pStats->AddAttribute( L"hitcount", (LPCTSTR)strCount );
 			Save();
 		}
 
@@ -90,19 +90,19 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 	m_pXMLExport.Attach( m_pXML->Clone() );
 
 	// Remove "avatar" element (exposed local path)
-	if ( CXMLElement* pAvatar = m_pXMLExport->GetElementByName( _T("avatar"), FALSE ) )
+	if ( CXMLElement* pAvatar = m_pXMLExport->GetElementByName( L"avatar", FALSE ) )
 		pAvatar->Delete();
 
 	// Vendor-specific compatibility changes
-	if ( StartsWith( strClient, _T("shareaza"), 8 ) )
+	if ( StartsWith( strClient, L"shareaza", 8 ) )
 	{
-		m_pXMLExport->SetName( _T("gProfile") );
-		m_pXMLExport->AddAttribute( _T("xmlns"), xmlnsLegacy );
+		m_pXMLExport->SetName( L"gProfile" );
+		m_pXMLExport->AddAttribute( L"xmlns", xmlnsLegacy );
 	}
 
 //#ifdef _DEBUG
 //	CFile pFile;
-//	pFile.Open( Settings.General.DataPath + _T("Profile.Public.xml"), CFile::modeWrite | CFile::modeCreate );
+//	pFile.Open( Settings.General.DataPath + L"Profile.Public.xml", CFile::modeWrite | CFile::modeCreate );
 //	CStringA strUTF8 = UTF8Encode( m_pXMLExport->ToString( TRUE, TRUE ) );
 //	pFile.Write( (LPCSTR)strUTF8, strUTF8.GetLength() );
 //#endif  // TESTING
@@ -122,8 +122,8 @@ void CGProfile::Create()
 	VERIFY( tmp.validate() );
 	oGUID = tmp;
 
-	CXMLElement* pGnutella = m_pXML->GetElementByName( _T("gnutella"), TRUE );
-	VERIFY( pGnutella->AddAttribute( _T("guid"), tmp.toString() ) ) ;
+	CXMLElement* pGnutella = m_pXML->GetElementByName( L"gnutella", TRUE );
+	VERIFY( pGnutella->AddAttribute( L"guid", tmp.toString() ) ) ;
 
 	CreateBT();
 }
@@ -139,8 +139,8 @@ void CGProfile::CreateBT()
 	VERIFY( tmp_bt.validate() );
 	oGUIDBT = tmp_bt;
 
-	CXMLElement* pBitTorrent = m_pXML->GetElementByName( _T("bittorrent"), TRUE );
-	VERIFY( pBitTorrent->AddAttribute( _T("guid"), tmp_bt.toString() ) );
+	CXMLElement* pBitTorrent = m_pXML->GetElementByName( L"bittorrent", TRUE );
+	VERIFY( pBitTorrent->AddAttribute( L"guid", tmp_bt.toString() ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -149,7 +149,7 @@ void CGProfile::CreateBT()
 BOOL CGProfile::Load()
 {
 	const CXMLElement* pXML = CXMLElement::FromFile(
-		Settings.General.DataPath + _T("Profile.xml"), TRUE );
+		Settings.General.DataPath + L"Profile.xml", TRUE );
 	if ( pXML == NULL )
 	{
 		Create();
@@ -176,7 +176,7 @@ BOOL CGProfile::Load()
 BOOL CGProfile::Save()
 {
 	CFile pFile;
-	if ( ! pFile.Open( Settings.General.DataPath + _T("Profile.xml"),
+	if ( ! pFile.Open( Settings.General.DataPath + L"Profile.xml",
 		CFile::modeWrite | CFile::modeCreate ) )
 		return FALSE;
 
@@ -195,46 +195,46 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 	if ( pXML == NULL )
 		return FALSE;
 
-	if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlns ) )				// http://schemas.peerproject.org/Profile.xsd defined above
+	if ( ! pXML->GetAttributeValue( L"xmlns" ).CompareNoCase( xmlns ) )				// http://schemas.peerproject.org/Profile.xsd defined above
 	{
-		if ( ! pXML->IsNamed( _T("profile") ) )
+		if ( ! pXML->IsNamed( L"profile" ) )
 			return FALSE;
 	}
-	else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( xmlnsLegacy ) )	// http://www.shareaza.com/schemas/GProfile.xsd defined above
+	else if ( ! pXML->GetAttributeValue( L"xmlns" ).CompareNoCase( xmlnsLegacy ) )	// http://www.shareaza.com/schemas/GProfile.xsd defined above
 	{
-		if ( ! pXML->IsNamed( _T("gProfile") ) )
+		if ( ! pXML->IsNamed( L"gProfile" ) )
 			return FALSE;
 	}
-	//else if ( ! pXML->GetAttributeValue( _T("xmlns") ).CompareNoCase( _T("http://www.limewire.com/schemas/person.xsd" ) ) )
+	//else if ( ! pXML->GetAttributeValue( L"xmlns" ).CompareNoCase( L"http://www.limewire.com/schemas/person.xsd" ) )
 	//{
 	//	// Never reached from G1.  ToDo: Is this even useful to acquire some Limewire-type xml profile data?
-	//	theApp.Message( MSG_INFO, _T("Limewire Profiles Currently Unsupported.") );
-	//	//if ( ! pXML->IsNamed( _T("person") ) )
+	//	theApp.Message( MSG_INFO, L"Limewire Profiles Currently Unsupported." );
+	//	//if ( ! pXML->IsNamed( L"person" ) )
 	//		return FALSE;
 	//}
 	else
 	{
-		theApp.Message( MSG_INFO, _T("Unknown Profile Type:  %s"), pXML->GetAttributeValue( _T("xmlns") ) );
-		if ( ! pXML->IsNamed( _T("profile") ) && ! pXML->IsNamed( _T("gProfile") ) )
+		theApp.Message( MSG_INFO, L"Unknown Profile Type:  %s", pXML->GetAttributeValue( L"xmlns" ) );
+		if ( ! pXML->IsNamed( L"profile" ) && ! pXML->IsNamed( L"gProfile" ) )
 			return FALSE;
 	}
 
 	// Loading Gnutella GUID (required)
-	const CXMLElement* pGnutella = pXML->GetElementByName( _T("gnutella") );
+	const CXMLElement* pGnutella = pXML->GetElementByName( L"gnutella" );
 	if ( pGnutella == NULL )
 		return FALSE;
 
 	Hashes::Guid tmp;
-	if ( ! tmp.fromString( pGnutella->GetAttributeValue( _T("guid") ) ) )
+	if ( ! tmp.fromString( pGnutella->GetAttributeValue( L"guid" ) ) )
 		return FALSE;
 
 	oGUID = tmp;
 
 	// Loading BitTorrent GUID (optional)
-	if ( const CXMLElement* pBitTorrent = pXML->GetElementByName( _T("bittorrent") ) )
+	if ( const CXMLElement* pBitTorrent = pXML->GetElementByName( L"bittorrent" ) )
 	{
 		Hashes::BtGuid tmp_bt;
-		if ( tmp_bt.fromString( pBitTorrent->GetAttributeValue( _T("guid") ) ) )
+		if ( tmp_bt.fromString( pBitTorrent->GetAttributeValue( L"guid" ) ) )
 			oGUIDBT = tmp_bt;
 	}
 
@@ -254,35 +254,35 @@ BOOL CGProfile::FromXML(const CXMLElement* pXML)
 
 CString CGProfile::GetNick() const
 {
-	if ( const CXMLElement* pIdentity = m_pXML->GetElementByName( _T("identity") ) )
+	if ( const CXMLElement* pIdentity = m_pXML->GetElementByName( L"identity" ) )
 	{
-		if ( const CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle") ) )
-			return pHandle->GetAttributeValue( _T("primary") );
+		if ( const CXMLElement* pHandle = pIdentity->GetElementByName( L"handle" ) )
+			return pHandle->GetAttributeValue( L"primary" );
 	}
 	return CString();
 }
 
 CString CGProfile::GetLocation() const
 {
-	if ( const CXMLElement* pLocation = m_pXML->GetElementByName( _T("location") ) )
+	if ( const CXMLElement* pLocation = m_pXML->GetElementByName( L"location" ) )
 	{
-		if ( const CXMLElement* pPolitical = pLocation->GetElementByName( _T("political") ) )
+		if ( const CXMLElement* pPolitical = pLocation->GetElementByName( L"political" ) )
 		{
-			CString strCity = pPolitical->GetAttributeValue( _T("city") );
-			CString strState = pPolitical->GetAttributeValue( _T("state") );
-			CString strCountry = pPolitical->GetAttributeValue( _T("country") );
+			CString strCity = pPolitical->GetAttributeValue( L"city" );
+			CString strState = pPolitical->GetAttributeValue( L"state" );
+			CString strCountry = pPolitical->GetAttributeValue( L"country" );
 
 			CString str = strCity;
 			if ( ! strState.IsEmpty() )
 			{
 				if ( ! str.IsEmpty() )
-					str += _T(", ");
+					str += L", ";
 				str += strState;
 			}
 			if ( ! strCountry.IsEmpty() )
 			{
 				if ( ! str.IsEmpty() )
-					str += _T(", ");
+					str += L", ";
 				str += strCountry;
 			}
 
@@ -294,17 +294,17 @@ CString CGProfile::GetLocation() const
 
 CString CGProfile::GetContact(LPCTSTR pszType) const
 {
-	if ( const CXMLElement* pContacts = m_pXML->GetElementByName( _T("contacts") ) )
+	if ( const CXMLElement* pContacts = m_pXML->GetElementByName( L"contacts" ) )
 	{
 		for ( POSITION pos = pContacts->GetElementIterator() ; pos ; )
 		{
 			const CXMLElement* pGroup = pContacts->GetNextElement( pos );
 
-			if ( pGroup->IsNamed( _T("group") ) &&
-				 pGroup->GetAttributeValue( _T("class") ).CompareNoCase( pszType ) == 0 )
+			if ( pGroup->IsNamed( L"group" ) &&
+				 pGroup->GetAttributeValue( L"class" ).CompareNoCase( pszType ) == 0 )
 			{
-				if ( const CXMLElement* pAddress = pGroup->GetElementByName( _T("address") ) )
-					return pAddress->GetAttributeValue( _T("content") );
+				if ( const CXMLElement* pAddress = pGroup->GetElementByName( L"address" ) )
+					return pAddress->GetAttributeValue( L"content" );
 			}
 		}
 	}
@@ -313,13 +313,13 @@ CString CGProfile::GetContact(LPCTSTR pszType) const
 
 DWORD CGProfile::GetPackedGPS() const
 {
-	if ( const CXMLElement* pLocation = m_pXML->GetElementByName( _T("location") ) )
+	if ( const CXMLElement* pLocation = m_pXML->GetElementByName( L"location" ) )
 	{
-		if ( const CXMLElement* pCoordinates = pLocation->GetElementByName( _T("coordinates") ) )
+		if ( const CXMLElement* pCoordinates = pLocation->GetElementByName( L"coordinates" ) )
 		{
 			float nLatitude = 0, nLongitude = 0;
-			if ( _stscanf( pCoordinates->GetAttributeValue( _T("latitude") ),  _T("%f"), &nLatitude  ) == 1 &&
-				 _stscanf( pCoordinates->GetAttributeValue( _T("longitude") ), _T("%f"), &nLongitude ) == 1 )
+			if ( _stscanf( pCoordinates->GetAttributeValue( L"latitude" ),  L"%f", &nLatitude  ) == 1 &&
+				 _stscanf( pCoordinates->GetAttributeValue( L"longitude" ), L"%f", &nLongitude ) == 1 )
 			{
 				return ( (DWORD)WORDLIM( ( nLatitude  + 90.0f )  * 65535.0f / 180.0f ) << 16 ) +
 						 (DWORD)WORDLIM( ( nLongitude + 180.0f ) * 65535.0f / 360.0f );
@@ -334,11 +334,11 @@ DWORD CGProfile::GetPackedGPS() const
 
 CG2Packet* CGProfile::CreateAvatar() const
 {
-	const CXMLElement* pAvatar = m_pXML->GetElementByName( _T("avatar") );
+	const CXMLElement* pAvatar = m_pXML->GetElementByName( L"avatar" );
 	if ( pAvatar == NULL )
 		return NULL;
 
-	CString strPath = pAvatar->GetAttributeValue( _T("path") );
+	CString strPath = pAvatar->GetAttributeValue( L"path" );
 	if ( strPath.IsEmpty() )
 		return NULL;
 
@@ -346,7 +346,7 @@ CG2Packet* CGProfile::CreateAvatar() const
 	if ( ! pFile.Open( strPath, CFile::modeRead ) )
 		return NULL;
 
-	int nPos = strPath.ReverseFind( '\\' );
+	int nPos = strPath.ReverseFind( L'\\' );
 	if ( nPos >= 0 )
 		strPath = strPath.Mid( nPos + 1 );
 

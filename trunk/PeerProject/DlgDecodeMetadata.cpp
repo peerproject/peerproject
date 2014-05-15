@@ -1,7 +1,7 @@
 //
 // DlgDecodeMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -70,7 +70,7 @@ BOOL CDecodeMetadataDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDecodeMetadataDlg"), ID_TOOLS_LANGUAGE );	// IDI_WORLD
+	SkinMe( L"CDecodeMetadataDlg", ID_TOOLS_LANGUAGE );	// IDI_WORLD
 
 	UINT nID = GetACP();
 	for ( int i = 0 ; i < _countof( codePages ) ; ++i )
@@ -111,7 +111,7 @@ void CDecodeMetadataDlg::OnOK()
 {
 	UpdateData();
 
-	CProgressDialog dlgProgress( LoadString( ID_LIBRARY_REBUILD_ANSI ) + _T("..") );
+	CProgressDialog dlgProgress( LoadString( ID_LIBRARY_REBUILD_ANSI ) + L".." );
 
 	DWORD nCompleted = 0, nTotal = m_pFiles.GetCount();
 

@@ -210,7 +210,7 @@ HBITMAP CImage::Resample(int nNewWidth, int nNewHeight)
 	int* pColInfo = new int[ nNewWidth * 2 ];
 	int* pColPtr = pColInfo;
 
-	int nFlag = ( nNewWidth == m_nWidth ) ? 0 :  1;
+	int nFlag = ( nNewWidth == m_nWidth ) ? 0 : 1;
 
 	for ( int nX = 0 ; nX < nNewWidth ; nX++ )
 	{
@@ -223,7 +223,7 @@ HBITMAP CImage::Resample(int nNewWidth, int nNewHeight)
 
 	BYTE* pLine = new BYTE[ nOutPitch * m_nComponents ];
 
-	nFlag = ( nNewHeight == m_nHeight ) ? 0 :  1;
+	nFlag = ( nNewHeight == m_nHeight ) ? 0 : 1;
 
 	for ( int nY = 0 ; nY < nNewHeight ; nY++ )
 	{
@@ -282,7 +282,7 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	// Support long paths
 	CString strSafePath = pszPath;
 	if ( strSafePath.GetLength() > MAX_PATH )
-		strSafePath = _T("\\\\?\\") + strSafePath;
+		strSafePath = L"\\\\?\\" + strSafePath;
 
 	// Open the file
 	HANDLE hFile = CreateFile( strSafePath, GENERIC_READ, FILE_SHARE_READ|FILE_SHARE_WRITE|FILE_SHARE_DELETE,
@@ -312,7 +312,7 @@ BOOL CImage::Load(LPCTSTR pszPath)
 	// Ask the ImageService to load from file handle
 	SAFEARRAY* pArray = NULL;
 	HRESULT hr = pService->LoadFromFile( CComBSTR( strSafePath ), &pParams, &pArray );
-	
+
 	// Check the result
 	if ( hr == E_NOTIMPL )
 	{
@@ -422,8 +422,8 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 {
 	LPCTSTR pszType = _tcsrchr( pszFile, '.' );
 	if ( ! pszType ) return NULL;
-	if ( lstrcmpi( pszType, _T(".partial") ) == 0 )
-		pszType = _T(".jpg");
+	if ( lstrcmpi( pszType, L".partial" ) == 0 )
+		pszType = L".jpg";
 
 	ULONG dwCLSID = 128;
 	TCHAR szCLSID[128];
@@ -431,7 +431,7 @@ IImageServicePlugin* CImage::LoadService(LPCTSTR pszFile)
 	CRegKey pKey;
 
 	if ( pKey.Open( HKEY_CURRENT_USER,
-		 _T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
+		 L"SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService" ) != ERROR_SUCCESS )
 		return NULL;
 
 	if ( pKey.QueryStringValue( pszType, szCLSID, &dwCLSID ) != ERROR_SUCCESS )

@@ -36,16 +36,22 @@ public:
 	CStatic	m_wndDescriptionBasic;
 	CButton	m_wndInterfaceExpert;
 	CButton	m_wndInterfaceBasic;
+	CButton	m_wndSkinNoChange;
+	CButton	m_wndSkinDefault;
+	CButton	m_wndSkinDark;
 	BOOL	m_bSimpleDownloadBars;
-	int		m_bExpert;
+	int		m_bBasic;
+	int		m_nSkin;
+
+	void	ClearSkins(LPCTSTR pszPath = NULL);
 
 public:
 	virtual BOOL OnSetActive();
 	virtual LRESULT OnWizardNext();
+
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 
-protected:
 	virtual BOOL OnInitDialog();
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
 	afx_msg void OnXButtonDown(UINT nFlags, UINT nButton, CPoint point);

@@ -77,7 +77,7 @@ BOOL CFileCopyDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CFileCopyDlg"), IDR_LIBRARYFRAME );
+	SkinMe( L"CFileCopyDlg", IDR_LIBRARYFRAME );
 	SelectCaption( this, m_bMove ? 1 : 0 );
 
 	CString strCaption, strBase;
@@ -178,7 +178,7 @@ void CFileCopyDlg::OnCancel()
 	if ( IsThreadAlive() )
 	{
 		StopOperation();
-		m_wndFileName.SetWindowText( _T("Operation cancelled") );
+		m_wndFileName.SetWindowText( L"Operation cancelled" );
 		return;
 	}
 
@@ -214,7 +214,7 @@ void CFileCopyDlg::StopOperation()
 	m_bCancel = TRUE;
 	CloseThread();
 
-	m_wndCancel.SetWindowText( LoadString( IDS_GENERAL_CLOSE ) );	// _T("&Close")
+	m_wndCancel.SetWindowText( LoadString( IDS_GENERAL_CLOSE ) );	// L"&Close"
 	m_wndProgress.EnableWindow( FALSE );
 }
 
@@ -303,10 +303,10 @@ void CFileCopyDlg::OnRun()
 	//	int nRemaining;
 	//	CString strCurrent;
 	//	LibraryBuilder.UpdateStatus( &strCurrent, &nRemaining );
-	//	CString strFile = strPath + _T("\\") + strName;
+	//	CString strFile = strPath + L"\\" + strName;
 	//	if ( strFile == strCurrent )
 	//	{
-	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITPRINT_HASHED ), strName );
+	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITPRINTS_HASHED ), strName );
 	//		theApp.Message( MSG_NOTICE, strCurrent );
 	//		m_wndFileName.SetWindowText( LoadString( IDS_STATUS_FILEERROR ) );
 	//	}
@@ -328,8 +328,8 @@ bool CFileCopyDlg::ProcessFile(const CString& strName, const CString& strPath)
 	if ( strPath.CompareNoCase( m_sTarget ) == 0 )
 		return false;
 
-	const CString strSource = strPath + _T("\\") + strName;
-	const CString strTarget = m_sTarget + _T("\\") + strName;
+	const CString strSource = strPath + L"\\" + strName;
+	const CString strTarget = m_sTarget + L"\\" + strName;
 
 	// Check if we can move the file first
 	if ( m_bMove )
@@ -386,7 +386,7 @@ bool CFileCopyDlg::CheckTarget(const CString& strTarget)
 		return true;
 
 	strMessage.Format( LoadString( IDS_LIBRARY_DELETE_FAIL ), strTarget );
-	strMessage += _T("\r\n\r\n") + GetErrorString();
+	strMessage += L"\r\n\r\n" + GetErrorString();
 
 	MsgBox( strMessage, MB_ICONEXCLAMATION );
 

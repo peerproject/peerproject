@@ -1,7 +1,7 @@
 //
 // ShareMonkeyData.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -316,7 +316,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 	CString strHost, strPath;
 
 	strHost = m_sURL;
-	nPos = strHost.Find( _T("http://") );
+	nPos = strHost.Find( L"http://" );
 	if ( nPos != 0 ) return FALSE;
 	strHost = strHost.Mid( 7 );
 	nPos = strHost.Find( '/' );
@@ -327,7 +327,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 	if ( nPos > 0 )
 	{
-		_stscanf( strHost.Mid( nPos + 1 ), _T("%i"), &nPort );
+		_stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort );
 		strHost = strHost.Left( nPos );
 	}
 
@@ -338,7 +338,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 		if ( m_hSession == NULL ) return FALSE;
 	}
 
-	m_hRequest = HttpOpenRequest( m_hSession, _T("GET"), strPath, NULL, NULL, NULL,
+	m_hRequest = HttpOpenRequest( m_hSession, L"GET", strPath, NULL, NULL, NULL,
 		INTERNET_FLAG_KEEP_CONNECTION|INTERNET_FLAG_NO_COOKIES, 0 );
 
 	if ( m_hRequest == NULL )
@@ -350,7 +350,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 
 		if ( m_hSession == NULL ) return FALSE;
 
-		m_hRequest = HttpOpenRequest( m_hSession, _T("GET"), strPath, NULL, NULL, NULL,
+		m_hRequest = HttpOpenRequest( m_hSession, L"GET", strPath, NULL, NULL, NULL,
 			INTERNET_FLAG_KEEP_CONNECTION|INTERNET_FLAG_NO_COOKIES, 0 );
 
 		if ( m_hRequest == NULL ) return FALSE;
@@ -364,7 +364,7 @@ BOOL CShareMonkeyData::ExecuteRequest()
 	if ( ! HttpQueryInfo( m_hRequest, HTTP_QUERY_STATUS_CODE, szStatusCode,
 		&nStatusLen, NULL ) ) return FALSE;
 
-	if ( _stscanf( szStatusCode, _T("%u"), &nStatusCode ) != 1 ||
+	if ( _stscanf( szStatusCode, L"%u", &nStatusCode ) != 1 ||
 		nStatusCode < 200 || nStatusCode > 299 ) return FALSE;
 
 	LPBYTE pResponse = NULL;

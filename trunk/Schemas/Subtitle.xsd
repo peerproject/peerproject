@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.shareaza.com/schemas/subtitle.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Subtitle.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="subtitles">
 		<complexType>
@@ -29,8 +28,8 @@
 					<enumeration value="French"/>
 					<enumeration value="German"/>
 					<enumeration value="Italian"/>
-					<enumeration value="Korean"/>
 					<enumeration value="Japanese"/>
+					<enumeration value="Korean"/>
 					<enumeration value="Mandarin"/>
 					<enumeration value="Russian"/>
 					<enumeration value="Spanish"/>
@@ -58,6 +57,8 @@
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="keywords" type="string"/>
 			<attribute name="link" type="uriReference"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

@@ -1,7 +1,7 @@
 //
 // RelatedSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -155,7 +155,7 @@ BOOL CRelatedSearch::RunSearchForSimilar()
 BOOL CRelatedSearch::CanSearchForArtist()
 {
 	if ( m_pSchema == NULL || m_pXML == NULL ) return FALSE;
-	CString str = m_pXML->GetAttributeValue( _T("artist") );
+	CString str = m_pXML->GetAttributeValue( L"artist" );
 	return str.GetLength() >= MIN_LENGTH;
 }
 
@@ -166,7 +166,7 @@ BOOL CRelatedSearch::RunSearchForArtist()
 	pSearch->m_pSchema	= m_pSchema ? m_pSchema : SchemaCache.Get( CSchema::uriAudio );
 	pSearch->m_pXML		= pSearch->m_pSchema->Instantiate();
 	CXMLElement* pXML	= pSearch->m_pXML->AddElement( pSearch->m_pSchema->m_sSingular );
-	pXML->AddAttribute( _T("artist"), Tokenise( m_pXML->GetAttributeValue( _T("artist") ) ) );
+	pXML->AddAttribute( L"artist", Tokenise( m_pXML->GetAttributeValue( L"artist" ) ) );
 	return CQuerySearch::OpenWindow( pSearch ) != NULL;
 }
 
@@ -176,7 +176,7 @@ BOOL CRelatedSearch::RunSearchForArtist()
 BOOL CRelatedSearch::CanSearchForAlbum()
 {
 	if ( m_pSchema == NULL || m_pXML == NULL ) return FALSE;
-	CString str = m_pXML->GetAttributeValue( _T("album") );
+	CString str = m_pXML->GetAttributeValue( L"album" );
 	return str.GetLength() >= MIN_LENGTH;
 }
 
@@ -187,7 +187,7 @@ BOOL CRelatedSearch::RunSearchForAlbum()
 	pSearch->m_pSchema	= m_pSchema ? m_pSchema : SchemaCache.Get( CSchema::uriAudio );
 	pSearch->m_pXML		= pSearch->m_pSchema->Instantiate();
 	CXMLElement* pXML	= pSearch->m_pXML->AddElement( pSearch->m_pSchema->m_sSingular );
-	pXML->AddAttribute( _T("album"), Tokenise( m_pXML->GetAttributeValue( _T("album") ) ) );
+	pXML->AddAttribute( L"album", Tokenise( m_pXML->GetAttributeValue( L"album" ) ) );
 	return CQuerySearch::OpenWindow( pSearch ) != NULL;
 }
 
@@ -197,7 +197,7 @@ BOOL CRelatedSearch::RunSearchForAlbum()
 BOOL CRelatedSearch::CanSearchForSeries()
 {
 	if ( m_pSchema == NULL || m_pXML == NULL ) return FALSE;
-	CString str = m_pXML->GetAttributeValue( _T("series") );
+	CString str = m_pXML->GetAttributeValue( L"series" );
 	return str.GetLength() >= MIN_LENGTH;
 }
 
@@ -208,7 +208,7 @@ BOOL CRelatedSearch::RunSearchForSeries()
 	pSearch->m_pSchema	= m_pSchema ? m_pSchema : SchemaCache.Get( CSchema::uriVideo );
 	pSearch->m_pXML		= pSearch->m_pSchema->Instantiate();
 	CXMLElement* pXML	= pSearch->m_pXML->AddElement( pSearch->m_pSchema->m_sSingular );
-	pXML->AddAttribute( _T("series"), Tokenise( m_pXML->GetAttributeValue( _T("series") ) ) );
+	pXML->AddAttribute( L"series", Tokenise( m_pXML->GetAttributeValue( L"series" ) ) );
 	return CQuerySearch::OpenWindow( pSearch ) != NULL;
 }
 

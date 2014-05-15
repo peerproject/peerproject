@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.shareaza.com/schemas/application.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Application.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Pro"/>
@@ -43,13 +42,15 @@
 			<attribute name="OS">
 				<simpleType base="string">
 					<enumeration value="Windows"/>
+					<enumeration value="Windows 7/8"/>
 					<enumeration value="Windows 95/98/Me"/>
 					<enumeration value="Windows NT/2000/XP"/>
 					<enumeration value="Windows CE"/>
 					<enumeration value="Windows Mobile"/>
-					<enumeration value="MacOS"/>
 					<enumeration value="Linux/FreeBSD"/>
+					<enumeration value="Android"/>
 					<enumeration value="UNIX"/>
+					<enumeration value="MacOS"/>
 					<enumeration value="Palm OS"/>
 					<enumeration value="Symbian OS"/>
 					<enumeration value="EPOC"/>
@@ -63,6 +64,8 @@
 			<attribute name="releasegroup" type="string"/>
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="link" type="uriReference"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -234,23 +234,23 @@ bool CLibraryBuilderInternals::ReadID3v1(DWORD nIndex, HANDLE hFile)
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"audio" ) );
 
-	CopyID3v1Field( pXML.get(), _T("title"), CString( pInfo.szSongname, 30 ) );
-	CopyID3v1Field( pXML.get(), _T("artist"), CString( pInfo.szArtist, 30 ) );
-	CopyID3v1Field( pXML.get(), _T("album"), CString( pInfo.szAlbum, 30 ) );
-	CopyID3v1Field( pXML.get(), _T("year"), CString( pInfo.szYear, 4 ) );
+	CopyID3v1Field( pXML.get(), L"title", CString( pInfo.szSongname, 30 ) );
+	CopyID3v1Field( pXML.get(), L"artist", CString( pInfo.szArtist, 30 ) );
+	CopyID3v1Field( pXML.get(), L"album", CString( pInfo.szAlbum, 30 ) );
+	CopyID3v1Field( pXML.get(), L"year", CString( pInfo.szYear, 4 ) );
 
 	if ( pInfo.nGenre < ID3_GENRES )
-		pXML->AddAttribute( _T("genre"), pszID3Genre[ pInfo.nGenre ] );
+		pXML->AddAttribute( L"genre", pszID3Genre[ pInfo.nGenre ] );
 
 	if ( pInfo.szComment[28] == 0 && pInfo.szComment[29] > 0 )
 	{
 		CString strTrack;
-		strTrack.Format( _T("%i"), static_cast< int >( pInfo.szComment[29] ) );
-		pXML->AddAttribute( _T("track"), strTrack );
-		CopyID3v1Field( pXML.get(), _T("description"), CString( pInfo.szComment, 28 ) );
+		strTrack.Format( L"%i", static_cast< int >( pInfo.szComment[29] ) );
+		pXML->AddAttribute( L"track", strTrack );
+		CopyID3v1Field( pXML.get(), L"description", CString( pInfo.szComment, 28 ) );
 	}
 	else
-		CopyID3v1Field( pXML.get(), _T("description"), CString( pInfo.szComment, 30 ) );
+		CopyID3v1Field( pXML.get(), L"description", CString( pInfo.szComment, 30 ) );
 
 	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
@@ -267,9 +267,9 @@ bool CLibraryBuilderInternals::CopyID3v1Field(CXMLElement* pXML, LPCTSTR pszAttr
 	if ( strValue.IsEmpty() )
 		return false;
 
-	strValue.Replace( _T("\r\n"), _T("; ") );	// Windows style replacement
-	strValue.Replace( _T("\n"), _T("; ") );		// Unix style replacement
-	strValue.Replace( _T("\r"), _T("; ") );		// Mac style replacement
+	strValue.Replace( L"\r\n", L"; " );	// Windows style replacement
+	strValue.Replace( L"\n", L"; " );		// Unix style replacement
+	strValue.Replace( L"\r", L"; " );		// Mac style replacement
 
 	pXML->AddAttribute( pszAttribute, strValue );
 
@@ -365,7 +365,7 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 		nBuffer -= pExtended->nSize;
 	}
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("audio") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"audio" ) );
 	bool bBugInFrameSize = false;
 
 	// 4-Char ID3 FrameTag: 	(http://en.wikipedia.org/wiki/ID3)
@@ -479,39 +479,39 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 		switch ( Tag[ CString(szFrameTag) ] )
 		{
 		case 'i':		// "TIT2" "TT2"
-			CopyID3v2Field( pXML.get(), _T("title"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"title", pBuffer, nFrameSize );
 			break;
 		case 'p':		// "TPE1" "TPE2" "TP1" "TP2"
-			CopyID3v2Field( pXML.get(), _T("artist"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"artist", pBuffer, nFrameSize );
 			break;
 		case 'o':		// "TOPE" "TOA"
-			CopyID3v2Field( pXML.get(), _T("origArtist"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"origArtist", pBuffer, nFrameSize );
 			break;
 		case 'a':		// "TALB" "TAL"
-			CopyID3v2Field( pXML.get(), _T("album"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"album", pBuffer, nFrameSize );
 			break;
 		case 't':		// "TOAL" "TOT"
-			CopyID3v2Field( pXML.get(), _T("origAlbum"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"origAlbum", pBuffer, nFrameSize );
 			break;
 		case 'k':		// "TRCK" "TRK"
-			CopyID3v2Field( pXML.get(), _T("track"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"track", pBuffer, nFrameSize );
 			break;
 		case 'l':		// "TLEN" "TLE"
-			if ( CopyID3v2Field( pXML.get(), _T("seconds"), pBuffer, nFrameSize ) )
+			if ( CopyID3v2Field( pXML.get(), L"seconds", pBuffer, nFrameSize ) )
 			{
-				CString strMS = pXML->GetAttributeValue( _T("seconds"), _T("0") );
+				CString strMS = pXML->GetAttributeValue( L"seconds", L"0" );
 				int nMS;
-				if ( _stscanf( strMS, _T("%d"), &nMS ) == 1 )
+				if ( _stscanf( strMS, L"%d", &nMS ) == 1 )
 				{
-					strMS.Format( _T("%d"), nMS / 1000 );
-					pXML->AddAttribute( _T("seconds"), strMS );
+					strMS.Format( L"%d", nMS / 1000 );
+					pXML->AddAttribute( L"seconds", strMS );
 				}
 			}
 			break;
 		case 'c':		// "COMM" "COM"
-			if ( CopyID3v2Field( pXML.get(), _T("description"), pBuffer, nFrameSize, true ) )
+			if ( CopyID3v2Field( pXML.get(), L"description", pBuffer, nFrameSize, true ) )
 			{
-				if ( CXMLAttribute* pDescr = pXML->GetAttribute( _T("description") ) )
+				if ( CXMLAttribute* pDescr = pXML->GetAttribute( L"description" ) )
 				{
 					// Remove iTunes cruft
 					CString strDescr = pDescr->GetValue();
@@ -521,12 +521,12 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 			}
 			break;
 		case 'r':		// "TCOP" "TCR"
-			CopyID3v2Field( pXML.get(), _T("copyright"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"copyright", pBuffer, nFrameSize );
 			break;
 		case 'g':		// "TCON" "TCO"
-			if ( CopyID3v2Field( pXML.get(), _T("genre"), pBuffer, nFrameSize ) )
+			if ( CopyID3v2Field( pXML.get(), L"genre", pBuffer, nFrameSize ) )
 			{
-				CString strGenre = pXML->GetAttributeValue( _T("genre"), _T("") );
+				CString strGenre = pXML->GetAttributeValue( L"genre", L"" );
 
 				for ( ;; )
 				{
@@ -540,15 +540,15 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 					CString strValue = strGenre.Mid( nPos1 + 1, nPos2 - nPos1 - 1 );
 					int nGenre = 0;
 
-					if ( strValue.CompareNoCase( _T("RX") ) == 0 )
+					if ( strValue.CompareNoCase( L"RX" ) == 0 )
 					{
-						strValue = _T("Remix");
+						strValue = L"Remix";
 					}
-					else if ( strValue.CompareNoCase( _T("CR") ) == 0 )
+					else if ( strValue.CompareNoCase( L"CR" ) == 0 )
 					{
-						strValue = _T("Cover");
+						strValue = L"Cover";
 					}
-					else if ( _stscanf( strValue, _T("%i"), &nGenre ) == 1 && nGenre >= 0 && nGenre < ID3_GENRES )
+					else if ( _stscanf( strValue, L"%i", &nGenre ) == 1 && nGenre >= 0 && nGenre < ID3_GENRES )
 					{
 						if ( _tcsistr( strGenre, pszID3Genre[ nGenre ] ) == NULL )
 							strValue = pszID3Genre[ nGenre ];
@@ -557,33 +557,33 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 					}
 					else
 					{
-						strValue = _T("[") + strValue + _T("]");
+						strValue = L"[" + strValue + L"]";
 					}
 
 					strGenre = strGenre.Left( nPos1 ) + strValue + strGenre.Mid( nPos2 + 1 );
 				}
 
-				strGenre.Replace( _T("["), _T("(") );
-				strGenre.Replace( _T("]"), _T(")") );
+				strGenre.Replace( L"[", L"(" );
+				strGenre.Replace( L"]", L")" );
 
-				pXML->AddAttribute( _T("genre"), strGenre );
+				pXML->AddAttribute( L"genre", strGenre );
 			}
 			break;
 		case 'e':		// "TENC" "TEN"
-			CopyID3v2Field( pXML.get(), _T("encodedby"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"encodedby", pBuffer, nFrameSize );
 			break;
 		case 's':		// "TSSE" "TSS"
-			CopyID3v2Field( pXML.get(), _T("encodedby"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"encodedby", pBuffer, nFrameSize );
 			break;
 		case 'm':		// "TCOM" "TCM"
-			CopyID3v2Field( pXML.get(), _T("composer"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"composer", pBuffer, nFrameSize );
 			break;
 		case 'w':		// "WXXX" "WXX"
-			CopyID3v2Field( pXML.get(), _T("link"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"link", pBuffer, nFrameSize );
 			break;
 		case 'y':		// "TYER" "TYE"
 			//if ( pHeader.nMajorVersion < 4 )
-				CopyID3v2Field( pXML.get(), _T("year"), pBuffer, nFrameSize );
+				CopyID3v2Field( pXML.get(), L"year", pBuffer, nFrameSize );
 			break;
 		case 'd':		// "TDRC"
 			//if ( pHeader.nMajorVersion >= 4 )
@@ -595,17 +595,17 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 				nLength = nFrameSize - nLength;
 				auto_array< BYTE > pszYear( new BYTE[ nLength + 1 ] );
 				memcpy( pszYear.get(), pBuffer, nLength );
-				CopyID3v2Field( pXML.get(), _T("year"), pszYear.get(), nLength );
+				CopyID3v2Field( pXML.get(), L"year", pszYear.get(), nLength );
 			}
 			break;
 		case 'Y':		// "TDOR" "TORY"
-			CopyID3v2Field( pXML.get(), _T("origYear"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"origYear", pBuffer, nFrameSize );
 			break;
 		case 'b':		// "TPUB"
-			CopyID3v2Field( pXML.get(), _T("publisher"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"publisher", pBuffer, nFrameSize );
 			break;
 		case 'n':		// "TLAN"
-			CopyID3v2Field( pXML.get(), _T("language"), pBuffer, nFrameSize );
+			CopyID3v2Field( pXML.get(), L"language", pBuffer, nFrameSize );
 			break;
 		case 'x':		// "TXXX"	User defined text information frame
 			CopyID3v2Field( pXML.get(), NULL, pBuffer, nFrameSize );
@@ -814,7 +814,7 @@ bool CLibraryBuilderInternals::ReadMP3Frames(DWORD nIndex, HANDLE hFile)
 {
 	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("audio") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"audio" ) );
 
 	if ( ! ScanMP3Frame( pXML.get(), hFile, 0 ) )
 		return false;
@@ -862,7 +862,7 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 	};
 
 	static const int nChannelTable[4]		= { 2, 2, 2, 1 };
-	static const CString strSoundType[4]	= { _T("Stereo"), _T("Joint Stereo"), _T("Dual Channel"), _T("Single Channel") };
+	static const CString strSoundType[4]	= { L"Stereo", L"Joint Stereo", L"Dual Channel", L"Single Channel" };
 
 	BYTE nLayer					= 0;
 	bool bVariable				= false;
@@ -1006,19 +1006,19 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 
 	CString strValue;
 
-	strValue.Format( bVariable ? _T("%lu~") : _T("%lu"), nBaseBitrate / 1000 );
-	pXML->AddAttribute( _T("bitrate"), strValue );
+	strValue.Format( bVariable ? L"%lu~" : L"%lu", nBaseBitrate / 1000 );
+	pXML->AddAttribute( L"bitrate", strValue );
 
-	strValue.Format( _T("%lu"), nTotalTime );
-	pXML->AddAttribute( _T("seconds"), strValue );
+	strValue.Format( L"%lu", nTotalTime );
+	pXML->AddAttribute( L"seconds", strValue );
 
-	strValue.Format( _T("%lu"), nBaseFrequency );
-	pXML->AddAttribute( _T("sampleRate"), strValue );
+	strValue.Format( L"%lu", nBaseFrequency );
+	pXML->AddAttribute( L"sampleRate", strValue );
 
-	strValue.Format( _T("%d"), nBaseChannel );
-	pXML->AddAttribute( _T("channels"), strValue );
+	strValue.Format( L"%d", nBaseChannel );
+	pXML->AddAttribute( L"channels", strValue );
 
-	pXML->AddAttribute( _T("soundType"), strBaseSoundType );
+	pXML->AddAttribute( L"soundType", strBaseSoundType );
 
 	return true;
 }
@@ -1028,13 +1028,13 @@ bool CLibraryBuilderInternals::ScanMP3Frame(CXMLElement* pXML, HANDLE hFile, DWO
 
 bool CLibraryBuilderInternals::ReadVersion(DWORD nIndex, LPCTSTR pszPath)
 {
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("application") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"application" ) );
 	if ( ! pXML.get() )
 		return false;
 
 	if ( DWORD dwSize = GetFileVersionInfoSize( (LPTSTR)pszPath, &dwSize ) )
 	{
-		pXML->AddAttribute( _T("os"), _T("Windows") );
+		pXML->AddAttribute( L"os", L"Windows" );
 
 		auto_array< BYTE > pBuffer( new BYTE[ dwSize ] );
 		if ( pBuffer.get() && GetFileVersionInfo( (LPTSTR)pszPath, NULL, dwSize, pBuffer.get() ) )
@@ -1042,14 +1042,14 @@ bool CLibraryBuilderInternals::ReadVersion(DWORD nIndex, LPCTSTR pszPath)
 			const DWORD nLangId = GetBestLanguageId( pBuffer.get() );
 
 			bool bOur = false;
-			bOur |= CopyVersionField( pXML.get(), _T("title"), pBuffer.get(), _T("ProductName"), nLangId );
-					CopyVersionField( pXML.get(), _T("version"), pBuffer.get(), _T("ProductVersion"), nLangId, true );
-			bOur |= CopyVersionField( pXML.get(), _T("fileDescription"), pBuffer.get(), _T("FileDescription"), nLangId );
-					CopyVersionField( pXML.get(), _T("fileVersion"), pBuffer.get(), _T("FileVersion"), nLangId, true );
-			bOur |= CopyVersionField( pXML.get(), _T("originalFileName"), pBuffer.get(), _T("OriginalFilename"), nLangId );
-			bOur |= CopyVersionField( pXML.get(), _T("company"), pBuffer.get(), _T("CompanyName"), nLangId );
-			bOur |= CopyVersionField( pXML.get(), _T("copyright"), pBuffer.get(), _T("LegalCopyright"), nLangId );
-			bOur |= CopyVersionField( pXML.get(), _T("comments"), pBuffer.get(), _T("comments"), nLangId );
+			bOur |= CopyVersionField( pXML.get(), L"title", pBuffer.get(), L"ProductName", nLangId );
+					CopyVersionField( pXML.get(), L"version", pBuffer.get(), L"ProductVersion", nLangId, true );
+			bOur |= CopyVersionField( pXML.get(), L"fileDescription", pBuffer.get(), L"FileDescription", nLangId );
+					CopyVersionField( pXML.get(), L"fileVersion", pBuffer.get(), L"FileVersion", nLangId, true );
+			bOur |= CopyVersionField( pXML.get(), L"originalFileName", pBuffer.get(), L"OriginalFilename", nLangId );
+			bOur |= CopyVersionField( pXML.get(), L"company", pBuffer.get(), L"CompanyName", nLangId );
+			bOur |= CopyVersionField( pXML.get(), L"copyright", pBuffer.get(), L"LegalCopyright", nLangId );
+			bOur |= CopyVersionField( pXML.get(), L"comments", pBuffer.get(), L"comments", nLangId );
 
 			//LPCTSTR pszExt = PathFindExtension( pszPath );
 			//if ( bOur && pszExt && _tcscmp( pszExt, L".exe" ) == 0 /*&& ValidateManifest( pszPath )*/ )
@@ -1071,7 +1071,7 @@ bool CLibraryBuilderInternals::CopyVersionField(CXMLElement* pXML, LPCTSTR pszAt
 		return false;
 
 	if ( bCommaToDot )
-		strValue.Replace( _T(", "), _T(".") );
+		strValue.Replace( L", ", L"." );
 
 	pXML->AddAttribute( pszAttribute, strValue );
 
@@ -1237,13 +1237,13 @@ bool CLibraryBuilderInternals::ReadMSI(DWORD nIndex, LPCTSTR pszPath)
 	else if ( nError != ERROR_SUCCESS )
 		return false;
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("application") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"application" ) );
 
-	pXML->AddAttribute( _T("os"), _T("Windows") );
+	pXML->AddAttribute( L"os", L"Windows" );
 
 	CString strSubject;
 	CString str = GetSummaryField( hSummaryInfo, PID_TITLE );
-	if ( str.IsEmpty() || str == _T("Installation Database") )
+	if ( str.IsEmpty() || str == L"Installation Database" )
 	{
 		str = GetSummaryField( hSummaryInfo, PID_SUBJECT );
 	}
@@ -1251,19 +1251,19 @@ bool CLibraryBuilderInternals::ReadMSI(DWORD nIndex, LPCTSTR pszPath)
 	{
 		strSubject = GetSummaryField( hSummaryInfo, PID_SUBJECT );
 		if ( strSubject != str )
-			pXML->AddAttribute( _T("fileDescription"), strSubject );
+			pXML->AddAttribute( L"fileDescription", strSubject );
 	}
 
-	pXML->AddAttribute( _T("title"), str );
-	pXML->AddAttribute( _T("company"), GetSummaryField( hSummaryInfo, PID_AUTHOR ) );
+	pXML->AddAttribute( L"title", str );
+	pXML->AddAttribute( L"company", GetSummaryField( hSummaryInfo, PID_AUTHOR ) );
 
 	str = GetSummaryField( hSummaryInfo, PID_KEYWORDS );
-	if ( str.Find( _T("Installer,MSI,Database") ) == -1 )
-		pXML->AddAttribute( _T("keywords"), str );
+	if ( str.Find( L"Installer,MSI,Database" ) == -1 )
+		pXML->AddAttribute( L"keywords", str );
 
 	str = GetSummaryField( hSummaryInfo, PID_COMMENTS );
 	if ( str != strSubject )
-		pXML->AddAttribute( _T("releaseNotes"), str );
+		pXML->AddAttribute( L"releaseNotes", str );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriApplication, pXML.release() );
 
@@ -1374,21 +1374,21 @@ bool CLibraryBuilderInternals::ReadJPEG(DWORD nIndex, HANDLE hFile)
 			strComment.SetAt( nChar, '?' );
 	}
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("image") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"image" ) );
 
 	CString strItem;
-	strItem.Format( _T("%lu"), nWidth );
-	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%lu"), nHeight );
-	pXML->AddAttribute( _T("height"), strItem );
+	strItem.Format( L"%lu", nWidth );
+	pXML->AddAttribute( L"width", strItem );
+	strItem.Format( L"%lu", nHeight );
+	pXML->AddAttribute( L"height", strItem );
 
 	if ( nComponents == 3 )
-		pXML->AddAttribute( _T("colors"), _T("16.7M") );
+		pXML->AddAttribute( L"colors", L"16.7M" );
 	else if ( nComponents == 1 )
-		pXML->AddAttribute( _T("colors"), _T("Greyscale") );
+		pXML->AddAttribute( L"colors", L"Greyscale" );
 
 	if ( ! strComment.IsEmpty() )
-		pXML->AddAttribute( _T("description"), strComment );
+		pXML->AddAttribute( L"description", strComment );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriImage, pXML.release() );
 
@@ -1418,15 +1418,15 @@ bool CLibraryBuilderInternals::ReadGIF(DWORD nIndex, HANDLE hFile)
 	if ( ! ReadFile( hFile, &nHeight, 2, &nRead, NULL ) || nRead != 2 || nHeight == 0 )
 		return false;
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("image") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"image" ) );
 	CString strItem;
 
-	strItem.Format( _T("%lu"), nWidth );
-	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%lu"), nHeight );
-	pXML->AddAttribute( _T("height"), strItem );
+	strItem.Format( L"%lu", nWidth );
+	pXML->AddAttribute( L"width", strItem );
+	strItem.Format( L"%lu", nHeight );
+	pXML->AddAttribute( L"height", strItem );
 
-	pXML->AddAttribute( _T("colors"), _T("256") );
+	pXML->AddAttribute( L"colors", L"256" );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriImage, pXML.release() );
 
@@ -1485,34 +1485,34 @@ bool CLibraryBuilderInternals::ReadPNG(DWORD nIndex, HANDLE hFile)
 	if ( nRead != 1 )
 		return false;
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("image") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"image" ) );
 
 	CString strItem;
-	strItem.Format( _T("%lu"), nWidth );
-	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%lu"), nHeight );
-	pXML->AddAttribute( _T("height"), strItem );
+	strItem.Format( L"%lu", nWidth );
+	pXML->AddAttribute( L"width", strItem );
+	strItem.Format( L"%lu", nHeight );
+	pXML->AddAttribute( L"height", strItem );
 
 	//if ( nColors == 2 || nColors == 4 )
-	//	pXML->AddAttribute( _T("colors"), _T("Greyscale") );
+	//	pXML->AddAttribute( L"colors", L"Greyscale" );
 	//else
 	{
 		switch ( nBits )
 		{
 		case 1:
-			pXML->AddAttribute( _T("colors"), _T("2") );
+			pXML->AddAttribute( L"colors", L"2" );
 			break;
 		case 2:
-			pXML->AddAttribute( _T("colors"), _T("4") );
+			pXML->AddAttribute( L"colors", L"4" );
 			break;
 		case 4:
-			pXML->AddAttribute( _T("colors"), _T("16") );
+			pXML->AddAttribute( L"colors", L"16" );
 			break;
 		case 8:
-			pXML->AddAttribute( _T("colors"), _T("256") );
+			pXML->AddAttribute( L"colors", L"256" );
 			break;
 		case 16:
-			pXML->AddAttribute( _T("colors"), _T("64K") );
+			pXML->AddAttribute( L"colors", L"64K" );
 			break;
 		}
 	}
@@ -1543,24 +1543,24 @@ bool CLibraryBuilderInternals::ReadBMP(DWORD nIndex, HANDLE hFile)
 	if ( nRead != sizeof( pBIH ) || pBIH.biSize != sizeof( pBIH ) )
 		return false;
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("image") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"image" ) );
 	CString strItem;
 
-	strItem.Format( _T("%d"), pBIH.biWidth );
-	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%d"), pBIH.biHeight );
-	pXML->AddAttribute( _T("height"), strItem );
+	strItem.Format( L"%d", pBIH.biWidth );
+	pXML->AddAttribute( L"width", strItem );
+	strItem.Format( L"%d", pBIH.biHeight );
+	pXML->AddAttribute( L"height", strItem );
 
 	switch ( pBIH.biBitCount )
 	{
 	case 4:
-		pXML->AddAttribute( _T("colors"), _T("16") );
+		pXML->AddAttribute( L"colors", L"16" );
 		break;
 	case 8:
-		pXML->AddAttribute( _T("colors"), _T("256") );
+		pXML->AddAttribute( L"colors", L"256" );
 		break;
 	case 24:
-		pXML->AddAttribute( _T("colors"), _T("16.7M") );
+		pXML->AddAttribute( L"colors", L"16.7M" );
 		break;
 	}
 
@@ -1819,60 +1819,60 @@ bool CLibraryBuilderInternals::ReadASF(DWORD nIndex, HANDLE hFile)
 	}
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
-		bVideo ? _T("video") : _T("audio") ) );
+		bVideo ? L"video" : L"audio" ) );
 	CString strItem;
 
 	if ( ! strTitle.IsEmpty() )
-		pXML->AddAttribute( _T("title"), strTitle );
+		pXML->AddAttribute( L"title", strTitle );
 
 	if ( ! strDescription.IsEmpty() )
-		pXML->AddAttribute( _T("description"), strDescription );
+		pXML->AddAttribute( L"description", strDescription );
 
 	if ( bDRM )
-		pXML->AddAttribute( _T("drm"), _T("true") );
+		pXML->AddAttribute( L"drm", L"true" );
 
 	if ( bVideo )
 	{
 		if ( ! strAuthor.IsEmpty() )
-			pXML->AddAttribute( _T("producer"), strAuthor );
+			pXML->AddAttribute( L"producer", strAuthor );
 
 		if ( ! strRating.IsEmpty() )
-			pXML->AddAttribute( _T("rating"), strRating );
+			pXML->AddAttribute( L"rating", strRating );
 
 		if ( nContentLength > 0 )
 		{
 			DWORD nSeconds = (DWORD)( nContentLength / 10000000 );
-			strItem.Format( _T("%lu.%lu"), nSeconds / 60, ( ( nSeconds % 60 ) * 10 / 60 ) );
-			pXML->AddAttribute( _T("minutes"), strItem );
+			strItem.Format( L"%lu.%lu", nSeconds / 60, ( ( nSeconds % 60 ) * 10 / 60 ) );
+			pXML->AddAttribute( L"minutes", strItem );
 		}
 
 		if ( nVideoWidth > 0 && nVideoHeight > 0 )
 		{
-			strItem.Format( _T("%lu"), nVideoWidth );
-			pXML->AddAttribute( _T("width"), strItem );
-			strItem.Format( _T("%lu"), nVideoHeight );
-			pXML->AddAttribute( _T("height"), strItem );
+			strItem.Format( L"%lu", nVideoWidth );
+			pXML->AddAttribute( L"width", strItem );
+			strItem.Format( L"%lu", nVideoHeight );
+			pXML->AddAttribute( L"height", strItem );
 		}
 	}
 	else
 	{
 		if ( ! strAuthor.IsEmpty() )
-			pXML->AddAttribute( _T("artist"), strAuthor );
+			pXML->AddAttribute( L"artist", strAuthor );
 
 		if ( nContentLength > 0 )
 		{
-			strItem.Format( _T("%lu"), (DWORD)( nContentLength / 10000000 ) );
-			pXML->AddAttribute( _T("seconds"), strItem );
+			strItem.Format( L"%lu", (DWORD)( nContentLength / 10000000 ) );
+			pXML->AddAttribute( L"seconds", strItem );
 		}
 
 		if ( nBitrate > 0 )
 		{
-			strItem.Format( _T("%lu"), nBitrate / 1000 );
-			pXML->AddAttribute( _T("bitrate"), strItem );
+			strItem.Format( L"%lu", nBitrate / 1000 );
+			pXML->AddAttribute( L"bitrate", strItem );
 		}
 	}
 
-	pXML->AddAttribute( _T("codec"), _T("WM") );
+	pXML->AddAttribute( L"codec", L"WM" );
 
 	LibraryBuilder.SubmitMetadata( nIndex, bVideo ? CSchema::uriVideo : CSchema::uriAudio, pXML.release() );
 
@@ -1909,24 +1909,24 @@ bool CLibraryBuilderInternals::ReadMPEG(DWORD nIndex, HANDLE hFile)
 	if ( nHeader != 7 )
 		return false;
 
-	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("video") ) );
+	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"video" ) );
 	CString strItem;
 
 	DWORD nWidth, nHeight;
 	nWidth = ( (DWORD)nBuffer[0] << 4 ) | (DWORD)nBuffer[1] >> 4;
 	nHeight = ( ( (DWORD)nBuffer[1] & 0x0F ) << 8 ) | (DWORD)nBuffer[2];
 
-	strItem.Format( _T("%lu"), nWidth );
-	pXML->AddAttribute( _T("width"), strItem );
-	strItem.Format( _T("%lu"), nHeight );
-	pXML->AddAttribute( _T("height"), strItem );
-	pXML->AddAttribute( _T("codec"), _T("MPEG") );
+	strItem.Format( L"%lu", nWidth );
+	pXML->AddAttribute( L"width", strItem );
+	strItem.Format( L"%lu", nHeight );
+	pXML->AddAttribute( L"height", strItem );
+	pXML->AddAttribute( L"codec", L"MPEG" );
 
-	LPCTSTR pszFPS[] = { _T("23.976"), _T("24"), _T("25"), _T("29.97"), _T("30"), _T("50"), _T("59.94"), _T("60") };
+	LPCTSTR pszFPS[] = { L"23.976", L"24", L"25", L"29.97", L"30", L"50", L"59.94", L"60" };
 	int nFrameIndex = ( nBuffer[3] & 0x0F );
 
 	if ( nFrameIndex >= 1 && nFrameIndex < 9 )
-		pXML->AddAttribute( _T("frameRate"), pszFPS[ nFrameIndex - 1 ] );
+		pXML->AddAttribute( L"frameRate", pszFPS[ nFrameIndex - 1 ] );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriVideo, pXML.release() );
 
@@ -2491,17 +2491,17 @@ bool CLibraryBuilderInternals::ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferF
 	if ( bHasDiscField )
 	{
 		if ( bHasTotalDiscsField )
-			pXML->AddAttribute( _T("disc"), strDiscField + _T("/") + strTotalDiscsField );
+			pXML->AddAttribute( L"disc", strDiscField + L"/" + strTotalDiscsField );
 		else
-			pXML->AddAttribute( _T("disc"), strDiscField );
+			pXML->AddAttribute( L"disc", strDiscField );
 	}
 
 	if ( bHasTrackField == true )
 	{
 		if ( bHasTotalTracksField )
-			pXML->AddAttribute( _T("track"), strTrackField + _T("/") + strTotalTracksField );
+			pXML->AddAttribute( L"track", strTrackField + L"/" + strTotalTracksField );
 		else
-			pXML->AddAttribute( _T("track"), strTrackField );
+			pXML->AddAttribute( L"track", strTrackField );
 	}
 
 	if ( nFileSize < sizeof( APE_HEADER ) )
@@ -2850,14 +2850,14 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	// Check PDF version
 	SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 	CString strLine = ReadPDFLine( hFile, false );
-	if ( strLine.Find( _T("%PDF") ) == 0 )
+	if ( strLine.Find( L"%PDF" ) == 0 )
 		nCount = 7;
-	else if ( strLine.Find( _T("%!PS-Adobe") ) == 0 )
+	else if ( strLine.Find( L"%!PS-Adobe" ) == 0 )
 		nCount = 21;
 	else
 		return false;
 
-	if ( _stscanf( strLine.Mid( nCount ), _T("%lu"), &nVersion ) != 1 )
+	if ( _stscanf( strLine.Mid( nCount ), L"%lu", &nVersion ) != 1 )
 		return false;
 	//if ( nVersion > 5 )
 	//	return false;
@@ -2873,20 +2873,20 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	nCount = 0;
 	while ( ! strLine.IsEmpty() && nCount < 9 && nVersion > 1 )		// Read dictionary entries only from 8 lines max
 	{
-		int nData = strLine.Find( _T(" ") );
+		int nData = strLine.Find( L" " );
 		if ( nData > 0 )
 		{
 			CString strEntry = strLine.Left( nData );
-			if ( strEntry.CompareNoCase( _T("linearized") ) == 0 )
-				bLinearized = ( strLine.Mid( nData + 1 ) == _T("1") );
-			else if ( strEntry.CompareNoCase( _T("n") ) == 0 )
+			if ( strEntry.CompareNoCase( L"linearized" ) == 0 )
+				bLinearized = ( strLine.Mid( nData + 1 ) == L"1" );
+			else if ( strEntry.CompareNoCase( L"n" ) == 0 )
 			{
-				if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nPages ) != 1 )
+				if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nPages ) != 1 )
 					break;
 			}
-			else if ( strEntry.CompareNoCase( _T("l") ) == 0 )
+			else if ( strEntry.CompareNoCase( L"l" ) == 0 )
 			{
-				if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nFileLength ) != 1 )
+				if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nFileLength ) != 1 )
 					break;
 			}
 		}
@@ -2920,18 +2920,18 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		// Get total object count
 		if ( ReadPDFLine( hFile, false ).IsEmpty() )
 			strLine = ReadPDFLine( hFile, false );
-		if ( strLine != _T("endobj") )
+		if ( strLine != L"endobj" )
 			return false;
 
 		nOffset = SetFilePointer( hFile, 0, NULL, FILE_CURRENT );
 		strLine = ReadPDFLine( hFile, false );
 		if ( strLine.IsEmpty() )
 			strLine = ReadPDFLine( hFile, false );
-		if ( strLine != _T("xref") )
+		if ( strLine != L"xref" )
 			return false;
 
 		strLine = ReadPDFLine( hFile, false );
-		if ( _stscanf( strLine, _T("%lu %lu"), &nCountStart, &nCount ) != 2 )
+		if ( _stscanf( strLine, L"%lu %lu", &nCountStart, &nCount ) != 2 )
 			return false;
 
 		for ( DWORD nLines = 0 ; nLines < nCount ; nLines++ )
@@ -2946,15 +2946,15 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			strLine = ReadPDFLine( hFile, true );
 
 		// ToDo: %%EOF should be within the last 1024 KB by specs
-		if ( strLine != _T("%%EOF") )
+		if ( strLine != L"%%EOF" )
 			return false;
 
 		strLine = ReadPDFLine( hFile, true );
-		if ( ReadPDFLine( hFile, true ) != _T("startxref") )
+		if ( ReadPDFLine( hFile, true ) != L"startxref" )
 			return false;
 
 		// Get last reference object number
-		if ( _stscanf( strLine, _T("%lu"), &nOffset ) != 1 )
+		if ( _stscanf( strLine, L"%lu", &nOffset ) != 1 )
 			return false;
 		if ( ! ReadPDFLine( hFile, true, true ).IsEmpty() )
 			return false;
@@ -2963,7 +2963,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		for ( nLines = 10 ; nLines ; --nLines )
 		{
 			strLine = ReadPDFLine( hFile, true );
-			if ( strLine.CompareNoCase( _T("trailer") ) == 0 )
+			if ( strLine.CompareNoCase( L"trailer" ) == 0 )
 			{
 				ReadPDFLine( hFile, false );
 				break;
@@ -2975,7 +2975,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 	// Read trailer dictionary
 	strLine = ReadPDFLine( hFile, false );
-	if ( strLine.CompareNoCase( _T("trailer") ) != 0 )
+	if ( strLine.CompareNoCase( L"trailer" ) != 0 )
 		return false;
 	if ( ! ReadPDFLine( hFile, false, true ).IsEmpty() )
 		return false;
@@ -2984,14 +2984,14 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		strLine = ReadPDFLine( hFile, false, true );
 	while ( ! strLine.IsEmpty() )
 	{
-		int nData = strLine.Find( _T(" ") );
+		int nData = strLine.Find( L" " );
 		if ( nData > 0 )
 		{
 			CString strEntry = strLine.Left( nData );
-			if ( strEntry.CompareNoCase( _T("size") ) == 0 )
+			if ( strEntry.CompareNoCase( L"size" ) == 0 )
 			{
 				DWORD nSize;
-				if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nSize ) != 1 )
+				if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nSize ) != 1 )
 					return false;
 				if ( bLinearized )
 				{
@@ -3001,15 +3001,15 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				else
 					nCount = nSize;
 			}
-			else if ( strEntry.CompareNoCase( _T("prev") ) == 0 )
+			else if ( strEntry.CompareNoCase( L"prev" ) == 0 )
 			{
-				if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetPrev ) != 1 )
+				if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nOffsetPrev ) != 1 )
 					return false;
 			}
-			//else if ( strEntry.CompareNoCase( _T("encrypt") ) == 0 )
+			//else if ( strEntry.CompareNoCase( L"encrypt" ) == 0 )
 			//{
 			//	// if document encrypted skip it
-			//	if ( strLine.Mid( nData + 1 ).CompareNoCase( _T("null") ) != 0 )
+			//	if ( strLine.Mid( nData + 1 ).CompareNoCase( L"null" ) != 0 )
 			//		return false;
 			//}
 		}
@@ -3038,11 +3038,11 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		strLine = ReadPDFLine( hFile, false );
 		if ( strLine.IsEmpty() )
 			strLine = ReadPDFLine( hFile, false );
-		if ( strLine != _T("xref") )
+		if ( strLine != L"xref" )
 			return false;
 		strLine = ReadPDFLine( hFile, false );
 		DWORD nTemp;
-		if ( _stscanf( strLine, _T("%lu %lu"), &nCountStart, &nTemp ) != 2 )
+		if ( _stscanf( strLine, L"%lu %lu", &nCountStart, &nTemp ) != 2 )
 			return false;
 		DWORD nTotal = nCountStart + nTemp;
 		if ( nCount < nTotal )
@@ -3061,12 +3061,12 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				for ( ; *pszInt == '0' ; pszInt++ );
 				if ( *pszInt != 0 )
 				{
-					if ( _stscanf( pszInt, _T("%lu"), &pOffset[ nObjectNo ] ) != 1 )
+					if ( _stscanf( pszInt, L"%lu", &pOffset[ nObjectNo ] ) != 1 )
 						return false;
 				}
 			}
 		}
-		if ( ReadPDFLine( hFile, false ) != _T("trailer") )
+		if ( ReadPDFLine( hFile, false ) != L"trailer" )
 			return false;
 		// Only the last data from trailers are used for /Info and /Root positions
 		nOffsetPrev = 0;
@@ -3078,25 +3078,25 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			strLine = ReadPDFLine( hFile, false, true );
 		while ( ! strLine.IsEmpty() )
 		{
-			int nData = strLine.Find( _T(" ") );
+			int nData = strLine.Find( L" " );
 			if ( nData > 0 )
 			{
 				CString strEntry = strLine.Left( nData );
-				if ( strEntry.CompareNoCase( _T("info") ) == 0 )
+				if ( strEntry.CompareNoCase( L"info" ) == 0 )
 				{
-					if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetInfo ) != 1 )
+					if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nOffsetInfo ) != 1 )
 						return false;
 					if ( nCount < nOffsetInfo )
 						return false;
 				}
-				else if ( strEntry.CompareNoCase( _T("prev") ) == 0 )
+				else if ( strEntry.CompareNoCase( L"prev" ) == 0 )
 				{
-					if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetPrev ) != 1 )
+					if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nOffsetPrev ) != 1 )
 						return false;
 				}
-				else if ( strEntry.CompareNoCase( _T("root") ) == 0 )
+				else if ( strEntry.CompareNoCase( L"root" ) == 0 )
 				{
-					if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetRoot ) != 1 )
+					if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nOffsetRoot ) != 1 )
 						return false;
 				}
 			}
@@ -3106,33 +3106,33 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	}
 
 	// Collect author, title if file name contains "book" keyword
-	bool bBook = ( _tcsistr( pszPath, _T("book") ) != NULL );
+	bool bBook = ( _tcsistr( pszPath, L"book" ) != NULL );
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
-		bBook ? _T("book") : _T("wordprocessing") ) );
+		bBook ? L"book" : L"wordprocessing" ) );
 
 	if ( LPCTSTR pszName = _tcsrchr( pszPath, '\\' ) )
 	{
 		pszName++;
 
-		if ( _tcsnicmp( pszName, _T("ebook - "), 8 ) == 0 )
+		if ( _tcsnicmp( pszName, L"ebook - ", 8 ) == 0 )
 		{
 			strLine = pszName + 8;
-			strLine = strLine.SpanExcluding( _T(".") );
+			strLine = strLine.SpanExcluding( L"." );
 			strLine.Trim();
-			pXML->AddAttribute( _T("title"), strLine );
+			pXML->AddAttribute( L"title", strLine );
 		}
-		else if ( _tcsnicmp( pszName, _T("(ebook"), 6 ) == 0 )
+		else if ( _tcsnicmp( pszName, L"(ebook", 6 ) == 0 )
 		{
 			if ( ( pszName = _tcschr( pszName, ')' ) ) != NULL )
 			{
-				if ( _tcsncmp( pszName, _T(") - "), 4 ) == 0 )
+				if ( _tcsncmp( pszName, L") - ", 4 ) == 0 )
 					strLine = pszName + 4;
 				else
 					strLine = pszName + 1;
-				strLine = strLine.SpanExcluding( _T(".") );
+				strLine = strLine.SpanExcluding( L"." );
 				strLine.Trim();
-				pXML->AddAttribute( _T("title"), strLine );
+				pXML->AddAttribute( L"title", strLine );
 			}
 		}
 	}
@@ -3148,29 +3148,29 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 //	if ( nOffsetRoot != 0 )
 //	{
 //		CString strSeek;
-//		strSeek.Format( _T("%lu 0 obj"), nOffsetRoot );
+//		strSeek.Format( L"%lu 0 obj", nOffsetRoot );
 //		SetFilePointer( hFile, pOffset[ nOffsetRoot ], NULL, FILE_BEGIN );
-//		strLine = ReadPDFLine( hFile, (LPCTSTR)_T("<") );
+//		strLine = ReadPDFLine( hFile, (LPCTSTR)L"<" );
 //		if ( strLine == strSeek )
 //		{
-//			if ( ReadPDFLine( hFile, (LPCTSTR)_T("<") ).IsEmpty() &&
-//				 ReadPDFLine( hFile, (LPCTSTR)_T("/") ).IsEmpty() &&
-//				 ReadPDFLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("type") &&
-//				 ReadPDFLine( hFile, (LPCTSTR)_T("/") ).MakeLower() == _T("catalog") )
+//			if ( ReadPDFLine( hFile, (LPCTSTR)L"<" ).IsEmpty() &&
+//				 ReadPDFLine( hFile, (LPCTSTR)L"/" ).IsEmpty() &&
+//				 ReadPDFLine( hFile, (LPCTSTR)L"/" ).MakeLower() == L"type" &&
+//				 ReadPDFLine( hFile, (LPCTSTR)L"/" ).MakeLower() == L"catalog" )
 //			{
-//				strLine = ReadPDFLine( hFile, (LPCTSTR)_T("/>") );
+//				strLine = ReadPDFLine( hFile, (LPCTSTR)L"/>" );
 //				while ( ! strLine.IsEmpty() )
 //				{
 //					CString strEntry;
 //					int nData = 0;
-//					nData = strLine.Find( _T(" ") );
+//					nData = strLine.Find( L" " );
 //					strEntry = ToLower( strLine.Left( nData ) );
-//					if ( strEntry == _T("metadata") )
+//					if ( strEntry == L"metadata" )
 //					{
-//						if ( _stscanf( strLine.Mid( nData + 1 ), _T("%lu"), &nOffsetMeta ) != 1 )
+//						if ( _stscanf( strLine.Mid( nData + 1 ), L"%lu", &nOffsetMeta ) != 1 )
 //							return false;
 //					}
-//					strLine = ReadPDFLine( hFile, (LPCTSTR)_T("/>") );
+//					strLine = ReadPDFLine( hFile, (LPCTSTR)L"/>" );
 //				}
 //			}
 //		}
@@ -3198,12 +3198,12 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			SetFilePointer( hFile, pOffset[ nOffset ], NULL, FILE_BEGIN );
 
 			strLine = ReadPDFLine( hFile, false, true );
-			nObjPos = strLine.Find( _T("obj") );
+			nObjPos = strLine.Find( L"obj" );
 			if ( nObjPos < 0 )
 				break;
 
 			// Object after object, so we read more than one
-			if ( strLine.Find( _T("obj"), nObjPos + 1 ) != -1 )
+			if ( strLine.Find( L"obj", nObjPos + 1 ) != -1 )
 				continue;
 
 			if ( ReadPDFLine( hFile, false, true ).IsEmpty() )
@@ -3213,10 +3213,10 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 					strLine = ReadPDFLine( hFile, false, true );
 				while ( ! strLine.IsEmpty() )
 				{
-					if ( strLine.CompareNoCase( _T("type") ) == 0 )
+					if ( strLine.CompareNoCase( L"type" ) == 0 )
 					{
 						strLine = ReadPDFLine( hFile, false, true );
-						if ( strLine.CompareNoCase( _T("page") ) == 0 )
+						if ( strLine.CompareNoCase( L"page" ) == 0 )
 							nPages++;
 						break;
 					}
@@ -3230,7 +3230,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	if ( nOffsetInfo )
 	{
 		CString strSeek;
-		strSeek.Format( _T("%lu 0 obj"), nOffsetInfo );
+		strSeek.Format( L"%lu 0 obj", nOffsetInfo );
 		SetFilePointer( hFile, pOffset[ nOffsetInfo ], NULL, FILE_BEGIN );
 		strLine = ReadPDFLine( hFile, false, true, false );
 		if ( strLine == strSeek )
@@ -3243,7 +3243,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			while ( ! strLine.IsEmpty() )
 			{
 				CString strEntry;
-				int nData = strLine.Find( _T("(") );
+				int nData = strLine.Find( L"(" );
 				if ( nData > 0 )
 				{
 					strEntry = strLine.Left( nData ).Trim();
@@ -3251,7 +3251,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				}
 				else
 				{
-					nData = strLine.Find( _T("<") );
+					nData = strLine.Find( L"<" );
 					if ( nData > 0 )
 					{
 						strEntry = strLine.Left( nData ).Trim();
@@ -3266,7 +3266,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 				// Read further if string reading was stopped at "/>" characters
 				// while inside parentheses and restore missing character
-				if ( strLine.GetAt( 0 ) == _T('(') && strLine.Right( 1 ) != _T(')') )
+				if ( strLine.GetAt( 0 ) == L'(' && strLine.Right( 1 ) != L')' )
 				{
 					DWORD nRead = 1;
 					while ( nRead )
@@ -3283,30 +3283,30 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 						for ( int i = 0 ; i < strNextLine.GetLength() ; i++ )
 							strLine += strNextLine.GetAt( i );
 
-						if ( strLine.GetAt( strLine.GetLength() - 1 ) == _T(')') )
+						if ( strLine.GetAt( strLine.GetLength() - 1 ) == L')' )
 							break;
 					}
 				}
-				if ( strEntry.CompareNoCase( _T("title") ) == 0 )
-					pXML->AddAttribute( _T("title"), DecodePDFText( strLine ) );
-				else if ( strEntry.CompareNoCase( _T("author") ) == 0 )
-					pXML->AddAttribute( _T("author"), DecodePDFText( strLine ) );
-				else if ( strEntry.CompareNoCase( _T("subject") ) == 0 )
-					pXML->AddAttribute( _T("subject"), DecodePDFText( strLine ) );
-				else if ( strEntry.CompareNoCase( _T("keywords") ) == 0 )
-					pXML->AddAttribute( _T("keywords"), DecodePDFText( strLine ) );
-				else if ( strEntry.CompareNoCase( _T("company") ) == 0 )
+				if ( strEntry.CompareNoCase( L"title" ) == 0 )
+					pXML->AddAttribute( L"title", DecodePDFText( strLine ) );
+				else if ( strEntry.CompareNoCase( L"author" ) == 0 )
+					pXML->AddAttribute( L"author", DecodePDFText( strLine ) );
+				else if ( strEntry.CompareNoCase( L"subject" ) == 0 )
+					pXML->AddAttribute( L"subject", DecodePDFText( strLine ) );
+				else if ( strEntry.CompareNoCase( L"keywords" ) == 0 )
+					pXML->AddAttribute( L"keywords", DecodePDFText( strLine ) );
+				else if ( strEntry.CompareNoCase( L"company" ) == 0 )
 				{
 					if ( bBook )
-						pXML->AddAttribute( _T("publisher"), DecodePDFText( strLine ) );
+						pXML->AddAttribute( L"publisher", DecodePDFText( strLine ) );
 					else
-						pXML->AddAttribute( _T("copyright"), DecodePDFText( strLine ) );
+						pXML->AddAttribute( L"copyright", DecodePDFText( strLine ) );
 				}
-				//else if ( strEntry.CompareNoCase( _T("creator") ) == 0 )
-				//else if ( strEntry.CompareNoCase( _T("producer") ) == 0 )
-				//else if ( strEntry.CompareNoCase( _T("moddate") ) == 0 )
-				//else if ( strEntry.CompareNoCase( _T("creationdate") ) == 0 )
-				//else if ( strEntry.CompareNoCase( _T("sourcemodified") ) == 0 )
+				//else if ( strEntry.CompareNoCase( L"creator" ) == 0 )
+				//else if ( strEntry.CompareNoCase( L"producer" ) == 0 )
+				//else if ( strEntry.CompareNoCase( L"moddate" ) == 0 )
+				//else if ( strEntry.CompareNoCase( L"creationdate" ) == 0 )
+				//else if ( strEntry.CompareNoCase( L"sourcemodified" ) == 0 )
 
 				strLine = ReadPDFLine( hFile, false, true );
 			}
@@ -3315,22 +3315,22 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 	if ( nPages > 0 )
 	{
-		strLine.Format( _T("%lu"), nPages );
-		pXML->AddAttribute( _T("pages"), strLine );
+		strLine.Format( L"%lu", nPages );
+		pXML->AddAttribute( L"pages", strLine );
 	}
 
 	if ( bBook )
 	{
-		pXML->AddAttribute( _T("format"), _T("PDF") );
-		pXML->AddAttribute( _T("back"), _T("Digital") );
+		pXML->AddAttribute( L"format", L"PDF" );
+		pXML->AddAttribute( L"back", L"Digital" );
 		LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriBook, pXML.release() );
 	}
 	else
 	{
-		pXML->AddAttribute( _T("format"), _T("Adobe Acrobat PDF") );
+		pXML->AddAttribute( L"format", L"Adobe Acrobat PDF" );
 		CString strTemp;
-		strTemp.Format( _T("1.%u"), nVersion );
-		pXML->AddAttribute( _T("formatVersion"), strTemp );
+		strTemp.Format( L"1.%u", nVersion );
+		pXML->AddAttribute( L"formatVersion", strTemp );
 		LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriDocument, pXML.release() );
 	}
 
@@ -3339,12 +3339,12 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 inline char unhex(TCHAR c)
 {
-	if ( c >= _T('0') && c <= _T('9') )
-		return ( c - _T('0') );
-	if ( c >= _T('A') && c <= _T('F') )
-		return ( c - _T('A') + 10 );
-	if ( c >= _T('a') && c <= _T('f') )
-		return ( c - _T('a') + 10 );
+	if ( c >= L'0' && c <= L'9' )
+		return ( c - L'0' );
+	if ( c >= L'A' && c <= L'F' )
+		return ( c - L'A' + 10 );
+	if ( c >= L'a' && c <= L'f' )
+		return ( c - L'a' + 10 );
 
 	return 0;
 }
@@ -3357,18 +3357,18 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 	bool bHex = false;
 	CHAR nFactor = 1;
 
-	if ( strInput.GetAt( 0 ) == '(' && strInput.Right( 1 ) == _T(")") )
+	if ( strInput.GetAt( 0 ) == '(' && strInput.Right( 1 ) == L")" )
 	{
 		strInput = strInput.Mid( 1, strInput.GetLength() - 2 );
 		// Acrobat Reader doesn't decode (<XX>) strings created by Acrobat Distiller 6 but we do
-		if ( strInput.GetAt( 0 ) == '<' && strInput.Right( 1 ) == _T(">") )
+		if ( strInput.GetAt( 0 ) == '<' && strInput.Right( 1 ) == L">" )
 		{
 			bHex = true;	// Hexadecimal encoding
 			nFactor = 2;
 			strInput.Replace( L"\\ ", L"" );
 			strInput = strInput.Mid( 1, strInput.GetLength() - 2 );
 			if ( strInput.GetLength() % 2 != 0 )
-				strInput.Append( _T("0") );
+				strInput.Append( L"0" );
 		}
 	}
 	else if ( strInput.GetAt( 0 ) == '<' )
@@ -3380,7 +3380,7 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 
 		// Last zero can be omitted
 		if ( strInput.GetLength() % 2 != 0 )
-			strInput.Append( _T("0") );
+			strInput.Append( L"0" );
 	}
 	else
 		return strInput;
@@ -3453,20 +3453,20 @@ CString	CLibraryBuilderInternals::DecodePDFText(CString strInput)
 					// Octal encoding tests
 					int nWChar = 0;
 					if ( nChar + 3 < nByte &&
-						_stscanf( strInput.Mid( nChar + 1, 3 ), _T("%o"), &nWChar ) == 1 )
+						_stscanf( strInput.Mid( nChar + 1, 3 ), L"%o", &nWChar ) == 1 )
 					{
 						pByte[ nChar - nShift ] = WCHAR(nWChar);
 						nShift += 2;
 						nChar += 2;
 					}
 					else if ( nChar + 2 < nByte &&
-						_stscanf( strInput.Mid( nChar + 1, 2 ), _T("%o"), &nWChar ) == 1 )
+						_stscanf( strInput.Mid( nChar + 1, 2 ), L"%o", &nWChar ) == 1 )
 					{
 						pByte[ nChar - nShift ] = WCHAR(nWChar);
 						nShift++;
 						nChar++;
 					}
-					else if ( _stscanf( strInput.Mid( nChar + 1, 1 ), _T("%o"), &nWChar ) == 1 )
+					else if ( _stscanf( strInput.Mid( nChar + 1, 1 ), L"%o", &nWChar ) == 1 )
 					{
 						pByte[ nChar - nShift ] = WCHAR(nWChar);
 					}
@@ -3776,34 +3776,34 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 
 	// Collect author, title if file name contains "book" keyword
 	CString strLine;
-	bool bBook = ( _tcsistr( pszPath, _T("book") ) != NULL );
+	bool bBook = ( _tcsistr( pszPath, L"book" ) != NULL );
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL,
-		bBook ? _T("book") : _T("wordprocessing") ) );
+		bBook ? L"book" : L"wordprocessing" ) );
 
 	if ( LPCTSTR pszName = _tcsrchr( pszPath, '\\' ) )
 	{
 		pszName++;
 
-		if ( _tcsnicmp( pszName, _T("ebook - "), 8 ) == 0 )
+		if ( _tcsnicmp( pszName, L"ebook - ", 8 ) == 0 )
 		{
 			strLine = pszName + 8;
-			strLine = strLine.SpanExcluding( _T(".") );
+			strLine = strLine.SpanExcluding( L"." );
 			strLine.TrimLeft();
 			strLine.TrimRight();
-			pXML->AddAttribute( _T("title"), strLine );
+			pXML->AddAttribute( L"title", strLine );
 		}
-		else if ( _tcsnicmp( pszName, _T("(ebook"), 6 ) == 0 )
+		else if ( _tcsnicmp( pszName, L"(ebook", 6 ) == 0 )
 		{
 			if ( ( pszName = _tcschr( pszName, ')' ) ) != NULL )
 			{
-				if ( _tcsncmp( pszName, _T(") - "), 4 ) == 0 )
+				if ( _tcsncmp( pszName, L") - ", 4 ) == 0 )
 					strLine = pszName + 4;
 				else
 					strLine = pszName + 1;
-				strLine = strLine.SpanExcluding( _T(".") );
+				strLine = strLine.SpanExcluding( L"." );
 				strLine.Trim();
-				pXML->AddAttribute( _T("title"), strLine );
+				pXML->AddAttribute( L"title", strLine );
 			}
 		}
 	}
@@ -3826,7 +3826,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	{
 		strTemp = pszBuffer;
 		strTemp = strTemp.Left( nCwc - 1 );
-		_stscanf( strTemp, _T("%lu"), &charSet );
+		_stscanf( strTemp, L"%lu", &charSet );
 		if ( TranslateCharsetInfo( (LPDWORD)charSet, &csInfo, TCI_SRCCODEPAGE ) )
 			nCodePage = csInfo.ciACP;
 	}
@@ -3872,22 +3872,22 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			nPos = strLine.ReverseFind( ' ' );
 			strLine = strLine.Mid( nPos + 1 );
 			if ( ! bBook )
-				pXML->AddAttribute( _T("formatVersion"), strLine );
+				pXML->AddAttribute( L"formatVersion", strLine );
 			break;
 		case 2:		// Unknown data
 			break;
 		case 3:		// Redirection url
 			ToLower( strLine );
-			if ( strLine.Left( 7 ) == _T("ms-its:") )
+			if ( strLine.Left( 7 ) == L"ms-its:" )
 			{
-				nPos = strLine.Find( _T("::"), 7 );
+				nPos = strLine.Find( L"::", 7 );
 				strTemp = _tcsrchr( pszPath, '\\' );
 				strTemp = strTemp.Mid( 1 );
 				ToLower( strTemp );
 				if ( strLine.Mid( 7, nPos - 7 ).Trim() != strTemp )
 					bCorrupted = true;	// It requires additional file
 			}
-			else if ( strLine.Left( 7 ) == _T("http://") )
+			else if ( strLine.Left( 7 ) == L"http://" )
 				bCorrupted = true;	// Redirects to external resource; may be dangerous
 			break;
 		case 4:		// Title
@@ -3896,15 +3896,15 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			nPos = strLine.Find( ',' );
 			strTemp = strLine.Left( nPos );
 			ToLower( strTemp );
-			if ( strLine.CompareNoCase( _T("htmlhelp") ) != 0 &&
-				 strTemp != _T("arial") && strTemp != _T("tahoma") &&
-				 strTemp != _T("times new roman") && strTemp != _T("verdana") &&
-				 strLine.CompareNoCase( _T("windows") ) != 0 )
+			if ( strLine.CompareNoCase( L"htmlhelp" ) != 0 &&
+				 strTemp != L"arial" && strTemp != L"tahoma" &&
+				 strTemp != L"times new roman" && strTemp != L"verdana" &&
+				 strLine.CompareNoCase( L"windows" ) != 0 )
 			{
 				bHasTitle = true;
 				nPos = strLine.ReverseFind( '\\' );		// Remove paths in title
 				strLine = strLine.Mid( nPos + 1 );
-				pXML->AddAttribute( _T("title"), strLine );
+				pXML->AddAttribute( L"title", strLine );
 			}
 			break;
 		}
@@ -3915,10 +3915,10 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	if ( ! bHasTitle )
 		return false;
 
-	pXML->AddAttribute( _T("format"), _T("Compiled HTML Help") );
+	pXML->AddAttribute( L"format", L"Compiled HTML Help" );
 	if ( bBook )
 	{
-		pXML->AddAttribute( _T("back"), _T("Digital") );
+		pXML->AddAttribute( L"back", L"Digital" );
 		strTemp = CSchema::uriBook;
 	}
 	else
@@ -3979,25 +3979,31 @@ bool CLibraryBuilderInternals::ReadTorrent(DWORD nIndex, HANDLE /*hFile*/, LPCTS
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"torrent" ) );
 
-	if ( oTorrent.m_oBTH )
-		pXML->AddAttribute( L"hash", oTorrent.m_oBTH.toString() );
-	if ( oTorrent.HasTracker() )
-		pXML->AddAttribute( L"tracker", oTorrent.GetTrackerAddress() );
-	if ( oTorrent.m_nEncoding )
-	{
-		CString strEncoding;
-		strEncoding.Format( _T("CP%u"), oTorrent.m_nEncoding );
-		pXML->AddAttribute( L"encoding", strEncoding );
-	}
+	CString str;
+	str.Format( L"%i", oTorrent.GetCount() );
+	pXML->AddAttribute( L"filecount", str );
+	if ( oTorrent.GetSize() > 1 )
+		pXML->AddAttribute( L"fullsize", Settings.SmartVolume( oTorrent.GetSize() ) );
+
 	if ( oTorrent.m_tCreationDate )
 	{
 		CTime oTime( (time_t)oTorrent.m_tCreationDate );
-		pXML->AddAttribute( L"creationdate", oTime.Format( _T("%Y-%m-%d  %H:%M") ) );
+		pXML->AddAttribute( L"creationdate", oTime.Format( L"%Y-%m-%d  %H:%M" ) );
 	}
 	if ( ! oTorrent.m_sCreatedBy.IsEmpty() )
 		pXML->AddAttribute( L"createdby", oTorrent.m_sCreatedBy );
 	if ( ! oTorrent.m_sComment.IsEmpty() )
 		pXML->AddAttribute( L"comments", oTorrent.m_sComment );
+	if ( oTorrent.HasTracker() )
+		pXML->AddAttribute( L"tracker", oTorrent.GetTrackerAddress() );
+	if ( oTorrent.m_oBTH )
+		pXML->AddAttribute( L"hash", oTorrent.m_oBTH.toString() );
+	if ( oTorrent.m_nEncoding )
+	{
+		CString strEncoding;
+		strEncoding.Format( L"CP%u", oTorrent.m_nEncoding );
+		pXML->AddAttribute( L"encoding", strEncoding );
+	}
 	pXML->AddAttribute( L"privateflag", oTorrent.m_bPrivate ? L"true" : L"false" );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriBitTorrent, pXML.release() );
@@ -4027,19 +4033,19 @@ bool CLibraryBuilderInternals::ReadBook(DWORD nIndex, CString strPath)
 	{
 		// Common .cbr filename info ( RARBuilder/ZipBuilder plugins by default )
 		strPath.MakeLower();
-		if ( strPath.Find( _T("minutemen") ) > 0 )
+		if ( strPath.Find( L"minutemen" ) > 0 )
 			pXML->AddAttribute( L"releasegroup", L"Minutemen" );
-		else if ( strPath.Find( _T("dcp") ) > 0 )
+		else if ( strPath.Find( L"dcp" ) > 0 )
 			pXML->AddAttribute( L"releasegroup", L"DCP" );
-		else if ( strPath.Find( _T("cps") ) > 0 )
+		else if ( strPath.Find( L"cps" ) > 0 )
 			pXML->AddAttribute( L"releasegroup", L"CPS" );
 
-		if ( strPath.Find( _T("20") ) > 4 || strPath.Find( _T("19") ) > 4 )
+		if ( strPath.Find( L"20" ) > 4 || strPath.Find( L"19" ) > 4 )
 		{
 			CString strYear;
 			for ( int i = 2022 ; i > 1940 ; i-- )
 			{
-				strYear.Format( _T("%i"), i );
+				strYear.Format( L"%i", i );
 				if ( strPath.Find( strYear ) > 4 )
 				{
 					pXML->AddAttribute( L"year", strYear );

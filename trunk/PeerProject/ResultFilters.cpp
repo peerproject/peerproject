@@ -1,7 +1,7 @@
 //
 // ResultFilters.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -98,7 +98,7 @@ void CResultFilters::Serialize(CArchive & ar)
 		{
 			//CFilterOptions* pFilter = new CFilterOptions();
 			CAutoPtr< CFilterOptions > pFilter( new CFilterOptions() );
-			pFilter->Serialize( ar, nVersion);
+			pFilter->Serialize( ar, nVersion );
 			m_pFilters[ i ] = pFilter.Detach();
 		}
 
@@ -156,7 +156,7 @@ void CResultFilters::Remove(DWORD index)
 
 BOOL CResultFilters::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("Filters.dat");
+	const CString strFile = Settings.General.DataPath + L"Filters.dat";
 
 	CQuickLock oLock( m_pSection );
 
@@ -181,7 +181,7 @@ BOOL CResultFilters::Load()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Failed to load result filters: %s"), strFile );
+			theApp.Message( MSG_ERROR, L"Failed to load result filters: %s", strFile );
 			return FALSE;
 		}
 		pFile.Close();
@@ -190,7 +190,7 @@ BOOL CResultFilters::Load()
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Failed to load result filters: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load result filters: %s", strFile );
 		return FALSE;
 	}
 
@@ -199,8 +199,8 @@ BOOL CResultFilters::Load()
 
 BOOL CResultFilters::Save()
 {
-	const CString strFile = Settings.General.DataPath + _T("Filters.dat");
-	const CString strTemp = Settings.General.DataPath + _T("Filters.tmp");
+	const CString strFile = Settings.General.DataPath + L"Filters.dat";
+	const CString strTemp = Settings.General.DataPath + L"Filters.tmp";
 
 	CQuickLock oLock( m_pSection );
 
@@ -214,7 +214,7 @@ BOOL CResultFilters::Save()
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save result filters: %s", strTemp );
 		return FALSE;
 	}
 
@@ -231,7 +231,7 @@ BOOL CResultFilters::Save()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
+			theApp.Message( MSG_ERROR, L"Failed to save result filters: %s", strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -240,14 +240,14 @@ BOOL CResultFilters::Save()
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save result filters: %s", strTemp );
 		return FALSE;
 	}
 
 	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save result filters: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to save result filters: %s", strFile );
 		return FALSE;
 	}
 

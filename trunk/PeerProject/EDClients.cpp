@@ -153,7 +153,7 @@ bool CEDClients::PushTo(DWORD nClientID, WORD nClientPort)
 	pClient->m_bCallbackRequested = true;
 
 	// Log request
-	theApp.Message( MSG_DEBUG, _T("[ED2K] Push request received for %s"), CString( inet_ntoa( pClient->m_pHost.sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, L"[ED2K] Push request received for %s", CString( inet_ntoa( pClient->m_pHost.sin_addr ) ) );
 
 	// Set up succeeded
 	return true;
@@ -374,7 +374,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 	CSingleLock oTransfersLock( &Transfers.m_pSection );
 	if ( ! oTransfersLock.Lock( 250 ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, network core overloaded."),
+		theApp.Message( MSG_DEBUG, L"Rejecting ed2k connection from %s, network core overloaded.",
 			(LPCTSTR)pConnection->m_sAddress );			// protocolNames[ PROTOCOL_ED2K ]
 		return FALSE;
 	}
@@ -382,7 +382,7 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 	CSingleLock oEDClientsLock( &m_pSection );
 	if ( ! oEDClientsLock.Lock( 250 ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, network core overloaded."),
+		theApp.Message( MSG_DEBUG, L"Rejecting ed2k connection from %s, network core overloaded.",
 			(LPCTSTR)pConnection->m_sAddress );			// protocolNames[ PROTOCOL_ED2K ]
 		return FALSE;
 	}
@@ -392,13 +392,13 @@ BOOL CEDClients::OnAccept(CConnection* pConnection)
 		// Even if we're full, we still need to accept connections from clients we have queued, etc
 		if ( ( GetByIP( &pConnection->m_pHost.sin_addr ) == NULL ) || ( IsOverloaded() ) )
 		{
-			theApp.Message( MSG_DEBUG, _T("Rejecting ed2k connection from %s, max client connections reached."),
+			theApp.Message( MSG_DEBUG, L"Rejecting ed2k connection from %s, max client connections reached.",
 				(LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_ED2K ]
 			return FALSE;
 		}
 		else
 		{
-			theApp.Message( MSG_DEBUG, _T("Accepting ed2k connection from %s despite client connection limit."),
+			theApp.Message( MSG_DEBUG, L"Accepting ed2k connection from %s despite client connection limit.",
 				(LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_ED2K ]
 		}
 	}
@@ -433,7 +433,7 @@ BOOL CEDClients::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 #ifdef _DEBUG
 		default:
 			CString tmp;
-			tmp.Format( _T("Unknown packet from %s:%u."), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
+			tmp.Format( L"Unknown packet from %s:%u.", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
 			pPacket->Debug( tmp );
 	#endif // _DEBUG
 		}
@@ -443,7 +443,7 @@ BOOL CEDClients::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 		CSingleLock pLock( &Transfers.m_pSection );
 		if ( ! pLock.Lock( 250 ) )
 		{
-			theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."), protocolNames[ PROTOCOL_ED2K ], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->sin_addr ) ) );
+			theApp.Message( MSG_ERROR, L"Rejecting %s connection from %s, network core overloaded.", protocolNames[ PROTOCOL_ED2K ], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)pHost->sin_addr ) ) );
 			return FALSE;
 		}
 
@@ -492,7 +492,7 @@ BOOL CEDClients::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 	#ifdef _DEBUG
 		default:
 			CString tmp;
-			tmp.Format( _T("Unknown packet from %s:%u."), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
+			tmp.Format( L"Unknown packet from %s:%u.", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
 			pPacket->Debug( tmp );
 	#endif // Debug
 		}
@@ -515,19 +515,19 @@ BOOL CEDClients::OnServerStatus(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 	CHostCacheHostPtr pServer = HostCache.eDonkey.Find( &pHost->sin_addr );
 	if ( pServer == NULL )
 	{
-		theApp.Message( MSG_WARNING, _T("eDonkey server %s:%u status received, but server not found in host cache"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
+		theApp.Message( MSG_WARNING, L"eDonkey server %s:%u status received, but server not found in host cache", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
 		return FALSE;
 	}
 	if ( pServer->m_nKeyValue != nKey )
 	{
-		theApp.Message( MSG_WARNING, _T("eDonkey server %s:%u status received, but server key does not match"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
+		theApp.Message( MSG_WARNING, L"eDonkey server %s:%u status received, but server key does not match", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
 		return FALSE;
 	}
 
 	// Assume UDP is stable
 	Datagrams.SetStable();
 
-	//theApp.Message( MSG_INFO, _T("Server status received from %s"),
+	//theApp.Message( MSG_INFO, L"Server status received from %s",
 	//	( ! pServer->m_sName.IsEmpty() ) ? pServer->m_sName : (LPCTSTR)CString( inet_ntoa( m_pLastServer ) ) );
 
 	// Read in the status packet
@@ -593,7 +593,7 @@ BOOL CEDClients::OnServerStatus(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 
 	HostCache.eDonkey.Update( pServer );
 
-	theApp.Message( MSG_DEBUG, _T("eDonkey server %s:%u UDP flags: %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ), GetED2KServerUDPFlags( nUDPFlags ) );
+	theApp.Message( MSG_DEBUG, L"eDonkey server %s:%u UDP flags: %s", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ), GetED2KServerUDPFlags( nUDPFlags ) );
 
 	return TRUE;
 }
@@ -605,7 +605,7 @@ BOOL CEDClients::OnServerSearchResult(const SOCKADDR_IN* pHost, CEDPacket* pPack
 	CHostCacheHostPtr pServer = HostCache.eDonkey.Find( &pHost->sin_addr );
 	if ( pServer == NULL )
 	{
-		theApp.Message( MSG_WARNING, _T("eDonkey server %s:%u search result received, but server not found in host cache"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
+		theApp.Message( MSG_WARNING, L"eDonkey server %s:%u search result received, but server not found in host cache", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), htons( pHost->sin_port ) );
 		return FALSE;
 	}
 

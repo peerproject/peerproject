@@ -383,7 +383,7 @@ void CWindowManager::SetGUIMode(int nMode, BOOL bSaveState)
 
 void CWindowManager::LoadWindowStates()
 {
-	CString strWindows = theApp.GetProfileString( _T("Windows"), _T("State") );		// , _T("CSystemWnd|CNeighboursWnd")
+	CString strWindows = theApp.GetProfileString( L"Windows", L"State" );		// , L"CSystemWnd|CNeighboursWnd"
 
 	CChildWnd* pDownloads = NULL;
 	CChildWnd* pUploads = NULL;
@@ -413,24 +413,24 @@ void CWindowManager::LoadWindowStates()
 	{
 		for ( strWindows += '|' ; strWindows.GetLength() > 1 ; )
 		{
-			CString strClass = strWindows.SpanExcluding( _T("| ,.\t") );
+			CString strClass = strWindows.SpanExcluding( L"| ,.\t" );
 			strWindows = strWindows.Mid( strClass.GetLength() + 1 );
 
-			if ( strClass.Find( _T("TG#") ) == 0 )
+			if ( strClass.Find( L"TG#" ) == 0 )
 			{
 				DWORD nUnique;
 
-				if ( _stscanf( (LPCTSTR)strClass + 3, _T("%lu"), &nUnique ) == 1 )
+				if ( _stscanf( (LPCTSTR)strClass + 3, L"%lu", &nUnique ) == 1 )
 					new CTrafficWnd( nUnique );
 			}
 			else if ( ! strClass.IsEmpty() &&
-				strClass != _T("CMediaWnd") &&		// Never?
-				strClass != _T("CSearchWnd") &&		// Open by LoadSearchWindows()
-				strClass != _T("CBrowseHostWnd") &&	// Open by LoadBrowseHostWindows()
-				( ! pDownloads  || strClass != _T("CDownloadsWnd") ) &&
-				( ! pUploads    || strClass != _T("CUploadsWnd") ) &&
-				( ! pNeighbours || strClass != _T("CNeighboursWnd") ) &&
-				( ! pSystem     || strClass != _T("CSystemWnd") ) )
+				strClass != L"CMediaWnd" &&		// Never?
+				strClass != L"CSearchWnd" &&		// Open by LoadSearchWindows()
+				strClass != L"CBrowseHostWnd" &&	// Open by LoadBrowseHostWindows()
+				( ! pDownloads  || strClass != L"CDownloadsWnd" ) &&
+				( ! pUploads    || strClass != L"CUploadsWnd" ) &&
+				( ! pNeighbours || strClass != L"CNeighboursWnd" ) &&
+				( ! pSystem     || strClass != L"CSystemWnd" ) )
 			{
 				CRuntimeClass* pClass = AfxClassForName( strClass );
 
@@ -451,7 +451,7 @@ void CWindowManager::SaveWindowStates() const
 {
 	if ( ! Settings.Interface.SaveOpenWindows )
 	{
-		theApp.WriteProfileString( _T("Windows"), _T("State"), _T("") );
+		theApp.WriteProfileString( L"Windows", L"State", L"" );
 		return;
 	}
 
@@ -469,7 +469,7 @@ void CWindowManager::SaveWindowStates() const
 		{
 			CTrafficWnd* pTraffic = (CTrafficWnd*)pChild;
 			CString strItem;
-			strItem.Format( _T("TG#%.4x"), pTraffic->m_nUnique );
+			strItem.Format( L"TG#%.4x", pTraffic->m_nUnique );
 			strWindows += strItem;
 		}
 		else
@@ -478,7 +478,7 @@ void CWindowManager::SaveWindowStates() const
 		}
 	}
 
-	theApp.WriteProfileString( _T("Windows"), _T("State"), strWindows );
+	theApp.WriteProfileString( L"Windows", L"State", strWindows );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -486,7 +486,7 @@ void CWindowManager::SaveWindowStates() const
 
 BOOL CWindowManager::LoadSearchWindows()
 {
-	const CString strFile = Settings.General.DataPath + _T("Searches.dat");
+	const CString strFile = Settings.General.DataPath + L"Searches.dat";
 
 	if ( ! Settings.Interface.SaveOpenWindows || Settings.General.GUIMode == GUI_BASIC )
 	{
@@ -530,7 +530,7 @@ BOOL CWindowManager::LoadSearchWindows()
 
 	if ( ! bSuccess )
 	{
-		theApp.Message( MSG_ERROR, _T("Failed to load search windows: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load search windows: %s", strFile );
 		return FALSE;
 	}
 
@@ -541,8 +541,8 @@ BOOL CWindowManager::LoadSearchWindows()
 
 BOOL CWindowManager::SaveSearchWindows() const
 {
-	const CString strFile = Settings.General.DataPath + _T("Searches.dat");
-	const CString strTemp = Settings.General.DataPath + _T("Searches.tmp");
+	const CString strFile = Settings.General.DataPath + L"Searches.dat";
+	const CString strTemp = Settings.General.DataPath + L"Searches.tmp";
 	int nCount = 0;
 
 	if ( ! Settings.Interface.SaveOpenWindows )
@@ -555,7 +555,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strTemp );
 		return FALSE;
 	}
 
@@ -584,7 +584,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 			pFile.Abort();
 			pException->Delete();
 			DeleteFile( strTemp );
-			theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
+			theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strTemp );
 			return FALSE;
 		}
 	}
@@ -593,7 +593,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 		pFile.Abort();
 		pException->Delete();
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strTemp );
 		return FALSE;
 	}
 
@@ -607,7 +607,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 	else if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save search windows: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strFile );
 		return FALSE;
 	}
 
@@ -619,7 +619,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 
 BOOL CWindowManager::LoadBrowseHostWindows()
 {
-	const CString strFile = Settings.General.DataPath + _T("BrowseHosts.dat");
+	const CString strFile = Settings.General.DataPath + L"BrowseHosts.dat";
 
 	if ( ! Settings.Interface.SaveOpenWindows || Settings.General.GUIMode == GUI_BASIC )
 	{
@@ -648,7 +648,7 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Failed to load browse host windows: %s"), strFile );
+			theApp.Message( MSG_ERROR, L"Failed to load browse host windows: %s", strFile );
 			return FALSE;
 		}
 	}
@@ -656,7 +656,7 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Failed to load browse host windows: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load browse host windows: %s", strFile );
 		return FALSE;
 	}
 
@@ -667,8 +667,8 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 
 BOOL CWindowManager::SaveBrowseHostWindows() const
 {
-	const CString strFile = Settings.General.DataPath + _T("BrowseHosts.dat");
-	const CString strTemp = Settings.General.DataPath + _T("BrowseHosts.tmp");
+	const CString strFile = Settings.General.DataPath + L"BrowseHosts.dat";
+	const CString strTemp = Settings.General.DataPath + L"BrowseHosts.tmp";
 	int nCount = 0;
 
 	if ( ! Settings.Interface.SaveOpenWindows )
@@ -681,7 +681,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strTemp );
 		return FALSE;
 	}
 
@@ -709,7 +709,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 			pFile.Abort();
 			pException->Delete();
 			DeleteFile( strTemp );
-			theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
+			theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strTemp );
 			return FALSE;
 		}
 	}
@@ -718,13 +718,13 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 		pFile.Abort();
 		pException->Delete();
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strTemp );
 		return FALSE;
 	}
 
 	pFile.Close();
 
-	//theApp.Message( MSG_DEBUG, _T("Browses successfully saved to: %s"), strFile );
+	//theApp.Message( MSG_DEBUG, L"Browses successfully saved to: %s", strFile );
 
 	if ( ! nCount )
 	{
@@ -734,7 +734,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 	else if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save browse host windows: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strFile );
 		return FALSE;
 	}
 
@@ -861,7 +861,7 @@ void CWindowManager::OnPaint()
 //	GetClientRect( &rc );
 //	COLORREF crBackground = Colors.m_crMediaWindow;
 //
-//	if ( HBITMAP hLogo = Skin.GetWatermark( _T("LargeLogo"), TRUE ) )
+//	if ( HBITMAP hLogo = Skin.GetWatermark( L"LargeLogo", TRUE ) )
 //	{
 //		BITMAP pInfo = {};
 //		GetObject( hLogo, sizeof( BITMAP ), &pInfo );

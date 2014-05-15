@@ -1,7 +1,7 @@
 //
 // LibraryDictionary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -182,15 +182,15 @@ void CLibraryDictionary::BuildHashTable()
 	m_pTable->Clear();
 
 	// Add words to hash table
-	//TRACE( _T("[LD] Dictionary size: %d words\n"), m_oWordMap.GetCount() );
-	//TRACE( _T("[LD] Hash table size: %d\n"), m_oWordMap.GetHashTableSize() );
+	//TRACE( L"[LD] Dictionary size: %d words\n", m_oWordMap.GetCount() );
+	//TRACE( L"[LD] Hash table size: %d\n", m_oWordMap.GetHashTableSize() );
 	for ( POSITION pos1 = m_oWordMap.GetStartPosition() ; pos1 ; )
 	{
 		CString strWord;
 		CFileList* pList = NULL;
 		m_oWordMap.GetNextAssoc( pos1, strWord, pList );
 
-		//TRACE( _T("[LD] Word \"%hs\" found %d time(s) in %d file(s)\n"), (LPCSTR)CT2A( strWord ), oWord.m_nCount, oWord.m_pList->GetCount() );
+		//TRACE( L"[LD] Word \"%hs\" found %d time(s) in %d file(s)\n", (LPCSTR)CT2A( strWord ), oWord.m_nCount, oWord.m_pList->GetCount() );
 		for ( POSITION pos2 = pList->GetHeadPosition() ; pos2 ; )
 		{
 			const CLibraryFile* pFile = pList->GetNext( pos2 );
@@ -291,7 +291,7 @@ CFileList* CLibraryDictionary::Search(const CQuerySearch* pSearch, const int nMa
 	const CQuerySearch::const_iterator pLastWordEntry = pSearch->end();
 	for ( ; pWordEntry != pLastWordEntry ; ++pWordEntry )
 	{
-		if ( pWordEntry->first[ 0 ] == _T('-') )
+		if ( pWordEntry->first[ 0 ] == L'-' )
 			continue;
 
 		CString strWord( pWordEntry->first, static_cast< int >( pWordEntry->second ) );

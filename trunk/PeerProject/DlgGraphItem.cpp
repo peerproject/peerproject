@@ -1,7 +1,7 @@
 //
 // DlgGraphItem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -65,7 +65,7 @@ BOOL CGraphItemDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CGraphItemDlg"), IDR_TRAFFICFRAME );
+	SkinMe( L"CGraphItemDlg", IDR_TRAFFICFRAME );
 
 	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 1 );
 	m_gdiImageList.Add( theApp.LoadIcon( IDR_TRAFFICFRAME ) );
@@ -147,19 +147,19 @@ void CGraphItemDlg::OnSelChangeGraphSource()
 	switch ( pItem->m_nUnits )
 	{
 	case 0:
-		m_wndUnits.SetWindowText( _T("Items") );
+		m_wndUnits.SetWindowText( L"Items" );
 		break;
 	case 1:
-		m_wndUnits.SetWindowText( Settings.General.RatesInBytes ? _T("Bytes per Second") : _T("Bits per Second") );
+		m_wndUnits.SetWindowText( Settings.General.RatesInBytes ? L"Bytes per Second" : L"Bits per Second" );
 		break;
 	case 2:
-		m_wndUnits.SetWindowText( _T("Volume (B/KB/MB/GB/TB") );
+		m_wndUnits.SetWindowText( L"Volume (B/KB/MB/GB/TB" );
 		break;
 	case 3:
-		m_wndUnits.SetWindowText( _T("Percentage (%)") );
+		m_wndUnits.SetWindowText( L"Percentage (%)" );
 		break;
 	default:
-		m_wndUnits.SetWindowText( _T("") );
+		m_wndUnits.SetWindowText( L"" );
 		break;
 	}
 

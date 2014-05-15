@@ -1,7 +1,7 @@
 //
 // WizardSharePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -70,16 +70,16 @@ BOOL CWizardSharePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardSharePage"), this );
+	Skin.Apply( L"CWizardSharePage", this );
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
-	m_wndList.InsertColumn( 0, _T("Folder"), LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
+	m_wndList.InsertColumn( 0, L"Folder", LVCFMT_LEFT, rc.Width() - GetSystemMetrics( SM_CXVSCROLL ) );
 	m_wndList.EnableToolTips( TRUE );
 	ShellIcons.AttachTo( &m_wndList, 16 );	// .SetImageList()
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndList.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( L"CListCtrl" ) ) )		// || m_wndList.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
 	{
@@ -117,22 +117,22 @@ BOOL CWizardSharePage::OnInitDialog()
 		AddPhysicalFolder( (LPCTSTR)theApp.GetDocumentsFolder() );
 
 		// ToDo: Check other common programs for download folder locations
-		//strFolder = strPrograms + _T("\\Shareaza\\Downloads");
+		//strFolder = strPrograms + L"\\Shareaza\\Downloads";
 		//AddPhysicalFolder( strFolder );
-		//strFolder = strPrograms + _T("\\Ares\\My Shared Folder");
+		//strFolder = strPrograms + L"\\Ares\\My Shared Folder";
 		//AddPhysicalFolder( strFolder );
-		//strFolder = strPrograms + _T("\\Neo Mule\\Incoming");
+		//strFolder = strPrograms + L"\\Neo Mule\\Incoming";
 		//AddPhysicalFolder( strFolder );
-		//CString strFolder = theApp.GetProgramFilesFolder() + _T("\\eMule\\Incoming");	// Takes several seconds
-		AddPhysicalFolder( _T("c:\\Program Files\\eMule\\Incoming") );
+		//CString strFolder = theApp.GetProgramFilesFolder() + L"\\eMule\\Incoming";	// Takes several seconds
+		AddPhysicalFolder( L"c:\\Program Files\\eMule\\Incoming" );
 #ifdef WIN64
-		AddPhysicalFolder( _T("c:\\Program Files (x86)\\eMule\\Incoming") );
+		AddPhysicalFolder( L"c:\\Program Files (x86)\\eMule\\Incoming" );
 #endif
 
-		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Shareaza\\Shareaza\\Downloads"), _T("CompletePath") );
-		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Kazaa\\Transfer"), _T("DlDir0") );
-		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Xolox"), _T("completedir") );
-		AddRegistryFolder( HKEY_CURRENT_USER, _T("Software\\Xolox"), _T("sharedir") );
+		AddRegistryFolder( HKEY_CURRENT_USER, L"Software\\Shareaza\\Shareaza\\Downloads", L"CompletePath" );
+		AddRegistryFolder( HKEY_CURRENT_USER, L"Software\\Kazaa\\Transfer", L"DlDir0" );
+		AddRegistryFolder( HKEY_CURRENT_USER, L"Software\\Xolox", L"completedir" );
+		AddRegistryFolder( HKEY_CURRENT_USER, L"Software\\Xolox", L"sharedir" );
 	}
 
 	return TRUE;

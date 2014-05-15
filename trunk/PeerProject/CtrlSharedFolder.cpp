@@ -1,7 +1,7 @@
 //
 // CtrlSharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -131,10 +131,10 @@ void CLibraryFolderCtrl::Update(CLibraryFolder* pFolder, HTREEITEM hFolder, HTRE
 
 		if ( pFolder->m_pParent == NULL )
 		{
-			if ( pFolder->m_sPath[1] == _T(':') )
-				strName += _T("  (") + pFolder->m_sPath.Left( 1 ) + _T(":)");
-			else if ( pFolder->m_sPath[1] == _T('\\') )
-				strName += _T("  (") + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + _T(")");
+			if ( pFolder->m_sPath[1] == L':' )
+				strName += L"  (" + pFolder->m_sPath.Left( 1 ) + L":)";
+			else if ( pFolder->m_sPath[1] == L'\\' )
+				strName += L"  (" + pFolder->m_sPath.Mid( 2, pFolder->m_sPath.Find( L'\\', 3 ) - 2 ) + L")";
 
 			dwStyle |= TVIS_EXPANDED;
 		}

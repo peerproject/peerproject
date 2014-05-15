@@ -96,7 +96,7 @@ BOOL CALLBACK CFontCombo::EnumFontProc(LPENUMLOGFONTEX lplf, NEWTEXTMETRICEX* lp
 	CFontCombo *pThis = reinterpret_cast<CFontCombo*>(lpData);
 
 	if ( lpntm->ntmTm.tmCharSet != OEM_CHARSET && lpntm->ntmTm.tmCharSet != SYMBOL_CHARSET &&
-		 dwFontType != DEVICE_FONTTYPE && _tcsicmp( lplf->elfLogFont.lfFaceName, _T("Small Fonts") ) != 0 )
+		 dwFontType != DEVICE_FONTTYPE && _tcsicmp( lplf->elfLogFont.lfFaceName, L"Small Fonts" ) != 0 )
 	{
 		int nFamily = lplf->elfLogFont.lfPitchAndFamily ? lplf->elfLogFont.lfPitchAndFamily >> 4 : 6;
 		if ( nFamily < 4 )	// Don't use unknown, decorative and script fonts

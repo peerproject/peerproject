@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -46,29 +46,29 @@ static LPCTSTR GetFORMATLIST(UINT id)
 		UINT id;
 		LPCTSTR name;
 	} FORMATLIST [] = {
-		{ CF_NULL,            _T("CF_NULL") },
-		{ CF_TEXT,            _T("CF_TEXT") },
-		{ CF_BITMAP,          _T("CF_BITMAP") },
-		{ CF_METAFILEPICT,    _T("CF_METAFILEPICT") },
-		{ CF_SYLK,            _T("CF_SYLK") },
-		{ CF_DIF,             _T("CF_DIF") },
-		{ CF_TIFF,            _T("CF_TIFF") },
-		{ CF_OEMTEXT,         _T("CF_OEMTEXT") },
-		{ CF_DIB,             _T("CF_DIB") },
-		{ CF_PALETTE,         _T("CF_PALETTE") },
-		{ CF_PENDATA,         _T("CF_PENDATA") },
-		{ CF_RIFF,            _T("CF_RIFF") },
-		{ CF_WAVE,            _T("CF_WAVE") },
-		{ CF_UNICODETEXT,     _T("CF_UNICODETEXT") },
-		{ CF_ENHMETAFILE,     _T("CF_ENHMETAFILE") },
-		{ CF_HDROP,           _T("CF_HDROP") },
-		{ CF_LOCALE,          _T("CF_LOCALE") },
-		{ CF_DIBV5,           _T("CF_DIBV5") },
-		{ CF_OWNERDISPLAY,    _T("CF_OWNERDISPLAY") },
-		{ CF_DSPTEXT,         _T("CF_DSPTEXT") },
-		{ CF_DSPBITMAP,       _T("CF_DSPBITMAP") },
-		{ CF_DSPMETAFILEPICT, _T("CF_DSPMETAFILEPICT") },
-		{ CF_DSPENHMETAFILE,  _T("CF_DSPENHMETAFILE") },
+		{ CF_NULL,            L"CF_NULL" },
+		{ CF_TEXT,            L"CF_TEXT" },
+		{ CF_BITMAP,          L"CF_BITMAP" },
+		{ CF_METAFILEPICT,    L"CF_METAFILEPICT" },
+		{ CF_SYLK,            L"CF_SYLK" },
+		{ CF_DIF,             L"CF_DIF" },
+		{ CF_TIFF,            L"CF_TIFF" },
+		{ CF_OEMTEXT,         L"CF_OEMTEXT" },
+		{ CF_DIB,             L"CF_DIB" },
+		{ CF_PALETTE,         L"CF_PALETTE" },
+		{ CF_PENDATA,         L"CF_PENDATA" },
+		{ CF_RIFF,            L"CF_RIFF" },
+		{ CF_WAVE,            L"CF_WAVE" },
+		{ CF_UNICODETEXT,     L"CF_UNICODETEXT" },
+		{ CF_ENHMETAFILE,     L"CF_ENHMETAFILE" },
+		{ CF_HDROP,           L"CF_HDROP" },
+		{ CF_LOCALE,          L"CF_LOCALE" },
+		{ CF_DIBV5,           L"CF_DIBV5" },
+		{ CF_OWNERDISPLAY,    L"CF_OWNERDISPLAY" },
+		{ CF_DSPTEXT,         L"CF_DSPTEXT" },
+		{ CF_DSPBITMAP,       L"CF_DSPBITMAP" },
+		{ CF_DSPMETAFILEPICT, L"CF_DSPMETAFILEPICT" },
+		{ CF_DSPENHMETAFILE,  L"CF_DSPENHMETAFILE" },
 		{ 0, NULL }
 	};
 	static TCHAR buf [256] = { 0 };
@@ -78,7 +78,7 @@ static LPCTSTR GetFORMATLIST(UINT id)
 			return FORMATLIST[i].name;
 	}
 	if ( ! GetClipboardFormatName( id, buf, _countof( buf ) ) )
-		_stprintf_s( buf, _countof( buf ), _T("0x%x"), id );
+		_stprintf_s( buf, _countof( buf ), L"0x%x", id );
 	return buf;
 }
 
@@ -87,7 +87,7 @@ void DumpIDataObject(IDataObject* pIDataObject)
 	CComPtr< IEnumFORMATETC > pIEnumFORMATETC;
 	if ( SUCCEEDED( pIDataObject->EnumFormatEtc( DATADIR_GET, &pIEnumFORMATETC ) ) )
 	{
-		TRACE( _T("IDataObject = {\n") );
+		TRACE( L"IDataObject = {\n" );
 		pIEnumFORMATETC->Reset();
 		for ( ;; )
 		{
@@ -95,11 +95,11 @@ void DumpIDataObject(IDataObject* pIDataObject)
 			ULONG celtFetched = 0;
 			if ( pIEnumFORMATETC->Next( 1, &formatetc, &celtFetched ) != S_OK )
 				break;
-			TRACE( _T("\t{%s, %d, %d, 0x%08x, %d}\n"),
+			TRACE( L"\t{%s, %d, %d, 0x%08x, %d}\n",
 				GetFORMATLIST( formatetc.cfFormat ), formatetc.dwAspect, formatetc.lindex,
 				formatetc.ptd, formatetc.tymed );
 		}
-		TRACE( _T("}\n") );
+		TRACE( L"}\n" );
 	}
 }
 
@@ -150,7 +150,7 @@ UINT AsyncFileOperationThread(LPVOID param)
 	if ( ! bCopy )
 	{
 		CString strFromDir = pAFOP->sFrom.GetData();
-		int nSlash = strFromDir.ReverseFind( _T('\\') );
+		int nSlash = strFromDir.ReverseFind( L'\\' );
 		if ( nSlash != -1 )
 			strFromDir = strFromDir.Left( nSlash );
 		SHChangeNotify( SHCNE_UPDATEDIR, SHCNF_PATH, (LPCVOID)(LPCTSTR)strFromDir, 0 );
@@ -438,7 +438,7 @@ HRESULT CPeerProjectDataSource::ObjectToFiles(IDataObject* pIDataObject, CList <
 					strFile.ReleaseBuffer();
 
 					if ( strFile.GetLength() > 4 &&
-						 lstrcmpi( (LPCTSTR)strFile + strFile.GetLength() - 4, _T(".lnk") ) == 0 )
+						 lstrcmpi( (LPCTSTR)strFile + strFile.GetLength() - 4, L".lnk" ) == 0 )
 					{
 						strFile = ResolveShortcut( strFile );
 					}
@@ -571,7 +571,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 		if ( szPath2 )
 		{
 			int nPath1Length = lstrlen( pszDest );
-			if ( nPath1Length > 0 && pszDest[ nPath1Length - 1 ] == _T('\\') )
+			if ( nPath1Length > 0 && pszDest[ nPath1Length - 1 ] == L'\\' )
 				nPath1Length--;
 			int nPath2Length = bFolder ? lstrlen( pAFOP->sFrom.GetData() ) :
 				( szPath2 - pAFOP->sFrom.GetData() - 1 );
@@ -1393,14 +1393,14 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 				{
 					CString strTemp;
 					strTemp.Format(
-						_T("magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s"),
+						L"magnet:?xt=urn:bitprint:%s.%s&xt=%s&xl=%I64u&dn=%s",
 						pFile->m_oSHA1.toString(),
 						pFile->m_oTiger.toString(),
 						pFile->m_oED2K.toUrn(),
 						pFile->m_nSize,
 						URLEncode( pFile->m_sName ) );
 					if ( ! buf_Text.IsEmpty() )
-						buf_Text += _T("\r\n\r\n");
+						buf_Text += L"\r\n\r\n";
 					buf_Text += strTemp;
 				}
 

@@ -96,7 +96,7 @@ BOOL CURLActionDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CURLActionDlg"), IDR_MAINFRAME );
+	SkinMe( L"CURLActionDlg", IDR_MAINFRAME );
 
 	m_bAlwaysOpen = Settings.General.AlwaysOpenURLs;
 	m_bNewWindow  = Settings.Downloads.ShowMonitorURLs;
@@ -121,7 +121,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		LoadString( m_sHashTitle, IDS_URL_PORT );
 
 		m_sNameValue = m_pURL->m_sName;
-		m_sHashValue.Format( _T("%lu"), m_pURL->m_nPort );
+		m_sHashValue.Format( L"%lu", m_pURL->m_nPort );
 
 		m_wndMessage2.ShowWindow( SW_SHOW );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
@@ -146,7 +146,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		LoadString( m_sHashTitle, IDS_URL_PORT );
 
 		m_sNameValue = m_pURL->m_sName;
-		m_sHashValue.Format( _T("%lu"), m_pURL->m_nPort );
+		m_sHashValue.Format( L"%lu", m_pURL->m_nPort );
 
 		m_wndMessage3.ShowWindow( SW_SHOW );
 		m_wndNewWindow.ShowWindow( SW_HIDE );
@@ -165,11 +165,11 @@ BOOL CURLActionDlg::OnInitDialog()
 		switch ( m_pURL->m_nSize )
 		{
 		case CDiscoveryService::dsWebCache:
-			m_sHashValue = _T("GWebCache");
+			m_sHashValue = L"GWebCache";
 			break;
 		case CDiscoveryService::dsServerList:
 			m_sHashValue = m_pURL->m_nProtocol == PROTOCOL_DC ?
-				_T("Hublist URL") :_T("Server.met URL");
+				L"Hublist URL" : L"Server.met URL";
 			break;
 		}
 
@@ -189,14 +189,14 @@ BOOL CURLActionDlg::OnInitDialog()
 	else
 	{
 		LoadString( m_sNameTitle, IDS_URL_FILENAME );
-		m_sHashTitle = _T("URN:");
+		m_sHashTitle = L"URN:";
 
 		if ( ! m_pURL->m_sName.IsEmpty() )
 		{
 			m_sNameValue = m_pURL->m_sName;
 
 			if ( m_pURL->m_bSize )
-				m_sNameValue += _T(" (") + Settings.SmartVolume( m_pURL->m_nSize ) + _T(")");
+				m_sNameValue += L" (" + Settings.SmartVolume( m_pURL->m_nSize ) + L")";
 		}
 		else
 		{
@@ -204,7 +204,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		}
 
 		if ( m_pURL->m_oTiger && m_pURL->m_oSHA1 )
-			m_sHashValue = _T("bitprint:") + m_pURL->m_oSHA1.toString() + _T(".") + m_pURL->m_oTiger.toString();
+			m_sHashValue = L"bitprint:" + m_pURL->m_oSHA1.toString() + L"." + m_pURL->m_oTiger.toString();
 		else if ( m_pURL->m_oTiger )
 			m_sHashValue = m_pURL->m_oTiger.toShortUrn();
 		else if ( m_pURL->m_oSHA1 )
@@ -219,10 +219,10 @@ BOOL CURLActionDlg::OnInitDialog()
 		{
 			LoadString( m_sHashValue, IDS_URL_UNSPECIFIED );
 
-			if ( StartsWith( m_pURL->m_sURL, _T("http"), 4 ) )
-				m_sHashValue += _T("  (HTTP)");
-			else if ( StartsWith( m_pURL->m_sURL, _T("ftp"), 4 ) )
-				m_sHashValue += _T("  (FTP)");
+			if ( StartsWith( m_pURL->m_sURL, L"http", 4 ) )
+				m_sHashValue += L"  (HTTP)";
+			else if ( StartsWith( m_pURL->m_sURL, L"ftp", 4 ) )
+				m_sHashValue += L"  (FTP)";
 		}
 
 		m_wndMessage1.ShowWindow( SW_SHOW );

@@ -1,7 +1,7 @@
 //
 // PageFileSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -74,8 +74,8 @@ BOOL CFileSourcesPage::OnInitDialog()
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 
-	m_wndList.InsertColumn( 0, _T("URL"), LVCFMT_LEFT, rc.right - 128, -1 );
-	m_wndList.InsertColumn( 1, _T("Expires"), LVCFMT_RIGHT, 128, 0 );
+	m_wndList.InsertColumn( 0, L"URL", LVCFMT_LEFT, rc.right - 128, -1 );
+	m_wndList.InsertColumn( 1, L"Expires", LVCFMT_RIGHT, 128, 0 );
 
 	m_gdiImageList.Create( 16, 16, ILC_COLOR32|ILC_MASK, 1, 1 ) ||
 	m_gdiImageList.Create( 16, 16, ILC_COLOR24|ILC_MASK, 1, 1 ) ||
@@ -96,7 +96,7 @@ BOOL CFileSourcesPage::OnInitDialog()
 		}
 	}
 
-	Skin.Translate( _T("CFileSourcesPageList"), m_wndList.GetHeaderCtrl() );
+	Skin.Translate( L"CFileSourcesPageList", m_wndList.GetHeaderCtrl() );
 	m_wndNew.EnableWindow( FALSE );
 	m_wndRemove.EnableWindow( FALSE );
 
@@ -106,7 +106,7 @@ BOOL CFileSourcesPage::OnInitDialog()
 void CFileSourcesPage::AddSource(CSharedSource* pSource)
 {
 	CString strURL = pSource->m_sURL;
-	if ( Settings.General.LanguageRTL ) strURL = _T("\x202A") + strURL;
+	if ( Settings.General.LanguageRTL ) strURL = L"\x202A" + strURL;
 
 	LV_ITEM pItem = {};
 	pItem.mask		= LVIF_TEXT|LVIF_PARAM|LVIF_IMAGE;
@@ -124,8 +124,8 @@ void CFileSourcesPage::AddSource(CSharedSource* pSource)
 	FileTimeToSystemTime( &pFileTime, &pSystemTime );
 	SystemTimeToTzSpecificLocalTime( NULL, &pSystemTime, &pSystemTime );
 
-	GetDateFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, _T("yyyy-MM-dd"), strDate.GetBuffer( 64 ), 64 );
-	GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, _T("HH:mm"), strTime.GetBuffer( 64 ), 64 );
+	GetDateFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, L"yyyy-MM-dd", strDate.GetBuffer( 64 ), 64 );
+	GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pSystemTime, L"HH:mm", strTime.GetBuffer( 64 ), 64 );
 	strDate.ReleaseBuffer();
 	strTime.ReleaseBuffer();
 
@@ -145,7 +145,7 @@ void CFileSourcesPage::OnItemChangedFileSources(NMHDR* /*pNMHDR*/, LRESULT* pRes
 void CFileSourcesPage::OnChangeFileSource()
 {
 	UpdateData();
-	m_wndNew.EnableWindow( StartsWith( m_sSource, _PT("http://") ) );
+	m_wndNew.EnableWindow( StartsWith( m_sSource, _P( L"http://" ) ) );
 }
 
 void CFileSourcesPage::OnSourceRemove()
@@ -177,7 +177,7 @@ void CFileSourcesPage::OnSourceNew()
 {
 	UpdateData();
 
-	if ( StartsWith( m_sSource, _PT("http://") ) )
+	if ( StartsWith( m_sSource, _P( L"http://" ) ) )
 	{
 		CSingleLock oLock( &Library.m_pSection, TRUE );
 		if ( CLibraryFile* pFile = GetFile() )

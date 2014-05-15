@@ -1,7 +1,7 @@
 //
 // CtrlNeighbourTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -232,12 +232,12 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		{
 			Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y,
 				Images.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack, CLR_NONE, ILD_NORMAL );
-			pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+			pDC->ExcludeClipRect( pt.x, pt.y, pt.x + FLAG_WIDTH, pt.y + 16 );
 
 			pt.y += 2;
-			pt.x += 25;
+			pt.x += FLAG_WIDTH + 9;
 			DrawText( pDC, &pt, pNeighbour->m_sCountryName );
-			pt.x -= 25;
+			pt.x -= FLAG_WIDTH + 9;
 		}
 		else
 		{
@@ -245,7 +245,6 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 		}
 		pt.y += TIP_TEXTHEIGHT + 2;
 	}
-
 
 	if ( ! pNeighbour->m_sUserAgent.IsEmpty() )
 		str = pNeighbour->m_sUserAgent;
@@ -356,9 +355,9 @@ void CNeighbourTipCtrl::OnPaint(CDC* pDC)
 	{
 		LoadString( str, IDS_NEIGHBOUR_RATIO );
 		DrawText( pDC, &pt, str );
-		( nCompIn  > 0 ) ? str.Format( _T("%.2f%%"), nCompIn  * 100.0 ) : str.Empty();
+		( nCompIn  > 0 ) ? str.Format( L"%.2f%%", nCompIn  * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 );
-		( nCompOut > 0 ) ? str.Format( _T("%.2f%%"), nCompOut * 100.0 ) : str.Empty();
+		( nCompOut > 0 ) ? str.Format( L"%.2f%%", nCompOut * 100.0 ) : str.Empty();
 		DrawText( pDC, &pt, str, 128 + 80 );
 		pt.y += TIP_TEXTHEIGHT;
 	}

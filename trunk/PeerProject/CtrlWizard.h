@@ -71,7 +71,7 @@ protected:
 	BOOL	CollectImages(CXMLElement* pBase);
 	BOOL	MakeControls(const CString& sXMLPath, CXMLElement* pBase, std::vector< const CLibraryFile* > pList);
 	void	MakeAll(const CString& sXMLPath, const CAlbumFolder* pFolder);
-	BOOL	PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate = _T("") );
+	BOOL	PrepareDoc(CLibraryFile* pFile, LPCTSTR pszTemplate = L"" );
 
 protected:
 	virtual BOOL OnCommand(WPARAM wParam, LPARAM lParam);

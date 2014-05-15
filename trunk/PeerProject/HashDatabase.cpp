@@ -1,7 +1,7 @@
 //
 // HashDatabase.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,7 +56,7 @@ BOOL CHashDatabase::Create()
 
 	Close();
 
-	m_sPath = Settings.General.DataPath + _T("TigerTree.dat");
+	m_sPath = Settings.General.DataPath + L"TigerTree.dat";
 
 	if ( m_pFile.Open( m_sPath, CFile::modeReadWrite ) )
 	{
@@ -103,7 +103,7 @@ BOOL CHashDatabase::Create()
 		{
 			m_pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Hash Database load error: %s"), m_sPath );
+			theApp.Message( MSG_ERROR, L"Hash Database load error: %s", m_sPath );
 		}
 	}
 
@@ -129,7 +129,7 @@ BOOL CHashDatabase::Create()
 		}
 	}
 
-	theApp.Message( MSG_ERROR, _T("Hash Database create error: %s"), m_sPath );
+	theApp.Message( MSG_ERROR, L"Hash Database create error: %s", m_sPath );
 	return FALSE;
 }
 

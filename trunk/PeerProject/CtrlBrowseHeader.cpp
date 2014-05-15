@@ -1,7 +1,7 @@
 //
 // CtrlBrowseHeader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,7 +95,7 @@ void CBrowseHeaderCtrl::Update(CHostBrowser* pBrowser)
 	{
 		CString strItem;
 		nProgress *= 100.0f;
-		strItem.Format( _T(" (%.1f%%)"), double( nProgress ) );
+		strItem.Format( L" (%.1f%%)", double( nProgress ) );
 		strValue += strItem;
 	}
 
@@ -149,7 +149,7 @@ void CBrowseHeaderCtrl::OnSize(UINT nType, int cx, int cy)
 void CBrowseHeaderCtrl::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
-	Skin.CreateToolBar( _T("CBrowseHeaderCtrl"), this );
+	Skin.CreateToolBar( L"CBrowseHeaderCtrl", this );
 
 	if ( m_bmImage.m_hObject == NULL && Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmImage.LoadBitmap( IDB_BANNER_MARK );

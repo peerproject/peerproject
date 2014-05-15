@@ -120,7 +120,7 @@ BOOL CUploadTransferED2K::Request(const Hashes::Ed2kHash& oED2K)
 
 	if ( UploadQueues.GetPosition( this, FALSE ) < 0 && ! UploadQueues.Enqueue( this ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("ED2K") );
+		theApp.Message( MSG_ERROR, IDS_UPLOAD_BUSY_QUEUE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, L"ED2K" );
 
 		CEDPacket* pReply = CEDPacket::New( ED2K_C2C_FILENOTFOUND );
 		pReply->Write( oED2K );

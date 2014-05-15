@@ -1036,7 +1036,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		</menu>
 	</menu>
@@ -1061,7 +1061,7 @@
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1086,7 +1086,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web File Info">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		</menu>
 	</menu>
@@ -1106,7 +1106,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1131,7 +1131,7 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="_Web Services">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
@@ -1349,6 +1349,10 @@
 		<item id="ID_LIBRARY_FOLDER_FILE_PROPERTIES" text="Meta _Properties"/>
 		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Group Properties"/>
 	</menu>
+	<menu name="CLibraryHistoryPanel">
+		<item id="ID_LIBRARY_CLEAR_HISTORY" text="Clear from _History"/>
+		<item id="ID_LIBRARY_CLEAR_HISTORY_ALL" text="Clear _All"/>
+	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
 		<item id="ID_LIBRARY_ALBUM_OPEN" text="_Open"/>
@@ -1413,8 +1417,8 @@
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
 		<menu text="We_b Services">
-			<item id="ID_LIBRARY_BITPRINT_WEB" text="View _Bitprint listing"/>
-			<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Download Metadata"/>
+			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View _Bitprints listing"/>
+			<item id="ID_LIBRARY_BITPRINTS_DOWNLOAD" text="_Download Metadata"/>
 		</menu>
 		<menu text="_Metadata">
 			<item id="ID_LIBRARY_REBUILD_FILE" text="Re_build Hashes"/>
@@ -1710,7 +1714,7 @@
 	</menu>
 	<!-- WEBSERVICES -->
 	<menu name="WebServices.List.Menu">
-		<item id="ID_LIBRARY_BITPRINT_DOWNLOAD" text="_Bitprint"/>
+		<item id="ID_LIBRARY_BITPRINTS_DOWNLOAD" text="_Bitprints"/>
 		<item id="ID_WEBSERVICES_MUSICBRAINZ" text="_MusicBrainz"/>
 		<!-- item id="ID_WEBSERVICES_SHAREMONKEY" text="_ShareMonkey" -->
 	</menu>
@@ -2413,8 +2417,8 @@
 <watermarks>
 	<watermark target="Banner" path="310"/>
 	<watermark target="LargeLogo" path="330"/>
-	<watermark target="CHomeViewCtrl.Header1" path="332.PNG"/>
-	<watermark target="CHomeViewCtrl.Header2" path="333.PNG"/>
+	<watermark target="CHomeViewCtrl.Header" path="332.PNG"/>
+	<watermark target="CHomeViewCtrl.HeaderRepeat" path="333.PNG"/>
 </watermarks>
 
 <!-- Navigation Bar -->
@@ -2583,11 +2587,11 @@
 <commandImages>
 	<bitmap id="IDB_MENUBAR" mask="CLR_NONE">
 		<image /> <!--Logo-->
-		<image id="ID_MEDIA_PREVIOUS" id1="ID_LIBRARY_PARENT"/>  <!-- id2="ID_SHAREMONKEY_PREVIOUS" -->
-		<image id="ID_MEDIA_NEXT" id1="ID_CHAT_PRIORITY"/>  <!-- id2="ID_SHAREMONKEY_NEXT" -->
+		<image id="ID_MEDIA_PREVIOUS" id1="ID_LIBRARY_PARENT"/> <!-- id2="ID_SHAREMONKEY_PREVIOUS" -->
+		<image id="ID_MEDIA_NEXT" id1="ID_CHAT_PRIORITY"/> <!-- id2="ID_SHAREMONKEY_NEXT" -->
 		<image id="ID_SEARCH_DOWNLOAD" id1="ID_DOWNLOADS_RESUME" id2="ID_DOWNLOAD_GROUP_RESUME" id3="ID_UPLOADS_START" id4="ID_UPLOADS_PRIORITY"
 			id5="ID_HOSTCACHE_CONNECT" id6="ID_NETWORK_CONNECT" id7="ID_NETWORK_CONNECT_TO" id8="ID_TRANSFERS_CONNECT" id9="ID_DISCOVERY_QUERY"/>
-		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST"/>  <!-- id4="ID_SHAREMONKEY_BUY" -->
+		<image id="ID_CHAT_CONNECT" id1="ID_IRC_CONNECT" id2="ID_SEARCH_DOWNLOADNOW" id3="ID_DOWNLOADS_BOOST"/> <!-- id4="ID_SHAREMONKEY_BUY" -->
 		<image id="ID_MEDIA_PLAY" id1="ID_MEDIA_SELECT" id2="ID_DOWNLOADS_LAUNCH" id3="ID_DOWNLOADS_LAUNCH_COPY" id4="ID_DOWNLOADS_LAUNCH_COMPLETE"
 			id5="ID_UPLOADS_LAUNCH" id6="ID_LIBRARY_LAUNCH" id7="ID_LIBRARY_ALBUM_OPEN" id8="ID_LIBRARY_EXPLORE" id9="ID_LIBRARY_FOLDER_ENQUEUE"/>
 		<image id="ID_DOWNLOADS_CLEAR_COMPLETE" id1="ID_DOWNLOADS_CLEAR_COMPLETED" id2="ID_UPLOADS_CLEAR_COMPLETED" id3="ID_DOWNLOAD_GROUP_CLEAR"
@@ -2603,7 +2607,7 @@
 		<image id="ID_NEIGHBOURS_DISCONNECT" id1="ID_NETWORK_DISCONNECT" id2="ID_TRANSFERS_DISCONNECT" id3="ID_MONITOR_CLOSE" id4="ID_NETWORK_EXIT" id5="ID_SEARCH_CLEAR" id6="ID_SYSTEM_CLEAR"/>
 		<image id="ID_DOWNLOADS_CLEAR_INCOMPLETE" id1="ID_UPLOADS_CLEAR" id2="ID_DOWNLOADS_FILE_DELETE" id3="ID_SECURITY_REMOVE" id4="ID_SCHEDULER_REMOVE"
 			id5="ID_LIBRARY_DELETE" id6="ID_LIBRARY_ALBUM_DELETE" id7="ID_LIBRARY_FOLDER_DELETE" id8="ID_LIBRARY_REMOVE" id9="ID_HOSTCACHE_REMOVE" id10="ID_DISCOVERY_REMOVE"/>
-		<image id="IDI_SECURITY_DENY" id1="PluginID_ImageViewer_Close"/> <!--Delete-->
+		<image id="IDI_SECURITY_DENY" id1="ID_LIBRARY_CLEAR_HISTORY" id2="ID_LIBRARY_CLEAR_HISTORY_ALL"/> <!--id="PluginID_ImageViewer_Close"-->
 		<image id="ID_SEARCH_STOP" id1="ID_BROWSE_STOP" id2="ID_NETWORK_DISCONNECT" id3="ID_UPLOADS_DISCONNECT"
 			id4="ID_IRC_DISCONNECT" id5="ID_CHAT_DISCONNECT" id6="ID_HOSTCACHE_DISCONNECT" id7="ID_SCHEDULER_REMOVE_ALL"/>
 		<image id="ID_SECURITY_BAN" id1="ID_TRANSFERS_FORGET" id2="ID_DOWNLOAD_GROUP_REMOVE" id3="ID_DISCOVERY_BLOCKED"/>
@@ -2629,13 +2633,13 @@
 		<image id="ID_TAB_LIBRARY" id1="ID_VIEW_LIBRARY" id2="ID_MEDIA_PROPERTIES"/>
 		<!--Blue/Grey-->
 		<image id="IDI_SECURITY_ACCEPT"/> <!--Checkmark-->
-		<image id="ID_CHECKMARK"/>  <!--id1="ID_SHAREMONKEY_SAVE_OPTION"-->
+		<image id="ID_CHECKMARK"/> <!--id1="ID_SHAREMONKEY_SAVE_OPTION"-->
 		<image id="ID_TOOLS_PROFILE" id1="ID_BROWSE_PROFILE"/>
 		<image id="ID_TOOLS_LANGUAGE" id1="ID_LIBRARY_REBUILD_ANSI" id2="ID_VIEW_DISCOVERY" id3="ID_DISCOVERY_EDIT" id4="ID_HELP_FORUMS_LOCAL"/>
-		<image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS" id2="ID_LIBRARY_FOLDER_DOWNLOAD"/>  <!--id3="ID_SHAREMONKEY_DOWNLOAD"-->
+		<image id="ID_VIEW_DOWNLOADS" id1="ID_TAB_TRANSFERS" id2="ID_LIBRARY_FOLDER_DOWNLOAD"/> <!--id3="ID_SHAREMONKEY_DOWNLOAD"-->
 		<image id="ID_VIEW_UPLOADS" id1="ID_CHAT_SEND_FILE"/>
 		<image id="ID_HELP_ABOUT" id1="ID_DOWNLOADS_HELP" id2="ID_UPLOADS_HELP"/>
-		<image id="ID_MEDIA_SAVE" id1="ID_SECURITY_EXPORT" id2="ID_SCHEDULER_EXPORT"/>  <!--id3="ID_SHAREMONKEY_SAVE"-->
+		<image id="ID_MEDIA_SAVE" id1="ID_SECURITY_EXPORT" id2="ID_SCHEDULER_EXPORT"/> <!--id3="ID_SHAREMONKEY_SAVE"-->
 		<image id="ID_MEDIA_PLAYLIST"/>
 		<image id="ID_SEARCH_PANEL"/>
 		<image id="ID_SEARCH_DETAILS" id1="ID_LIBRARY_PANEL" id2="ID_WINDOW_REMOTE"/>
@@ -2643,7 +2647,7 @@
 		<image id="ID_HELP_TEST" id1="ID_HELP_WEB_1" id2="ID_HELP_WEB_2" id3="ID_HELP_WEB_3" id4="ID_HELP_WEB_4" id5="ID_HELP_WEB_SKINS" id6="ID_HELP_STARTPAGE"/>
 		<image id="ID_HELP_FORUMS" id1="ID_HELP_GUIDE" id2="ID_HELP_FAQ" id3="ID_DISCOVERY_BROWSE" id4="ID_DOWNLOADS_ADD_SOURCE"
 			id5="ID_DOWNLOADS_URI" id6="ID_SEARCH_URI" id7="ID_LIBRARY_URI" id8="ID_NEIGHBOURS_URI" id9="ID_WEBSERVICES_LIST"/>
-		<image id="ID_LIBRARY_BITPRINT_WEB" id1="ID_LIBRARY_BITPRINT_DOWNLOAD"/>
+		<image id="ID_LIBRARY_BITPRINTS_WEB" id1="ID_LIBRARY_BITPRINTS_DOWNLOAD"/>
 		<image />
 		<image id="ID_TOOLS_SKIN"/>
 		<image id="ID_VIEW_SCHEDULER" id1="ID_SCHEDULER_ADD" id2="ID_SCHEDULER_EDIT"/>
@@ -2656,7 +2660,7 @@
 		<image id="ID_LIBRARY_PROPERTIES" id1="ID_LIBRARY_FOLDER_FILE_PROPERTIES"
 			id2="ID_DOWNLOAD_GROUP_PROPERTIES" id3="ID_DOWNLOADS_EDIT" id4="ID_DISCOVERY_EDIT" id5="ID_SEARCH_COLUMNS"/>
 		<image id="ID_LIBRARY_MOVE" id1="ID_DOWNLOADS_MERGE"/>
-		<image id="ID_LIBRARY_COPY" id1="ID_SYSTEM_COPY"/>  <!--id2="ID_SHAREMONKEY_COMPARE"-->
+		<image id="ID_LIBRARY_COPY" id1="ID_SYSTEM_COPY"/> <!--id2="ID_SHAREMONKEY_COMPARE"-->
 		<image /> <!--Clipboard-->
 		<!--System-->
 		<image id="ID_SECURITY_ADD" id1="ID_SECURITY_EDIT"/>
@@ -2670,15 +2674,15 @@
 		<image id="ID_WINDOW_CASCADE"/>
 		<image id="ID_WINDOW_TILE_HORZ"/>
 		<image id="ID_WINDOW_TILE_VERT"/>
-		<image id="ID_LIBRARY_VIEW_DETAIL" id1="ID_LIBRARY_COLUMNS" id2="ID_VIEW_PACKETS"/>  <!--id3="ID_SHAREMONKEY_PRICES"-->
+		<image id="ID_LIBRARY_VIEW_DETAIL" id1="ID_LIBRARY_COLUMNS" id2="ID_VIEW_PACKETS"/> <!--id3="ID_SHAREMONKEY_PRICES"-->
 		<image id="ID_LIBRARY_VIEW_LIST"/>
 		<image id="ID_LIBRARY_VIEW_ICON"/>
 		<image id="ID_LIBRARY_VIEW_THUMBNAIL"/>
 		<image id="ID_LIBRARY_VIEW_ALBUM" id1="ID_MUSICBRAINZ_ALBUMS"/>
 		<!--MediaOptions-->
-		<image id="PluginID_ImageViewer_BestFit" id1="ID_MEDIA_SIZE_ONE"/>
-		<image id="PluginID_ImageViewer_FullSize" id1="ID_MEDIA_SIZE_FILL" id2="ID_MEDIA_ZOOM"/>
-		<image id="PluginID_ImageViewer_Refresh" id1="ID_BROWSE_REFRESH" id2="ID_LIBRARY_REFRESH" id3="ID_LIBRARY_REFRESH_METADATA" id4="ID_DISCOVERY_ADVERTISE"/>
+		<image id="ID_MEDIA_SIZE_ONE"/> <!--id="PluginID_ImageViewer_BestFit"-->
+		<image id="ID_MEDIA_SIZE_FILL" id1="ID_MEDIA_ZOOM"/> <!--id="PluginID_ImageViewer_FullSize"-->
+		<image id="ID_BROWSE_REFRESH" id1="ID_LIBRARY_REFRESH" id2="ID_LIBRARY_REFRESH_METADATA" id3="ID_DISCOVERY_ADVERTISE"/> <!--id="PluginID_ImageViewer_Refresh"-->
 		<image id="ID_MEDIA_REPEAT"/>
 		<image id="ID_MEDIA_RANDOM"/>
 		<image /> <!--ID_MEDIA_ZOOM-->

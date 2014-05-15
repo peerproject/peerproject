@@ -1045,57 +1045,6 @@
 </anchors>
 </windowskin>
 
-<!-- Spanish-Mexican -->
-
-<windowskin>
-<image type="image" language="es-mx" path="EightAlt\RibbonTabsBlank.png"/>
-<image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
-<target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Basic"/>
-<target window="CMainTabBarCtrl.Tabbed"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<parts>
- <part name="_ID_TAB_HOME.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_HOME.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_HOME.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_HOME.Down" rect="60,72,66,24"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,24"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="370,24,100,24"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="370,48,100,24"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="370,72,100,24"/>
- <part name="_ID_TAB_NETWORK.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_NETWORK.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="200,0,80,24"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="200,24,80,24"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="200,48,80,24"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="200,72,80,24"/>
- <part name="_ID_TAB_MEDIA.Up" rect="280,0,90,24"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="280,24,90,24"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="280,48,90,24"/>
- <part name="_ID_TAB_MEDIA.Down" rect="280,72,90,24"/>
- <part name="_ID_TAB_IRC.Up" rect="0,0,60,24"/>
- <part name="_ID_TAB_IRC.Checked" rect="0,24,60,24"/>
- <part name="_ID_TAB_IRC.Hover" rect="0,48,60,24"/>
- <part name="_ID_TAB_IRC.Down" rect="0,72,60,24"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,24"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,24,66,24"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,48,66,24"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,72,66,24"/>
-</parts>
-<anchors>
- <anchor name="Background" rect="0,0,534,30"/>
- <anchor name="_ID_TAB_HOME" rect="6,2,66,24"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="72,2,100,24"/>
- <anchor name="_ID_TAB_NETWORK" rect="172,2,60,24"/>
- <anchor name="_ID_TAB_LIBRARY" rect="232,2,80,24"/>
- <anchor name="_ID_TAB_MEDIA" rect="312,2,90,24"/>
- <anchor name="_ID_TAB_IRC" rect="402,2,60,24"/>
- <anchor name="_ID_TAB_SEARCH" rect="462,2,66,24"/>
-</anchors>
-</windowskin>
-
 <!-- Finnish -->
 
 <windowskin>
@@ -1609,7 +1558,7 @@
 <!-- Portuguese -->
 
 <windowskin>
-<image type="image" language="pt-br" path="EightAlt\RibbonTabsBlank.png"/>
+<image type="image" language="pt" path="EightAlt\RibbonTabsBlank.png"/>
 <image type="watermark" path="EightAlt\RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>

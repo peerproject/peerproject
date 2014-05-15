@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -84,7 +84,7 @@ CRichViewCtrl::~CRichViewCtrl()
 
 BOOL CRichViewCtrl::Create(DWORD dwStyle, const RECT& rect, CWnd* pParentWnd, UINT nID)
 {
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CRichViewCtrl"),
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CRichViewCtrl",
 		dwStyle | WS_CHILD | WS_VSCROLL, rect, pParentWnd, nID, NULL );
 }
 
@@ -538,7 +538,7 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 			int nGap = 0, nIndent = 0;
 
-			if ( _stscanf( pElement->m_sText, _T("%lu.%lu"), &nGap, &nIndent ) == 2 )
+			if ( _stscanf( pElement->m_sText, L"%lu.%lu", &nGap, &nIndent ) == 2 )
 			{
 				nLeftPoint	= pRect->left + nIndent;
 				nWidth		= pRect->right - nIndent;
@@ -553,9 +553,9 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 		{
 			WrapLineHelper( pLine, pt, nLineHeight, nWidth, nAlign );
 
-			if ( pElement->m_sText.CompareNoCase( _T("center") ) == 0 )
+			if ( pElement->m_sText.CompareNoCase( L"center" ) == 0 )
 				nAlign = reaCenter;
-			else if ( pElement->m_sText.CompareNoCase( _T("right") ) == 0 )
+			else if ( pElement->m_sText.CompareNoCase( L"right" ) == 0 )
 				nAlign = reaRight;
 			else
 				nAlign = reaLeft;
@@ -589,7 +589,7 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 		LPCTSTR pszLast	= NULL;
 
 		int nWordStart	= 0;
-		int nSpace		= pDC->GetTextExtent( _T(" ") ).cx;
+		int nSpace		= pDC->GetTextExtent( L" " ).cx;
 
 		pFrag = NULL;
 
@@ -874,7 +874,7 @@ void CRichViewCtrl::CopySelection() const
 			if ( pFragment->m_pElement->m_nType == retEmoticon )
 			{
 				int nToken = 0;
-				_stscanf( pFragment->m_pElement->m_sText, _T("%i"), &nToken );
+				_stscanf( pFragment->m_pElement->m_sText, L"%i", &nToken );
 				if ( LPCTSTR pszToken = Emoticons.GetText( nToken ) )
 					str += pszToken;
 			}
@@ -913,7 +913,7 @@ void CRichViewCtrl::CopySelection() const
 				{
 					const CRichElement* pCopy = m_pDocument->GetNext( pos );
 					if ( pCopy == pNextFrag->m_pElement ) break;
-					if ( pCopy->m_nType == retNewline ) str += _T("\r\n");
+					if ( pCopy->m_nType == retNewline ) str += L"\r\n";
 				}
 			}
 		}
@@ -925,7 +925,7 @@ void CRichViewCtrl::CopySelection() const
 		for ( int nPos = 0, nLength = str.GetLength() ; nPos < nLength ; nPos++ )
 		{
 			TCHAR ch = str.GetAt( nPos );
-			if ( ch != _T('\x200D') )	// Zero Width Joiner
+			if ( ch != L'\x200D' )	// Zero Width Joiner
 				strTemp += ch;
 			else
 				nPos += 2;

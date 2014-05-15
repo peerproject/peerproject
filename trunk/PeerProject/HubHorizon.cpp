@@ -165,7 +165,7 @@ int CHubHorizonPool::AddHorizonHubs(CG2Packet* pPacket)
 		pPacket->WriteLongLE( pHub->m_pAddress.S_un.S_addr );
 		pPacket->WriteShortBE( pHub->m_nPort );
 
-		theApp.Message( MSG_DEBUG, _T("  Try horizon %s"),
+		theApp.Message( MSG_DEBUG, L"  Try horizon %s",
 			(LPCTSTR)CString( inet_ntoa( pHub->m_pAddress ) ) );
 
 		nCount++;

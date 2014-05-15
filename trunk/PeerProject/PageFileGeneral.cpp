@@ -1,7 +1,7 @@
 //
 // PageFileGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -88,8 +88,8 @@ BOOL CFileGeneralPage::OnInitDialog()
 
 		m_sPath = pFile->GetFolder();
 		m_sType = ShellIcons.GetTypeString( pFile->m_sName );
-		m_sSize.Format( _T("%s  (%I64i)"), Settings.SmartVolume( pFile->GetSize() ), pFile->GetSize() );
-		m_sIndex.Format( _T("# %lu"), pFile->m_nIndex );
+		m_sSize.Format( L"%s  (%I64i)", Settings.SmartVolume( pFile->GetSize() ), pFile->GetSize() );
+		m_sIndex.Format( L"# %lu", pFile->m_nIndex );
 
 		m_sSHA1	 = pFile->m_oSHA1.toShortUrn();
 		m_sTiger = pFile->m_oTiger.toShortUrn();
@@ -109,7 +109,7 @@ BOOL CFileGeneralPage::OnInitDialog()
 		strDate.ReleaseBuffer();
 		strTime.ReleaseBuffer();
 
-		m_sModified = strDate + _T(", ") + strTime;
+		m_sModified = strDate + L", " + strTime;
 	}
 
 	UpdateData( FALSE );

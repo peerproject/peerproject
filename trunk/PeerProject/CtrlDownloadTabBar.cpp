@@ -97,7 +97,7 @@ CDownloadTabBar::~CDownloadTabBar()
 BOOL CDownloadTabBar::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 {
 	CRect rc( 0, 0, 0, 0 );
-	return CWnd::CreateEx( 0, NULL, _T("CDownloadTabBar"),
+	return CWnd::CreateEx( 0, NULL, L"CDownloadTabBar",
 		dwStyle | WS_CHILD | WS_CLIPSIBLINGS | WS_TABSTOP, rc, pParentWnd, nID, NULL );
 }
 
@@ -105,7 +105,7 @@ void CDownloadTabBar::OnSkinChange()
 {
 	// SetWatermark:
 	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
-	if ( HBITMAP hBitmap = Skin.GetWatermark( _T("CDownloadTabBar") ) )
+	if ( HBITMAP hBitmap = Skin.GetWatermark( L"CDownloadTabBar" ) )
 		m_bmImage.Attach( hBitmap );
 }
 
@@ -245,8 +245,8 @@ INT_PTR CDownloadTabBar::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 		strTip.Format( LoadString( IDS_DOWNLOAD_GROUP ), (LPCTSTR)pItem->m_sName );
 
 		// Special case tutorial (No translation needed?)
-		if ( pItem->m_sName == _T("Custom") )	// Assume Settings.General.LanguageDefault
-			strTip += _T(", or right-click to customize this tab now.");
+		if ( pItem->m_sName == L"Custom" )	// Assume Settings.General.LanguageDefault
+			strTip += L", or right-click to customize this tab now.";
 	}
 
 	pTI->uFlags		= TTF_NOTBUTTON;
@@ -435,7 +435,7 @@ void CDownloadTabBar::OnRButtonUp(UINT /*nFlags*/, CPoint point)
 		Invalidate();
 		ClientToScreen( &rcItem );
 		CoolMenu.RegisterEdge( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1, rcItem.Width() );
-		Skin.TrackPopupMenu( _T("CDownloadTabBar"), CPoint( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1 ),
+		Skin.TrackPopupMenu( L"CDownloadTabBar", CPoint( Settings.General.LanguageRTL ? rcItem.right : rcItem.left, rcItem.bottom - 1 ),
 			ID_DOWNLOAD_GROUP_PROPERTIES );
 		m_bMenuGray = FALSE;
 		Invalidate();
@@ -444,7 +444,7 @@ void CDownloadTabBar::OnRButtonUp(UINT /*nFlags*/, CPoint point)
 	}
 
 	ClientToScreen( &point );
-	Skin.TrackPopupMenu( _T("CDownloadTabBar"), point );
+	Skin.TrackPopupMenu( L"CDownloadTabBar", point );
 
 //	CControlBar::OnRButtonUp( nFlags, point );
 }
@@ -700,12 +700,12 @@ void CDownloadTabBar::OnDownloadGroupOpen()
 	}
 	else if ( ! PathIsDirectory( strPath ) )
 	{
-		strPath = Settings.Downloads.CompletePath + _T("\\") + strPath;
+		strPath = Settings.Downloads.CompletePath + L"\\" + strPath;
 		if ( ! PathIsDirectory( strPath ) )
 			strPath = Settings.Downloads.CompletePath;
 	}
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 
@@ -800,7 +800,7 @@ BOOL CDownloadTabBar::TabItem::Update(int nCookie)
 	}
 
 	if ( bChanged )
-		m_sCaption.Format( _T("%s (%i)"), (LPCTSTR)m_sName, m_nCount );
+		m_sCaption.Format( L"%s (%i)", (LPCTSTR)m_sName, m_nCount );
 
 	return bChanged;
 }
@@ -912,16 +912,16 @@ void CDownloadTabBar::TabItem::Paint(CDownloadTabBar* pBar, CDC* pDC, CRect* pRe
 	rc.left += 20;
 
 	CString strText = m_sCaption;
-	if ( Settings.General.LanguageRTL ) strText = _T("\x202A") + strText;
+	if ( Settings.General.LanguageRTL ) strText = L"\x202A" + strText;
 
 	if ( pDC->GetTextExtent( strText ).cx > rc.Width() )
 	{
-		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && ! strText.IsEmpty() )
+		while ( pDC->GetTextExtent( strText + L'\x2026' ).cx > rc.Width() && ! strText.IsEmpty() )
 		{
 			strText = strText.Left( strText.GetLength() - 1 );
 		}
 
-		if ( ! strText.IsEmpty() ) strText += _T('\x2026');
+		if ( ! strText.IsEmpty() ) strText += L'\x2026';
 	}
 
 	rc.left -= 20;

@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -192,7 +192,7 @@ CMediaFrame* CMediaFrame::GetMediaFrame()
 BOOL CMediaFrame::Create(CWnd* pParentWnd)
 {
 	CRect rect;
-	return CWnd::Create( NULL, _T("CMediaFrame"), WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,
+	return CWnd::Create( NULL, L"CMediaFrame", WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,
 		rect, pParentWnd, 0, NULL );
 }
 
@@ -251,7 +251,7 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pIcons.Create( 16, 16, ILC_COLOR16|ILC_MASK, 3, 0 );
 	m_pIcons.Add( &bmIcons, RGB( 0, 255, 0 ) );
 
-	m_wndList.LoadTextList( Settings.General.DataPath + _T("Playlist.m3u") );
+	m_wndList.LoadTextList( Settings.General.DataPath + L"Playlist.m3u" );
 
 	UpdateState();
 
@@ -262,7 +262,7 @@ int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CMediaFrame::OnDestroy()
 {
-	m_wndList.SaveTextList( Settings.General.DataPath + _T("Playlist.m3u") );
+	m_wndList.SaveTextList( Settings.General.DataPath + L"Playlist.m3u" );
 
 	Settings.MediaPlayer.ListSize		= m_nListSize;
 	Settings.MediaPlayer.ListVisible	= m_bListVisible != FALSE;
@@ -350,8 +350,8 @@ BOOL CMediaFrame::PreTranslateMessage(MSG* pMsg)
 void CMediaFrame::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
-	Skin.CreateToolBar( _T("CMediaFrame"), &m_wndToolBar );
-	Skin.CreateToolBar( _T("CMediaList"), &m_wndListBar );
+	Skin.CreateToolBar( L"CMediaFrame", &m_wndToolBar );
+	Skin.CreateToolBar( L"CMediaList", &m_wndListBar );
 
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_POSITION ) ) pItem->Enable( FALSE );
 	if ( CCoolBarItem* pItem = m_wndToolBar.GetID( IDC_MEDIA_SPEED ) )  pItem->Enable( FALSE );
@@ -377,7 +377,7 @@ void CMediaFrame::OnSkinChange()
 	}
 
 	if ( m_bmLogo.m_hObject ) m_bmLogo.DeleteObject();
-	m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
+	m_bmLogo.m_hObject = Skin.GetWatermark( L"LargeLogo" );
 	if ( m_pPlayer && m_bmLogo.m_hObject )
 		m_pPlayer->SetLogoBitmap( m_bmLogo );
 
@@ -530,10 +530,10 @@ void CMediaFrame::OnPaint()
 	{
 		LOGFONT pFont = { 80, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-			theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, _T("Segoe UI") };
+			theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, L"Segoe UI" };
 
 		if ( ! theApp.m_bIsVistaOrNewer )	// XP-Safe
-			_tcsncpy( pFont.lfFaceName, _T("Tahoma"), LF_FACESIZE );
+			_tcsncpy( pFont.lfFaceName, L"Tahoma", LF_FACESIZE );
 
 		m_pFontDefault.CreatePointFontIndirect( &pFont );
 
@@ -589,7 +589,7 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 {
 	if ( ! m_bmLogo.m_hObject )
 	{
-		m_bmLogo.m_hObject = Skin.GetWatermark( _T("LargeLogo") );
+		m_bmLogo.m_hObject = Skin.GetWatermark( L"LargeLogo" );
 		if ( m_pPlayer && m_bmLogo.m_hObject )
 			m_pPlayer->SetLogoBitmap( m_bmLogo );
 		else
@@ -641,7 +641,7 @@ void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 	pt.y -= szText.cy / 2 + 1;
 
 	CBitmap bmHeader;
-	if ( Skin.GetWatermark( &bmHeader, _T("CMediaList.Header") ) )	// ToDo: Load once
+	if ( Skin.GetWatermark( &bmHeader, L"CMediaList.Header" ) )	// ToDo: Load once
 	{
 		if ( CoolInterface.DrawWatermark( &dc, &rcBar, &bmHeader ) )
 		{
@@ -667,14 +667,14 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	dc.SelectObject( &m_pFontValue );
 	DWORD dwOptions = Settings.General.LanguageRTL ? ETO_RTLREADING : 0;
 
-	int nY = ( rcBar.top + rcBar.bottom ) / 2 - dc.GetTextExtent( _T("Cy") ).cy / 2 - 1;
+	int nY = ( rcBar.top + rcBar.bottom ) / 2 - dc.GetTextExtent( L"Cy" ).cy / 2 - 1;
 	CRect rcPart( &rcBar );
 	CSize sz;
 	CString str;
 
 	BOOL bSkinned = FALSE;	// ToDo: Fix skinning causes flicker
 
-	//if ( Skin.GetWatermark( &bmStatusBar, _T("CMediaFrame.StatusBar") ) )
+	//if ( Skin.GetWatermark( &bmStatusBar, L"CMediaFrame.StatusBar" ) )
 	if ( Images.m_bmMediaStatusBar.m_hObject )
 		bSkinned = CoolInterface.DrawWatermark( &dc, &rcBar, &Images.m_bmMediaStatusBar );
 
@@ -741,8 +741,8 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 
 	if ( m_nState >= smsOpen )
 	{
-		CString strFormat = _T("%.2i:%.2i") + LoadString( IDS_MEDIA_TIMESPLIT ) + _T("%.2i:%.2i");
-		if ( Settings.General.LanguageRTL ) strFormat = _T("\x200F") + strFormat;
+		CString strFormat = L"%.2i:%.2i" + LoadString( IDS_MEDIA_TIMESPLIT ) + L"%.2i:%.2i";
+		if ( Settings.General.LanguageRTL ) strFormat = L"\x200F" + strFormat;
 
 		str.Format( strFormat,
 			(int)( ( m_nPosition / ONE_SECOND ) / 60 ),
@@ -752,7 +752,7 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 
 	//	if ( m_nSpeed != 1 )
 	//	{
-	//		strFormat = _T("%.1fX  ");
+	//		strFormat = L"%.1fX  ";
 	//		strFormat.Format( m_nSpeed );
 	//		str = strFormat + str;
 	//	}
@@ -783,7 +783,7 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 	DWORD dwOptions = Settings.General.LanguageRTL ? DT_RTLREADING : 0;
 	if ( m_nState >= smsOpen )
 	{
-		CString strFormat = _T("%.2i:%.2i") + LoadString( IDS_MEDIA_TIMESPLIT ) + _T("%.2i:%.2i");
+		CString strFormat = L"%.2i:%.2i" + LoadString( IDS_MEDIA_TIMESPLIT ) + L"%.2i:%.2i";
 
 		str.Format( strFormat,
 			(int)( ( m_nPosition / ONE_SECOND ) / 60 ),
@@ -793,12 +793,12 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 
 	//	if ( m_nSpeed != 1 )
 	//	{
-	//		strFormat = _T("%.1fX  ");
+	//		strFormat = L"%.1fX  ";
 	//		strFormat.Format( m_nSpeed );
 	//		str = strFormat + str;
 	//	}
 
-		if ( Settings.General.LanguageRTL ) str = _T("\x200F") + str;
+		if ( Settings.General.LanguageRTL ) str = L"\x200F" + str;
 
 		sz = pMemDC->GetTextExtent( str );
 		rcPart.right	= rcStatus.right;
@@ -841,14 +841,14 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 
 BOOL CMediaFrame::IsDisplayMeta(CMetaItem* pItem)
 {
-	return _tcsicmp( pItem->m_sKey, _T("duration") ) != 0 &&
+	return _tcsicmp( pItem->m_sKey, L"duration" ) != 0 &&
 		( pItem->m_sValue.GetLength() > 5 ||
-		_tcsicmp( pItem->m_sKey, _T("year") ) == 0 ||
-		_tcsicmp( pItem->m_sKey, _T("title") ) == 0 ||
-		_tcsicmp( pItem->m_sKey, _T("artist") ) == 0 ||
-		_tcsicmp( pItem->m_sKey, _T("album") ) == 0 ||
-		_tcsicmp( pItem->m_sKey, _T("track") ) == 0 ||
-		_tcsicmp( pItem->m_sKey, _T("series") ) == 0 );
+		_tcsicmp( pItem->m_sKey, L"year" ) == 0 ||
+		_tcsicmp( pItem->m_sKey, L"title" ) == 0 ||
+		_tcsicmp( pItem->m_sKey, L"artist" ) == 0 ||
+		_tcsicmp( pItem->m_sKey, L"album" ) == 0 ||
+		_tcsicmp( pItem->m_sKey, L"track" ) == 0 ||
+		_tcsicmp( pItem->m_sKey, L"series" ) == 0 );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -859,7 +859,7 @@ void CMediaFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CMediaFrame"), point,
+	Skin.TrackPopupMenu( L"CMediaFrame", point,
 		m_nState == smsPlaying ? ID_MEDIA_PAUSE : ID_MEDIA_PLAY );
 }
 
@@ -1363,7 +1363,7 @@ void CMediaFrame::OnMediaFullScreen()
 
 void CMediaFrame::OnMediaZoom()
 {
-	if ( CMenu* pMenu = Skin.GetMenu( _T("CMediaFrame.Zoom") ) )
+	if ( CMenu* pMenu = Skin.GetMenu( L"CMediaFrame.Zoom" ) )
 	{
 		m_wndToolBar.ThrowMenu( ID_MEDIA_ZOOM, pMenu );
 	}
@@ -1494,7 +1494,7 @@ void CMediaFrame::OnUpdateMediaSettings(CCmdUI* pCmdUI)
 
 void CMediaFrame::OnMediaSettings()
 {
-	CSettingsManagerDlg::Run( _T("CMediaSettingsPage") );
+	CSettingsManagerDlg::Run( L"CMediaSettingsPage" );
 }
 
 void CMediaFrame::OnUpdateMediaMute(CCmdUI* pCmdUI)
@@ -1631,7 +1631,7 @@ BOOL CMediaFrame::Prepare()
 	CWaitCursor pCursor;
 	CLSID pCLSID;
 
-	if ( Plugins.LookupCLSID( _T("MediaPlayer"), _T("Default"), pCLSID ) )
+	if ( Plugins.LookupCLSID( L"MediaPlayer", L"Default", pCLSID ) )
 	{
 		HINSTANCE hRes = AfxGetResourceHandle();
 		CoCreateInstance( pCLSID, NULL, CLSCTX_ALL, IID_IMediaPlayer, (void**)&m_pPlayer );
@@ -1741,9 +1741,9 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 		CString strMessage, strFormat;
 		LoadString( strFormat, IDS_MEDIA_LOAD_FAIL );
 		strMessage.Format( strFormat, pszBase );
-		m_pMetadata.Add( _T("Error"), strMessage );
+		m_pMetadata.Add( L"Error", strMessage );
 		LoadString( strMessage, IDS_MEDIA_LOAD_FAIL_HELP );
-		m_pMetadata.Add( _T("Error"), strMessage );
+		m_pMetadata.Add( L"Error", strMessage );
 		return FALSE;
 	}
 
@@ -1754,26 +1754,26 @@ BOOL CMediaFrame::OpenFile(LPCTSTR pszFile)
 
 		if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( pszFile ) )
 		{
-			m_pMetadata.Add( _T("Filename"), pFile->m_sName );
+			m_pMetadata.Add( L"Filename", pFile->m_sName );
 			m_pMetadata.Setup( pFile->m_pSchema, FALSE );
 			m_pMetadata.Combine( pFile->m_pMetadata );
 			m_pMetadata.Clean( 1024 );
 			oLock.Unlock();
 
-			CMetaItem* pWidth	= m_pMetadata.Find( _T("Width") );
-			CMetaItem* pHeight	= m_pMetadata.Find( _T("Height") );
+			CMetaItem* pWidth	= m_pMetadata.Find( L"Width" );
+			CMetaItem* pHeight	= m_pMetadata.Find( L"Height" );
 
 			if ( pWidth != NULL && pHeight != NULL )
 			{
-				pWidth->m_sKey = _T("Dimensions");
+				pWidth->m_sKey = L"Dimensions";
 				pWidth->m_sValue += 'x' + pHeight->m_sValue;
-				m_pMetadata.Remove( _T("Height") );
+				m_pMetadata.Remove( L"Height" );
 			}
 		}
 	}
 
 	if ( hr != S_OK )
-		m_pMetadata.Add( _T("Warning"), LoadString( IDS_MEDIA_PARTIAL_RENDER ) );
+		m_pMetadata.Add( L"Warning", LoadString( IDS_MEDIA_PARTIAL_RENDER ) );
 
 	return TRUE;
 }
@@ -1788,7 +1788,7 @@ HRESULT CMediaFrame::PluginPlay(BSTR bsFilePath)
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
-	//	theApp.Message( MSG_ERROR, _T("Media Player failed to open file: %s"), bsFilePath );
+	//	theApp.Message( MSG_ERROR, L"Media Player failed to open file: %s", bsFilePath );
 		Cleanup();
 		return E_FAIL;
 	}
@@ -2110,7 +2110,7 @@ void CMediaFrame::UpdateNowPlaying(BOOL bEmpty)
 		}
 	}
 
-	CRegistry::SetString( _T("MediaPlayer"), _T("NowPlaying"), m_sNowPlaying );
+	CRegistry::SetString( L"MediaPlayer", L"NowPlaying", m_sNowPlaying );
 
 	//Plugins.OnEvent(EVENT_CHANGEDSONG);	// ToDo: Maybe plug-ins can be alerted in some way
 }

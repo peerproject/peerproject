@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-<template xmlns="http://www.shareaza.com/schemas/Template.xsd" version="1.0">
+<template xmlns="http://schemas.peerproject.org/Template.xsd" version="1.0">
 <!-- Originally created by Rolandas Rudomanskis -->
 <manifest	name="Template for Video"
 			author="PeerProject"
 			version="1.0"
-			link="http://peerproject.org/"
+			link="http://peerproject.org"
 			description="A template for video collections. With metadata for each file."
 			icon="Video.ico"
 />
@@ -24,7 +24,7 @@
 	<image path="Images\bg.png"/>
 </images>
 <wizardText>
-	<text language="pt-br">
+	<text language="pt">
 		<item id="1" type="textbox" value="Ação ao abrir arquivo" default="Abrir Arquivo"/>
 		<item id="2" type="textbox" value="File enqueuing action" default="Enqueue File"/>
 		<item id="3" type="textbox" value="Enquanto baixando" default="Baixando"/>

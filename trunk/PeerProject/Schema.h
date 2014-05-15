@@ -21,12 +21,13 @@
 class CSchema;
 class CSchemaMember;
 class CSchemaChild;
-class CSchemaBitprint;
+class CSchemaBitprints;
 class CXMLElement;
 
 typedef const CSchema* CSchemaPtr;
 
 #include "SchemaMember.h"
+
 
 class CSchema
 {
@@ -35,30 +36,30 @@ public:
 	virtual ~CSchema();
 
 public:
-	int			m_nType;
-	CString		m_sTitle;
-	CString		m_sPlural;
-	CString		m_sSingular;
-	CString		m_sDonkeyType;
-	int			m_nAvailability;
-	BOOL		m_bPrivate;
+	int				m_nType;
+	CString			m_sTitle;
+	CString			m_sPlural;
+	CString			m_sSingular;
+	CString			m_sDonkeyType;
+	int				m_nAvailability;
+	BOOL			m_bPrivate;
 
 	CList< CString >		m_pExtends;
 	CList< CSchemaMember* >	m_pMembers;
 	CList< CSchemaChild* >	m_pContains;
-	CList< CSchemaBitprint* >	m_pBitprintMap;
-	CString		m_sDefaultColumns;
-	CString		m_sBitprintTest;
-	CString		m_sLibraryView;
-	CString		m_sHeaderTitle;
-	CString		m_sHeaderSubtitle;
-	CString		m_sTileLine1;
-	CString		m_sTileLine2;
+	CList< CSchemaBitprints* >	m_pBitprintsMap;
+	CString			m_sDefaultColumns;
+	CString			m_sBitprintsTest;
+	CString			m_sLibraryView;
+	CString			m_sHeaderTitle;
+	CString			m_sHeaderSubtitle;
+	CString			m_sTileLine1;
+	CString			m_sTileLine2;
 
-	CString		m_sIcon;
-	int			m_nIcon16;
-	int			m_nIcon32;
-	int			m_nIcon48;
+	CString			m_sIcon;
+	int				m_nIcon16;
+	int				m_nIcon32;
+	int				m_nIcon48;
 
 	enum { stFile, stFolder };
 	enum { saDefault, saAdvanced, saSystem, saMax };
@@ -99,7 +100,7 @@ protected:
 	void			LoadDescriptorTypeFilter(CXMLElement* pElement);
 	void			LoadDescriptorExtends(CXMLElement* pElement);
 	void			LoadDescriptorContains(CXMLElement* pElement);
-	void			LoadDescriptorBitprintImport(CXMLElement* pElement);
+	void			LoadDescriptorBitprintsImport(CXMLElement* pElement);
 	void			LoadDescriptorHeaderContent(CXMLElement* pElement);
 	void			LoadDescriptorViewContent(CXMLElement* pElement);
 	BOOL			LoadIcon();
@@ -131,8 +132,8 @@ public:
 // Common Schemas
 public:
 	static LPCTSTR	uriApplication;
-	static LPCTSTR	uriAudio;
 	static LPCTSTR	uriArchive;
+	static LPCTSTR	uriAudio;
 	static LPCTSTR	uriBook;
 	static LPCTSTR	uriImage;
 	static LPCTSTR	uriVideo;
@@ -145,7 +146,7 @@ public:
 	static LPCTSTR	uriFolder;
 	static LPCTSTR	uriAllFiles;
 	static LPCTSTR	uriCollectionsFolder;
-	static LPCTSTR	uriFavouritesFolder;
+	static LPCTSTR	uriFavoritesFolder;
 	static LPCTSTR	uriSearchFolder;
 	static LPCTSTR	uriApplicationRoot;
 	static LPCTSTR	uriApplicationAll;
@@ -173,8 +174,11 @@ public:
 	static LPCTSTR	uriVideoMusicCollection;
 	static LPCTSTR	uriDocumentRoot;
 	static LPCTSTR	uriDocumentAll;
-	static LPCTSTR	uriGhostFolder;
+	static LPCTSTR	uriUnknown;
+	static LPCTSTR	uriUnknownFolder;
 	static LPCTSTR	uriBitTorrent;
+	static LPCTSTR	uriBitTorrentFolder;
+	static LPCTSTR	uriGhostFolder;
 //	static LPCTSTR	uriComments;
 //	static LPCTSTR	uriSkin;
 
@@ -186,7 +190,7 @@ private:
 };
 
 
-class CSchemaBitprint
+class CSchemaBitprints
 {
 public:
 	CString		m_sFrom;

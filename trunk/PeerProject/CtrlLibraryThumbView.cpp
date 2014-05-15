@@ -78,7 +78,7 @@ BOOL CLibraryThumbView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryThumbView"),
+	return CWnd::CreateEx( 0, NULL, L"CLibraryThumbView",
 		WS_CHILD | WS_VSCROLL |WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 

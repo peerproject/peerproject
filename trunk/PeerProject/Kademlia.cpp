@@ -172,7 +172,7 @@ BOOL CKademlia::OnPacket(const SOCKADDR_IN* pHost, CEDPacket* pPacket)
 #ifdef _DEBUG
 	default:
 		CString str;
-		str.Format( _T("Unknown KAD packet from %s:%u."),
+		str.Format( L"Unknown KAD packet from %s:%u.",
 			(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 			htons( pHost->sin_port ) );
 		pPacket->Debug( str );

@@ -117,7 +117,7 @@ void CDownloadTask::Copy()
 {
 	Construct( dtaskCopy );
 
-	m_sDestination = DownloadGroups.GetCompletedPath( m_pDownload ).TrimRight( _T("\\") );
+	m_sDestination = DownloadGroups.GetCompletedPath( m_pDownload ).TrimRight( L"\\" );
 
 	VERIFY( BeginThread( "Download Task : Copy" ) );		// RunCopy()
 }
@@ -131,7 +131,7 @@ void CDownloadTask::PreviewRequest(LPCTSTR szURL)
 		return;		// Out of memory
 
 	m_pRequest->SetURL( szURL );
-	m_pRequest->AddHeader( _T("Accept"), _T("image/jpeg") );
+	m_pRequest->AddHeader( L"Accept", L"image/jpeg" );
 	m_pRequest->LimitContentLength( Settings.Search.MaxPreviewLength );
 
 	VERIFY( BeginThread( "Download Task : Preview" ) );		// RunPreviewRequest()
@@ -239,7 +239,7 @@ void CDownloadTask::RunAllocate()
 			if ( ! DeviceIoControl( hFile, FSCTL_SET_SPARSE, NULL, 0, NULL, 0, &dwOut, NULL ) )
 			{
 				DWORD nError = GetLastError();
-				theApp.Message( MSG_ERROR, _T("Unable to set sparse file: \"%s\", Win32 error %x."), m_pDownload->m_sPath, nError );
+				theApp.Message( MSG_ERROR, L"Unable to set sparse file: \"%s\", Win32 error %x.", m_pDownload->m_sPath, nError );
 			}
 		}
 
@@ -270,7 +270,7 @@ void CDownloadTask::RunCopy()
 	if ( m_bSuccess )
 		m_pDownload->OnMoved();
 	else
-		m_pDownload->SetFileError( GetFileError(), _T("") );
+		m_pDownload->SetFileError( GetFileError(), L"" );
 }
 
 DWORD CALLBACK CDownloadTask::CopyProgressRoutine(LARGE_INTEGER TotalFileSize,
@@ -299,11 +299,11 @@ void CDownloadTask::RunPreviewRequest()
 	if ( ! IsThreadEnabled() || m_pDownload->m_sPath.IsEmpty() ) return;
 
 	// Save downloaded preview as png-file
-	const CString strPath = m_pDownload->m_sPath + _T(".png");
+	const CString strPath = m_pDownload->m_sPath + L".png";
 	CImageFile pImage;
 	CBuffer* pBuffer = IsPreviewAnswerValid( m_pDownload->m_oSHA1 );
 	if ( pBuffer && pBuffer->m_pBuffer && pBuffer->m_nLength &&
-		 pImage.LoadFromMemory( _T(".jpg"), pBuffer->m_pBuffer, pBuffer->m_nLength, FALSE, TRUE ) &&
+		 pImage.LoadFromMemory( L".jpg", pBuffer->m_pBuffer, pBuffer->m_nLength, FALSE, TRUE ) &&
 		 pImage.SaveToFile( (LPCTSTR)strPath, 100 ) )
 	{
 		// Make it hidden, so the files won't be shared
@@ -384,7 +384,7 @@ void CDownloadTask::RunMerge()
 
 //CString CDownloadTask::SafeFilename(LPCTSTR pszName)
 //{
-//	static LPCTSTR pszValid = _T(" `~!@#$%^&()-_=+[]{}';.,");
+//	static LPCTSTR pszValid = L" `~!@#$%^&()-_=+[]{}';.,";
 //	CString strName = pszName;
 //
 //	for ( int nChar = 0 ; nChar < strName.GetLength() ; nChar++ )
@@ -399,8 +399,8 @@ void CDownloadTask::RunMerge()
 //	LPCTSTR pszExt = _tcsrchr( strName, '.' );
 //	if ( pszExt )
 //	{
-//		if ( _tcsicmp( pszExt, _T(".pd") ) == 0 || _tcsicmp( pszExt, _T(".sd") ) == 0 )
-//			strName += _T("x");
+//		if ( _tcsicmp( pszExt, L".pd" ) == 0 || _tcsicmp( pszExt, L".sd" ) == 0 )
+//			strName += L"x";
 //	}
 //
 //	// Maximum filepath length is:
@@ -457,6 +457,6 @@ void CDownloadTask::RunMerge()
 
 //void CDownloadTask::CreatePathForFile(const CString& strBase, const CString& strPath)
 //{
-//	CString strFolder = strBase + _T('\\') + strPath;
-//	CreateDirectory( strFolder.Left( strFolder.ReverseFind( _T('\\') ) ) );
+//	CString strFolder = strBase + L'\\' + strPath;
+//	CreateDirectory( strFolder.Left( strFolder.ReverseFind( L'\\' ) ) );
 //}

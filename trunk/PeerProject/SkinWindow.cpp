@@ -1,7 +1,7 @@
 //
 // SkinWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -113,27 +113,27 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 {
 	static LPCTSTR pszPart[] =
 	{
-		_T("TopLeft"), _T("Top"), _T("TopRight"),
-		_T("LeftTop"), _T("Left"), _T("LeftBottom"),
-		_T("RightTop"), _T("Right"), _T("RightBottom"),
-		_T("BottomLeft"), _T("Bottom"), _T("BottomRight"),
-		_T("TopLeftAlt"), _T("TopAlt"), _T("TopRightAlt"),
-		_T("LeftTopAlt"), _T("LeftAlt"), _T("LeftBottomAlt"),
-		_T("RightTopAlt"), _T("RightAlt"), _T("RightBottomAlt"),
-		_T("BottomLeftAlt"), _T("BottomAlt"), _T("BottomRightAlt"),
-		_T("Menu"), _T("MenuHover"), _T("MenuDown"),
-		_T("System"), _T("SystemHover"), _T("SystemDown"),
-		_T("Minimise"), _T("MinimiseHover"), _T("MinimiseDown"),
-		_T("Maximise"), _T("MaximiseHover"), _T("MaximiseDown"),
-		_T("Close"), _T("CloseHover"), _T("CloseDown"),
-	//	_T("Custom"), _T("CustomHover"), _T("CustomDown"),		// ToDo: Skin-defined HTOBJECT?
-	//	_T("CaptionLeft"), _T("Caption"), _T("CaptionRight"),	// ToDo: Text area?
+		L"TopLeft", L"Top", L"TopRight",
+		L"LeftTop", L"Left", L"LeftBottom",
+		L"RightTop", L"Right", L"RightBottom",
+		L"BottomLeft", L"Bottom", L"BottomRight",
+		L"TopLeftAlt", L"TopAlt", L"TopRightAlt",
+		L"LeftTopAlt", L"LeftAlt", L"LeftBottomAlt",
+		L"RightTopAlt", L"RightAlt", L"RightBottomAlt",
+		L"BottomLeftAlt", L"BottomAlt", L"BottomRightAlt",
+		L"Menu", L"MenuHover", L"MenuDown",
+		L"System", L"SystemHover", L"SystemDown",
+		L"Minimise", L"MinimiseHover", L"MinimiseDown",
+		L"Maximise", L"MaximiseHover", L"MaximiseDown",
+		L"Close", L"CloseHover", L"CloseDown",
+	//	L"Custom", L"CustomHover", L"CustomDown",		// ToDo: Skin-defined HTOBJECT?
+	//	L"CaptionLeft", L"Caption", L"CaptionRight",	// ToDo: Text area?
 		NULL
 	};
 
 	static LPCTSTR pszAnchor[] =
 	{
-		_T("Icon"), _T("Menu"), _T("System"), _T("Minimise"), _T("Maximise"), _T("Close"), /*_T("Custom"),*/ NULL
+		L"Icon", L"Menu", L"System", L"Minimise", L"Maximise", L"Close", /*L"Custom",*/ NULL
 	};
 
 	CString str;
@@ -143,11 +143,11 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 	{
 		CXMLElement* pGroup = pBase->GetNextElement( pos );
 
-		if ( pGroup->IsNamed( _T("target") ) )
+		if ( pGroup->IsNamed( L"target" ) )
 		{
-			CString strTarget = pGroup->GetAttributeValue( _T("window") );
+			CString strTarget = pGroup->GetAttributeValue( L"window" );
 
-			if ( strTarget == _T("CMainTabBarCtrl") )
+			if ( strTarget == L"CMainTabBarCtrl" )
 				strTarget = strTarget;
 
 			if ( ! strTarget.IsEmpty() )
@@ -157,29 +157,29 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_sTargets += '|';
 			}
 		}
-		else if ( pGroup->IsNamed( _T("parts") ) )
+		else if ( pGroup->IsNamed( L"parts" ) )
 		{
 			for ( POSITION posInner = pGroup->GetElementIterator() ; posInner ; )
 			{
 				CXMLElement* pXML = pGroup->GetNextElement( posInner );
-				if ( ! pXML->IsNamed( _T("part") ) )
+				if ( ! pXML->IsNamed( L"part" ) )
 				{
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [parts] element"), pXML->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [parts] element", pXML->ToString() );
 					continue;
 				}
 				if ( ! ParseRect( pXML, &rc ) ) continue;
 				if ( ! rc.Width() ) rc.right++;
 				if ( ! rc.Height() ) rc.bottom++;
 
-				CString strMode = pXML->GetAttributeValue( _T("mode") );
+				CString strMode = pXML->GetAttributeValue( L"mode" );
 				int nMode = SKINPARTMODE_TILE;
 
-				if ( strMode.CompareNoCase( _T("stretch") ) == 0 )
+				if ( strMode.CompareNoCase( L"stretch" ) == 0 )
 					nMode = SKINPARTMODE_STRETCH;
-				//else if ( strMode.CompareNoCase( _T("tile") ) == 0 )
+				//else if ( strMode.CompareNoCase( L"tile" ) == 0 )
 				//	nMode = SKINPARTMODE_TILE;
 
-				CString strName = pXML->GetAttributeValue( _T("name") );
+				CString strName = pXML->GetAttributeValue( L"name" );
 				if ( strName.IsEmpty() ) continue;
 
 				int nPart = 0;
@@ -210,20 +210,20 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				}
 			}
 		}
-		else if ( pGroup->IsNamed( _T("anchors") ) )
+		else if ( pGroup->IsNamed( L"anchors" ) )
 		{
 			for ( POSITION posInner = pGroup->GetElementIterator() ; posInner ; )
 			{
 				CXMLElement* pXML = pGroup->GetNextElement( posInner );
-				if ( ! pXML->IsNamed( _T("anchor") ) )
+				if ( ! pXML->IsNamed( L"anchor" ) )
 				{
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [anchors] element"), pXML->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [anchors] element", pXML->ToString() );
 					continue;
 				}
 
 				if ( ! ParseRect( pXML, &rc ) ) continue;
 
-				CString strName = pXML->GetAttributeValue( _T("name") );
+				CString strName = pXML->GetAttributeValue( L"name" );
 
 				int nAnchor = 0;
 				for ( ; pszAnchor[ nAnchor ] ; nAnchor++ )
@@ -251,29 +251,29 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 
 					m_rcMirror = pRect;
 
-					if ( strName == _T("Mirror") )
+					if ( strName == L"Mirror" )
 						m_nMirror = 1;
-					else if ( strName == _T("MirrorFull") )
+					else if ( strName == L"MirrorFull" )
 						m_nMirror = 2;
 				}
 			}
 		}
-		else if ( pGroup->IsNamed( _T("caption") ) )
+		else if ( pGroup->IsNamed( L"caption" ) )
 		{
 			m_bCaption = ParseRect( pGroup, &m_rcCaption );
 
-			CString strFont = pGroup->GetAttributeValue( _T("fontFace") );
-			CString strSize = pGroup->GetAttributeValue( _T("fontSize") );
-			CString strBold = pGroup->GetAttributeValue( _T("fontWeight") );
+			CString strFont = pGroup->GetAttributeValue( L"fontFace" );
+			CString strSize = pGroup->GetAttributeValue( L"fontSize" );
+			CString strBold = pGroup->GetAttributeValue( L"fontWeight" );
 
-			if ( strBold.CompareNoCase( _T("bold") ) == 0 )
-				strBold = _T("700");
-			else if ( strBold.CompareNoCase( _T("normal") ) == 0 )
-				strBold = _T("400");
+			if ( strBold.CompareNoCase( L"bold" ) == 0 )
+				strBold = L"700";
+			else if ( strBold.CompareNoCase( L"normal" ) == 0 )
+				strBold = L"400";
 
 			int nFontSize = 13, nFontWeight = FW_BOLD;
-			_stscanf( strSize, _T("%i"), &nFontSize );
-			_stscanf( strBold, _T("%i"), &nFontWeight );
+			_stscanf( strSize, L"%i", &nFontSize );
+			_stscanf( strBold, L"%i", &nFontWeight );
 
 			LOGFONT lf = {};
 			lf.lfHeight			= nFontSize;
@@ -285,7 +285,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			lf.lfPitchAndFamily	= DEFAULT_PITCH|FF_DONTCARE;
 			_tcsncpy( lf.lfFaceName, ( strFont.IsEmpty() ? Settings.Fonts.DefaultFont : strFont ), LF_FACESIZE );
 
-			if ( _tcsistr( strSize, _T("pt") ) != NULL )
+			if ( _tcsistr( strSize, L"pt" ) != NULL )
 			{
 				m_fnCaption.CreatePointFontIndirect( &lf );
 			}
@@ -295,24 +295,24 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_fnCaption.CreateFontIndirect( &lf );
 			}
 
-			Skin.LoadColor( pGroup, _T("color"),  &m_crCaptionText ) ||
-			Skin.LoadColor( pGroup, _T("colour"), &m_crCaptionText );
-			Skin.LoadColor( pGroup, _T("inactiveColor"),  &m_crCaptionInactive ) ||
-			Skin.LoadColor( pGroup, _T("inactiveColour"), &m_crCaptionInactive );
-			Skin.LoadColor( pGroup, _T("outlineColor"),  &m_crCaptionOutline ) ||
-			Skin.LoadColor( pGroup, _T("outlineColour"), &m_crCaptionOutline );
-			Skin.LoadColor( pGroup, _T("shadowColor"),  &m_crCaptionShadow ) ||
-			Skin.LoadColor( pGroup, _T("shadowColour"), &m_crCaptionShadow );
+			Skin.LoadColor( pGroup, L"color",  &m_crCaptionText ) ||
+			Skin.LoadColor( pGroup, L"colour", &m_crCaptionText );
+			Skin.LoadColor( pGroup, L"inactiveColor",  &m_crCaptionInactive ) ||
+			Skin.LoadColor( pGroup, L"inactiveColour", &m_crCaptionInactive );
+			Skin.LoadColor( pGroup, L"outlineColor",  &m_crCaptionOutline ) ||
+			Skin.LoadColor( pGroup, L"outlineColour", &m_crCaptionOutline );
+			Skin.LoadColor( pGroup, L"shadowColor",  &m_crCaptionShadow ) ||
+			Skin.LoadColor( pGroup, L"shadowColour", &m_crCaptionShadow );
 
-			str = pGroup->GetAttributeValue( _T("caps") );
+			str = pGroup->GetAttributeValue( L"caps" );
 			m_bCaptionCaps = ! str.IsEmpty();
 
-			str = pGroup->GetAttributeValue( _T("align") );
-			if ( str.CompareNoCase( _T("left") ) == 0 )
+			str = pGroup->GetAttributeValue( L"align" );
+			if ( str.CompareNoCase( L"left" ) == 0 )
 				m_nCaptionAlign = 0;
-			else if ( str.CompareNoCase( _T("center") ) == 0 )
+			else if ( str.CompareNoCase( L"center" ) == 0 )
 				m_nCaptionAlign = 1;
-			else if ( str.CompareNoCase( _T("right") ) == 0 )
+			else if ( str.CompareNoCase( L"right" ) == 0 )
 				m_nCaptionAlign = 2;
 
 			if ( m_bCaption && m_fnCaption.m_hObject == NULL )
@@ -322,21 +322,21 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_fnCaption.CreateFontIndirect( &pMetrics.lfCaptionFont );
 			}
 		}
-		else if ( pGroup->IsNamed( _T("image") ) )
+		else if ( pGroup->IsNamed( L"image" ) )
 		{
-			str = pGroup->GetAttributeValue( _T("language") );
+			str = pGroup->GetAttributeValue( L"language" );
 			if ( ! str.IsEmpty() && str.CompareNoCase( Settings.General.Language ) != 0 )
 				continue;
 			m_sLanguage = Settings.General.Language;
 
-			CString strRes	= pGroup->GetAttributeValue( _T("res") );
-			CString strFile	= pGroup->GetAttributeValue( _T("path") );
+			CString strRes	= pGroup->GetAttributeValue( L"res" );
+			CString strFile	= pGroup->GetAttributeValue( L"path" );
 			HBITMAP hBitmap = NULL;
 
 			if ( ! strFile.IsEmpty() )
 			{
 				strFile = strPath + strFile;
-				if ( strFile.Right( 4 ) == _T(".bmp") )
+				if ( strFile.Right( 4 ) == L".bmp" )
 				{
 					hBitmap = CImageFile::LoadBitmapFromFile( strFile );
 				//	hBitmap = (HBITMAP)LoadImage( AfxGetInstanceHandle(), strFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
@@ -351,9 +351,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			else if ( ! strRes.IsEmpty() )
 			{
 				UINT nResID = 0;
-				if ( _stscanf( strRes, _T("%lu"), &nResID ) != 1 )
+				if ( _stscanf( strRes, L"%lu", &nResID ) != 1 )
 				{
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [res] attribute in [image] element"), pGroup->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [res] attribute in [image] element", pGroup->ToString() );
 					continue;
 				}
 
@@ -382,21 +382,21 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 
 			if ( ! hBitmap )
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot load image"), pGroup->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Cannot load image", pGroup->ToString() );
 				continue;
 			}
 
-			str = pGroup->GetAttributeValue( _T("type") );
+			str = pGroup->GetAttributeValue( L"type" );
 			ToLower( str );
 
 			// ToDo: Add PNG Transparency Support
 
-			if ( str == _T("watermark") )
+			if ( str == L"watermark" )
 			{
 				if ( m_bmWatermark.m_hObject ) m_bmWatermark.DeleteObject();
 				m_bmWatermark.Attach( hBitmap );
 			}
-			else if ( str == _T("alpha") )
+			else if ( str == L"alpha" )
 			{
 				if ( m_bmAlpha.m_hObject ) m_bmAlpha.DeleteObject();
 				m_bmAlpha.Attach( hBitmap );
@@ -407,39 +407,39 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 				m_bmSkin.Attach( hBitmap );
 			}
 		}
-		else if ( pGroup->IsNamed( _T("region") ) )
+		else if ( pGroup->IsNamed( L"region" ) )
 		{
 			if ( m_pRegionXML ) delete m_pRegionXML;
 			m_pRegionXML = pGroup->Detach();
 		}
-		//else if ( pGroup->IsNamed( _T("language") ) )
+		//else if ( pGroup->IsNamed( L"language" ) )
 		//{
 		//	if ( m_sLanguage == Settings.General.Language ) continue;
-		//	str = pGroup->GetAttributeValue( _T("name") );
-		//	if ( str.IsEmpty() || ! str.CompareNoCase( Settings.General.Language ) || ! str.CompareNoCase( _T("default") ) )
+		//	str = pGroup->GetAttributeValue( L"name" );
+		//	if ( str.IsEmpty() || ! str.CompareNoCase( Settings.General.Language ) || ! str.CompareNoCase( L"default" ) )
 		//		m_sLanguage = Settings.General.Language;
 		//}
-		//else if ( pGroup->IsNamed( _T("maximiseCrop") ) )		// ToDo: Fix fullscreen frame?
+		//else if ( pGroup->IsNamed( L"maximiseCrop" ) )		// ToDo: Fix fullscreen frame?
 		//{
 		//	ParseRect( pGroup, &m_rcMaximise );
 		//	m_rcMaximise.right -= m_rcMaximise.left;
 		//	m_rcMaximise.bottom -= m_rcMaximise.top;
 		//}
-		else if ( pGroup->IsNamed( _T("resizeBorder") ) )
+		else if ( pGroup->IsNamed( L"resizeBorder" ) )
 		{
 			ParseRect( pGroup, &m_rcResize );
 			m_rcResize.right -= m_rcResize.left;
 			m_rcResize.bottom -= m_rcResize.top;
 		}
-		else if ( pGroup->IsNamed( _T("minimumSize") ) )
+		else if ( pGroup->IsNamed( L"minimumSize" ) )
 		{
-			str = pGroup->GetAttributeValue( _T("width") );
-			_stscanf( str, _T("%i"), &m_szMinSize.cx );
-			str = pGroup->GetAttributeValue( _T("height") );
-			_stscanf( str, _T("%i"), &m_szMinSize.cy );
+			str = pGroup->GetAttributeValue( L"width" );
+			_stscanf( str, L"%i", &m_szMinSize.cx );
+			str = pGroup->GetAttributeValue( L"height" );
+			_stscanf( str, L"%i", &m_szMinSize.cy );
 		}
 		else
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [windowSkin] element"), pGroup->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [windowSkin] element", pGroup->ToString() );
 	}
 
 	return ( m_bmSkin.m_hObject != NULL );
@@ -450,14 +450,14 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 
 BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 {
-	CString strRect = pXML->GetAttributeValue( _T("rect") );
+	CString strRect = pXML->GetAttributeValue( L"rect" );
 
 	if ( ! strRect.IsEmpty() )
 	{
 		int x, y, cx, cy;
-		if ( _stscanf( strRect, _T("%i,%i,%i,%i"), &x, &y, &cx, &cy ) != 4 )
+		if ( _stscanf( strRect, L"%i,%i,%i,%i", &x, &y, &cx, &cy ) != 4 )
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [rect] attribute"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Invalid [rect] attribute", pXML->ToString() );
 			return FALSE;
 		}
 		pRect->left = x;
@@ -468,14 +468,14 @@ BOOL CSkinWindow::ParseRect(CXMLElement* pXML, CRect* pRect)
 		return TRUE;
 	}
 
-	CString strPoint = pXML->GetAttributeValue( _T("point") );
+	CString strPoint = pXML->GetAttributeValue( L"point" );
 
 	if ( ! strPoint.IsEmpty() )
 	{
 		int x, y;
-		if ( _stscanf( strPoint, _T("%i,%i"), &x, &y ) != 2 )
+		if ( _stscanf( strPoint, L"%i,%i", &x, &y ) != 2 )
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [point] attribute"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Invalid [point] attribute", pXML->ToString() );
 			return FALSE;
 		}
 		pRect->left = x;
@@ -601,6 +601,8 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 {
 	CRect rc, rcAnchor;
 	int nPointX = 0;
+
+	if ( Skin.m_bSkinChanging ) return HTCLIENT;		// Crashfix Workaround
 
 	pWnd->GetWindowRect( &rc );
 	if ( Settings.General.LanguageRTL )
@@ -738,7 +740,8 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 
 		pWnd->GetWindowRect( &rcWnd );
 		rcWnd.OffsetRect( -rcWnd.left, -rcWnd.top );
-		rcWnd.right++; rcWnd.bottom++;
+		rcWnd.right++;
+		rcWnd.bottom++;
 
 		HRGN hRgn = CreateRectRgnIndirect( &rcWnd );
 		pWnd->SetWindowRgn( hRgn, TRUE );	// Redraw = true
@@ -747,16 +750,16 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 
 BOOL CSkinWindow::OnEraseBkgnd(CWnd* pWnd, CDC* pDC)
 {
-	if ( m_bmWatermark.m_hObject == NULL ) return FALSE;
+	if ( m_bmWatermark.m_hObject == NULL || pDC == NULL ) return FALSE;
 
 	if ( ! m_dcSkin.m_hDC ) m_dcSkin.CreateCompatibleDC( pDC );
 	CBitmap* pOldImage = (CBitmap*)m_dcSkin.SelectObject( &m_bmWatermark );
 
 	BITMAP pWatermark;
-	CRect rc;
-
-	pWnd->GetClientRect( &rc );
 	m_bmWatermark.GetBitmap( &pWatermark );
+
+	CRect rc;
+	pWnd->GetClientRect( &rc );
 
 	for ( int nY = rc.top ; nY < rc.bottom ; nY += pWatermark.bmHeight )
 	{
@@ -869,7 +872,7 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 	{
 		m_nHoverAnchor = 0;
 
-		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+		if ( CMenu* pMenu = Skin.GetMenu( L"CMainWnd.DropMenu" ) )
 		{
 			pMenu = pMenu->GetSubMenu( 0 );
 
@@ -1596,7 +1599,7 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 	for ( POSITION pos = m_pRegionXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = m_pRegionXML->GetNextElement( pos );
-		if ( ! pXML->IsNamed( _T("shape") ) ) continue;
+		if ( ! pXML->IsNamed( L"shape" ) ) continue;
 
 		if ( ParseRect( pXML, &rcPart ) )
 		{
@@ -1612,21 +1615,21 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 			rcPart.CopyRect( &rcWnd );
 		}
 
-		CString strType = pXML->GetAttributeValue( _T("type") );
+		CString strType = pXML->GetAttributeValue( L"type" );
 		HRGN hPart = NULL;
 
-		if ( strType.CompareNoCase( _T("rectangle") ) == 0 || strType.CompareNoCase( _T("rect") ) == 0 )
+		if ( strType.CompareNoCase( L"rectangle" ) == 0 || strType.CompareNoCase( L"rect" ) == 0 )
 		{
 			hPart = CreateRectRgnIndirect( &rcPart );
 		}
-		else if ( strType.CompareNoCase( _T("roundRect") ) == 0 )
+		else if ( strType.CompareNoCase( L"roundRect" ) == 0 )
 		{
 			int nWidth, nHeight;
-			_stscanf( pXML->GetAttributeValue( _T("size") ), _T("%i,%i"), &nWidth, &nHeight );
+			_stscanf( pXML->GetAttributeValue( L"size" ), L"%i,%i", &nWidth, &nHeight );
 			hPart = CreateRoundRectRgn( rcPart.left, rcPart.top, rcPart.right, rcPart.bottom,
 				nWidth, nHeight );
 		}
-		else if ( strType.CompareNoCase( _T("ellipse") ) == 0 )
+		else if ( strType.CompareNoCase( L"ellipse" ) == 0 )
 		{
 			hPart = CreateEllipticRgnIndirect( &rcPart );
 		}
@@ -1644,19 +1647,19 @@ void CSkinWindow::SelectRegion(CWnd* pWnd)
 
 		if ( hRgn )
 		{
-			strType = pXML->GetAttributeValue( _T("combine") );
+			strType = pXML->GetAttributeValue( L"combine" );
 
 			if ( strType.IsEmpty() )
 				CombineRgn( hRgn, hPart, hRgn, RGN_OR );
-			else if ( ! strType.CompareNoCase( _T("or") ) )
+			else if ( ! strType.CompareNoCase( L"or" ) )
 				CombineRgn( hRgn, hPart, hRgn, RGN_OR );
-			else if ( ! strType.CompareNoCase( _T("xor") ) )
+			else if ( ! strType.CompareNoCase( L"xor" ) )
 				CombineRgn( hRgn, hPart, hRgn, RGN_XOR );
-			else if ( ! strType.CompareNoCase( _T("and") ) )
+			else if ( ! strType.CompareNoCase( L"and" ) )
 				CombineRgn( hRgn, hPart, hRgn, RGN_AND );
-			else if ( ! strType.CompareNoCase( _T("diff") ) )
+			else if ( ! strType.CompareNoCase( L"diff" ) )
 				CombineRgn( hRgn, hRgn, hPart, RGN_DIFF );
-			else if ( ! strType.CompareNoCase( _T("copy") ) )
+			else if ( ! strType.CompareNoCase( L"copy" ) )
 				CombineRgn( hRgn, hPart, hRgn, RGN_COPY );
 
 			DeleteObject( hPart );
@@ -1681,7 +1684,7 @@ CSize CSkinWindow::GetRegionSize()
 		CXMLElement* pXML = m_pRegionXML->GetNextElement( pos );
 		CRect rcPart;
 
-		if ( pXML->IsNamed( _T("shape") ) && ParseRect( pXML, &rcPart ) )
+		if ( pXML->IsNamed( L"shape" ) && ParseRect( pXML, &rcPart ) )
 			rcTotal.UnionRect( &rcTotal, &rcPart );
 	}
 

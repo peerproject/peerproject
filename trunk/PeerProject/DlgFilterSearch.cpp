@@ -1,7 +1,7 @@
 //
 // DlgFilterSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,7 +95,7 @@ BOOL CFilterSearchDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CFilterSearchDlg"), IDR_SEARCHFRAME );
+	SkinMe( L"CFilterSearchDlg", IDR_SEARCHFRAME );
 
 	if ( m_pMatches != NULL )
 	{
@@ -226,7 +226,7 @@ void CFilterSearchDlg::UpdateList()
 	for ( DWORD i = 0 ; i < m_pResultFilters->m_nFilters ; i++ )
 	{
 		if ( i == m_pResultFilters->m_nDefault )
-			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName + _T(" *") );
+			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName + L" *" );
 		else
 			m_Filters.AddString( m_pResultFilters->m_pFilters[i]->m_sName );
 
@@ -322,13 +322,13 @@ void CFilterSearchDlg::OnEnKillFocusMinMaxSize()
 	UpdateData( TRUE );
 
 	// Use Bytes for MinSize if not specified
-	if ( ! m_sMinSize.IsEmpty() && !_tcsstr( m_sMinSize, _T("B") ) && !_tcsstr( m_sMinSize, _T("b") ) )
-		m_sMinSize += _T("B");
+	if ( ! m_sMinSize.IsEmpty() && !_tcsstr( m_sMinSize, L"B" ) && !_tcsstr( m_sMinSize, L"b" ) )
+		m_sMinSize += L"B";
 	m_pMatches->m_nFilterMinSize = Settings.ParseVolume( m_sMinSize );
 
 	// Use Bytes for MaxSize if not specified
-	if ( ! m_sMaxSize.IsEmpty() && !_tcsstr( m_sMaxSize, _T("B") ) && !_tcsstr( m_sMaxSize, _T("b") ) )
-		m_sMaxSize += _T("B");
+	if ( ! m_sMaxSize.IsEmpty() && !_tcsstr( m_sMaxSize, L"B" ) && !_tcsstr( m_sMaxSize, L"b" ) )
+		m_sMaxSize += L"B";
 	m_pMatches->m_nFilterMaxSize = Settings.ParseVolume( m_sMaxSize );
 
 	// Ensure MaxSize is greater than MinSize. Re-generate MaxSize string

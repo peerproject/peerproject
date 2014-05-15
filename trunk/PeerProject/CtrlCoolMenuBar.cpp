@@ -57,8 +57,8 @@ CCoolMenuBarCtrl::CCoolMenuBarCtrl()
 	m_bMenuGray	= TRUE;
 	m_bGripper	= TRUE;
 
-	m_bStretch	= theApp.GetProfileInt( _T(""), _T("MenuStretch"), TRUE );
-	if ( theApp.GetProfileInt( _T(""), _T("MenuHalfHeight"), TRUE ) )
+	m_bStretch	= theApp.GetProfileInt( L"", L"MenuStretch", TRUE );
+	if ( theApp.GetProfileInt( L"", L"MenuHalfHeight", TRUE ) )
 		m_nHeight = MENUBAR_HEIGHT;		// Settings.Skin.MenubarHeight set later
 }
 
@@ -89,7 +89,7 @@ void CCoolMenuBarCtrl::SetMenu(HMENU hMenu)
 		if ( nAmp >= 0 ) strMenu = strMenu.Left( nAmp ) + strMenu.Mid( nAmp + 1 );
 
 		CCoolBarItem* pItem = new CCoolBarItem( this, nItem + 1 );
-		pItem->SetText( _T(" ") + strMenu + _T(" ") );
+		pItem->SetText( L" " + strMenu + L" " );
 		m_pItems.AddTail( pItem );
 	}
 
@@ -217,7 +217,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 	{
 		TCHAR szClass[64];
 		GetClassName( pClient->GetSafeHwnd(), szClass, 64 );
-		if ( _tcsicmp( szClass, _T("MDIClient") ) == 0 ) break;
+		if ( _tcsicmp( szClass, L"MDIClient" ) == 0 ) break;
 	}
 
 	if ( pClient == NULL ) return;
@@ -244,7 +244,7 @@ void CCoolMenuBarCtrl::UpdateWindowMenu(CMenu* pMenu)
 
 		CString strMenu, strWindow;
 		pChildWnd->GetWindowText( strWindow );
-		strMenu.Format( _T("&%u %s"), nIndex, (LPCTSTR)strWindow );
+		strMenu.Format( L"&%u %s", nIndex, (LPCTSTR)strWindow );
 
 		pMenu->AppendMenu( MF_STRING | ( pChildWnd == pActive ? MF_CHECKED : 0 ), nID, strMenu );
 	}
@@ -417,7 +417,7 @@ BOOL CCoolMenuBarCtrl::OnMenuMessage(MSG* pMsg)
 			if ( pHit == NULL )
 			{
 				m_pHot = m_pDown = NULL;
-				PostMessage( WM_CANCELMODE, 0, 0 );		// Settings.WINE.MenuFix (No SendMessage)
+				PostMessage( WM_CANCELMODE, 0, 0 );		// Was Settings.WINE.MenuFix (No SendMessage)
 				return TRUE;
 			}
 			if ( pHit == m_pDown )

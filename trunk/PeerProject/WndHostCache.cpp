@@ -1,7 +1,7 @@
 //
 // WndHostCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -139,24 +139,24 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_SUBITEMIMAGES
-	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	140 );
-	m_wndList.InsertColumn( COL_PORT,		_T("Port"), 	LVCFMT_CENTER,	 60 );
-	m_wndList.InsertColumn( COL_SEEN,		_T("Last Seen"), LVCFMT_CENTER,	128 );
-	m_wndList.InsertColumn( COL_FAILURES,	_T("Failures"),	LVCFMT_CENTER,	 60 );
-	m_wndList.InsertColumn( COL_USERS,		_T("CurUsers"),	LVCFMT_CENTER,	 60 );
-	m_wndList.InsertColumn( COL_MAXUSERS,	_T("MaxUsers"),	LVCFMT_CENTER,	 60 );
-	m_wndList.InsertColumn( COL_NAME,		_T("Name"), 	LVCFMT_LEFT,	140 );
-	m_wndList.InsertColumn( COL_INFO,		_T("Description"), LVCFMT_LEFT,	140 );
-	m_wndList.InsertColumn( COL_CLIENT, 	_T("Client"),	LVCFMT_CENTER,	100 );
-	m_wndList.InsertColumn( COL_COUNTRY,	_T("Country"),	LVCFMT_LEFT,	 60 );
+	m_wndList.InsertColumn( COL_ADDRESS,	L"Address",	LVCFMT_LEFT,	140 );
+	m_wndList.InsertColumn( COL_PORT,		L"Port", 	LVCFMT_CENTER,	 60 );
+	m_wndList.InsertColumn( COL_SEEN,		L"Last Seen", LVCFMT_CENTER,	128 );
+	m_wndList.InsertColumn( COL_FAILURES,	L"Failures",	LVCFMT_CENTER,	 60 );
+	m_wndList.InsertColumn( COL_USERS,		L"CurUsers",	LVCFMT_CENTER,	 60 );
+	m_wndList.InsertColumn( COL_MAXUSERS,	L"MaxUsers",	LVCFMT_CENTER,	 60 );
+	m_wndList.InsertColumn( COL_NAME,		L"Name", 	LVCFMT_LEFT,	140 );
+	m_wndList.InsertColumn( COL_INFO,		L"Description", LVCFMT_LEFT,	140 );
+	m_wndList.InsertColumn( COL_CLIENT, 	L"Client",	LVCFMT_CENTER,	100 );
+	m_wndList.InsertColumn( COL_COUNTRY,	L"Country",	LVCFMT_LEFT,	 60 );
 #ifdef _DEBUG
-	m_wndList.InsertColumn( COL_DBG_KEY,	_T("Key"),		LVCFMT_RIGHT, 0 );
-	m_wndList.InsertColumn( COL_DBG_QUERY,	_T("Query"),	LVCFMT_RIGHT, 0 );
-	m_wndList.InsertColumn( COL_DBG_ACK,	_T("Ack"),		LVCFMT_RIGHT, 0 );
+	m_wndList.InsertColumn( COL_DBG_KEY,	L"Key",		LVCFMT_RIGHT, 0 );
+	m_wndList.InsertColumn( COL_DBG_QUERY,	L"Query",	LVCFMT_RIGHT, 0 );
+	m_wndList.InsertColumn( COL_DBG_ACK,	L"Ack",		LVCFMT_RIGHT, 0 );
 #endif
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	LoadState( _T("CHostCacheWnd"), TRUE );
+	LoadState( L"CHostCacheWnd", TRUE );
 
 	CWaitCursor pCursor;
 	m_bAllowUpdates = TRUE;
@@ -169,8 +169,8 @@ void CHostCacheWnd::OnDestroy()
 {
 	HostCache.Save();
 
-	Settings.SaveList( _T("CHostCacheWnd"), &m_wndList );
-	SaveState( _T("CHostCacheWnd") );
+	Settings.SaveList( L"CHostCacheWnd", &m_wndList );
+	SaveState( L"CHostCacheWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -203,34 +203,34 @@ void CHostCacheWnd::Update(BOOL bForce)
 		pItem->SetMaskOverlay( pHost->m_bPriority );
 
 		if ( pHost->m_sAddress.IsEmpty() )
-			pItem->Set( COL_ADDRESS, _T(" ") + CString( inet_ntoa( pHost->m_pAddress ) ) );
+			pItem->Set( COL_ADDRESS, L" " + CString( inet_ntoa( pHost->m_pAddress ) ) );
 		else if ( pHost->m_pAddress.s_addr == INADDR_ANY )
-			pItem->Set( COL_ADDRESS, _T(" ") + pHost->m_sAddress );
+			pItem->Set( COL_ADDRESS, L" " + pHost->m_sAddress );
 		else
-			pItem->Set( COL_ADDRESS, _T(" ") + pHost->m_sAddress + _T("  (") + CString( inet_ntoa( pHost->m_pAddress ) ) + _T(")") );
+			pItem->Set( COL_ADDRESS, L" " + pHost->m_sAddress + L"  (" + CString( inet_ntoa( pHost->m_pAddress ) ) + L")" );
 
-		pItem->Format( COL_PORT, _T("%hu"), pHost->m_nPort );
+		pItem->Format( COL_PORT, L"%hu", pHost->m_nPort );
 
 		if ( pHost->m_pVendor )
 			pItem->Set( COL_CLIENT, pHost->m_pVendor->m_sName );
 		else
-			pItem->Set( COL_CLIENT, CString( _T("(") ) + protocolNames[ pHost->m_nProtocol ] + _T(")") );
+			pItem->Set( COL_CLIENT, CString( L"(" ) + protocolNames[ pHost->m_nProtocol ] + L")" );
 
 		CTime pTime( (time_t)pHost->Seen() );
-		pItem->Set( COL_SEEN, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
+		pItem->Set( COL_SEEN, pTime.Format( L"%Y-%m-%d %H:%M:%S" ) );
 
 		pItem->Set( COL_NAME, pHost->m_sName );
 		pItem->Set( COL_INFO, pHost->m_sDescription );
 		if ( pHost->m_nDailyUptime )	// Only G1?
 		{
 			pTime = (time_t)pHost->m_nDailyUptime;
-			pItem->Set( COL_INFO, pTime.Format( _T("%H:%M:%S") ) );
+			pItem->Set( COL_INFO, pTime.Format( L"%H:%M:%S" ) );
 		}
 		//else	// ToDo: Use COL_INFO for G2?
 
-		if ( pHost->m_nFailures )  pItem->Format( COL_FAILURES, _T("%u"), pHost->m_nFailures );
-		if ( pHost->m_nUserCount ) pItem->Format( COL_USERS,    _T("%u"), pHost->m_nUserCount );
-		if ( pHost->m_nUserLimit ) pItem->Format( COL_MAXUSERS, _T("%u"), pHost->m_nUserLimit );
+		if ( pHost->m_nFailures )  pItem->Format( COL_FAILURES, L"%u", pHost->m_nFailures );
+		if ( pHost->m_nUserCount ) pItem->Format( COL_USERS,    L"%u", pHost->m_nUserCount );
+		if ( pHost->m_nUserLimit ) pItem->Format( COL_MAXUSERS, L"%u", pHost->m_nUserLimit );
 		if ( pHost->m_sCountry )
 		{
 			pItem->Set( COL_COUNTRY, pHost->m_sCountry );
@@ -239,9 +239,9 @@ void CHostCacheWnd::Update(BOOL bForce)
 				pItem->SetImage( COL_COUNTRY, PROTOCOL_LAST + nFlagIndex );
 		}
 #ifdef _DEBUG
-		if ( pHost->m_nKeyValue ) pItem->Format( COL_DBG_KEY, _T("%u"), pHost->m_nKeyValue);
-		if ( pHost->m_tQuery ) pItem->Format( COL_DBG_QUERY, _T("%u"), pHost->m_tQuery );
-		if ( pHost->m_tAck ) pItem->Format( COL_DBG_ACK, _T("%u"), pHost->m_tAck);
+		if ( pHost->m_nKeyValue ) pItem->Format( COL_DBG_KEY, L"%u", pHost->m_nKeyValue);
+		if ( pHost->m_tQuery ) pItem->Format( COL_DBG_QUERY, L"%u", pHost->m_tQuery );
+		if ( pHost->m_tAck ) pItem->Format( COL_DBG_ACK, L"%u", pHost->m_tAck);
 #endif
 	}
 
@@ -265,8 +265,8 @@ void CHostCacheWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
-	Settings.LoadList( _T("CHostCacheWnd"), &m_wndList );
-	Skin.CreateToolBar( _T("CHostCacheWnd"), &m_wndToolBar );
+	Settings.LoadList( L"CHostCacheWnd", &m_wndList );
+	Skin.CreateToolBar( L"CHostCacheWnd", &m_wndToolBar );
 
 	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
 	CoolInterface.LoadFlagsTo( m_gdiImageList );
@@ -353,7 +353,7 @@ void CHostCacheWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 	// Do not update the list while user navigates through context menu
 	m_bAllowUpdates = FALSE;
-	Skin.TrackPopupMenu( _T("CHostCacheWnd"), point, ID_HOSTCACHE_CONNECT );
+	Skin.TrackPopupMenu( L"CHostCacheWnd", point, ID_HOSTCACHE_CONNECT );
 	m_bAllowUpdates = TRUE;
 }
 
@@ -469,7 +469,7 @@ void CHostCacheWnd::OnUpdateHostcachePriority(CCmdUI* pCmdUI)
 
 void CHostCacheWnd::OnHostcachePriority()
 {
-	if ( m_nMode != PROTOCOL_ED2K)
+	if ( m_nMode != PROTOCOL_ED2K )
 		return;
 
 	CQuickLock oLock( HostCache.ForProtocol( PROTOCOL_ED2K )->m_pSection );
@@ -503,15 +503,15 @@ void CHostCacheWnd::OnNeighboursCopy()
 	if ( ! pHost ) return;
 
 	if ( pHost->m_nProtocol == PROTOCOL_G2 || pHost->m_nProtocol == PROTOCOL_G1 )
-		strURL.Format( _T("gnutella:host:%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nPort );
+		strURL.Format( L"gnutella:host:%s:%u", (LPCTSTR)pHost->Address(), pHost->m_nPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_ED2K )
-		strURL.Format( _T("ed2k://|server|%s|%u|/"), (LPCTSTR)pHost->Address(), pHost->m_nPort );
+		strURL.Format( L"ed2k://|server|%s|%u|/", (LPCTSTR)pHost->Address(), pHost->m_nPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_KAD )
-		strURL.Format( _T("ed2k://|kad|%s|%u|/"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
+		strURL.Format( L"ed2k://|kad|%s|%u|/", (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_DC )
-		strURL.Format( _T("dchub://%s:%u/"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
+		strURL.Format( L"dchub://%s:%u/", (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 	else if ( pHost->m_nProtocol == PROTOCOL_BT )
-		strURL.Format( _T("peerproject:btnode:%s:%u"), (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
+		strURL.Format( L"peerproject:btnode:%s:%u", (LPCTSTR)pHost->Address(), pHost->m_nUDPPort );
 
 	theApp.SetClipboard( strURL );
 }
@@ -662,12 +662,12 @@ void CHostCacheWnd::OnHostcacheBTCache()
 void CHostCacheWnd::OnHostcacheImport()
 {
 	// ToDo: Import/Export any host cache list from gui (incl. G1/G2), and Localize it
-	CFileDialog dlg( TRUE, _T("met"), NULL, OFN_HIDEREADONLY,
-		_T("eDonkey2000 MET files|*.met|")
-		_T("Kademlia Nodes files|nodes.dat|")
-		_T("DC++ hub lists|*.xml.bz2|")
-	//	_T("G2 cache lists|*cache.xml|")
-		+ LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( TRUE, L"met", NULL, OFN_HIDEREADONLY,
+		L"eDonkey2000 MET files|*.met|"
+		L"Kademlia Nodes files|nodes.dat|"
+		L"DC++ hub lists|*.xml.bz2|"
+	//	L"G2 cache lists|*cache.xml|"
+		+ LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

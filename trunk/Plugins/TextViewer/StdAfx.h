@@ -7,11 +7,17 @@
 
 #pragma once
 
+#if !defined(_UNICODE) || !defined(UNICODE)
+	#error Unicode Required
+#endif
+
+// TargetVer.h: (WINVER)
+#define NTDDI_VERSION	0x05010200	// NTDDI_WINXPSP2
+#define _WIN32_WINNT	0x0501		// XP
+
+#define VC_EXTRALEAN
 #define STRICT
-//#define WINVER 0x0500
-//#define _WIN32_WINNT 0x0500
-//#define _WIN32_WINDOWS 0x0500
-//#define _WIN32_IE 0x0500
+
 #define _WIN32_DCOM
 #define _ATL_APARTMENT_THREADED
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS

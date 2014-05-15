@@ -2,7 +2,7 @@
 
 <!-- Update Me -->
 
-<schema targetNamespace="http://www.shareaza.com/schemas/SchemaDescriptor.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/SchemaDescriptor.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="schemaDescriptor">
 		<complexType>
@@ -11,11 +11,11 @@
 				<element name="extends" type="extendsType" minOccurs="0" maxOccurs="1"/>
 				<element name="memberDisplay" type="memberDisplayType" minOccurs="0" maxOccurs="1"/>
 				<element name="typeFilter" type="typeFilterType" minOccurs="0" maxOccurs="1"/>
-				<element name="bitziImport" type="bitziImportType" minOccurs="0" maxOccurs="1"/>
+				<element name="bitprintImport" type="bitprintImportType" minOccurs="0" maxOccurs="1"/>
 			</all>
 		</complexType>
 	</element>
-	
+
 	<complexType name="extendsType">
 		<sequence>
 			<element name="schema" minOccurs="0" maxOccurs="unbounded">
@@ -25,7 +25,7 @@
 			</element>
 		</sequence>
 	</complexType>
-	
+
 	<complexType name="memberDisplayType">
 		<sequence>
 			<element name="member" minOccurs="0" maxOccurs="unbounded">
@@ -46,7 +46,7 @@
 			</element>
 		</sequence>
 	</complexType>
-	
+
 	<complexType name="typeFilterType">
 		<sequence>
 			<element name="type" minOccurs="0" maxOccurs="unbounded">
@@ -56,8 +56,8 @@
 			</element>
 		</sequence>
 	</complexType>
-	
-	<complexType name="bitziImportType">
+
+	<complexType name="bitprintImportType">
 		<attribute name="testExists" type="string" use="required"/>
 		<sequence>
 			<element name="mapping" minOccurs="0" maxOccurs="unbounded">
@@ -69,5 +69,5 @@
 			</element>
 		</sequence>
 	</complexType>
-	
+
 </schema>

@@ -55,7 +55,7 @@ BOOL CPromoteDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CPromoteDlg"), IDR_MAINFRAME );
+	SkinMe( L"CPromoteDlg", IDR_MAINFRAME );
 
 	return TRUE;
 }
@@ -106,8 +106,8 @@ void CPromoteDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 		const CString strWebSite( WEB_SITE );
 
-		ShellExecute( GetSafeHwnd(), _T("open"),
-			strWebSite + _T("?Version=") + theApp.m_sVersion,
+		ShellExecute( GetSafeHwnd(), L"open",
+			strWebSite + L"?Version=" + theApp.m_sVersion,
 			NULL, NULL, SW_SHOWNORMAL );
 	}
 }

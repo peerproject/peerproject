@@ -74,7 +74,7 @@ STDMETHODIMP CRARBuilder::Process(
 	pISXMLRootAttributes->Add( CComBSTR( L"xmlns:xsi" ),
 		CComBSTR( L"http://www.w3.org/2001/XMLSchema-instance" ) );
 	pISXMLRootAttributes->Add( CComBSTR( L"xsi:noNamespaceSchemaLocation" ),
-		CComBSTR( L"http://www.shareaza.com/schemas/archive.xsd" ) );
+		CComBSTR( L"http://schemas.peerproject.org/Archive.xsd" ) );
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements( &pISXMLElements );
@@ -116,11 +116,11 @@ STDMETHODIMP CRARBuilder::Process(
 
 		case 1:						// Comments read completely
 		case ERAR_SMALL_BUF:		// Buffer too small, comments not completely read
-			szCmtBuf[ MAX_SIZE_COMMENTS - 1 ] = _T('\0');
+			szCmtBuf[ MAX_SIZE_COMMENTS - 1 ] = L'\0';
 			strComment = szCmtBuf;
-			strComment.Replace( _T('\r'), _T(' ') );
-			strComment.Replace( _T('\n'), _T(' ') );
-			strComment.Replace( _T("  "), _T(" ") );
+			strComment.Replace( L'\r', L' ' );
+			strComment.Replace( L'\n', L' ' );
+			strComment.Replace( L"  ", L" " );
 			break;
 
 		case ERAR_NO_MEMORY:		// Not enough memory to extract comments
@@ -155,7 +155,7 @@ STDMETHODIMP CRARBuilder::Process(
 				// Get folder names from paths
 				for ( int i = 0 ; ; )
 				{
-					CString strPart = strName.Tokenize( _T("\\"), i );
+					CString strPart = strName.Tokenize( L"\\", i );
 					if ( strPart.IsEmpty() )
 						break;
 					if ( i + 1 >= strName.GetLength() )
@@ -166,12 +166,12 @@ STDMETHODIMP CRARBuilder::Process(
 					oFolderList.SetAt( strPartLower, strPart );
 				}
 
-				int nBackSlashPos = strName.ReverseFind( _T('\\') );
+				int nBackSlashPos = strName.ReverseFind( L'\\' );
 				if ( nBackSlashPos == strName.GetLength() - 1 )
 				{
 					bFolder = true;
 					strName = strName.Left( nBackSlashPos );
-					nBackSlashPos = strName.ReverseFind( _T('\\') );
+					nBackSlashPos = strName.ReverseFind( L'\\' );
 				}
 				if ( nBackSlashPos >= 0 )
 					strName = strName.Mid( nBackSlashPos + 1 );
@@ -194,7 +194,7 @@ STDMETHODIMP CRARBuilder::Process(
 					}
 
 					if ( ! strFiles.IsEmpty() )
-						strFiles += _T(", ");
+						strFiles += L", ";
 					strFiles += strName;
 				}
 				break;
@@ -250,15 +250,15 @@ STDMETHODIMP CRARBuilder::Process(
 			}
 
 			if ( ! strFolders.IsEmpty() )
-				strFolders += _T(", ");
+				strFolders += L", ";
 			strFolders += strName;
 		}
 
 		if ( bMoreFiles )
-			strFiles += _T(", ...");
+			strFiles += L", ...";
 
 		if ( bMoreFolders )
-			strFolders += _T(", ...");
+			strFolders += L", ...";
 
 		if ( ! strFiles.IsEmpty() )
 			pISXMLAttributes->Add( CComBSTR( L"files" ), CComBSTR( strFiles ) );
@@ -275,40 +275,51 @@ STDMETHODIMP CRARBuilder::Process(
 		if ( nUnpackedSize )
 		{
 			CString strUnpackedSize;
-			strUnpackedSize.Format( _T("%I64u"), nUnpackedSize );
+			strUnpackedSize.Format( L"%I64u", nUnpackedSize );
 			pISXMLAttributes->Add( CComBSTR( L"unpackedsize" ), CComBSTR( strUnpackedSize ) );
 		}
 
 		if ( nFileCount > 0 )
 		{
 			CString strFileCount;
-			strFileCount.Format( _T("%i"), nFileCount );
+			strFileCount.Format( L"%i", nFileCount );
 			pISXMLAttributes->Add( CComBSTR( L"filecount" ), CComBSTR( strFileCount ) );
 		}
 
-		// Special case .CBR - Common filename metadata
 		{
+			// Special case .CBR - Common filename metadata
 			CString strName( sFile );
-			if ( strName.Right( 4 ) == _T(".cbr") )
+			strName = strName.Mid( strName.ReverseFind( L'/' ) );
+			if ( strName.GetLength() > 8 && strName.Right( 4 ) == L".cbr" )
 			{
+				strName = strName.Left( strName.GetLength() - 4 );
 				strName.MakeLower();
-				if ( strName.Find( _T("minutemen") ) > 0 )
+				if ( strName.Find( L"minutemen" ) > 0 )
 					pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"Minutemen" ) );
-				else if ( strName.Find( _T("dcp") ) > 0 )
+				else if ( strName.Find( L"dcp" ) > 0 )
 					pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"DCP" ) );
-				else if ( strName.Find( _T("cps") ) > 0 )
-					pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"CPS" ) );
-			}
-			if ( strName.Find( _T("20") ) > 4 || strName.Find( _T("19") ) > 4 )
-			{
-				CString strYear;
-				for ( int i = 2022; i > 1940; i-- )
+				else if ( strName.Find( L"-empire" ) > 0 )
+					pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"Empire" ) );
+
+				int nFind = strName.Find( L"20" );
+				if ( nFind < 0 ) nFind = strName.Find( L"19" );
+				if ( nFind >= 0 )
 				{
-					strYear.Format( _T("%i"), i );
-					if ( strName.Find( strYear ) > 4 )
+					CString strYear;
+					for ( int i = 2022; i > 1940; i-- )
 					{
-						pISXMLAttributes->Add( CComBSTR( L"year" ), CComBSTR( strYear ) );
-						break;
+						strYear.Format( L"%i", i );
+						int nFound = strName.Find( strYear, nFind );
+						if ( nFound >= 0 )
+						{
+							// Verify number is not substring
+							if ( ( ! nFound || strName[ nFound - 1 ] > L'9' || strName[ nFound - 1 ] < L'0' ) &&
+								 ( strName[ nFound + 4 ] > L'9' || strName[ nFound + 4 ] < L'0' ) )
+							{
+								pISXMLAttributes->Add( CComBSTR( L"year" ), CComBSTR( strYear ) );
+								break;
+							}
+						}
 					}
 				}
 			}

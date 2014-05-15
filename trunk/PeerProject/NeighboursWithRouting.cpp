@@ -199,7 +199,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 				{
 					// Turn it into one
 					//pG2 = pG2Q1 = CG2Packet::New( G2_PACKET_QUERY_WRAP, pG1, Settings.Gnutella1.TranslateTTL );
-					theApp.Message( MSG_ERROR, _T("CNeighboursWithRouting::RouteQuery not relaying wrapped packet to leaf") );
+					theApp.Message( MSG_ERROR, L"CNeighboursWithRouting::RouteQuery not relaying wrapped packet to leaf" );
 				}
 
 				// Send the packet to this remote computer
@@ -214,7 +214,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 					{
 						// Turn it into one
 						//pG2 = pG2Q1 = CG2Packet::New( G2_PACKET_QUERY_WRAP, pG1, Settings.Gnutella1.TranslateTTL );
-						theApp.Message( MSG_ERROR, _T("CNeighboursWithRouting::RouteQuery not relaying wrapped packet to hub") );
+						theApp.Message( MSG_ERROR, L"CNeighboursWithRouting::RouteQuery not relaying wrapped packet to hub" );
 					}
 
 					// Send the packet to this remote computer
@@ -244,7 +244,7 @@ int CNeighboursWithRouting::RouteQuery(const CQuerySearch* pSearch, CPacket* pPa
 
 			if ( pPtr == NULL )
 			{
-			//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CNeighboursWithRouting::RouteQuery()") );
+			//	theApp.Message( MSG_DEBUG, L"Memory allocation error in CNeighboursWithRouting::RouteQuery()" );
 				return 0;
 			}
 

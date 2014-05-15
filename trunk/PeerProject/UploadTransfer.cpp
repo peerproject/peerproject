@@ -293,7 +293,7 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 
 		m_nBandwidth = min( nAverage, m_nBandwidth );
 
-		theApp.Message( MSG_DEBUG, _T("Changing upload throttle on %s from %s to %s"),
+		theApp.Message( MSG_DEBUG, L"Changing upload throttle on %s from %s to %s",
 			m_sAddress, Settings.SmartSpeed( nOld ), Settings.SmartSpeed( m_nBandwidth ) );
 	}
 	else if ( m_pQueue && m_pQueue->GetAvailableBandwidth() )
@@ -308,7 +308,7 @@ void CUploadTransfer::LongTermAverage(DWORD tNow)
 		else
 			m_nBandwidth = m_nMaxRate;
 
-		theApp.Message( MSG_DEBUG, _T("Changing upload throttle on %s from %s to %s"),
+		theApp.Message( MSG_DEBUG, L"Changing upload throttle on %s from %s to %s",
 			m_sAddress, Settings.SmartSpeed( nOld ), Settings.SmartSpeed( m_nBandwidth ) );
 	}
 }
@@ -365,7 +365,7 @@ void CUploadTransfer::CalculateRating(DWORD tNow)
 	m_tRatingTime = tNow;
 
 	const QWORD nDownloaded = Downloads.GetAmountDownloadedFrom( &(m_pHost.sin_addr) );
-	if ( nDownloaded > 128 * 1024)			// They have uploaded to us. (Transfers < 128k are ignored)
+	if ( nDownloaded > 128 * 1024 )			// They have uploaded to us. (Transfers < 128k are ignored)
 	{
 		if ( nDownloaded > m_nUploaded )	// If they have sent more to us than we have to them
 			m_nUserRating = urCredit;		// They get the highest rating  (longer rotation)
@@ -553,7 +553,7 @@ BOOL CUploadTransfer::WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWO
 	if ( ! IsFileOpen() )
 		return FALSE;
 
-	return m_pFile->Write( nOffset, pData, nLength, pnWritten);
+	return m_pFile->Write( nOffset, pData, nLength, pnWritten );
 }
 
 BOOL CUploadTransfer::ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead)

@@ -1,7 +1,7 @@
 //
 // DlgQueueProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -52,15 +52,10 @@ END_MESSAGE_MAP()
 CQueuePropertiesDlg::CQueuePropertiesDlg(CUploadQueue* pQueue, BOOL bEnable, CWnd* pParent)
 	: CSkinDialog(CQueuePropertiesDlg::IDD, pParent)
 	, m_nCapacity	( 0 )
-//	, m_sMaxSize	( _T("") )
 	, m_bMaxSize	( FALSE )
-//	, m_sMinSize	( _T("") )
 	, m_bMinSize	( FALSE )
-//	, m_sMatch		( _T("") )
 	, m_bMatch		( FALSE )
-//	, m_sMarked 	( _T("") )
 	, m_bMarked 	( FALSE )
-//	, m_sName		( _T("") )
 	, m_bEnable 	( FALSE )
 	, m_bProtocols	( FALSE )
 	, m_bReward 	( FALSE )
@@ -120,7 +115,7 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CQueuePropertiesDlg"), ID_VIEW_UPLOADS );
+	SkinMe( L"CQueuePropertiesDlg", ID_VIEW_UPLOADS );
 
 	m_wndTransfersMin.SetRange( 1, 128 );
 	m_wndTransfersMax.SetRange( 1, 512 );
@@ -130,10 +125,10 @@ BOOL CQueuePropertiesDlg::OnInitDialog()
 	m_wndProtocols.SetImageList( &m_gdiProtocols, LVSIL_SMALL );
 
 	m_wndProtocols.SetExtendedStyle( LVS_EX_CHECKBOXES );
-	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, _T("HTTP"), 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
-	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, _T("ED2K"), 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
-	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, _T("DC++"), 0, 0, PROTOCOL_DC, PROTOCOL_DC );
-	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 3, _T("BitTorrent"), 0, 0, PROTOCOL_BT, PROTOCOL_BT );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 0, L"HTTP", 0, 0, PROTOCOL_HTTP, PROTOCOL_HTTP );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 1, L"ED2K", 0, 0, PROTOCOL_ED2K, PROTOCOL_ED2K );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 2, L"DC++", 0, 0, PROTOCOL_DC, PROTOCOL_DC );
+	m_wndProtocols.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, 3, L"BitTorrent", 0, 0, PROTOCOL_BT, PROTOCOL_BT );
 
 	CSingleLock pLock( &UploadQueues.m_pSection, TRUE );
 
@@ -310,7 +305,7 @@ void CQueuePropertiesDlg::OnHScroll(UINT /*nSBCode*/, UINT /*nPos*/, CScrollBar*
 	DWORD nBandwidth = nLimit * nLocalPoints / max( 1, nTotalPoints );
 
 	CString str;
-	str.Format( _T("%u%% (%i/%i)"), ( 100 * nBandwidth ) / nLimit, nLocalPoints, nTotalPoints );
+	str.Format( L"%u%% (%i/%i)", ( 100 * nBandwidth ) / nLimit, nLocalPoints, nTotalPoints );
 
 	m_wndBandwidthPoints.SetWindowText( str );
 	m_wndBandwidthValue.SetWindowText( Settings.SmartSpeed( nBandwidth ) + '+' );

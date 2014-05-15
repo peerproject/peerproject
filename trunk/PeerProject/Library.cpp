@@ -137,7 +137,7 @@ void CLibrary::CheckDuplicates(const CLibraryFile* pFile, bool bForce) const
 	// Malicious software are usually small, we won't search all duplicates
 	if ( pFile->m_nSize < 48 || pFile->m_nSize > Settings.Library.MaliciousFileSize ) return;
 
-	LPCTSTR pszExt = _tcsrchr( pFile->m_sName, _T('.') );
+	LPCTSTR pszExt = _tcsrchr( pFile->m_sName, L'.' );
 	if ( ! pszExt ) return;
 	if ( ! IsIn( Settings.Library.MaliciousFileTypes, ++pszExt ) ) return;	// exe/com/scr/vbs/wmv/cab/zip/rar/etc.
 
@@ -369,12 +369,12 @@ BOOL CLibrary::Load()
 	CFile pFileDat, pFileBak;
 	FILETIME pFileDatTime = { 0, 0 }, pFileBakTime = { 0, 0 };
 
-	BOOL bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
-	BOOL bFileBak = pFileBak.Open( Settings.General.DataPath + _T("Library.bak"), CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
+	BOOL bFileDat = pFileDat.Open( Settings.General.DataPath + L"Library.dat", CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+	BOOL bFileBak = pFileBak.Open( Settings.General.DataPath + L"Library.bak", CFile::modeRead ) && SafeReadTime( pFileBak, &pFileBakTime );
 
 	// Try legacy format fallback
 	if ( ! bFileDat && ! bFileBak )
-		bFileDat = pFileDat.Open( Settings.General.DataPath + _T("Library1.dat"), CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
+		bFileDat = pFileDat.Open( Settings.General.DataPath + L"Library1.dat", CFile::modeRead ) && SafeReadTime( pFileDat, &pFileDatTime );
 
 	CSingleLock pLock( &m_pSection, TRUE );
 
@@ -410,14 +410,14 @@ BOOL CLibrary::Load()
 	}
 
 	LibraryFolders.CreateAlbumTree();
-//	LibraryFolders.Maintain();			// Update desktop.ini's	(May take several seconds, call seperately)
+//	LibraryFolders.Maintain();			// Update desktop.ini's	(May take several seconds, call separately)
 
 	LibraryHashDB.Create();
 	LibraryBuilder.BoostPriority( Settings.Library.HighPriorityHash );
 
 #ifdef _DEBUG
 	const __int64 nBenchmarkEnd = GetMicroCount();
-	theApp.Message( MSG_DEBUG, _T("Library load time : %I64i ms. Files: %d, Keywords: %d, Names: %d, Paths: %d\n"),
+	theApp.Message( MSG_DEBUG, L"Library load time : %I64i ms. Files: %d, Keywords: %d, Names: %d, Paths: %d\n",
 		( nBenchmarkEnd - nBenchmarkStart ) / 1000,
 		LibraryMaps.GetFileCount(),
 		LibraryDictionary.GetWordCount(),
@@ -443,7 +443,7 @@ BOOL CLibrary::Save()
 	static BOOL bFileSwitch = FALSE;
 
 	const CString strFile = Settings.General.DataPath +
-		( bFileSwitch ? _T("Library.bak") : _T("Library.dat") );
+		( bFileSwitch ? L"Library.bak" : L"Library.dat" );
 
 	bFileSwitch = ! bFileSwitch;
 	m_nSaveTime = GetTickCount();
@@ -453,7 +453,7 @@ BOOL CLibrary::Save()
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeWrite|CFile::modeCreate ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Library save error to: %s", strFile );
 		return FALSE;
 	}
 
@@ -474,7 +474,7 @@ BOOL CLibrary::Save()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
+			theApp.Message( MSG_ERROR, L"Library save error to: %s", strFile );
 			return FALSE;
 		}
 
@@ -488,12 +488,12 @@ BOOL CLibrary::Save()
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Library save error to: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Library save error to: %s", strFile );
 		return FALSE;
 	}
 
 	m_nSaveCookie = m_nUpdateCookie;
-	theApp.Message( MSG_DEBUG, _T("Library successfully saved to: %s"), strFile );
+	theApp.Message( MSG_DEBUG, L"Library successfully saved to: %s", strFile );
 	return TRUE;
 }
 
@@ -571,10 +571,10 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 	if ( dwFileAttributes & (FILE_ATTRIBUTE_HIDDEN|FILE_ATTRIBUTE_SYSTEM) )			// Ignore hidden or system files or folders
 		return TRUE;
 
-	if ( pszFilenameOnly && pszFilenameOnly[0] == _T('.') )							// Ignore files or folders begins from dot
+	if ( pszFilenameOnly && pszFilenameOnly[0] == L'.' )							// Ignore files or folders begins from dot
 		return TRUE;
 
-	if ( pszFilenameOnly && _tcsicmp( pszFilenameOnly, _T("Metadata") ) == 0 )		// Ignore metadata file or folder
+	if ( pszFilenameOnly && _tcsicmp( pszFilenameOnly, L"Metadata" ) == 0 )		// Ignore metadata file or folder
 		return TRUE;
 
 	if ( ! ( dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY ) )
@@ -584,30 +584,30 @@ BOOL CLibrary::IsBadFile(LPCTSTR pszFilenameOnly, LPCTSTR pszPathOnly, DWORD dwF
 
 		if ( pszFilenameOnly )
 		{
-			if ( _tcsicmp( pszFilenameOnly, _T("Thumbs.db") ) == 0 ||				// Ignore windows thumbnail database
-				 _tcsicmp( pszFilenameOnly, _T("dxva_sig.txt") ) == 0 ||			// Ignore video tag-file
-				 _tcsnicmp( pszFilenameOnly, _T("~uTorrentPartFile_"), 18 ) == 0 ||	// uTorrent part files
-				 _tcsnicmp( pszFilenameOnly, _T("___ARESTRA___"), 13 ) == 0 ||		// Ares Galaxy partials
-				 _tcsnicmp( pszFilenameOnly, _T("signons"), 7 ) == 0 )				// FireFox Password files "signons3.txt"
+			if ( _tcsicmp( pszFilenameOnly, L"Thumbs.db" ) == 0 ||				// Ignore windows thumbnail database
+				 _tcsicmp( pszFilenameOnly, L"dxva_sig.txt" ) == 0 ||			// Ignore video tag-file
+				 _tcsnicmp( pszFilenameOnly, L"~uTorrentPartFile_", 18 ) == 0 ||	// uTorrent part files
+				 _tcsnicmp( pszFilenameOnly, L"___ARESTRA___", 13 ) == 0 ||		// Ares Galaxy partials
+				 _tcsnicmp( pszFilenameOnly, L"signons", 7 ) == 0 )				// FireFox Password files "signons3.txt"
 			{
 				return TRUE;
 			}
 
-			if ( LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, _T('.') ) )
+			if ( LPCTSTR pszExt = _tcsrchr( pszFilenameOnly, L'.' ) )
 			{
 				pszExt++;
 
 				if ( IsIn( Settings.Library.PrivateTypes, pszExt ) )				// Ignore private type files
 					return TRUE;
 
-				if ( pszPathOnly && _tcsistr( pszPathOnly, _T("kazaa") ) && _tcsicmp( pszExt, _T("dat") ) == 0 )
+				if ( pszPathOnly && _tcsistr( pszPathOnly, L"kazaa" ) && _tcsicmp( pszExt, L"dat" ) == 0 )
 					return TRUE;													// Ignore .dat files in Kazaa folder
 			}
 		}
 	}
 
 	// Ignore Typical Private Directories
-	if ( pszPathOnly && _tcsistr( pszPathOnly, _T("\\Temporary Internet Files") ) )		// MS Internet Explorer folder
+	if ( pszPathOnly && _tcsistr( pszPathOnly, L"\\Temporary Internet Files" ) )		// MS Internet Explorer folder
 		return TRUE;
 
 	return FALSE;

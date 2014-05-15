@@ -21,11 +21,13 @@ class RarTime
     // Internal FILETIME like time representation in 100 nanoseconds since 01.01.1601.
     uint64 itime;
   public:
-    RarTime();
+    RarTime() {Reset();}
 #ifdef _WIN_ALL
+    RarTime(FILETIME &ft) {*this=ft;}
     RarTime& operator =(FILETIME &ft);
     void GetWin32(FILETIME *ft);
 #endif
+    RarTime(time_t ut) {*this=ut;}
     RarTime& operator =(time_t ut);
     time_t GetUnix();
     bool operator == (RarTime &rt) {return itime==rt.itime;}
@@ -44,7 +46,7 @@ class RarTime
     void SetAgeText(const wchar *TimeText);
     void SetCurrentTime();
     void Reset() {itime=0;}
-    bool IsSet() {return(itime!=0);}
+    bool IsSet() {return itime!=0;}
 };
 
 const wchar *GetMonthName(int Month);

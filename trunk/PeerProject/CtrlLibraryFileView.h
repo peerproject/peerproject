@@ -94,10 +94,10 @@ protected:
 	afx_msg void OnLibraryRebuild();
 
 	// WebServices:
-	afx_msg void OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitprintWeb();
-	afx_msg void OnUpdateLibraryBitprintDownload(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitprintDownload();
+	afx_msg void OnUpdateLibraryBitprintsWeb(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitprintsWeb();
+	afx_msg void OnUpdateLibraryBitprintsDownload(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitprintsDownload();
 	afx_msg void OnUpdateMusicBrainzLookup(CCmdUI* pCmdUI);
 	afx_msg void OnMusicBrainzLookup();
 	afx_msg void OnUpdateMusicBrainzMatches(CCmdUI* pCmdUI);

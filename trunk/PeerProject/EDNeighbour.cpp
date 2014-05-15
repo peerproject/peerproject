@@ -156,7 +156,7 @@ BOOL CEDNeighbour::OnRun()
 				Neighbours.m_nLowIDCount++;
 
 				// Try another server.
-				theApp.Message( MSG_DEBUG, _T("eDonkey server %s fake low ID detected."), (LPCTSTR)m_sAddress );
+				theApp.Message( MSG_DEBUG, L"eDonkey server %s fake low ID detected.", (LPCTSTR)m_sAddress );
 
 				Close( IDS_CONNECTION_CLOSED );
 				return FALSE;
@@ -198,14 +198,28 @@ void CEDNeighbour::OnDropped()
 
 BOOL CEDNeighbour::OnRead()
 {
-	BOOL bSuccess = TRUE;
+	CNeighbour::OnRead();
 
-	if ( ! CNeighbour::OnRead() )
+	return ProcessPackets();
+}
+
+BOOL CEDNeighbour::ProcessPackets()
+{
+	CLockedBuffer pInputLocked( GetInput() );
+
+	CBuffer* pInput = m_pZInput ? m_pZInput : pInputLocked;
+
+	return ProcessPackets( pInput );
+}
+
+BOOL CEDNeighbour::ProcessPackets(CBuffer* pInput)
+{
+	if ( ! pInput )
 		return FALSE;
 
-	CLockedBuffer pInput( GetInput() );
+	BOOL bSuccess = TRUE;
 
-	while ( CEDPacket* pPacket = CEDPacket::ReadBuffer( m_pZInput ? m_pZInput : pInput ) )
+	while ( CEDPacket* pPacket = CEDPacket::ReadBuffer( pInput ) )
 	{
 		try
 		{
@@ -217,7 +231,8 @@ BOOL CEDNeighbour::OnRead()
 		}
 
 		pPacket->Release();
-		if ( ! bSuccess ) break;
+		if ( ! bSuccess )
+			break;
 	}
 
 	return bSuccess;
@@ -256,7 +271,7 @@ BOOL CEDNeighbour::OnPacket(CEDPacket* pPacket)
 		return OnFoundSources( pPacket );
 	}
 
-	DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K packet from ") + m_sAddress ) );
+	DEBUG_ONLY( pPacket->Debug( L"Unknown ED2K packet from " + m_sAddress ) );
 
 	return TRUE;
 }
@@ -279,7 +294,7 @@ BOOL CEDNeighbour::OnServerMessage(CEDPacket* pPacket)
 
 	while ( ! strMessage.IsEmpty() )
 	{
-		CString strLine = strMessage.SpanExcluding( _T("\r\n") );
+		CString strLine = strMessage.SpanExcluding( L"\r\n" );
 
 		if ( ! strLine.IsEmpty() )
 		{
@@ -323,7 +338,7 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 		theApp.Message( MSG_INFO, IDS_ED2K_SERVER_IDCHANGE, (LPCTSTR)m_sAddress, m_nClientID, nClientID );
 	}
 
-	theApp.Message( MSG_DEBUG, _T("eDonkey server %s TCP flags: %s"), (LPCTSTR)m_sAddress, GetED2KServerTCPFlags( m_nTCPFlags ) );
+	theApp.Message( MSG_DEBUG, L"eDonkey server %s TCP flags: %s", (LPCTSTR)m_sAddress, GetED2KServerTCPFlags( m_nTCPFlags ) );
 
 	m_nState	= nrsConnected;
 	m_nClientID	= nClientID;
@@ -338,7 +353,7 @@ BOOL CEDNeighbour::OnIdChange(CEDPacket* pPacket)
 	}
 	else if ( Settings.eDonkey.ForceHighID )
 	{
-		theApp.Message( MSG_WARNING, _T("eDonkey server %s gave a low-id when we were expecting a high-id."), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_WARNING, L"eDonkey server %s gave a low-id when we were expecting a high-id.", (LPCTSTR)m_sAddress );
 	}
 
 	return TRUE;
@@ -356,7 +371,7 @@ BOOL CEDNeighbour::OnServerList(CEDPacket* pPacket)
 		DWORD nAddress	= pPacket->ReadLongLE();
 		WORD nPort		= pPacket->ReadShortLE();
 
-		theApp.Message( MSG_DEBUG, _T("CEDNeighbour::OnServerList(): %s: %s:%i"),
+		theApp.Message( MSG_DEBUG, L"CEDNeighbour::OnServerList(): %s: %s:%i",
 			(LPCTSTR)m_sAddress, (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nAddress ) ), nPort );
 
 		if ( Settings.eDonkey.LearnNewServers )
@@ -427,7 +442,7 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 #ifdef _DEBUG
 		default:
 			CString str;
-			str.Format( _T("Unknown ED2K Server Ident packet from %s  (Opcode 0x%x:0x%x)"),
+			str.Format( L"Unknown ED2K Server Ident packet from %s  (Opcode 0x%x:0x%x)",
 				LPCTSTR( m_sAddress ), int( pTag.m_nKey ), int( pTag.m_nType ) );
 			pPacket->Debug( str );
 #endif	// Debug
@@ -435,9 +450,9 @@ BOOL CEDNeighbour::OnServerIdent(CEDPacket* pPacket)
 	}
 
 	if ( *m_oGUID.begin() == 0x2A2A2A2A )
-		m_sUserAgent = _T("eFarm Server");			// Very obsolete http://sourceforge.net/projects/efarm/
+		m_sUserAgent = L"eFarm Server";			// Very obsolete http://sourceforge.net/projects/efarm/
 	else
-		m_sUserAgent = _T("eDonkey2000 Server");	// protocolNames[ PROTOCOL_ED2K ]
+		m_sUserAgent = L"eDonkey2000 Server";	// protocolNames[ PROTOCOL_ED2K ]
 
 	CQuickLock oLock( HostCache.eDonkey.m_pSection );
 
@@ -471,7 +486,7 @@ BOOL CEDNeighbour::OnCallbackRequested(CEDPacket* pPacket)
 	if ( pPacket->GetRemaining() < 6 )
 	{
 		// Ignore packet and return that it was handled
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, L"push" );
 		++Statistics.Current.eDonkey.Dropped;
 		++m_nDropCount;
 		return TRUE;
@@ -525,7 +540,7 @@ BOOL CEDNeighbour::OnSearchResults(CEDPacket* pPacket)
 	{
 		if ( pPacket->m_nLength != 17 && pPacket->m_nLength != 5 )
 		{
-			DEBUG_ONLY( pPacket->Debug( _T("BadSearchResult") ) );
+			DEBUG_ONLY( pPacket->Debug( L"BadSearchResult" ) );
 			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 			Statistics.Current.eDonkey.Dropped++;
 			m_nDropCount++;
@@ -541,7 +556,7 @@ BOOL CEDNeighbour::OnSearchResults(CEDPacket* pPacket)
 		if ( pPacket->ReadByte() == TRUE )
 		{
 			m_oMoreResultsGUID = oGUID;
-			theApp.Message( MSG_DEBUG, _T("Additional results packet received.") );
+			theApp.Message( MSG_DEBUG, L"Additional results packet received." );
 		}
 	}
 
@@ -558,7 +573,7 @@ BOOL CEDNeighbour::OnFoundSources(CEDPacket* pPacket)
 	{
 		if ( pPacket->m_nLength != 17 && pPacket->m_nLength != 5 )
 		{
-			DEBUG_ONLY( pPacket->Debug( _T("BadSearchResult") ) );
+			DEBUG_ONLY( pPacket->Debug( L"BadSearchResult" ) );
 			theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 			Statistics.Current.eDonkey.Dropped++;
 			m_nDropCount++;
@@ -606,7 +621,7 @@ BOOL CEDNeighbour::SendLogin()
 	if ( Settings.eDonkey.LearnNewServers )
 		CEDTag( ED2K_CT_NAME, MyProfile.GetNick().Left( 255 ) ).Write( pPacket );
 	else
-		CEDTag( ED2K_CT_NAME, MyProfile.GetNick().Left( 255 - 13 ) + _T(" - nolistsrvs") ).Write( pPacket );
+		CEDTag( ED2K_CT_NAME, MyProfile.GetNick().Left( 255 - 13 ) + L" - nolistsrvs" ).Write( pPacket );
 		// nolistsrvs in the nick say to the server that we don't want server list
 
 	// 2 - Version ('ed2k version')

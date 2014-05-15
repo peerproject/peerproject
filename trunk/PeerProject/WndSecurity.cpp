@@ -1,7 +1,7 @@
 //
 // WndSecurity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -99,13 +99,13 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( WS_VISIBLE|LVS_ICON|LVS_AUTOARRANGE|LVS_REPORT|LVS_SHOWSELALWAYS, rectDefault, this, IDC_RULES );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	m_wndList.InsertColumn( COL_SECURITY_CONTENT, _T("Address / Content"), LVCFMT_LEFT, 200 );
-	m_wndList.InsertColumn( COL_SECURITY_HITS, _T("Hits"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_SECURITY_NUM, _T("#"), LVCFMT_CENTER, 30 );
-	m_wndList.InsertColumn( COL_SECURITY_ACTION, _T("Action"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_SECURITY_EXPIRES, _T("Expires"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_SECURITY_TYPE, _T("Match"), LVCFMT_CENTER, 60 );
-	m_wndList.InsertColumn( COL_SECURITY_COMMENT, _T("Comment"), LVCFMT_LEFT, 200 );
+	m_wndList.InsertColumn( COL_SECURITY_CONTENT, L"Address / Content", LVCFMT_LEFT, 200 );
+	m_wndList.InsertColumn( COL_SECURITY_HITS, L"Hits", LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_NUM, L"#", LVCFMT_CENTER, 30 );
+	m_wndList.InsertColumn( COL_SECURITY_ACTION, L"Action", LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_EXPIRES, L"Expires", LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_TYPE, L"Match", LVCFMT_CENTER, 60 );
+	m_wndList.InsertColumn( COL_SECURITY_COMMENT, L"Comment", LVCFMT_LEFT, 200 );
 
 	m_pSizer.Attach( &m_wndList );
 
@@ -128,7 +128,7 @@ int CSecurityWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	LoadState( _T("CSecurityWnd"), TRUE );
+	LoadState( L"CSecurityWnd", TRUE );
 
 	Update();
 
@@ -139,8 +139,8 @@ void CSecurityWnd::OnDestroy()
 {
 	Security.Save();
 
-	Settings.SaveList( _T("CSecurityWnd"), &m_wndList );
-	SaveState( _T("CSecurityWnd") );
+	Settings.SaveList( L"CSecurityWnd", &m_wndList );
+	SaveState( L"CSecurityWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -208,13 +208,13 @@ void CSecurityWnd::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 
-	Settings.LoadList( _T("CSecurityWnd"), &m_wndList, -3 );
-	Skin.CreateToolBar( _T("CSecurityWnd"), &m_wndToolBar );
+	Settings.LoadList( L"CSecurityWnd", &m_wndList, -3 );
+	Skin.CreateToolBar( L"CSecurityWnd", &m_wndToolBar );
 
 	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSecurityWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )		// Images.m_bmSystemWindow.m_hObject
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( L"CSecurityWnd" ) ) || m_wndList.SetBkImage( Skin.GetWatermark( L"System.Windows" ) ) )		// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
@@ -273,7 +273,7 @@ void CSecurityWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CSecurityWnd"), point, ID_SECURITY_EDIT );
+	Skin.TrackPopupMenu( L"CSecurityWnd", point, ID_SECURITY_EDIT );
 }
 
 void CSecurityWnd::OnUpdateSecurityEdit(CCmdUI* pCmdUI)
@@ -412,8 +412,8 @@ void CSecurityWnd::OnUpdateSecurityExport(CCmdUI* pCmdUI)
 
 void CSecurityWnd::OnSecurityExport()
 {
-	CFileDialog dlg( FALSE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("XML Security Files|*.xml|NET Security Files|*.net|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
+	CFileDialog dlg( FALSE, L"xml", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
+		L"XML Security Files|*.xml|NET Security Files|*.net|" + LoadString( IDS_FILES_ALL ) + L"|*.*||" );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -421,7 +421,7 @@ void CSecurityWnd::OnSecurityExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		MsgBox( _T("Error") );	// ToDo: Security Export Error
+		MsgBox( L"Error" );	// ToDo: Security Export Error
 		return;
 	}
 
@@ -429,7 +429,7 @@ void CSecurityWnd::OnSecurityExport()
 
 	CString strText;
 
-	if ( dlg.GetFileExt().CompareNoCase( _T("net") ) == 0 )
+	if ( dlg.GetFileExt().CompareNoCase( L"net" ) == 0 )
 	{
 		for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 		{
@@ -444,7 +444,7 @@ void CSecurityWnd::OnSecurityExport()
 
 				if ( ! strText.IsEmpty() )
 				{
-					strText += _T("\r\n");
+					strText += L"\r\n";
 
 					const int nBytes = WideCharToMultiByte( CP_ACP, 0, strText, strText.GetLength(), NULL, 0, NULL, NULL );
 					LPSTR pBytes = new CHAR[nBytes];
@@ -457,9 +457,9 @@ void CSecurityWnd::OnSecurityExport()
 	}
 	else	// Generate .XML
 	{
-		auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, _T("security") ) );
+		auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"security" ) );
 
-		pXML->AddAttribute( _T("xmlns"), CSecurity::xmlns );
+		pXML->AddAttribute( L"xmlns", CSecurity::xmlns );
 
 		for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 		{
@@ -482,8 +482,8 @@ void CSecurityWnd::OnSecurityExport()
 
 void CSecurityWnd::OnSecurityImport()
 {
-	CFileDialog dlg( TRUE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("Security Rules|*.xml;*.net|XML Files|*.xml|NET Files|*.net|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
+	CFileDialog dlg( TRUE, L"xml", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
+		L"Security Rules|*.xml;*.net|XML Files|*.xml|NET Files|*.net|" + LoadString( IDS_FILES_ALL ) + L"|*.*||" );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -492,7 +492,7 @@ void CSecurityWnd::OnSecurityImport()
 	if ( Security.Import( dlg.GetPathName() ) )
 		Security.Save();
 	else
-		MsgBox( _T("Import Failed.") );	// ToDo: Error message, unable to import rules
+		MsgBox( L"Import Failed." );	// ToDo: Error message, unable to import rules
 }
 
 void CSecurityWnd::OnUpdateSecurityPolicyAccept(CCmdUI* pCmdUI)

@@ -80,25 +80,33 @@ CDatagrams::~CDatagrams()
 
 BOOL CDatagrams::Listen()
 {
-	if ( IsValid() ) return FALSE;
+	if ( IsValid() )
+		return TRUE;
 
 	m_hSocket = socket( PF_INET, SOCK_DGRAM, IPPROTO_UDP );
-	if ( ! IsValid() ) return FALSE;
 
-	const BOOL bEnable = TRUE;
-	VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_BROADCAST,
-		(char*)&bEnable, sizeof( bEnable ) ) == 0 );
+	if ( ! IsValid() )	// Now, make sure it has been created
+	{
+		// Second attempt
+		m_hSocket = socket( PF_INET, SOCK_DGRAM, IPPROTO_UDP );
+		if ( ! IsValid() )
+		{
+			theApp.Message( MSG_ERROR, L"Failed to create UDP socket." );
+			return FALSE;
+		}
+	}
 
-	SOCKADDR_IN saHost;
+	VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_BROADCAST, "\x01", 1 ) == 0 );
+
+	SOCKADDR_IN saHost = {};
 
 	if ( Network.Resolve( Settings.Connection.InHost, Settings.Connection.InPort, &saHost ) )
 	{
 		// Inbound resolved
-		// Set the exclusive address option
-		if ( Settings.Connection.InBind )
+		if ( ! Settings.Connection.InBind )
+			saHost.sin_addr.s_addr = INADDR_ANY;
+		else	// Set the exclusive address option
 			VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, "\x01", 1 ) == 0 );
-		else
-			saHost.sin_addr.S_un.S_addr = 0;
 	}
 	else if ( Network.Resolve( Settings.Connection.OutHost, Settings.Connection.InPort, &saHost ) )
 	{
@@ -108,15 +116,30 @@ BOOL CDatagrams::Listen()
 	{
 		saHost = Network.m_pHost;
 
-		// Set the exclusive address option
-		if ( Settings.Connection.InBind )
+		if ( ! Settings.Connection.InBind )
+			saHost.sin_addr.s_addr = INADDR_ANY;
+		else	// Set the exclusive address option
 			VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_EXCLUSIVEADDRUSE, "\x01", 1 ) == 0 );
-		else
-			saHost.sin_addr.S_un.S_addr = 0;
 	}
 
-	if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof( saHost ) ) == 0 )
-		theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_UDP, (LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
+	// First attempt to bind socket
+	if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof( saHost ) ) != 0 )
+	{
+		theApp.Message( MSG_ERROR, IDS_NETWORK_CANT_LISTEN, (LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
+
+		if ( saHost.sin_addr.s_addr == INADDR_ANY )
+			return FALSE;
+
+		// Second attempt to bind socket
+		saHost.sin_addr.s_addr = INADDR_ANY;
+		if ( bind( m_hSocket, (SOCKADDR*)&saHost, sizeof( saHost ) ) != 0 )
+		{
+			theApp.Message( MSG_ERROR, IDS_NETWORK_CANT_LISTEN, (LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
+			return FALSE;
+		}
+	}
+
+	theApp.Message( MSG_INFO, IDS_NETWORK_LISTENING_UDP, (LPCTSTR)CString( inet_ntoa( saHost.sin_addr ) ), htons( saHost.sin_port ) );
 
 	// Multi-cast ports:
 	// eD2K: 224.0.0.1:5000
@@ -270,7 +293,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 		if ( m_pOutputLast == NULL )
 		{
 			if ( bRelease ) pPacket->Release();
-			theApp.Message( MSG_DEBUG, _T("CDatagrams output frames exhausted.") );
+			theApp.Message( MSG_DEBUG, L"CDatagrams output frames exhausted." );
 			return FALSE;
 		}
 		Remove( m_pOutputLast );
@@ -279,7 +302,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 	if ( m_pBufferFree == NULL )
 	{
 		if ( bRelease ) pPacket->Release();
-		theApp.Message( MSG_DEBUG, _T("CDatagrams output frames really exhausted.") );
+		theApp.Message( MSG_DEBUG, L"CDatagrams output frames really exhausted." );
 		return FALSE;
 	}
 
@@ -323,7 +346,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 	Statistics.Current.Gnutella2.Outgoing++;
 
 #ifdef DEBUG_UDP
-	theApp.Message( MSG_DEBUG, _T("UDP: Queued SGP (#%i) x%i for %s:%lu"),
+	theApp.Message( MSG_DEBUG, L"UDP: Queued SGP (#%i) x%i for %s:%lu",
 		pDG->m_nSequence, pDG->m_nCount, (LPCTSTR)CString( inet_ntoa( pDG->m_pHost.sin_addr ) ), htons( pDG->m_pHost.sin_port ) );
 #endif
 
@@ -359,7 +382,7 @@ void CDatagrams::PurgeToken(LPVOID pToken)
 	}
 
 	if ( nCount )
-		theApp.Message( MSG_DEBUG, _T("CDatagrams::PurgeToken() = %i"), nCount );
+		theApp.Message( MSG_DEBUG, L"CDatagrams::PurgeToken() = %i", nCount );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -472,7 +495,7 @@ BOOL CDatagrams::TryWrite()
 
 #ifdef DEBUG_UDP
 				SGP_HEADER* pTemp = (SGP_HEADER*)pPacket;
-				theApp.Message( MSG_DEBUG, _T("UDP: Sending (#%i) %i of %i to %s:%lu"),
+				theApp.Message( MSG_DEBUG, L"UDP: Sending (#%i) %i of %i to %s:%lu",
 					pDG->m_nSequence, pTemp->nPart, pTemp->nCount,
 					(LPCTSTR)CString( inet_ntoa( pDG->m_pHost.sin_addr ) ),
 					htons( pDG->m_pHost.sin_port ) );
@@ -611,7 +634,7 @@ BOOL CDatagrams::TryRead()
 			strText += ( ( m_pReadBuffer[ i ] < ' ' ) ? '.' : (char)m_pReadBuffer[ i ] );
 		}
 		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING,
-			_T("UDP: Received unknown packet (%i bytes) from %s:  %s"),
+			L"UDP: Received unknown packet (%i bytes) from %s:  %s",
 			nLength, (LPCTSTR)CString( inet_ntoa( pFrom.sin_addr ) ), strText );
 		return TRUE;
 	}
@@ -643,7 +666,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 				catch ( CException* pException )
 				{
 					pException->Delete();
-					DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
+					DEBUG_ONLY( pPacket->Debug( L"Malformed packet." ) );
 				}
 				pPacket->Release();
 
@@ -694,7 +717,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 				catch ( CException* pException )
 				{
 					pException->Delete();
-					DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
+					DEBUG_ONLY( pPacket->Debug( L"Malformed packet." ) );
 				}
 				pPacket->Release();
 
@@ -757,13 +780,13 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 
 //	// Report unknown packets
 //	CString strText;
-//	strText.Format( _T("UDP: Received unknown packet (%i bytes) from %s"), nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+//	strText.Format( L"UDP: Received unknown packet (%i bytes) from %s", nLength, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 //	for ( DWORD i = 0 ; i < nLength && i < 80 ; i++ )
 //	{
-//		if ( ! i ) strText += _T(": ");
+//		if ( ! i ) strText += L": ";
 //		strText += ( ( pBuffer[ i ] < ' ' ) ? '.' : (char)pBuffer[ i ] );
 //	}
-//	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s"), strText );
+//	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s", strText );
 
 	return FALSE;
 }
@@ -774,7 +797,7 @@ BOOL CDatagrams::OnDatagram(const SOCKADDR_IN* pHost, const BYTE* pBuffer, DWORD
 BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeader, DWORD nLength)
 {
 #ifdef DEBUG_UDP
-	theApp.Message( MSG_DEBUG, _T("UDP: Received SGP (#%i) %i of %i from %s"),
+	theApp.Message( MSG_DEBUG, L"UDP: Received SGP (#%i) %i of %i from %s",
 		pHeader->nSequence, pHeader->nPart, pHeader->nCount,
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 #endif
@@ -824,7 +847,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 					catch ( CException* pException )
 					{
 						pException->Delete();
-						DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
+						DEBUG_ONLY( pPacket->Debug( L"Malformed packet." ) );
 					}
 					pPacket->Release();
 				}
@@ -870,7 +893,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 			catch ( CException* pException )
 			{
 				pException->Delete();
-				DEBUG_ONLY( pPacket->Debug( _T("Malformed packet.") ) );
+				DEBUG_ONLY( pPacket->Debug( L"Malformed packet." ) );
 			}
 			pPacket->Release();
 		}
@@ -906,7 +929,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 BOOL CDatagrams::OnAcknowledgeSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeader, DWORD /*nLength*/)
 {
 #ifdef DEBUG_UDP
-	theApp.Message( MSG_DEBUG, _T("UDP: Received SGP ack (#%i) %i from %s"),
+	theApp.Message( MSG_DEBUG, L"UDP: Received SGP ack (#%i) %i from %s",
 		pHeader->nSequence, pHeader->nPart, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 #endif
 

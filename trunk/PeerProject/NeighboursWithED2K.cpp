@@ -85,7 +85,7 @@ void CNeighboursWithED2K::RunGlobalStatsRequests()
 			pHost->m_nKeyValue = 0x55AA0000 + GetRandomNum( 0ui16, _UI16_MAX );
 			pHost->m_nUDPPort = pHost->m_nPort + 4;
 
-			theApp.Message( MSG_INFO, _T("Sending status request to eDonkey server %s:%u"), (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ), pHost->m_nUDPPort );
+			theApp.Message( MSG_INFO, L"Sending status request to eDonkey server %s:%u", (LPCTSTR)CString( inet_ntoa( pHost->m_pAddress ) ), pHost->m_nUDPPort );
 
 			if ( CEDPacket* pPacket = CEDPacket::New( ED2K_C2SG_SERVERSTATUSREQUEST ) )
 			{

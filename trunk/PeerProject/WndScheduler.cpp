@@ -1,7 +1,7 @@
 //
 // WndScheduler.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -110,19 +110,19 @@ int CSchedulerWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_pSizer.Attach( &m_wndList );
 
-	m_wndList.InsertColumn( COL_TASK, _T("Task"), LVCFMT_LEFT, 240 );
-	m_wndList.InsertColumn( COL_DATE, _T("Date"), LVCFMT_CENTER, 220 );
-	m_wndList.InsertColumn( COL_TIME, _T("Time"), LVCFMT_CENTER, 90 );
-	m_wndList.InsertColumn( COL_STATUS, _T("Status"), LVCFMT_CENTER, 90 );
-	m_wndList.InsertColumn( COL_ACTIVITY, _T("Activity"), LVCFMT_CENTER, 90 );
-	m_wndList.InsertColumn( COL_COMMENT,  _T("Comment"), LVCFMT_LEFT, 280 );
+	m_wndList.InsertColumn( COL_TASK, L"Task", LVCFMT_LEFT, 240 );
+	m_wndList.InsertColumn( COL_DATE, L"Date", LVCFMT_CENTER, 220 );
+	m_wndList.InsertColumn( COL_TIME, L"Time", LVCFMT_CENTER, 90 );
+	m_wndList.InsertColumn( COL_STATUS, L"Status", LVCFMT_CENTER, 90 );
+	m_wndList.InsertColumn( COL_ACTIVITY, L"Activity", LVCFMT_CENTER, 90 );
+	m_wndList.InsertColumn( COL_COMMENT,  L"Comment", LVCFMT_LEFT, 280 );
 
 //	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	LoadState( _T("CSchedulerWnd"), TRUE );
+	LoadState( L"CSchedulerWnd", TRUE );
 
 	Update();
 
@@ -133,8 +133,8 @@ void CSchedulerWnd::OnDestroy()
 {
 	Scheduler.Save();
 
-	Settings.SaveList( _T("CSchedulerWnd"), &m_wndList );
-	SaveState( _T("CSchedulerWnd") );
+	Settings.SaveList( L"CSchedulerWnd", &m_wndList );
+	SaveState( L"CSchedulerWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -191,7 +191,7 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 		// Date column
 		if ( ! pSchTask->m_bSpecificDays )		// One time event
 		{
-			pItem->Set( COL_DATE, pSchTask->m_tScheduleDateTime.Format( _T("%A, %B %m, %Y") ) );
+			pItem->Set( COL_DATE, pSchTask->m_tScheduleDateTime.Format( L"%A, %B %m, %Y" ) );
 		}
 		else if ( pSchTask->m_nDays == 0x7F )	// All days flagged
 		{
@@ -201,17 +201,17 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 		{
 			CString strDays;
 			if ( pSchTask->m_nDays & MONDAY )
-				strDays += LoadString( IDS_DAY_MONDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_MONDAY ) + L" ";
 			if ( pSchTask->m_nDays & TUESDAY )
-				strDays += LoadString( IDS_DAY_TUESDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_TUESDAY ) + L" ";
 			if ( pSchTask->m_nDays & WEDNESDAY )
-				strDays += LoadString( IDS_DAY_WEDNESDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_WEDNESDAY ) + L" ";
 			if ( pSchTask->m_nDays & THURSDAY )
-				strDays += LoadString( IDS_DAY_THURSDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_THURSDAY ) + L" ";
 			if ( pSchTask->m_nDays & FRIDAY )
-				strDays += LoadString( IDS_DAY_FRIDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_FRIDAY ) + L" ";
 			if ( pSchTask->m_nDays & SATURDAY )
-				strDays += LoadString( IDS_DAY_SATURDAY ) + _T(" ");
+				strDays += LoadString( IDS_DAY_SATURDAY ) + L" ";
 			if ( pSchTask->m_nDays & SUNDAY )
 				strDays += LoadString( IDS_DAY_SUNDAY );
 
@@ -219,10 +219,10 @@ void CSchedulerWnd::Update(int nColumn, BOOL bSort)
 		}
 
 		// Time column
-		pItem->Set( COL_TIME, pSchTask->m_tScheduleDateTime.Format( _T("%I:%M:%S %p") ) );
+		pItem->Set( COL_TIME, pSchTask->m_tScheduleDateTime.Format( L"%I:%M:%S %p" ) );
 
 		// Status column
-		if ( pSchTask->m_bActive)
+		if ( pSchTask->m_bActive )
 			pItem->Set( COL_STATUS, LoadString( pSchTask->m_bExecuted ? IDS_SCHEDULER_TASK_DONETODAY : IDS_SCHEDULER_TASK_WAITING ) );
 		else
 			pItem->Set( COL_STATUS, LoadString( pSchTask->m_bExecuted ? IDS_SCHEDULER_TASK_DONE : IDS_STATUS_INACTIVE ) );
@@ -295,8 +295,8 @@ void CSchedulerWnd::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 
-	Settings.LoadList( _T("CSchedulerWnd"), &m_wndList, -3 );
-	Skin.CreateToolBar( _T("CSchedulerWnd"), &m_wndToolBar );
+	Settings.LoadList( L"CSchedulerWnd", &m_wndList, -3 );
+	Skin.CreateToolBar( L"CSchedulerWnd", &m_wndToolBar );
 
 // Obsolete for reference: (Predefined nImageIDs above)
 //	m_gdiImageList.Create( 16, 16, ILC_MASK|ILC_COLOR32, 3, 1 );
@@ -308,7 +308,7 @@ void CSchedulerWnd::OnSkinChange()
 	CoolInterface.LoadIconsTo( m_gdiImageList, nImageIDs );
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CSchedulerWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )	// Images.m_bmSystemWindow.m_hObject
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( L"CSchedulerWnd" ) ) || m_wndList.SetBkImage( Skin.GetWatermark( L"System.Windows" ) ) )	// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
@@ -369,7 +369,7 @@ void CSchedulerWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CSchedulerWnd"), point, ID_SCHEDULER_EDIT );
+	Skin.TrackPopupMenu( L"CSchedulerWnd", point, ID_SCHEDULER_EDIT );
 }
 
 void CSchedulerWnd::OnUpdateSchedulerEdit(CCmdUI* pCmdUI)
@@ -405,7 +405,7 @@ void CSchedulerWnd::OnUpdateSchedulerRemove(CCmdUI* pCmdUI)
 
 void CSchedulerWnd::OnSchedulerRemove()
 {
-	CQuickLock oLock( Scheduler.m_pSection);
+	CQuickLock oLock( Scheduler.m_pSection );
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
 	{
@@ -505,7 +505,7 @@ void CSchedulerWnd::OnSchedulerRemoveAll()
 	LoadString( strMessage, IDS_SCHEDULER_REMOVEALL_CONFIRM );
 	if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 
-	CQuickLock oLock( Scheduler.m_pSection);
+	CQuickLock oLock( Scheduler.m_pSection );
 
 	for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 	{
@@ -526,8 +526,8 @@ void CSchedulerWnd::OnUpdateSchedulerExport(CCmdUI* pCmdUI)
 
 void CSchedulerWnd::OnSchedulerExport()
 {
-	CFileDialog dlg( FALSE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("XML Scheduler Files|*.xml|") );
+	CFileDialog dlg( FALSE, L"xml", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
+		L"XML Scheduler Files|*.xml|" );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -536,15 +536,15 @@ void CSchedulerWnd::OnSchedulerExport()
 
 	if ( ! pFile.Open( dlg.GetPathName(), CFile::modeWrite|CFile::modeCreate ) )
 	{
-		MsgBox( _T("Error: Can not export Scheduler list to file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
+		MsgBox( L"Error: Can not export Scheduler list to file.", MB_ICONSTOP|MB_OK );	// ToDo: Translate?
 		return;
 	}
 
 	CWaitCursor pCursor;
 
-	CXMLElement* pXML = new CXMLElement( NULL, _T("scheduler") );
+	CXMLElement* pXML = new CXMLElement( NULL, L"scheduler" );
 
-	pXML->AddAttribute( _T("xmlns"), CScheduler::xmlns );
+	pXML->AddAttribute( L"xmlns", CScheduler::xmlns );
 
 	const BOOL bSelection = m_wndList.GetNextItem( -1, LVIS_SELECTED ) >= 0;
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, bSelection ? LVIS_SELECTED : 0 ) ) >= 0 ; )
@@ -570,8 +570,8 @@ void CSchedulerWnd::OnSchedulerExport()
 
 void CSchedulerWnd::OnSchedulerImport()
 {
-	CFileDialog dlg( TRUE, _T("xml"), NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
-		_T("XML Scheduler Files|*.xml|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||") );
+	CFileDialog dlg( TRUE, L"xml", NULL, OFN_HIDEREADONLY|OFN_OVERWRITEPROMPT,
+		L"XML Scheduler Files|*.xml|" + LoadString( IDS_FILES_ALL ) + L"|*.*||" );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -580,7 +580,7 @@ void CSchedulerWnd::OnSchedulerImport()
 	if ( Scheduler.Import( dlg.GetPathName() ) )
 		Scheduler.Save();
 	else
-		MsgBox( _T("Error: Can not import Scheduler list from file."), MB_ICONSTOP|MB_OK );	// ToDo: Translate?
+		MsgBox( L"Error: Can not import Scheduler list from file.", MB_ICONSTOP|MB_OK );	// ToDo: Translate?
 }
 
 BOOL CSchedulerWnd::PreTranslateMessage(MSG* pMsg)

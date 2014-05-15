@@ -1,7 +1,7 @@
 //
 // FragmentedFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,6 +27,7 @@ class CBTInfo;
 class CDownload;
 class CDownloadTask;
 
+
 class CFragmentedFile : public CObject
 {
 	DECLARE_DYNCREATE( CFragmentedFile )
@@ -43,8 +44,8 @@ public:
 #endif
 
 	// Multifile Download priority settings
-	// Not used. (Sets removed PageTorrentFiles combobox order)
-	// Note: Changing this breaks torrents at startup!
+	// Sets unused PageTorrentFiles combobox order
+	// Note: Changing this breaks torrents at startup
 	enum { prUnwanted, prLow, prNormal, prHigh };
 
 protected:
@@ -55,6 +56,7 @@ protected:
 		CVirtualFilePart(const CVirtualFilePart& p);
 		CVirtualFilePart& operator=(const CVirtualFilePart& p);
 
+	public:
 		void Release();
 
 		inline bool operator ==(LPCTSTR pszFile) const
@@ -67,10 +69,10 @@ protected:
 			return ( m_nOffset < p.m_nOffset );
 		}
 
-		CTransferFile*	m_pFile;	// Opened file handler
-		QWORD			m_nOffset;	// File offset (0 - for first/single file)
-		BOOL			m_bWrite;	// File opened for write
-		int				m_nPriority;// Download priority (NotWanted, Low, Normal or High)
+		CTransferFile*	m_pFile;		// Opened file handler
+		QWORD			m_nOffset;		// File offset (0 - for first/single file)
+		BOOL			m_bWrite;		// File opened for write
+		int				m_nPriority;	// Download priority (NotWanted, Low, Normal or High)
 	};
 
 	typedef std::vector< CVirtualFilePart > CVirtualFile;
@@ -174,8 +176,7 @@ public:
 	BOOL	MakeComplete();
 	void	Serialize(CArchive& ar, int nVersion);
 	BOOL	EnsureWrite();
-	// Delete file(s)
-	void	Delete();
+	void	Delete();				// Delete file(s)
 	// Move file to destination. Returns 0 on success or file error number.
 	DWORD	Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, CDownloadTask* pTask = NULL);
 	BOOL	Write(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
@@ -337,8 +338,9 @@ public:
 };
 
 // For auto_ptr< CFragmentedFile >
+// Defined in Augment/auto_ptr.hpp, was boost::checked_delete
 template<>
-inline void boost::checked_delete< CFragmentedFile >(CFragmentedFile* x)
+inline void augment::checked_delete< CFragmentedFile >(CFragmentedFile* x)
 {
 	if ( x ) x->Release();
 }

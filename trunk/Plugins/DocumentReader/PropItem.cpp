@@ -20,7 +20,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "DocumentReader.h"
 
 ////////////////////////////////////////////////////////////////////////
@@ -31,7 +31,7 @@
 //
 CDocProperty::CDocProperty()
 {
-	ODS(_T("CDocProperty::CDocProperty()\n"));
+	ODS(L"CDocProperty::CDocProperty()\n");
 	m_bstrName       = NULL;
 	m_ulPropID       = 0;
 	m_vValue.vt      = VT_EMPTY;
@@ -45,8 +45,9 @@ CDocProperty::CDocProperty()
 
 CDocProperty::~CDocProperty(void)
 {
-	ODS(_T("CDocProperty::~CDocProperty()\n"));
-	FREE_BSTR(m_bstrName); VariantClear(&m_vValue);
+	ODS(L"CDocProperty::~CDocProperty()\n");
+	FREE_BSTR( m_bstrName );
+	VariantClear( &m_vValue );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -57,8 +58,9 @@ CDocProperty::~CDocProperty(void)
 //
 HRESULT CDocProperty::get_Name(BSTR *pbstrName)
 {
-	ODS(_T("CDocProperty::get_Name\n"));
-	if (pbstrName) *pbstrName = (m_bstrName ? SysAllocString(m_bstrName) : NULL);
+	ODS(L"CDocProperty::get_Name\n");
+	if ( pbstrName )
+		*pbstrName = ( m_bstrName ? SysAllocString(m_bstrName) : NULL );
 	return S_OK;
 }
 
@@ -68,8 +70,8 @@ HRESULT CDocProperty::get_Name(BSTR *pbstrName)
 HRESULT CDocProperty::get_Type(dsoFilePropertyType *dsoType)
 {
 	dsoFilePropertyType lType;
-	ODS(_T("CDocProperty::get_Type\n"));
-	switch (m_vValue.vt & VT_TYPEMASK)
+	ODS(L"CDocProperty::get_Type\n");
+	switch ( m_vValue.vt & VT_TYPEMASK )
 	{
 	case VT_BSTR: lType = dsoPropertyTypeString; break;
 	case VT_I2:
@@ -80,7 +82,7 @@ HRESULT CDocProperty::get_Type(dsoFilePropertyType *dsoType)
 	case VT_DATE: lType = dsoPropertyTypeDate;   break;
 	default:      lType = dsoPropertyTypeUnknown;
 	}
-	if (dsoType) *dsoType = lType;
+	if ( dsoType ) *dsoType = lType;
 	return S_OK;
 }
 
@@ -89,9 +91,9 @@ HRESULT CDocProperty::get_Type(dsoFilePropertyType *dsoType)
 //
 HRESULT CDocProperty::get_Value(VARIANT *pvValue)
 {
-	ODS(_T("CDocProperty::get_Value\n"));
-	CHECK_NULL_RETURN(pvValue, E_POINTER);
-	return VariantCopy(pvValue, &m_vValue);
+	ODS(L"CDocProperty::get_Value\n");
+	CHECK_NULL_RETURN( pvValue, E_POINTER );
+	return VariantCopy( pvValue, &m_vValue );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -101,16 +103,16 @@ HRESULT CDocProperty::put_Value(VARIANT *pvValue)
 {
 	VARIANT vtTmp; vtTmp.vt = VT_EMPTY;
 
-	ODS(_T("CDocProperty::put_Value\n"));
-	CHECK_NULL_RETURN(pvValue, E_POINTER);
-	CHECK_FLAG_RETURN((m_fDeadObj || m_fRemovedItem), E_INVALIDOBJECT);
+	ODS(L"CDocProperty::put_Value\n");
+	CHECK_NULL_RETURN( pvValue, E_POINTER );
+	CHECK_FLAG_RETURN( (m_fDeadObj || m_fRemovedItem), E_INVALIDOBJECT );
 
 	// We don't support arrays (in this sample at least)...
-	if ((pvValue->vt) & VT_ARRAY)
+	if ( (pvValue->vt) & VT_ARRAY )
 		return E_INVALIDARG;
 
 	// Sanity check of VARTYPE (if it is not one we can save, don't bother)...
-	switch (((pvValue->vt) & VT_TYPEMASK))
+	switch ( ((pvValue->vt) & VT_TYPEMASK) )
 	{
 	case VT_I2:
 	case VT_I4:
@@ -127,8 +129,8 @@ HRESULT CDocProperty::put_Value(VARIANT *pvValue)
 	// Swap out the variant value and set the dirty flag. We make independent
 	// copy of the VARIANT (performs indirection as needed)...
 	m_fModified = TRUE;
-	VariantClear(&m_vValue);
-	return VariantCopyInd(&m_vValue, pvValue);
+	VariantClear( &m_vValue );
+	return VariantCopyInd( &m_vValue, pvValue );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -136,9 +138,9 @@ HRESULT CDocProperty::put_Value(VARIANT *pvValue)
 //
 HRESULT CDocProperty::Remove()
 {
-	ODS(_T("CDocProperty::Remove\n"));
-	CHECK_FLAG_RETURN((m_fDeadObj || m_fRemovedItem), E_INVALIDOBJECT);
-	VariantClear(&m_vValue);
+	ODS(L"CDocProperty::Remove\n");
+	CHECK_FLAG_RETURN( (m_fDeadObj || m_fRemovedItem), E_INVALIDOBJECT );
+	VariantClear( &m_vValue );
 	m_fRemovedItem = TRUE;
 	return S_OK;
 }
@@ -149,13 +151,14 @@ HRESULT CDocProperty::Remove()
 HRESULT CDocProperty::InitProperty(BSTR bstrName, PROPID propid, VARIANT* pvData, BOOL fNewItem, CDocProperty* pPreviousItem)
 {
 	TRACE1("CDocProperty::InitProperty (typeid=%d)\n", pvData->vt);
-	ASSERT(m_bstrName == NULL); ASSERT(m_ulPropID == 0);
+	ASSERT( m_bstrName == NULL );
+	ASSERT( m_ulPropID == 0 );
 
-	m_bstrName = ((bstrName) ? SysAllocString(bstrName) : NULL);
+	m_bstrName = ( (bstrName) ? SysAllocString(bstrName) : NULL );
 	m_ulPropID = propid;
 
 	HRESULT hr;
-	if (FAILED( hr = VariantCopy(&m_vValue, pvData)))
+	if ( FAILED( hr = VariantCopy( &m_vValue, pvData ) ) )
 		return E_FAIL;
 
 	m_fNewItem = fNewItem;
@@ -179,9 +182,9 @@ CDocProperty* CDocProperty::AppendLink(CDocProperty* pLinkItem)
 CDocProperty* CDocProperty::CreateObject(BSTR bstrName, PROPID propid, VARIANT* pvData, BOOL fNewItem, CDocProperty* pPreviousItem)
 {
 	CDocProperty* pitem = new CDocProperty();
-	if (pitem)
+	if ( pitem )
 	{
-		if (FAILED(pitem->InitProperty(bstrName, propid, pvData, fNewItem, pPreviousItem)))
+		if ( FAILED( pitem->InitProperty( bstrName, propid, pvData, fNewItem, pPreviousItem ) ) )
 			pitem = NULL;
 	}
 	return pitem;

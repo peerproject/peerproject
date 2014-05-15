@@ -64,7 +64,7 @@ CWizardSheet::CWizardSheet(CWnd *pParentWnd, UINT iSelectPage)
 	m_nMenuHeight = MulDiv( 46, GetDeviceCaps( *GetDesktopWindow()->GetDC(), LOGPIXELSY ), 96 );	// DPI-aware
 
 	m_psh.dwFlags &= ~PSP_HASHELP;
-	Construct( _T(""), pParentWnd, iSelectPage );
+	Construct( L"", pParentWnd, iSelectPage );
 	SetWizardMode();
 }
 
@@ -122,7 +122,7 @@ BOOL CWizardSheet::OnInitDialog()
 	ScreenToClient( &rc );
 	rc.OffsetRect( rc.Height() - 3 - rc.left, -1 );
 	GetDlgItem( 2 )->MoveWindow( &rc );
-	GetDlgItem( 2 )->SetWindowText( _T("E&xit") );
+	GetDlgItem( 2 )->SetWindowText( L"E&xit" );
 
 	// Set Back
 	GetDlgItem( 0x3023 )->GetWindowRect( &rc );
@@ -173,9 +173,9 @@ BOOL CWizardSheet::OnChildNotify(UINT message, WPARAM wParam, LPARAM lParam, LRE
 
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
-		if ( !_tcscmp( szName, _T("Static") ) )
+		if ( !_tcscmp( szName, L"Static" ) )
 			pWnd->SetFont( &theApp.m_fntNormal, FALSE );
-		else if ( _tcscmp( szName, _T("RICHEDIT") ) )
+		else if ( _tcscmp( szName, L"RICHEDIT" ) )
 			pWnd->SetFont( &theApp.m_fntNormal, TRUE );
 
 		pWnd = pWnd->GetNextWindow();
@@ -236,7 +236,7 @@ void CWizardSheet::OnPaint()
 
 	// Version Text
 	CFont* pOldFont = (CFont*)dc.SelectObject( &theApp.m_fntTiny );
-	CString str = _T("v") + theApp.m_sVersion;
+	CString str = L"v" + theApp.m_sVersion;
 	CSize sz = dc.GetTextExtent( str );
 
 	dc.SetBkMode( OPAQUE );
@@ -274,7 +274,7 @@ BOOL CWizardSheet::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 void CWizardSheet::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 {
 	if ( point.y < m_nBannerHeight )
-		ShellExecute( NULL, NULL, _T("http://peerproject.org/TorrentWizard/"), NULL, NULL, SW_SHOWNORMAL );
+		ShellExecute( NULL, NULL, L"http://peerproject.org/wiki/torrentwizard/", NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CWizardSheet::OnNcLButtonUp(UINT nHitTest, CPoint /*point*/)
@@ -382,7 +382,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		TCHAR szName[32];
 		GetClassName( pChild->GetSafeHwnd(), szName, 32 );
 
-		if ( _tcscmp( szName, _T("Static") ) != 0 )
+		if ( _tcscmp( szName, L"Static" ) != 0 )
 			continue;
 
 		CString strText;

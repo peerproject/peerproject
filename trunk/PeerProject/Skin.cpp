@@ -83,7 +83,7 @@ void CSkin::Apply()
 
 	ApplyRecursive( NULL );
 
-	CoolMenu.SetWatermark( GetWatermark( _T("CCoolMenu") ) );
+	CoolMenu.SetWatermark( GetWatermark( L"CCoolMenu" ) );
 
 	Plugins.OnSkinChanged();
 }
@@ -97,7 +97,7 @@ void CSkin::CreateDefault()
 
 	CoolInterface.CreateFonts();
 
-	Settings.General.Language = _T("en");
+	Settings.General.Language = L"en";
 	Settings.General.LanguageRTL = false;
 	Settings.General.LanguageDefault = true;
 
@@ -266,7 +266,7 @@ BOOL CSkin::SelectCaption(CString& strCaption, int nIndex)
 {
 	for ( strCaption += '|' ; ; nIndex-- )
 	{
-		CString strSection = strCaption.SpanExcluding( _T("|") );
+		CString strSection = strCaption.SpanExcluding( L"|" );
 		strCaption = strCaption.Mid( strSection.GetLength() + 1 );
 		if ( strSection.IsEmpty() ) break;
 
@@ -289,8 +289,8 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 	HANDLE hSearch;
 
 	CString strPath;
-	strPath.Format( _T("%s\\Skins\\%s*.*"), (LPCTSTR)Settings.General.Path,
-		pszPath ? pszPath : _T("") );
+	strPath.Format( L"%s\\Skins\\%s*.*", (LPCTSTR)Settings.General.Path,
+		pszPath ? pszPath : L"" );
 
 	hSearch = FindFirstFile( strPath, &pFind );
 
@@ -329,7 +329,7 @@ void CSkin::ApplyRecursive(LPCTSTR pszPath)
 
 BOOL CSkin::LoadFromFile(LPCTSTR pszFile)
 {
-	TRACE( _T("Loading skin file: %s\n"), pszFile );
+	TRACE( L"Loading skin file: %s\n", pszFile );
 
 	CXMLElement* pXML = CXMLElement::FromFile( pszFile );
 	if ( pXML == NULL ) return FALSE;
@@ -350,7 +350,7 @@ BOOL CSkin::LoadFromResource(HINSTANCE hInstance, UINT nResourceID)
 	HMODULE hModule = ( hInstance != NULL ) ? hInstance : GetModuleHandle( NULL );
 	CString strBody( ::LoadHTML( hModule, nResourceID ) );
 	CString strPath;
-	strPath.Format( _T("%p$"), hModule );
+	strPath.Format( L"%p$", hModule );
 	return LoadFromString( strBody, strPath );
 }
 
@@ -369,9 +369,9 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 {
 	BOOL bSuccess = FALSE;
 
-	if ( ! pXML->IsNamed( _T("skin") ) )
+	if ( ! pXML->IsNamed( L"skin" ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [skin] root element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [skin] root element", pXML->ToString() );
 		return bSuccess;
 	}
 
@@ -416,87 +416,87 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		{
 		case 'w':	// windowSkins, windows
 			if ( ! LoadWindowSkins( pSub, strPath ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("WindowSkins") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"WindowSkins" );
 			break;
 		case 'e':	// watermarks, images
 			if ( ! LoadWatermarks( pSub, strPath ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Watermarks") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Watermarks" );
 			break;
 		case 'i':	// commandImages, icons
 			if ( ! LoadCommandImages( pSub, strPath ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("CommandImages") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"CommandImages" );
 			break;
 		case 'c':	// colorScheme, colourScheme, colors
 			if ( ! LoadColorScheme( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ColorScheme") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ColorScheme" );
 			break;
 		case 't':	// toolbars
 			if ( ! LoadToolbars( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Toolbars") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Toolbars" );
 			break;
 		case 'u':	// menus
 			if ( ! LoadMenus( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Menus") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Menus" );
 			break;
 		case 'a':	// dialogs
 			if ( ! LoadDialogs( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Dialogs") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Dialogs" );
 			break;
 		case 'd':	// documents
 			if ( ! LoadDocuments( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Documents") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Documents" );
 			break;
 		case 'r':	// strings, commandTips
 			if ( ! LoadStrings( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Strings") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Strings" );
 			break;
 		case 'n':	// controltips
 			if ( ! LoadControlTips( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ControlTips") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ControlTips" );
 			break;
 		case 'p':	// commandMap, resourceMap, tipMap
 			if ( ! LoadResourceMap( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ResourceMap") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ResourceMap" );
 			break;
 		case 'l':	// listColumns
 			if ( ! LoadListColumns( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("ListColumns") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ListColumns" );
 			break;
 		case 'f':	// fonts
 			if ( ! LoadFonts( pSub, strPath ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Fonts") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Fonts" );
 			break;
 		case 'o':	// options
 			if ( ! LoadOptions( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("Options") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Options" );
 			break;
 		case 'v':	// navbar  (Deprecated Shareaza import only)
 			if ( ! LoadNavBar( pSub ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed section"), _T("NavBar (Deprecated)") );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"NavBar (Deprecated)" );
 			break;
 
 		case 'm':	// manifest
-			if ( pSub->GetAttributeValue( _T("type") ).CompareNoCase( _T("skin") ) == 0 )
+			if ( pSub->GetAttributeValue( L"type" ).CompareNoCase( L"skin" ) == 0 )
 			{
-				CString strSkinName = pSub->GetAttributeValue( _T("name"), _T("") );
+				CString strSkinName = pSub->GetAttributeValue( L"name", L"" );
 				theApp.Message( MSG_NOTICE, IDS_SKIN_LOAD, strSkinName );
 			}
-			else if ( pSub->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) == 0 )
+			else if ( pSub->GetAttributeValue( L"type" ).CompareNoCase( L"language" ) == 0 )
 			{
-				Settings.General.Language = pSub->GetAttributeValue( _T("language"), _T("en") );
-				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( _T("dir"), _T("ltr") ) == "rtl" );
-				Settings.General.LanguageDefault = Settings.General.Language.Left(2) == _T("en");
-				TRACE( _T("Loading language: %s\r\n"), Settings.General.Language );
-				TRACE( _T("RTL: %d\r\n"), Settings.General.LanguageRTL );
+				Settings.General.Language = pSub->GetAttributeValue( L"language", L"en" );
+				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( L"dir", L"ltr" ) == "rtl" );
+				Settings.General.LanguageDefault = Settings.General.Language.Left(2) == L"en";
+				TRACE( L"Loading language: %s\r\n", Settings.General.Language );
+				TRACE( L"RTL: %d\r\n", Settings.General.LanguageRTL );
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [type] attribute in [manifest] element"), pSub->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [type] attribute in [manifest] element", pSub->ToString() );
 			}
 			break;
 
 		default:
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in root [skin] element"), pSub->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in root [skin] element", pSub->ToString() );
 			continue;
 		}
 
@@ -531,7 +531,7 @@ BOOL CSkin::LoadString(CString& str, UINT nStringID) const
 	}
 
 #ifdef _DEBUG
-	theApp.Message( MSG_ERROR, _T("Failed to load string %d."), nStringID );
+	theApp.Message( MSG_ERROR, L"Failed to load string %d.", nStringID );
 #endif // _DEBUG
 
 	str.Empty();
@@ -544,17 +544,17 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("string") ) )
+		if ( pXML->IsNamed( L"string" ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				CString strValue = pXML->GetAttributeValue( _T("value") );
+				CString strValue = pXML->GetAttributeValue( L"value" );
 
 				for ( ;; )
 				{
-					int nPos = strValue.Find( _T("\\n") );
+					int nPos = strValue.Find( L"\\n" );
 					if ( nPos < 0 ) break;
-					strValue = strValue.Left( nPos ) + _T("\n") + strValue.Mid( nPos + 2 );
+					strValue = strValue.Left( nPos ) + L"\n" + strValue.Mid( nPos + 2 );
 				}
 
 				// Hack for I64 compliance
@@ -563,33 +563,33 @@ BOOL CSkin::LoadStrings(CXMLElement* pBase)
 					 nID == IDS_UPLOAD_CONTENT || nID == IDS_UPLOAD_PARTIAL_CONTENT ||
 					 nID == IDS_DOWNLOAD_VERIFY_DROP )
 				{
-					strValue.Replace( _T("%lu"), _T("%I64i") );
+					strValue.Replace( L"%lu", L"%I64i" );
 				}
 
 				m_pStrings.SetAt( nID, strValue );
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [string] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in [string] element", pXML->ToString() );
 			}
 		}
-		else if ( pXML->IsNamed( _T("tip") ) )
+		else if ( pXML->IsNamed( L"tip" ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				CString strMessage = pXML->GetAttributeValue( _T("message") );
-				CString strTip = pXML->GetAttributeValue( _T("tip") );
+				CString strMessage = pXML->GetAttributeValue( L"message" );
+				CString strTip = pXML->GetAttributeValue( L"tip" );
 				if ( ! strTip.IsEmpty() ) strMessage += '\n' + strTip;
 				m_pStrings.SetAt( nID, strMessage );
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [tip] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in [tip] element", pXML->ToString() );
 			}
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [strings] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [strings] element", pXML->ToString() );
 		}
 	}
 
@@ -606,16 +606,16 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( ! pXML->IsNamed( _T("option") ) )
+		if ( ! pXML->IsNamed( L"option" ) )
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in skin [Options]"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in skin [Options]", pXML->ToString() );
 			continue;		// Failed, but keep trying
 		}
 
-		const CString strName	= pXML->GetAttributeValue( _T("name") ).MakeLower();
-		const CString strValue	= pXML->GetAttributeValue( _T("value") ).MakeLower();
-		const CString strHeight	= pXML->GetAttributeValue( _T("height") );
-		const CString strWidth	= pXML->GetAttributeValue( _T("width") );
+		const CString strName	= pXML->GetAttributeValue( L"name" ).MakeLower();
+		const CString strValue	= pXML->GetAttributeValue( L"value" ).MakeLower();
+		const CString strHeight	= pXML->GetAttributeValue( L"height" );
+		const CString strWidth	= pXML->GetAttributeValue( L"width" );
 
 		// Skin Options:
 		SwitchMap( Text )
@@ -662,20 +662,20 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 		{
 		case 'n':	// "Navbar"
 			if ( ! LoadNavBar( pXML ) )
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Skin Option [Navbar] Failed"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Skin Option [Navbar] Failed", pXML->ToString() );
 			break;
 		case 'd':	// "DropMenu" or "SubMenu"
-			if ( strValue == _T("true") )
+			if ( strValue == L"true" )
 				Settings.Skin.DropMenu = true;
-			else if ( strValue == _T("false") )
+			else if ( strValue == L"false" )
 				Settings.Skin.DropMenu = false;
-			else if ( strValue == _T("on") )
+			else if ( strValue == L"on" )
 				Settings.Skin.DropMenu = true;
-			else if ( strValue == _T("off") )
+			else if ( strValue == L"off" )
 				Settings.Skin.DropMenu = false;
-			else if ( strValue == _T("1") )
+			else if ( strValue == L"1" )
 				Settings.Skin.DropMenu = true;
-			else if ( strValue == _T("0") )
+			else if ( strValue == L"0" )
 				Settings.Skin.DropMenu = false;
 			else if ( ! strValue.IsEmpty() && strValue.GetLength() < 3 )
 				Settings.Skin.DropMenuLabel = _wtoi(strValue);
@@ -687,45 +687,45 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				Settings.Skin.DropMenu = true;
 			break;
 		case 'b':	// "MenuBorders" or "MenubarBevel"
-			if ( strValue == _T("true") )
+			if ( strValue == L"true" )
 				Settings.Skin.MenuBorders = true;
-			else if ( strValue == _T("false") )
+			else if ( strValue == L"false" )
 				Settings.Skin.MenuBorders = false;
-			else if ( strValue == _T("on") )
+			else if ( strValue == L"on" )
 				Settings.Skin.MenuBorders = true;
-			else if ( strValue == _T("off") )
+			else if ( strValue == L"off" )
 				Settings.Skin.MenuBorders = false;
-			else if ( strValue == _T("1") )
+			else if ( strValue == L"1" )
 				Settings.Skin.MenuBorders = true;
-			else if ( strValue == _T("0") )
+			else if ( strValue == L"0" )
 				Settings.Skin.MenuBorders = false;
 			break;
 		case 'p':	// "MenuGripper" or "Grippers"
-			if ( strValue == _T("true") )
+			if ( strValue == L"true" )
 				Settings.Skin.MenuGripper = true;
-			else if ( strValue == _T("false") )
+			else if ( strValue == L"false" )
 				Settings.Skin.MenuGripper = false;
-			else if ( strValue == _T("on") )
+			else if ( strValue == L"on" )
 				Settings.Skin.MenuGripper = true;
-			else if ( strValue == _T("off") )
+			else if ( strValue == L"off" )
 				Settings.Skin.MenuGripper = false;
-			else if ( strValue == _T("1") )
+			else if ( strValue == L"1" )
 				Settings.Skin.MenuGripper = true;
-			else if ( strValue == _T("0") )
+			else if ( strValue == L"0" )
 				Settings.Skin.MenuGripper = false;
 			break;
 		case 'c':	// "RoundedSelect" or "HighlightChamfer"
-			if ( strValue == _T("true") )
+			if ( strValue == L"true" )
 				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == _T("false") )
+			else if ( strValue == L"false" )
 				Settings.Skin.RoundedSelect = false;
-			else if ( strValue == _T("on") )
+			else if ( strValue == L"on" )
 				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == _T("off") )
+			else if ( strValue == L"off" )
 				Settings.Skin.RoundedSelect = false;
-			else if ( strValue == _T("1") )
+			else if ( strValue == L"1" )
 				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == _T("0") )
+			else if ( strValue == L"0" )
 				Settings.Skin.RoundedSelect = false;
 			break;
 		case 'm':	// "Menubar" or "Menubars"
@@ -834,12 +834,12 @@ BOOL CSkin::LoadControlTips(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("tip") ) )
+		if ( pXML->IsNamed( L"tip" ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				CString strMessage = pXML->GetAttributeValue( _T("message") );
-				strMessage.Replace( _T("{n}"), _T("\r\n") );
+				CString strMessage = pXML->GetAttributeValue( L"message" );
+				strMessage.Replace( L"{n}", L"\r\n" );
 				m_pControlTips.SetAt( nID, strMessage );
 			}
 		}
@@ -874,14 +874,14 @@ BOOL CSkin::LoadMenus(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( pXML->IsNamed( _T("menu") ) )
+		if ( pXML->IsNamed( L"menu" ) )
 		{
 			if ( ! LoadMenu( pXML ) )
 				return FALSE;
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [menu] element", pXML->ToString() );
 		}
 	}
 
@@ -890,10 +890,10 @@ BOOL CSkin::LoadMenus(CXMLElement* pBase)
 
 BOOL CSkin::LoadMenu(CXMLElement* pXML)
 {
-	CString strName = pXML->GetAttributeValue( _T("name") );
+	CString strName = pXML->GetAttributeValue( L"name" );
 	if ( strName.IsEmpty() )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("No [name] attribute in [menu] element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"No [name] attribute in [menu] element", pXML->ToString() );
 		return FALSE;
 	}
 
@@ -910,17 +910,17 @@ BOOL CSkin::LoadMenu(CXMLElement* pXML)
 	if ( ! pMenu.get() )
 		return FALSE;
 
-	if ( pXML->GetAttributeValue( _T("type"), _T("popup") ).CompareNoCase( _T("bar") ) == 0 )
+	if ( pXML->GetAttributeValue( L"type", L"popup" ).CompareNoCase( L"bar" ) == 0 )
 	{
 		if ( ! pMenu->CreateMenu() )
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create menu"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Cannot create menu", pXML->ToString() );
 			return FALSE;
 		}
 	}
 	else if ( ! pMenu->CreatePopupMenu() )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Cannot create popup menu"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Cannot create popup menu", pXML->ToString() );
 		return FALSE;
 	}
 
@@ -952,16 +952,16 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML	= pRoot->GetNextElement( pos );
-		CString strText		= pXML->GetAttributeValue( _T("text") );
+		CString strText		= pXML->GetAttributeValue( L"text" );
 
 		int nAmp = strText.Find( '_' );
 		if ( nAmp >= 0 ) strText.SetAt( nAmp, '&' );
 
-		if ( pXML->IsNamed( _T("item") ) )
+		if ( pXML->IsNamed( L"item" ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				CString strKeys = pXML->GetAttributeValue( _T("shortcut") );
+				CString strKeys = pXML->GetAttributeValue( L"shortcut" );
 
 				if ( ! strKeys.IsEmpty() ) strText += '\t' + strKeys;
 
@@ -969,10 +969,10 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in menu [item] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in menu [item] element", pXML->ToString() );
 			}
 		}
-		else if ( pXML->IsNamed( _T("menu") ) )
+		else if ( pXML->IsNamed( L"menu" ) )
 		{
 			HMENU hSubMenu = ::CreatePopupMenu();
 			ASSERT( hSubMenu );
@@ -984,13 +984,13 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 
 			VERIFY( AppendMenu( hMenu, MF_STRING|MF_POPUP, (UINT_PTR)hSubMenu, strText ) );
 		}
-		else if ( pXML->IsNamed( _T("separator") ) )
+		else if ( pXML->IsNamed( L"separator" ) )
 		{
 			VERIFY( AppendMenu( hMenu, MF_SEPARATOR, ID_SEPARATOR, NULL ) );
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [menu] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [menu] element", pXML->ToString() );
 		}
 	}
 
@@ -1002,20 +1002,20 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 
 BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 {
-	CString strValue = pBase->GetAttributeValue( _T("offset") );
+	CString strValue = pBase->GetAttributeValue( L"offset" );
 	if ( ! strValue.IsEmpty() )
 	{
-		if ( _stscanf( strValue, _T("%i,%i"), &m_ptNavBarOffset.x, &m_ptNavBarOffset.y ) != 2 )
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [offset] attribute in [navbar] element"), pBase->ToString() );
+		if ( _stscanf( strValue, L"%i,%i", &m_ptNavBarOffset.x, &m_ptNavBarOffset.y ) != 2 )
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [offset] attribute in [navbar] element", pBase->ToString() );
 	}
 
-	strValue = pBase->GetAttributeValue( _T("mode") );
+	strValue = pBase->GetAttributeValue( L"mode" );
 	if ( strValue.IsEmpty() )
-		strValue = pBase->GetAttributeValue( _T("case") );
+		strValue = pBase->GetAttributeValue( L"case" );
 
-	if ( strValue.CompareNoCase( _T("upper") ) == 0 )
+	if ( strValue.CompareNoCase( L"upper" ) == 0 )
 		m_NavBarMode = NavBarUpper;
-	else if ( strValue.CompareNoCase( _T("lower") ) == 0 )
+	else if ( strValue.CompareNoCase( L"lower" ) == 0 )
 		m_NavBarMode = NavBarLower;
 	else
 		m_NavBarMode = NavBarNormal;
@@ -1051,13 +1051,13 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 		CString strName( strClassName + pszModeSuffix[ nModeTry ] );
 		if ( m_pToolbars.Lookup( strName, pBase ) )
 		{
-		//	if ( strName.Left( 10 ) == _T("CSearchWnd") )
+		//	if ( strName.Left( 10 ) == L"CSearchWnd" )
 		//		continue; 	// Crash Workaround?
-			if ( HBITMAP hBitmap = GetWatermark( strName + _T(".Toolbar") ) )
+			if ( HBITMAP hBitmap = GetWatermark( strName + L".Toolbar" ) )
 				pBar->SetWatermark( hBitmap );
-			else if ( HBITMAP hBitmap = GetWatermark( strClassName + _T(".Toolbar") ) )
+			else if ( HBITMAP hBitmap = GetWatermark( strClassName + L".Toolbar" ) )
 				pBar->SetWatermark( hBitmap );
-			else if ( HBITMAP hBitmap = GetWatermark( _T("System.Toolbars") ) )		// ToDo: Images.m_bmToolbar
+			else if ( HBITMAP hBitmap = GetWatermark( L"System.Toolbars" ) )		// ToDo: Images.m_bmToolbar
 				pBar->SetWatermark( hBitmap );
 
 			pBar->Copy( pBase );
@@ -1097,14 +1097,14 @@ BOOL CSkin::LoadToolbars(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("toolbar") ) )
+		if ( pXML->IsNamed( L"toolbar" ) )
 		{
 			if ( ! CreateToolBar( pXML ) )
 				return FALSE;
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbars] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [toolbars] element", pXML->ToString() );
 		}
 	}
 
@@ -1132,21 +1132,21 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("button") ) )
+		if ( pXML->IsNamed( L"button" ) )
 		{
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				CCoolBarItem* pItem = pBar->Add( nID, pXML->GetAttributeValue( _T("text") ) );
-				CString strTemp = pXML->GetAttributeValue( _T("color") );
+				CCoolBarItem* pItem = pBar->Add( nID, pXML->GetAttributeValue( L"text" ) );
+				CString strTemp = pXML->GetAttributeValue( L"color" );
 				if ( ! strTemp )
-					strTemp = pXML->GetAttributeValue( _T("colour") );
+					strTemp = pXML->GetAttributeValue( L"colour" );
 
 				if ( strTemp.GetLength() == 6 )
 				{
 					int nRed, nGreen, nBlue;
-					_stscanf( strTemp.Mid( 0, 2 ), _T("%x"), &nRed );
-					_stscanf( strTemp.Mid( 2, 2 ), _T("%x"), &nGreen );
-					_stscanf( strTemp.Mid( 4, 2 ), _T("%x"), &nBlue );
+					_stscanf( strTemp.Mid( 0, 2 ), L"%x", &nRed );
+					_stscanf( strTemp.Mid( 2, 2 ), L"%x", &nGreen );
+					_stscanf( strTemp.Mid( 4, 2 ), L"%x", &nBlue );
 					pItem->m_crText = RGB( nRed, nGreen, nBlue );
 				}
 
@@ -1160,18 +1160,18 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [button] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in [button] element", pXML->ToString() );
 			}
 		}
-		else if ( pXML->IsNamed( _T("separator") ) )
+		else if ( pXML->IsNamed( L"separator" ) )
 		{
 			pBar->Add( ID_SEPARATOR );
 		}
-		else if ( pXML->IsNamed( _T("rightalign") ) )
+		else if ( pXML->IsNamed( L"rightalign" ) )
 		{
 			pBar->Add( UINT( ID_RIGHTALIGN ) );
 		}
-		else if ( pXML->IsNamed( _T("control") ) )
+		else if ( pXML->IsNamed( L"control" ) )
 		{
 			UINT nWidth, nHeight = 0;
 			CString strTemp;
@@ -1179,13 +1179,13 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 			UINT nID = LookupCommandID( pXML );
 			if ( nID )
 			{
-				strTemp = pXML->GetAttributeValue( _T("width") );
+				strTemp = pXML->GetAttributeValue( L"width" );
 				CCoolBarItem* pItem = NULL;
 
-				if ( _stscanf( strTemp, _T("%lu"), &nWidth ) == 1 )
+				if ( _stscanf( strTemp, L"%lu", &nWidth ) == 1 )
 				{
-					strTemp = pXML->GetAttributeValue( _T("height") );
-					_stscanf( strTemp, _T("%lu"), &nHeight );
+					strTemp = pXML->GetAttributeValue( L"height" );
+					_stscanf( strTemp, L"%lu", &nHeight );
 					pItem = pBar->Add( nID, nWidth, nHeight );
 				}
 
@@ -1199,28 +1199,28 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 						pItem->m_bEnabled = FALSE;
 					}
 
-					strTemp = pXML->GetAttributeValue( _T("text") );
+					strTemp = pXML->GetAttributeValue( L"text" );
 					pItem->SetText( strTemp );
 				}
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [control] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in [control] element", pXML->ToString() );
 			}
 		}
-		else if ( pXML->IsNamed( _T("label") ) )
+		else if ( pXML->IsNamed( L"label" ) )
 		{
-			CCoolBarItem* pItem = pBar->Add( 1, pXML->GetAttributeValue( _T("text") ) );
+			CCoolBarItem* pItem = pBar->Add( 1, pXML->GetAttributeValue( L"text" ) );
 			pItem->m_crText = 0;
-			pItem->SetTip( pXML->GetAttributeValue( _T("tip") ) );
+			pItem->SetTip( pXML->GetAttributeValue( L"tip" ) );
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [toolbar] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [toolbar] element", pXML->ToString() );
 		}
 	}
 
-	CString strName = pBase->GetAttributeValue( _T("name") );
+	CString strName = pBase->GetAttributeValue( L"name" );
 
 	CCoolBarCtrl* pOld = NULL;
 	if ( m_pToolbars.Lookup( strName, pOld ) && pOld ) delete pOld;
@@ -1239,9 +1239,9 @@ BOOL CSkin::LoadDocuments(CXMLElement* pBase)
 	{
 		CXMLElement* pDoc = pBase->GetNextElement( posDoc );
 
-		if ( pDoc->IsNamed( _T("document") ) )
+		if ( pDoc->IsNamed( L"document" ) )
 		{
-			CString strName = pDoc->GetAttributeValue( _T("name") );
+			CString strName = pDoc->GetAttributeValue( L"name" );
 
 			CXMLElement* pOld = NULL;
 			if ( m_pDocuments.Lookup( strName, pOld ) ) delete pOld;
@@ -1250,7 +1250,7 @@ BOOL CSkin::LoadDocuments(CXMLElement* pBase)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [documents] element"), pDoc->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [documents] element", pDoc->ToString() );
 		}
 	}
 
@@ -1281,7 +1281,7 @@ HBITMAP CSkin::GetWatermark(LPCTSTR pszName)
 		if ( HBITMAP hBitmap = LoadBitmap( strPath ) )
 			return hBitmap;
 
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load watermark"), CString( pszName ) + _T(". File: ") + strPath );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to load watermark", CString( pszName ) + L". File: " + strPath );
 	}
 	return NULL;
 }
@@ -1301,10 +1301,10 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 	{
 		CXMLElement* pMark = pSub->GetNextElement( posMark );
 
-		if ( pMark->IsNamed( _T("watermark") ) || pMark->IsNamed( _T("image") ) )
+		if ( pMark->IsNamed( L"watermark" ) || pMark->IsNamed( L"image" ) )
 		{
-			CString strName = pMark->GetAttributeValue( _T("target") );
-			CString strFile = pMark->GetAttributeValue( _T("path") );
+			CString strName = pMark->GetAttributeValue( L"target" );
+			CString strFile = pMark->GetAttributeValue( L"path" );
 
 			if ( ! strName.IsEmpty() )
 			{
@@ -1314,12 +1314,12 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Missing [target] attribute in [watermark] element"), pMark->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Missing [target] attribute in [watermark] element", pMark->ToString() );
 			}
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [watermarks] element"), pMark->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [watermarks] element", pMark->ToString() );
 		}
 	}
 
@@ -1330,37 +1330,37 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 // Obsolete: Moved to Images
 
 //	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
-//	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight") ) )
+//	if ( HBITMAP hSelected = GetWatermark( L"System.Highlight" ) )
 //		m_bmSelected.Attach( hSelected );
-//	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected") ) )
+//	else if ( HBITMAP hSelected = GetWatermark( L"CTransfers.Selected" ) )
 //		m_bmSelected.Attach( hSelected );
 //
 //	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
-//	if ( HBITMAP hSelected = GetWatermark( _T("System.Highlight.Inactive") ) )
+//	if ( HBITMAP hSelected = GetWatermark( L"System.Highlight.Inactive" ) )
 //		m_bmSelectedGrey.Attach( hSelected );
-//	else if ( HBITMAP hSelected = GetWatermark( _T("CTransfers.Selected.Inactive") ) )
+//	else if ( HBITMAP hSelected = GetWatermark( L"CTransfers.Selected.Inactive" ) )
 //		m_bmSelectedGrey.Attach( hSelected );
 //
 //	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
-//	if ( HBITMAP hToolTip = GetWatermark( _T("System.ToolTip") ) )
+//	if ( HBITMAP hToolTip = GetWatermark( L"System.ToolTip" ) )
 //		m_bmToolTip.Attach( hToolTip );
-//	else if ( HBITMAP hToolTip = GetWatermark( _T("System.Tooltips") ) )
+//	else if ( HBITMAP hToolTip = GetWatermark( L"System.Tooltips" ) )
 //		m_bmToolTip.Attach( hToolTip );
 //
 //	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
-//	if ( HBITMAP hDialog = GetWatermark( _T("System.Dialogs") ) )
+//	if ( HBITMAP hDialog = GetWatermark( L"System.Dialogs" ) )
 //		m_bmDialog.Attach( hDialog );
-//	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog") ) )
+//	else if ( HBITMAP hDialog = GetWatermark( L"CDialog" ) )
 //		m_bmDialog.Attach( hDialog );
 //
 //	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
-//	if ( HBITMAP hDialog = GetWatermark( _T("System.DialogPanels") ) )
+//	if ( HBITMAP hDialog = GetWatermark( L"System.DialogPanels" ) )
 //		m_bmDialogPanel.Attach( hDialog );
-//	else if ( HBITMAP hDialog = GetWatermark( _T("CDialog.Panel") ) )
+//	else if ( HBITMAP hDialog = GetWatermark( L"CDialog.Panel" ) )
 //		m_bmDialogPanel.Attach( hDialog );
 //
 //	if ( m_bmPanelMark.m_hObject != NULL ) m_bmPanelMark.DeleteObject();
-//	if ( HBITMAP hPanelMark = GetWatermark( _T("CPanelWnd.Caption") ) )
+//	if ( HBITMAP hPanelMark = GetWatermark( L"CPanelWnd.Caption" ) )
 //		m_bmPanelMark.Attach( hPanelMark );
 //	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
 //		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Default resource handling
@@ -1381,13 +1381,13 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 //		Images.m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
 //
 //	if ( Images.m_brMediaSlider.m_hObject ) Images.m_brMediaSlider.DeleteObject();
-//	if ( HBITMAP hSlider = GetWatermark( _T("CCoolbar.Control") ) )
+//	if ( HBITMAP hSlider = GetWatermark( L"CCoolbar.Control" ) )
 //	{
 //		CBitmap bmSlider;
 //		bmSlider.Attach( hSlider );
 //		Images.m_brMediaSlider.CreatePatternBrush( &bmSlider );
 //	}
-//	else if ( HBITMAP hSlider = GetWatermark( _T("CMediaFrame.Slider") ) )
+//	else if ( HBITMAP hSlider = GetWatermark( L"CMediaFrame.Slider" ) )
 //	{
 //		CBitmap bmSlider;
 //		bmSlider.Attach( hSlider );
@@ -1400,7 +1400,7 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 
 //	m_nBanner = 0;	// Defined in Images
 //	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
-//	if ( HBITMAP hBanner = GetWatermark( _T("System.Header") ) )
+//	if ( HBITMAP hBanner = GetWatermark( L"System.Header" ) )
 //	{
 //		BITMAP bmInfo;
 //		m_bmBanner.Attach( hBanner );
@@ -1408,7 +1408,7 @@ BOOL CSkin::LoadWatermarks(CXMLElement* pSub, const CString& strPath)
 //		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 //		m_nBanner = bmInfo.bmHeight;
 //	}
-//	else if ( HBITMAP hBanner = GetWatermark( _T("Banner") ) )
+//	else if ( HBITMAP hBanner = GetWatermark( L"Banner" ) )
 //	{
 //		BITMAP bmInfo;
 //		m_bmBanner.Attach( hBanner );
@@ -1443,10 +1443,10 @@ BOOL CSkin::Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl)
 
 	for ( int nItem = 0 ; nItem < pCtrl->GetItemCount() ; nItem++ )
 	{
-		*szColumn = _T('\0');
+		*szColumn = L'\0';
 		pCtrl->GetItem( nItem, &pColumn );
 
-		_tcscat( szColumn, _T("=") );
+		_tcscat( szColumn, L"=" );
 
 		LPCTSTR pszFind = _tcsistr( strEdit, szColumn );
 
@@ -1455,7 +1455,7 @@ BOOL CSkin::Translate(LPCTSTR pszName, CHeaderCtrl* pCtrl)
 			pszFind += _tcslen( szColumn );
 
 			CString strNew = pszFind;
-			strNew = strNew.SpanExcluding( _T("|") );
+			strNew = strNew.SpanExcluding( L"|" );
 
 			_tcsncpy( szColumn, strNew, _countof( szColumn ) );
 			pCtrl->SetItem( nItem, &pColumn );
@@ -1479,7 +1479,7 @@ CString CSkin::GetHeaderTranslation(LPCTSTR pszClassName, LPCTSTR pszHeaderName)
 	{
 		pszFind += strOriginal.GetLength();
 		CString strNew = pszFind;
-		strNew = strNew.SpanExcluding( _T("|") );
+		strNew = strNew.SpanExcluding( L"|" );
 		return strNew;
 	}
 	return CString( pszHeaderName );
@@ -1491,19 +1491,19 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("list") ) )
+		if ( pXML->IsNamed( L"list" ) )
 		{
-			CString strName = pXML->GetAttributeValue( _T("name") );
+			CString strName = pXML->GetAttributeValue( L"name" );
 			if ( strName.IsEmpty() ) continue;
 
 			CString strEdit;
 			for ( POSITION posCol = pXML->GetElementIterator() ; posCol ; )
 			{
 				CXMLElement* pCol = pXML->GetNextElement( posCol );
-				if ( pCol->IsNamed( _T("column") ) )
+				if ( pCol->IsNamed( L"column" ) )
 				{
-					CString strFrom	= pCol->GetAttributeValue( _T("from") );
-					CString strTo	= pCol->GetAttributeValue( _T("to") );
+					CString strFrom	= pCol->GetAttributeValue( L"from" );
+					CString strTo	= pCol->GetAttributeValue( L"to" );
 
 					if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
 
@@ -1514,7 +1514,7 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 				}
 				else
 				{
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [list] element"), pCol->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [list] element", pCol->ToString() );
 				}
 			}
 
@@ -1522,7 +1522,7 @@ BOOL CSkin::LoadListColumns(CXMLElement* pBase)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [listColumns] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [listColumns] element", pXML->ToString() );
 		}
 	}
 
@@ -1553,14 +1553,14 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 	CString strCookie = GetDialogCookie( pDialog, pWndTooltips );	// Also parses default tips
 
-	if ( strCookie != pBase->GetAttributeValue( _T("cookie") ) )
+	if ( strCookie != pBase->GetAttributeValue( L"cookie" ) )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Invalid [cookie] attribute in [dialog] element, use: ") + strCookie, pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Invalid [cookie] attribute in [dialog] element, use: " + strCookie, pBase->ToString() );
 		return FALSE;
 	}
 
 	CString strTip;
-	CString strCaption = pBase->GetAttributeValue( _T("caption") );
+	CString strCaption = pBase->GetAttributeValue( L"caption" );
 	if ( ! strCaption.IsEmpty() ) pDialog->SetWindowText( strCaption );
 
 	CWnd* pWnd = pDialog->GetWindow( GW_CHILD );
@@ -1573,7 +1573,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
 
 		// Skip added banner
-		if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
+		if ( _tcsnicmp( szClass, L"St", 3 ) == 0 &&
 			IDC_BANNER == pWnd->GetDlgCtrlID() )
 		{
 			pWnd = pWnd->GetNextWindow();
@@ -1585,7 +1585,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 		if ( Settings.General.LanguageRTL && (CString)szClass != "Ed" )
 			pWnd->ModifyStyleEx( 0, WS_EX_LAYOUTRTL|WS_EX_RTLREADING, 0 );
 
-		if ( pXML->IsNamed( _T("control") ) )
+		if ( pXML->IsNamed( L"control" ) )
 		{
 			if ( pWndTooltips )
 			{
@@ -1594,10 +1594,10 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					pWndTooltips->AddTool( pWnd, strTip );
 			}
 
-			strCaption = pXML->GetAttributeValue( _T("caption") );
+			strCaption = pXML->GetAttributeValue( L"caption" );
 			if ( ! strCaption.IsEmpty() )
 			{
-				strCaption.Replace( _T("{n}"), _T("\r\n") );
+				strCaption.Replace( L"{n}", L"\r\n" );
 
 				if ( (CString)szClass != "Co" )
 				{
@@ -1611,7 +1611,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 					int nNum = pCombo->GetCount();
 
 					CStringArray pItems;
-					Split( strCaption, _T('|'), pItems, TRUE );
+					Split( strCaption, L'|', pItems, TRUE );
 
 					if ( nNum == pItems.GetSize() )
 					{
@@ -1637,10 +1637,10 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 {
 	CStdioFile pFile;
 
-	if ( pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeReadWrite ) )
+	if ( pFile.Open( Settings.General.Path + L"\\Dialogs.xml", CFile::modeReadWrite ) )
 		pFile.Seek( 0, CFile::end );
-	else if ( pFile.Open( Settings.General.Path + _T("\\Dialogs.xml"), CFile::modeWrite|CFile::modeCreate ) )
-		pFile.WriteString( _T("<dialogs>\r\n") );
+	else if ( pFile.Open( Settings.General.Path + L"\\Dialogs.xml", CFile::modeWrite|CFile::modeCreate ) )
+		pFile.WriteString( L"<dialogs>\r\n" );
 	else
 		return FALSE;
 
@@ -1657,21 +1657,21 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 
 	CString strCaption, strTip;
 	pDialog->GetWindowText( strCaption );
-	strCaption.Replace( _T("\n"), _T("{n}") );
-	strCaption.Replace( _T("\r"), _T("") );
-	strCaption.Replace( _T("&"), _T("_") );
+	strCaption.Replace( L"\n", L"{n}" );
+	strCaption.Replace( L"\r", L"" );
+	strCaption.Replace( L"&", L"_" );
 	strCaption = Escape( strCaption );
 
-	pFile.WriteString( _T("\t<dialog name=\"") );
+	pFile.WriteString( L"\t<dialog name=\"" );
 	pFile.WriteString( sName );
 
-	pFile.WriteString( _T("\" cookie=\"") );
+	pFile.WriteString( L"\" cookie=\"" );
 	pFile.WriteString( GetDialogCookie( pDialog ) );
 
-	pFile.WriteString( _T("\" caption=\"") );
+	pFile.WriteString( L"\" caption=\"" );
 	pFile.WriteString( strCaption );
 
-	pFile.WriteString( _T("\">\r\n") );
+	pFile.WriteString( L"\">\r\n" );
 
 	for ( CWnd* pWnd = pDialog->GetWindow( GW_CHILD ) ; pWnd ; pWnd = pWnd->GetNextWindow() )
 	{
@@ -1679,7 +1679,7 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 64 );
 
 		// Skip added banner
-		if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
+		if ( _tcsnicmp( szClass, L"St", 3 ) == 0 &&
 			 pWnd->GetDlgCtrlID() == IDC_BANNER )
 			continue;
 
@@ -1687,12 +1687,12 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 		strTip.Empty();
 		LoadControlTip( strTip, pWnd->GetDlgCtrlID() );
 
-		if ( _tcsistr( szClass, _T("Static") ) ||
-			 _tcsistr( szClass, _T("Button") ) )
+		if ( _tcsistr( szClass, L"Static" ) ||
+			 _tcsistr( szClass, L"Button" ) )
 		{
 			pWnd->GetWindowText( strCaption );
 		}
-		else if ( _tcsistr( szClass, _T("ListBox") ) )
+		else if ( _tcsistr( szClass, L"ListBox" ) )
 		{
 			CListBox* pListBox = static_cast< CListBox* >( pWnd );
 			for ( int i = 0 ; i < pListBox->GetCount() ; ++i )
@@ -1700,11 +1700,11 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 				CString strTemp;
 				pListBox->GetText( i, strTemp );
 				if ( ! strCaption.IsEmpty() )
-					strCaption += _T('|');
+					strCaption += L'|';
 				strCaption += strTemp;
 			}
 		}
-		else if ( _tcsistr( szClass, _T("ComboBox") ) )
+		else if ( _tcsistr( szClass, L"ComboBox" ) )
 		{
 			CComboBox* pComboBox = static_cast< CComboBox* >( pWnd );
 			for ( int i = 0 ; i < pComboBox->GetCount() ; ++i )
@@ -1712,37 +1712,37 @@ BOOL CSkin::Dialogscan(CDialog* pDialog, CString sName /*=""*/)
 				CString strTemp;
 				pComboBox->GetLBText( i, strTemp );
 				if ( ! strCaption.IsEmpty() )
-					strCaption += _T('|');
+					strCaption += L'|';
 				strCaption += strTemp;
 			}
 		}
 
-		pFile.WriteString( _T("\t\t<control") );
+		pFile.WriteString( L"\t\t<control" );
 
 		if ( ! strCaption.IsEmpty() )
 		{
-			strCaption.Replace( _T("\n"), _T("{n}") );
-			strCaption.Replace( _T("\r"), _T("") );
-			strCaption.Replace( _T("&"), _T("_") );
+			strCaption.Replace( L"\n", L"{n}" );
+			strCaption.Replace( L"\r", L"" );
+			strCaption.Replace( L"&", L"_" );
 			strCaption = Escape( strCaption );
-			pFile.WriteString( _T(" caption=\"") );
+			pFile.WriteString( L" caption=\"" );
 			pFile.WriteString( strCaption );
-			pFile.WriteString( _T("\"") );
+			pFile.WriteString( L"\"" );
 		}
 
 		if ( ! strTip.IsEmpty() )
 		{
-			strTip.Replace( _T("\n"), _T("{n}") );
-			strTip.Replace( _T("\r"), _T("") );
-			pFile.WriteString( _T(" tip=\"") );
+			strTip.Replace( L"\n", L"{n}" );
+			strTip.Replace( L"\r", L"" );
+			pFile.WriteString( L" tip=\"" );
 			pFile.WriteString( strTip );
-			pFile.WriteString( _T("\"") );
+			pFile.WriteString( L"\"" );
 		}
 
-		pFile.WriteString( _T("/>\r\n") );
+		pFile.WriteString( L"/>\r\n" );
 	}
 
-	pFile.WriteString( _T("\t</dialog>\r\n") );
+	pFile.WriteString( L"\t</dialog>\r\n" );
 	//pFile.Close();
 
 	return TRUE;
@@ -1767,7 +1767,7 @@ CString CSkin::GetDialogCookie(CDialog* pDialog, CToolTipCtrl* pWndTooltips /*=N
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 3 );
 
 		// Skip added banner
-		if ( _tcsnicmp( szClass, _T("St"), 3 ) == 0 &&
+		if ( _tcsnicmp( szClass, L"St", 3 ) == 0 &&
 			 pWnd->GetDlgCtrlID() == IDC_BANNER )
 			continue;
 
@@ -1789,7 +1789,7 @@ CString CSkin::GetDialogCaption(LPCTSTR pszName)
 	CString strCaption;
 
 	if ( m_pDialogs.Lookup( pszName, pBase ) )
-		strCaption = pBase->GetAttributeValue( _T("caption") );
+		strCaption = pBase->GetAttributeValue( L"caption" );
 
 	return strCaption;
 }
@@ -1800,9 +1800,9 @@ BOOL CSkin::LoadDialogs(CXMLElement* pBase)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("dialog") ) )
+		if ( pXML->IsNamed( L"dialog" ) )
 		{
-			CString strName = pXML->GetAttributeValue( _T("name") );
+			CString strName = pXML->GetAttributeValue( L"name" );
 			CXMLElement* pOld;
 
 			if ( m_pDialogs.Lookup( strName, pOld ) ) delete pOld;
@@ -1812,7 +1812,7 @@ BOOL CSkin::LoadDialogs(CXMLElement* pBase)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [dialogs] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [dialogs] element", pXML->ToString() );
 		}
 	}
 
@@ -1827,7 +1827,7 @@ CSkinWindow* CSkin::GetWindowSkin(LPCTSTR pszWindow, LPCTSTR pszAppend)
 	//CQuickLock oLock( m_pSection );
 
 	CString strWindow;
-	strWindow.Format( _T("|%s%s|"), pszWindow, pszAppend ? pszAppend : _T("") );
+	strWindow.Format( L"|%s%s|", pszWindow, pszAppend ? pszAppend : L"" );
 
 	for ( POSITION pos = m_pSkins.GetHeadPosition() ; pos ; )
 	{
@@ -1864,7 +1864,7 @@ CSkinWindow* CSkin::GetWindowSkin(CWnd* pWnd)
 
 		if ( bPanel )
 		{
-			CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)strClassName, _T(".Panel") );
+			CSkinWindow* pSkin = GetWindowSkin( (LPCTSTR)strClassName, L".Panel" );
 			if ( pSkin != NULL ) return pSkin;
 		}
 
@@ -1887,7 +1887,7 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 	{
 		CXMLElement* pSkinElement = pSub->GetNextElement( posSkin );
 
-		if ( pSkinElement->IsNamed( _T("windowSkin") ) || pSkinElement->IsNamed( _T("window") ) )
+		if ( pSkinElement->IsNamed( L"windowSkin" ) || pSkinElement->IsNamed( L"window" ) )
 		{
 			CSkinWindow* pSkin = new CSkinWindow();
 
@@ -1898,7 +1898,7 @@ BOOL CSkin::LoadWindowSkins(CXMLElement* pSub, const CString& strPath)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [windowSkins] element"), pSkinElement->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [windowSkins] element", pSkinElement->ToString() );
 		}
 	}
 
@@ -1912,249 +1912,249 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 {
 	CMapStringToPtr pColors;
 
-	pColors.SetAt( _T("system.base.window"), &Colors.m_crWindow );
-	pColors.SetAt( _T("system.base.midtone"), &Colors.m_crMidtone );
-	pColors.SetAt( _T("system.base.text"), &Colors.m_crText );
-	pColors.SetAt( _T("system.base.hitext"), &Colors.m_crHiText );
-	pColors.SetAt( _T("system.base.hiborder"), &Colors.m_crHiBorder );
-	pColors.SetAt( _T("system.base.hiborderin"), &Colors.m_crHiBorderIn );
-	pColors.SetAt( _T("system.base.highlight"), &Colors.m_crHighlight );
-	pColors.SetAt( _T("system.back.normal"), &Colors.m_crBackNormal );
-	pColors.SetAt( _T("system.back.selected"), &Colors.m_crBackSel );
-	pColors.SetAt( _T("system.back.checked"), &Colors.m_crBackCheck );
-	pColors.SetAt( _T("system.back.checked.selected"), &Colors.m_crBackCheckSel );
-	pColors.SetAt( _T("system.margin"), &Colors.m_crMargin );
-	pColors.SetAt( _T("system.border"), &Colors.m_crBorder );
-	pColors.SetAt( _T("system.shadow"), &Colors.m_crShadow );
-	pColors.SetAt( _T("system.text"), &Colors.m_crCmdText );
-	pColors.SetAt( _T("system.text.selected"), &Colors.m_crCmdTextSel );
-	pColors.SetAt( _T("system.disabled"), &Colors.m_crDisabled );
+	pColors.SetAt( L"system.base.window", &Colors.m_crWindow );
+	pColors.SetAt( L"system.base.midtone", &Colors.m_crMidtone );
+	pColors.SetAt( L"system.base.text", &Colors.m_crText );
+	pColors.SetAt( L"system.base.hitext", &Colors.m_crHiText );
+	pColors.SetAt( L"system.base.hiborder", &Colors.m_crHiBorder );
+	pColors.SetAt( L"system.base.hiborderin", &Colors.m_crHiBorderIn );
+	pColors.SetAt( L"system.base.highlight", &Colors.m_crHighlight );
+	pColors.SetAt( L"system.back.normal", &Colors.m_crBackNormal );
+	pColors.SetAt( L"system.back.selected", &Colors.m_crBackSel );
+	pColors.SetAt( L"system.back.checked", &Colors.m_crBackCheck );
+	pColors.SetAt( L"system.back.checked.selected", &Colors.m_crBackCheckSel );
+	pColors.SetAt( L"system.margin", &Colors.m_crMargin );
+	pColors.SetAt( L"system.border", &Colors.m_crBorder );
+	pColors.SetAt( L"system.shadow", &Colors.m_crShadow );
+	pColors.SetAt( L"system.text", &Colors.m_crCmdText );
+	pColors.SetAt( L"system.text.selected", &Colors.m_crCmdTextSel );
+	pColors.SetAt( L"system.disabled", &Colors.m_crDisabled );
 
-	pColors.SetAt( _T("tooltip.back"), &Colors.m_crTipBack );
-	pColors.SetAt( _T("tooltip.text"), &Colors.m_crTipText );
-	pColors.SetAt( _T("tooltip.graph"), &Colors.m_crTipGraph );
-	pColors.SetAt( _T("tooltip.grid"), &Colors.m_crTipGraphGrid );
-	pColors.SetAt( _T("tooltip.border"), &Colors.m_crTipBorder );
-	pColors.SetAt( _T("tooltip.warnings"), &Colors.m_crTipWarnings );
+	pColors.SetAt( L"tooltip.back", &Colors.m_crTipBack );
+	pColors.SetAt( L"tooltip.text", &Colors.m_crTipText );
+	pColors.SetAt( L"tooltip.graph", &Colors.m_crTipGraph );
+	pColors.SetAt( L"tooltip.grid", &Colors.m_crTipGraphGrid );
+	pColors.SetAt( L"tooltip.border", &Colors.m_crTipBorder );
+	pColors.SetAt( L"tooltip.warnings", &Colors.m_crTipWarnings );
 
-	pColors.SetAt( _T("taskpanel.back"), &Colors.m_crTaskPanelBack );
-	pColors.SetAt( _T("taskbox.caption.back"), &Colors.m_crTaskBoxCaptionBack );
-	pColors.SetAt( _T("taskbox.caption.text"), &Colors.m_crTaskBoxCaptionText );
-	pColors.SetAt( _T("taskbox.caption.hover"), &Colors.m_crTaskBoxCaptionHover );
-	pColors.SetAt( _T("taskbox.primary.back"), &Colors.m_crTaskBoxPrimaryBack );	// Deprecate?
-	pColors.SetAt( _T("taskbox.primary.text"), &Colors.m_crTaskBoxPrimaryText );	// Deprecate?
-	pColors.SetAt( _T("taskbox.client"), &Colors.m_crTaskBoxClient );	// Deprecated
-	pColors.SetAt( _T("taskbox.back"), &Colors.m_crTaskBoxClient );
-	pColors.SetAt( _T("taskbox.text"), &Colors.m_crTaskBoxText );
+	pColors.SetAt( L"taskpanel.back", &Colors.m_crTaskPanelBack );
+	pColors.SetAt( L"taskbox.caption.back", &Colors.m_crTaskBoxCaptionBack );
+	pColors.SetAt( L"taskbox.caption.text", &Colors.m_crTaskBoxCaptionText );
+	pColors.SetAt( L"taskbox.caption.hover", &Colors.m_crTaskBoxCaptionHover );
+	pColors.SetAt( L"taskbox.primary.back", &Colors.m_crTaskBoxPrimaryBack );	// Deprecate?
+	pColors.SetAt( L"taskbox.primary.text", &Colors.m_crTaskBoxPrimaryText );	// Deprecate?
+	pColors.SetAt( L"taskbox.client", &Colors.m_crTaskBoxClient );	// Deprecated
+	pColors.SetAt( L"taskbox.back", &Colors.m_crTaskBoxClient );
+	pColors.SetAt( L"taskbox.text", &Colors.m_crTaskBoxText );
 
-	pColors.SetAt( _T("dialog.back"), &Colors.m_crDialog );
-	pColors.SetAt( _T("dialog.text"), &Colors.m_crDialogText );
-	pColors.SetAt( _T("dialog.menu.back"), &Colors.m_crDialogMenu );
-	pColors.SetAt( _T("dialog.menu.text"), &Colors.m_crDialogMenuText );
-	pColors.SetAt( _T("dialog.panel.back"), &Colors.m_crDialogPanel );
-	pColors.SetAt( _T("dialog.panel.text"), &Colors.m_crDialogPanelText );
-	pColors.SetAt( _T("panel.caption.back"), &Colors.m_crPanelBack );
-	pColors.SetAt( _T("panel.caption.text"), &Colors.m_crPanelText );
-	pColors.SetAt( _T("panel.caption.border"), &Colors.m_crPanelBorder );
-	pColors.SetAt( _T("banner.back"), &Colors.m_crBannerBack );
-	pColors.SetAt( _T("banner.text"), &Colors.m_crBannerText );
-	pColors.SetAt( _T("schema.row1"), &Colors.m_crSchemaRow[0] );
-	pColors.SetAt( _T("schema.row2"), &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( L"dialog.back", &Colors.m_crDialog );
+	pColors.SetAt( L"dialog.text", &Colors.m_crDialogText );
+	pColors.SetAt( L"dialog.menu.back", &Colors.m_crDialogMenu );
+	pColors.SetAt( L"dialog.menu.text", &Colors.m_crDialogMenuText );
+	pColors.SetAt( L"dialog.panel.back", &Colors.m_crDialogPanel );
+	pColors.SetAt( L"dialog.panel.text", &Colors.m_crDialogPanelText );
+	pColors.SetAt( L"panel.caption.back", &Colors.m_crPanelBack );
+	pColors.SetAt( L"panel.caption.text", &Colors.m_crPanelText );
+	pColors.SetAt( L"panel.caption.border", &Colors.m_crPanelBorder );
+	pColors.SetAt( L"banner.back", &Colors.m_crBannerBack );
+	pColors.SetAt( L"banner.text", &Colors.m_crBannerText );
+	pColors.SetAt( L"schema.row1", &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( L"schema.row2", &Colors.m_crSchemaRow[1] );
 
 //	Active window color is controlled by media player plugin, thus we can not skin it?
-	pColors.SetAt( _T("media.window"), &Colors.m_crMediaWindowBack );
-	pColors.SetAt( _T("media.window.back"), &Colors.m_crMediaWindowBack );
-	pColors.SetAt( _T("media.window.text"), &Colors.m_crMediaWindowText );
-	pColors.SetAt( _T("media.status"), &Colors.m_crMediaStatusBack );
-	pColors.SetAt( _T("media.status.back"), &Colors.m_crMediaStatusBack );
-	pColors.SetAt( _T("media.status.text"), &Colors.m_crMediaStatusText );
-	pColors.SetAt( _T("media.panel"), &Colors.m_crMediaPanelBack );
-	pColors.SetAt( _T("media.panel.back"), &Colors.m_crMediaPanelBack );
-	pColors.SetAt( _T("media.panel.text"), &Colors.m_crMediaPanelText );
-	pColors.SetAt( _T("media.panel.active"), &Colors.m_crMediaPanelActiveBack );
-	pColors.SetAt( _T("media.panel.active.back"), &Colors.m_crMediaPanelActiveBack );
-	pColors.SetAt( _T("media.panel.active.text"), &Colors.m_crMediaPanelActiveText );
-	pColors.SetAt( _T("media.panel.caption"), &Colors.m_crMediaPanelCaptionBack );
-	pColors.SetAt( _T("media.panel.caption.back"), &Colors.m_crMediaPanelCaptionBack );
-	pColors.SetAt( _T("media.panel.caption.text"), &Colors.m_crMediaPanelCaptionText );
+	pColors.SetAt( L"media.window", &Colors.m_crMediaWindowBack );
+	pColors.SetAt( L"media.window.back", &Colors.m_crMediaWindowBack );
+	pColors.SetAt( L"media.window.text", &Colors.m_crMediaWindowText );
+	pColors.SetAt( L"media.status", &Colors.m_crMediaStatusBack );
+	pColors.SetAt( L"media.status.back", &Colors.m_crMediaStatusBack );
+	pColors.SetAt( L"media.status.text", &Colors.m_crMediaStatusText );
+	pColors.SetAt( L"media.panel", &Colors.m_crMediaPanelBack );
+	pColors.SetAt( L"media.panel.back", &Colors.m_crMediaPanelBack );
+	pColors.SetAt( L"media.panel.text", &Colors.m_crMediaPanelText );
+	pColors.SetAt( L"media.panel.active", &Colors.m_crMediaPanelActiveBack );
+	pColors.SetAt( L"media.panel.active.back", &Colors.m_crMediaPanelActiveBack );
+	pColors.SetAt( L"media.panel.active.text", &Colors.m_crMediaPanelActiveText );
+	pColors.SetAt( L"media.panel.caption", &Colors.m_crMediaPanelCaptionBack );
+	pColors.SetAt( L"media.panel.caption.back", &Colors.m_crMediaPanelCaptionBack );
+	pColors.SetAt( L"media.panel.caption.text", &Colors.m_crMediaPanelCaptionText );
 
-	pColors.SetAt( _T("traffic.window.back"), &Colors.m_crTrafficWindowBack );
-	pColors.SetAt( _T("traffic.window.text"), &Colors.m_crTrafficWindowText );
-	pColors.SetAt( _T("traffic.window.grid"), &Colors.m_crTrafficWindowGrid );
+	pColors.SetAt( L"traffic.window.back", &Colors.m_crTrafficWindowBack );
+	pColors.SetAt( L"traffic.window.text", &Colors.m_crTrafficWindowText );
+	pColors.SetAt( L"traffic.window.grid", &Colors.m_crTrafficWindowGrid );
 
-	pColors.SetAt( _T("monitor.history.back"), &Colors.m_crMonitorHistoryBack );
-	pColors.SetAt( _T("monitor.history.back.max"), &Colors.m_crMonitorHistoryBackMax );
-	pColors.SetAt( _T("monitor.history.text"), &Colors.m_crMonitorHistoryText );
-	pColors.SetAt( _T("monitor.download.line"), &Colors.m_crMonitorDownloadLine );
-	pColors.SetAt( _T("monitor.upload.line"), &Colors.m_crMonitorUploadLine );
-	pColors.SetAt( _T("monitor.download.bar"), &Colors.m_crMonitorDownloadBar );
-	pColors.SetAt( _T("monitor.upload.bar"), &Colors.m_crMonitorUploadBar );
-	pColors.SetAt( _T("monitor.graph.border"), &Colors.m_crMonitorGraphBorder );
-	pColors.SetAt( _T("monitor.graph.back"), &Colors.m_crMonitorGraphBack );
-	pColors.SetAt( _T("monitor.graph.grid"), &Colors.m_crMonitorGraphGrid );
-	pColors.SetAt( _T("monitor.graph.line"), &Colors.m_crMonitorGraphLine );
+	pColors.SetAt( L"monitor.history.back", &Colors.m_crMonitorHistoryBack );
+	pColors.SetAt( L"monitor.history.back.max", &Colors.m_crMonitorHistoryBackMax );
+	pColors.SetAt( L"monitor.history.text", &Colors.m_crMonitorHistoryText );
+	pColors.SetAt( L"monitor.download.line", &Colors.m_crMonitorDownloadLine );
+	pColors.SetAt( L"monitor.upload.line", &Colors.m_crMonitorUploadLine );
+	pColors.SetAt( L"monitor.download.bar", &Colors.m_crMonitorDownloadBar );
+	pColors.SetAt( L"monitor.upload.bar", &Colors.m_crMonitorUploadBar );
+	pColors.SetAt( L"monitor.graph.border", &Colors.m_crMonitorGraphBorder );
+	pColors.SetAt( L"monitor.graph.back", &Colors.m_crMonitorGraphBack );
+	pColors.SetAt( L"monitor.graph.grid", &Colors.m_crMonitorGraphGrid );
+	pColors.SetAt( L"monitor.graph.line", &Colors.m_crMonitorGraphLine );
 
-	pColors.SetAt( _T("schema.rating"), &Colors.m_crRatingNull );
-	pColors.SetAt( _T("schema.rating0"), &Colors.m_crRating0 );
-	pColors.SetAt( _T("schema.rating1"), &Colors.m_crRating1 );
-	pColors.SetAt( _T("schema.rating2"), &Colors.m_crRating2 );
-	pColors.SetAt( _T("schema.rating3"), &Colors.m_crRating3 );
-	pColors.SetAt( _T("schema.rating4"), &Colors.m_crRating4 );
-	pColors.SetAt( _T("schema.rating5"), &Colors.m_crRating5 );
+	pColors.SetAt( L"schema.rating", &Colors.m_crRatingNull );
+	pColors.SetAt( L"schema.rating0", &Colors.m_crRating0 );
+	pColors.SetAt( L"schema.rating1", &Colors.m_crRating1 );
+	pColors.SetAt( L"schema.rating2", &Colors.m_crRating2 );
+	pColors.SetAt( L"schema.rating3", &Colors.m_crRating3 );
+	pColors.SetAt( L"schema.rating4", &Colors.m_crRating4 );
+	pColors.SetAt( L"schema.rating5", &Colors.m_crRating5 );
 
-	pColors.SetAt( _T("meta.row"), &Colors.m_crSchemaRow[0] );
-	pColors.SetAt( _T("meta.row"), &Colors.m_crSchemaRow[1] );
-	pColors.SetAt( _T("meta.row.alt"), &Colors.m_crSchemaRow[1] );
-	pColors.SetAt( _T("meta.row.odd"), &Colors.m_crSchemaRow[0] );
-	pColors.SetAt( _T("meta.row.even"), &Colors.m_crSchemaRow[1] );
-	pColors.SetAt( _T("meta.rating"),  &Colors.m_crRatingNull );
-	pColors.SetAt( _T("meta.rating0"), &Colors.m_crRating0 );
-	pColors.SetAt( _T("meta.rating1"), &Colors.m_crRating1 );
-	pColors.SetAt( _T("meta.rating2"), &Colors.m_crRating2 );
-	pColors.SetAt( _T("meta.rating3"), &Colors.m_crRating3 );
-	pColors.SetAt( _T("meta.rating4"), &Colors.m_crRating4 );
-	pColors.SetAt( _T("meta.rating5"), &Colors.m_crRating5 );
+	pColors.SetAt( L"meta.row", &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( L"meta.row", &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( L"meta.row.alt", &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( L"meta.row.odd", &Colors.m_crSchemaRow[0] );
+	pColors.SetAt( L"meta.row.even", &Colors.m_crSchemaRow[1] );
+	pColors.SetAt( L"meta.rating",  &Colors.m_crRatingNull );
+	pColors.SetAt( L"meta.rating0", &Colors.m_crRating0 );
+	pColors.SetAt( L"meta.rating1", &Colors.m_crRating1 );
+	pColors.SetAt( L"meta.rating2", &Colors.m_crRating2 );
+	pColors.SetAt( L"meta.rating3", &Colors.m_crRating3 );
+	pColors.SetAt( L"meta.rating4", &Colors.m_crRating4 );
+	pColors.SetAt( L"meta.rating5", &Colors.m_crRating5 );
 
-	pColors.SetAt( _T("richdoc.back"), &Colors.m_crRichdocBack );
-	pColors.SetAt( _T("richdoc.text"), &Colors.m_crRichdocText );
-	pColors.SetAt( _T("richdoc.heading"), &Colors.m_crRichdocHeading );
+	pColors.SetAt( L"richdoc.back", &Colors.m_crRichdocBack );
+	pColors.SetAt( L"richdoc.text", &Colors.m_crRichdocText );
+	pColors.SetAt( L"richdoc.heading", &Colors.m_crRichdocHeading );
 
-	pColors.SetAt( _T("system.textalert"), &Colors.m_crTextAlert );
-	pColors.SetAt( _T("system.textstatus"), &Colors.m_crTextStatus );
-	pColors.SetAt( _T("system.textlink"), &Colors.m_crTextLink );
-	pColors.SetAt( _T("system.textlink.selected"), &Colors.m_crTextLinkHot );
+	pColors.SetAt( L"system.textalert", &Colors.m_crTextAlert );
+	pColors.SetAt( L"system.textstatus", &Colors.m_crTextStatus );
+	pColors.SetAt( L"system.textlink", &Colors.m_crTextLink );
+	pColors.SetAt( L"system.textlink.selected", &Colors.m_crTextLinkHot );
 
 	// Deprecated System.Base. first
-	pColors.SetAt( _T("system.base.chat.in"), &Colors.m_crChatIn );
-	pColors.SetAt( _T("system.base.chat.out"), &Colors.m_crChatOut );
-	pColors.SetAt( _T("system.base.chat.null"), &Colors.m_crChatNull );
-	pColors.SetAt( _T("system.base.search.null"), &Colors.m_crSearchNull );
-	pColors.SetAt( _T("system.base.search.exists"), &Colors.m_crSearchExists );
-	pColors.SetAt( _T("system.base.search.exists.hit"), &Colors.m_crSearchExistsHit );
-	pColors.SetAt( _T("system.base.search.exists.selected"), &Colors.m_crSearchExistsSelected );
-	pColors.SetAt( _T("system.base.search.queued"), &Colors.m_crSearchQueued );
-	pColors.SetAt( _T("system.base.search.queued.hit"), &Colors.m_crSearchQueuedHit );
-	pColors.SetAt( _T("system.base.search.queued.selected"), &Colors.m_crSearchQueuedSelected );
-	pColors.SetAt( _T("system.base.search.ghostrated"), &Colors.m_crSearchGhostrated );
-	pColors.SetAt( _T("system.base.search.highrated"), &Colors.m_crSearchHighrated );
-	pColors.SetAt( _T("system.base.search.collection"), &Colors.m_crSearchCollection );
-	pColors.SetAt( _T("system.base.search.torrent"), &Colors.m_crSearchTorrent );
-	pColors.SetAt( _T("system.base.transfer.source"), &Colors.m_crTransferSource );
-	pColors.SetAt( _T("system.base.transfer.ranges"), &Colors.m_crTransferRanges );
-	pColors.SetAt( _T("system.base.transfer.completed"), &Colors.m_crTransferCompleted );
-	pColors.SetAt( _T("system.base.transfer.seeding"), &Colors.m_crTransferVerifyPass );
-	pColors.SetAt( _T("system.base.transfer.failed"), &Colors.m_crTransferVerifyFail );
-	pColors.SetAt( _T("system.base.transfer.completed.selected"), &Colors.m_crTransferCompletedSelected );
-	pColors.SetAt( _T("system.base.transfer.seeding.selected"), &Colors.m_crTransferVerifyPassSelected );
-	pColors.SetAt( _T("system.base.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
-	pColors.SetAt( _T("system.base.network.null"), &Colors.m_crNetworkNull );
-	pColors.SetAt( _T("system.base.network.gnutella"), &Colors.m_crNetworkG1 );
-	pColors.SetAt( _T("system.base.network.gnutella2"), &Colors.m_crNetworkG2 );
-	pColors.SetAt( _T("system.base.network.g1"), &Colors.m_crNetworkG1 );
-	pColors.SetAt( _T("system.base.network.g2"), &Colors.m_crNetworkG2 );
-	pColors.SetAt( _T("system.base.network.ed2k"), &Colors.m_crNetworkED2K );
-	pColors.SetAt( _T("system.base.network.dc"), &Colors.m_crNetworkDC );
-	pColors.SetAt( _T("system.base.network.up"), &Colors.m_crNetworkUp );
-	pColors.SetAt( _T("system.base.network.down"), &Colors.m_crNetworkDown );
-	pColors.SetAt( _T("system.base.network.in"), &Colors.m_crNetworkDown );
-	pColors.SetAt( _T("system.base.network.out"), &Colors.m_crNetworkUp );
-	pColors.SetAt( _T("system.base.security.allow"), &Colors.m_crSecurityAllow );
-	pColors.SetAt( _T("system.base.security.deny"), &Colors.m_crSecurityDeny );
+	pColors.SetAt( L"system.base.chat.in", &Colors.m_crChatIn );
+	pColors.SetAt( L"system.base.chat.out", &Colors.m_crChatOut );
+	pColors.SetAt( L"system.base.chat.null", &Colors.m_crChatNull );
+	pColors.SetAt( L"system.base.search.null", &Colors.m_crSearchNull );
+	pColors.SetAt( L"system.base.search.exists", &Colors.m_crSearchExists );
+	pColors.SetAt( L"system.base.search.exists.hit", &Colors.m_crSearchExistsHit );
+	pColors.SetAt( L"system.base.search.exists.selected", &Colors.m_crSearchExistsSelected );
+	pColors.SetAt( L"system.base.search.queued", &Colors.m_crSearchQueued );
+	pColors.SetAt( L"system.base.search.queued.hit", &Colors.m_crSearchQueuedHit );
+	pColors.SetAt( L"system.base.search.queued.selected", &Colors.m_crSearchQueuedSelected );
+	pColors.SetAt( L"system.base.search.ghostrated", &Colors.m_crSearchGhostrated );
+	pColors.SetAt( L"system.base.search.highrated", &Colors.m_crSearchHighrated );
+	pColors.SetAt( L"system.base.search.collection", &Colors.m_crSearchCollection );
+	pColors.SetAt( L"system.base.search.torrent", &Colors.m_crSearchTorrent );
+	pColors.SetAt( L"system.base.transfer.source", &Colors.m_crTransferSource );
+	pColors.SetAt( L"system.base.transfer.ranges", &Colors.m_crTransferRanges );
+	pColors.SetAt( L"system.base.transfer.completed", &Colors.m_crTransferCompleted );
+	pColors.SetAt( L"system.base.transfer.seeding", &Colors.m_crTransferVerifyPass );
+	pColors.SetAt( L"system.base.transfer.failed", &Colors.m_crTransferVerifyFail );
+	pColors.SetAt( L"system.base.transfer.completed.selected", &Colors.m_crTransferCompletedSelected );
+	pColors.SetAt( L"system.base.transfer.seeding.selected", &Colors.m_crTransferVerifyPassSelected );
+	pColors.SetAt( L"system.base.transfer.failed.selected", &Colors.m_crTransferVerifyFailSelected );
+	pColors.SetAt( L"system.base.network.null", &Colors.m_crNetworkNull );
+	pColors.SetAt( L"system.base.network.gnutella", &Colors.m_crNetworkG1 );
+	pColors.SetAt( L"system.base.network.gnutella2", &Colors.m_crNetworkG2 );
+	pColors.SetAt( L"system.base.network.g1", &Colors.m_crNetworkG1 );
+	pColors.SetAt( L"system.base.network.g2", &Colors.m_crNetworkG2 );
+	pColors.SetAt( L"system.base.network.ed2k", &Colors.m_crNetworkED2K );
+	pColors.SetAt( L"system.base.network.dc", &Colors.m_crNetworkDC );
+	pColors.SetAt( L"system.base.network.up", &Colors.m_crNetworkUp );
+	pColors.SetAt( L"system.base.network.down", &Colors.m_crNetworkDown );
+	pColors.SetAt( L"system.base.network.in", &Colors.m_crNetworkDown );
+	pColors.SetAt( L"system.base.network.out", &Colors.m_crNetworkUp );
+	pColors.SetAt( L"system.base.security.allow", &Colors.m_crSecurityAllow );
+	pColors.SetAt( L"system.base.security.deny", &Colors.m_crSecurityDeny );
 
 	// Preferred System. second
-	pColors.SetAt( _T("system.chat.in"), &Colors.m_crChatIn );
-	pColors.SetAt( _T("system.chat.out"), &Colors.m_crChatOut );
-	pColors.SetAt( _T("system.chat.null"), &Colors.m_crChatNull );
-	pColors.SetAt( _T("system.search.null"), &Colors.m_crSearchNull );
-	pColors.SetAt( _T("system.search.exists"), &Colors.m_crSearchExists );
-	pColors.SetAt( _T("system.search.exists.hit"), &Colors.m_crSearchExistsHit );
-	pColors.SetAt( _T("system.search.exists.selected"), &Colors.m_crSearchExistsSelected );
-	pColors.SetAt( _T("system.search.queued"), &Colors.m_crSearchQueued );
-	pColors.SetAt( _T("system.search.queued.hit"), &Colors.m_crSearchQueuedHit );
-	pColors.SetAt( _T("system.search.queued.selected"), &Colors.m_crSearchQueuedSelected );
-	pColors.SetAt( _T("system.search.ghostrated"), &Colors.m_crSearchGhostrated );
-	pColors.SetAt( _T("system.search.highrated"), &Colors.m_crSearchHighrated );
-	pColors.SetAt( _T("system.search.collection"), &Colors.m_crSearchCollection );
-	pColors.SetAt( _T("system.search.torrent"), &Colors.m_crSearchTorrent );
-	pColors.SetAt( _T("system.transfer.source"), &Colors.m_crTransferSource );
-	pColors.SetAt( _T("system.transfer.ranges"), &Colors.m_crTransferRanges );
-	pColors.SetAt( _T("system.transfer.completed"), &Colors.m_crTransferCompleted );
-	pColors.SetAt( _T("system.transfer.seeding"), &Colors.m_crTransferVerifyPass );
-	pColors.SetAt( _T("system.transfer.failed"), &Colors.m_crTransferVerifyFail );
-	pColors.SetAt( _T("system.transfer.completed.selected"), &Colors.m_crTransferCompletedSelected );
-	pColors.SetAt( _T("system.transfer.seeding.selected"), &Colors.m_crTransferVerifyPassSelected );
-	pColors.SetAt( _T("system.transfer.failed.selected"), &Colors.m_crTransferVerifyFailSelected );
-	pColors.SetAt( _T("system.library"), &Colors.m_crLibraryShared );
-	pColors.SetAt( _T("system.library.shared"), &Colors.m_crLibraryShared );
-	pColors.SetAt( _T("system.library.unshared"), &Colors.m_crLibraryUnshared );
-	pColors.SetAt( _T("system.library.unscanned"), &Colors.m_crLibraryUnscanned );
-	pColors.SetAt( _T("system.library.unsafe"), &Colors.m_crLibraryUnsafe );
-	pColors.SetAt( _T("system.log.debug"), &Colors.m_crLogDebug );
-	pColors.SetAt( _T("system.log.info"), &Colors.m_crLogInfo );
-	pColors.SetAt( _T("system.log.notice"), &Colors.m_crLogNotice );
-	pColors.SetAt( _T("system.log.warning"), &Colors.m_crLogWarning );
-	pColors.SetAt( _T("system.log.error"), &Colors.m_crLogError );
-	pColors.SetAt( _T("system.network.null"), &Colors.m_crNetworkNull );
-	pColors.SetAt( _T("system.network.gnutella"), &Colors.m_crNetworkG1 );
-	pColors.SetAt( _T("system.network.gnutella2"), &Colors.m_crNetworkG2 );
-	pColors.SetAt( _T("system.network.edonkey"), &Colors.m_crNetworkED2K );
-	pColors.SetAt( _T("system.network.g1"), &Colors.m_crNetworkG1 );
-	pColors.SetAt( _T("system.network.g2"), &Colors.m_crNetworkG2 );
-	pColors.SetAt( _T("system.network.ed2k"), &Colors.m_crNetworkED2K );
-	pColors.SetAt( _T("system.network.dc"), &Colors.m_crNetworkDC );
-	pColors.SetAt( _T("system.network.up"), &Colors.m_crNetworkUp );
-	pColors.SetAt( _T("system.network.down"), &Colors.m_crNetworkDown );
-	pColors.SetAt( _T("system.network.in"), &Colors.m_crNetworkDown );
-	pColors.SetAt( _T("system.network.out"), &Colors.m_crNetworkUp );
-	pColors.SetAt( _T("system.security.allow"), &Colors.m_crSecurityAllow );
-	pColors.SetAt( _T("system.security.deny"), &Colors.m_crSecurityDeny );
+	pColors.SetAt( L"system.chat.in", &Colors.m_crChatIn );
+	pColors.SetAt( L"system.chat.out", &Colors.m_crChatOut );
+	pColors.SetAt( L"system.chat.null", &Colors.m_crChatNull );
+	pColors.SetAt( L"system.search.null", &Colors.m_crSearchNull );
+	pColors.SetAt( L"system.search.exists", &Colors.m_crSearchExists );
+	pColors.SetAt( L"system.search.exists.hit", &Colors.m_crSearchExistsHit );
+	pColors.SetAt( L"system.search.exists.selected", &Colors.m_crSearchExistsSelected );
+	pColors.SetAt( L"system.search.queued", &Colors.m_crSearchQueued );
+	pColors.SetAt( L"system.search.queued.hit", &Colors.m_crSearchQueuedHit );
+	pColors.SetAt( L"system.search.queued.selected", &Colors.m_crSearchQueuedSelected );
+	pColors.SetAt( L"system.search.ghostrated", &Colors.m_crSearchGhostrated );
+	pColors.SetAt( L"system.search.highrated", &Colors.m_crSearchHighrated );
+	pColors.SetAt( L"system.search.collection", &Colors.m_crSearchCollection );
+	pColors.SetAt( L"system.search.torrent", &Colors.m_crSearchTorrent );
+	pColors.SetAt( L"system.transfer.source", &Colors.m_crTransferSource );
+	pColors.SetAt( L"system.transfer.ranges", &Colors.m_crTransferRanges );
+	pColors.SetAt( L"system.transfer.completed", &Colors.m_crTransferCompleted );
+	pColors.SetAt( L"system.transfer.seeding", &Colors.m_crTransferVerifyPass );
+	pColors.SetAt( L"system.transfer.failed", &Colors.m_crTransferVerifyFail );
+	pColors.SetAt( L"system.transfer.completed.selected", &Colors.m_crTransferCompletedSelected );
+	pColors.SetAt( L"system.transfer.seeding.selected", &Colors.m_crTransferVerifyPassSelected );
+	pColors.SetAt( L"system.transfer.failed.selected", &Colors.m_crTransferVerifyFailSelected );
+	pColors.SetAt( L"system.library", &Colors.m_crLibraryShared );
+	pColors.SetAt( L"system.library.shared", &Colors.m_crLibraryShared );
+	pColors.SetAt( L"system.library.unshared", &Colors.m_crLibraryUnshared );
+	pColors.SetAt( L"system.library.unscanned", &Colors.m_crLibraryUnscanned );
+	pColors.SetAt( L"system.library.unsafe", &Colors.m_crLibraryUnsafe );
+	pColors.SetAt( L"system.log.debug", &Colors.m_crLogDebug );
+	pColors.SetAt( L"system.log.info", &Colors.m_crLogInfo );
+	pColors.SetAt( L"system.log.notice", &Colors.m_crLogNotice );
+	pColors.SetAt( L"system.log.warning", &Colors.m_crLogWarning );
+	pColors.SetAt( L"system.log.error", &Colors.m_crLogError );
+	pColors.SetAt( L"system.network.null", &Colors.m_crNetworkNull );
+	pColors.SetAt( L"system.network.gnutella", &Colors.m_crNetworkG1 );
+	pColors.SetAt( L"system.network.gnutella2", &Colors.m_crNetworkG2 );
+	pColors.SetAt( L"system.network.edonkey", &Colors.m_crNetworkED2K );
+	pColors.SetAt( L"system.network.g1", &Colors.m_crNetworkG1 );
+	pColors.SetAt( L"system.network.g2", &Colors.m_crNetworkG2 );
+	pColors.SetAt( L"system.network.ed2k", &Colors.m_crNetworkED2K );
+	pColors.SetAt( L"system.network.dc", &Colors.m_crNetworkDC );
+	pColors.SetAt( L"system.network.up", &Colors.m_crNetworkUp );
+	pColors.SetAt( L"system.network.down", &Colors.m_crNetworkDown );
+	pColors.SetAt( L"system.network.in", &Colors.m_crNetworkDown );
+	pColors.SetAt( L"system.network.out", &Colors.m_crNetworkUp );
+	pColors.SetAt( L"system.security.allow", &Colors.m_crSecurityAllow );
+	pColors.SetAt( L"system.security.deny", &Colors.m_crSecurityDeny );
 
-	pColors.SetAt( _T("dropdownbox.back"), &Colors.m_crDropdownBox );
-	pColors.SetAt( _T("dropdownbox.text"), &Colors.m_crDropdownText );
-	pColors.SetAt( _T("resizebar.edge"), &Colors.m_crResizebarEdge );
-	pColors.SetAt( _T("resizebar.face"), &Colors.m_crResizebarFace );
-	pColors.SetAt( _T("resizebar.shadow"), &Colors.m_crResizebarShadow );
-	pColors.SetAt( _T("resizebar.highlight"), &Colors.m_crResizebarHighlight );
-	pColors.SetAt( _T("fragmentbar.shaded"), &Colors.m_crFragmentShaded );
-	pColors.SetAt( _T("fragmentbar.complete"), &Colors.m_crFragmentComplete );
-	pColors.SetAt( _T("fragmentbar.source1"), &Colors.m_crFragmentSource1 );
-	pColors.SetAt( _T("fragmentbar.source2"), &Colors.m_crFragmentSource2 );
-	pColors.SetAt( _T("fragmentbar.source3"), &Colors.m_crFragmentSource3 );
-	pColors.SetAt( _T("fragmentbar.source4"), &Colors.m_crFragmentSource4 );
-	pColors.SetAt( _T("fragmentbar.source5"), &Colors.m_crFragmentSource5 );
-	pColors.SetAt( _T("fragmentbar.source6"), &Colors.m_crFragmentSource6 );
-	pColors.SetAt( _T("fragmentbar.source5"), &Colors.m_crFragmentSource7 );
-	pColors.SetAt( _T("fragmentbar.source6"), &Colors.m_crFragmentSource8 );
-	pColors.SetAt( _T("fragmentbar.pass"), &Colors.m_crFragmentPass );
-	pColors.SetAt( _T("fragmentbar.fail"), &Colors.m_crFragmentFail );
-	pColors.SetAt( _T("fragmentbar.request"), &Colors.m_crFragmentRequest );
-	pColors.SetAt( _T("fragmentbar.border"), &Colors.m_crFragmentBorder );
-	pColors.SetAt( _T("fragmentbar.border.selected"), &Colors.m_crFragmentBorderSelected );
+	pColors.SetAt( L"dropdownbox.back", &Colors.m_crDropdownBox );
+	pColors.SetAt( L"dropdownbox.text", &Colors.m_crDropdownText );
+	pColors.SetAt( L"resizebar.edge", &Colors.m_crResizebarEdge );
+	pColors.SetAt( L"resizebar.face", &Colors.m_crResizebarFace );
+	pColors.SetAt( L"resizebar.shadow", &Colors.m_crResizebarShadow );
+	pColors.SetAt( L"resizebar.highlight", &Colors.m_crResizebarHighlight );
+	pColors.SetAt( L"fragmentbar.shaded", &Colors.m_crFragmentShaded );
+	pColors.SetAt( L"fragmentbar.complete", &Colors.m_crFragmentComplete );
+	pColors.SetAt( L"fragmentbar.source1", &Colors.m_crFragmentSource1 );
+	pColors.SetAt( L"fragmentbar.source2", &Colors.m_crFragmentSource2 );
+	pColors.SetAt( L"fragmentbar.source3", &Colors.m_crFragmentSource3 );
+	pColors.SetAt( L"fragmentbar.source4", &Colors.m_crFragmentSource4 );
+	pColors.SetAt( L"fragmentbar.source5", &Colors.m_crFragmentSource5 );
+	pColors.SetAt( L"fragmentbar.source6", &Colors.m_crFragmentSource6 );
+	pColors.SetAt( L"fragmentbar.source5", &Colors.m_crFragmentSource7 );
+	pColors.SetAt( L"fragmentbar.source6", &Colors.m_crFragmentSource8 );
+	pColors.SetAt( L"fragmentbar.pass", &Colors.m_crFragmentPass );
+	pColors.SetAt( L"fragmentbar.fail", &Colors.m_crFragmentFail );
+	pColors.SetAt( L"fragmentbar.request", &Colors.m_crFragmentRequest );
+	pColors.SetAt( L"fragmentbar.border", &Colors.m_crFragmentBorder );
+	pColors.SetAt( L"fragmentbar.border.selected", &Colors.m_crFragmentBorderSelected );
 
-	pColors.SetAt( _T("system.environment.borders"), &Colors.m_crSysDisabled );
-	pColors.SetAt( _T("system.environment.disabled"), &Colors.m_crSysDisabled );
-	pColors.SetAt( _T("system.environment.window"), &Colors.m_crSysWindow );
-	pColors.SetAt( _T("system.environment.btnface"), &Colors.m_crSysBtnFace );
-	pColors.SetAt( _T("system.environment.3dshadow"), &Colors.m_crSys3DShadow );
-	pColors.SetAt( _T("system.environment.3dhighlight"), &Colors.m_crSys3DHighlight );
-	pColors.SetAt( _T("system.environment.activecaption"), &Colors.m_crSysActiveCaption );
-	pColors.SetAt( _T("system.environment.menutext"), &Colors.m_crSysMenuText );
+	pColors.SetAt( L"system.environment.borders", &Colors.m_crSysDisabled );
+	pColors.SetAt( L"system.environment.disabled", &Colors.m_crSysDisabled );
+	pColors.SetAt( L"system.environment.window", &Colors.m_crSysWindow );
+	pColors.SetAt( L"system.environment.btnface", &Colors.m_crSysBtnFace );
+	pColors.SetAt( L"system.environment.3dshadow", &Colors.m_crSys3DShadow );
+	pColors.SetAt( L"system.environment.3dhighlight", &Colors.m_crSys3DHighlight );
+	pColors.SetAt( L"system.environment.activecaption", &Colors.m_crSysActiveCaption );
+	pColors.SetAt( L"system.environment.menutext", &Colors.m_crSysMenuText );
 
-	pColors.SetAt( _T("navbar.text"), &Colors.m_crNavBarText );
-	pColors.SetAt( _T("navbar.text.up"), &Colors.m_crNavBarTextUp );
-	pColors.SetAt( _T("navbar.text.down"), &Colors.m_crNavBarTextDown );
-	pColors.SetAt( _T("navbar.text.hover"), &Colors.m_crNavBarTextHover );
-	pColors.SetAt( _T("navbar.text.checked"), &Colors.m_crNavBarTextChecked );
-	pColors.SetAt( _T("navbar.shadow"), &Colors.m_crNavBarShadow );
-	pColors.SetAt( _T("navbar.shadow.up"), &Colors.m_crNavBarShadowUp );
-	pColors.SetAt( _T("navbar.shadow.down"), &Colors.m_crNavBarShadowDown );
-	pColors.SetAt( _T("navbar.shadow.hover"), &Colors.m_crNavBarShadowHover );
-	pColors.SetAt( _T("navbar.shadow.checked"), &Colors.m_crNavBarShadowChecked );
-	pColors.SetAt( _T("navbar.outline"), &Colors.m_crNavBarOutline );
-	pColors.SetAt( _T("navbar.outline.up"), &Colors.m_crNavBarOutlineUp );
-	pColors.SetAt( _T("navbar.outline.down"), &Colors.m_crNavBarOutlineDown );
-	pColors.SetAt( _T("navbar.outline.hover"), &Colors.m_crNavBarOutlineHover );
-	pColors.SetAt( _T("navbar.outline.checked"), &Colors.m_crNavBarOutlineChecked );
+	pColors.SetAt( L"navbar.text", &Colors.m_crNavBarText );
+	pColors.SetAt( L"navbar.text.up", &Colors.m_crNavBarTextUp );
+	pColors.SetAt( L"navbar.text.down", &Colors.m_crNavBarTextDown );
+	pColors.SetAt( L"navbar.text.hover", &Colors.m_crNavBarTextHover );
+	pColors.SetAt( L"navbar.text.checked", &Colors.m_crNavBarTextChecked );
+	pColors.SetAt( L"navbar.shadow", &Colors.m_crNavBarShadow );
+	pColors.SetAt( L"navbar.shadow.up", &Colors.m_crNavBarShadowUp );
+	pColors.SetAt( L"navbar.shadow.down", &Colors.m_crNavBarShadowDown );
+	pColors.SetAt( L"navbar.shadow.hover", &Colors.m_crNavBarShadowHover );
+	pColors.SetAt( L"navbar.shadow.checked", &Colors.m_crNavBarShadowChecked );
+	pColors.SetAt( L"navbar.outline", &Colors.m_crNavBarOutline );
+	pColors.SetAt( L"navbar.outline.up", &Colors.m_crNavBarOutlineUp );
+	pColors.SetAt( L"navbar.outline.down", &Colors.m_crNavBarOutlineDown );
+	pColors.SetAt( L"navbar.outline.hover", &Colors.m_crNavBarOutlineHover );
+	pColors.SetAt( L"navbar.outline.checked", &Colors.m_crNavBarOutlineChecked );
 
 	// "system.base.xxx" colors trigger recalculating (ToDo: Needs review)
 	BOOL bSystem  = FALSE;
@@ -2163,11 +2163,11 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( pXML->IsNamed( _T("color") ) ||
-			 pXML->IsNamed( _T("colour") ) )
+		if ( pXML->IsNamed( L"color" ) ||
+			 pXML->IsNamed( L"colour" ) )
 		{
-			CString strName  = pXML->GetAttributeValue( _T("name") );
-			CString strValue = pXML->GetAttributeValue( _T("value") );
+			CString strName  = pXML->GetAttributeValue( L"name" );
+			CString strValue = pXML->GetAttributeValue( L"value" );
 			strName.MakeLower();
 
 			COLORREF* pColor;
@@ -2177,15 +2177,15 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 				{
 					int nRed, nGreen, nBlue;
 
-					_stscanf( strValue.Mid( 0, 2 ), _T("%x"), &nRed );
-					_stscanf( strValue.Mid( 2, 2 ), _T("%x"), &nGreen );
-					_stscanf( strValue.Mid( 4, 2 ), _T("%x"), &nBlue );
+					_stscanf( strValue.Mid( 0, 2 ), L"%x", &nRed );
+					_stscanf( strValue.Mid( 2, 2 ), L"%x", &nGreen );
+					_stscanf( strValue.Mid( 4, 2 ), L"%x", &nBlue );
 
-					if ( StartsWith( strName, _PT("system.") ) )
+					if ( StartsWith( strName, _P( L"system." ) ) )
 					{
 						bSystem = TRUE;
 
-						if ( ! bNonBase && strName.Find( _T(".base."), 5 ) < 0 )
+						if ( ! bNonBase && strName.Find( L".base.", 5 ) < 0 )
 						{
 							bNonBase = TRUE;
 							Colors.CalculateColors( TRUE );
@@ -2201,12 +2201,12 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [name] attribute in [colorScheme] element"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [name] attribute in [colorScheme] element", pXML->ToString() );
 			}
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [colorScheme] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [colorScheme] element", pXML->ToString() );
 		}
 	}
 
@@ -2237,17 +2237,17 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 			 pXML->IsNamed( L"control" ) ||
 			 pXML->IsNamed( L"resource" ) )
 		{
-			CString strTemp = pXML->GetAttributeValue( _T("code") );
+			CString strTemp = pXML->GetAttributeValue( L"code" );
 			UINT nID;
 
-			if ( _stscanf( strTemp, _T("%lu"), &nID ) != 1 )
+			if ( _stscanf( strTemp, L"%lu", &nID ) != 1 )
 				return FALSE;
 
-			CoolInterface.NameCommand( nID, pXML->GetAttributeValue( _T("id") ) );
+			CoolInterface.NameCommand( nID, pXML->GetAttributeValue( L"id" ) );
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [...Map] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [...Map] element", pXML->ToString() );
 		}
 	}
 
@@ -2265,17 +2265,17 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("font") ) )
+		if ( pXML->IsNamed( L"font" ) )
 		{
-			CString strLanguage = pXML->GetAttributeValue( _T("language") );
+			CString strLanguage = pXML->GetAttributeValue( L"language" );
 
 			if ( strLanguage.IsEmpty() ||
 				( Settings.General.Language.CompareNoCase( strLanguage ) == 0 ) )
 			{
-				CString strName		= pXML->GetAttributeValue( _T("name") ).MakeLower();
-				CString strFace		= pXML->GetAttributeValue( _T("face") );
-				CString strSize		= pXML->GetAttributeValue( _T("size") );
-				CString strWeight	= pXML->GetAttributeValue( _T("weight") );
+				CString strName		= pXML->GetAttributeValue( L"name" ).MakeLower();
+				CString strFace		= pXML->GetAttributeValue( L"face" );
+				CString strSize		= pXML->GetAttributeValue( L"size" );
+				CString strWeight	= pXML->GetAttributeValue( L"weight" );
 				CFont* pFont		= NULL;
 
 				if ( strName.GetLength() < 6 ) continue;
@@ -2318,7 +2318,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					bRichHeading = true;
 					break;
 				default:
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown font name"), pXML->ToString() );
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown font name", pXML->ToString() );
 					continue;
 				}
 
@@ -2327,24 +2327,24 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				if ( strFace.IsEmpty() )
 					strFace = Settings.Fonts.DefaultFont;
 
-				if ( strWeight.CompareNoCase( _T("bold") ) == 0 )
-					strWeight = _T("700");
-				else if ( strWeight.IsEmpty() || strWeight.CompareNoCase( _T("normal") ) == 0 )
-					strWeight = _T("400");
+				if ( strWeight.CompareNoCase( L"bold" ) == 0 )
+					strWeight = L"700";
+				else if ( strWeight.IsEmpty() || strWeight.CompareNoCase( L"normal" ) == 0 )
+					strWeight = L"400";
 
 				int nFontSize = Settings.Fonts.DefaultSize, nFontWeight = FW_NORMAL;
 
-				if ( strSize.GetLength() && _stscanf( strSize, _T("%i"), &nFontSize ) != 1 )
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [size] attribute in [font] element"), pXML->ToString() );
+				if ( strSize.GetLength() && _stscanf( strSize, L"%i", &nFontSize ) != 1 )
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [size] attribute in [font] element", pXML->ToString() );
 
-				if ( strWeight.GetLength() > 2 && _stscanf( strWeight, _T("%i"), &nFontWeight ) != 1 )
-					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad [weight] attribute in [font] element"), pXML->ToString() );
+				if ( strWeight.GetLength() > 2 && _stscanf( strWeight, L"%i", &nFontWeight ) != 1 )
+					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [weight] attribute in [font] element", pXML->ToString() );
 
 				pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
 					DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 					theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 
-				if ( strName.CompareNoCase( _T("system.plain") ) == 0 )
+				if ( strName.CompareNoCase( L"system.plain" ) == 0 )
 				{
 					pFont = &CoolInterface.m_fntUnder;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
@@ -2360,7 +2360,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
-				else if ( strName.CompareNoCase( _T("system.bold") ) == 0 )
+				else if ( strName.CompareNoCase( L"system.bold" ) == 0 )
 				{
 					pFont = &CoolInterface.m_fntBoldItalic;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
@@ -2371,18 +2371,18 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				}
 			}
 		}
-		else if ( pXML->IsNamed( _T("import") ) )
+		else if ( pXML->IsNamed( L"import" ) )
 		{
-			CString strFile = strPath + pXML->GetAttributeValue( _T("path") );
+			CString strFile = strPath + pXML->GetAttributeValue( L"path" );
 
 			if ( AddFontResourceEx( strFile, FR_PRIVATE, NULL ) )
 				m_pFontPaths.AddTail( strFile );
 			else
-				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to import font"), pXML->ToString() );
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to import font", pXML->ToString() );
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [fonts] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [fonts] element", pXML->ToString() );
 		}
 	}
 
@@ -2422,7 +2422,7 @@ CString	CSkin::GetImagePath(UINT nImageID) const
 
 	CString strPath;
 	if ( ! m_pImages.Lookup( nImageID, strPath ) )
-		strPath.Format( _T("\"%s\",-%u"), theApp.m_strBinaryPath, nImageID );
+		strPath.Format( L"\"%s\",-%u", theApp.m_strBinaryPath, nImageID );
 	return strPath;
 }
 
@@ -2432,19 +2432,19 @@ BOOL CSkin::LoadCommandImages(CXMLElement* pBase, const CString& strPath)
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
 
-		if ( pXML->IsNamed( _T("icon") ) )
+		if ( pXML->IsNamed( L"icon" ) )
 		{
 			if ( ! LoadCommandIcon( pXML, strPath ) )
 				return FALSE;
 		}
-		else if ( pXML->IsNamed( _T("bitmap") ) )
+		else if ( pXML->IsNamed( L"bitmap" ) )
 		{
 			if ( ! LoadCommandBitmap( pXML, strPath ) )
 				return FALSE;
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown element in [commandImages] element"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [commandImages] element", pXML->ToString() );
 		}
 	}
 
@@ -2458,29 +2458,29 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 	// 2) when loading from file: "root skin path\".
 
 	CString strFile = strPath +
-		pXML->GetAttributeValue( _T("res") ) +
-		pXML->GetAttributeValue( _T("path") );
+		pXML->GetAttributeValue( L"res" ) +
+		pXML->GetAttributeValue( L"path" );
 
-	UINT nIconID = LookupCommandID( pXML, _T("res") );
+	UINT nIconID = LookupCommandID( pXML, L"res" );
 	HINSTANCE hInstance( NULL );
 	if ( nIconID )
-		_stscanf( strPath, _T("%p"), &hInstance );
+		_stscanf( strPath, L"%p", &hInstance );
 
 	UINT nID = LookupCommandID( pXML );
 	if ( nID == 0 )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Unknown [id] attribute in [icon] element"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [id] attribute in [icon] element", pXML->ToString() );
 		return TRUE;	// Skip icon and load remaining skin
 	}
 
 	// Is this a RTL-enabled icon? (default: "0" - no)
-	const BOOL bRTL = Settings.General.LanguageRTL && pXML->GetAttributeValue( _T("rtl"), _T("0") ) == _T("1");
+	const BOOL bRTL = Settings.General.LanguageRTL && pXML->GetAttributeValue( L"rtl", L"0" ) == L"1";
 
 	// Icon types (default: "16" - 16x16 icon only)
-	CString strTypes = pXML->GetAttributeValue( _T("types"), _T("16") );
+	CString strTypes = pXML->GetAttributeValue( L"types", L"16" );
 	int curPos = 0;
 	CString strSize;
-	while ( ! ( strSize = strTypes.Tokenize( _T(","), curPos ) ).IsEmpty() )
+	while ( ! ( strSize = strTypes.Tokenize( L",", curPos ) ).IsEmpty() )
 	{
 		int cx = _tstoi( strSize );
 		int nType;
@@ -2496,7 +2496,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 			nType = LVSIL_BIG;
 			break;
 		default:
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Icon has invalid size"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Icon has invalid size", pXML->ToString() );
 			return FALSE;
 		}
 
@@ -2522,7 +2522,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load icon"), pXML->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to load icon", pXML->ToString() );
 			return FALSE;
 		}
 	}
@@ -2537,12 +2537,12 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	// If nID is 0 then we don't want to include it in strFile because
 	// strFile must be a file system path rather than a resource path.
 	if ( nID )
-		strFile.Format( _T("%s%lu%s"), strPath, nID, pBase->GetAttributeValue( _T("path") ) );
+		strFile.Format( L"%s%lu%s", strPath, nID, pBase->GetAttributeValue( L"path" ) );
 	else
-		strFile.Format( _T("%s%s"), strPath, pBase->GetAttributeValue( _T("path") ) );
+		strFile.Format( L"%s%s", strPath, pBase->GetAttributeValue( L"path" ) );
 
 	COLORREF crMask = NULL;
-	CString strMask = pBase->GetAttributeValue( _T("mask"), _T("00FF00") );
+	CString strMask = pBase->GetAttributeValue( L"mask", L"00FF00" );
 	if ( strMask.GetLength() >= 6 )
 		crMask = GetColor( strMask );
 
@@ -2550,18 +2550,18 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	{
 		// ToDo: Auto set mask to CLR_NONE for alpha PNGs, and cull this list
 		strMask.MakeLower();
-		if ( strMask == _T("alpha") ||
-			 strMask == _T("transparent") ||
-			 strMask == _T("clr_none") ||
-			 strMask == _T("none") ||
-			 strMask == _T("null") ||
-			 strMask == _T("png") )
+		if ( strMask == L"alpha" ||
+			 strMask == L"transparent" ||
+			 strMask == L"clr_none" ||
+			 strMask == L"none" ||
+			 strMask == L"null" ||
+			 strMask == L"png" )
 		{
 			crMask = CLR_NONE; 	// 0 Alpha (or Black)
 		}
 		else
 		{
-			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Image has invalid mask"), pBase->ToString() );
+			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Image has invalid mask", pBase->ToString() );
 			crMask = RGB( 0, 255, 0 );
 		}
 	}
@@ -2584,7 +2584,7 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 
 	if ( ! hBitmap )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to load image"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to load image", pBase->ToString() );
 		return FALSE;
 	}
 	if ( Settings.General.LanguageRTL )
@@ -2594,7 +2594,7 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 	DeleteObject( hBitmap );
 	if ( ! bResult )
 	{
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Failed to add image"), pBase->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to add image", pBase->ToString() );
 		return FALSE;
 	}
 
@@ -2757,13 +2757,13 @@ void CSkin::DrawWrappedText(CDC* pDC, CRect* pBox, LPCTSTR pszText, CPoint ptSta
 			CString str = pszSource;
 			if ( pszSource[ 0 ] == ' ' || (unsigned short)pszSource[ 0 ] == 160 )
 			{
-				str = str + _T(" ");
+				str = str + L" ";
 				str = str.Right( nTestStart );
 			}
 			else if ( pszSource[ nTestStart - 1 ] == ' ' ||
 					(unsigned short)pszSource[ nTestStart - 1 ] == 160 )
 			{
-				str = _T(" ") + str;
+				str = L" " + str;
 				str = str.Left( nTestStart );
 			}
 			_tcsncpy_s( pszSource, nTestStart + 1, str.GetBuffer( nTestStart ), nTestStart );
@@ -2864,10 +2864,10 @@ BOOL CSkin::LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
 	if ( ! str.IsEmpty() )
 	{
 		*pColor = GetColor( str );
-		if ( *pColor || str == _T("000000") )
+		if ( *pColor || str == L"000000" )
 			return TRUE;
 
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, _T("Bad color attribute (") + str + _T(")"), pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad color attribute (" + str + L")", pXML->ToString() );
 	}
 
 	return FALSE;
@@ -2875,7 +2875,7 @@ BOOL CSkin::LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
 
 COLORREF CSkin::GetColor(CString sColor)
 {
-	sColor.Trim( _T(" #") );
+	sColor.Trim( L" #" );
 
 	const int nLength = sColor.GetLength();
 	if ( nLength < 6 || nLength > 14 )
@@ -2886,14 +2886,14 @@ COLORREF CSkin::GetColor(CString sColor)
 
 	int nRed = 0, nGreen = 0, nBlue = 0;
 	if ( nLength == 6 &&
-		_stscanf( sColor.Mid( 0, 2 ), _T("%x"), &nRed ) == 1 &&
-		_stscanf( sColor.Mid( 2, 2 ), _T("%x"), &nGreen ) == 1 &&
-		_stscanf( sColor.Mid( 4, 2 ), _T("%x"), &nBlue ) == 1 )
+		_stscanf( sColor.Mid( 0, 2 ), L"%x", &nRed ) == 1 &&
+		_stscanf( sColor.Mid( 2, 2 ), L"%x", &nGreen ) == 1 &&
+		_stscanf( sColor.Mid( 4, 2 ), L"%x", &nBlue ) == 1 )
 	{
 		return RGB( nRed, nGreen, nBlue );
 	}
 
-	if ( _stscanf( (LPCTSTR)sColor, _T("%i, %i, %i"), &nRed, &nGreen, &nBlue ) == 3 &&
+	if ( _stscanf( (LPCTSTR)sColor, L"%i, %i, %i", &nRed, &nGreen, &nBlue ) == 3 &&
 		 nRed < 256 && nGreen < 256 && nBlue < 256 )
 		return RGB( nRed, nGreen, nBlue );
 
@@ -2914,11 +2914,11 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 		return CImageFile::LoadBitmapFromFile( strName );
 
 	HINSTANCE hInstance = NULL;
-	if ( _stscanf( (LPCTSTR)strName, _T("%p"), &hInstance ) != 1 )
+	if ( _stscanf( (LPCTSTR)strName, L"%p", &hInstance ) != 1 )
 		return NULL;
 
 	UINT nID = 0;
-	if ( _stscanf( (LPCTSTR)strName + nPos + 1, _T("%lu"), &nID ) != 1 )
+	if ( _stscanf( (LPCTSTR)strName + nPos + 1, L"%lu", &nID ) != 1 )
 		return NULL;
 
 	return CImageFile::LoadBitmapFromResource( nID, hInstance );
@@ -2931,7 +2931,7 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 HBITMAP CSkin::LoadBitmap(UINT nID)
 {
 	CString strName;
-	strName.Format( _T("%p$%lu"), (HINSTANCE)GetModuleHandle( NULL ), nID );
+	strName.Format( L"%p$%lu", (HINSTANCE)GetModuleHandle( NULL ), nID );
 	return LoadBitmap( strName );
 }
 
@@ -2940,7 +2940,7 @@ HBITMAP CSkin::LoadBitmap(UINT nID)
 
 LPCTSTR CSkin::m_pszModeSuffix[3][4] =
 {
-	{ _T(".Windowed"), _T(""), NULL, NULL },			// GUI_WINDOWED
-	{ _T(".Tabbed"), _T(""), NULL, NULL },				// GUI_TABBED
-	{ _T(".Basic"), _T(".Tabbed"), _T(""), NULL }		// GUI_BASIC
+	{ L".Windowed", L"", NULL, NULL },			// GUI_WINDOWED
+	{ L".Tabbed", L"", NULL, NULL },				// GUI_TABBED
+	{ L".Basic", L".Tabbed", L"", NULL }		// GUI_BASIC
 };

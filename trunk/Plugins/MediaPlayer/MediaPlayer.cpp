@@ -46,7 +46,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
+	return _AtlModule.DllGetClassObject( rclsid, riid, ppv );
 }
 
 STDAPI DllRegisterServer(void)
@@ -61,22 +61,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }

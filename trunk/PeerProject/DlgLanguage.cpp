@@ -57,7 +57,7 @@ END_MESSAGE_MAP()
 
 CLanguageDlg::CLanguageDlg(CWnd* pParent)
 	: CSkinDialog	(CLanguageDlg::IDD, pParent)
-	, m_sLanguage	( _T("en") )
+	, m_sLanguage	( L"en" )
 	, m_bLanguageRTL( false )
 {
 }
@@ -76,7 +76,7 @@ BOOL CLanguageDlg::OnInitDialog()
 
 	CWaitCursor pCursor;
 
-	SkinMe( _T("CLanguageDlg"), ID_TOOLS_LANGUAGE );
+	SkinMe( L"CLanguageDlg", ID_TOOLS_LANGUAGE );
 
 	m_hArrow = theApp.LoadStandardCursor( IDC_ARROW );
 	m_hHand  = theApp.LoadCursor( IDC_HAND );
@@ -487,10 +487,10 @@ void CLanguageDlg::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 
 void CLanguageDlg::AddEnglishDefault()
 {
-	m_pPaths.Add( _T("") );
-	m_pTitles.Add( _T("English (Default)") );
-	m_pLangCodes.Add( _T("en") );
-	m_pGUIDirs.Add( _T("ltr") );
+	m_pPaths.Add( L"" );
+	m_pTitles.Add( L"English (Default)" );
+	m_pLangCodes.Add( L"en" );
+	m_pGUIDirs.Add( L"ltr" );
 	m_pPriorities.Add( 0 );
 	m_pImages.Add( theApp.LoadIcon( IDI_FLAG_ENGLISH ) );
 }
@@ -502,8 +502,8 @@ void CLanguageDlg::Enumerate(LPCTSTR pszPath)
 	CString strPath;
 	HANDLE hSearch;
 
-	strPath.Format( _T("%s\\Skins\\%s*.*"),
-		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : _T("") );
+	strPath.Format( L"%s\\Skins\\%s*.*",
+		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : L"" );
 
 	hSearch = FindFirstFile( strPath, &pFind );
 	if ( hSearch == INVALID_HANDLE_VALUE )
@@ -515,14 +515,14 @@ void CLanguageDlg::Enumerate(LPCTSTR pszPath)
 
 		if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 		{
-			strPath.Format( _T("%s%s\\"),
-				pszPath ? pszPath : _T(""), pFind.cFileName );
+			strPath.Format( L"%s%s\\",
+				pszPath ? pszPath : L"", pFind.cFileName );
 
 			Enumerate( strPath );
 		}
-		else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL &&
-					_tcsicmp( pFind.cFileName, _T("Definitions.xml") ) &&
-					_tcsicmp( pFind.cFileName, _T("Default-en.xml") ) )
+		else if (	_tcsistr( pFind.cFileName, L".xml" ) != NULL &&
+					_tcsicmp( pFind.cFileName, L"Definitions.xml" ) &&
+					_tcsicmp( pFind.cFileName, L"Default-en.xml" ) )
 		{
 			AddSkin( pszPath, pFind.cFileName );
 		}
@@ -534,7 +534,7 @@ void CLanguageDlg::Enumerate(LPCTSTR pszPath)
 
 BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 {
-	CString strRoot = Settings.General.Path + _T("\\Skins\\");
+	CString strRoot = Settings.General.Path + L"\\Skins\\";
 	if ( pszPath != NULL ) strRoot += pszPath;
 	CString strXML = strRoot + pszName;
 
@@ -589,15 +589,15 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	CXMLElement* pXML = NULL;
 
-	int nManifest = strXML.Find( _T("<manifest") );
+	int nManifest = strXML.Find( L"<manifest" );
 
 	if ( nManifest > 0 )
 	{
-		CString strManifest = strXML.Mid( nManifest ).SpanExcluding( _T(">") ) + '>';
+		CString strManifest = strXML.Mid( nManifest ).SpanExcluding( L">" ) + '>';
 
 		if ( CXMLElement* pManifest = CXMLElement::FromString( strManifest ) )
 		{
-			pXML = new CXMLElement( NULL, _T("skin") );
+			pXML = new CXMLElement( NULL, L"skin" );
 			pXML->AddElement( pManifest );
 		}
 	}
@@ -610,21 +610,21 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	strXML.Empty();
 
-	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
+	CXMLElement* pManifest = pXML->GetElementByName( L"manifest" );
 
-	if ( ! pXML->IsNamed( _T("skin") ) || pManifest == NULL ||
-		 pManifest->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) != 0 )
+	if ( ! pXML->IsNamed( L"skin" ) || pManifest == NULL ||
+		 pManifest->GetAttributeValue( L"type" ).CompareNoCase( L"language" ) != 0 )
 	{
 		delete pXML;
 		return FALSE;
 	}
 
-	CString strName		= pManifest->GetAttributeValue( _T("name"), pszName );
-	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
-	CString strLangCode = pManifest->GetAttributeValue( _T("language") );
-	CString strGUIDir	= pManifest->GetAttributeValue( _T("dir"), _T("ltr") );
-	CString strPriority	= pManifest->GetAttributeValue( _T("priority") );
-//	CString strPrompt	= pManifest->GetAttributeValue( _T("prompt") );		// Tip unused
+	CString strName		= pManifest->GetAttributeValue( L"name", pszName );
+	CString strIcon		= pManifest->GetAttributeValue( L"icon" );
+	CString strLangCode = pManifest->GetAttributeValue( L"language" );
+	CString strGUIDir	= pManifest->GetAttributeValue( L"dir", L"ltr" );
+	CString strPriority	= pManifest->GetAttributeValue( L"priority" );
+//	CString strPrompt	= pManifest->GetAttributeValue( L"prompt" );		// Tip unused
 
 	delete pXML;
 
@@ -638,7 +638,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 	{
 		strIcon = strRoot + pszName;
-		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
+		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + L"ico";
 	}
 
 	HICON hIcon;
@@ -646,7 +646,7 @@ BOOL CLanguageDlg::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 		hIcon = theApp.LoadIcon( IDR_MAINFRAME );
 
 	UINT nPriority = 100;
-	if ( ! strPriority.IsEmpty() && _stscanf( strPriority, _T("%u"), &nPriority ) == 1 && nPriority )
+	if ( ! strPriority.IsEmpty() && _stscanf( strPriority, L"%u", &nPriority ) == 1 && nPriority )
 	{
 		for ( int nIndex = 1 ; nIndex < m_pPaths.GetSize() ; nIndex++ )
 		{
@@ -686,17 +686,17 @@ void CLanguageDlg::Execute(int nSelected)
 
 	for ( int nItem = 0 ; nItem < m_pPaths.GetSize() ; nItem++ )
 	{
-		theApp.WriteProfileInt( _T("Skins"), m_pPaths.GetAt( nItem ),
+		theApp.WriteProfileInt( L"Skins", m_pPaths.GetAt( nItem ),
 			( nSelected - 1 ) == nItem );
 	}
 
 	m_bLanguageRTL = ( nSelected > 1 ) &&
-		( m_pGUIDirs.GetAt( nSelected - 1 ) == _T("rtl") );
+		( m_pGUIDirs.GetAt( nSelected - 1 ) == L"rtl" );
 
 	if ( nSelected > 1 )
 		m_sLanguage = m_pLangCodes.GetAt( nSelected - 1 );
 
-	//CString strLangCode = _T("en");
+	//CString strLangCode = L"en";
 	//if ( nSelected > 1 ) strLangCode = m_pLangCodes.GetAt( nSelected - 2 );
 	//
 	//// Required to have schemas reloaded after restart

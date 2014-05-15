@@ -267,7 +267,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="TargetVer.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MediaPlayer.rc" />

@@ -1,7 +1,7 @@
 //
 // Plugin.cpp : Implementation of CPlugin for SearchExport
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2012
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions Previously Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it
@@ -60,23 +60,23 @@ CString SmartVolume(ULONGLONG nVolume)
 	CString strVolume;
 
 	if ( nVolume < KiloBytes )					// Bytes
-		strVolume.Format( _T("%I64u B"), nVolume );
+		strVolume.Format( L"%I64u B", nVolume );
 	else if ( nVolume < 10 * KiloBytes )		// 1..10 KiloBytes
-		strVolume.Format( _T("%.2f KB"), nVolume / KiloFloat );
+		strVolume.Format( L"%.2f KB", nVolume / KiloFloat );
 	else if ( nVolume < MegaBytes )				// 10..1024 KiloBytes
-		strVolume.Format( _T("%I64u KB"), nVolume / KiloBytes );
+		strVolume.Format( L"%I64u KB", nVolume / KiloBytes );
 	else if ( nVolume < 100 * MegaBytes )		// 1..100 MegaBytes
-		strVolume.Format( _T("%.2f MB"), nVolume / MegaFloat );
+		strVolume.Format( L"%.2f MB", nVolume / MegaFloat );
 	else if ( nVolume < GigaBytes )				// 100..1024 MegaBytes
-		strVolume.Format( _T("%.1f MB"), nVolume / MegaFloat );
+		strVolume.Format( L"%.1f MB", nVolume / MegaFloat );
 	else if ( nVolume < TeraFloat )				// GigaBytes
-		strVolume.Format( _T("%.2f GB"), nVolume / GigaFloat );
+		strVolume.Format( L"%.2f GB", nVolume / GigaFloat );
 	else if ( nVolume < PetaFloat )				// Tera
-		strVolume.Format( _T("%.2f TB"), nVolume / TeraFloat );
+		strVolume.Format( L"%.2f TB", nVolume / TeraFloat );
 	else if ( nVolume < ExaFloat )				// Peta
-		strVolume.Format( _T("%.2f PB"), nVolume / PetaFloat );
+		strVolume.Format( L"%.2f PB", nVolume / PetaFloat );
 	else
-		strVolume.Format( _T("%.2f EB"), nVolume / ExaFloat );
+		strVolume.Format( L"%.2f EB", nVolume / ExaFloat );
 
 	return strVolume;
 }
@@ -84,7 +84,7 @@ CString SmartVolume(ULONGLONG nVolume)
 // Encodes unsafe characters in a string ("hello world" to "hello%20world")
 CString URLEncode(LPCTSTR pszInputT)
 {
-	static LPCTSTR pszHex	= _T("0123456789ABCDEF");
+	static LPCTSTR pszHex	= L"0123456789ABCDEF";
 	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,";
 
 	CString strOutput;
@@ -109,7 +109,7 @@ CString URLEncode(LPCTSTR pszInputT)
 	{
 		if ( *pszInput <= 32 || *pszInput > 127 || strchr( pszUnsafe, *pszInput ) != NULL )
 		{
-			*pszOutput++ = _T('%');
+			*pszOutput++ = L'%';
 			*pszOutput++ = pszHex[ ( *pszInput >> 4 ) & 0x0F ];
 			*pszOutput++ = pszHex[ *pszInput & 0x0F ];
 		}
@@ -126,7 +126,7 @@ CString URLEncode(LPCTSTR pszInputT)
 class CMultipartFile
 {
 public:
-	CMultipartFile(LPCTSTR szRoot = _T(""))
+	CMultipartFile(LPCTSTR szRoot = L"")
 		: m_sRoot( szRoot )
 	{
 	}
@@ -171,10 +171,10 @@ public:
 	void AddFolder(LPCTSTR szFolder)
 	{
 		CString sFolder( szFolder );
-		sFolder.TrimRight( _T('\\') ) += _T("\\");
+		sFolder.TrimRight( L'\\' ) += L"\\";
 
 		WIN32_FIND_DATA wfa = {};
-		HANDLE hFind = FindFirstFile ( sFolder + _T("*.*"), &wfa );
+		HANDLE hFind = FindFirstFile ( sFolder + L"*.*", &wfa );
 		if ( hFind != INVALID_HANDLE_VALUE )
 		{
 			do
@@ -196,15 +196,15 @@ public:
 		// Header
 		CString strHeader;
 		strHeader.Format(
-			_T("From: <Saved by PeerProject>\r\n")
-			_T("Subject: Search Results\r\n")
-			_T("MIME-Version: 1.0\r\n")
-			_T("Content-Type: multipart/related;\r\n")
-			_T("\ttype=\"text/html\";\r\n")
-			_T("\tboundary=\"%hs\"\r\n")
-			_T("\r\n")
-			_T("This is a multi-part message in MIME format.\r\n")
-			_T("\r\n"),
+			L"From: <Saved by PeerProject>\r\n"
+			L"Subject: Search Results\r\n"
+			L"MIME-Version: 1.0\r\n"
+			L"Content-Type: multipart/related;\r\n"
+			L"\ttype=\"text/html\";\r\n"
+			L"\tboundary=\"%hs\"\r\n"
+			L"\r\n"
+			L"This is a multi-part message in MIME format.\r\n"
+			L"\r\n",
 			szBoundary );
 
 		CAtlFile fileOut;
@@ -218,17 +218,17 @@ public:
 				const CStringA& sPart = m_Parts.GetNext( pos1 );
 				const CString& sURI = m_URIs.GetNext( pos2 );
 
-				TCHAR szType[ 64 ] = { _T("application/octet-stream") };
+				TCHAR szType[ 64 ] = { L"application/octet-stream" };
 				DWORD dwType = REG_SZ, dwTypeSize = sizeof( szType );
 				SHGetValue( HKEY_CLASSES_ROOT, PathFindExtension( sURI ),
-					_T("Content Type"), &dwType, szType, &dwTypeSize );
+					L"Content Type", &dwType, szType, &dwTypeSize );
 
 				strHeader.Format (
-					_T("--%hs\r\n")
-					_T("Content-Type: %s\r\n")
-					_T("Content-Transfer-Encoding: base64\r\n")
-					_T("Content-Location: %s%s\r\n")
-					_T("\r\n"),
+					L"--%hs\r\n"
+					L"Content-Type: %s\r\n"
+					L"Content-Transfer-Encoding: base64\r\n"
+					L"Content-Location: %s%s\r\n"
+					L"\r\n",
 					szBoundary, szType, m_sRoot, sURI );
 
 				fileOut.Write( (LPCSTR)CT2A( strHeader ), strHeader.GetLength() );
@@ -262,11 +262,11 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 		return hr;
 
 	// Get template directory path
-	CComVariant var( CComBSTR( _T("General.Path") ) );
+	CComVariant var( CComBSTR( L"General.Path" ) );
 	hr = pSettings->GetValue( &var );
 	ATLASSERT( SUCCEEDED( hr ) && var.vt == VT_BSTR );
 	CString sPath( var.bstrVal );
-	sPath += _T("\\Templates\\");
+	sPath += L"\\Templates\\";
 
 	// Get main window handle
 	HWND hWnd = NULL;
@@ -276,23 +276,23 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 	TCHAR szFilename[ MAX_PATH ] = {};
 	OPENFILENAME ofn = {
 		sizeof( OPENFILENAME ), hWnd, NULL,
-		_T("MHT Files (*.mht)\0*.mht\0\0"),
+		L"MHT Files (*.mht)\0*.mht\0\0",
 		NULL, 0, 1, szFilename, MAX_PATH, NULL, 0, NULL, NULL,
 		OFN_EXPLORER | OFN_HIDEREADONLY | OFN_NOCHANGEDIR |
-		OFN_OVERWRITEPROMPT | OFN_NOREADONLYRETURN, 0, 0, _T("mht")
+		OFN_OVERWRITEPROMPT | OFN_NOREADONLYRETURN, 0, 0, L"mht"
 	};
 	if ( ! GetSaveFileName( &ofn ) )
 		return S_OK;
 
 	// Create index file
 	CString sHTML =
-		_T("<html>\r\n")
-		_T("<head>\r\n")
-		_T("\t<link rel=\"stylesheet\" media=\"all\" type=\"text/css\" href=\"SearchExport.css\">\r\n")
-		_T("</head>\r\n")
-		_T("<body>\r\n")
-		_T("\t<div class=\"pg\">\r\n")
-		_T("\t\t<a href=\"http://peerproject.org/\"><div class=\"hd\"></div></a>\r\n");
+		L"<html>\r\n"
+		L"<head>\r\n"
+		L"\t<link rel=\"stylesheet\" media=\"all\" type=\"text/css\" href=\"SearchExport.css\">\r\n"
+		L"</head>\r\n"
+		L"<body>\r\n"
+		L"\t<div class=\"pg\">\r\n"
+		L"\t\t<a href=\"http://peerproject.org/\"><div class=\"hd\"></div></a>\r\n";
 
 	CAtlMap< CComBSTR, bool > oSHA1Map, oTigerMap, oED2KMap, oMD5Map;
 	int n = 1;
@@ -334,25 +334,25 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 			oMD5Map.SetAt( bstrMD5, true );
 
 		CString str;
-		str.Format( _T("\t\t<div class=\"f%d\">")
-			_T("<span class=\"f_\">%d</span>")
-			_T("<span class=\"fn\"><a href=\"magnet:?"),
+		str.Format( L"\t\t<div class=\"f%d\">"
+			L"<span class=\"f_\">%d</span>"
+			L"<span class=\"fn\"><a href=\"magnet:?",
 			( n & 1 ), n );
 		sHTML += str;
 
 		n++;
 
 		if ( bstrSHA1.Length() && bstrTiger.Length() )
-			sHTML = sHTML + _T("xt=urn:bitprint:") + bstrSHA1 + _T(".") + bstrTiger + _T("&amp;");
+			sHTML = sHTML + L"xt=urn:bitprint:" + bstrSHA1 + L"." + bstrTiger + L"&amp;";
 		else if ( bstrSHA1.Length() )
-			sHTML = sHTML + _T("xt=urn:sha1:") + bstrSHA1 + _T("&amp;");
+			sHTML = sHTML + L"xt=urn:sha1:" + bstrSHA1 + L"&amp;";
 		else if ( bstrTiger.Length() )
-			sHTML = sHTML + _T("xt=urn:tree:tiger/:") + bstrTiger + _T("&amp;");
+			sHTML = sHTML + L"xt=urn:tree:tiger/:" + bstrTiger + L"&amp;";
 
 		if ( bstrED2K.Length() )
-			sHTML = sHTML + _T("xt=urn:ed2k:") + bstrED2K + _T("&amp;");
+			sHTML = sHTML + L"xt=urn:ed2k:" + bstrED2K + L"&amp;";
 		if ( bstrMD5.Length() )
-			sHTML = sHTML + _T("xt=urn:md5:") + bstrMD5 + _T("&amp;");
+			sHTML = sHTML + L"xt=urn:md5:" + bstrMD5 + L"&amp;";
 
 		CComBSTR bstrName;
 		hr = pPeerProjectFile->get_Name( &bstrName );
@@ -362,8 +362,8 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 		hr = pPeerProjectFile->get_Size( &nSize );
 		ATLASSERT( SUCCEEDED( hr ) );
 
-		str.Format( _T("dn=%s&amp;xl=%I64u\">%s</a></span>")
-			_T("<span class=\"fs\">%s</span></div>\r\n"),
+		str.Format( L"dn=%s&amp;xl=%I64u\">%s</a></span>"
+			L"<span class=\"fs\">%s</span></div>\r\n",
 			URLEncode( bstrName ), nSize, bstrName, SmartVolume( nSize ) );
 		sHTML += str;
 	}
@@ -377,16 +377,16 @@ HRESULT CPlugin::Export(IGenericView* pGenericView, LONG nCount)
 	CString sDate = (LPCTSTR)szBuffer;
 
 	sHTML +=
-		_T("\t\t<div class=\"ft\">")
+		L"\t\t<div class=\"ft\">"
 		+ sDate +
-		_T("</div>\r\n")
-		_T("\t</div>\r\n")
-		_T("</body>\r\n")
-		_T("</html>\r\n");
+		L"</div>\r\n"
+		L"\t</div>\r\n"
+		L"</body>\r\n"
+		L"</html>\r\n";
 
 	// Save .mht-file
 	CMultipartFile fileExport;
-	fileExport.Add( sHTML, _T("index.html") );
+	fileExport.Add( sHTML, L"index.html" );
 	fileExport.AddFolder( sPath );
 	if ( fileExport.Save( ofn.lpstrFile ) )	// Show result
 		ShellExecute ( hWnd, NULL, ofn.lpstrFile, NULL, NULL, SW_SHOWNORMAL);

@@ -1,7 +1,7 @@
 //
 // CrawlSession.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -85,7 +85,7 @@ void CCrawlSession::Bootstrap()
 
 void CCrawlSession::SendCrawl(SOCKADDR_IN* pHost)
 {
-	theApp.Message( MSG_DEBUG, _T("CRAWL: Crawling host %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, L"CRAWL: Crawling host %s", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	CG2Packet* pPacket = CG2Packet::New( G2_PACKET_CRAWL_REQ, TRUE );
 	pPacket->WritePacket( G2_PACKET_CRAWL_RLEAF, 0 );
@@ -154,7 +154,7 @@ void CCrawlSession::OnCrawl(const SOCKADDR_IN* pHost, CG2Packet* pPacket)
 {
 	if ( ! m_bActive ) return;
 
-	theApp.Message( MSG_DEBUG, _T("CRAWL: Response from %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+	theApp.Message( MSG_DEBUG, L"CRAWL: Response from %s", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	CCrawlNode* pNode = Find( &pHost->sin_addr, TRUE );
 
@@ -297,8 +297,8 @@ void CCrawlNode::OnNode(CCrawlSession* pSession, CG2Packet* pPacket, DWORD /*nPa
 		m_nLatitude		= nLatitude;
 		m_nLongitude	= nLongitude;
 
-		theApp.Message( MSG_DEBUG, _T("CRAWL: Found %s, %s(%i), \"%s\", lat: %.3f, lon: %.3f :"),
-			(LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ), bHub ? _T("hub") : _T("leaf"),
+		theApp.Message( MSG_DEBUG, L"CRAWL: Found %s, %s(%i), \"%s\", lat: %.3f, lon: %.3f :",
+			(LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ), bHub ? L"hub" : L"leaf",
 			nLeafs, (LPCTSTR)strNick, double( nLatitude ), double( nLongitude ) );
 	}
 	else
@@ -318,8 +318,8 @@ void CCrawlNode::OnNode(CCrawlSession* pSession, CG2Packet* pPacket, DWORD /*nPa
 		if ( m_pNeighbours.Find( pNode ) == NULL )
 			m_pNeighbours.AddTail( pNode );
 
-		theApp.Message( MSG_DEBUG, _T("CRAWL:    %s, %s(%i), \"%s\", lat: %.3f, lon: %.3f"),
-			(LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ), bHub ? _T("hub") : _T("leaf"),
+		theApp.Message( MSG_DEBUG, L"CRAWL:    %s, %s(%i), \"%s\", lat: %.3f, lon: %.3f",
+			(LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ), bHub ? L"hub" : L"leaf",
 			nLeafs, (LPCTSTR)strNick, double( nLatitude ), double( nLongitude ) );
 	}
 }

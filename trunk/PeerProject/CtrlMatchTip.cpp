@@ -1,7 +1,7 @@
 //
 // CtrlMatchTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -110,10 +110,10 @@ void CMatchTipCtrl::LoadFromFile()
 	}
 	else
 	{
-		m_sCountryCode = _T("");
-		m_sCountry = _T("");
+		m_sCountryCode = L"";
+		m_sCountry = L"";
 	}
-	m_sSize = LoadString( IDS_TIP_SIZE ) + _T(":  ") + m_pFile->m_sSize;
+	m_sSize = LoadString( IDS_TIP_SIZE ) + L":  " + m_pFile->m_sSize;
 	LoadTypeInfo();
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
@@ -168,7 +168,7 @@ void CMatchTipCtrl::LoadFromFile()
 void CMatchTipCtrl::LoadFromHit()
 {
 	m_sName = m_pHit->m_sName;
-	m_sSize = LoadString( IDS_TIP_SIZE ) + _T(":  ") + Settings.SmartVolume( m_pHit->m_nSize );
+	m_sSize = LoadString( IDS_TIP_SIZE ) + L":  " + Settings.SmartVolume( m_pHit->m_nSize );
 	LoadTypeInfo();
 
 	if ( Settings.General.GUIMode == GUI_BASIC )
@@ -244,14 +244,14 @@ void CMatchTipCtrl::LoadFromHit()
 	// Is this a firewalled eDonkey client
 	if ( m_pHit->m_nProtocol == PROTOCOL_ED2K && m_pHit->m_bPush == TRI_TRUE )
 	{
-		m_sUser.Format( _T("%lu@%s - %s"),
+		m_sUser.Format( L"%lu@%s - %s",
 			m_pHit->m_oClientID.begin()[2],
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*m_pHit->m_oClientID.begin() ) ),
 			(LPCTSTR)m_pHit->m_pVendor->m_sName );
 	}
 	else
 	{
-		m_sUser.Format( _T("%s:%u - %s"),
+		m_sUser.Format( L"%s:%u - %s",
 			(LPCTSTR)CString( inet_ntoa( m_pHit->m_pAddress ) ),
 			m_pHit->m_nPort,
 			(LPCTSTR)m_pHit->m_pVendor->m_sName );
@@ -259,7 +259,7 @@ void CMatchTipCtrl::LoadFromHit()
 
 	// Add the Nickname if there is one and they are being shown
 	if ( Settings.Search.ShowNames && ! m_pHit->m_sNick.IsEmpty() )
-		m_sUser = m_pHit->m_sNick + _T(" (") + m_sUser + _T(")");
+		m_sUser = m_pHit->m_sNick + L" (" + m_sUser + L")";
 
 	m_sCountryCode = m_pHit->m_sCountry;
 	m_sCountry = theApp.GetCountryName( m_pHit->m_pAddress );
@@ -283,7 +283,7 @@ void CMatchTipCtrl::LoadFromHit()
 BOOL CMatchTipCtrl::LoadTypeInfo()
 {
 	m_nIcon = ShellIcons.Get( m_sName, 32 );
-	m_sType = LoadString( IDS_TIP_TYPE ) + _T(": ") + ShellIcons.GetTypeString( m_sName );
+	m_sType = LoadString( IDS_TIP_TYPE ) + L": " + ShellIcons.GetTypeString( m_sName );
 	return FALSE;
 }
 
@@ -454,14 +454,14 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		{
 			Flags.Draw( nFlagIndex, *pDC, pt.x, pt.y, crBack, crBack );
 			if ( ! Images.m_bmToolTip.m_hObject )
-				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
-			pt.x += 20;
+				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + FLAG_WIDTH, pt.y + 16 );
+			pt.x += FLAG_WIDTH + 4;
 			pt.y += 2;
 		}
 		DrawText( pDC, &pt, m_sCountry );
 		if ( nFlagIndex >= 0 )
 		{
-			pt.x -= 20;
+			pt.x -= FLAG_WIDTH + 4;
 			pt.y -= 2;
 		}
 		pt.y += TIP_ICONHEIGHT;
@@ -501,10 +501,10 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 
 	pt.x += 40;
 	DrawText( pDC, &pt, m_sSize );
-	if ( m_sSize.Find( _T(" B") ) < 1 && m_nRating < 2 )
+	if ( m_sSize.Find( L" B" ) < 1 && m_nRating < 2 )
 	{
 		CString strSize;
-		strSize.Format( _T("(%I64i bytes)"), m_pFile->m_nSize );
+		strSize.Format( L"(%I64i bytes)", m_pFile->m_nSize );
 		CSize szText = pDC->GetTextExtent( strSize );
 
 		int nPos = pt.x;
@@ -571,7 +571,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 
 			pt.x += 20;
 			pt.y++;
-			DrawText( pDC, &pt, m_sBusy);
+			DrawText( pDC, &pt, m_sBusy );
 			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}
@@ -606,7 +606,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 
 			pt.x += 20;
 			pt.y++;
-			DrawText( pDC, &pt, m_sPush);
+			DrawText( pDC, &pt, m_sPush );
 			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}
@@ -620,7 +620,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 
 			pt.x += 20;
 			pt.y++;
-			DrawText( pDC, &pt, m_sUnstable);
+			DrawText( pDC, &pt, m_sUnstable );
 			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
 		}

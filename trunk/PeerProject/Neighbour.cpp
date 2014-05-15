@@ -72,7 +72,7 @@ CNeighbour::CNeighbour(PROTOCOLID nProtocol)
 	, m_nMaxTTL 		( (DWORD)-1 )
 	, m_bDynamicQuerying( FALSE )
 	, m_bUltrapeerQueryRouting( FALSE )
-//	, m_sLocalePref		( _T("") )		// Unused X-Locale-Pref
+//	, m_sLocalePref		( L"" )		// Unused X-Locale-Pref
 	, m_bRequeries		( TRUE )
 	, m_bExtProbes		( FALSE )
 	// Zero time, packet and file counts
@@ -335,7 +335,7 @@ void CNeighbour::OnDropped()
 	const DWORD nTime2 = ( GetTickCount() - m_tLastPacket ) / 1000;	// Time since last packet received in seconds
 
 	// Report these times in a message about the connection being dropped
-	theApp.Message( MSG_DEBUG, _T("Dropped neighbour %s (%s), conn: %.2i:%.2i, packet: %.2i:%.2i"),
+	theApp.Message( MSG_DEBUG, L"Dropped neighbour %s (%s), conn: %.2i:%.2i, packet: %.2i:%.2i",
 		(LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent, nTime1 / 60, nTime1 % 60, nTime2 / 60, nTime2 % 60 );
 
 	// Close the connection, citing the reason as dropped
@@ -477,7 +477,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 
 	if ( pHits == NULL )
 	{
-		DEBUG_ONLY( pPacket->Debug( _T("Malformed Hit") ) );
+		DEBUG_ONLY( pPacket->Debug( L"Malformed Hit" ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 		m_nDropCount++;
 		if ( m_nProtocol == PROTOCOL_G1 )
@@ -489,7 +489,7 @@ BOOL CNeighbour::OnCommonHit(CPacket* pPacket)
 
 	if ( Security.IsDenied( &pHits->m_pAddress ) )
 	{
-	//	DEBUG_ONLY( pPacket->Debug( _T("Security manager denied Hit") ) );
+	//	DEBUG_ONLY( pPacket->Debug( L"Security manager denied Hit" ) );
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)m_sAddress );
 		m_nDropCount++;
 		if ( m_nProtocol == PROTOCOL_G1 )

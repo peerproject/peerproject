@@ -80,7 +80,7 @@ CG1Neighbour::CG1Neighbour(CNeighbour* pBase)
 	m_pOutbound = new CG1PacketBuffer( m_pZOutput ? m_pZOutput : pOutput );		// m_pZOutput is where to write data the program will compress
 
 	// Report that a Gnutella connection with the remote computer has been successfully established
-	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE, (LPCTSTR)m_sAddress, 0, 6, m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
+	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE, (LPCTSTR)m_sAddress, 0, 6, m_sUserAgent.IsEmpty() ? L"Unknown" : (LPCTSTR)m_sUserAgent );
 
 	// Send the remote computer a new Gnutella ping packet
 	Send( CG1Packet::New( G1_PACKET_PING ) );
@@ -263,17 +263,25 @@ BOOL CG1Neighbour::ProcessPackets()
 	// Point pInput at the buffer that has readable data from the remote computer
 	CBuffer* pInput = m_pZInput ? m_pZInput : pInputLocked;
 
+	return ProcessPackets( pInput );
+}
+
+BOOL CG1Neighbour::ProcessPackets(CBuffer* pInput)
+{
+	if ( ! pInput )
+		return FALSE;
+
 	// Start out with bSuccess true and loop until it gets set to false
 	BOOL bSuccess = TRUE;
 	for ( ; bSuccess ; )	// This is the same thing as while ( bSuccess )
 	{
 		// Look at the input buffer as a Gnutella packet
 		GNUTELLAPACKET* pPacket = (GNUTELLAPACKET*)pInput->m_pBuffer;	// Hopefully a packet starts right there
-		if ( pInput->m_nLength < sizeof( *pPacket ) ) break;				// If there aren't enough bytes in the buffer for a packet, leave the loop
+		if ( pInput->m_nLength < sizeof( *pPacket ) ) break;			// If there aren't enough bytes in the buffer for a packet, leave the loop
 
 		// Calculate how big this packet is
 		DWORD nLength =
-			sizeof( *pPacket ) +									// The size of a Gnutella packet header, which is the same for all Gnutella packets,
+			sizeof( *pPacket ) +								// The size of a Gnutella packet header, which is the same for all Gnutella packets,
 			pPacket->m_nLength; 								// plus the length written in the packet
 
 		// If the length written in the packet is negative or too big
@@ -296,12 +304,10 @@ BOOL CG1Neighbour::ProcessPackets()
 		pInput->Remove( nLength );
 	}
 
-	// If the loop read all the packets from the input buffer without an error, report success
-	if ( bSuccess ) return TRUE;
+	if ( ! bSuccess )
+		Close( 0 );		// Close the connection to this remote computer
 
-	// Something in the loop set bSuccess to false
-	Close( 0 );													// Close the connection to this remote computer
-	return FALSE;												// Report error
+	return bSuccess;	// Report loop success/error
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -637,7 +643,7 @@ BOOL CG1Neighbour::OnPong(CG1Packet* pPacket)
 	if ( pPacket->m_nLength < 14 )
 	{
 		// Pong packets should be 14 bytes long, drop this strange one
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)m_sAddress, _T("pong") );
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)m_sAddress, L"pong" );
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;
 		return TRUE;	// Don't disconnect, though
@@ -823,7 +829,7 @@ BOOL CG1Neighbour::OnBye(CG1Packet* pPacket)
 	}
 
 	// If the text from the packet is blank, or too long, change it to "No Message"
-	if ( strReason.IsEmpty() || strReason.GetLength() > 128 ) strReason = _T("No Message");
+	if ( strReason.IsEmpty() || strReason.GetLength() > 128 ) strReason = L"No Message";
 
 	// Record the bye message in the program message log
 	theApp.Message( MSG_ERROR, IDS_CONNECTION_BYE, (LPCTSTR)m_sAddress, nReason, (LPCTSTR)strReason );
@@ -922,7 +928,7 @@ BOOL CG1Neighbour::OnVendor(CG1Packet* pPacket)
 			Send( pReply );		// Send the reply packet to the remote computer
 		}
 	}
-	else if ( nVendor == 'RAZA' || nVendor == 'PEER')	// The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
+	else if ( nVendor == 'RAZA' || nVendor == 'PEER' )	// The vendor "RAZA" is Shareaza, and the function isn't 0xFFFF
 	{
 		// Switch on what the function is
 		switch ( nFunction )
@@ -1143,7 +1149,7 @@ BOOL CG1Neighbour::OnPush(CG1Packet* pPacket)
 	if ( pPacket->m_nLength < 26 )
 	{
 		// Push packets should be 26 bytes, ignore others
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, L"push" );
 		++Statistics.Current.Gnutella1.Dropped;
 		++m_nDropCount;
 		return TRUE;	// Stay connected
@@ -1304,8 +1310,8 @@ BOOL CG1Neighbour::OnQuery(CG1Packet* pPacket)
 		// The CQuerySearch class rejected the search, drop the packet
 		if ( ! pSearch )
 		{
-			theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G1"), (LPCTSTR)m_sAddress );
-			DEBUG_ONLY( pPacket->Debug( _T("G1 Malformed Query.") ) );
+			theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, L"G1", (LPCTSTR)m_sAddress );
+			DEBUG_ONLY( pPacket->Debug( L"G1 Malformed Query." ) );
 		}
 		Statistics.Current.Gnutella1.Dropped++;
 		m_nDropCount++;

@@ -74,7 +74,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Document Reader Plugin"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "DocumentReader"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
             VALUE "OriginalFilename", "DocumentReader.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1.0.0.0"
@@ -116,9 +116,8 @@ BEGIN
     IDS_PROJNAME	"DocumentReader"
 END
 
-#endif    // English (United States) resources
+#endif    // English resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED

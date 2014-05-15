@@ -1,7 +1,7 @@
 //
 // LibraryBuilderPlugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -84,7 +84,7 @@ bool CLibraryBuilderPlugins::ExtractPluginMetadata(DWORD nIndex, const CString& 
 		}
 		else if ( SERVERLOST( hr ) )
 		{
-			Plugins.ReloadPlugin( _T("LibraryBuilder"), strType );
+			Plugins.ReloadPlugin( L"LibraryBuilder", strType );
 
 			pPlugin.Release();
 
@@ -103,7 +103,7 @@ bool CLibraryBuilderPlugins::ExtractPluginMetadata(DWORD nIndex, const CString& 
 ILibraryBuilderPlugin* CLibraryBuilderPlugins::LoadPlugin(LPCTSTR pszType)
 {
 	CComQIPtr< ILibraryBuilderPlugin > pPlugin(
-		Plugins.GetPlugin( _T("LibraryBuilder"), pszType ) );
+		Plugins.GetPlugin( L"LibraryBuilder", pszType ) );
 
 	return pPlugin.Detach();
 }

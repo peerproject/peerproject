@@ -690,7 +690,7 @@ BOOL CDownloadTransferED2K::SendPrimaryRequest()
 	}
 
 	// ToDo: Add new option "SourceExchangePeriod" (default: 10 minutes) like BitTorrent
-	if ( tNow > m_tSourceRequest + 10 * 60 * 1000 &&		 					// We have not asked for at least 10 minutes
+	if ( tNow > m_tSourceRequest + 10 * 60 * 1000 &&							// We have not asked for at least 10 minutes
 		 m_pDownload->GetSourceCount() < Settings.Downloads.SourcesWanted &&	// We want more sources
 		 m_pClient->m_bEmule )													// Remote client is eMule compatible and we are accepting packets
 	{
@@ -889,7 +889,7 @@ bool CDownloadTransferED2K::SendFragmentRequests()
 		{
 			// Then activate endgame
 			m_pDownload->m_bTorrentEndgame = true;
-			theApp.Message( MSG_DEBUG, _T("Activating endgame for ed2k transfer %s"), m_pDownload->m_sName );
+			theApp.Message( MSG_DEBUG, L"Activating endgame for ed2k transfer %s", m_pDownload->m_sName );
 		}
 	}
 
@@ -990,7 +990,7 @@ void CDownloadTransferED2K::SetQueueRank(int nRank)
 	SetState( dtsQueued );
 	ClearRequests();
 
-	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED, (LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, (LPCTSTR)m_sQueueName );	//_T("eDonkey2000") );
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_QUEUED, (LPCTSTR)m_sAddress, m_nQueuePos, m_nQueueLen, (LPCTSTR)m_sQueueName );	//L"eDonkey2000" );
 }
 
 

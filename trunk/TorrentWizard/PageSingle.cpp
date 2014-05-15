@@ -1,7 +1,7 @@
 //
 // PageSingle.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -32,12 +32,10 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CSinglePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CSinglePage, CWizardPage)
-	//{{AFX_MSG_MAP(CSinglePage)
 	ON_BN_CLICKED(IDC_BROWSE_FILE, OnBrowseFile)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
 	ON_WM_TIMER()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -46,8 +44,6 @@ END_MESSAGE_MAP()
 
 CSinglePage::CSinglePage() : CWizardPage(CSinglePage::IDD)
 {
-	//{{AFX_DATA_INIT(CSinglePage)
-	//}}AFX_DATA_INIT
 }
 
 //CSinglePage::~CSinglePage()
@@ -103,12 +99,11 @@ void CSinglePage::OnTimer(UINT_PTR /*nIDEvent*/)
 
 void CSinglePage::OnDropFiles( HDROP hDropInfo )
 {
-	CString sFilename;
-
-	LPWSTR pszFile = sFilename.GetBuffer( _MAX_PATH );
+	CString strFilename;
+	LPWSTR pszFile = strFilename.GetBuffer( _MAX_PATH );
 	DragQueryFile( hDropInfo, 0, pszFile, _MAX_PATH );
 
-	m_sFileName = sFilename;
+	m_sFileName = strFilename;
 
 	DragFinish( hDropInfo );
 
@@ -131,7 +126,7 @@ void CSinglePage::OnBrowseFile()
 {
 	UpdateData( TRUE );
 
-	CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, _T("All Files|*.*||"), this );
+	CFileDialog dlg( TRUE, NULL, NULL, OFN_HIDEREADONLY, L"All Files|*.*||", this );
 	if ( dlg.DoModal() != IDOK ) return;
 
 	m_sFileName = dlg.GetPathName();
@@ -142,7 +137,7 @@ void CSinglePage::OnBrowseFile()
 void CSinglePage::Update()
 {
 	const CString strFileName = ( m_sFileName.GetLength() < MAX_PATH ) ?
-		m_sFileName : ( CString( _T("\\\\?\\") ) + m_sFileName );
+		m_sFileName : ( CString( L"\\\\?\\" ) + m_sFileName );
 
 	HANDLE hFile = CreateFile( strFileName, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -180,7 +175,7 @@ LRESULT CSinglePage::OnWizardNext()
 	UpdateData();
 
 	const CString strFileName = ( m_sFileName.GetLength() < MAX_PATH ) ?
-		m_sFileName : ( CString( _T("\\\\?\\") ) + m_sFileName );
+		m_sFileName : ( CString( L"\\\\?\\" ) + m_sFileName );
 
 	if ( m_sFileName.IsEmpty() || GetFileAttributes( strFileName ) == 0xFFFFFFFF )
 	{

@@ -56,7 +56,7 @@ BOOL CWarningsDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CWarningsDlg"), IDR_MAINFRAME );
+	SkinMe( L"CWarningsDlg", IDR_MAINFRAME );
 
 	return TRUE;
 }
@@ -107,8 +107,8 @@ void CWarningsDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	{
 		const CString strWebSite( WEB_SITE );
 
-		ShellExecute( GetSafeHwnd(), _T("open"),
-			strWebSite + _T("?Version=") + theApp.m_sVersion,
+		ShellExecute( GetSafeHwnd(), L"open",
+			strWebSite + L"?Version=" + theApp.m_sVersion,
 			NULL, NULL, SW_SHOWNORMAL );
 	}
 }

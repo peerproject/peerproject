@@ -22,7 +22,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "SWFReader.h"
 
 HRESULT CSWFReader::FinalConstruct() throw()
@@ -83,7 +83,7 @@ inline void BGRA_DU2RGBA_UD (char* dest, int width, int height, int components) 
 	static ATL::CWndClassInfo wc = { \
 { sizeof(WNDCLASSEX), style, StartWindowProc, \
 	0, 0, NULL, NULL, NULL, (HBRUSH)(bkgnd + 1), menuid, WndClassName, NULL }, \
-	NULL, NULL, IDC_ARROW, TRUE, 0, _T("") \
+	NULL, NULL, IDC_ARROW, TRUE, 0, L"" \
 	}; \
 	return wc; \
 	}
@@ -91,7 +91,7 @@ inline void BGRA_DU2RGBA_UD (char* dest, int width, int height, int components) 
 class CMainWindow : public CWindowImpl<CMainWindow, CWindow, CFrameWinTraits>
 {
 public:
-	DECLARE_MAINFRAME_WND_CLASS(_T("CSWFReaderWindow"), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, COLOR_WINDOW, 0)
+	DECLARE_MAINFRAME_WND_CLASS(L"CSWFReaderWindow", CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, COLOR_WINDOW, 0)
 
 	BEGIN_MSG_MAP(CMainWindow)
 	END_MSG_MAP()
@@ -101,7 +101,7 @@ HRESULT CreateSWF (HWND hWnd, IUnknown** ppControl)
 {
 	HRESULT hr;
 	__try {
-		hr = AtlAxCreateControlEx (L"ShockwaveFlash.ShockwaveFlash",
+		hr = AtlAxCreateControlEx(L"ShockwaveFlash.ShockwaveFlash",
 			hWnd, NULL, NULL, ppControl);
 	} __except (EXCEPTION_EXECUTE_HANDLER) {
 		hr = E_FAIL;
@@ -112,20 +112,20 @@ HRESULT CreateSWF (HWND hWnd, IUnknown** ppControl)
 DWORD WINAPI LoadSWF (void* filename)
 {
 	DWORD dwBegin = GetTickCount();
-	HRESULT hr = CoInitializeEx (NULL, COINIT_APARTMENTTHREADED);
-	if (SUCCEEDED (hr)) {
+	HRESULT hr = CoInitializeEx(NULL, COINIT_APARTMENTTHREADED);
+	if (SUCCEEDED(hr)) {
 		if (AtlAxWinInit ()) {
 			RECT rc = {-1 - cx, -1 - cy, -1, -1};
 			CMainWindow wndMain;
-			if (wndMain.Create (NULL, &rc, NULL, WS_POPUP)) {
+			if (wndMain.Create(NULL, &rc, NULL, WS_POPUP)) {
 				CComPtr <IUnknown> pControl;
 				hr = CreateSWF(wndMain.m_hWnd, &pControl);
 				if (SUCCEEDED(hr)) {
 					hr = OleRun(pControl);
-					if (SUCCEEDED (hr)) {
+					if (SUCCEEDED(hr)) {
 						CComPtr <IDispatch> pIDispatch;
 						hr = pControl->QueryInterface(IID_IDispatch, (void**) &pIDispatch);
-						if (SUCCEEDED (hr)) {
+						if (SUCCEEDED(hr)) {
 							// void LoadMovie (dwLayer, bstrFilename);
 							VARIANT varArg [2];
 							VariantInit (&varArg [1]);
@@ -141,7 +141,7 @@ DWORD WINAPI LoadSWF (void* filename)
 							VARIANT varResult;
 							VariantInit(&varResult);
 							UINT nArgErr = (UINT) -1;
-							hr = pIDispatch->Invoke (0x8e, IID_NULL, 0, DISPATCH_METHOD,
+							hr = pIDispatch->Invoke(0x8e, IID_NULL, 0, DISPATCH_METHOD,
 								&dispparams, &varResult, NULL, &nArgErr);
 							for (LONG state = -1; SUCCEEDED(hr) && state != 4 &&
 								( GetTickCount() - dwBegin ) < 20000; ) {
@@ -195,8 +195,8 @@ DWORD WINAPI LoadSWF (void* filename)
 								ZeroMemory (&_Data->bmiHeader, sizeof (_Data->bmiHeader));
 								_Data->bmiHeader.biSize = sizeof (BITMAPINFOHEADER);
 								HDC hDC = GetDC(NULL);
-								HDC hMemDC = CreateCompatibleDC (hDC);
-								_Data->hBitmap = CreateCompatibleBitmap (hDC, cx, cy);
+								HDC hMemDC = CreateCompatibleDC(hDC);
+								_Data->hBitmap = CreateCompatibleBitmap(hDC, cx, cy);
 								HBITMAP hOldBitmap = (HBITMAP)SelectObject(hMemDC, _Data->hBitmap);
 								RECT rcMem = {0, 0, cx, cy};
 								hr = OleDraw(pControl, DVASPECT_CONTENT, hMemDC, &rcMem);
@@ -274,7 +274,7 @@ STDMETHODIMP CSWFReader::LoadFromFile (
 				char* pDest = NULL;
 				hr = SafeArrayAccessData(*ppImage, (void**) &pDest);
 				if (SUCCEEDED(hr)) {
-					HDC hDC = GetDC (NULL);
+					HDC hDC = GetDC(NULL);
 					GetDIBits(hDC, _Data->hBitmap, 0, pParams->nHeight, pDest,
 						(BITMAPINFO*) &_Data->bmiHeader, DIB_RGB_COLORS);
 					ReleaseDC(NULL, hDC);

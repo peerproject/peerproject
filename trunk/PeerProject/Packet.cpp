@@ -346,7 +346,7 @@ CString	CPacket::GetType() const	// Saying const indicates this method doesn't c
 CString CPacket::ToHex() const
 {
 	// Setup the alphabet to use when endoing each byte in two hexadecimal characters, 0-9 and A-F
-	const LPCTSTR pszHex = _T("0123456789ABCDEF");
+	const LPCTSTR pszHex = L"0123456789ABCDEF";
 	const DWORD nLength  = min( m_nLength, 84ul );
 
 	// Make a string and open it to write the characters in it directly, for speed
@@ -360,7 +360,7 @@ CString CPacket::ToHex() const
 		int nChar = m_pBuffer[i];
 
 		// If this isn't the very start, write a space into the text
-		if ( i ) *pszDump++ = ' ';	// Write a space at pszDump, then move the pszDump pointer forward to the next character
+		if ( i ) *pszDump++ = L' ';	// Write a space at pszDump, then move the pszDump pointer forward to the next character
 
 		// Express the byte as two characters in the text, "00" through "FF"
 		*pszDump++ = pszHex[ nChar >> 4 ];
@@ -398,7 +398,7 @@ CString CPacket::ToASCII() const
 		int nChar = m_pBuffer[i];
 
 		// If the byte is 32 or greater, read it as an ASCII character and copy that character into the string
-		*pszDump++ = TCHAR( nChar >= 32 ? nChar : '.' ); 	// For 0-31, copy in a period instead
+		*pszDump++ = TCHAR( nChar < 32 ? L'.' : nChar ); 	// For 0-31, copy in a period instead
 	}
 
 	if ( nLength < m_nLength )
@@ -426,9 +426,9 @@ void CPacket::Debug(LPCTSTR pszReason) const
 	//const CString strHex = ToHex();
 
 	if ( ! m_nLength )
-		theApp.Message( MSG_DEBUG, _T("%s No Size."), pszReason );
+		theApp.Message( MSG_DEBUG, L"%s No Size.", pszReason );
 	else	// Note: Heap corruption detected here (for unknown ED2K Hello)
-		theApp.Message( MSG_DEBUG, _T("%s Size: %u bytes ASCII: %s HEX: %s"), pszReason, m_nLength, (LPCTSTR)ToASCII(), (LPCTSTR)ToHex() );
+		theApp.Message( MSG_DEBUG, L"%s Size: %u bytes ASCII: %s HEX: %s", pszReason, m_nLength, (LPCTSTR)ToASCII(), (LPCTSTR)ToHex() );
 }
 #endif	// Debug
 

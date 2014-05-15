@@ -1,7 +1,7 @@
 //
 // DCClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -119,16 +119,16 @@ CString CDCClients::CreateNick(LPCTSTR szNick)
 	CString strNick = ( szNick && *szNick )? szNick : MyProfile.GetNick();
 
 	// Replace bad symbols
-	strNick.Replace( _T(' '), _T('_') );
-	strNick.Replace( _T('|'), _T('_') );
-	strNick.Replace( _T('&'), _T('_') );
-	strNick.Replace( _T('$'), _T('_') );
+	strNick.Replace( L' ', L'_' );
+	strNick.Replace( L'|', L'_' );
+	strNick.Replace( L'&', L'_' );
+	strNick.Replace( L'$', L'_' );
 
 	// Generate nick if not set yet, Minimum length 2, Maximum length 32
 	if ( strNick.IsEmpty() )
-		strNick.Format( CLIENT_NAME _T("%04u"), GetRandomNum( 0u, 9999u ) );
+		strNick.Format( CLIENT_NAME L"%04u", GetRandomNum( 0u, 9999u ) );
 	else if ( strNick.GetLength() < 2 )
-		strNick += _T("_");
+		strNick += L"_";
 	else if ( strNick.GetLength() > 32 )
 		strNick = strNick.Left( 32 );
 
@@ -245,7 +245,7 @@ BOOL CDCClients::OnAccept(CConnection* pConnection)
 {
 	if ( ! Network.IsConnected() || ( Settings.Connection.RequireForTransfers && ! Settings.DC.Enabled ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Refusing DC++ client link from %s because network is disabled."),
+		theApp.Message( MSG_ERROR, L"Refusing DC++ client link from %s because network is disabled.",
 			(LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_DC ]
 		return FALSE;
 	}
@@ -264,7 +264,7 @@ BOOL CDCClients::OnAccept(CConnection* pConnection)
 		}
 	}
 
-	theApp.Message( MSG_ERROR, _T("Rejecting %s connection from %s, network core overloaded."),
+	theApp.Message( MSG_ERROR, L"Rejecting %s connection from %s, network core overloaded.",
 		protocolNames[ PROTOCOL_DC ], (LPCTSTR)pConnection->m_sAddress );
 
 	return FALSE;

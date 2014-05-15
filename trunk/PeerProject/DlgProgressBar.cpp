@@ -129,7 +129,7 @@ BOOL CProgressBarDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CProgressBarDlg"), IDR_MAINFRAME );
+	SkinMe( L"CProgressBarDlg", IDR_MAINFRAME );
 
 	if ( Settings.General.LanguageRTL )
 	{
@@ -140,5 +140,5 @@ BOOL CProgressBarDlg::OnInitDialog()
 	return TRUE;
 }
 
-void CProgressBarDlg::OnCancel() {}
 void CProgressBarDlg::OnOK() {}
+void CProgressBarDlg::OnCancel() {}

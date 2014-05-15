@@ -81,7 +81,7 @@ BOOL CDownloadGroupDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDownloadGroupDlg"), IDR_MAINFRAME );
+	SkinMe( L"CDownloadGroupDlg", IDR_MAINFRAME );
 
 	//m_wndSchemas.SetDroppedWidth( 200 );	// RecalcDropWidth()
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
@@ -146,7 +146,7 @@ void CDownloadGroupDlg::OnFilterAdd()
 	if ( m_wndFilterList.FindString( -1, strType ) >= 0 ) return;
 
 	m_wndFilterList.AddString( strType );
-	m_wndFilterList.SetWindowText( _T("") );
+	m_wndFilterList.SetWindowText( L"" );
 }
 
 void CDownloadGroupDlg::OnFilterRemove()
@@ -195,7 +195,7 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 			pOldSchema->GetNextFilter( pos, strFilter, bResult );
 			if ( bResult )
 			{
-				strFilter.Insert( 0, _T('.') );
+				strFilter.Insert( 0, L'.' );
 				while ( POSITION pos = oList.Find( strFilter ) )
 					oList.RemoveAt( pos );
 			}
@@ -215,7 +215,7 @@ void CDownloadGroupDlg::OnCbnCloseupSchemas()
 			pNewSchema->GetNextFilter( pos, strFilter, bResult );
 			if ( bResult )
 			{
-				strFilter.Insert( 0, _T('.') );
+				strFilter.Insert( 0, L'.' );
 				oList.AddTail( strFilter );
 			}
 		}
@@ -246,7 +246,7 @@ void CDownloadGroupDlg::OnBrowse()
 {
 	UpdateData();
 
-	CString strPath( BrowseForFolder( _T("Select folder for downloads:"), m_sFolder ) );
+	CString strPath( BrowseForFolder( L"Select folder for downloads:", m_sFolder ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -297,10 +297,10 @@ void CDownloadGroupDlg::OnOK()
 	// Validate Path
 	if ( m_sFolder.GetLength() && m_sFolder != m_pGroup->m_sFolder )
 	{
-		if ( m_sFolder.Find( _T("\"") ) > -1 || m_sFolder.Find( _T("\t") ) > -1 ||
-			 m_sFolder.Find( _T("<") ) > -1 || m_sFolder.Find( _T(">") ) > -1 ||
-			 m_sFolder.Find( _T("?") ) > -1 || m_sFolder.Find( _T("*") ) > -1 ||
-			 m_sFolder.Find( _T("|") ) > -1 || m_sFolder.Find( _T(":") ) != 1 )
+		if ( m_sFolder.Find( L"\"" ) > -1 || m_sFolder.Find( L"\t" ) > -1 ||
+			 m_sFolder.Find( L"<" ) > -1 || m_sFolder.Find( L">" ) > -1 ||
+			 m_sFolder.Find( L"?" ) > -1 || m_sFolder.Find( L"*" ) > -1 ||
+			 m_sFolder.Find( L"|" ) > -1 || m_sFolder.Find( L":" ) != 1 )
 			m_sFolder.Empty();
 	}
 
@@ -340,8 +340,8 @@ void CDownloadGroupDlg::OnOK()
 
 	if ( ! m_sFolder.IsEmpty() )
 	{
-		if ( m_sFolder.Find( _T(":\\") ) != 1 )
-			m_sFolder = Settings.Downloads.CompletePath + _T("\\") + m_sFolder;
+		if ( m_sFolder.Find( L":\\" ) != 1 )
+			m_sFolder = Settings.Downloads.CompletePath + L"\\" + m_sFolder;
 
 		if ( ! LibraryFolders.IsFolderShared( m_sFolder ) )
 		{
@@ -373,7 +373,7 @@ void CDownloadGroupDlg::OnOK()
 					if ( ! LibraryFolders.IsShareable( m_sFolder ) )
 					{
 						pLock.Unlock();
-						CHelpDlg::Show( _T("ShareHelp.BadShare") );
+						CHelpDlg::Show( L"ShareHelp.BadShare" );
 						bAdd = FALSE;
 					}
 				}

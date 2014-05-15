@@ -1,7 +1,7 @@
 //
 // SchemaMember.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -97,19 +97,19 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 			float nNumber = 0.0;
 			_stscanf( strValue, L"%f", &nNumber );
 			if ( nNumber < (float)m_nMinOccurs || nNumber > (float)m_nMaxOccurs )
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_bYear )
 		{
 			int nYear = 0;
 			if ( _stscanf( strValue, L"%i", &nYear ) != 1 || nYear < 1000 || nYear > 9999 )
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_bGUID && ! strValue.IsEmpty() )
 		{
 			Hashes::Guid tmp;
 			if ( !( Hashes::fromGuid( strValue, &tmp[ 0 ] ) && tmp.validate() ) )
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_bBoolean )
 		{
@@ -122,7 +122,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 				 strValue.CompareNoCase( L"no" ) == 0 )
 				strValue = L"false";
 			else
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 	}
 
@@ -136,7 +136,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 			if ( _stscanf( strValue, L"%lu", &nSeconds ) == 1 )
 				strValue.Format( L"%.2u:%.2u", nSeconds / 60, nSeconds % 60 );
 			else
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_nFormat == smfTimeHHMMSSdec )
 		{
@@ -145,7 +145,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 				strValue.Format( L"%.2u:%.2u:%.2u", (DWORD)nMinutes / 60,
 					(DWORD)nMinutes % 60, (DWORD)( ( nMinutes - (DWORD)nMinutes ) * 60 ) );
 			else
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_nFormat == smfFrequency )
 		{
@@ -153,7 +153,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 			if ( _stscanf( strValue, L"%lu", &nRate ) == 1 )
 				strValue.Format( L"%.1f kHz", nRate / 1000.0 );
 			else
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 		else if ( m_nFormat == smfBitrate )
 		{
@@ -162,7 +162,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 			if ( _stscanf( strValue, L"%lu", &nBitrate ) == 1 )
 				strValue.Format( bVariable ? L"%luk~" : L"%luk", nBitrate );
 			else
-				strValue = ( pszDefault ? pszDefault : _T("") );
+				strValue = ( pszDefault ? pszDefault : L"" );
 		}
 	}
 
@@ -360,7 +360,7 @@ BOOL CSchemaMember::LoadDisplay(CXMLElement* pDisplay)
 		m_pSchema->m_sDefaultColumns += '|';
 	}
 
-	if ( strSearch.CompareNoCase( _T("true") ) == 0 )
+	if ( strSearch.CompareNoCase( L"true" ) == 0 )
 		m_bPrompt = TRUE;
 
 	return TRUE;

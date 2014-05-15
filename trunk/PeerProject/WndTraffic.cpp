@@ -1,7 +1,7 @@
 //
 // WndTraffic.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -152,7 +152,7 @@ void CTrafficWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CTrafficWnd"), point, ID_TRAFFIC_SETUP );
+	Skin.TrackPopupMenu( L"CTrafficWnd", point, ID_TRAFFIC_SETUP );
 }
 
 void CTrafficWnd::OnUpdateTrafficGrid(CCmdUI* pCmdUI)
@@ -232,7 +232,7 @@ BOOL CTrafficWnd::Serialize(BOOL bSave)
 {
 	WINDOWPLACEMENT pPos = { sizeof( WINDOWPLACEMENT ) };
 
-	CString strFile = Settings.General.DataPath + _T("Graph%.4u.dat");
+	CString strFile = Settings.General.DataPath + L"Graph%.4u.dat";
 	strFile.Format( strFile, m_nUnique );
 
 	CFile pFile;
@@ -308,11 +308,11 @@ void CTrafficWnd::UpdateCaption()
 	CString strCaption, strName;
 
 	if ( ! m_sName.IsEmpty() )
-		strName = _T(" : ") + m_sName;
+		strName = L" : " + m_sName;
 	else if ( m_nUnique <= 26 )
-		strName.Format( _T(" (%c)"), 'A' + m_nUnique - 1 );
+		strName.Format( L" (%c)", 'A' + m_nUnique - 1 );
 	else
-		strName.Format( _T(" (%lu)"), m_nUnique );
+		strName.Format( L" (%lu)", m_nUnique );
 
 	LoadString( strCaption, IDR_TRAFFICFRAME );
 	strCaption += strName;

@@ -94,7 +94,7 @@ int CBrowseHostWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndProfile.Create( this );
 	m_wndFrame.Create( this, &m_wndList );
 
-	LoadState( _T("CBrowseHostWnd"), TRUE );
+	LoadState( L"CBrowseHostWnd", TRUE );
 
 	if ( m_bAutoBrowse )
 		m_bPaused = ! m_pBrowser->Browse();
@@ -116,7 +116,7 @@ void CBrowseHostWnd::OnDestroy()
 	else
 		Settings.Search.BlankSchemaURI.Empty();
 
-	SaveState( _T("CBrowseHostWnd") );
+	SaveState( L"CBrowseHostWnd" );
 
 	CBaseMatchWnd::OnDestroy();
 }
@@ -126,7 +126,7 @@ void CBrowseHostWnd::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	CBaseMatchWnd::OnSkinChange();
 
-	Skin.CreateToolBar( _T("CBrowseHostWnd"), &m_wndToolBar );
+	Skin.CreateToolBar( L"CBrowseHostWnd", &m_wndToolBar );
 	m_wndFrame.OnSkinChange();
 	m_wndHeader.OnSkinChange();
 	m_wndProfile.OnSkinChange();
@@ -177,7 +177,7 @@ void CBrowseHostWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		ClientToScreen( &point );
 
 	if ( m_bContextMenu )
-		Skin.TrackPopupMenu( _T("CBrowseHostWnd"), point, ID_SEARCH_DOWNLOAD );
+		Skin.TrackPopupMenu( L"CBrowseHostWnd", point, ID_SEARCH_DOWNLOAD );
 	else
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
 }
@@ -264,22 +264,22 @@ void CBrowseHostWnd::UpdateMessages(BOOL /*bActive*/)
 
 	LoadString( strCaption, IDR_BROWSEHOSTFRAME );
 	if ( Settings.General.LanguageRTL )
-		strCaption = _T("\x200F") + strCaption + _T("\x202E : \x202B");
+		strCaption = L"\x200F" + strCaption + L"\x202E : \x202B";
 	else
-		strCaption += _T(" : ");
+		strCaption += L" : ";
 
 	if ( m_pBrowser->m_pProfile != NULL && m_pBrowser->m_pProfile->IsValid() )
 	{
 		strCaption += m_pBrowser->m_pProfile->GetNick();
-		strOld.Format( _T(" (%s:%lu)"),
+		strOld.Format( L" (%s:%lu)",
 			(LPCTSTR)CString( inet_ntoa( m_pBrowser->m_pAddress ) ),
 			m_pBrowser->m_nPort );
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+		if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
 		strCaption += strOld;
 	}
 	else
 	{
-		strOld.Format( _T("%s:%lu"),
+		strOld.Format( L"%s:%lu",
 			(LPCTSTR)CString( inet_ntoa( m_pBrowser->m_pAddress ) ),
 			m_pBrowser->m_nPort );
 		strCaption += strOld;
@@ -287,16 +287,16 @@ void CBrowseHostWnd::UpdateMessages(BOOL /*bActive*/)
 
 	if ( m_pMatches->m_nFilteredFiles || m_pMatches->m_nFilteredHits )
 	{
-		strOld.Format( _T(" [%lu/%lu]"),
+		strOld.Format( L" [%lu/%lu]",
 			m_pMatches->m_nFilteredFiles, m_pMatches->m_nFilteredHits );
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+		if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
 		strCaption += strOld;
 	}
 
 	if ( ! m_pBrowser->m_sServer.IsEmpty() )
 	{
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-		strCaption = strCaption + _T(" - ") + m_pBrowser->m_sServer;
+		if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
+		strCaption = strCaption + L" - " + m_pBrowser->m_sServer;
 	}
 
 	GetWindowText( strOld );
@@ -334,7 +334,7 @@ void CBrowseHostWnd::UpdateMessages(BOOL /*bActive*/)
 
 void CBrowseHostWnd::OnProfileReceived()
 {
-	if ( ! m_bPaused && m_hWnd != NULL && m_wndProfile.m_hWnd != NULL)
+	if ( ! m_bPaused && m_hWnd != NULL && m_wndProfile.m_hWnd != NULL )
 	{
 		if ( m_bOnFiles == FALSE || m_wndProfile.IsWindowVisible() )
 			PostMessage( WM_COMMAND, ID_BROWSE_PROFILE );

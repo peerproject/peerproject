@@ -234,10 +234,10 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 #define G1_QF_TAG				0x80	// If the bit 15 is 0, then this is a query with the deprecated minspeed semantic. If the bit 15 is set to 1, then this is a query with the new minimum speed semantic.
 
 #define OLD_LW_MAX_QUERY_FIELD_LEN	30
-#define WHAT_IS_NEW_QUERY_STRING	"whatisnewxoxo"	// "WhatIsNewXOXO" ?
-#define DEFAULT_G1_MCAST_ADDRESS	"234.21.81.1"	// Experimental Multicast
-#define DEFAULT_G1_MCAST_PORT		6347			// Experimental Multicast
-#define DEFAULT_URN_QUERY			"\\"
+#define WHAT_IS_NEW_QUERY_STRING	L"whatisnewxoxo"	// "WhatIsNewXOXO" ?
+#define DEFAULT_G1_MCAST_ADDRESS	"234.21.81.1"		// Experimental Multicast (Not widechar)
+#define DEFAULT_G1_MCAST_PORT		6347				// Experimental Multicast
+#define DEFAULT_URN_QUERY			L"\\"
 
 #define QUERY_KEY_LIFETIME		2 * 60 * 60
 #define MIN_QK_SIZE_IN_BYTES	4
@@ -259,94 +259,94 @@ inline void CG1Packet::CG1PacketPool::FreePoolImpl(CPacket* pPacket)
 // http://limewire.negatis.com/index.php?title=Known_GGEP_Extension_Blocks
 
 // Browse Host (no value)
-const LPCTSTR GGEP_HEADER_BROWSE_HOST			= _T("BH");
+const LPCTSTR GGEP_HEADER_BROWSE_HOST			= L"BH";
 // Average daily uptime (seconds, 1-3 bytes)
-const LPCTSTR GGEP_HEADER_DAILY_AVERAGE_UPTIME	= _T("DU");
+const LPCTSTR GGEP_HEADER_DAILY_AVERAGE_UPTIME	= L"DU";
 // Unicast protocol support
-const LPCTSTR GGEP_HEADER_UNICAST_SUPPORT		= _T("GUE");
+const LPCTSTR GGEP_HEADER_UNICAST_SUPPORT		= L"GUE";
 // Vendor info.  A value like "LIME#".  First 4 bytes are the vendor code ASCII characters, 5th byte has major and minor version number squashed into a single byte.
-const LPCTSTR GGEP_HEADER_VENDOR_INFO			= _T("VC");
+const LPCTSTR GGEP_HEADER_VENDOR_INFO			= L"VC";
 // Ultrapeer support
-const LPCTSTR GGEP_HEADER_UP_SUPPORT			= _T("UP");
+const LPCTSTR GGEP_HEADER_UP_SUPPORT			= L"UP";
 // AddressSecurityToken support
-const LPCTSTR GGEP_HEADER_QUERY_KEY_SUPPORT 	= _T("QK");
+const LPCTSTR GGEP_HEADER_QUERY_KEY_SUPPORT 	= L"QK";
 // OOB v3 Security Token support
-const LPCTSTR GGEP_HEADER_SECURE_OOB			= _T("SO");
+const LPCTSTR GGEP_HEADER_SECURE_OOB			= L"SO";
 // AddressSecurityToken support
-const LPCTSTR GGEP_HEADER_MULTICAST_RESPONSE	= _T("MCAST");
+const LPCTSTR GGEP_HEADER_MULTICAST_RESPONSE	= L"MCAST";
 // PushProxy support
-const LPCTSTR GGEP_HEADER_PUSH_PROXY			= _T("PUSH");
+const LPCTSTR GGEP_HEADER_PUSH_PROXY			= L"PUSH";
 // PushProxy TLS indexes
-const LPCTSTR GGEP_HEADER_PUSH_PROXY_TLS		= _T("PUSH_TLS");
+const LPCTSTR GGEP_HEADER_PUSH_PROXY_TLS		= L"PUSH_TLS";
 // AlternateLocation support
-const LPCTSTR GGEP_HEADER_ALTS					= _T("ALT");
+const LPCTSTR GGEP_HEADER_ALTS					= L"ALT";
 // AlternateLocations that support TLS
-const LPCTSTR GGEP_HEADER_ALTS_TLS				= _T("ALT_TLS");
+const LPCTSTR GGEP_HEADER_ALTS_TLS				= L"ALT_TLS";
 // IpPort request
-const LPCTSTR GGEP_HEADER_IPPORT				= _T("IP");
+const LPCTSTR GGEP_HEADER_IPPORT				= L"IP";
 // UDP HostCache pongs
-const LPCTSTR GGEP_HEADER_UDP_HOST_CACHE		= _T("UDPHC");
+const LPCTSTR GGEP_HEADER_UDP_HOST_CACHE		= L"UDPHC";
 // Indicating support for packed ip/ports & udp host caches
-const LPCTSTR GGEP_HEADER_SUPPORT_CACHE_PONGS	= _T("SCP");
+const LPCTSTR GGEP_HEADER_SUPPORT_CACHE_PONGS	= L"SCP";
 // Packed IP/Ports
-const LPCTSTR GGEP_HEADER_PACKED_IPPORTS		= _T("IPP");
+const LPCTSTR GGEP_HEADER_PACKED_IPPORTS		= L"IPP";
 // Packed IP/Ports that support TLS
-const LPCTSTR GGEP_HEADER_PACKED_IPPORTS_TLS	= _T("IPP_TLS");
+const LPCTSTR GGEP_HEADER_PACKED_IPPORTS_TLS	= L"IPP_TLS";
 // Packed UDP Host Caches
-const LPCTSTR GGEP_HEADER_PACKED_HOSTCACHES 	= _T("PHC");
+const LPCTSTR GGEP_HEADER_PACKED_HOSTCACHES 	= L"PHC";
 // SHA1 URNs
-const LPCTSTR GGEP_HEADER_SHA1					= _T("S1");
+const LPCTSTR GGEP_HEADER_SHA1					= L"S1";
 // Tiger Tree Root URNs (24 bytes)
-const LPCTSTR GGEP_HEADER_TTROOT				= _T("TT");
+const LPCTSTR GGEP_HEADER_TTROOT				= L"TT";
 // Determine if a SHA1 is valid
-const LPCTSTR GGEP_HEADER_SHA1_VALID			= _T("SV");
+const LPCTSTR GGEP_HEADER_SHA1_VALID			= L"SV";
 // TLS support
-const LPCTSTR GGEP_HEADER_TLS_SUPPORT			= _T("TLS");
+const LPCTSTR GGEP_HEADER_TLS_SUPPORT			= L"TLS";
 // DHT support
-const LPCTSTR GGEP_HEADER_DHT_SUPPORT			= _T("DHT");
+const LPCTSTR GGEP_HEADER_DHT_SUPPORT			= L"DHT";
 // DHT IPP requests
-const LPCTSTR GGEP_HEADER_DHT_IPPORTS			= _T("DHTIPP");
+const LPCTSTR GGEP_HEADER_DHT_IPPORTS			= L"DHTIPP";
 // A feature query. This is 'WH' for legacy reasons, because 'What is New' was the first
-const LPCTSTR GGEP_HEADER_FEATURE_QUERY			= _T("WH");
+const LPCTSTR GGEP_HEADER_FEATURE_QUERY			= L"WH";
 // The extension header disabling OOB proxying
-const LPCTSTR GGEP_HEADER_NO_PROXY				= _T("NP");
+const LPCTSTR GGEP_HEADER_NO_PROXY				= L"NP";
 // MetaType query support
-const LPCTSTR GGEP_HEADER_META					= _T("M");
+const LPCTSTR GGEP_HEADER_META					= L"M";
 // Client locale
-const LPCTSTR GGEP_HEADER_CLIENT_LOCALE			= _T("LOC");
+const LPCTSTR GGEP_HEADER_CLIENT_LOCALE			= L"LOC";
 // Network-wide file creation time, in seconds (4 bytes)
-const LPCTSTR GGEP_HEADER_CREATE_TIME			= _T("CT");
+const LPCTSTR GGEP_HEADER_CREATE_TIME			= L"CT";
 // Firewalled Transfer support in Hits (1 byte - version, supported if version > 0)
-const LPCTSTR GGEP_HEADER_FW_TRANS				= _T("FW");
+const LPCTSTR GGEP_HEADER_FW_TRANS				= L"FW";
 // The extension header (key) indicating the GGEP block is the 'secure' block
-const LPCTSTR GGEP_HEADER_SECURE_BLOCK			= _T("SB");
+const LPCTSTR GGEP_HEADER_SECURE_BLOCK			= L"SB";
 // The extension header (key) indicating the value has a signature in it
-const LPCTSTR GGEP_HEADER_SIGNATURE				= _T("SIG");
+const LPCTSTR GGEP_HEADER_SIGNATURE				= L"SIG";
 // Chat support
-const LPCTSTR GGEP_HEADER_CHAT					= _T("CHAT");
+const LPCTSTR GGEP_HEADER_CHAT					= L"CHAT";
 // Equivalent of GGEP SCP but for GnucDNA peers only.  Unlike SCP, also used as acknowledgment
-const LPCTSTR GGEP_HEADER_SUPPORT_GDNA			= _T("DNA");
+const LPCTSTR GGEP_HEADER_SUPPORT_GDNA			= L"DNA";
 // Legacy buggy version of GnucDNA DIPP
-const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS_x	= _T("DIP");
+const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS_x	= L"DIP";
 // Equivalent of GGEP IPP but contains GnucDNA peers only
-const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS	= _T("DIPP");
+const LPCTSTR GGEP_HEADER_GDNA_PACKED_IPPORTS	= L"DIPP";
 // File hash. SHA1 only or SHA1 + Tiger
-const LPCTSTR GGEP_HEADER_HASH					= _T("H");
+const LPCTSTR GGEP_HEADER_HASH					= L"H";
 // URN but without "urn:" prefix
-const LPCTSTR GGEP_HEADER_URN					= _T("u");
+const LPCTSTR GGEP_HEADER_URN					= L"u";
 // Indicating the size of the file is 64 bit
-const LPCTSTR GGEP_HEADER_LARGE_FILE			= _T("LF");
+const LPCTSTR GGEP_HEADER_LARGE_FILE			= L"LF";
 // The prefix of the extension header indicating support for partial results
-const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_PREFIX	= _T("PR");
+const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_PREFIX	= L"PR";
 // Determine if the encoded ranges are unverified
-const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_UNVERIFIED = _T("PRU");
+const LPCTSTR GGEP_HEADER_PARTIAL_RESULT_UNVERIFIED = L"PRU";
 // To support queries longer than previous length limit on query string fields
-const LPCTSTR GGEP_HEADER_EXTENDED_QUERY		= _T("XQ");
+const LPCTSTR GGEP_HEADER_EXTENDED_QUERY		= L"XQ";
 // Various information contained in a return path entry GGEP block
-const LPCTSTR GGEP_HEADER_RETURN_PATH_SOURCE	= _T("RPS");
-const LPCTSTR GGEP_HEADER_RETURN_PATH_HOPS		= _T("RPH");
-const LPCTSTR GGEP_HEADER_RETURN_PATH_ME		= _T("RPI");
-const LPCTSTR GGEP_HEADER_RETURN_PATH_TTL		= _T("RPT");
+const LPCTSTR GGEP_HEADER_RETURN_PATH_SOURCE	= L"RPS";
+const LPCTSTR GGEP_HEADER_RETURN_PATH_HOPS		= L"RPH";
+const LPCTSTR GGEP_HEADER_RETURN_PATH_ME		= L"RPI";
+const LPCTSTR GGEP_HEADER_RETURN_PATH_TTL		= L"RPT";
 
 // GGEP_HEADER_SUPPORT_CACHE_PONGS - Support Cache Pongs(SCP)
 #define GGEP_SCP_LEAF		0x00	// If we are a leaf

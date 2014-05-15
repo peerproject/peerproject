@@ -1,7 +1,7 @@
 //
 // Plugin.cpp : Implementation of CPlugin for VirusTotal
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2012
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions Copyright Nikolay Raspopov, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Plugin.h"
 
 static const LPCWSTR VIRUSTOTAL_CHECK	= L"&VirusTotal Check";
@@ -35,7 +35,7 @@ void CPlugin::InsertCommand(ISMenu* pWebMenu, int nPos, UINT nID, LPCWSTR szItem
 		for ( int i = 0; i < (int)nCount; ++i )
 		{
 			CComPtr< ISMenu > pItem;
-			LONG nItemID;	// note: -1 - submenu, 0 - separator
+			LONG nItemID;	// Note: -1 - submenu, 0 - separator
 			if ( SUCCEEDED( pWebMenu->get_Item( CComVariant( i ), &pItem ) ) && pItem &&
 				 SUCCEEDED( pItem->get_CommandID( &nItemID ) ) && (UINT)nItemID == nID )
 				return;		// Already in place
@@ -53,8 +53,10 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 	ShellExecute( NULL, NULL, CString( VIRUSTOTAL_URL ) + szHash, NULL, NULL, SW_SHOWDEFAULT );
 
 	return S_OK;
+}
 
 // Obsolete method:
+//{
 //	CComPtr< IWebBrowserApp > pWebBrowserApp;
 //	HRESULT hr = pWebBrowserApp.CoCreateInstance( CLSID_InternetExplorer );
 //	if ( SUCCEEDED( hr ) )
@@ -87,7 +89,7 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 //		ATLTRACE( "CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n", hr );
 //
 //	return hr;
-}
+//}
 
 // IGeneralPlugin
 
@@ -256,7 +258,6 @@ STDMETHODIMP CPlugin::OnCommand(
 						}
 						else
 							ATLTRACE( "CPlugin::OnCommand() : Get Library error: 0x%08x\n", hr );
-
 					}
 					else if ( pItem.vt == VT_DISPATCH )
 					{

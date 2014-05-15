@@ -1,7 +1,7 @@
 //
 // IEProtocol.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -368,15 +368,15 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 {
 	CSingleLock pLock( &m_pSection, TRUE );
 
-	TRACE( _T("Requested URL: %s\n"), pszURL );
+	TRACE( L"Requested URL: %s\n", pszURL );
 
-	if ( _tcsnicmp( pszURL, _PT("p2p-col:") ) == 0 )		// p2p-col:[//]{SHA1}/{relative path inside zip}
+	if ( _tcsnicmp( pszURL, _P( L"p2p-col:" ) ) == 0 )		// p2p-col:[//]{SHA1}/{relative path inside zip}
 		return OnRequestCollection( SkipSlashes( pszURL, 8 ), oBuffer, sMimeType, bParseOnly );
 
-	if ( _tcsnicmp( pszURL, _PT("p2p-file:") ) == 0 )		// p2p-file:[//]{SHA1}/{preview|meta}
+	if ( _tcsnicmp( pszURL, _P( L"p2p-file:" ) ) == 0 )		// p2p-file:[//]{SHA1}/{preview|meta}
 		return OnRequestFile( SkipSlashes( pszURL, 9 ), oBuffer, sMimeType, bParseOnly );
 
-	if ( _tcsnicmp( pszURL, _PT("p2p-app:") ) == 0 )		// p2p-app:[//]{history}
+	if ( _tcsnicmp( pszURL, _P( L"p2p-app:" ) ) == 0 )		// p2p-app:[//]{history}
 		return OnRequestApplication( SkipSlashes( pszURL, 8 ), oBuffer, sMimeType, bParseOnly );
 
 	return INET_E_INVALID_URL;
@@ -385,7 +385,7 @@ HRESULT CIEProtocol::OnRequest(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeT
 HRESULT CIEProtocol::OnRequestCollection(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly)
 {
 	CString strURL = pszURL;
-	CString strURN = strURL.SpanExcluding( _T("/") );
+	CString strURN = strURL.SpanExcluding( L"/" );
 	if ( strURN.IsEmpty() || _tcslen( pszURL ) < 30 )
 		return INET_E_INVALID_URL;
 
@@ -410,7 +410,7 @@ HRESULT CIEProtocol::OnRequestCollection(LPCTSTR pszURL, CBuffer& oBuffer, CStri
 					CString strBuffer;
 					pCollFile->Render( strBuffer );
 					oBuffer.Print( strBuffer, CP_UTF8 );
-					sMimeType = _T("text/html");
+					sMimeType = L"text/html";
 				}
 				return S_OK;
 			}
@@ -438,16 +438,16 @@ HRESULT CIEProtocol::OnRequestCollection(LPCTSTR pszURL, CBuffer& oBuffer, CStri
 		return INET_E_OBJECT_NOT_FOUND;
 
 	CString strPath = URLDecode( strURL.Mid( strURN.GetLength() + 1 ) );
-	bool bDir = strPath.IsEmpty() || ( strPath.GetAt( strPath.GetLength() - 1 ) == _T('/') );
+	bool bDir = strPath.IsEmpty() || ( strPath.GetAt( strPath.GetLength() - 1 ) == L'/' );
 
-	CString strFile = ( bDir ? ( strPath + _T("index.htm") ) : strPath );
+	CString strFile = ( bDir ? ( strPath + L"index.htm" ) : strPath );
 	CZIPFile::File* pFile = oCollZIP.GetFile( strFile, TRUE );
 	if ( ! pFile )
 	{
 		if ( ! bDir )
 			return INET_E_OBJECT_NOT_FOUND;
 
-		strFile = strPath + _T("collection.xml");
+		strFile = strPath + L"collection.xml";
 		pFile = oCollZIP.GetFile( strFile, TRUE );
 		if ( ! pFile )
 			return INET_E_OBJECT_NOT_FOUND;
@@ -469,7 +469,7 @@ HRESULT CIEProtocol::OnRequestCollection(LPCTSTR pszURL, CBuffer& oBuffer, CStri
 HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly)
 {
 	CString strURL = pszURL;
-	CString strURN = strURL.SpanExcluding( _T("/") );
+	CString strURN = strURL.SpanExcluding( L"/" );
 	if ( strURN.IsEmpty() || _tcslen( pszURL ) < 31 )
 		return INET_E_INVALID_URL;
 
@@ -494,7 +494,7 @@ HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sM
 			return INET_E_INVALID_URL;
 	}
 
-	if ( strVerb.CompareNoCase( _T("preview") ) == 0 )
+	if ( strVerb.CompareNoCase( L"preview" ) == 0 )
 	{
 		if ( bParseOnly )
 			return S_OK;
@@ -504,15 +504,15 @@ HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sM
 		{
 			CAutoVectorPtr< BYTE > pBuffer;
 			DWORD nImageSize = 0;
-			if ( pImage.SaveToMemory( _T(".jpg"), 90, &pBuffer.m_p, &nImageSize ) )
+			if ( pImage.SaveToMemory( L".jpg", 90, &pBuffer.m_p, &nImageSize ) )
 			{
 				oBuffer.Add( pBuffer, nImageSize );
-				sMimeType = _T("image/jpeg");
+				sMimeType = L"image/jpeg";
 				return S_OK;
 			}
 		}
 	}
-	else if ( strVerb.CompareNoCase( _T("meta") ) == 0 )
+	else if ( strVerb.CompareNoCase( L"meta" ) == 0 )
 	{
 		if ( bParseOnly )
 			return S_OK;
@@ -521,12 +521,12 @@ HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sM
 		if ( pFile->m_pMetadata )
 			strXML = pFile->m_pMetadata->ToString( TRUE, FALSE, TRUE );
 		else
-			strXML = _T("<?xml version=\"1.0\"?>");
+			strXML = L"<?xml version=\"1.0\"?>";
 		oBuffer.Print( strXML, CP_UTF8 );
-		sMimeType = _T("text/xml");
+		sMimeType = L"text/xml";
 		return S_OK;
 	}
-	else if ( strVerb.Left( 4 ).CompareNoCase( _T("icon") ) == 0 )
+	else if ( strVerb.Left( 4 ).CompareNoCase( L"icon" ) == 0 )
 	{
 		if ( bParseOnly )
 			return S_OK;
@@ -536,7 +536,7 @@ HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sM
 		{
 			if ( SaveIcon( hIcon, oBuffer ) )
 			{
-				sMimeType = _T("image/x-icon");
+				sMimeType = L"image/x-icon";
 				DeleteObject( hIcon );
 				return S_OK;
 			}
@@ -549,22 +549,22 @@ HRESULT CIEProtocol::OnRequestFile(LPCTSTR pszURL, CBuffer& oBuffer, CString& sM
 
 HRESULT CIEProtocol::OnRequestApplication(LPCTSTR pszURL, CBuffer& oBuffer, CString& sMimeType, BOOL bParseOnly)
 {
-	if ( _tcsnicmp( pszURL, _PT("history") ) == 0 )
+	if ( _tcsnicmp( pszURL, _P( L"history" ) ) == 0 )
 	{
 		if ( bParseOnly )
 			return S_OK;
 
 		CString strXML;
-		strXML.Format( _T("<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n<style type=\"text/css\">\n")
-			_T("body { font-family: %s; font-size: %upx; margin: 0; padding: 0; background-color: %s; color: %s; }\n")
-			_T("h1 { font-size: 120%%; font-weight: bold; color: %s; background-color: %s; margin: 0; }\n")
-			_T("table { width: 100%%; font-size: 100%%; margin: 0; padding: 0; table-layout: fixed; }\n")
-			_T(".name0 { width: 41%%; background-color: %s; color: %s; cursor: hand; }\n")
-			_T(".time0 { width: 8%%; background-color: %s; text-align: right; }\n")
-			_T(".name1 { width: 41%%; background-color: %s; color: %s; cursor: hand; }\n")
-			_T(".time1 { width: 8%%; background-color: %s; text-align: right; }\n")
-			_T(".icon { width: 16px; height: 16px; border-style: none; }\n")
-			_T("</style>\n</head>\n<body onmousemove=\"window.external.hover(''); event.cancel\">\n<h1> %s </h1>\n<table>\n"),
+		strXML.Format( L"<html>\n<head>\n<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\n<style type=\"text/css\">\n"
+			L"body { font-family: %s; font-size: %upx; margin: 0; padding: 0; background-color: %s; color: %s; }\n"
+			L"h1 { font-size: 120%%; font-weight: bold; color: %s; background-color: %s; margin: 0; }\n"
+			L"table { width: 100%%; font-size: 100%%; margin: 0; padding: 0; table-layout: fixed; }\n"
+			L".name0 { width: 41%%; background-color: %s; color: %s; cursor: hand; }\n"
+			L".time0 { width: 8%%; background-color: %s; text-align: right; }\n"
+			L".name1 { width: 41%%; background-color: %s; color: %s; cursor: hand; }\n"
+			L".time1 { width: 8%%; background-color: %s; text-align: right; }\n"
+			L".icon { width: 16px; height: 16px; border-style: none; }\n"
+			L"</style>\n</head>\n<body onmousemove=\"window.external.hover(''); event.cancel\">\n<h1> %s </h1>\n<table>\n",
 			/*body*/	Settings.Fonts.DefaultFont, Settings.Fonts.DefaultSize, ToCSSColor( Colors.m_crWindow ), ToCSSColor( Colors.m_crDisabled ),
 			/*h1*/		ToCSSColor( Colors.m_crBannerText ), ToCSSColor( Colors.m_crBannerBack ),
 			/*.name0*/	ToCSSColor( Colors.m_crSchemaRow[ 0 ] ), ToCSSColor( Colors.m_crTextLink ),
@@ -592,32 +592,32 @@ HRESULT CIEProtocol::OnRequestApplication(LPCTSTR pszURL, CBuffer& oBuffer, CStr
 			SYSTEMTIME tAdded;
 			FileTimeToSystemTime( &pRecent->m_tAdded, &tAdded );
 			SystemTimeToTzSpecificLocalTime( NULL, &tAdded, &tAdded );
-			GetDateFormat( LOCALE_USER_DEFAULT, NULL, &tAdded, _T("ddd',' MMM dd"), strTime.GetBuffer( 64 ), 64 );
+			GetDateFormat( LOCALE_USER_DEFAULT, NULL, &tAdded, L"ddd',' MMM dd", strTime.GetBuffer( 64 ), 64 );
 			strTime.ReleaseBuffer();
 
 			if ( ( nCount & 1 ) == 0 )
-				strXML += _T("<tr>");
+				strXML += L"<tr>";
 
 			strXML.AppendFormat(
-				_T("<td class=\"name%d\" onclick=\"window.external.display('%s');\" onmousemove=\"window.external.hover('%s'); window.event.cancelBubble = true;\">")
-				_T("<img class=\"icon\" src=\"p2p-file://%s/icon16\"> %s </a></td>")
-				_T("<td class=\"time%d\"> %s </td>"),
+				L"<td class=\"name%d\" onclick=\"window.external.display('%s');\" onmousemove=\"window.external.hover('%s'); window.event.cancelBubble = true;\">"
+				L"<img class=\"icon\" src=\"p2p-file://%s/icon16\"> %s </a></td>"
+				L"<td class=\"time%d\"> %s </td>",
 				( nCount & 2 ) >> 1, Escape( strURN ), Escape( strURN ), Escape( strURN ), Escape( pRecent->m_pFile->m_sName ),
 				( nCount & 2 ) >> 1, Escape( strTime ) );
 
 			if ( ( nCount & 1 ) != 0 )
-				strXML += _T("</tr>\n");
+				strXML += L"</tr>\n";
 
 			nCount++;
 		}
 
 		if ( nCount && ( nCount & 1 ) != 0 )
-			strXML += _T("<td></td><td></td></tr>\n");
+			strXML += L"<td></td><td></td></tr>\n";
 
-		strXML += _T("</table>\n</body>\n</html>");
+		strXML += L"</table>\n</body>\n</html>";
 
 		oBuffer.Print( strXML, CP_UTF8 );
-		sMimeType = _T("text/html");
+		sMimeType = L"text/html";
 
 		return S_OK;
 	}
@@ -628,6 +628,6 @@ HRESULT CIEProtocol::OnRequestApplication(LPCTSTR pszURL, CBuffer& oBuffer, CStr
 CString CIEProtocol::ToCSSColor(COLORREF rgb)
 {
 	CString strColor;
-	strColor.Format( _T("#%02x%02x%02x"), GetRValue( rgb ), GetGValue( rgb ), GetBValue( rgb ) );
+	strColor.Format( L"#%02x%02x%02x", GetRValue( rgb ), GetGValue( rgb ), GetBValue( rgb ) );
 	return strColor;
 }

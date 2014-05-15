@@ -1,8 +1,8 @@
 //
 // WndPrivateChat.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
-// Portions copyright Shareaza Development Team, 2002-2011.
+// This file is part of PeerProject (peerproject.org) © 2008-2014
+// Portions copyright Shareaza Development Team, 2002-2014.
 //
 // PeerProject is free software. You may redistribute and/or modify it
 // under the terms of the GNU Affero General Public License
@@ -70,25 +70,25 @@ CPrivateChatWnd::~CPrivateChatWnd()
 
 CString CPrivateChatWnd::GetChatID() const
 {
-	return m_pSession ? HostToString( &m_pSession->m_pHost ) : ( CString( _T("@") ) + m_sNick );
+	return m_pSession ? HostToString( &m_pSession->m_pHost ) : ( CString( L"@" ) + m_sNick );
 }
 
 CString CPrivateChatWnd::GetCaption() const
 {
 	CString strCaption;
 	LoadString( strCaption, IDR_CHATFRAME );
-	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
-	strCaption += _T(" : ");
-	if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
+	if ( Settings.General.LanguageRTL ) strCaption = L"\x200F" + strCaption + L"\x202E";
+	strCaption += L" : ";
+	if ( Settings.General.LanguageRTL ) strCaption += L"\x202B";
 	strCaption += m_sNick;
 	if ( m_pSession )
 	{
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-		strCaption += _T(" (") + HostToString( &m_pSession->m_pHost ) + _T(")");
+		if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
+		strCaption += L" (" + HostToString( &m_pSession->m_pHost ) + L")";
 		if ( ! m_pSession->m_sUserAgent.IsEmpty() )
 		{
-			if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-			strCaption += _T(" ") + m_pSession->m_sUserAgent;
+			if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
+			strCaption += L" " + m_pSession->m_sUserAgent;
 		}
 	}
 	return strCaption;
@@ -187,11 +187,11 @@ BOOL CPrivateChatWnd::OnLocalMessage(bool bAction, const CString& sText)
 
 BOOL CPrivateChatWnd::OnLocalCommand(const CString& sCommand, const CString& sArgs)
 {
-	if ( sCommand.CompareNoCase( _T("/connect") ) == 0 )
+	if ( sCommand.CompareNoCase( L"/connect" ) == 0 )
 		PostMessage( WM_COMMAND, ID_CHAT_CONNECT );
-	else if ( sCommand.CompareNoCase( _T("/disconnect") ) == 0 )
+	else if ( sCommand.CompareNoCase( L"/disconnect" ) == 0 )
 		PostMessage( WM_COMMAND, ID_CHAT_DISCONNECT );
-	else if ( sCommand.CompareNoCase( _T("/browse") ) == 0 )
+	else if ( sCommand.CompareNoCase( L"/browse" ) == 0 )
 		PostMessage( WM_COMMAND, ID_CHAT_BROWSE );
 	else
 		return CChatWnd::OnLocalCommand( sCommand, sArgs );

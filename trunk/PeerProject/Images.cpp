@@ -140,21 +140,21 @@ void CImages::Load()
 {
 	DeleteObjects();
 
-	if ( HBITMAP hSelected = Skin.GetWatermark( _T("System.Highlight") ) )
+	if ( HBITMAP hSelected = Skin.GetWatermark( L"System.Highlight" ) )
 		m_bmSelected.Attach( hSelected );
-	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTransfers.Selected") ) )
+	else if ( HBITMAP hSelected = Skin.GetWatermark( L"CTransfers.Selected" ) )
 		m_bmSelected.Attach( hSelected );
 
-	if ( HBITMAP hSelected = Skin.GetWatermark( _T("System.Highlight.Inactive") ) )
+	if ( HBITMAP hSelected = Skin.GetWatermark( L"System.Highlight.Inactive" ) )
 		m_bmSelectedGrey.Attach( hSelected );
-	else if ( HBITMAP hSelected = Skin.GetWatermark( _T("CTransfers.Selected.Inactive") ) )
+	else if ( HBITMAP hSelected = Skin.GetWatermark( L"CTransfers.Selected.Inactive" ) )
 		m_bmSelectedGrey.Attach( hSelected );
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("System.MenuSelected") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"System.MenuSelected" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenuSelected.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.MenuSelectedEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.MenuSelectedEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hButton );
@@ -163,11 +163,11 @@ void CImages::Load()
 			m_bmMenuSelectedEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenu.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenu.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenuSelected.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenu.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenu.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hButton );
@@ -177,11 +177,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("System.MenuDisabled") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"System.MenuDisabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenuDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.MenuDisabledEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.MenuDisabledEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hButton );
@@ -190,11 +190,11 @@ void CImages::Load()
 			m_bmMenuDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenu.Disabled") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenu.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenuDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenu.Disabled.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenu.Disabled.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hButton );
@@ -204,10 +204,10 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hProgress = Skin.GetWatermark( _T("System.Progress") ) )
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress" ) )
 	{
 		m_bmProgress.Attach( hProgress );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.Progress.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.Progress.Edge" ) )
 		{
 			BITMAP bmInfo;
 			m_bmProgressEdge.Attach( hEdge );
@@ -215,10 +215,10 @@ void CImages::Load()
 			m_bmProgressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hProgress = Skin.GetWatermark( _T("ProgressBar") ) )
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar" ) )
 	{
 		m_bmProgress.Attach( hProgress );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ProgressBar.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ProgressBar.Edge" ) )
 		{
 			BITMAP bmInfo;
 			m_bmProgressEdge.Attach( hEdge );
@@ -227,31 +227,31 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hProgress = Skin.GetWatermark( _T("System.Progress.None") ) )
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress.None" ) )
 		m_bmProgressNone.Attach( hProgress );
-	else if ( HBITMAP hProgress = Skin.GetWatermark( _T("ProgressBar.None") ) )
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar.None" ) )
 		m_bmProgressNone.Attach( hProgress );
 
-	if ( HBITMAP hProgress = Skin.GetWatermark( _T("System.Progress.Shaded") ) )
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress.Shaded" ) )
 		m_bmProgressShaded.Attach( hProgress );
-	else if ( HBITMAP hProgress = Skin.GetWatermark( _T("ProgressBar.Shaded") ) )
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar.Shaded" ) )
 		m_bmProgressShaded.Attach( hProgress );
 
-	if ( HBITMAP hToolTip = Skin.GetWatermark( _T("System.ToolTip") ) )
+	if ( HBITMAP hToolTip = Skin.GetWatermark( L"System.ToolTip" ) )
 		m_bmToolTip.Attach( hToolTip );
-	else if ( HBITMAP hToolTip = Skin.GetWatermark( _T("System.Tooltips") ) )
+	else if ( HBITMAP hToolTip = Skin.GetWatermark( L"System.Tooltips" ) )
 		m_bmToolTip.Attach( hToolTip );
-	else if ( HBITMAP hToolTip = Skin.GetWatermark( _T("CToolTipCtrl") ) )
+	else if ( HBITMAP hToolTip = Skin.GetWatermark( L"CToolTipCtrl" ) )
 		m_bmToolTip.Attach( hToolTip );
 
-	if ( HBITMAP hDialog = Skin.GetWatermark( _T("System.Dialogs") ) )
+	if ( HBITMAP hDialog = Skin.GetWatermark( L"System.Dialogs" ) )
 		m_bmDialog.Attach( hDialog );
-	else if ( HBITMAP hDialog = Skin.GetWatermark( _T("CDialog") ) )
+	else if ( HBITMAP hDialog = Skin.GetWatermark( L"CDialog" ) )
 		m_bmDialog.Attach( hDialog );
 
-	if ( HBITMAP hDialog = Skin.GetWatermark( _T("System.DialogPanels") ) )
+	if ( HBITMAP hDialog = Skin.GetWatermark( L"System.DialogPanels" ) )
 		m_bmDialogPanel.Attach( hDialog );
-	else if ( HBITMAP hDialog = Skin.GetWatermark( _T("CDialog.Panel") ) )
+	else if ( HBITMAP hDialog = Skin.GetWatermark( L"CDialog.Panel" ) )
 		m_bmDialogPanel.Attach( hDialog );
 
 	// Related brushes:
@@ -267,39 +267,39 @@ void CImages::Load()
 	else
 		m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
 
-	if ( HBITMAP hControl = Skin.GetWatermark( _T("System.Dialogs.Control") ) )
+	if ( HBITMAP hControl = Skin.GetWatermark( L"System.Dialogs.Control" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
 		m_brDialog.CreatePatternBrush( &bmControl ); 	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) ); ?
 	}
-	else if ( HBITMAP hControl = Skin.GetWatermark( _T("CDialog.Control") ) )
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CDialog.Control" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
 		m_brDialog.CreatePatternBrush( &bmControl );
 	}
 
-	if ( HBITMAP hControl = Skin.GetWatermark( _T("System.DialogPanels.Control") ) )
+	if ( HBITMAP hControl = Skin.GetWatermark( L"System.DialogPanels.Control" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
 		m_brDialog.CreatePatternBrush( &bmControl );
 	}
-	else if ( HBITMAP hControl = Skin.GetWatermark( _T("CDialog.Panel.Control") ) )
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CDialog.Panel.Control" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
 		m_brDialogPanel.CreatePatternBrush( &bmControl );
 	}
 
-	if ( HBITMAP hControl = Skin.GetWatermark( _T("CMediaFrame.Slider") ) )
+	if ( HBITMAP hControl = Skin.GetWatermark( L"CMediaFrame.Slider" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
 		m_brMediaControl.CreatePatternBrush( &bmControl );
 	}
-	else if ( HBITMAP hControl = Skin.GetWatermark( _T("CCoolbar.Control") ) )
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CCoolbar.Control" ) )
 	{
 		CBitmap bmControl;
 		bmControl.Attach( hControl );
@@ -308,10 +308,9 @@ void CImages::Load()
 	else
 		m_brMediaControl.CreateSolidBrush( Colors.m_crMidtone );
 
-
 	m_nBanner = 0;		// Height = Images.m_bmBanner.GetBitmapDimension().cy
 
-	if ( HBITMAP hBanner = Skin.GetWatermark( _T("System.Header") ) )
+	if ( HBITMAP hBanner = Skin.GetWatermark( L"System.Header" ) )
 	{
 		BITMAP bmInfo;
 		m_bmBanner.Attach( hBanner );
@@ -320,14 +319,14 @@ void CImages::Load()
 		m_nBanner = bmInfo.bmHeight;
 		Skin.m_nBanner = m_nBanner;
 
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("System.Header.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.Header.Edge" ) )
 		{
 			m_bmBannerEdge.Attach( hEdge );
 			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
 			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hBanner = Skin.GetWatermark( _T("Banner") ) )
+	else if ( HBITMAP hBanner = Skin.GetWatermark( L"Banner" ) )
 	{
 		BITMAP bmInfo;
 		m_bmBanner.Attach( hBanner );
@@ -336,7 +335,7 @@ void CImages::Load()
 		m_nBanner = bmInfo.bmHeight;
 		Skin.m_nBanner = m_nBanner;
 
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("Banner.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"Banner.Edge" ) )
 		{
 			m_bmBannerEdge.Attach( hEdge );
 			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
@@ -344,12 +343,12 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hPanelMark = Skin.GetWatermark( _T("CPanelWnd.Caption") ) )
+	if ( HBITMAP hPanelMark = Skin.GetWatermark( L"CPanelWnd.Caption" ) )
 		m_bmPanelMark.Attach( hPanelMark );
 	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
 		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
 
-	if ( HBITMAP hPanelMark = Skin.GetWatermark( _T("CMediaFrame.StatusBar") ) )
+	if ( HBITMAP hPanelMark = Skin.GetWatermark( L"CMediaFrame.StatusBar" ) )
 		m_bmMediaStatusBar.Attach( hPanelMark );
 
 	// Note "System.Toolbars" fallback handled at toolbar creation
@@ -358,35 +357,35 @@ void CImages::Load()
 
 	// Dialog Single-Icon Buttons:
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton" ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButton.Attach( hButton );
 		m_bmIconButton.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButton.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Hover" ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonHover.Attach( hButton );
 		m_bmIconButtonHover.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonHover.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Press" ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonPress.Attach( hButton );
 		m_bmIconButtonPress.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonPress.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Active" ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonActive.Attach( hButton );
 		m_bmIconButtonActive.GetObject( sizeof( BITMAP ), &bmInfo );
 		m_bmIconButtonActive.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("IconButton.Disabled") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Disabled" ) )
 	{
 		BITMAP bmInfo;
 		m_bmIconButtonDisabled.Attach( hButton );
@@ -396,11 +395,11 @@ void CImages::Load()
 
 	// RichDoc Buttons (Search):
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("RichButton") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton" ) )
 	{
 		PreBlend( hButton );
 		m_bmRichButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("RichButtonEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -409,11 +408,11 @@ void CImages::Load()
 			m_bmRichButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("RichButton.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmRichButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("RichButtonEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -422,11 +421,11 @@ void CImages::Load()
 			m_bmRichButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("RichButton.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmRichButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("RichButtonEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -435,11 +434,11 @@ void CImages::Load()
 			m_bmRichButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("RichButton.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmRichButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("RichButtonEdge.Active") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Active" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -448,11 +447,11 @@ void CImages::Load()
 			m_bmRichButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("RichButton.Disabled") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmRichButtonDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("RichButtonEdge.Disabled") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Disabled" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -465,11 +464,11 @@ void CImages::Load()
 
 	// Command Toolbar Buttons:
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("ToolbarButton") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ToolbarButtonEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -478,11 +477,11 @@ void CImages::Load()
 			m_bmToolbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolbar.Up") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Up" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolbar.Up.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Up.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -492,11 +491,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("ToolbarButton.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ToolbarButtonEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -505,11 +504,11 @@ void CImages::Load()
 			m_bmToolbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolbar.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolbar.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -519,11 +518,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("ToolbarButton.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ToolbarButtonEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -532,11 +531,11 @@ void CImages::Load()
 			m_bmToolbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolbar.Down") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Down" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolbar.Down.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Down.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -546,11 +545,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("ToolbarButton.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ToolbarButtonEdge.Active") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Active" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -559,11 +558,11 @@ void CImages::Load()
 			m_bmToolbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolbar.Checked") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Checked" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolbar.Checked.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Checked.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -573,11 +572,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("ToolbarButton.Disabled") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("ToolbarButtonEdge.Disabled") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Disabled" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -586,11 +585,11 @@ void CImages::Load()
 			m_bmToolbarButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolbar.Disabled") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmToolbarButtonDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolbar.Disabled.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Disabled.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -600,23 +599,23 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hImage = Skin.GetWatermark( _T("System.Toolbars.Separator") ) )
+	if ( HBITMAP hImage = Skin.GetWatermark( L"System.Toolbars.Separator" ) )
 	{
 		PreBlend( hImage );
 		m_bmToolbarSeparator.Attach( hImage );
 	}
-	else if ( HBITMAP hImage = Skin.GetWatermark( _T("CCoolbar.Separator") ) )
+	else if ( HBITMAP hImage = Skin.GetWatermark( L"CCoolbar.Separator" ) )
 	{
 		PreBlend( hImage );
 		m_bmToolbarSeparator.Attach( hImage );
 	}
-	else if ( HBITMAP hImage = Skin.GetWatermark( _T("ToolbarSeparator") ) )
+	else if ( HBITMAP hImage = Skin.GetWatermark( L"ToolbarSeparator" ) )
 	{
 		PreBlend( hImage );
 		m_bmToolbarSeparator.Attach( hImage );
 	}
 
-	if ( HBITMAP hImage = Skin.GetWatermark( _T("System.Toolbars") ) )
+	if ( HBITMAP hImage = Skin.GetWatermark( L"System.Toolbars" ) )
 	{
 		m_bmToolbar.Attach( hImage );
 	}
@@ -624,11 +623,11 @@ void CImages::Load()
 
 	// Main Menubar (Text) Buttons:
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarItem") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItem.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarItemEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -637,11 +636,11 @@ void CImages::Load()
 			m_bmMenubarItemEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuItem.Up") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Up" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItem.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuItem.Up.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Up.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -651,11 +650,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarItem.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItemHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarItemEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -664,11 +663,11 @@ void CImages::Load()
 			m_bmMenubarItemHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuItem.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItemHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuItem.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -678,11 +677,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarItem.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItemPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarItemEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -691,11 +690,11 @@ void CImages::Load()
 			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuItem.Down") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Down" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarItemPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuItem.Down.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Down.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -705,11 +704,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarButton") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarButtonEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -718,11 +717,11 @@ void CImages::Load()
 			m_bmMenubarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuBar.Up") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Up" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuBar.Up.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Up.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -732,11 +731,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarButton.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarButtonEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -745,11 +744,11 @@ void CImages::Load()
 			m_bmMenubarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuBar.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuBar.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -759,11 +758,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarButton.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarButtonEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -772,11 +771,11 @@ void CImages::Load()
 			m_bmMenubarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuBar.Down") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Down" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuBar.Down.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Down.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -786,11 +785,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("MenubarButton.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("MenubarButtonEdge.Active") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Active" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -799,11 +798,11 @@ void CImages::Load()
 			m_bmMenubarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CCoolMenuBar.Checked") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Checked" ) )
 	{
 		PreBlend( hButton );
 		m_bmMenubarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CCoolMenuBar.Checked.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Checked.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -816,11 +815,11 @@ void CImages::Load()
 
 	// Taskbar Tabs:
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("TaskbarButton") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("TaskbarButtonEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -829,11 +828,11 @@ void CImages::Load()
 			m_bmTaskbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CWndTabBar.Tab") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Tab" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButton.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CWndTabBar.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -843,11 +842,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("TaskbarButton.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("TaskbarButtonEdge.Active") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Active" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -856,11 +855,11 @@ void CImages::Load()
 			m_bmTaskbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CWndTabBar.Active") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CWndTabBar.Active.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Active.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -870,11 +869,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("TaskbarButton.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("TaskbarButtonEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -883,11 +882,11 @@ void CImages::Load()
 			m_bmTaskbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CWndTabBar.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CWndTabBar.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -897,11 +896,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("TaskbarButton.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("TaskbarButtonEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -910,11 +909,11 @@ void CImages::Load()
 			m_bmTaskbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CWndTabBar.Active.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Active.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmTaskbarButtonPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CWndTabBar.Active.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Active.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -926,11 +925,11 @@ void CImages::Load()
 
 	// Download Groups Bar Tabs:
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("DownloadGroup") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroup.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("DownloadGroupEdge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -939,11 +938,11 @@ void CImages::Load()
 			m_bmDownloadGroupEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CDownloadTabBar.Up") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Up" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroup.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CDownloadTabBar.Up.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Up.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -953,11 +952,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("DownloadGroup.Active") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("DownloadGroupEdge.Active") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Active" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -966,11 +965,11 @@ void CImages::Load()
 			m_bmDownloadGroupActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CDownloadTabBar.Active") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Active" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupActive.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CDownloadTabBar.Active.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Active.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -980,11 +979,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("DownloadGroup.Hover") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("DownloadGroupEdge.Hover") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Hover" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -993,11 +992,11 @@ void CImages::Load()
 			m_bmDownloadGroupHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CDownloadTabBar.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupHover.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CDownloadTabBar.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -1007,11 +1006,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("DownloadGroup.Press") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Press" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("DownloadGroupEdge.Press") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Press" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -1020,11 +1019,11 @@ void CImages::Load()
 			m_bmDownloadGroupPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CDownloadTabBar.Active.Hover") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Active.Hover" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupPress.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CDownloadTabBar.Active.Hover.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Active.Hover.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -1034,11 +1033,11 @@ void CImages::Load()
 		}
 	}
 
-	if ( HBITMAP hButton = Skin.GetWatermark( _T("DownloadGroup.Disabled") ) )
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("DownloadGroupEdge.Disabled") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Disabled" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -1047,11 +1046,11 @@ void CImages::Load()
 			m_bmDownloadGroupDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
 		}
 	}
-	else if ( HBITMAP hButton = Skin.GetWatermark( _T("CDownloadTabBar.Disabled") ) )
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Disabled" ) )
 	{
 		PreBlend( hButton );
 		m_bmDownloadGroupDisabled.Attach( hButton );
-		if ( HBITMAP hEdge = Skin.GetWatermark( _T("CDownloadTabBar.Disabled.Edge") ) )
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Disabled.Edge" ) )
 		{
 			BITMAP bmInfo;
 			PreBlend( hEdge );
@@ -1064,7 +1063,7 @@ void CImages::Load()
 
 	// Button Maps:
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Iconbox") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Iconbox" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1073,7 +1072,7 @@ void CImages::Load()
 		m_bmButtonMapIconbox.SetBitmapDimension( 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Richdoc") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Richdoc" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1083,7 +1082,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Toolbar") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Toolbar" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1093,7 +1092,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Menubar") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Menubar" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1103,7 +1102,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.MenuText") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.MenuText" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1113,7 +1112,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.MenuSelect") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.MenuSelect" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1123,7 +1122,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Select") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Select" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1132,7 +1131,7 @@ void CImages::Load()
 		m_bmButtonMapSelect.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
 	}
-	else if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Highlight") ) )
+	else if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Highlight" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1142,7 +1141,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.ProgressBar") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.ProgressBar" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1152,7 +1151,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.DownloadGroup") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.DownloadGroup" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1162,7 +1161,7 @@ void CImages::Load()
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
 
-	if ( HBITMAP hButtonMap = Skin.GetWatermark( _T("ButtonMap.Taskbar") ) )
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Taskbar" ) )
 	{
 		BITMAP bmInfo;
 		PreBlend( hButtonMap );
@@ -1171,6 +1170,97 @@ void CImages::Load()
 		m_bmButtonMapTaskbar.SetBitmapDimension(
 			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
 	}
+}
+
+void CImages::BlendAlpha(CBitmap* bmImage, COLORREF crBlend /*RGB(255,255,255)*/)
+{
+	BITMAP pInfo;
+	bmImage->GetBitmap( &pInfo );
+	if ( pInfo.bmBitsPixel != 32 )
+		return;
+
+	HBITMAP hImage = (HBITMAP)bmImage->Detach();
+
+	const BYTE nRValue = GetBValue( crBlend );	// Flip
+	const BYTE nGValue = GetGValue( crBlend );
+	const BYTE nBValue = GetRValue( crBlend );	// Flip
+
+	const int bufferSize = pInfo.bmWidthBytes * pInfo.bmHeight;
+	BYTE* buffer = (BYTE*)malloc(bufferSize);
+	GetBitmapBits( hImage, bufferSize, buffer );	// Get/SetBitmapBits() deprecated by MS, but useful here
+
+	for ( int i = 0, j = 0 ; i < bufferSize ; i += 4, j += 3 )
+	{
+		DWORD nAlpha = (DWORD)buffer[i + 3];
+
+		if ( nAlpha == 255 )
+		{
+			buffer[j + 0] = buffer[i + 0];
+			buffer[j + 1] = buffer[i + 1];
+			buffer[j + 2] = buffer[i + 2];
+		}
+		else if ( nAlpha == 0 )
+		{
+			buffer[j + 0] = nRValue;
+			buffer[j + 1] = nGValue;
+			buffer[j + 2] = nBValue;
+		}
+		else
+		{
+			DWORD dwInR = (DWORD)(buffer[i + 0]);
+			DWORD dwInG = (DWORD)(buffer[i + 1]);
+			DWORD dwInB = (DWORD)(buffer[i + 2]);
+
+			if ( ! dwInR )
+				buffer[j + 0] = (BYTE)( nAlpha > nRValue ? 0 : nRValue - nAlpha );
+			else if ( dwInR == 255 )
+				buffer[j + 0] = (BYTE)( nAlpha > ( 255 - nRValue ) ? 255 : nRValue + nAlpha );
+			else
+				buffer[j + 0] = (BYTE)( ( dwInR * nAlpha + (DWORD)nRValue * ( 255 - nAlpha ) ) / 255 );
+
+			if ( ! dwInG )
+				buffer[j + 1] = (BYTE)( nAlpha > nGValue ? 0 : nGValue - nAlpha );
+			else if ( dwInG == 255 )
+				buffer[j + 1] = (BYTE)( nAlpha > ( 255 - nGValue ) ? 255 : nGValue + nAlpha );
+			else
+				buffer[j + 1] = (BYTE)( ( dwInG * nAlpha + (DWORD)nGValue * ( 255 - nAlpha ) ) / 255 );
+
+			if ( ! dwInB )
+				buffer[j + 2] = (BYTE)( nAlpha > nBValue ? 0 : nBValue - nAlpha );
+			else if ( dwInB == 255 )
+				buffer[j + 2] = (BYTE)( nAlpha > ( 255 - nBValue ) ? 255 : nBValue + nAlpha );
+			else
+				buffer[j + 2] = (BYTE)( ( dwInB * nAlpha + (DWORD)nBValue * ( 255 - nAlpha ) ) / 255 );
+
+		//	buffer[j + 0] = (BYTE)( ( (DWORD)(buffer[i + 0]) * nAlpha + (DWORD)nRValue * ( 255 - nAlpha ) ) / 255 );
+		//	buffer[j + 1] = (BYTE)( ( (DWORD)(buffer[i + 1]) * nAlpha + (DWORD)nGValue * ( 255 - nAlpha ) ) / 255 );
+		//	buffer[j + 2] = (BYTE)( ( (DWORD)(buffer[i + 2]) * nAlpha + (DWORD)nBValue * ( 255 - nAlpha ) ) / 255 );
+		}
+	}
+
+	BITMAPV5HEADER pV5Header = {};
+	pV5Header.bV5Size			= sizeof(BITMAPV5HEADER);
+	pV5Header.bV5Width			= (LONG)pInfo.bmWidth;
+	pV5Header.bV5Height			= (LONG)pInfo.bmHeight;
+	pV5Header.bV5Planes			= 1;
+	pV5Header.bV5BitCount		= 24;
+	pV5Header.bV5Compression	= BI_RGB;
+	pV5Header.bV5SizeImage		= pInfo.bmWidth * pInfo.bmHeight * 3;
+
+	__try 
+	{
+		void* pBits = NULL;
+		hImage = CreateDIBSection( GetDC( 0 ), (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS, (void**)&pBits, NULL, 0ul );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		hImage = NULL;
+	}
+
+	SetBitmapBits( hImage, bufferSize * 3 / 4, buffer );
+	bmImage->Attach( hImage );
+
+	delete buffer;
 }
 
 BOOL CImages::PreBlend(HBITMAP hButton)

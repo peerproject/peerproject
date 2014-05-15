@@ -132,7 +132,7 @@ CExistingFileDlg::CExistingFileDlg(const CLibraryFile* pFile, CWnd* pParent, boo
 	if ( ! bDuplicateSearch )
 	{
 		if ( pFile->m_oSHA1 && pFile->m_oTiger )
-			m_sURN	= _T("bitprint:") + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString();
+			m_sURN	= L"bitprint:" + pFile->m_oSHA1.toString() + '.' + pFile->m_oTiger.toString();
 		else if ( pFile->m_oSHA1 )
 			m_sURN = pFile->m_oSHA1.toString();
 		else if ( pFile->m_oTiger )

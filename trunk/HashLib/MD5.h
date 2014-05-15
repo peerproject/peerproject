@@ -41,11 +41,8 @@ public:
 
 	void GetHash(__in_bcount(16) uchar* pHash) const;
 
-#if !defined(WIN64) && defined(_MSC_VER) && (_MSC_VER >= 1700)		// VS2012 Targeting workaround
+// Note VS2012 Win32 (not x64) must be public:
 public:
-#else
-private:
-#endif
 	struct MD5State
 	{
 		static const size_t blockSize = 64;
@@ -53,6 +50,7 @@ private:
 		uint32	m_nState[ 4 ];
 		uchar	m_oBuffer[ blockSize ];
 	};
+private:
 	MD5State m_State;
 
 #ifndef HASHLIB_USE_ASM

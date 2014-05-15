@@ -87,7 +87,7 @@ public:
 
 	void		Allocate();
 	void		Copy();
-	void		PreviewRequest( LPCTSTR szURL);
+	void		PreviewRequest(LPCTSTR szURL);
 	void		MergeFile(CList< CString >* pFiles, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
 	void		MergeFile(LPCTSTR szPath, BOOL bValidation = TRUE, const Fragments::List* pGaps = NULL);
 

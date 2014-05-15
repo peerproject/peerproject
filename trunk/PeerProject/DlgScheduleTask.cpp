@@ -99,7 +99,7 @@ BOOL CScheduleTaskDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CScheduleTaskDlg"), IDR_SCHEDULERFRAME );
+	SkinMe( L"CScheduleTaskDlg", IDR_SCHEDULERFRAME );
 
 	m_wndSpinDown.SetRange( 1, 99 );
 	m_wndSpinUp.SetRange( 1, 101 );

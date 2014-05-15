@@ -36,13 +36,13 @@ void ComprDataIO::Init()
 
 int ComprDataIO::UnpRead(byte *Addr,size_t Count)
 {
-//#ifndef RAR_NOCRYPT
+#ifndef RAR_NOCRYPT
   // In case of encryption we need to align read size to encryption
   // block size. We can do it by simple masking, because unpack read code
   // always reads more than CRYPT_BLOCK_SIZE, so we do not risk to make it 0.
 //  if (Decryption)
 //    Count&=~CRYPT_BLOCK_MASK;
-//#endif
+#endif
   int ReadSize=0,TotalRead=0;
   byte *ReadAddr;
   ReadAddr=Addr;
@@ -96,10 +96,10 @@ int ComprDataIO::UnpRead(byte *Addr,size_t Count)
   if (ReadSize!=-1)
   {
     ReadSize=TotalRead;
-//#ifndef RAR_NOCRYPT
+#ifndef RAR_NOCRYPT
 //  if (Decryption)
 //    Decrypt.DecryptBlock(Addr,ReadSize);
-//#endif
+#endif
   }
   Wait();
   return ReadSize;
@@ -199,7 +199,7 @@ void ComprDataIO::ShowUnpRead(int64 ArcPos,int64 ArcSize)
     int CurPercent=ToPercent(ArcPos,ArcSize);
     if (!Cmd->DisablePercentage && CurPercent!=LastPercent)
     {
-      mprintf(L"\b\b\b\b%3d%%",CurPercent);
+      uiExtractProgress(CurUnpWrite,SrcArc->FileHead.UnpSize,ArcPos,ArcSize);
       LastPercent=CurPercent;
     }
   }

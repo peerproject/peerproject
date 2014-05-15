@@ -94,35 +94,35 @@ BOOL CExpertPage::OnInitDialog()
 	this->DragAcceptFiles(TRUE);
 
 	m_nTotalSize = 0;
-	m_sFileCount = _T("No Files.");
-	m_sName = _T("");
-	m_sFolder = _T("");
-	m_sTracker = _T("");
-	m_sComment = _T("");
+	m_sFileCount = L"No Files.";
+	m_sName = L"";
+	m_sFolder = L"";
+	m_sTracker = L"";
+	m_sComment = L"";
 
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
-	m_wndList.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 64, -1 );
-	m_wndList.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 64, 0 );
-	m_wndList.InsertColumn( 2, _T("Bytes"), LVCFMT_RIGHT, 0, 0 );
+	m_wndList.InsertColumn( 0, L"Filename", LVCFMT_LEFT, rc.right - 64, -1 );
+	m_wndList.InsertColumn( 1, L"Size", LVCFMT_RIGHT, 64, 0 );
+	m_wndList.InsertColumn( 2, L"Bytes", LVCFMT_RIGHT, 0, 0 );
 
-	int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
+	int nCount = theApp.GetProfileInt( L"Folders", L"Count", 0 );
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName, strURL;
-		strName.Format( _T("%.3i.Path"), nItem + 1 );
-		strURL = theApp.GetProfileString( _T("Folders"), strName );
+		strName.Format( L"%.3i.Path", nItem + 1 );
+		strURL = theApp.GetProfileString( L"Folders", strName );
 		if ( ! strURL.IsEmpty() )
 			m_wndFolders.AddString( strURL );
 	}
 
 	GetTrackerHistory();
 
-	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
+	m_sTracker = theApp.GetProfileString( L"Trackers", L"Last" );
 
-	m_bPrivate = theApp.GetProfileInt( _T("Comments"), _T("Private"), FALSE );
+	m_bPrivate = theApp.GetProfileInt( L"Comments", L"Private", FALSE );
 
 	UpdateData( FALSE );
 	return TRUE;
@@ -134,7 +134,7 @@ void CExpertPage::OnReset()
 
 BOOL CExpertPage::OnSetActive()
 {
-	theApp.WriteProfileInt( _T(""), _T("Expert"), TRUE );
+	theApp.WriteProfileInt( L"", L"Expert", TRUE );
 	m_wndRemoveFile.EnableWindow( m_wndList.GetSelectedCount() );
 	m_wndRemoveTracker.EnableWindow( m_wndTrackers.GetSelCount() );
 	SetWizardButtons( PSWIZB_BACK | PSWIZB_NEXT );
@@ -143,7 +143,7 @@ BOOL CExpertPage::OnSetActive()
 
 LRESULT CExpertPage::OnWizardBack()
 {
-	theApp.WriteProfileInt( _T(""), _T("Expert"), FALSE );
+	theApp.WriteProfileInt( L"", L"Expert", FALSE );
 
 	if ( m_wndTrackers.GetCount() > 0 )
 		SetTrackerHistory();
@@ -191,15 +191,15 @@ LRESULT CExpertPage::OnWizardNext()
 
 	// Trackers:
 
-	if ( m_sTracker.GetLength() > 15 && m_sTracker.Find( _T("://") ) > 2 )
+	if ( m_sTracker.GetLength() > 15 && m_sTracker.Find( L"://" ) > 2 )
 	{
-		theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
+		theApp.WriteProfileString( L"Trackers", L"Last", m_sTracker );
 	}
 	else if ( bTrackerList )
 	{
 		CString str;
 		m_wndTrackers.GetText( 0, str );
-		theApp.WriteProfileString( _T("Trackers"), _T("Last"), str );
+		theApp.WriteProfileString( L"Trackers", L"Last", str );
 	}
 
 	if ( bTrackerList )
@@ -207,7 +207,7 @@ LRESULT CExpertPage::OnWizardNext()
 
 	m_wndTracker.AddString( m_sTracker );	// Populate Combo-box
 
-	theApp.WriteProfileInt( _T("Comments"), _T("Private"), m_bPrivate );
+	theApp.WriteProfileInt( L"Comments", L"Private", m_bPrivate );
 
 	// Output
 
@@ -231,8 +231,8 @@ LRESULT CExpertPage::OnWizardNext()
 		}
 	}
 
-	if ( m_sName.Right( 8 ).CompareNoCase( _T(".torrent") ) != 0 )
-		m_sName += _T(".torrent");
+	if ( m_sName.Right( 8 ).CompareNoCase( L".torrent" ) != 0 )
+		m_sName += L".torrent";
 		// UINT nResp = AfxMessageBox( IDS_OUTPUT_EXTENSION, MB_ICONQUESTION|MB_YESNOCANCEL );
 
 	CString strPath = m_sFolder + '\\' + m_sName;
@@ -254,10 +254,10 @@ LRESULT CExpertPage::OnWizardNext()
 		m_wndFolders.AddString( m_sFolder );
 
 		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.Path"), ++nCount );
-		theApp.WriteProfileInt( _T("Folders"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Folders"), strName, m_sFolder );
+		int nCount = theApp.GetProfileInt( L"Folders", L"Count", 0 );
+		strName.Format( L"%.3i.Path", ++nCount );
+		theApp.WriteProfileInt( L"Folders", L"Count", nCount );
+		theApp.WriteProfileString( L"Folders", strName, m_sFolder );
 	}
 
 	GET_PAGE( COutputPage, pOutput );
@@ -303,7 +303,7 @@ void CExpertPage::OnBrowseFolder()
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
-	pBI.lpszTitle		= _T("Select output folder:");
+	pBI.lpszTitle		= L"Select output folder:";
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
 
 	pPath = SHBrowseForFolder( &pBI );
@@ -361,7 +361,7 @@ void CExpertPage::OnAddFolder()
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
-	pBI.lpszTitle		= _T("Add a folder:");
+	pBI.lpszTitle		= L"Add a folder:";
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
 
 	pPath = SHBrowseForFolder( &pBI );
@@ -382,7 +382,7 @@ void CExpertPage::OnAddFile()
 
 	CFileDialog dlg( TRUE, NULL, NULL,
 		OFN_HIDEREADONLY|OFN_ALLOWMULTISELECT|OFN_ENABLESIZING,
-		_T("All Files|*.*||"), this );
+		L"All Files|*.*||", this );
 
 	const DWORD nFilesSize( 81920 );
 	LPTSTR szFiles = new TCHAR [ nFilesSize ];
@@ -430,11 +430,11 @@ void CExpertPage::OnRemoveFile()
 			if ( m_wndList.GetItemCount() )
 			{
 				m_nTotalSize -= _wtoi( strSize );
-				m_sFileCount.Format( _T("%i Files, %s"), m_wndList.GetItemCount(), SmartSize( m_nTotalSize ) );
+				m_sFileCount.Format( L"%i Files, %s", m_wndList.GetItemCount(), SmartSize( m_nTotalSize ) );
 			}
 			else
 			{
-				m_sFileCount = _T("No Files.");
+				m_sFileCount = L"No Files.";
 				m_nTotalSize = 0;
 			}
 
@@ -444,14 +444,13 @@ void CExpertPage::OnRemoveFile()
 	}
 }
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //	Add Files (and Folders)
 
 void CExpertPage::AddFile(LPCTSTR pszFile)
 {
 	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
-		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+		pszFile : (LPCTSTR)( CString( L"\\\\?\\" ) + pszFile );
 
 	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -471,7 +470,7 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 	if ( m_wndList.FindItem( &lvInfo, -1 ) != -1 )
 	{
 		//CString strMessage;
-		//strMessage.Format( _T("Duplicate filename denied:  %s"), pszFile );
+		//strMessage.Format( L"Duplicate filename denied:  %s", pszFile );
 		//AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		CloseHandle( hFile );
 		return;
@@ -501,13 +500,13 @@ void CExpertPage::AddFile(LPCTSTR pszFile)
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
 	CString strBytes;
-	strBytes.Format( _T("%i"), nSize );
+	strBytes.Format( L"%i", nSize );
 
 	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
 	m_wndList.SetItemText( nItem, 2, strBytes );
 
 	m_nTotalSize += nSize;
-	m_sFileCount.Format( _T("%i Files,  %s"), m_wndList.GetItemCount(), SmartSize( m_nTotalSize ) );
+	m_sFileCount.Format( L"%i Files,  %s", m_wndList.GetItemCount(), SmartSize( m_nTotalSize ) );
 
 	UpdateData( FALSE );
 	UpdateWindow();
@@ -518,7 +517,7 @@ void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 	WIN32_FIND_DATA pFind;
 
 	CString strPath;
-	strPath.Format( _T("%s\\*.*"), pszPath );
+	strPath.Format( L"%s\\*.*", pszPath );
 
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
 
@@ -530,7 +529,7 @@ void CExpertPage::AddFolder(LPCTSTR pszPath, int nRecursive)
 				 pFind.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN )
 				continue;
 
-			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
+			strPath.Format( L"%s\\%s", pszPath, pFind.cFileName );
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
@@ -568,12 +567,12 @@ void CExpertPage::OnAddTracker()
 	if ( str.GetLength() < 16 ||
 		m_wndTrackers.GetCount() > 20 ||
 		m_wndTrackers.FindStringExact( -1, str ) >= 0 ||
-		( str.Left( 6 ).CompareNoCase( _T("udp://") ) != 0 &&
-		  str.Left( 7 ).CompareNoCase( _T("http://") ) != 0 &&
-		  str.Left( 8 ).CompareNoCase( _T("https://") ) != 0 ) )
+		( str.Left( 6 ).CompareNoCase( L"udp://" ) != 0 &&
+		  str.Left( 7 ).CompareNoCase( L"http://" ) != 0 &&
+		  str.Left( 8 ).CompareNoCase( L"https://" ) != 0 ) )
 		return;
 
-	if ( str.Right( 9 ).CompareNoCase( _T("/announce") ) != 0 &&
+	if ( str.Right( 9 ).CompareNoCase( L"/announce" ) != 0 &&
 		 IDYES != AfxMessageBox( IDS_TRACKER_NEED_ANNOUNCE, MB_ICONQUESTION|MB_YESNO ) )
 		return;
 
@@ -594,17 +593,17 @@ void CExpertPage::OnSelectTracker()
 
 void CExpertPage::GetTrackerHistory()
 {
-	int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+	int nCount = theApp.GetProfileInt( L"Trackers", L"Count", 0 );
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName, strURL;
-		strName.Format( _T("%.3i.URL"), nItem + 1 );
-		strURL = theApp.GetProfileString( _T("Trackers"), strName );
+		strName.Format( L"%.3i.URL", nItem + 1 );
+		strURL = theApp.GetProfileString( L"Trackers", strName );
 		if ( ! strURL.IsEmpty() )
 			m_wndTracker.AddString( strURL );
 	}
 	if ( ! m_wndTracker.GetCount() )
-		 m_wndTracker.AddString( _T("udp://tracker.openbittorrent.com:80/announce") );
+		 m_wndTracker.AddString( L"udp://tracker.openbittorrent.com:80/announce" );
 }
 
 void CExpertPage::SetTrackerHistory()
@@ -621,22 +620,22 @@ void CExpertPage::SetTrackerHistory()
 		pList.AddTail( str );
 	}
 
-	nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+	nCount = theApp.GetProfileInt( L"Trackers", L"Count", 0 );
 
 	for ( int nIndex = 1 ; nIndex <= nCount ; nIndex++ )
 	{
-		str.Format( _T("%.3i.URL"), nIndex );
-		str = theApp.GetProfileString( _T("Trackers"), str );
+		str.Format( L"%.3i.URL", nIndex );
+		str = theApp.GetProfileString( L"Trackers", str );
 		if ( ! pList.Find( str ) )
 			pList.AddTail( str );
 	}
 
 	nCount = 1;
-	theApp.WriteProfileInt( _T("Trackers"), _T("Count"), (int)pList.GetCount() );
+	theApp.WriteProfileInt( L"Trackers", L"Count", (int)pList.GetCount() );
 
 	for ( POSITION pos = pList.GetHeadPosition() ; pos ; nCount++ )
 	{
-		str.Format( _T("%.3i.URL"), nCount );
-		theApp.WriteProfileString( _T("Trackers"), str, pList.GetNext( pos ) );
+		str.Format( L"%.3i.URL", nCount );
+		theApp.WriteProfileString( L"Trackers", str, pList.GetNext( pos ) );
 	}
 }

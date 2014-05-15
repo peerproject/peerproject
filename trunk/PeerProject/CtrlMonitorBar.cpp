@@ -1,7 +1,7 @@
 //
 // CtrlMonitorBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -187,7 +187,7 @@ void CMonitorBarCtrl::OnTimer(UINT_PTR /*nIDEvent*/)
 void CMonitorBarCtrl::OnSkinChange()
 {
 	if ( m_bmWatermark.m_hObject ) m_bmWatermark.DeleteObject();
-	if ( HBITMAP hWatermark = Skin.GetWatermark( _T("CMonitorBar") ) )
+	if ( HBITMAP hWatermark = Skin.GetWatermark( L"CMonitorBar" ) )
 		m_bmWatermark.Attach( hWatermark );
 
 	if ( m_hTabIn )  DestroyIcon( m_hTabIn );
@@ -277,14 +277,14 @@ void CMonitorBarCtrl::PaintHistory(CDC* pDC, CRect* prc)
 		if ( ( m_bTabIn && Settings.Live.BandwidthScaleIn > 100 ) ||
 			( m_bTabOut && Settings.Live.BandwidthScaleOut > 100 ) )
 		{
-			str = _T("MAX");
+			str = L"MAX";
 			pDC->DrawText( str, &rc, DT_SINGLELINE|DT_VCENTER|DT_CENTER );
 		}
 		else
 		{
 			DWORD nRate = m_bTabOut ? Settings.Connection.OutSpeed : Settings.Connection.InSpeed;
 			nRate = nRate * ( m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn ) / 100;
-			str.Format( _T(" %u%%  %s"),
+			str.Format( L" %u%%  %s",
 				m_bTabOut ? Settings.Live.BandwidthScaleOut : Settings.Live.BandwidthScaleIn,
 				(LPCTSTR)Settings.SmartSpeed( nRate, Kilobits ) );
 

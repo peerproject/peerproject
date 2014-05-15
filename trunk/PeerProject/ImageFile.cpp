@@ -1,7 +1,7 @@
 //
 // ImageFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -99,16 +99,16 @@ BOOL CImageFile::LoadFromResource(HINSTANCE hInstance, UINT nResourceID, LPCTSTR
 			{
 				if ( _tcscmp( pszType, RT_JPEG ) == 0 )
 				{
-					pszType = _T(".jpg");
+					pszType = L".jpg";
 				}
 				else if ( _tcscmp( pszType, RT_PNG ) == 0 )
 				{
-					pszType = _T(".png");
+					pszType = L".png";
 				}
 				else
 				{
 					CString strType;
-					strType.Format( _T(".%s"), pszType );
+					strType.Format( L".%s", pszType );
 					pszType = strType;
 				}
 
@@ -635,7 +635,7 @@ BOOL CImageFile::SwapRGB()
 	if ( ! m_bLoaded ) return FALSE;
 	if ( m_nComponents != 3 ) return FALSE;
 
-	DWORD nPitch = ( m_nWidth * 3 + 3) & ~3u;
+	DWORD nPitch = ( m_nWidth * 3 + 3 ) & ~3u;
 
 	BYTE* pImage = m_pImage;
 	BYTE nTemp;
@@ -663,7 +663,7 @@ BOOL CImageFile::SwapRGB()
 
 HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile, BOOL bRGB)
 {
-	if ( _tcsicmp( PathFindExtension( pszFile ), _T(".bmp") ) == 0 )
+	if ( _tcsicmp( PathFindExtension( pszFile ), L".bmp" ) == 0 )
 		return (HBITMAP)LoadImage( NULL, pszFile, IMAGE_BITMAP, 0, 0, LR_LOADFROMFILE );
 
 	CImageFile pFile;

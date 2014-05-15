@@ -1,7 +1,7 @@
 //
 // MetaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -246,7 +246,7 @@ void CMetaList::CreateLinks()
 		CMetaItem* pItem = GetNext( pos );
 		pItem->CreateLink();
 
-		int nLink = pItem->m_sKey.Find( _T("Link") );
+		int nLink = pItem->m_sKey.Find( L"Link" );
 
 		if ( nLink > 0 )
 		{
@@ -292,14 +292,14 @@ void CMetaList::ComputeWidth(CDC* pDC, int& nKeyWidth, int& nValueWidth)
 {
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CMetaItem* pItem	= GetNext( pos );
+		CMetaItem* pItem = GetNext( pos );
 		if ( pItem->m_pMember && pItem->m_pMember->m_bHidden ) continue;
 
-		CSize szKey			= pDC->GetTextExtent( pItem->m_sKey + ':' );
-		CSize szValue		= pDC->GetTextExtent( pItem->m_sValue );
+		CSize szKey		= pDC->GetTextExtent( pItem->m_sKey + L':' );
+		CSize szValue	= pDC->GetTextExtent( pItem->m_sValue );
 
-		nKeyWidth			= max( nKeyWidth, int(szKey.cx) );
-		nValueWidth			= max( nValueWidth, int(szValue.cx) );
+		nKeyWidth		= max( nKeyWidth, int(szKey.cx) );
+		nValueWidth		= max( nValueWidth, int(szValue.cx) );
 	}
 }
 
@@ -642,7 +642,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 	if ( m_sValue.IsEmpty() )
 		return FALSE;
 	if ( nMaxLength > 0 && m_sValue.GetLength() > nMaxLength )
-		m_sValue = m_sValue.Left( nMaxLength ) + _T('\x2026');
+		m_sValue = m_sValue.Left( nMaxLength ) + L'\x2026';
 
 	return TRUE;
 }
@@ -652,7 +652,7 @@ BOOL CMetaItem::Limit(int nMaxLength)
 
 BOOL CMetaItem::CreateLink()
 {
-	if ( StartsWith( m_sValue, _PT("http://") ) || StartsWith( m_sValue, _PT("www.") ) )
+	if ( StartsWith( m_sValue, _P( L"http://" ) ) || StartsWith( m_sValue, _P( L"www." ) ) )
 	{
 		m_bLink = TRUE;
 
@@ -687,16 +687,16 @@ CAlbumFolder* CMetaItem::GetLinkTarget(BOOL bHTTP) const
 {
 	if ( bHTTP )
 	{
-		if ( StartsWith( m_sLink, _PT("http://") ) )
+		if ( StartsWith( m_sLink, _P( L"http://" ) ) )
 		{
-			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
+			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"open",
 				m_sLink, NULL, NULL, SW_SHOWNORMAL );
 			return NULL;
 		}
-		if ( StartsWith( m_sLink, _PT("www.") ) )
+		if ( StartsWith( m_sLink, _P( L"www." ) ) )
 		{
-			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
-				_T("http://") + m_sLink, NULL, NULL, SW_SHOWNORMAL );
+			ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"open",
+				L"http://" + m_sLink, NULL, NULL, SW_SHOWNORMAL );
 			return NULL;
 		}
 	}

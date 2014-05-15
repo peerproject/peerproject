@@ -1,7 +1,7 @@
 //
 // Hashes/HashDescriptors.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,11 +24,8 @@
 
 #pragma once
 
-#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// _HAS_TR1		// VS2008 SP1 for std::tr1, VS2012 for std::
+// VS2012 for std::, VS2008 SP1 for std::tr1
 #include <array>
-#else	// Boost fallback
-#include <Boost/tr1/array.hpp>
-#endif
 
 
 namespace Hashes
@@ -36,13 +33,11 @@ namespace Hashes
 	namespace Policies
 	{
 		//! \brief  Array of the size of the hash.
-		//!
 		//! Sometimes it is necessary to access the hash as a bytestream and
 		//! bypass alignment and padding restrictions mposed by the Word type.
 		//! This POD structure contains an array of appropriate size
 		//! and subscripting operators for convenience.
 		//! \brief Defines urn signatures.
-		//!
 		//! This structure contains definitions for a particular urn and hash.
 		//! Used to define models of \ref hashdescriptorpage "Hash Descriptor".
 		//! The scheme used for a urn here is simple:
@@ -53,30 +48,22 @@ namespace Hashes
 		//! Members of a UrnString structure define these properties for a given urn prefix.
 		struct UrnString
 		{
-			//! \brief The minimum urn string length.
-			//! This specifies the minimum length a given string must have in order
-			//! to be valid for that string type. There must be enough space for the
-			//! prefix itself and the hash string at least; possibly more if the urn
-			//! specifies additional data we don't care about here.
+			//! \brief The minimum valid urn string length.
 			size_t minimumLength;
 
-			//! \brief The offset of the hash string.
-			//! This specifies the offset relative to the beginning of the string at
-			//! which the hash substring can be found.
+			//! \brief The substring offset in the hash string.
 			size_t hashOffset;
 
-			//! \brief The length of the urn prefix.
-			//! This specifies the length of the urn prefix without the terminator:
+			//! \brief The length of the urn prefix, without terminator:
 			//! \a signaturleLength = \c _tcslen( *\a signature )
 			size_t signatureLength;
 
-			//! \brief The urn prefix.
-			//! A pointer to the urn prefix (should be a string literal).
+			//! \brief The urn prefix pointer. (string literal)
 			const wchar* signature;
 		};
+
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for SHA1 hashes.
-		//!
-		//! SHA1 is used a basic hash. It is computed directly over a 32bit stream,
+		//! SHA1 is used as basic hash. It is computed directly over a 32bit stream,
 		//! with each 32bit word consisting of 4 bytes in big endian order. (RFC 3174)
 		struct Sha1Descriptor
 		{
@@ -92,7 +79,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Tiger tree hashes.
-		//!
 		//! A Tiger tree hash is a compound hash.  It is computed using the
 		//! Tiger hash algorithm, organized in a Merkle Hash Tree.
 		//! It's input is organized in 64bit words in little endian order.
@@ -113,7 +99,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Ed2k hashes.
-		//!
 		//! A Edonkey2000 hash is a compound hash based on the MD4 Message-Digest
 		//! algorithm (RFC 1320). It divides the input stream into blocks of 9.25MB,
 		//! the MD4 digest is generated of each block. The Ed2k hash is than
@@ -150,7 +135,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Bittorrent info hashes.
-		//!
 		//! The Bittorrent info hash is a compound hash based on SHA1.
 		//! Similar to Ed2k the input stream is divided into blocks of equal size
 		//! from which the SHA1 is taken. The info hash is then computed as the SHA1 of
@@ -173,7 +157,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Guids.
-		//!
 		//! A Guid is a placeholder used to identify varous kinds of resources,
 		//! such as components and peers. It is usually unspecified, how a Guid is generated-
 		//! often it is not reproducible. This makes it suitable to serve as temporary ids
@@ -192,7 +175,6 @@ namespace Hashes
 		};
 
 		//! \brief  A model of \ref hashdescriptorpage "Hash Descriptor" for Bittorent Guids.
-		//!
 		//! A Bittorrent Guid is similar to a plain Guid, except that it uses 160 instead of 128 bit.
 		//! PeerProject uses a special transformation signature to convert its local Guid
 		//! into a Bittorrent Guid. This signature is recognized by other PeerProject/Shareaza clients.

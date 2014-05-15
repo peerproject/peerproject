@@ -105,7 +105,7 @@ CHandshake::~CHandshake()
 BOOL CHandshake::Push(IN_ADDR* pAddress, WORD nPort, DWORD nIndex)
 {
 	// Report we are about to push open a connection to the given IP address and port number now
-	theApp.Message( MSG_INFO, IDS_UPLOAD_CONNECT, (LPCTSTR)CString( inet_ntoa( *pAddress ) ), _T("") );
+	theApp.Message( MSG_INFO, IDS_UPLOAD_CONNECT, (LPCTSTR)CString( inet_ntoa( *pAddress ) ), L"" );
 
 	// Connect the socket in this CHandshake object to the IP address and port number the method got passed
 	if ( ! ConnectTo( pAddress, nPort ) )
@@ -160,7 +160,7 @@ BOOL CHandshake::OnConnected()
 	// Compose the GIV string, which is like "GIV index:guid/" with two newlines at the end (do)
 	CString strGIV;
 	strGIV.Format(			// Like sprintf, "%.2X" formats a byte into 2 hexidecimal characters ("ff")
-		_T("GIV %u:%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X/\n\n"),
+		L"GIV %u:%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X%.2X/\n\n",
 		m_nIndex,										// Our index on the Gnutella network (do)
 		int( oID[0] ),  int( oID[1] ),  int( oID[2] ),  int( oID[3] ),		// Our GUID
 		int( oID[4] ),  int( oID[5] ),  int( oID[6] ),  int( oID[7] ),
@@ -187,7 +187,7 @@ void CHandshake::OnDropped()
 	if ( m_bPushing )
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
 	else
-		theApp.Message( MSG_INFO, _T("Handshaking connection from %s port %i dropped unexpectedly."), (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_INFO, L"Handshaking connection from %s port %i dropped unexpectedly.", (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -258,7 +258,7 @@ BOOL CHandshake::OnRead()
 		return ChatCore.OnAccept( this );
 
 	// Record this handshake line as an application message
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> HANDSHAKE: %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	// The first header starts "GET" or "HEAD"
 	// The remote computer wants a file from us, accept the connection as an upload
@@ -275,7 +275,7 @@ BOOL CHandshake::OnRead()
 	// The first header starts with something else, report that we couldn't figure out the handshake
 	theApp.Message( MSG_ERROR, IDS_HANDSHAKE_FAIL, (LPCTSTR)m_sAddress );
 #ifdef _DEBUG
-	theApp.Message( MSG_INFO, _T("%s Bad Handshake: %c%c%c%c (0x%x 0x%x 0x%x 0x%x) (%i)"), (LPCTSTR)m_sAddress,
+	theApp.Message( MSG_INFO, L"%s Bad Handshake: %c%c%c%c (0x%x 0x%x 0x%x 0x%x) (%i)", (LPCTSTR)m_sAddress,
 		PeekAt( 0 ), PeekAt( 1 ), PeekAt( 2 ), PeekAt( 3 ), PeekAt( 0 ), PeekAt( 1 ), PeekAt( 2 ), PeekAt( 3 ), strLine.GetLength() );
 #endif
 
@@ -311,7 +311,7 @@ BOOL CHandshake::OnAcceptPush()
 	for ( int nByte = 0 ; nByte < 16 ; nByte++ )
 	{
 		int nValue;
-		if ( _stscanf( strLine.Mid( 10 + nByte * 2, 2 ), _T("%X"), &nValue ) != 1 )
+		if ( _stscanf( strLine.Mid( 10 + nByte * 2, 2 ), L"%X", &nValue ) != 1 )
 		{
 			//theApp.Message( MSG_ERROR, IDS_DOWNLOAD_BAD_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 			Write( _P("GNUTELLA/0.6 503 Bad push\r\n\r\n") );
@@ -328,7 +328,7 @@ BOOL CHandshake::OnAcceptPush()
 		return FALSE;
 
 	// Record the fact that we got a push we knew nothing about
-	//theApp.Message( MSG_ERROR, IDS_DOWNLOAD_UNKNOWN_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), _T("Gnutella2") );
+	//theApp.Message( MSG_ERROR, IDS_DOWNLOAD_UNKNOWN_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), L"Gnutella2" );
 	Write( _P("GNUTELLA/0.6 503 Unknown push\r\n\r\n") );
 	LogOutgoing();
 	DelayClose( IDS_DOWNLOAD_UNKNOWN_PUSH );
@@ -349,7 +349,7 @@ BOOL CHandshake::OnAcceptGive()
 
 	// If there is a slash in the line
 	CString strClient, strFile;
-	int nPos = strLine.Find( _T('/') );
+	int nPos = strLine.Find( L'/' );
 	if ( nPos > 0 )
 	{
 		// Clip out the part of the line after the slash, URL decode it to turn %20 into spaces, and save that in strFile
@@ -359,13 +359,13 @@ BOOL CHandshake::OnAcceptGive()
 
 	// If there is a colon in the line, more than 4 character widths in, like "GIV 123:client32characterslong----------"
 	DWORD nFileIndex = 0xFFFFFFFF;
-	nPos = strLine.Find( _T(':') );
+	nPos = strLine.Find( L':' );
 	if ( nPos > 4 )
 	{
 		// Read the number before and text after the colon
 		strClient	= strLine.Mid( nPos + 1 );			// Clip out just the "client" part of the example shown above
 		strLine		= strLine.Mid( 4, nPos - 4 );		// Starting at 4 to get beyond the "GIV ", clip out "123", any text before the colon at nPos
-		_stscanf( strLine, _T("%lu"), &nFileIndex );	// Read "123" as a number, this is the file index
+		_stscanf( strLine, L"%lu", &nFileIndex );	// Read "123" as a number, this is the file index
 	}
 
 	// If there was no colon and the file index was not read, or the client text isn't exactly 32 characters long
@@ -384,7 +384,7 @@ BOOL CHandshake::OnAcceptGive()
 	for ( int nByte = 0 ; nByte < 16 ; nByte++ )
 	{
 		// Convert one set of characters like "00" or "ff" into that byte in pClientID
-		if ( _stscanf( strClient.Mid( nByte * 2, 2 ), _T("%X"), &nPos ) != 1 )
+		if ( _stscanf( strClient.Mid( nByte * 2, 2 ), L"%X", &nPos ) != 1 )
 		{
 			//theApp.Message( MSG_ERROR, IDS_DOWNLOAD_BAD_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 			Write( _P("GNUTELLA/0.6 503 Bad push\r\n\r\n") );
@@ -401,7 +401,7 @@ BOOL CHandshake::OnAcceptGive()
 		return FALSE;
 
 	// If filename is longer than 256 characters, change text to Invalid Filename
-	//if ( strFile.GetLength() > 256 ) strFile = _T("Invalid Filename");
+	//if ( strFile.GetLength() > 256 ) strFile = L"Invalid Filename";
 
 	// Log this unexpected push, and return false
 	//theApp.Message( MSG_ERROR, IDS_DOWNLOAD_UNKNOWN_PUSH, (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );

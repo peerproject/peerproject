@@ -332,7 +332,7 @@ BOOL CBuffer::ReadLine(CString& strLine, BOOL bPeek)
 
 	strLine = UTF8Decode( (LPCSTR)m_pBuffer, nLength );
 
-	strLine.TrimRight( _T("\r\n") );
+	strLine.TrimRight( L"\r\n" );
 
 	// Now that the line has been copied into the string, remove it and the '\n' from the buffer
 	if ( ! bPeek )
@@ -709,7 +709,7 @@ int CBuffer::Deflate(z_streamp pStream, int nFlush)
 //
 // Side Effect: This function allocates a new z_stream structure that gets cleaned up when the stream is finished.
 // Call InflateStreamCleanup() to close the stream and delete the z_stream structure before the stream has finished.
-bool CBuffer::InflateStreamTo( CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEndOfStream)
+bool CBuffer::InflateStreamTo(CBuffer& oBuffer, z_streamp& pStream, BOOL* pbEndOfStream)
 {
 	// Report success if there was nothing to decompress
 	if ( ! m_nLength )

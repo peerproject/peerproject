@@ -18,7 +18,7 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-#pragma code_page(1251)
+#pragma code_page(1252)
 #endif // _WIN32
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,7,8,0
+ FILEVERSION 3,8,5,0
  PRODUCTVERSION 1,0,0,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
@@ -45,10 +45,10 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "PeerProject Development Team"
             VALUE "FileDescription", "SQLite3 Library"
-            VALUE "FileVersion", "3.7.8.0"
+            VALUE "FileVersion", "3.8.5.0"
             VALUE "InternalName", "sqlite3"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2012"
-            VALUE "OriginalFilename", "sqlite3.dll"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
+            VALUE "OriginalFilename", "SQLite.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1.0.0.0"
         END
@@ -64,7 +64,7 @@ END
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Russian resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -97,9 +97,8 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
-#endif    // English (U.S.) resources
+#endif    // English (United States) resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED

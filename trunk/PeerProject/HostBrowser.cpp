@@ -145,8 +145,8 @@ BOOL CHostBrowser::Browse()
 		oURL.m_pServerAddress	= m_pAddress;
 		oURL.m_nServerPort		= m_nPort;
 		oURL.m_sLogin			= m_sNick;
-		oURL.m_sName.Format( _T("Files of %s.xml.bz2"), (LPCTSTR)SafeFilename( m_sNick ) );
-		oURL.m_sURL.Format( _T("dchub://%s@%s:%u/files.xml.bz2"), (LPCTSTR)URLEncode( m_sNick ), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort );
+		oURL.m_sName.Format( L"Files of %s.xml.bz2", (LPCTSTR)SafeFilename( m_sNick ) );
+		oURL.m_sURL.Format( L"dchub://%s@%s:%u/files.xml.bz2", (LPCTSTR)URLEncode( m_sNick ), (LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort );
 
 		return ( Downloads.Add( oURL ) != NULL );
 	}
@@ -403,7 +403,7 @@ BOOL CHostBrowser::OnNewFile(CLibraryFile* pFile)
 	if ( m_nProtocol == PROTOCOL_DC && ! m_sNick.IsEmpty() )
 	{
 		CString strName;
-		strName.Format( _T("Files of %s.xml.bz2"), (LPCTSTR)SafeFilename( m_sNick ) );
+		strName.Format( L"Files of %s.xml.bz2", (LPCTSTR)SafeFilename( m_sNick ) );
 		if ( strName == pFile->m_sName )
 		{
 			CQueryHit* pHits = NULL;
@@ -449,10 +449,10 @@ BOOL CHostBrowser::LoadDC(LPCTSTR pszFile, CQueryHit*& pHits)
 
 	// <FileListing Version="1" CID="SKCB4ZF4PZUDF7RKQ5LX6SVAARQER7QEVELZ2TY" Base="/" Generator="DC++ 0.762">
 
-	if ( ! pXML->IsNamed( _T("FileListing") ) )
+	if ( ! pXML->IsNamed( L"FileListing" ) )
 		return FALSE;	// Invalid XML file format
 
-//	CString strTitle = pXML->GetAttributeValue( _T("CID") );
+//	CString strTitle = pXML->GetAttributeValue( L"CID" );
 
 	return LoadDCDirectory( pXML.get(), pHits );
 }
@@ -462,22 +462,22 @@ BOOL CHostBrowser::LoadDCDirectory(CXMLElement* pRoot, CQueryHit*& pHits)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("Directory") ) )
+		if ( pElement->IsNamed( L"Directory" ) )
 		{
 			// <Directory Name="Downloads">
 
 			if ( ! LoadDCDirectory( pElement, pHits ) )
 				return FALSE;
 		}
-		else if ( pElement->IsNamed( _T("File") ) )
+		else if ( pElement->IsNamed( L"File" ) )
 		{
 			// <File Name="music.mp3" Size="100000" TTH="3A6D6T2NDRLU6BGSTSJNW3R3QWTV6A44M6AGXMA"/>
 
-			CString strName = pElement->GetAttributeValue( _T("Name") );
+			CString strName = pElement->GetAttributeValue( L"Name" );
 			QWORD nSize;
-			if ( _stscanf( pElement->GetAttributeValue( _T("Size") ), _T("%I64i"), &nSize ) != 1 )
+			if ( _stscanf( pElement->GetAttributeValue( L"Size" ), L"%I64i", &nSize ) != 1 )
 				nSize = SIZE_UNKNOWN;
-			CString strTiger = pElement->GetAttributeValue( _T("TTH") );
+			CString strTiger = pElement->GetAttributeValue( L"TTH" );
 
 			if ( strName.IsEmpty() || nSize == SIZE_UNKNOWN )
 				return FALSE;
@@ -543,7 +543,7 @@ void CHostBrowser::SendRequest()
 		Write( _P("Accept-Encoding: deflate\r\n") );
 		Write( _P("Connection: close\r\n") );
 
-		strHeader.Format( _T("Host: %s:%lu\r\n\r\n"), (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
+		strHeader.Format( L"Host: %s:%lu\r\n\r\n", (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 		Write( strHeader );
 
 		LogOutgoing();
@@ -576,35 +576,35 @@ BOOL CHostBrowser::ReadResponseLine()
 	if ( ! Read( strLine ) ) return TRUE;
 	if ( strLine.IsEmpty() ) return TRUE;
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
-		strLine = _T("#LINE_TOO_LONG#");
+		strLine = L"#LINE_TOO_LONG#";
 
-	if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == _T("HTTP/1.1 ") )
+	if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == L"HTTP/1.1 " )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 	}
-	else if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == _T("HTTP/1.0 ") )
+	else if ( strLine.GetLength() >= 12 && strLine.Left( 9 ) == L"HTTP/1.0 " )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 	}
-	else if ( strLine.GetLength() >= 8 && strLine.Left( 4 ) == _T("HTTP") )
+	else if ( strLine.GetLength() >= 8 && strLine.Left( 4 ) == L"HTTP" )
 	{
 		strCode		= strLine.Mid( 5, 3 );
 		strMessage	= strLine.Mid( 8 );
 	}
 	else
 	{
-		theApp.Message( MSG_DEBUG, _T("UNKNOWN BROWSE RESPONSE: %s: %s"), m_sAddress, strLine );
+		theApp.Message( MSG_DEBUG, L"UNKNOWN BROWSE RESPONSE: %s: %s", m_sAddress, strLine );
 		theApp.Message( MSG_ERROR, IDS_BROWSE_NOT_HTTP, m_sAddress );
 		Stop();
 		return FALSE;
 	}
 
-	if ( strCode == _T("200") || strCode == _T("206") )
+	if ( strCode == L"200" || strCode == L"206" )
 	{
 		m_nState = hbsHeaders;
 	}
@@ -612,7 +612,7 @@ BOOL CHostBrowser::ReadResponseLine()
 	{
 		strMessage.TrimLeft();
 		if ( strMessage.GetLength() > 256 )
-			strMessage = _T("No Message");	// Should it be truncated?
+			strMessage = L"No Message";	// Should it be truncated?
 
 		theApp.Message( MSG_ERROR, IDS_BROWSE_HTTPCODE, m_sAddress, strCode, strMessage );
 
@@ -634,32 +634,32 @@ BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 	if ( ! CTransfer::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
 
-	if ( strHeader.CompareNoCase( _T("Server") ) == 0 )
+	if ( strHeader.CompareNoCase( L"Server" ) == 0 )
 	{
 		m_pVendor = VendorCache.LookupByName( strValue );
 		m_sServer = strValue;
 		if ( m_sServer.GetLength() > 64 ) m_sServer = m_sServer.Left( 64 );
 	}
-	else if ( strHeader.CompareNoCase( _T("Content-Type") ) == 0 )
+	else if ( strHeader.CompareNoCase( L"Content-Type" ) == 0 )
 	{
-		if ( strValue.CompareNoCase( _T("application/x-gnutella-packets") ) == 0 )
+		if ( strValue.CompareNoCase( L"application/x-gnutella-packets" ) == 0 )
 			m_nProtocol = PROTOCOL_G1;
-		else if ( strValue.CompareNoCase( _T("application/x-gnutella2") ) == 0 )
+		else if ( strValue.CompareNoCase( L"application/x-gnutella2" ) == 0 )
 			m_nProtocol = PROTOCOL_G2;
-		else if ( strValue.CompareNoCase( _T("application/x-shareaza") ) == 0 )
+		else if ( strValue.CompareNoCase( L"application/x-shareaza" ) == 0 )
 			m_nProtocol = PROTOCOL_G2;
-		else if ( strValue.CompareNoCase( _T("application/x-peerproject") ) == 0 )
+		else if ( strValue.CompareNoCase( L"application/x-peerproject" ) == 0 )
 			m_nProtocol = PROTOCOL_G2;
-		else if ( strValue.Left(9).CompareNoCase( _T("text/html") ) == 0 )
+		else if ( strValue.Left(9).CompareNoCase( L"text/html" ) == 0 )
 			m_nProtocol = PROTOCOL_NULL;
 	}
-	else if ( strHeader.CompareNoCase( _T("Content-Encoding") ) == 0 )
+	else if ( strHeader.CompareNoCase( L"Content-Encoding" ) == 0 )
 	{
-		m_bDeflate = strValue.CompareNoCase( _T("deflate") ) == 0;
+		m_bDeflate = strValue.CompareNoCase( L"deflate" ) == 0;
 	}
-	else if ( strHeader.CompareNoCase( _T("Content-Length") ) == 0 )
+	else if ( strHeader.CompareNoCase( L"Content-Length" ) == 0 )
 	{
-		_stscanf( strValue, _T("%lu"), &m_nLength );
+		_stscanf( strValue, L"%lu", &m_nLength );
 	}
 
 	return TRUE;
@@ -736,7 +736,7 @@ BOOL CHostBrowser::ReadContent()
 	//	// Skip
 	//	break;
 	//default:
-	//	theApp.Message( MSG_ERROR, _T("CHostBrowser::ReadContent(): Unknown Browse Protocol") );
+	//	theApp.Message( MSG_ERROR, L"CHostBrowser::ReadContent(): Unknown Browse Protocol" );
 	}
 
 	if ( m_nReceived < m_nLength ) return TRUE;
@@ -893,7 +893,7 @@ BOOL CHostBrowser::OnPacket(CG2Packet* pPacket)
 #ifdef _DEBUG
 	default:
 		CString str;
-		str.Format( _T("Unknown G2 Browse packet from %s:%u"),
+		str.Format( L"Unknown G2 Browse packet from %s:%u",
 			(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ),
 			htons( m_pHost.sin_port ) );
 		pPacket->Debug( str );
@@ -947,28 +947,28 @@ BOOL CHostBrowser::StreamHTML()
 
 	while ( m_pBuffer->ReadLine( strLine ) )
 	{
-		int nPosHTTP = strLine.Find( _T("http://") );
+		int nPosHTTP = strLine.Find( L"http://" );
 
-		while ( nPosHTTP >= 0 && strLine.Find( _T("/get/") ) > nPosHTTP )
+		while ( nPosHTTP >= 0 && strLine.Find( L"/get/" ) > nPosHTTP )
 		{
-			CString strURI = strLine.Mid( nPosHTTP ).SpanExcluding( _T("?&\"'<>") );
+			CString strURI = strLine.Mid( nPosHTTP ).SpanExcluding( L"?&\"'<>" );
 			CString strName;
 			DWORD nSize = 0;
 
-			int nPosSize = strLine.Find( _T("<TD NOWRAP>") );
+			int nPosSize = strLine.Find( L"<TD NOWRAP>" );
 
 			if ( nPosSize >= 0 && nPosSize < nPosHTTP )
 			{
-				CString strSize = strLine.Mid( nPosSize + 11 ).SpanExcluding( _T("</") );
+				CString strSize = strLine.Mid( nPosSize + 11 ).SpanExcluding( L"</" );
 				float nFloat = 0;
 
-				if ( _stscanf( strSize, _T("%f"), &nFloat ) == 1 && nFloat > 0 )
+				if ( _stscanf( strSize, L"%f", &nFloat ) == 1 && nFloat > 0 )
 				{
-					if ( strSize.Find( _T(" GB") ) >= 0 )
+					if ( strSize.Find( L" GB" ) >= 0 )
 						nFloat *= 1024*1024*1024;
-					else if ( strSize.Find( _T(" MB") ) >= 0 )
+					else if ( strSize.Find( L" MB" ) >= 0 )
 						nFloat *= 1024*1024;
-					else if ( strSize.Find( _T(" KB") ) >= 0 )
+					else if ( strSize.Find( L" KB" ) >= 0 )
 						nFloat *= 1024;
 
 					nSize = (DWORD)nFloat;
@@ -977,10 +977,10 @@ BOOL CHostBrowser::StreamHTML()
 
 			strLine = strLine.Mid( nPosHTTP + strURI.GetLength() );
 
-			int nPosName = strLine.Find( _T(">") );
+			int nPosName = strLine.Find( L">" );
 
 			if ( nPosName >= 0 )
-				strName = strLine.Mid( nPosName + 1 ).SpanExcluding( _T("<>") );
+				strName = strLine.Mid( nPosName + 1 ).SpanExcluding( L"<>" );
 
 			if ( strName.IsEmpty() && ( nPosName = strURI.ReverseFind( '/' ) ) > 0 )
 				strName = URLDecode( strURI.Mid( nPosName + 1 ) );
@@ -1005,7 +1005,7 @@ BOOL CHostBrowser::StreamHTML()
 			pHit->m_pNext = pHits;
 			pHits = pHit;
 
-			nPosHTTP = strLine.Find( _T("http://") );
+			nPosHTTP = strLine.Find( L"http://" );
 		}
 	}
 

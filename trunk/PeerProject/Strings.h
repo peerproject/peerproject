@@ -20,11 +20,11 @@
 
 #include <set>
 
-// Produce 2 comma-seperated arguments: string itself, and string length (without null terminator)	_PT("Text") = L"Text",4
-#define _P(x) (x),((sizeof(x))/sizeof((x)[0])-1)
+// Produce 2 comma-separated arguments: string itself, and string length (without null terminator)	_P( L"Text" ) = L"Text",4
+#define _P(x) (x), ((sizeof(x))/sizeof((x)[0])-1)
 #define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
 
-#define IsSpace(ch)	((ch) == _T(' ') || (ch) == _T('\t') || (ch) == _T('\r') || (ch) == _T('\n'))
+#define IsSpace(ch)	( (ch) == L' ' || (ch) == L'\t' || (ch) == L'\r' || (ch) == L'\n' )
 
 class CLowerCaseTable
 {
@@ -97,11 +97,11 @@ bool atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen, __int64& n
 // Split string using delimiter to string array
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
 
-// StartsWith("Hello world", _PT("hello")) is true
+// StartsWith("Hello world", _P( L"hello" )) is true
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 
-// EndsWith("Hello world", _PT(" world")) is true
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+// EndsWith("Hello world", _P( L" world" )) is true
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen = 0);
 
 // Load all text from file (Unicode-compatible)
 CString LoadFile(LPCTSTR pszPath);

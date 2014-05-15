@@ -1,7 +1,7 @@
 //
 // PageSettingsMedia.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,7 +56,6 @@ END_MESSAGE_MAP()
 
 CMediaSettingsPage::CMediaSettingsPage()
 	: CSettingsPage(CMediaSettingsPage::IDD)
-	, m_sType			( _T("") )
 	, m_bEnablePlay 	( FALSE )
 	, m_bEnableEnqueue	( FALSE )
 {
@@ -108,7 +107,7 @@ BOOL CMediaSettingsPage::OnInitDialog()
 		m_wndList.AddString( *i );
 	}
 
-	m_wndServices.AddString( _T("(") + LoadString( IDS_GENERAL_CUSTOM ) + _T("\x2026)") );
+	m_wndServices.AddString( L"(" + LoadString( IDS_GENERAL_CUSTOM ) + L"\x2026)" );
 	m_wndServices.AddString( LoadString( IDS_MEDIA_SMPLAYER ) );
 	int nSelected = INTERNAL_INDEX;
 
@@ -116,8 +115,8 @@ BOOL CMediaSettingsPage::OnInitDialog()
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
 		CString strPlayer = *i;
-		BOOL bSelected = strPlayer.Right( 1 ) == _T('*');	// SELECTED_PLAYER_TOKEN
-		if ( bSelected ) strPlayer.TrimRight( _T('*') );	// SELECTED_PLAYER_TOKEN
+		BOOL bSelected = strPlayer.Right( 1 ) == L'*';	// SELECTED_PLAYER_TOKEN
+		if ( bSelected ) strPlayer.TrimRight( L'*' );	// SELECTED_PLAYER_TOKEN
 
 		int nIndex = m_wndServices.AddString( PathFindFileName( strPlayer ) );
 		if ( bSelected )
@@ -221,7 +220,7 @@ void CMediaSettingsPage::OnOK()
 		if ( ! psPlayer )
 			continue;
 		if ( i == nSelected )
-			*psPlayer += _T('*');	// SELECTED_PLAYER_TOKEN
+			*psPlayer += L'*';	// SELECTED_PLAYER_TOKEN
 		Settings.MediaPlayer.ServicePath.insert( *psPlayer );
 	}
 
@@ -233,7 +232,7 @@ void CMediaSettingsPage::OnOK()
 		if ( CSettingsPage* pPage = pSheet->GetPage( nPage ) )
 		{
 			CString strClass( pPage->GetRuntimeClass()->m_lpszClassName );
-			if ( strClass == _T("CPluginsSettingsPage") )
+			if ( strClass == L"CPluginsSettingsPage" )
 			{
 				CPluginsSettingsPage* pPluginPage = static_cast< CPluginsSettingsPage* >( pPage );
 				pPluginPage->UpdateList();
@@ -262,11 +261,11 @@ void CMediaSettingsPage::OnSelChangeMediaService()
 	int nSelected = m_wndServices.GetCurSel();
 	if ( nSelected == CUSTOM_INDEX )		// Custom Media Player selected
 	{
-		CFileDialog dlg( TRUE, _T("exe"), _T(""), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
-			_T("Executable Files|*.exe|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+		CFileDialog dlg( TRUE, L"exe", L"", OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+			L"Executable Files|*.exe|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 		//	SchemaCache.GetFilter( CSchema::uriApplicationAll ) +
 		//	SchemaCache.GetFilter( CSchema::uriAllFiles ) +
-		//	_T("|"), this );
+		//	L"|", this );
 
 		if ( dlg.DoModal() != IDOK )
 		{

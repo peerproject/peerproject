@@ -1,7 +1,7 @@
 //
 // PageSettingsConnection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,7 +21,6 @@
 #include "PageSettingsConnection.h"
 #include "DlgHelp.h"
 #include "Network.h"
-#include "UPnPFinder.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -33,11 +32,11 @@ IMPLEMENT_DYNCREATE(CConnectionSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CConnectionSettingsPage, CSettingsPage)
 	ON_WM_SHOWWINDOW()
-	ON_CBN_EDITCHANGE(IDC_INBOUND_HOST, OnEditChangeInboundHost)
-	ON_CBN_SELCHANGE(IDC_INBOUND_HOST, OnChangedInboundHost)
-	ON_EN_CHANGE(IDC_INBOUND_PORT, OnChangeInboundPort)
-	ON_BN_CLICKED(IDC_INBOUND_RANDOM, OnInboundRandom)
-	ON_BN_CLICKED(IDC_ENABLE_UPNP, OnClickedEnableUpnp)
+	ON_CBN_EDITCHANGE(IDC_INBOUND_HOST, &CConnectionSettingsPage::OnEditChangeInboundHost)
+	ON_CBN_SELCHANGE(IDC_INBOUND_HOST, &CConnectionSettingsPage::OnChangedInboundHost)
+	ON_EN_CHANGE(IDC_INBOUND_PORT, &CConnectionSettingsPage::OnChangeInboundPort)
+	ON_BN_CLICKED(IDC_INBOUND_RANDOM, &CConnectionSettingsPage::OnInboundRandom)
+	ON_BN_CLICKED(IDC_ENABLE_UPNP, &CConnectionSettingsPage::OnClickedEnableUpnp)
 END_MESSAGE_MAP()
 
 
@@ -104,8 +103,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_AUTO ) );
 	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_NO ) );
 	m_wndCanAccept.AddString( LoadString( IDS_GENERAL_YES ) );
-	//m_wndCanAccept.AddString( _T("TCP-Only") );
-	//m_wndCanAccept.AddString( _T("UDP-Only") );	// "Temp disabled"  ToDo:?
+	//m_wndCanAccept.AddString( L"TCP-Only" );
+	//m_wndCanAccept.AddString( L"UDP-Only" );	// "Temp disabled"  ToDo:?
 
 	m_wndCanAccept.SetCurSel( Settings.Connection.FirewallState );
 
@@ -120,7 +119,6 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 	m_nTimeoutHandshake		= Settings.Connection.TimeoutHandshake / 1000;
 
 	DWORD ip = 0;
-	CString strIP;
 
 	// Take an IP address table
 	char mib[ sizeof( MIB_IPADDRTABLE ) + 32 * sizeof( MIB_IPADDRROW ) ];
@@ -129,6 +127,7 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 
 	if ( GetIpAddrTable( ipAddr, &nSize, TRUE ) == NO_ERROR )
 	{
+		CString strIP;
 		const DWORD nCount = ipAddr->dwNumEntries;
 		for ( DWORD nIf = 0 ; nIf < nCount ; nIf++ )
 		{
@@ -164,13 +163,14 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 
 	UpdateData( FALSE );
 
-	m_wndInBind.EnableWindow( m_sInHost != strAutomatic);
+	m_wndInBind.EnableWindow( m_sInHost != strAutomatic );
 
-	if ( theApp.m_bIsServer )
-	{
-		CButton* pWnd = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
-		pWnd->EnableWindow( FALSE );
-	}
+	// UPnP is not supported on servers?
+	//if ( theApp.m_bIsServer )
+	//{
+	//	CButton* pWnd = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
+	//	pWnd->EnableWindow( FALSE );
+	//}
 
 	return TRUE;
 }
@@ -303,15 +303,20 @@ void CConnectionSettingsPage::OnOK()
 
 		if ( nUpload * 16 < nDownload )
 		{
-			CHelpDlg::Show( _T("GeneralHelp.UploadWarning") );
+			CHelpDlg::Show( L"GeneralHelp.UploadWarning" );
 			Settings.Live.UploadLimitWarning = true;
 		}
 	}
 
-	if ( Settings.Connection.EnableUPnP &&
-		( ! bOldEnableUPnP || Settings.Connection.InPort != nOldInPort ) )
+	if ( nOldInPort != Settings.Connection.InPort )
 	{
-		Network.UpdatePortMapping();
+		CWaitCursor wc;
+		Network.Disconnect();
+		Network.Connect( TRUE );
+	}
+	else if ( bOldEnableUPnP != Settings.Connection.EnableUPnP )
+	{
+		Network.DeletePorts();
 	}
 
 	CSettingsPage::OnOK();
@@ -328,8 +333,8 @@ CString CConnectionSettingsPage::GetInOutHostTranslation()
 	pOutHost->GetLBText( 0, strOutCombo );
 
 	// Get non-english string, if any
-	strNew = strInCombo.CompareNoCase( _T("Automatic") ) == 0 ? strOutCombo : strInCombo;
-	return strAutomatic.CompareNoCase( _T("Automatic") ) == 0 ? strNew : strAutomatic;
+	strNew = strInCombo.CompareNoCase( L"Automatic" ) == 0 ? strOutCombo : strInCombo;
+	return strAutomatic.CompareNoCase( L"Automatic" ) == 0 ? strNew : strAutomatic;
 }
 
 void CConnectionSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
@@ -382,7 +387,7 @@ void CConnectionSettingsPage::OnClickedEnableUpnp()
 		// need to wait until this and SSDP service are started.
 		// If the upnphost service can not be started PeerProject will lock up.
 
-		if ( ! IsServiceHealthy( _T("upnphost") ) )
+		if ( ! IsServiceHealthy( L"upnphost" ) )
 		{
 			CButton* pBox = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
 			pBox->SetCheck( BST_UNCHECKED );

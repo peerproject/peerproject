@@ -1,7 +1,7 @@
 //
 // PageSettingsLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -136,7 +136,7 @@ BOOL CLibrarySettingsPage::OnInitDialog()
 	m_wndCollectionFolder.SubclassDlgItem( IDC_COLLECTIONS_FOLDER, this );
 
 	// m_wndRecentClear	Why is this button disabling workaround needed here only?
-	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( LibraryHistory.GetCount() > 0 || ! theApp.GetProfileString( _T("Search"), _T("Search.01") ).IsEmpty() );
+	GetDlgItem( IDC_RECENT_CLEAR )->EnableWindow( LibraryHistory.GetCount() > 0 || ! theApp.GetProfileString( L"Search", L"Search.01" ).IsEmpty() );
 	GetDlgItem( IDC_RECENT_CLEAR_GHOSTS )->EnableWindow( LibraryFolders.GetGhostCount() > 0 );
 
 	return TRUE;
@@ -165,7 +165,7 @@ void CLibrarySettingsPage::OnSafeAdd()
 	if ( m_wndSafeList.FindStringExact( -1, strType ) >= 0 ) return;
 
 	m_wndSafeList.AddString( strType );
-	m_wndSafeList.SetWindowText( _T("") );
+	m_wndSafeList.SetWindowText( L"" );
 }
 
 void CLibrarySettingsPage::OnSafeRemove()
@@ -198,7 +198,7 @@ void CLibrarySettingsPage::OnPrivateAdd()
 	if ( m_wndPrivateList.FindStringExact( -1, strType ) >= 0 ) return;
 
 	m_wndPrivateList.AddString( strType );
-	m_wndPrivateList.SetWindowText( _T("") );
+	m_wndPrivateList.SetWindowText( L"" );
 }
 
 void CLibrarySettingsPage::OnPrivateRemove()
@@ -233,7 +233,7 @@ void CLibrarySettingsPage::OnRecentClearGhosts()
 
 void CLibrarySettingsPage::OnCollectionsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for collections:"),
+	CString strPath( BrowseForFolder( L"Select folder for collections:",
 		m_sCollectionPath ) );
 	if ( strPath.IsEmpty() )
 		return;

@@ -19,12 +19,11 @@
 #pragma once
 
 #include "CtrlDownloadTip.h"
-#include "FileFragments.hpp"
+#include "DisplayData.h"
 
 class CDownload;
 class CDownloadSource;
 class CDownloadDisplayData;
-class CSourceDisplayData;
 
 
 class CDownloadsCtrl : public CWnd
@@ -113,88 +112,6 @@ public:
 
 protected:
 	DECLARE_MESSAGE_MAP()
-};
-
-
-class CSourceDisplayData
-{
-public:
-	CSourceDisplayData();
-	CSourceDisplayData(const CDownloadSource* pSource);
-	CSourceDisplayData& operator=(const CSourceDisplayData& pSource);
-
-public:
-	BOOL			m_bSelected;			// pSource->m_bSelected
-	DWORD			m_nProtocol;			// pSource->m_nProtocol
-	QWORD			m_nSize;				// pDownload->m_nSize
-	DWORD			m_nState;				// pSource->GetState()
-	CString			m_sState;				// pSource->GetState( FALSE )
-	DWORD			m_tAttempt;				// pSource->m_tAttempt
-	BOOL			m_bTrying;				// pSource->m_tAttempt && pDownload->IsTrying()
-	BOOL			m_bIdle;				// pSource->IsIdle()
-	BOOL			m_bPushOnly;			// pSource->m_bPushOnly		(ed2k)
-	QWORD			m_nDownloaded;			// pSource->GetDownloaded()
-	DWORD			m_nSpeed;				// pSource->GetMeasuredSpeed()
-	CString			m_sServer;				// pSource->m_sServer
-	DWORD			m_nAddress;				// pSource->m_pAddress.S_un.S_addr
-	CString			m_sAddress;				// CString( inet_ntoa( pSource->m_pAddress )	Or ed2k/dc: CString( inet_ntoa( pSource->m_pServerAddress )
-	CString			m_sAddressGet;			// pSource->GetAddress()
-	WORD			m_nServerPort;			// pSource->m_nServerPort
-	WORD			m_nPort;				// pSource->m_nPort
-	WORD			m_nPortGet;				// pSource->GetPort()
-	CString			m_sNick;				// pSource->m_sNick
-	CString			m_sCountry;				// pSource->m_sCountry
-	int				m_nColor;				// m_pDownload->GetSourceColor() index
-	BOOL			m_bReadContent;			// pSource->m_bReadContent
-	BOOL			m_bHasFragments;		// IsOnline() && HasUsefulRanges() || ! m_oPastFragments.empty()
-	BOOL			m_bTransferBackwards;	// m_pTransfer->m_bRecvBackwards
-	DWORD			m_nTransferLength;		// m_pTransfer->m_nLength
-	DWORD			m_nTransferOffset;		// m_pTransfer->m_nOffset
-	DWORD			m_nTransferPosition;	// m_pTransfer->m_nPosition
-	Fragments::List	m_oAvailable;			// pSource->m_oAvailable
-	Fragments::List	m_oPastFragments;		// pSource->m_oPastFragments
-};
-
-
-class CDownloadDisplayData
-{
-public:
-	CDownloadDisplayData();
-	CDownloadDisplayData(const CDownload* pDownload);
-	CDownloadDisplayData& operator=(const CDownloadDisplayData& pDownload);
-
-struct VERIFYRANGE
-{
-	QWORD			nOffset;
-	QWORD			nLength;
-	BOOL			bSuccess;
-};
-
-public:
-	QWORD			m_nSize;				// pDownload->m_nSize
-	CString			m_sName;				// pDownload->m_sName
-	CString			m_sDisplayName;			// pDownload->GetDisplayName()
-	BOOL			m_bSelected;			// pDownload->m_bSelected
-	BOOL			m_bExpanded;			// pDownload->m_bExpanded
-	BOOL			m_bExpandable;			// IsExpandable(pDownload)
-	BOOL			m_bTrying;				// pDownload->IsTrying()	(m_tBegan>0)
-	BOOL			m_bClearing;			// pDownload->m_bClearing
-	BOOL			m_bCompleted;			// pDownload->IsCompleted()
-	BOOL			m_bFailedVerify;		// pDownload->m_bVerify == TRI_FALSE
-	DWORD			m_nVolumeComplete;		// pDownload->GetVolumeComplete()		Or Seeding: pDownload->m_nTorrentUploaded
-	float			m_fProgress;			// pDownload->GetProgress()
-	float			m_fRatio;				// pDownload->GetRatio()	Seeding
-	UINT			m_nRating;				// pDownload->GetReviewAverage()
-	DWORD			m_nAverageSpeed;		// pDownload->GetAverageSpeed()	DWORD
-	CString			m_sDownloadSources;		// pDownload->GetDownloadSources()
-	BOOL			m_bMultiFileTorrent;	// pDownload->IsMultiFileTorrent()
-	BOOL			m_bSeeding;				// pDownload->IsSeeding()
-	BOOL			m_bSearching;			// pDownload->IsSearching()
-	CString			m_sDownloadStatus;		// pDownload->GetDownloadStatus()
-	DWORD			m_nSourceCount;			// pDownload->GetSourceCount()
-	Fragments::List	m_oEmptyFragments;
-	CArray< VERIFYRANGE > m_pVerifyRanges;	// pDownload->GetNextVerifyRange()
-	CArray< CSourceDisplayData > m_pSourcesData;
 };
 
 

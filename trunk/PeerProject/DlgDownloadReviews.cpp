@@ -1,7 +1,7 @@
 //
 // DlgDownloadReviews.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -74,15 +74,15 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 	rcList.right -= GetSystemMetrics( SM_CXVSCROLL );
 
 	CoolInterface.SetImageListTo( m_wndReviews, LVSIL_SMALL );
-	m_wndReviews.InsertColumn( 0, _T("User"), LVCFMT_LEFT, 100, -1 );
-	m_wndReviews.InsertColumn( 1, _T("Rating"), LVCFMT_CENTER, 90, 0 );
-	m_wndReviews.InsertColumn( 2, _T("Comments"), LVCFMT_CENTER, rcList.right - 100 - 80, 1 );
-	m_wndReviews.InsertColumn( 3, _T("Order"), LVCFMT_CENTER, 0, 2 );
+	m_wndReviews.InsertColumn( 0, L"User", LVCFMT_LEFT, 100, -1 );
+	m_wndReviews.InsertColumn( 1, L"Rating", LVCFMT_CENTER, 90, 0 );
+	m_wndReviews.InsertColumn( 2, L"Comments", LVCFMT_CENTER, rcList.right - 100 - 80, 1 );
+	m_wndReviews.InsertColumn( 3, L"Order", LVCFMT_CENTER, 0, 2 );
 
 	m_wndReviews.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 	m_wndReviews.EnableToolTips();
 
-	Skin.Translate( _T("CReviewList"), m_wndReviews.GetHeaderCtrl() );
+	Skin.Translate( L"CReviewList", m_wndReviews.GetHeaderCtrl() );
 
 	// Sort by order added- first at the top
 	CLiveList::Sort( &m_wndReviews, 3, FALSE );
@@ -132,7 +132,7 @@ BOOL CDownloadReviewDlg::OnInitDialog()
 		pItem->Set( 1, LoadString( IDS_RATING_NONE + nRating ) );	// IDS_RATING_1...
 
 		pItem->Set( 2, pReview->m_sFileComments );
-		pItem->Format( 3, _T("%i"), nIndex );
+		pItem->Format( 3, L"%i", nIndex );
 
 		nIndex++;
 		pReview = pReview->m_pNext;

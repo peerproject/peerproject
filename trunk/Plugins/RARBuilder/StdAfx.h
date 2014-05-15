@@ -7,13 +7,18 @@
 
 #pragma once
 
-#define STRICT
-#define WINVER 0x0500
-#define _WIN32_WINNT 0x0500
-#define _WIN32_WINDOWS 0x0500
-#define _WIN32_IE 0x0500
-#define _WIN32_DCOM
+#if !defined(_UNICODE) || !defined(UNICODE)
+	#error Unicode Required
+#endif
 
+// TargetVer.h: (WINVER)
+#define NTDDI_VERSION	0x05010200	// NTDDI_WINXPSP2
+#define _WIN32_WINNT	0x0501		// XP
+
+#define VC_EXTRALEAN
+#define STRICT
+
+#define _WIN32_DCOM
 #define _ATL_FREE_THREADED
 #define _ATL_NO_AUTOMATIC_NAMESPACE
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
@@ -27,10 +32,10 @@
 
 #include <atlbase.h>
 #include <atlcom.h>
-#include <atlstr.h>
 #include <atlcoll.h>	// CAtlMap
+#include <atlstr.h>
 
-#pragma pack(push,1)
+#pragma pack(push)
 
 #include "Unrar.h"
 
@@ -57,7 +62,7 @@ using namespace ATL;
 #define RAR_HEAD_AUTH			0x0020	// Authenticity information present
 #define RAR_HEAD_RECOVERY		0x0040	// Recovery record present
 #define RAR_HEAD_ENCRYPTED		0x0080	// Block headers are encrypted
-#define RAR_HEAD_FIRST_VOLUME	0x0100	// First volume (set only by RAR 3.0 and later)
+#define RAR_HEAD_FIRST_VOLUME	0x0100	// First volume (set by RAR 3.0+)
 
 // RARHeaderDataEx::Flags
 #define RAR_FILE_PREVIOUS		0x01	// File continued from previous volume

@@ -1,7 +1,7 @@
 //
 // Registry.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,7 +41,7 @@ struct CRegistry
 	inline static double GetFloat(LPCTSTR pszSection, LPCTSTR pszName, double fDefault = 0.0f, LPCTSTR pszSubKey = NULL)
 	{
 		CString buf;
-		buf.Format( _T("%lg"), fDefault );
+		buf.Format( L"%lg", fDefault );
 		return _tstof( GetString( pszSection, pszName, buf, pszSubKey ) );
 	}
 
@@ -62,7 +62,7 @@ struct CRegistry
 	inline static BOOL SetFloat(LPCTSTR pszSection, LPCTSTR pszName, double fValue, LPCTSTR pszSubKey = NULL)
 	{
 		CString buf;
-		buf.Format( _T("%lg"), fValue );
+		buf.Format( L"%lg", fValue );
 		return SetString( pszSection, pszName, buf, pszSubKey );
 	}
 };

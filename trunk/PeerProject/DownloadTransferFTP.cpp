@@ -42,7 +42,7 @@ static char THIS_FILE[] = __FILE__;
 
 inline void MakePORTArgs(const SOCKADDR_IN& host, CString& strValue)
 {
-	strValue.Format( _T("%u,%u,%u,%u,%hu,%hu"),
+	strValue.Format( L"%u,%u,%u,%u,%hu,%hu",
 		unsigned( host.sin_addr.S_un.S_un_b.s_b1 ),
 		unsigned( host.sin_addr.S_un.S_un_b.s_b2 ),
 		unsigned( host.sin_addr.S_un.S_un_b.s_b3 ),
@@ -54,8 +54,8 @@ inline void MakePORTArgs(const SOCKADDR_IN& host, CString& strValue)
 inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 {
 	CString strValue (args);
-	int begin = strValue.Find( _T('(') );
-	int end = strValue.Find( _T(')') );
+	int begin = strValue.Find( L'(' );
+	int end = strValue.Find( L')' );
 	if ( begin == -1 || end == -1 || end - begin < 12 )
 		return false;
 	strValue = strValue.Mid( begin + 1, end - begin - 1 );
@@ -63,27 +63,27 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 	host.sin_family = AF_INET;
 	int d;
 	// h1
-	d = strValue.Find( _T(',') );
+	d = strValue.Find( L',' );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b1 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h2
-	d = strValue.Find( _T(',') );
+	d = strValue.Find( L',' );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b2 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h3
-	d = strValue.Find( _T(',') );
+	d = strValue.Find( L',' );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b3 = (unsigned char)( _tstoi(strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// h4
-	d = strValue.Find( _T(',') );
+	d = strValue.Find( L',' );
 	if ( d == -1 ) return false;
 	host.sin_addr.S_un.S_un_b.s_b4 = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
 	// p1
-	d = strValue.Find( _T(',') );
+	d = strValue.Find( L',' );
 	if ( d == -1 ) return false;
 	host.sin_port = (unsigned char)( _tstoi( strValue.Mid(0, d) ) & 0xff );
 	strValue = strValue.Mid( d + 1 );
@@ -94,7 +94,7 @@ inline bool ParsePASVArgs(const CString& args, SOCKADDR_IN& host)
 
 inline bool FTPisOK(const CString& str)
 {
-	return ( str.GetLength() == 3 && str[0] == _T('2') );
+	return ( str.GetLength() == 3 && str[0] == L'2' );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -144,7 +144,7 @@ BOOL CDownloadTransferFTP::Initiate()
 
 void CDownloadTransferFTP::Close (TRISTATE bKeepSource, DWORD nRetryAfter)
 {
-	if ( m_pSource != NULL && m_nState == dtsDownloading && m_FtpState == ftpRETR)
+	if ( m_pSource != NULL && m_nState == dtsDownloading && m_FtpState == ftpRETR )
 		m_pSource->AddFragment( m_nOffset, m_nPosition );
 
 	m_LIST.Close();
@@ -340,7 +340,7 @@ BOOL CDownloadTransferFTP::OnRead()
 		if ( bNumber )
 			strNumber = strLine.Left( 3 );
 
-		if ( ! m_bMultiline && bNumber && strLine[3] == _T('-') )
+		if ( ! m_bMultiline && bNumber && strLine[3] == L'-' )
 		{
 			// Got first line of multi-line reply
 			m_bMultiline = TRUE;
@@ -350,23 +350,23 @@ BOOL CDownloadTransferFTP::OnRead()
 		else if ( ! m_bMultiline && bNumber )
 		{
 			// Got single-line reply
-			if ( ! OnHeaderLine( strNumber, strLine.Mid( 4 ).Trim( _T(" \t\r\n") ) ) )
+			if ( ! OnHeaderLine( strNumber, strLine.Mid( 4 ).Trim( L" \t\r\n" ) ) )
 				return FALSE;
 		}
-		else if ( m_bMultiline && bNumber && strLine[3] == _T(' ') &&
+		else if ( m_bMultiline && bNumber && strLine[3] == L' ' &&
 			m_sMultiNumber == strNumber )
 		{
 			// Got last line of multi-line reply
 			m_bMultiline = FALSE;
-			m_sMultiReply += _T("\n");
+			m_sMultiReply += L"\n";
 			m_sMultiReply += strLine.Mid( 4 );
-			if ( ! OnHeaderLine( strNumber, m_sMultiReply.Trim( _T(" \t\r\n") ) ) )
+			if ( ! OnHeaderLine( strNumber, m_sMultiReply.Trim( L" \t\r\n" ) ) )
 				return FALSE;
 		}
 		else if ( m_bMultiline )
 		{
 			// Got next line of multi-line reply
-			m_sMultiReply += _T("\n");
+			m_sMultiReply += L"\n";
 			m_sMultiReply += strLine;
 		}
 		// else Got strange extra line - ignoring
@@ -388,10 +388,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 	switch ( m_FtpState )
 	{
 	case ftpConnecting:
-		if ( strHeader == _T("220") )		// Connected
+		if ( strHeader == L"220" )		// Connected
 		{
 			m_LIST.m_sUserAgent = m_RETR.m_sUserAgent = m_sUserAgent =
-				m_pSource->m_sServer = strValue.Trim( _T(" \t\r\n-=_") );
+				m_pSource->m_sServer = strValue.Trim( L" \t\r\n-=_" );
 
 			// Empty User Agent is ok for secure FTP
 			if ( ! m_sUserAgent.IsEmpty() && Security.IsAgentBlocked( m_sUserAgent ) )
@@ -409,7 +409,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		// break;
 
 	case ftpUSER:
-		if ( strHeader == _T("331") )		// Access allowed
+		if ( strHeader == L"331" )		// Access allowed
 		{
 			// Sending password
 			m_FtpState = ftpPASS;
@@ -419,7 +419,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		// break;
 
 	case ftpPASS:
-		if ( strHeader == _T("230") )		// Logged in
+		if ( strHeader == L"230" )		// Logged in
 		{
 			// Downloading
 			m_FtpState = ftpDownloading;
@@ -435,7 +435,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpSIZE_TYPE:
-		if ( strHeader == _T("200") )		// Type I setted
+		if ( strHeader == L"200" )		// Type I setted
 		{
 			// Getting file size
 			m_FtpState = ftpSIZE;
@@ -447,10 +447,10 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpSIZE:
-		if ( strHeader == _T("213") )		// SIZE reply
+		if ( strHeader == L"213" )		// SIZE reply
 		{
 			QWORD nTotal;
-			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) != 1 || nTotal < 1 )
+			if ( _stscanf( strValue, L"%I64u", &nTotal ) != 1 || nTotal < 1 )
 			{
 				// Wrong SIZE reply format
 				ASSERT( FALSE );
@@ -477,7 +477,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsRequesting );
 			return StartNextFragment();
 		}
-		if ( strHeader == _T("550") )	// File unavailable
+		if ( strHeader == L"550" )	// File unavailable
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
@@ -490,7 +490,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpLIST_TYPE:
-		if ( strHeader == _T("200") )		// Type A setted
+		if ( strHeader == L"200" )		// Type A setted
 		{
 			// Mode choosing
 			m_FtpState = ftpLIST_PASVPORT;
@@ -502,8 +502,8 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpLIST_PASVPORT:
-		if ( strHeader == _T("227") ||
-			 strHeader == _T("200") )		// Entered passive or active mode
+		if ( strHeader == L"227" ||
+			 strHeader == L"200" )		// Entered passive or active mode
 		{
 			// Getting file size
 			if ( m_bPassive )
@@ -534,13 +534,13 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpLIST:
-		if ( strHeader == _T("125") ||
-			 strHeader == _T("150") )		// Transfer started
+		if ( strHeader == L"125" ||
+			 strHeader == L"150" )		// Transfer started
 		{
 			// Downloading
 			return TRUE;
 		}
-		if ( strHeader == _T("226") )		// Transfer completed
+		if ( strHeader == L"226" )		// Transfer completed
 		{
 			// Extract file size
 			QWORD nSize = m_LIST.ExtractFileSize();
@@ -572,7 +572,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsRequesting );
 			return SendCommand();
 		}
-		if ( strHeader == _T("550") )		// File unavailable
+		if ( strHeader == L"550" )		// File unavailable
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
@@ -582,7 +582,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpRETR_TYPE:
-		if ( strHeader == _T("200") )		// Type I setted
+		if ( strHeader == L"200" )		// Type I setted
 		{
 			// Mode choosing
 			m_FtpState = ftpRETR_PASVPORT;
@@ -594,8 +594,8 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpRETR_PASVPORT:
-		if ( strHeader == _T("227") ||
-			 strHeader == _T("200") )		// Entered passive or active mode
+		if ( strHeader == L"227" ||
+			 strHeader == L"200" )		// Entered passive or active mode
 		{
 			// File fragment choosing
 			if ( m_bPassive )
@@ -625,7 +625,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpRETR_REST:
-		if ( strHeader == _T("350") )			// Offset setted
+		if ( strHeader == L"350" )			// Offset setted
 		{
 			// Downloading
 			m_FtpState = ftpRETR;
@@ -635,18 +635,18 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 		break;
 
 	case ftpRETR:
-		if ( strHeader == _T("125") ||
-			 strHeader == _T("150") )			// Transfer started
+		if ( strHeader == L"125" ||
+			 strHeader == L"150" )			// Transfer started
 		{
 			// Downloading
 			return TRUE;
 		}
-		if ( strHeader == _T("226") )		// Transfer completed
+		if ( strHeader == L"226" )		// Transfer completed
 		{
 			// Waiting for last chunk
 			return TRUE;
 		}
-		if ( strHeader == _T("426") )		// Transfer completed
+		if ( strHeader == L"426" )		// Transfer completed
 		{
 			// Aborting
 			m_RETR.Close();
@@ -654,7 +654,7 @@ BOOL CDownloadTransferFTP::OnHeaderLine( CString& strHeader, CString& strValue )
 			SetState( dtsDownloading );
 			return SendCommand();
 		}
-		if ( strHeader == _T("550") )		// File unavailable
+		if ( strHeader == L"550" )		// File unavailable
 		{
 			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILENOTFOUND, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
 			// Ban
@@ -690,20 +690,20 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 	{
 	case ftpUSER:
 		// Sending login
-		strLine = _T("USER ");
+		strLine = L"USER ";
 		strLine += pURL.m_sLogin;
 		break;
 
 	case ftpPASS:
 		// Sending password
-		strLine = _T("PASS ");
+		strLine = L"PASS ";
 		strLine += pURL.m_sPassword;
 		break;
 
 	case ftpLIST_PASVPORT:
 		// Selecting passive or active mode
 		if ( m_bPassive )
-			strLine = _T("PASV");
+			strLine = L"PASV";
 		//else
 		//{
 		//	SOCKADDR_IN host;
@@ -715,38 +715,38 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		//	}
 		//	CString args;
 		//	MakePORTArgs( host, args );
-		//	strLine = _T("PORT ");
+		//	strLine = L"PORT ";
 		//	strLine += args;
 		//}
 		break;
 
 	case ftpSIZE:
 		// Listing file size
-		strLine = _T("SIZE ");
+		strLine = L"SIZE ";
 		strLine += URLDecode( pURL.m_sPath );
 		break;
 
 	case ftpLIST_TYPE:
 		// Selecting ASCII type for transfer
-		strLine = _T("TYPE A");
+		strLine = L"TYPE A";
 		break;
 
 	case ftpLIST:
 		// Listing file attributes
-		strLine = _T("LIST ");
+		strLine = L"LIST ";
 		strLine += URLDecode( pURL.m_sPath );
 		break;
 
 	case ftpSIZE_TYPE:
 	case ftpRETR_TYPE:
 		// Selecting BINARY type for transfer
-		strLine = _T("TYPE I");
+		strLine = L"TYPE I";
 		break;
 
 	case ftpRETR_PASVPORT:
 		// Selecting passive or active mode
 		if ( m_bPassive )
-			strLine = _T("PASV");
+			strLine = L"PASV";
 		//else
 		//{
 		//	SOCKADDR_IN host;
@@ -758,35 +758,35 @@ BOOL CDownloadTransferFTP::SendCommand(LPCTSTR /*args*/)
 		//	}
 		//	CString args;
 		//	MakePORTArgs( host, args );
-		//	strLine = _T("PORT ");
+		//	strLine = L"PORT ";
 		//	strLine += args;
 		//}
 		break;
 
 	case ftpRETR_REST:
 		// Restarting from offset position
-		strLine.Format( _T("REST %I64u"), m_nOffset );
+		strLine.Format( L"REST %I64u", m_nOffset );
 		break;
 
 	case ftpRETR:
 		// Retriving file
-		strLine = _T("RETR ");
+		strLine = L"RETR ";
 		strLine += URLDecode( pURL.m_sPath );
 		break;
 
 	case ftpABOR:
 		// Transfer aborting
-		strLine = _T("ABOR");
+		strLine = L"ABOR";
 		break;
 
 	default:
 		return TRUE;
 	}
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, L"%s << %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	m_tRequest = GetTickCount();
-	Write( strLine + _T("\r\n") );
+	Write( strLine + L"\r\n" );
 
 	return TRUE;
 }

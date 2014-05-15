@@ -1,7 +1,7 @@
 //
 // DlgFilePreview.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -70,19 +70,19 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 	if ( nPos >= 0 )
 	{
 		CString strFileName = m_sDisplayName;
-		strFileName.Replace( _T('\\'), _T('_') );
+		strFileName.Replace( L'\\', L'_' );
 
 		for ( int nCount = 0 ; nCount < 20 ; nCount++ )
 		{
 			if ( nCount > 0 )
 			{
-				m_sTargetName.Format( _T("%sPreview (%i) %s"),
+				m_sTargetName.Format( L"%sPreview (%i) %s",
 					(LPCTSTR)m_sSourceName.Left( nPos + 1 ), nCount,
 					(LPCTSTR)strFileName );
 			}
 			else
 			{
-				m_sTargetName.Format( _T("%sPreview %s"),		// Cleared in CDownloads::PurgePreviews(), was "Preview of"
+				m_sTargetName.Format( L"%sPreview %s",		// Cleared in CDownloads::PurgePreviews(), was "Preview of"
 					(LPCTSTR)m_sSourceName.Left( nPos + 1 ),
 					(LPCTSTR)strFileName );
 			}
@@ -348,7 +348,7 @@ BOOL CFilePreviewDlg::RunPlugin()
 	CString strType = PathFindExtension( m_sTargetName );
 	strType.MakeLower();
 
-	m_pPlugin = Plugins.GetPlugin( _T("DownloadPreview"), strType );
+	m_pPlugin = Plugins.GetPlugin( L"DownloadPreview", strType );
 	if ( ! m_pPlugin )
 		return FALSE;
 
@@ -413,7 +413,7 @@ BOOL CFilePreviewDlg::RunManual()
 			hr = oSourceFile.Read( pData.get(), nChunk, nChunk );
 			if ( FAILED( hr ) || nChunk == 0 )
 			{
-				theApp.Message( MSG_DEBUG, _T("Preview: Read error %d."), GetLastError() );
+				theApp.Message( MSG_DEBUG, L"Preview: Read error %d.", GetLastError() );
 				Exit();
 			}
 
@@ -422,7 +422,7 @@ BOOL CFilePreviewDlg::RunManual()
 				hr = oTargetFile.Write( pData.get(), nChunk, &nChunk );
 				if ( FAILED( hr ) || nChunk == 0 )
 				{
-					theApp.Message( MSG_DEBUG, _T("Preview: Write error %d."), GetLastError() );
+					theApp.Message( MSG_DEBUG, L"Preview: Write error %d.", GetLastError() );
 					Exit();
 				}
 			}

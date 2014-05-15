@@ -1,7 +1,7 @@
 //
 // DlgFolderProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -60,7 +60,7 @@ END_MESSAGE_MAP()
 // CFolderPropertiesDlg dialog
 
 CFolderPropertiesDlg::CFolderPropertiesDlg(CWnd* pParent, CAlbumFolder* pFolder)
-	: CSkinDialog( CFolderPropertiesDlg::IDD, pParent, FALSE )		// ToDo: Fix TRUE Banner Display?
+	: CSkinDialog( CFolderPropertiesDlg::IDD, pParent )
 	, m_pFolder	( pFolder )
 	, m_nWidth	( 0 )
 	, m_bUpdating ( FALSE )
@@ -71,8 +71,8 @@ void CFolderPropertiesDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_APPLY_METADATA, m_wndApply);
-	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDOK, m_wndOK);
+	DDX_Control(pDX, IDCANCEL, m_wndCancel);
 	DDX_Control(pDX, IDC_TITLE, m_wndTitle);
 	DDX_Control(pDX, IDC_SCHEMAS, m_wndSchemas);
 }
@@ -84,7 +84,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CFolderPropertiesDlg"), IDR_LIBRARYFRAME );
+	SkinMe( L"CFolderPropertiesDlg", IDR_LIBRARYFRAME );
 
 	CRect rc;
 	GetWindowRect( &rc );
@@ -92,7 +92,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 
 	m_wndData.Create( WS_CHILD|WS_VISIBLE|WS_TABSTOP, rc, this, IDC_METADATA );
 
-	if ( ! Settings.LoadWindow( _T("CFolderPropertiesDlg"), this ) )
+	if ( ! Settings.LoadWindow( L"CFolderPropertiesDlg", this ) )
 	{
 		GetWindowRect( &rc );
 		rc.bottom++;
@@ -120,6 +120,8 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 		return TRUE;
 	}
 
+	pLock.Unlock();
+
 	CString strSchemaURI = m_wndData.GetSchemaURI();
 	if ( CSchemaPtr pSchema = SchemaCache.Get( strSchemaURI ) )
 	{
@@ -134,7 +136,7 @@ BOOL CFolderPropertiesDlg::OnInitDialog()
 
 void CFolderPropertiesDlg::OnDestroy()
 {
-	Settings.SaveWindow( _T("CFolderPropertiesDlg"), this );
+	Settings.SaveWindow( L"CFolderPropertiesDlg", this );
 	CSkinDialog::OnDestroy();
 }
 
@@ -193,39 +195,38 @@ void CFolderPropertiesDlg::OnSize(UINT nType, int cx, int cy)
 void CFolderPropertiesDlg::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc( 8, 6, 8 + 98, 6 + 98 );
+	CRect rc( 8, 6 + Skin.m_nBanner, 8 + 98, 6 + 98 + Skin.m_nBanner );
 
-	COLORREF crBack = CColors::CalculateColor( Colors.m_crTipBack, RGB( 255, 255, 255 ), 128 );
+	const COLORREF crBack = CColors::CalculateColor( Colors.m_crDialog, RGB( 255, 255, 255 ), 40 );
 
 	dc.Draw3dRect( &rc, Colors.m_crSysActiveCaption, Colors.m_crSysActiveCaption );
 	rc.DeflateRect( 1, 1 );
 
+	CPoint pt = rc.CenterPoint();
+
+	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
+
+	if ( pSchema && pSchema->m_nIcon48 >= 0 )
 	{
-		CPoint pt = rc.CenterPoint();
+		// ImageList_DrawEx()
 		pt.x -= 24;
 		pt.y -= 24;
-
-		if ( CSchemaPtr pSchema = m_wndSchemas.GetSelected() )
-		{
-			if ( pSchema->m_nIcon48 >= 0 )
-			{
-				// ImageList_DrawEx()
-				ShellIcons.Draw( &dc, pSchema->m_nIcon48, 48, pt.x, pt.y, crBack );
-				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 48, pt.y + 48 );
-			}
-			else
-			{
-				pt.x += 8;
-				pt.y += 8;
-				ShellIcons.Draw( &dc, pSchema->m_nIcon32, 32, pt.x, pt.y, crBack );
-				dc.ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
-			}
-		}
-		else
-		{
-			CoolInterface.Draw( &dc, IDI_FOLDER_OPEN, 48, pt.x, pt.y, crBack );
-			dc.ExcludeClipRect( pt.x, pt.y, pt.x + 48, pt.y + 48 );
-		}
+		ShellIcons.Draw( &dc, pSchema->m_nIcon48, 48, pt.x, pt.y, crBack );
+		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 48, pt.y + 48 );
+	}
+	else if ( pSchema && pSchema->m_nIcon32 >= 0 )
+	{
+		pt.x -= 16;
+		pt.y -= 16;
+		ShellIcons.Draw( &dc, pSchema->m_nIcon32, 32, pt.x, pt.y, crBack );
+		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 32, pt.y + 32 );
+	}
+	else
+	{
+		pt.x -= 24;
+		pt.y -= 24;
+		CoolInterface.Draw( &dc, IDI_FOLDER_OPEN, 48, pt.x, pt.y, crBack );
+		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 48, pt.y + 48 );
 	}
 
 	dc.FillSolidRect( &rc, crBack );

@@ -1,7 +1,7 @@
 //
 // #PROJECT#.cpp : Implementation of DLL Exports.
 //
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2010
 // #COPYRIGHT#
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Resource.h"
 #include "#PROJECT#.h"
 
@@ -34,7 +34,7 @@ CModule _AtlModule;
 
 extern "C" BOOL WINAPI DllMain(HINSTANCE /*hInstance*/, DWORD dwReason, LPVOID lpReserved)
 {
-    return _AtlModule.DllMain( dwReason, lpReserved ); 
+    return _AtlModule.DllMain( dwReason, lpReserved );
 }
 
 STDAPI DllCanUnloadNow(void)

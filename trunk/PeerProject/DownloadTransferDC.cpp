@@ -451,7 +451,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 
 	CString strName;
 	if ( m_pDownload->m_oTiger )
-		strName = _T("TTH/") + m_pDownload->m_oTiger.toString();
+		strName = L"TTH/" + m_pDownload->m_oTiger.toString();
 	else
 		strName = m_pSource->m_sName;
 
@@ -463,7 +463,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 		SetState( dtsRequesting );
 		m_tRequest = GetTickCount();
 
-		m_pClient->SendCommand( _T("$ADCGET file ") + strName + _T(" 0 -1|") );
+		m_pClient->SendCommand( L"$ADCGET file " + strName + L" 0 -1|" );
 
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST, 0ui64, 0ui64, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
@@ -478,7 +478,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 		SetState( dtsRequesting );
 		m_tRequest = GetTickCount();
 
-		m_pClient->SendCommand( _T("$ADCGET tthl ") + strName + _T(" 0 -1|") );
+		m_pClient->SendCommand( L"$ADCGET tthl " + strName + L" 0 -1|" );
 
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 		return TRUE;
@@ -493,7 +493,7 @@ BOOL CDownloadTransferDC::StartNextFragment()
 		m_tRequest = GetTickCount();
 
 		CString strRequest;
-		strRequest.Format( _T("$ADCGET file %s %I64u %I64u|"), (LPCTSTR)strName, m_nOffset, m_nLength );
+		strRequest.Format( L"$ADCGET file %s %I64u %I64u|", (LPCTSTR)strName, m_nOffset, m_nLength );
 		m_pClient->SendCommand( strRequest );
 
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_REQUEST, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );

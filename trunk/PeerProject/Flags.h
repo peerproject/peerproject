@@ -20,7 +20,10 @@
 
 #pragma once
 
+#define FLAG_WIDTH 18
+
 class CImageFile;
+
 
 class CFlags
 {

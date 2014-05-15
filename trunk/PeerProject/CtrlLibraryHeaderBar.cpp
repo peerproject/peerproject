@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -85,7 +85,7 @@ void CLibraryHeaderBar::Update(CLibraryView* pView)
 			CString strName;
 			Skin.LoadString( strName, pView->m_nCommandID );
 			if ( pView->m_nCommandID != ID_LIBRARY_VIEW_TILE )
-				strName += _T(" •");	// Add dropdown list indicator ›
+				strName += L" •";	// Add dropdown list indicator ›
 			LPCTSTR pszName = _tcschr( strName, '\n' );
 			pszName = ( pszName ) ? ( pszName + 1 ) : (LPCTSTR)strName;
 			pItem->SetImage( pView->m_nCommandID );
@@ -143,7 +143,7 @@ void CLibraryHeaderBar::PaintHeader(CDC* pDC, CRect& rcBar, BOOL bTransparent)
 			strText = strText.Left( strText.GetLength() - 1 );
 		}
 
-		strText += _T("...");
+		strText += L"...";
 	}
 
 	if ( bTransparent )
@@ -204,7 +204,7 @@ void CLibraryHeaderBar::OnLibraryView()
 
 	m_pCoolMenu = new CCoolMenu();
 	m_pCoolMenu->AddMenu( &pMenu, TRUE );
-	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+	m_pCoolMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 
 	if ( UINT nCmd = ThrowMenu( ID_LIBRARY_VIEW, &pMenu, this, TRUE, TRUE ) )
 	{

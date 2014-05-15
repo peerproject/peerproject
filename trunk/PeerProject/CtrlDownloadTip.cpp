@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -254,8 +254,8 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
 	const CString strOf = LoadString( IDS_GENERAL_OF );
-	const CString strSize = LoadString( IDS_TIP_SIZE ) + _T(": ");
-	const CString strType = LoadString( IDS_TIP_TYPE ) + _T(": ");
+	const CString strSize = LoadString( IDS_TIP_SIZE ) + L": ";
+	const CString strType = LoadString( IDS_TIP_TYPE ) + L": ";
 
 	DrawText( pDC, &pt, m_sName, &sz );
 	pt.y += TIP_TEXTHEIGHT;
@@ -327,7 +327,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	{
 		strETA = strFormat;
 		strSpeed = strFormat;
-		strSources.Format( _T("%i"), nSourceCount );
+		strSources.Format( L"%i", nSourceCount );
 	}
 	else if ( nTransferCount )
 	{
@@ -362,16 +362,16 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		if ( pDownload->IsBoosted() )
 		{
 			LoadString( strFormat, IDS_TIP_PRIORITY );
-			strSpeed += _T("   ") + strFormat;
+			strSpeed += L"   " + strFormat;
 		}
 
-		strSources.Format( _T("%i %s %i"), nTransferCount, strOf, nSourceCount );
-		if ( Settings.General.LanguageRTL ) strSources = _T("\x202B") + strSources;
+		strSources.Format( L"%i %s %i", nTransferCount, strOf, nSourceCount );
+		if ( Settings.General.LanguageRTL ) strSources = L"\x202B" + strSources;
 	}
 	else if ( nSourceCount )
 	{
 		strETA = strSpeed = strFormat;
-		strSources.Format( _T("%i"), nSourceCount );
+		strSources.Format( L"%i", nSourceCount );
 	}
 	else
 	{
@@ -382,7 +382,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	// Update Torrent Seeds/Peers from last Tracker Scrape
 	if ( pDownload->IsTorrent() && ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers ) )
 	{
-		m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+		m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",	// ToDo: Translation ?
 			pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 
 		if ( pDownload->IsSeeding() )
@@ -392,13 +392,13 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	}
 
 	if ( nReviewCount > 0 )
-		strReviews.Format( _T("%i"), nReviewCount );
+		strReviews.Format( L"%i", nReviewCount );
 
 	if ( pDownload->IsStarted() && pDownload->m_nSize < SIZE_UNKNOWN )
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strVolume.Format( _T("( %.2f%% )  %s %s %s"),
+			strVolume.Format( L"( %.2f%% )  %s %s %s",
 				pDownload->GetProgress(),
 				Settings.SmartVolume( pDownload->m_nSize ),
 				strOf,
@@ -406,7 +406,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		}
 		else
 		{
-			strVolume.Format( _T("%s %s %s   ( %.2f%% )"),
+			strVolume.Format( L"%s %s %s   ( %.2f%% )",
 				Settings.SmartVolume( pDownload->GetVolumeComplete() ),
 				strOf,
 				Settings.SmartVolume( pDownload->m_nSize ),
@@ -422,7 +422,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strTorrentUpload.Format( _T("( %.2f%% )  %s %s %s"),
+			strTorrentUpload.Format( L"( %.2f%% )  %s %s %s",
 				pDownload->GetRatio(),
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
 				strOf,
@@ -430,7 +430,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		}
 		else
 		{
-			strTorrentUpload.Format( _T("%s %s %s   ( %.2f%% )"),
+			strTorrentUpload.Format( L"%s %s %s   ( %.2f%% )",
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ),
 				strOf,
 				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
@@ -568,7 +568,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 
 	m_sSHA1 = pDownload->m_oSHA1.toShortUrn();
 	if ( ! m_sSHA1.IsEmpty() && ! pDownload->m_bSHA1Trusted )
-		m_sSHA1 += _T(" (") + strUntrusted + _T(")");
+		m_sSHA1 += L" (" + strUntrusted + L")";
 
 	m_sTiger = pDownload->m_oTiger.toShortUrn();
 	if ( ! m_sTiger.IsEmpty() )
@@ -576,13 +576,13 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pTigerBlock )
 		{
 			if ( pDownload->m_bTigerTrusted )
-				m_sTiger += _T(" (") + strNoHashset + _T(")");
+				m_sTiger += L" (" + strNoHashset + L")";
 			else
-				m_sTiger += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
+				m_sTiger += L" (" + strNoHashset + L", " + strUntrusted + L")";
 		}
 		else if ( ! pDownload->m_bTigerTrusted )
 		{
-			m_sTiger += _T(" (") + strUntrusted + _T(")");
+			m_sTiger += L" (" + strUntrusted + L")";
 		}
 	}
 
@@ -592,13 +592,13 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pHashsetBlock )
 		{
 			if ( pDownload->m_bED2KTrusted )
-				m_sED2K += _T(" (") + strNoHashset + _T(")");
+				m_sED2K += L" (" + strNoHashset + L")";
 			else
-				m_sED2K += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
+				m_sED2K += L" (" + strNoHashset + L", " + strUntrusted + L")";
 		}
 		else if ( ! pDownload->m_bED2KTrusted )
 		{
-			m_sED2K += _T(" (") + strUntrusted + _T(")");
+			m_sED2K += L" (" + strUntrusted + L")";
 		}
 	}
 
@@ -608,13 +608,13 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		if ( ! pDownload->m_pTorrentBlock )
 		{
 			if ( pDownload->m_bBTHTrusted )
-				m_sBTH += _T(" (") + strNoHashset + _T(")");
+				m_sBTH += L" (" + strNoHashset + L")";
 			else
-				m_sBTH += _T(" (") + strNoHashset + _T(", ") + strUntrusted + _T(")");
+				m_sBTH += L" (" + strNoHashset + L", " + strUntrusted + L")";
 		}
 		else if ( ! pDownload->m_bBTHTrusted )
 		{
-			m_sBTH += _T(" (") + strUntrusted + _T(")");
+			m_sBTH += L" (" + strUntrusted + L")";
 		}
 	}
 
@@ -622,7 +622,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	if ( ! m_sMD5.IsEmpty() )
 	{
 		if ( ! pDownload->m_bMD5Trusted )
-			m_sMD5+= _T(" (") + strUntrusted + _T(")");
+			m_sMD5+= L" (" + strUntrusted + L")";
 	}
 
 	// Prepare torrent data for display
@@ -631,7 +631,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
 
 		if ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers )
-			m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"),	// ToDo: Translation ?
+			m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",	// ToDo: Translation ?
 				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 	}
 
@@ -639,23 +639,23 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	//if ( m_pDownload && pDownload->IsTorrent() )
 	//{
 	//	CString strURL = m_sURL;
-	//	if ( strURL.Find( _T("http") ) == 0 &&
-	//		strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
+	//	if ( strURL.Find( L"http" ) == 0 &&
+	//		strURL.Replace( L"/announce", L"/scrape" ) == 1 )
 	//	{
 	//		CSingleLock oLock( &Transfers.m_pSection );
 	//		if ( ! oLock.Lock( 500 ) ) return;
 	//
 	//		// Fetch scrape only for the given info hash
-	//		strURL = strURL.TrimRight( _T('&') ) +
-	//			( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) +
-	//			_T("info_hash=") + CBTTrackerRequest::Escape( m_pDownload->m_pTorrent.m_oBTH ) +
-	//			_T("&peer_id=")  + CBTTrackerRequest::Escape( m_pDownload->m_pPeerID );
+	//		strURL = strURL.TrimRight( L'&' ) +
+	//			( ( strURL.Find( L'?' ) != -1 ) ? L'&' : L'?' ) +
+	//			L"info_hash=" + CBTTrackerRequest::Escape( m_pDownload->m_pTorrent.m_oBTH ) +
+	//			L"&peer_id="  + CBTTrackerRequest::Escape( m_pDownload->m_pPeerID );
 	//
 	//		oLock.Unlock();
 	//
 	//		CHttpRequest pRequest;
 	//		pRequest.SetURL( strURL );
-	//		pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
+	//		pRequest.AddHeader( L"Accept-Encoding", L"deflate, gzip" );
 	//		pRequest.EnableCookie( false );
 	//		pRequest.SetUserAgent( Settings.SmartAgent() );
 	//
@@ -667,7 +667,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	//			{
 	//				if ( CBENode* pNode = CBENode::Decode( pResponse ) )
 	//				{
-	//					theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pNode->Encode() );
+	//					theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[BT] Received BitTorrent tracker response: %s", pNode->Encode() );
 	//
 	//					if ( ! oLock.Lock( 300 ) ) return;
 	//					if ( ! Downloads.Check( m_pDownload ) || ! m_pDownload->IsTorrent() ) return;
@@ -694,7 +694,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 	//					}
 	//
 	//					if ( nTrackerSeeds > 0 || nTrackerPeers > 0 )
-	//						m_sSeedsPeers.Format( _T("   ( %i seeds %i peers )"), nTrackerSeeds, nTrackerPeers );
+	//						m_sSeedsPeers.Format( L"   ( %i seeds %i peers )", nTrackerSeeds, nTrackerPeers );
 	//
 	//					delete pNode;
 	//				}
@@ -709,7 +709,7 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 	m_sName = pDownload->m_sName;
 	m_sSize = Settings.SmartVolume( pDownload->m_nSize );
 	if ( pDownload->m_nSize == SIZE_UNKNOWN )
-		m_sSize = _T("?");
+		m_sSize = L"?";
 
 	m_sSHA1.Empty();
 	m_sTiger.Empty();
@@ -722,10 +722,10 @@ void CDownloadTipCtrl::PrepareFileInfo(CDownload* pDownload)	// CPeerProjectFile
 	if ( pDownload->IsMultiFileTorrent() )
 	{
 		if ( Settings.General.LanguageDefault )
-			m_sType.Format( _T("BitTorrent  ( %u files )"), pDownload->m_pTorrent.GetCount() );
+			m_sType.Format( L"BitTorrent  ( %u files )", pDownload->m_pTorrent.GetCount() );
 		else
-			m_sType.Format( _T("BitTorrent  ( %u %s )"), pDownload->m_pTorrent.GetCount(), LoadString( IDS_FILES ) );
-		m_nIcon = ShellIcons.Get( _T(".torrent"), 32 );							// ToDo: IDI_MULTIFILE ?
+			m_sType.Format( L"BitTorrent  ( %u %s )", pDownload->m_pTorrent.GetCount(), LoadString( IDS_FILES ) );
+		m_nIcon = ShellIcons.Get( L".torrent", 32 );							// ToDo: IDI_MULTIFILE ?
 		return;
 	}
 
@@ -741,31 +741,31 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 	// Is this a firewalled eDonkey client
 	if ( pSource->m_nProtocol == PROTOCOL_ED2K && pSource->m_bPushOnly == TRUE )
 	{
-		m_sName.Format( _T("%lu@%s:%u"),
+		m_sName.Format( L"%lu@%s:%u",
 			pSource->m_pAddress.S_un.S_addr,
 			CString( inet_ntoa( pSource->m_pServerAddress ) ),
 			pSource->m_nServerPort );
 	}
 	else if ( ! pSource->IsIdle() )	// Or an active transfer
 	{
-		m_sName.Format( _T("%s:%u"),
+		m_sName.Format( L"%s:%u",
 			pSource->GetAddress(),
 			ntohs( pSource->GetPort() ) );
 	}
 	else	// Or just queued
 	{
-		m_sName.Format( _T("%s:%u"),
+		m_sName.Format( L"%s:%u",
 			CString( inet_ntoa( pSource->m_pAddress ) ),
 			pSource->m_nPort );
 	}
 
 	// Add the Nickname if there is one and they are being shown
 	if ( Settings.Search.ShowNames && ! pSource->m_sNick.IsEmpty() )
-		m_sName = pSource->m_sNick + _T(" (") + m_sName + _T(")");
+		m_sName = pSource->m_sNick + L" (" + m_sName + L")";
 
 	// Indicate if this is a firewalled client
 	if ( pSource->m_bPushOnly )
-		m_sName += _T(" (push)");
+		m_sName += L" (push)";
 
 	m_sCountryName = pSource->m_sCountryName;
 
@@ -783,7 +783,7 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 			CString strValue = pTransfer->m_pHeaderValue.GetAt( nHeader );
 
 			if ( strValue.GetLength() > 64 )
-				strValue = strValue.Left( 64 ) + _T("...");
+				strValue = strValue.Left( 64 ) + L"...";
 
 			m_pHeaderName.Add( strName );
 			m_pHeaderValue.Add( strValue );
@@ -838,7 +838,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	if ( nFlagIndex >= 0 )
 	{
 		Flags.Draw( nFlagIndex, pDC->GetSafeHdc(), pt.x, pt.y, Colors.m_crTipBack );
-		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+		pDC->ExcludeClipRect( pt.x, pt.y, pt.x + FLAG_WIDTH, pt.y + 16 );
 	}
 
 	pt.x += 25;
@@ -853,8 +853,6 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 	DrawRule( pDC, &pt );
 
 	CString strStatus, strSpeed, strText;
-	CString strOf;
-	LoadString( strOf, IDS_GENERAL_OF );
 
 	if ( ! pSource->IsIdle() )
 	{
@@ -862,9 +860,9 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownloadSource* pSource)
 
 		if ( DWORD nLimit = pSource->GetLimit() )
 		{
-			strSpeed.Format( _T("%s %s %s"),
+			strSpeed.Format( L"%s %s %s",
 				Settings.SmartSpeed( pSource->GetMeasuredSpeed() ),
-				strOf,
+				(LPCTSTR)LoadString( IDS_GENERAL_OF ),
 				Settings.SmartSpeed( nLimit ) );
 		}
 		else

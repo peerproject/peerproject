@@ -58,7 +58,7 @@ BOOL CWizardWelcomePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardWelcomePage"), this );
+	Skin.Apply( L"CWizardWelcomePage", this );
 
 	SetWizardButtons( PSWIZB_NEXT );
 

@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -142,27 +142,27 @@ CString CPeerProjectFile::GetURL(const IN_ADDR& nAddress, WORD nPort) const
 	CString strURL;
 	if ( m_oSHA1 )
 	{
-		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
+		strURL.Format( L"http://%s:%i/uri-res/N2R?%s",
 			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oSHA1.toUrn() );
 	}
 	else if ( m_oTiger )
 	{
-		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
+		strURL.Format( L"http://%s:%i/uri-res/N2R?%s",
 			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oTiger.toUrn() );
 	}
 	else if ( m_oED2K )
 	{
-		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
+		strURL.Format( L"http://%s:%i/uri-res/N2R?%s",
 			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oED2K.toUrn() );
 	}
 	else if ( m_oMD5 )
 	{
-		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
+		strURL.Format( L"http://%s:%i/uri-res/N2R?%s",
 			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oMD5.toUrn() );
 	}
 	else if ( m_oBTH )
 	{
-		strURL.Format( _T("http://%s:%i/uri-res/N2R?%s"),
+		strURL.Format( L"http://%s:%i/uri-res/N2R?%s",
 			(LPCTSTR)CString( inet_ntoa( nAddress ) ), nPort, (LPCTSTR)m_oBTH.toUrn() );
 	}
 	return strURL;
@@ -179,7 +179,7 @@ CString CPeerProjectFile::GetBitprint() const
 CString CPeerProjectFile::GetURN() const
 {
 	if ( m_oSHA1 && m_oTiger )
-		return _T("urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString();
+		return L"urn:bitprint:" + m_oSHA1.toString() + L'.' + m_oTiger.toString();
 	if ( m_oSHA1 )
 		return m_oSHA1.toUrn();
 	if ( m_oTiger )
@@ -198,19 +198,19 @@ CString CPeerProjectFile::GetFilename() const
 {
 	CString strFilename;
 	if ( m_oTiger )
-		strFilename = _T("ttr_")  + m_oTiger.toString();
+		strFilename = L"ttr_"  + m_oTiger.toString();
 	else if ( m_oSHA1 )
-		strFilename = _T("sha1_") + m_oSHA1.toString();
+		strFilename = L"sha1_" + m_oSHA1.toString();
 	else if ( m_oED2K )
-		strFilename = _T("ed2k_") + m_oED2K.toString();
+		strFilename = L"ed2k_" + m_oED2K.toString();
 	else if ( m_oBTH )
-		strFilename = _T("btih_") + m_oBTH.toString();
+		strFilename = L"btih_" + m_oBTH.toString();
 	else if ( m_oMD5 )
-		strFilename = _T("md5_")  + m_oMD5.toString();
+		strFilename = L"md5_"  + m_oMD5.toString();
 	else if ( m_sName.GetLength() > 1 )			// Note intentional obfuscation. Need to avoid conflicts but random numbers can leave orphan partials, different .pd and .partial
-		strFilename.Format( _T("file_%u%s"), m_sName, CTime::GetCurrentTime().Format( _T("%M%S") ).Mid( 1, 2 ) );
+		strFilename.Format( L"file_%u%s", m_sName, CTime::GetCurrentTime().Format( L"%M%S" ).Mid( 1, 2 ) );
 	else
-		strFilename.Format( _T("file_%.2i%.2i%.2i"), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
+		strFilename.Format( L"file_%.2i%.2i%.2i", GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ), GetRandomNum( 0, 99 ) );
 	return strFilename;
 }
 
@@ -219,8 +219,8 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 	CString strURLs( pszURLs );
 
 	// Fix buggy URLs
-	strURLs.Replace( _T("Zhttp://"), _T("Z, http://") );
-	strURLs.Replace( _T("Z%2C http://"), _T("Z, http://") );
+	strURLs.Replace( L"Zhttp://", L"Z, http://" );
+	strURLs.Replace( L"Z%2C http://", L"Z, http://" );
 
 	// Temporary replace quoted commas
 	bool bQuote = false;
@@ -240,7 +240,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 	int nStart = 0;
 	for ( ;; )
 	{
-		CString strURL = strURLs.Tokenize( _T(","), nStart );
+		CString strURL = strURLs.Tokenize( L",", nStart );
 		if ( strURL.IsEmpty() )
 			break;
 		strURL.Replace( '\x1f', ',' );	// Restore quoted commas
@@ -258,7 +258,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 			strURL.GetAt( nPos + 1 ) != '/' )
 		{
 			int nPort;
-			if ( _stscanf( strURL.Mid( nPos + 1 ), _T("%i"), &nPort ) != 1 )
+			if ( _stscanf( strURL.Mid( nPos + 1 ), L"%i", &nPort ) != 1 )
 				nPort = 0;
 			DWORD nAddress = inet_addr( CT2CA( strURL.Left( nPos ) ) );
 			if ( nPort > 0 && nPort <= USHRT_MAX && nAddress != INADDR_NONE &&
@@ -275,7 +275,7 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 
 		if ( ! strURL.IsEmpty() )
 		{
-			strURL.Replace( _T("%2C"), _T(",") );
+			strURL.Replace( L"%2C", L"," );
 			oUrls.SetAt( strURL, tSeen );
 		}
 	}
@@ -313,34 +313,34 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_URN(BSTR sURN, BSTR FAR* ps
 {
 	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
 
-	CString strURN = sURN ? sURN : _T("");
+	CString strURN = sURN ? sURN : L"";
 	CComBSTR bstrURN;
 
 	if ( strURN.IsEmpty() )
 	{
 		bstrURN = pThis->GetURN();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:bitprint") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:bitprint" ) == 0 )
 	{
-		if ( pThis->m_oSHA1 && pThis->m_oTiger ) bstrURN = _T("urn:bitprint:") + pThis->m_oSHA1.toString() + _T('.') + pThis->m_oTiger.toString();
+		if ( pThis->m_oSHA1 && pThis->m_oTiger ) bstrURN = L"urn:bitprint:" + pThis->m_oSHA1.toString() + L'.' + pThis->m_oTiger.toString();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:sha1") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:sha1" ) == 0 )
 	{
 		if ( pThis->m_oSHA1 ) bstrURN = pThis->m_oSHA1.toUrn();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:tree:tiger/") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:tree:tiger/" ) == 0 )
 	{
 		if ( pThis->m_oTiger ) bstrURN = pThis->m_oTiger.toUrn();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:md5") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:md5" ) == 0 )
 	{
 		if ( pThis->m_oMD5 ) bstrURN = pThis->m_oMD5.toUrn();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:ed2k") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:ed2k" ) == 0 )
 	{
 		if ( pThis->m_oED2K ) bstrURN = pThis->m_oED2K.toUrn();
 	}
-	else if ( strURN.CompareNoCase( _T("urn:btih") ) == 0 )
+	else if ( strURN.CompareNoCase( L"urn:btih" ) == 0 )
 	{
 		if ( pThis->m_oBTH ) bstrURN = pThis->m_oBTH.toUrn();
 	}

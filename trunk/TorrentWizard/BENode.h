@@ -39,6 +39,8 @@ public:
 	LPVOID		m_pValue;
 	QWORD		m_nValue;
 
+	static UINT	m_nDefaultCP;	// User codepage for string decoding
+
 	enum { beNull, beString, beInt, beList, beDict };
 
 // Operations
@@ -76,34 +78,14 @@ public:
 		m_nValue = nValue;
 	}
 
-	inline CString GetString() const
-	{
-		if ( m_nType != beString ) return CString();
-
-		CString str = (LPCSTR)m_pValue;
-
-		int nLength = MultiByteToWideChar( CP_UTF8, MB_ERR_INVALID_CHARS, (LPCSTR)m_pValue, -1, NULL, 0 );
-
-		if ( nLength > 0 )
-		{
-			MultiByteToWideChar( CP_UTF8, 0, (LPCSTR)m_pValue, -1, str.GetBuffer( nLength ), nLength );
-			str.ReleaseBuffer();
-		}
-		else	// Bad encoding
-		{
-			str.ReleaseBuffer();
-			str = _T("#ERROR#");
-		}
-
-		return str;
-	}
+	CString GetString() const;
 
 	// Check if a string is a valid path/file name.
 	inline BOOL IsValid(LPCTSTR psz) const
 	{
 		if ( _tcsclen( psz ) == 0 ) return FALSE;
 		if ( _tcschr( psz, '?' ) != NULL ) return FALSE;
-		if ( _tcsicmp( psz , _T("#ERROR#") ) == 0 ) return FALSE;
+		if ( _tcsicmp( psz , L"#ERROR#" ) == 0 ) return FALSE;
 
 		return TRUE;
 	}

@@ -1,7 +1,7 @@
 //
 // CtrlTipAlbum.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -71,7 +71,7 @@ BOOL CAlbumTipCtrl::OnPrepare()
 	// Basic data
 
 	m_sName	= m_pAlbumFolder->m_sName;
-	m_sType	= _T("Virtual Folder");
+	m_sType	= L"Virtual Folder";
 
 	m_nIcon32 = 0;
 	m_nIcon48 = 0;
@@ -89,9 +89,9 @@ BOOL CAlbumTipCtrl::OnPrepare()
 		LoadString( strText, IDS_TIP_FOLDER );
 
 		if ( Settings.General.LanguageRTL )
-			m_sType = _T("\x202A") + m_sType + _T(" \x200E") + strText;
+			m_sType = L"\x202A" + m_sType + L" \x200E" + strText;
 		else
-			m_sType += _T(" ") + strText;
+			m_sType += L" " + strText;
 
 		m_nIcon48 = m_pAlbumFolder->m_pSchema->m_nIcon48;
 		m_nIcon32 = m_pAlbumFolder->m_pSchema->m_nIcon32;

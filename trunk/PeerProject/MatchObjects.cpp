@@ -1,7 +1,7 @@
 //
 // MatchObjects.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -330,7 +330,6 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			{
 				if ( CMatchFile** pFiles = new CMatchFile*[ m_nBuffer + BUFFER_GROW ] )
 				{
-
 					if ( m_pFiles )
 					{
 						CopyMemory( pFiles, m_pFiles, m_nFiles * sizeof( CMatchFile* ) );
@@ -697,12 +696,10 @@ CString CMatchList::CreateRegExpFilter(const CString& strPattern)
 //	bool bReplaced = false;
 //
 //	CSearchWnd* pParent = static_cast< CSearchWnd* >( GetParent() );
-//	if ( ! pParent )
-//		return false;
+//	if ( ! pParent ) return false;
 //
 //	CQuerySearchPtr pQuery = pParent->GetLastSearch();
-//	if ( ! pQuery )
-//		return false;
+//	if ( ! pQuery ) return false;
 //
 //	LPCTSTR pszPattern = strPattern.GetBuffer();
 //	int nTotal = 0;
@@ -710,7 +707,6 @@ CString CMatchList::CreateRegExpFilter(const CString& strPattern)
 //	while ( *pszPattern )
 //	{
 //		if ( *pszPattern == '<' )
-//
 //		{
 //			pszPattern++;
 //			bool bEnds = false;
@@ -1781,7 +1777,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 
 		for ( int nCount = 0 ; nCount < m_nColumns ; nCount ++, pMember ++ )
 		{
-			if ( _tcsicmp( (*pMember)->m_sName, _T("SHA1") ) == 0 )
+			if ( _tcsicmp( (*pMember)->m_sName, L"SHA1" ) == 0 )
 			{
 				if ( pHit->m_oSHA1 )
 					m_pColumns[ nCount ] = m_oSHA1.toString();
@@ -1803,40 +1799,40 @@ void CMatchFile::Added(CQueryHit* pHit)
 
 	if ( pHit->m_pXML != NULL )
 	{
-		if ( ! m_bDRM && ! pHit->m_pXML->GetAttributeValue( _T("DRM") ).IsEmpty() )
+		if ( ! m_bDRM && ! pHit->m_pXML->GetAttributeValue( L"DRM" ).IsEmpty() )
 		{
-			CString strTag = pHit->m_pXML->GetAttributeValue( _T("DRM") );
+			CString strTag = pHit->m_pXML->GetAttributeValue( L"DRM" );
 			ToLower( strTag );
-			if ( strTag != _T("0") && strTag != _T("false") && strTag != _T("no") )
+			if ( strTag != L"0" && strTag != L"false" && strTag != L"no" )
 				m_bDRM = TRUE;
 		}
 
 		if ( m_bRestricted == TRI_UNKNOWN &&
-				( ! pHit->m_pXML->GetAttributeValue( _T("PeerTag") ).IsEmpty() ||
-				  ! pHit->m_pXML->GetAttributeValue( _T("Permissive") ).IsEmpty() ) )
+				( ! pHit->m_pXML->GetAttributeValue( L"PeerTag" ).IsEmpty() ||
+				  ! pHit->m_pXML->GetAttributeValue( L"Permissive" ).IsEmpty() ) )
 		{
-			CString strTag = pHit->m_pXML->GetAttributeValue( _T("PeerTag") );
-			if ( strTag.IsEmpty() ) strTag = pHit->m_pXML->GetAttributeValue( _T("Permissive") );
+			CString strTag = pHit->m_pXML->GetAttributeValue( L"PeerTag" );
+			if ( strTag.IsEmpty() ) strTag = pHit->m_pXML->GetAttributeValue( L"Permissive" );
 
 			ToLower( strTag );
-			if ( strTag == _T("1") || strTag == _T("true") || strTag == _T("yes") )
+			if ( strTag == L"1" || strTag == L"true" || strTag == L"yes" )
 				m_bRestricted = TRI_FALSE;
-			else if ( strTag == _T("0") || strTag == _T("false") || strTag == _T("no") )
+			else if ( strTag == L"0" || strTag == L"false" || strTag == L"no" )
 				m_bRestricted = TRI_TRUE;
-			//else if ( strTag == _T("?") || strTag == _T("unknown") )
+			//else if ( strTag == L"?" || strTag == L"unknown" )
 			//	m_bRestricted = TRI_UNKNOWN;
 		}
 		else if ( m_bRestricted == TRI_UNKNOWN &&
-				! pHit->m_pXML->GetAttributeValue( _T("Restricted") ).IsEmpty() )
+				! pHit->m_pXML->GetAttributeValue( L"Restricted" ).IsEmpty() )
 		{
-			CString strTag = pHit->m_pXML->GetAttributeValue( _T("Restricted") );
+			CString strTag = pHit->m_pXML->GetAttributeValue( L"Restricted" );
 
 			ToLower( strTag );
-			if ( strTag == _T("1") || strTag == _T("true") || strTag == _T("yes") )
+			if ( strTag == L"1" || strTag == L"true" || strTag == L"yes" )
 				m_bRestricted = TRI_TRUE;
-			else if ( strTag == _T("0") || strTag == _T("false") || strTag == _T("no") )
+			else if ( strTag == L"0" || strTag == L"false" || strTag == L"no" )
 				m_bRestricted = TRI_FALSE;
-			//else if ( strTag == _T("?") || strTag == _T("unknown") )
+			//else if ( strTag == L"?" || strTag == L"unknown" )
 			//	m_bPermissive = TRI_UNKNOWN;
 		}
 	}
@@ -1863,12 +1859,12 @@ void CMatchFile::Added(CQueryHit* pHit)
 	}
 
 	// Get extention
-	if ( int nExt = pHit->m_sName.ReverseFind( _T('.') ) + 1 )
+	if ( int nExt = pHit->m_sName.ReverseFind( L'.' ) + 1 )
 	{
 		LPCTSTR pszExt = (LPCTSTR)pHit->m_sName + nExt;
 
 		// Set torrent bool
-		if ( ( _tcsicmp( pszExt, _T("torrent") ) == 0 ) )
+		if ( ( _tcsicmp( pszExt, L"torrent" ) == 0 ) )
 			m_bTorrent = TRUE;
 
 		// BASIC SPAM DETECTION:
@@ -1876,23 +1872,23 @@ void CMatchFile::Added(CQueryHit* pHit)
 		if ( ! m_bSuspicious )
 		{
 			// Viral or useless filetypes
-			if ( ( _tcsicmp( pszExt, _T("vbs") ) == 0 ) ||
-				 ( _tcsicmp( pszExt, _T("lnk") ) == 0 ) ||
-				 ( _tcsicmp( pszExt, _T("pif") ) == 0 ) )
+			if ( ( _tcsicmp( pszExt, L"vbs" ) == 0 ) ||
+				 ( _tcsicmp( pszExt, L"lnk" ) == 0 ) ||
+				 ( _tcsicmp( pszExt, L"pif" ) == 0 ) )
 			{
 				m_bSuspicious = TRUE;
 			}
 			// Small filesize spam/viral
 			else if ( m_nSize < 90 * 1024 )
 			{
-				if ( ( _tcsicmp( pszExt, _T("exe") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("com") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("scr") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("avi") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("mpg") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("mov") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("wmv") ) == 0 ) ||
-					( _tcsicmp( pszExt, _T("wma") ) == 0 ) )
+				if ( ( _tcsicmp( pszExt, L"exe" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"com" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"scr" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"avi" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"mpg" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"mov" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"wmv" ) == 0 ) ||
+					( _tcsicmp( pszExt, L"wma" ) == 0 ) )
 				{
 					m_bSuspicious = TRUE;
 				}
@@ -1901,7 +1897,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			// Common exact search hit basic spam detection  (ToDo: Move most to filters + Keep updated)
 			if ( ! m_bSuspicious && pHit->m_bExactMatch && m_nFiltered < 12 )
 			{
-				if ( _tcsicmp( pszExt, _T("zip") ) == 0 )						// .zip
+				if ( _tcsicmp( pszExt, L"zip" ) == 0 )						// .zip
 				{
 					if ( m_nSize > 200 * 1024 && m_nSize < 501 * 1024 &&
 						m_nFiltered > 1 && pHit->GetSources() > 4 && pHit->GetSources() < 10 )		// Cluster
@@ -1921,7 +1917,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 						m_bSuspicious = TRUE;
 					}
 				}
-			//	else if ( _tcsicmp( pszExt, _T("wma") ) == 0 )					//.wma
+			//	else if ( _tcsicmp( pszExt, L"wma" ) == 0 )					//.wma
 			//	{
 			//		if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	// 528kb
 			//			( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	// 1.03mb
@@ -1931,7 +1927,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			//			m_bSuspicious = TRUE;
 			//		}
 			//	}
-			//	else if ( _tcsicmp( pszExt, _T("mov") ) == 0 )					//.mov
+			//	else if ( _tcsicmp( pszExt, L"mov" ) == 0 )					//.mov
 			//	{
 			//		if ( ( m_nSize > 206 * 1024 && m_nSize < 208 * 1024 ) ||	// 207kb
 			//			( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	// 3.26mb
@@ -1939,8 +1935,8 @@ void CMatchFile::Added(CQueryHit* pHit)
 			//			m_bSuspicious = TRUE;
 			//		}
 			//	}
-			//	else if ( ( _tcsicmp( pszExt, _T("au") ) == 0 ) ||				//.au
-			//		( _tcsicmp( pszExt, _T("snd") ) == 0 ) )					//.snd
+			//	else if ( ( _tcsicmp( pszExt, L"au" ) == 0 ) ||				//.au
+			//		( _tcsicmp( pszExt, L"snd" ) == 0 ) )					//.snd
 			//	{
 			//		if ( m_nSize > 4400 * 1024 && m_nSize < 5800 * 1024 )		// 4-5 mb
 			//		{
@@ -2296,14 +2292,14 @@ BOOL CMatchFile::AddHitsToPreviewURLs(CList<CString>& oPreviewURLs) const
 				bCanPreview = TRUE;
 			}
 //#ifdef _DEBUG
-			else if (	_tcsistr( pHit->m_sName, _T(".avi") ) ||
-						_tcsistr( pHit->m_sName, _T(".mpg") ) ||
-						_tcsistr( pHit->m_sName, _T(".mpeg") ) ||
-						_tcsistr( pHit->m_sName, _T(".jpg") ) ||
-						_tcsistr( pHit->m_sName, _T(".jpeg") ) )
+			else if (	_tcsistr( pHit->m_sName, L".avi" ) ||
+						_tcsistr( pHit->m_sName, L".mpg" ) ||
+						_tcsistr( pHit->m_sName, L".mpeg" ) ||
+						_tcsistr( pHit->m_sName, L".jpg" ) ||
+						_tcsistr( pHit->m_sName, L".jpeg" ) )
 			{
 				CString strURL;
-				strURL.Format( _T("http://%s:%i/gnutella/preview/v1?%s"),
+				strURL.Format( L"http://%s:%i/gnutella/preview/v1?%s",
 					(LPCTSTR)CString( inet_ntoa( pHit->m_pAddress ) ), pHit->m_nPort,
 					(LPCTSTR)pHit->m_oSHA1.toUrn() );
 				oPreviewURLs.AddTail( strURL );
@@ -2377,12 +2373,12 @@ IN_ADDR CMatchFile::GetBestAddress() const
 
 LPCTSTR CMatchFile::GetBestVendorName() const
 {
-	return ( ( m_pBest && m_pBest->m_pVendor ) ? m_pBest->m_pVendor->m_sName : _T("") );
+	return ( ( m_pBest && m_pBest->m_pVendor ) ? m_pBest->m_pVendor->m_sName : L"" );
 }
 
 LPCTSTR CMatchFile::GetBestCountry() const
 {
-	return ( m_pBest ? m_pBest->m_sCountry : _T("") );
+	return ( m_pBest ? m_pBest->m_sCountry : L"" );
 }
 
 CSchemaPtr CMatchFile::GetBestSchema() const
@@ -2403,30 +2399,17 @@ BOOL CMatchFile::GetBestBrowseHost() const
 void CMatchFile::GetPartialTip(CString& sPartial) const
 {
 	if ( m_nFiltered == 1 && m_pBest && m_pBest->m_nPartial )
-	{
-		CString strFormat;
-		LoadString( strFormat, IDS_TIP_PARTIAL );
-		sPartial.Format( strFormat, 100.0f * (float)m_pBest->m_nPartial / (float)m_nSize );
-	}
+		sPartial.Format( LoadString( IDS_TIP_PARTIAL ), 100.0f * (float)m_pBest->m_nPartial / (float)m_nSize );
 	else
-	{
 		sPartial.Empty();
-	}
 }
 
 void CMatchFile::GetQueueTip(CString& sQueue) const
 {
 	if ( m_nFiltered == 1 && m_pBest && m_pBest->m_nUpSlots )
-	{
-		CString strFormat;
-		LoadString( strFormat, IDS_TIP_QUEUE );
-		sQueue.Format( strFormat, m_pBest->m_nUpSlots,
-			max( 0, m_pBest->m_nUpQueue - m_pBest->m_nUpSlots ) );
-	}
+		sQueue.Format( LoadString( IDS_TIP_QUEUE ), m_pBest->m_nUpSlots, max( 0, m_pBest->m_nUpQueue - m_pBest->m_nUpSlots ) );
 	else
-	{
 		sQueue.Empty();
-	}
 }
 
 void CMatchFile::GetUser(CString& sUser) const
@@ -2435,20 +2418,20 @@ void CMatchFile::GetUser(CString& sUser) const
 	{
 		if ( ! m_pBest->m_sNick.IsEmpty() )
 		{
-			sUser.Format( _T("%s (%s - %s)"),
+			sUser.Format( L"%s (%s - %s)",
 				(LPCTSTR)m_pBest->m_sNick,
 				(LPCTSTR)CString( inet_ntoa( m_pBest->m_pAddress ) ),
 				(LPCTSTR)m_pBest->m_pVendor->m_sName );
 		}
 		else if ( ( m_pBest->m_nProtocol == PROTOCOL_ED2K ) && ( m_pBest->m_bPush == TRI_TRUE ) )
 		{
-			sUser.Format( _T("%lu@%s - %s"), m_pBest->m_oClientID.begin()[2],
+			sUser.Format( L"%lu@%s - %s", m_pBest->m_oClientID.begin()[2],
 				(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*m_pBest->m_oClientID.begin() ) ),
 				(LPCTSTR)m_pBest->m_pVendor->m_sName );
 		}
 		else
 		{
-			sUser.Format( _T("%s - %s"),
+			sUser.Format( L"%s - %s",
 				(LPCTSTR)CString( inet_ntoa( m_pBest->m_pAddress ) ),
 				(LPCTSTR)m_pBest->m_pVendor->m_sName );
 		}
@@ -2459,7 +2442,7 @@ void CMatchFile::GetUser(CString& sUser) const
 	}
 }
 
-void CMatchFile::GetStatusTip( CString& sStatus, COLORREF& crStatus)
+void CMatchFile::GetStatusTip(CString& sStatus, COLORREF& crStatus)
 {
 	sStatus.Empty();
 

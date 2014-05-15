@@ -47,7 +47,7 @@ CPanelCtrl::CPanelCtrl()
 BOOL CPanelCtrl::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CPanelCtrl"), WS_CHILD | WS_TABSTOP |
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CPanelCtrl", WS_CHILD | WS_TABSTOP |
 		WS_VSCROLL | WS_CLIPCHILDREN | WS_CLIPSIBLINGS, rect, pParentWnd, 0, NULL );
 }
 
@@ -99,8 +99,8 @@ void CPanelCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
 		break;
 	}
 
-	pScroll.fMask	= SIF_POS;
-	pScroll.nPos	= max( 0, min( pScroll.nPos, pScroll.nMax ) );
+	pScroll.fMask = SIF_POS;
+	pScroll.nPos  = max( 0, min( pScroll.nPos, pScroll.nMax ) );
 
 	SetScrollInfo( SB_VERT, &pScroll );
 

@@ -31,12 +31,16 @@
 	#error Visual Studio 2008 SP1 or higher required for building
 #endif
 
+#if !defined(_UNICODE) || !defined(UNICODE)
+	#error Unicode Required
+#endif
+
 
 //
 // Generate Manifest  (Themed controls)
 //
 
-//#ifdef _UNICODE (Required)
+//#ifdef _UNICODE
 #ifdef _M_X64
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='amd64' publicKeyToken='6595b64144ccf1df' language='*'\"")
 #elif defined _M_IX86
@@ -87,20 +91,21 @@
 #pragma warning ( disable : 4820 )		// (Level 4)	'bytes' bytes padding added after construct 'member_name'
 
 // For detecting Memory Leaks
-#ifdef _DEBUG
+//#ifdef _DEBUG
 //#define _CRTDBG_MAP_ALLOC
 //#define _CRTDBG_ALLOC_MEM_DF			// Extra debug memory allocation
 //#define _CRTDBG_CHECK_ALWAYS_DF		// Check every allocation/deallocation (slow)
 //#define _CRTDBG_LEAK_CHECK_DF			// Check any unfreed memory at exit
-#endif
+//#endif
 
 #endif	// 1
 
+
 // WINVER Target features available from Windows Vista/7 onwards.
-// To find features that need guards for Windows 2000/XP temporarily use:
+// To find features that need guards for Windows XP temporarily use:
 #if 0
-#define NTDDI_VERSION	NTDDI_WIN2K
-#define _WIN32_WINNT	0x0500
+#define NTDDI_VERSION	NTDDI_WINXPSP2	// NTDDI_WIN2K Unsupported
+#define _WIN32_WINNT	0x0501			// 0x0500
 //#elif defined(_MSC_VER) && (_MSC_VER >= 1600)	// Features require WinSDK 7.0+ (Assume VS2010)
 //#define NTDDI_VERSION	NTDDI_WIN7		// Minimum build target Win7
 //#define _WIN32_WINNT	0x0601			// Win7/2008.2
@@ -109,17 +114,17 @@
 #define _WIN32_WINNT	0x0600			// Vista/2008
 #endif
 
-#include <sdkddkver.h>					// Setup versioning for Windows SDK
-
 // Add defines missed/messed up when Microsoft converted to NTDDI macros
 #define WINXP			0x05010000		// rpcdce.h, rpcdcep.h
 #define NTDDI_XP		0x05010000		// ipexport.h, iphlpapi.h
 #define NTDDI_WXP		0x05010000		// rpcasync.h
-#define NTDDI_XPSP1		0				// 0x05010100	// ipmib.h (leave as 0 due to broken struct)
+#define NTDDI_XPSP1		0				// ipmib.h  (leave 0x05010100 as 0 due to broken struct)
 #define NTDDI_XPSP2		0x05010200		// shellapi.h
-#define NTDDI_WIN2K3	0				// 0x05020000	// docobj.h (leave as 0 due to broken enum)
+#define NTDDI_WIN2K3	0				// docobj.h (leave 0x05020000 as 0 due to broken enum)
 #define NTDDI_WINLH		0x06000000		// objidl.h
 #define NTDDK_VERSION	NTDDI_VERSION	// winioctl.h
+
+#include <sdkddkver.h>					// Setup versioning for Windows SDK
 
 #define VC_EXTRALEAN
 #define SECURITY_WIN32
@@ -298,9 +303,9 @@
 	#pragma warning ( pop )					// a (pop) is ifdef'd out in stdio.h
 #endif
 
-#pragma warning ( pop )						// Restore warnings
+//#pragma warning ( pop )					// Restore warnings
 
-#include <Augment/Augment.hpp>
+#include "Augment/Augment.hpp"
 using augment::implicit_cast;
 using augment::auto_ptr;
 using augment::auto_array;
@@ -501,29 +506,29 @@ const UINT protocolIDs[] =
 // Protocol full names
 const LPCTSTR protocolNames[] =
 {
-	_T(""),
-	_T("Gnutella"),
-	_T("Gnutella2"),
-	_T("eDonkey2000"),
-	_T("HTTP"),
-	_T("FTP"),
-	_T("DC++"),
-	_T("BitTorrent"),
-	_T("Kademlia")
+	L"",
+	L"Gnutella",
+	L"Gnutella2",
+	L"eDonkey2000",
+	L"HTTP",
+	L"FTP",
+	L"DC++",
+	L"BitTorrent",
+	L"Kademlia"
 };
 
 // Protocol short names (4 char)
 const LPCTSTR protocolAbbr[] =
 {
-	_T(""),
-	_T("G1"),
-	_T("G2"),
-	_T("ED2K"),
-	_T("HTTP"),
-	_T("FTP"),
-	_T("DC"),
-	_T("BT"),
-	_T("KAD")
+	L"",
+	L"G1",
+	L"G2",
+	L"ED2K",
+	L"HTTP",
+	L"FTP",
+	L"DC",
+	L"BT",
+	L"KAD"
 };
 
 // Protocol default ports (Were defines)
@@ -766,7 +771,7 @@ private:
 		if ( ( h ) == INVALID_HANDLE_VALUE ) \
 		{ \
 			DWORD err = GetLastError(); \
-			theApp.Message( MSG_DEBUG, _T("File error \"%s\": %s (0x%08x)"), \
+			theApp.Message( MSG_DEBUG, L"File error \"%s\": %s (0x%08x)", \
 				LPCTSTR( f ), LPCTSTR( GetErrorString( err ) ), err ); \
 		} \
 	}

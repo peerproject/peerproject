@@ -51,12 +51,12 @@ BOOL CPlugins::Register(const CString& sPath)
 
 	LPCTSTR szParam =
 #if defined(_MSC_VER) && (_MSC_VER >= 1500)	// No VS2005
-	AfxGetPerUserRegistration() ? _T("/RegServerPerUser") :
+	AfxGetPerUserRegistration() ? L"/RegServerPerUser" :
 #endif
-	_T("/RegServer");
+	L"/RegServer";
 
 	CFileFind finder;
-	BOOL bWorking = finder.FindFile( sPath + _T("\\*.*") );	// .DLLs +.EXEs
+	BOOL bWorking = finder.FindFile( sPath + L"\\*.*" );	// .DLLs +.EXEs
 	while ( bWorking )
 	{
 		bWorking = finder.FindNextFile();
@@ -64,9 +64,9 @@ BOOL CPlugins::Register(const CString& sPath)
 		const CString strName = finder.GetFileName();
 		const CString strExt  = PathFindExtension( strName );
 
-		if ( strExt.CompareNoCase( _T(".dll") ) == 0 )
+		if ( strExt.CompareNoCase( L".dll" ) == 0 )
 		{
-			if ( strName == _T("WebHook.dll") && ! Settings.Downloads.WebHookEnable )
+			if ( strName == L"WebHook.dll" && ! Settings.Downloads.WebHookEnable )
 				continue;	// Skip WebHook Integration
 
 			if ( HINSTANCE hDll = LoadLibrary( strPath ) )
@@ -92,26 +92,26 @@ BOOL CPlugins::Register(const CString& sPath)
 				if ( hr == S_OK )
 				{
 					nSucceeded++;
-					theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
+					theApp.Message( MSG_NOTICE, L"Registered plugin: %s", strName );
 				}
 				else if ( FAILED( hr ) )
 				{
 					nFailed++;
-					theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, hr );
+					theApp.Message( MSG_ERROR, L"Failed to register plugin: %s : 0x%08x", strName, hr );
 				}
 
 				FreeLibrary( hDll );
 			}
 		}
-		else if ( strExt.CompareNoCase( _T(".exe") ) == 0 )
+		else if ( strExt.CompareNoCase( L".exe" ) == 0 )
 		{
 			DWORD dwSize = GetFileVersionInfoSize( sPath, &dwSize );
 			CAutoVectorPtr< BYTE > pBuffer( new BYTE[ dwSize ] );
 			if ( pBuffer && GetFileVersionInfo( sPath, NULL, dwSize, pBuffer ) )
 			{
 				LPCWSTR pValue = NULL;
-				if ( VerQueryValue( pBuffer, _T("\\StringFileInfo\\000004b0\\SpecialBuild"), (void**)&pValue, (UINT*)&dwSize ) &&
-					 pValue && dwSize && _wcsicmp( pValue, _T("plugin") ) == 0 )
+				if ( VerQueryValue( pBuffer, L"\\StringFileInfo\\000004b0\\SpecialBuild", (void**)&pValue, (UINT*)&dwSize ) &&
+					 pValue && dwSize && _wcsicmp( pValue, L"plugin" ) == 0 )
 				{
 					SHELLEXECUTEINFO sei =
 					{
@@ -137,12 +137,12 @@ BOOL CPlugins::Register(const CString& sPath)
 					if ( dwError == ERROR_SUCCESS )
 					{
 						nSucceeded++;
-						theApp.Message( MSG_NOTICE, _T("Registered plugin: %s"), strName );
+						theApp.Message( MSG_NOTICE, L"Registered plugin: %s", strName );
 					}
 					else
 					{
 						nFailed++;
-						theApp.Message( MSG_ERROR, _T("Failed to register plugin: %s : 0x%08x"), strName, dwError );
+						theApp.Message( MSG_ERROR, L"Failed to register plugin: %s : 0x%08x", strName, dwError );
 					}
 				}
 			}
@@ -158,7 +158,7 @@ BOOL CPlugins::Register(const CString& sPath)
 void CPlugins::Enumerate()
 {
 	HUSKEY hKey = NULL;
-	if ( SHRegOpenUSKey( REGISTRY_KEY _T("\\Plugins\\General"),
+	if ( SHRegOpenUSKey( REGISTRY_KEY L"\\Plugins\\General",
 		KEY_READ, NULL, &hKey, FALSE ) != ERROR_SUCCESS ) return;
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
@@ -248,7 +248,7 @@ void CPlugins::Clear()
 BOOL CPlugins::LookupCLSID(LPCTSTR pszGroup, LPCTSTR pszKey, CLSID& pCLSID) const
 {
 	CString strCLSID = theApp.GetProfileString(
-		CString( _T("Plugins\\") ) + pszGroup, pszKey, _T("") );
+		CString( L"Plugins\\" ) + pszGroup, pszKey, L"" );
 	return ! strCLSID.IsEmpty() &&
 		Hashes::fromGuid( strCLSID, &pCLSID ) &&
 		LookupEnable( pCLSID, pszKey );
@@ -261,7 +261,7 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 	CString strCLSID = Hashes::toGuid( pCLSID );
 
 	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CURRENT_USER,
-		REGISTRY_KEY _T("\\Plugins"), 0, KEY_ALL_ACCESS, &hPlugins ) )
+		REGISTRY_KEY L"\\Plugins", 0, KEY_ALL_ACCESS, &hPlugins ) )
 	{
 		DWORD nType = REG_SZ, nValue = 0;
 		if ( ERROR_SUCCESS == RegQueryValueEx( hPlugins, strCLSID, NULL, &nType, NULL, &nValue ) )
@@ -269,41 +269,41 @@ BOOL CPlugins::LookupEnable(REFCLSID pCLSID, LPCTSTR pszExt) const
 			// Upgrade here; Smart upgrade doesn't work
 			if ( nType == REG_DWORD )
 			{
-				BOOL bEnabled = theApp.GetProfileInt( _T("Plugins"), strCLSID, TRUE );
+				BOOL bEnabled = theApp.GetProfileInt( L"Plugins", strCLSID, TRUE );
 				RegCloseKey( hPlugins );
-				theApp.WriteProfileString( _T("Plugins"), strCLSID, bEnabled ? _T("") : _T("-") );
+				theApp.WriteProfileString( L"Plugins", strCLSID, bEnabled ? L"" : L"-" );
 				return bEnabled;
 			}
 		}
 		RegCloseKey( hPlugins );
 	}
 
-	CString strExtensions = theApp.GetProfileString( _T("Plugins"), strCLSID, _T("") );
+	CString strExtensions = theApp.GetProfileString( L"Plugins", strCLSID, L"" );
 
 	if ( strExtensions.IsEmpty() )
 		return TRUE;
-	if ( strExtensions == _T("-") )		// For plugins without associations
+	if ( strExtensions == L"-" )		// For plugins without associations
 		return FALSE;
-	if ( strExtensions.Left( 1 ) == _T("-") && strExtensions.GetLength() > 1 )
+	if ( strExtensions[ 0 ] == L'-' )
 		strExtensions = strExtensions.Mid( 1 );
 
 	if ( pszExt )	// Checking only a certain extension
 	{
 		CString strToFind;
-		strToFind.Format( _T("|%s|"), pszExt );
+		strToFind.Format( L"|%s|", pszExt );
 		return strExtensions.Find( strToFind ) != -1;
 	}
 
 	// For Settings page
 	CStringArray oTokens;
-	Split( strExtensions, _T('|'), oTokens );
+	Split( strExtensions, L'|', oTokens );
 	INT_PTR nTotal = oTokens.GetCount();
 	INT_PTR nChecked = 0;
 
 	for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
 	{
 		CString strToken = oTokens.GetAt( nToken );
-		if ( strToken.Left( 1 ) != _T("-") )
+		if ( strToken[ 0 ] != L'-' )
 			nChecked++;
 	}
 
@@ -318,8 +318,6 @@ IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 	if ( ! LookupCLSID( pszGroup, pszType, pCLSID ) )
 		return NULL;	// Disabled
 
-	HRESULT hr;
-
 	for ( int i = 0 ; ; ++i )
 	{
 		{
@@ -333,7 +331,7 @@ IUnknown* CPlugins::GetPlugin(LPCTSTR pszGroup, LPCTSTR pszType)
 				if ( ! pGITPlugin )
 					return NULL;
 
-				if ( SUCCEEDED( hr = pGITPlugin->m_pGIT.CopyTo( &pPlugin ) ) )
+				if ( SUCCEEDED( /*hr =*/ pGITPlugin->m_pGIT.CopyTo( &pPlugin ) ) )
 					return pPlugin.Detach();
 
 				TRACE( "Invalid plugin \"%s\"-\"%s\" %s\n", (LPCSTR)CT2A( pszGroup ), (LPCSTR)CT2A( pszType ), (LPCSTR)CT2A( Hashes::toGuid( pCLSID ) ) );
@@ -585,7 +583,7 @@ BOOL CPlugins::OnExecuteFile(LPCTSTR pszFile, BOOL bUseImageViewer)
 
 		if ( pPlugin->m_pExecute )
 		{
-			if ( pPlugin->m_sName == _T("PeerProject Image Viewer") )
+			if ( pPlugin->m_sName == L"PeerProject Image Viewer" )
 			{
 				pImageViewer = pPlugin;
 				continue;
@@ -764,14 +762,14 @@ CString CPlugin::GetStringCLSID() const
 HICON CPlugin::LookupIcon() const
 {
 	CString strName;
-	strName.Format( _T("CLSID\\%s\\InprocServer32"), (LPCTSTR)GetStringCLSID() );
+	strName.Format( L"CLSID\\%s\\InprocServer32", (LPCTSTR)GetStringCLSID() );
 
 	HKEY hKey;
 	if ( RegOpenKeyEx( HKEY_CLASSES_ROOT, strName, 0, KEY_QUERY_VALUE, &hKey ) )
 		return NULL;
 
 	DWORD dwType = REG_SZ, dwSize = 256 * sizeof( TCHAR );
-	LONG lResult = RegQueryValueEx( hKey, _T(""), NULL, &dwType, (LPBYTE)strName.GetBuffer( 256 ), &dwSize );
+	LONG lResult = RegQueryValueEx( hKey, L"", NULL, &dwType, (LPBYTE)strName.GetBuffer( 256 ), &dwSize );
 	strName.ReleaseBuffer( dwSize / sizeof( TCHAR ) );
 	RegCloseKey( hKey );
 

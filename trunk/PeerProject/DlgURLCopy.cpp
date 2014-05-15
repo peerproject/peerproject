@@ -90,10 +90,10 @@ BOOL CURLCopyDlg::OnInitDialog()
 void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 {
 	// Use contents of .torrent-file instead of file itself
-	if ( ! pFile.m_sPath.IsEmpty() && EndsWith( pFile.m_sName, _PT(".torrent") ) )		// _tcsicmp( PathFindExtension( pFile.m_sName ), _T(".torrent") ) == 0 )
+	if ( ! pFile.m_sPath.IsEmpty() && EndsWith( pFile.m_sName, _P( L".torrent" ) ) )		// _tcsicmp( PathFindExtension( pFile.m_sName ), L".torrent" ) == 0 )
 	{
 		CBTInfo pTorrent;
-		if ( pTorrent.LoadTorrentFile( pFile.m_sPath + _T("\\") + pFile.m_sName ) )
+		if ( pTorrent.LoadTorrentFile( pFile.m_sPath + L"\\" + pFile.m_sName ) )
 		{
 			pFile = pTorrent;
 
@@ -101,8 +101,8 @@ void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 			const int nCount = pTorrent.GetTrackerCount();
 			for ( int i = 0 ; i < nCount ; ++i )
 			{
-				if ( sTracker.GetLength() ) sTracker += _T("&");
-				sTracker += _T("tr=") + URLEncode( pTorrent.GetTrackerAddress( i ) );
+				if ( sTracker.GetLength() ) sTracker += L"&";
+				sTracker += L"tr=" + URLEncode( pTorrent.GetTrackerAddress( i ) );
 			}
 		}
 	}
@@ -132,8 +132,8 @@ void CURLCopyDlg::Resolve(CPeerProjectFile& pFile, CString& sTracker)
 				for ( int i = 0 ; i < nCount ; ++i )
 				{
 					// ToDo: Verify live tracker?
-					if ( sTracker.GetLength() ) sTracker += _T("&");
-					sTracker += _T("tr=") + URLEncode( pDownload->m_pTorrent.GetTrackerAddress( i ) );
+					if ( sTracker.GetLength() ) sTracker += L"&";
+					sTracker += L"tr=" + URLEncode( pDownload->m_pTorrent.GetTrackerAddress( i ) );
 				}
 			}
 		}
@@ -166,55 +166,55 @@ CString CURLCopyDlg::CreateMagnet(CPeerProjectFile& pFile)
 	Resolve( pFile, strTracker );
 
 	if ( pFile.m_oTiger && pFile.m_oSHA1 )
-		strURN = _T("xt=urn:bitprint:") + pFile.m_oSHA1.toString() + _T('.') + pFile.m_oTiger.toString();
+		strURN = L"xt=urn:bitprint:" + pFile.m_oSHA1.toString() + L'.' + pFile.m_oTiger.toString();
 	else if ( pFile.m_oSHA1 )
-		strURN = _T("xt=") + pFile.m_oSHA1.toUrn();
+		strURN = L"xt=" + pFile.m_oSHA1.toUrn();
 	else if ( pFile.m_oTiger )
-		strURN = _T("xt=") + pFile.m_oTiger.toUrn();
+		strURN = L"xt=" + pFile.m_oTiger.toUrn();
 
 	if ( pFile.m_oED2K )
 	{
-		if ( ! strURN.IsEmpty() ) strURN += _T("&");
-		strURN += _T("xt=") + pFile.m_oED2K.toUrn();
+		if ( ! strURN.IsEmpty() ) strURN += L"&";
+		strURN += L"xt=" + pFile.m_oED2K.toUrn();
 	}
 
 	if ( pFile.m_oMD5 && ! pFile.m_oTiger && ! pFile.m_oSHA1 && ! pFile.m_oED2K )
 	{
-		if ( ! strURN.IsEmpty() ) strURN += _T("&");
-		strURN += _T("xt=") + pFile.m_oMD5.toUrn();
+		if ( ! strURN.IsEmpty() ) strURN += L"&";
+		strURN += L"xt=" + pFile.m_oMD5.toUrn();
 	}
 
 	if ( pFile.m_oBTH )
 	{
-		if ( ! strURN.IsEmpty() ) strURN += _T("&");
-		strURN += _T("xt=") + pFile.m_oBTH.toUrn();
+		if ( ! strURN.IsEmpty() ) strURN += L"&";
+		strURN += L"xt=" + pFile.m_oBTH.toUrn();
 	}
 
 	CString strMagnet = strURN;
 
 	if ( pFile.m_nSize != 0 && pFile.m_nSize != SIZE_UNKNOWN )
 	{
-		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&");
-		strMagnet.AppendFormat( _T("xl=%I64u"), pFile.m_nSize );
+		if ( ! strMagnet.IsEmpty() ) strMagnet += L"&";
+		strMagnet.AppendFormat( L"xl=%I64u", pFile.m_nSize );
 	}
 
 	if ( ! pFile.m_sName.IsEmpty() )
 	{
-		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&");
+		if ( ! strMagnet.IsEmpty() ) strMagnet += L"&";
 		if ( ! strURN.IsEmpty() )
-			strMagnet += _T("dn=");
+			strMagnet += L"dn=";
 		else
-			strMagnet += _T("kt=");
+			strMagnet += L"kt=";
 		strMagnet += URLEncode( pFile.m_sName );
 	}
 
 	if ( ! strTracker.IsEmpty() )
 	{
-		if ( strMagnet.GetLength() ) strMagnet += _T("&");
+		if ( strMagnet.GetLength() ) strMagnet += L"&";
 		strMagnet += strTracker;
 	}
 
-	strMagnet = _T("magnet:?") + strMagnet;
+	strMagnet = L"magnet:?" + strMagnet;
 
 	return strMagnet;
 }
@@ -232,16 +232,16 @@ void CURLCopyDlg::OnIncludeSelf()
 		strSelf = m_pFile.GetURL( Network.m_pHost.sin_addr, htons( Network.m_pHost.sin_port ) );
 
 	if ( ! strSelf.IsEmpty() )	// bIncludeSelf
-		m_sMagnet += _T("&xs=") + URLEncode( strSelf );
+		m_sMagnet += L"&xs=" + URLEncode( strSelf );
 	else if ( ! m_pFile.m_sURL.IsEmpty() )
-		m_sMagnet += _T("&xs=") + URLEncode( m_pFile.m_sURL );
+		m_sMagnet += L"&xs=" + URLEncode( m_pFile.m_sURL );
 
 	if ( m_pFile.m_oSHA1 )
 	{
-		m_sGnutella.Format( _T("gnutella://%s/"), (LPCTSTR)m_pFile.m_oSHA1.toUrn() );
+		m_sGnutella.Format( L"gnutella://%s/", (LPCTSTR)m_pFile.m_oSHA1.toUrn() );
 
 		if ( ! m_pFile.m_sName.IsEmpty() )
-			m_sGnutella += URLEncode( m_pFile.m_sName ) + _T("/");
+			m_sGnutella += URLEncode( m_pFile.m_sName ) + L"/";
 	}
 
 	if ( m_pFile.m_oED2K &&
@@ -249,17 +249,17 @@ void CURLCopyDlg::OnIncludeSelf()
 		 m_pFile.m_nSize != SIZE_UNKNOWN &&
 		! m_pFile.m_sName.IsEmpty() )
 	{
-		m_sED2K.Format( _T("ed2k://|file|%s|%I64u|%s|/"),
+		m_sED2K.Format( L"ed2k://|file|%s|%I64u|%s|/",
 			(LPCTSTR)URLEncode( m_pFile.m_sName ),
 			m_pFile.m_nSize,
 			(LPCTSTR)m_pFile.m_oED2K.toString() );
 
 		if ( bIncludeSelf )
-			m_sED2K += _T("|sources,") + HostToString( &Network.m_pHost ) + _T("|/");
+			m_sED2K += L"|sources," + HostToString( &Network.m_pHost ) + L"|/";
 
 			//CString strURL;	// Obsolete
-			//strURL.Format( _T("%s:%i"), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
-			//m_sED2K += _T("|sources,") + strURL + _T("|/");
+			//strURL.Format( L"%s:%i", (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
+			//m_sED2K += L"|sources," + strURL + L"|/";
 	}
 	else
 	{
@@ -285,7 +285,7 @@ HBRUSH CURLCopyDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 		TCHAR szName[32];
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
-		if ( _tcsicmp( szName, _T("Static") ) == 0 )
+		if ( _tcsicmp( szName, L"Static" ) == 0 )
 		{
 			pDC->SetTextColor( Colors.m_crTextLink );
 			pDC->SelectObject( &theApp.m_gdiFontLine );
@@ -305,7 +305,7 @@ BOOL CURLCopyDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		TCHAR szName[32];
 		GetClassName( pWnd->GetSafeHwnd(), szName, 32 );
 
-		if ( _tcsicmp( szName, _T("Static") ) == 0 && pWnd != &m_wndMessage )
+		if ( _tcsicmp( szName, L"Static" ) == 0 && pWnd != &m_wndMessage )
 		{
 			CRect rc;
 			pWnd->GetWindowRect( &rc );

@@ -142,7 +142,7 @@ void CPluginWnd::OnSkinChange()
 		CString strCaption;
 		Skin.LoadString( strCaption, m_nResID );
 
-		SetWindowText( _T("") );
+		SetWindowText( L"" );
 		SetWindowText( strCaption );
 	}
 

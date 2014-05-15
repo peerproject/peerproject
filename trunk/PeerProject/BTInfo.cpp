@@ -43,7 +43,7 @@ static char THIS_FILE[] = __FILE__;
 // Check if a string is a valid path/file name.
 static bool IsValid(const CString& str)
 {
-	return ! str.IsEmpty() && ( str.Find( _T('?') ) == -1 ) && ( str != _T("#ERROR#") );
+	return ! str.IsEmpty() && ( str.Find( L'?' ) == -1 ) && ( str != L"#ERROR#" );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -125,22 +125,22 @@ CString CBTInfo::CBTFile::FindFile() const
 	if ( ! pShared || GetFileSize( strFile ) != m_nSize )
 	{
 		// Try complete folder
-		strFile = SafePath( Settings.Downloads.CompletePath + _T("\\") + m_sPath );
+		strFile = SafePath( Settings.Downloads.CompletePath + L"\\" + m_sPath );
 
 		if ( GetFileSize( strFile ) != m_nSize )
 		{
 			// Try folder of original .torrent
-			CString strTorrentPath = m_pInfo->m_sPath.Left( m_pInfo->m_sPath.ReverseFind( _T('\\') ) + 1 );
+			CString strTorrentPath = m_pInfo->m_sPath.Left( m_pInfo->m_sPath.ReverseFind( L'\\' ) + 1 );
 			strFile = SafePath( strTorrentPath + m_sPath );
 
 			if ( GetFileSize( strFile ) != m_nSize )
 			{
 				// Try complete folder without outer file directory
 				CString strShortPath;
-				int nSlash = m_sPath.Find( _T('\\') );
+				int nSlash = m_sPath.Find( L'\\' );
 				if ( nSlash != -1 )
 					strShortPath = m_sPath.Mid( nSlash + 1 );
-				strFile = SafePath( Settings.Downloads.CompletePath + _T("\\") + strShortPath );
+				strFile = SafePath( Settings.Downloads.CompletePath + L"\\" + strShortPath );
 
 				if ( strShortPath.IsEmpty() || GetFileSize( strFile ) != m_nSize )
 				{
@@ -446,7 +446,7 @@ void CBTInfo::Serialize(CArchive& ar)
 //		AfxThrowFileException( CFileException::diskFull );
 //
 //	CString strSource;
-//	strSource.Format( _T("%s\\%s.partial"), Settings.Downloads.IncompletePath, GetFilename() );
+//	strSource.Format( L"%s\\%s.partial", Settings.Downloads.IncompletePath, GetFilename() );
 //	if ( strSource.GetLength() > MAX_PATH ) strSource = L"\\\\?\\" + strSource;
 //
 //	if ( GetFileAttributes( strSource ) == INVALID_FILE_ATTRIBUTES )
@@ -460,7 +460,7 @@ void CBTInfo::Serialize(CArchive& ar)
 //		AfxThrowMemoryException();
 //
 //	CString strTargetTemplate;
-//	strTargetTemplate.Format( _T("%s\\%s"), Settings.Downloads.IncompletePath, GetFilename() );
+//	strTargetTemplate.Format( L"%s\\%s", Settings.Downloads.IncompletePath, GetFilename() );
 //	if ( strTargetTemplate.GetLength() > MAX_PATH ) strTargetTemplate = L"\\\\?\\" + strTargetTemplate;
 //
 //	CString strText;
@@ -485,14 +485,14 @@ void CBTInfo::Serialize(CArchive& ar)
 //		CBTFile* pFile = m_pFiles.GetNext( pos );
 //
 //		CString strTarget;
-//		strTarget.Format( _T("%s_%lu.partial"), strTargetTemplate, nCount );
+//		strTarget.Format( L"%s_%lu.partial", strTargetTemplate, nCount );
 //
 //		CFile oTarget( strTarget, CFile::modeCreate | CFile::modeWrite | CFile::osSequentialScan );
 //
-//		strText.Format( _T("%lu %s %i"), nCount + 1ul, strOf, m_pFiles.GetCount() );
+//		strText.Format( L"%lu %s %i", nCount + 1ul, strOf, m_pFiles.GetCount() );
 //
 //		if ( Settings.General.LanguageRTL )
-//			strText = _T("\x202B") + strText;
+//			strText = L"\x202B" + strText;
 //
 //		oProgress.SetSubActionText( strText );
 //		oProgress.SetSubEventText( pFile->m_sPath );
@@ -604,7 +604,7 @@ BOOL CBTInfo::SaveTorrentFile(const CString& sFolder)
 	if ( m_pSource.m_nLength == 0 )
 		return FALSE;
 
-	CString strPath = sFolder + _T("\\") + SafeFilename( m_sName + _T(".torrent") );
+	CString strPath = sFolder + L"\\" + SafeFilename( m_sName + L".torrent" );
 	if ( m_sPath.CompareNoCase( strPath ) == 0 )
 		return TRUE;	// Same file
 
@@ -641,7 +641,7 @@ BOOL CBTInfo::LoadInfoPiece(BYTE *pPiece, DWORD nPieceSize, DWORD nInfoSize, DWO
 				CBENode* pList = oRoot.Add("announce-list")->Add(); 	// "13:announce-listll"
 				for ( int i = 0 ; i < GetTrackerCount() ; i++ )
 				{
-					pList->Add()->SetString(GetTrackerAddress( i ));
+					pList->Add()->SetString( GetTrackerAddress( i ) );
 				}
 			}
 		}
@@ -737,7 +737,7 @@ BOOL CBTInfo::LoadTorrentBuffer(const CBuffer* pBuffer)
 	auto_ptr< CBENode > pNode ( CBENode::Decode( pBuffer ) );
 	if ( ! pNode.get() )
 	{
-		theApp.Message( MSG_ERROR, _T("[BT] Failed to decode torrent data: %s"), pBuffer->ReadString( (size_t)-1 ) );
+		theApp.Message( MSG_ERROR, L"[BT] Failed to decode torrent data: %s", pBuffer->ReadString( (size_t)-1 ) );
 		return FALSE;
 	}
 
@@ -752,7 +752,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	//ASSERT( m_sName.IsEmpty() && m_nSize == SIZE_UNKNOWN );	// Assume empty object
 	ASSERT( ! m_pBlockBTH );
 
-	theApp.Message( MSG_DEBUG, _T("[BT] Loading torrent tree: %s"), (LPCTSTR)pRoot->Encode() );
+	theApp.Message( MSG_DEBUG, L"[BT] Loading torrent tree: %s", (LPCTSTR)pRoot->Encode() );
 
 	if ( ! pRoot->IsType( CBENode::beDict ) )
 		return FALSE;
@@ -790,40 +790,40 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			CString strEncoding = pEncoding->GetString();
 
 			if ( strEncoding.GetLength() < 3 )
-				theApp.Message( MSG_ERROR, _T("Torrent 'encoding' node too short") );
-			else if ( _tcsistr( strEncoding.GetString(), _T("UTF-8") ) != NULL ||
-					  _tcsistr( strEncoding.GetString(), _T("UTF8") ) != NULL )
+				theApp.Message( MSG_ERROR, L"Torrent 'encoding' node too short" );
+			else if ( _tcsistr( strEncoding.GetString(), L"UTF-8" ) != NULL ||
+					  _tcsistr( strEncoding.GetString(), L"UTF8" ) != NULL )
 				m_nEncoding = CP_UTF8;
-			else if ( _tcsistr( strEncoding.GetString(), _T("ANSI") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"ANSI" ) != NULL )
 				m_nEncoding = CP_ACP;
-			else if ( _tcsistr( strEncoding.GetString(), _T("BIG5") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"BIG5" ) != NULL )
 				m_nEncoding = 950;
-			else if ( _tcsistr( strEncoding.GetString(), _T("Korean") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"Korean" ) != NULL )
 				m_nEncoding = 949;
-			else if ( _tcsistr( strEncoding.GetString(), _T("UHC") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"UHC" ) != NULL )
 				m_nEncoding = 949;
-			else if ( _tcsistr( strEncoding.GetString(), _T("Chinese") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"Chinese" ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString(), _T("GB2312") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"GB2312" ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString(), _T("GBK") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"GBK" ) != NULL )
 				m_nEncoding = 936;
-			else if ( _tcsistr( strEncoding.GetString(), _T("Japanese") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"Japanese" ) != NULL )
 				m_nEncoding = 932;
-			else if ( _tcsistr( strEncoding.GetString(), _T("Shift-JIS") ) != NULL )
+			else if ( _tcsistr( strEncoding.GetString(), L"Shift-JIS" ) != NULL )
 				m_nEncoding = 932;
-			else if ( _tcsnicmp( strEncoding.GetString(), _T("Windows-"), 8 ) == 0 )
+			else if ( _tcsnicmp( strEncoding.GetString(), L"Windows-", 8 ) == 0 )
 			{
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 8 );
-				if ( ( _stscanf( strEncoding, _T("%u"), &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
+				if ( ( _stscanf( strEncoding, L"%u", &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
 					m_nEncoding = nEncoding;
 			}
-			else if ( _tcsnicmp( strEncoding.GetString(), _T("CP"), 2 ) == 0 )
+			else if ( _tcsnicmp( strEncoding.GetString(), L"CP", 2 ) == 0 )
 			{
 				UINT nEncoding = 0;
 				strEncoding = strEncoding.Mid( 2 );
-				if ( ( _stscanf( strEncoding, _T("%u"), &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
+				if ( ( _stscanf( strEncoding, L"%u", &nEncoding ) == 1 ) && ( nEncoding > 0 ) )
 					m_nEncoding = nEncoding;
 			}
 		}
@@ -837,7 +837,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	if ( pDate && pDate->IsType( CBENode::beInt ) )
 		m_tCreationDate = (DWORD)pDate->GetInt();
 		// CTime pTime( (time_t)m_tCreationDate );
-		// theApp.Message( MSG_NOTICE, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
+		// theApp.Message( MSG_NOTICE, pTime.Format( L"%Y-%m-%d %H:%M:%S" ) );
 
 	// Get the creator (if present)
 	m_sCreatedBy = pRoot->GetStringFromSubNode( "created by", m_nEncoding );
@@ -856,7 +856,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				if ( pHost && pHost->IsType( CBENode::beString ) && pPort && pPort->IsType( CBENode::beInt ) )
 				{
 					CString strHost;
-					strHost.Format( _T("%s:%u"), pHost->GetString(), (WORD)pPort->GetInt() );
+					strHost.Format( L"%s:%u", pHost->GetString(), (WORD)pPort->GetInt() );
 					m_oNodes.AddTail( strHost );
 				//	HostCache.BitTorrent.Add( pHost->GetString(), (WORD)pPort->GetInt() );	// Obsolete
 				}
@@ -887,15 +887,15 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						CString strTracker = pTracker->GetString();		// Get the tracker
 
 						// Unescape if needed
-						if ( strTracker.Find( _T("%3A"), 2 ) > 2 )
+						if ( strTracker.Find( L"%3A", 2 ) > 2 )
 						{
-							strTracker.Replace( _T("%3A"), _T(":") );
-							strTracker.Replace( _T("%2F"), _T("/") );
+							strTracker.Replace( L"%3A", L":" );
+							strTracker.Replace( L"%2F", L"/" );
 						}
 
 						// Check tracker is valid
-						if ( ! StartsWith( strTracker, _T("http://"), 7 ) &&
-							 ! StartsWith( strTracker, _T("udp://"), 6 ) )					// ToDo: Handle rare HTTPS etc?
+						if ( ! StartsWith( strTracker, L"http://", 7 ) &&
+							 ! StartsWith( strTracker, L"udp://", 6 ) )					// ToDo: Handle rare HTTPS etc?
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store unknown tracker for display (*https://)
 						else if ( IsDeadTracker( strTracker ) )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
@@ -967,19 +967,19 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			CString strTracker = pAnnounce->GetString();
 
 			// Unescape if needed
-			if ( strTracker.Find( _T("%3A"), 2 ) > 2 )
+			if ( strTracker.Find( L"%3A", 2 ) > 2 )
 			{
-				strTracker.Replace( _T("%3A"), _T(":") );
-				strTracker.Replace( _T("%2F"), _T("/") );
+				strTracker.Replace( L"%3A", L":" );
+				strTracker.Replace( L"%2F", L"/" );
 			}
 
 			// Store it if it's valid. (Some torrents have invalid trackers)
-			if ( StartsWith( strTracker, _T("http://"), 7 ) ||
-				 StartsWith( strTracker, _T("udp://"), 6 ) )
+			if ( StartsWith( strTracker, L"http://", 7 ) ||
+				 StartsWith( strTracker, L"udp://", 6 ) )
 			{
 				// Catch common defunct trackers
 				if ( IsDeadTracker( strTracker ) )
-					strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
+					strTracker = L"http://tracker.publicbt.com/announce";	// Settings.BitTorrent.DefaultTracker ?
 
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
@@ -987,7 +987,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 				// Backup tracker
 				//CBTTracker oTracker;
-				//oTracker.m_sAddress = _T("http://tracker.publicbt.com/announce");
+				//oTracker.m_sAddress = L"http://tracker.publicbt.com/announce";
 				//oTracker.m_nTier = 0;
 				//m_nTrackerMode = tMultiFinding;
 				//AddTracker( oTracker );
@@ -995,7 +995,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			else
 			{
 				// Torrents should always have a valid announce node, other is unlikely.  Try public TCP tracker. (Should get Private tag first...)
-				strTracker = _T("http://tracker.publicbt.com/announce");	// Settings.BitTorrent.DefaultTracker ?
+				strTracker = L"http://tracker.publicbt.com/announce";	// Settings.BitTorrent.DefaultTracker ?
 				SetTracker( strTracker );
 				m_nTrackerMode = tSingle;
 			}
@@ -1016,7 +1016,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	// If we still don't have a name, generate one
 	if ( m_sName.IsEmpty() )
-		m_sName.Format( _T("Unnamed_Torrent_%i"), GetRandomNum( 0i32, _I32_MAX ) );
+		m_sName.Format( L"Unnamed_Torrent_%i", GetRandomNum( 0i32, _I32_MAX ) );
 
 	// Get the piece stuff
 	const CBENode* pPL = pInfo->GetNode( "piece length" );
@@ -1146,21 +1146,17 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			// Try path.utf8 if it's set  (Was Settings.BitTorrent.TorrentExtraKeys)
 			const CBENode* pPath = pFile->GetNode( "path.utf-8" );
-			if ( pPath )
+			if ( pPath && pPath->IsType( CBENode::beList ) )
 			{
-				if ( pPath->IsType( CBENode::beList ) && pPath->GetCount() > 32 )
-				{
-					CBENode* pPart = pPath->GetNode( 0 );
-					if ( pPart && pPart->IsType( CBENode::beString ) )
-						strPath = pPart->GetString();
-				}
+				const CBENode* pPart = pPath->GetNode( 0 );
+				if ( pPart && pPart->IsType( CBENode::beString ) )
+					strPath = pPart->GetString();
 			}
 
 			// Get the regular path
 			pPath = pFile->GetNode( "path" );
 
-			if ( ! pPath ) return FALSE;
-			if ( ! pPath->IsType( CBENode::beList ) ) return FALSE;
+			if ( ! pPath || ! pPath->IsType( CBENode::beList ) ) return FALSE;
 
 			const CBENode* pPathPart = pPath->GetNode( 0 );
 			if ( pPathPart && pPathPart->IsType( CBENode::beString ) )
@@ -1195,10 +1191,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				}
 			}
 
-			if ( ! pPath ) return FALSE;
-			if ( ! pPath->IsType( CBENode::beList ) ) return FALSE;
-			if ( pPath->GetCount() > 32 ) return FALSE;
-			if ( _tcsicmp( strPath.GetString(), _T("#ERROR#") ) == 0 ) return FALSE;
+			if ( ! pPath || ! pPath->IsType( CBENode::beList ) ) return FALSE;
+			if ( strPath.CompareNoCase( L"#ERROR#" ) == 0 ) return FALSE;
 
 			pBTFile->m_sName = PathFindFileName( strPath );
 
@@ -1212,11 +1206,14 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 				if ( ! pBTFile->m_sPath.IsEmpty() )
 					pBTFile->m_sPath += '\\';
+				const int nPathLength = pBTFile->m_sPath.GetLength();
+				if ( nPathLength && pBTFile->m_sPath.GetAt( nPathLength - 1 ) != L'\\' )
+					pBTFile->m_sPath += L'\\';
 
 				// Get the path
 
 				// Check for encoding error
-				if ( pPart->GetString().CompareNoCase( _T("#ERROR#") ) == 0 )
+				if ( pPart->GetString().CompareNoCase( L"#ERROR#" ) == 0 )
 					strPath = SafeFilename( pPart->DecodeString( m_nEncoding ), true );
 				else
 					strPath = SafeFilename( pPart->GetString(), true );
@@ -1357,10 +1354,10 @@ BOOL CBTInfo::IsDeadTracker(const CString& sTracker)
 	// Known common defunct URLs, keep updated
 	// ToDo: Check DNS headers too - http://bittorrent.org/beps/bep_0034.html
 	return
-		sTracker.Find( _T("piratebay.org"), 6 ) > 6 ||
-		sTracker.Find( _T("denis.stalker.h3q.com"), 5 ) > 5 ||
-		( StartsWith( sTracker, _PT("http://") ) &&
-			sTracker.Find( _T(".1337x."), 8 ) > 8 );
+		sTracker.Find( L"piratebay.org", 6 ) > 6 ||
+		sTracker.Find( L"denis.stalker.h3q.com", 5 ) > 5 ||
+		( StartsWith( sTracker, _P( L"http://" ) ) &&
+			sTracker.Find( L".1337x.", 8 ) > 8 );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1378,8 +1375,8 @@ BOOL CBTInfo::CheckFiles()
 		if ( pszPath == NULL || *pszPath == 0 ) return FALSE;
 		if ( pszPath[1] == ':' ) return FALSE;
 		if ( *pszPath == '\\' || *pszPath == '/' ) return FALSE;
-		if ( _tcsstr( pszPath, _T("..\\") ) != NULL ) return FALSE;
-		if ( _tcsstr( pszPath, _T("../") ) != NULL ) return FALSE;
+		if ( _tcsstr( pszPath, L"..\\" ) != NULL ) return FALSE;
+		if ( _tcsstr( pszPath, L"../" ) != NULL ) return FALSE;
 	}
 
 	return m_pFiles.GetCount() > 0;
@@ -1498,8 +1495,8 @@ void CBTInfo::SetTrackerNext(DWORD tTime)
 	{
 		// Check for bad trackers displayed at end of list (but user-added may follow)
 		// m_oTrackers[ nTracker ].m_sAddress.GetAt( 0 ) == BAD_TRACKER_TOKEN		// *https://
-		if ( ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _PT("http://") ) &&
-			 ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _PT("udp://") ) )
+		if ( ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _P( L"http://" ) ) &&
+			 ! StartsWith( m_oTrackers[ nTracker ].m_sAddress, _P( L"udp://" ) ) )
 			continue;	//break;
 
 		// Get the next tracker in the list
@@ -1665,21 +1662,21 @@ BOOL CBTInfo::ScrapeTracker()
 		return FALSE;
 
 	CString strURL = GetTrackerAddress();
-	if ( ! StartsWith( strURL, _PT("http://") ) )
+	if ( ! StartsWith( strURL, _P( L"http://" ) ) )
 		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS?
 
-	if ( strURL.Replace( _T("/announce"), _T("/scrape") ) != 1 )
+	if ( strURL.Replace( L"/announce", L"/scrape" ) != 1 )
 		return FALSE;
 
 	// Fetch scrape only for the given info hash
-	strURL = strURL.TrimRight( _T('&') ) + ( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) + _T("info_hash=");
+	strURL = strURL.TrimRight( L'&' ) + ( ( strURL.Find( L'?' ) != -1 ) ? L'&' : L'?' ) + L"info_hash=";
 
 	// m_oBTH must be protected by Transfers.m_pSection
 	CSingleLock oLock( &Transfers.m_pSection );
 	if ( ! oLock.Lock( 500 ) ) return FALSE;
 
 	strURL += CBTTrackerRequest::Escape( m_oBTH );
-		// + _T("&peer_id=") + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Is this needed?
+		// + L"&peer_id=" + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Is this needed?
 
 	LPBYTE nKey = &m_oBTH[ 0 ];
 
@@ -1687,7 +1684,7 @@ BOOL CBTInfo::ScrapeTracker()
 
 	CHttpRequest pRequest;
 	pRequest.SetURL( strURL );
-	pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
+	pRequest.AddHeader( L"Accept-Encoding", L"deflate, gzip" );
 	pRequest.EnableCookie( false );
 
 	// Wait for thread
@@ -1700,7 +1697,7 @@ BOOL CBTInfo::ScrapeTracker()
 
 	if ( const CBENode* pNode = CBENode::Decode( pResponse ) )
 	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pNode->Encode() );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[BT] Received BitTorrent tracker response: %s", pNode->Encode() );
 
 		//if ( ! oLock.Lock( 500 ) ) return FALSE;
 		//LPBYTE nKey = &m_oBTH[ 0 ];		// Above
@@ -1787,7 +1784,7 @@ CString CBTInfo::GetTrackerHash() const
 // CBTInfo::CBTTracker construction
 
 CBTInfo::CBTTracker::CBTTracker(LPCTSTR szAddress, INT nTier)
-	: m_sAddress		( szAddress ? szAddress : _T("") )
+	: m_sAddress		( szAddress ? szAddress : L"" )
 	, m_tLastAccess		( 0 )
 	, m_tLastSuccess	( 0 )
 	, m_tNextTry		( 0 )

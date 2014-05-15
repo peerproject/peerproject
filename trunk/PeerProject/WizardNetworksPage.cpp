@@ -1,7 +1,7 @@
 //
 // WizardNetworksPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -73,7 +73,7 @@ BOOL CWizardNetworksPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardNetworksPage"), this );
+	Skin.Apply( L"CWizardNetworksPage", this );
 
 	m_bG2Enable = Settings.Gnutella2.EnableAlways;
 	m_bG1Enable = Settings.Gnutella1.EnableAlways;
@@ -148,8 +148,8 @@ LRESULT CWizardNetworksPage::OnWizardNext()
 
 	// Load hublist.xml.bz2 from web if needed, various ways
 	if ( HostCache.DC.GetCount() < 5 &&
-		! ( PathFileExists( Settings.General.DataPath + _T("hublist.xml.bz2") ) &&
-			theApp.OpenImport( Settings.General.DataPath + _T("hublist.xml.bz2") ) ) )
+		! ( PathFileExists( Settings.General.DataPath + L"hublist.xml.bz2" ) &&
+			theApp.OpenImport( Settings.General.DataPath + L"hublist.xml.bz2" ) ) )
 	{
 		CUpdateServersDlg dlg;
 		dlg.m_sURL = Settings.DC.HubListURL;

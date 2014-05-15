@@ -1,7 +1,7 @@
 //
 // DlgMessage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2009-2012
+// This file is part of PeerProject (peerproject.org) © 2009-2014
 // Portions copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -63,7 +63,7 @@ BOOL CMessageDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CMessageDlg"), IDR_MAINFRAME );
+	SkinMe( L"CMessageDlg", IDR_MAINFRAME );
 
 	CRect rc, rcWindow;
 	GetWindowRect( &rcWindow );
@@ -539,14 +539,14 @@ void CMessageDlg::UpdateTimer()
 
 	CString strText;
 	pButton->GetWindowText( strText );
-	int nPos = strText.Find( _T(" (") );
+	int nPos = strText.Find( L" (" );
 	if ( nPos != -1 )
 		strText = strText.Left( nPos );
 
 	if ( m_nTimer > 0 )
 	{
 		CString strNewText;
-		strNewText.Format( _T("%s (%u)"), strText, m_nTimer - 1 );
+		strNewText.Format( L"%s (%u)", strText, m_nTimer - 1 );
 		pButton->SetWindowText( strNewText );
 	}
 	else

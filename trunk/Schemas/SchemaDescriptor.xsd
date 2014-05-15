@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <schema targetNamespace="http://schemas.peerproject.org/SchemaDescriptor.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="schemaDescriptor">

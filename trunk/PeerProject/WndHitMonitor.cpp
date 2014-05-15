@@ -1,7 +1,7 @@
 //
 // WndHitMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -81,7 +81,7 @@ int CHitMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		m_wndList.SelectSchema( pSchema, &pColumns );
 	}
 
-	LoadState( _T("CHitMonitorWnd"), TRUE );
+	LoadState( L"CHitMonitorWnd", TRUE );
 
 	return 0;
 }
@@ -95,7 +95,7 @@ void CHitMonitorWnd::OnDestroy()
 	else
 		Settings.Search.MonitorSchemaURI.Empty();
 
-	SaveState( _T("CHitMonitorWnd") );
+	SaveState( L"CHitMonitorWnd" );
 
 	CBaseMatchWnd::OnDestroy();
 }
@@ -106,7 +106,7 @@ void CHitMonitorWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		ClientToScreen( &point );
 
 	if ( m_bContextMenu )
-		Skin.TrackPopupMenu( _T("CHitMonitorWnd"), point, ID_SEARCH_DOWNLOAD );
+		Skin.TrackPopupMenu( L"CHitMonitorWnd", point, ID_SEARCH_DOWNLOAD );
 	else
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
 }
@@ -136,8 +136,8 @@ void CHitMonitorWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CBaseMatchWnd::OnSkinChange();
-	Skin.Translate( _T("CMatchCtrl"), &m_wndList.m_wndHeader );
-	Skin.CreateToolBar( _T("CHitMonitorWnd"), &m_wndToolBar );
+	Skin.Translate( L"CMatchCtrl", &m_wndList.m_wndHeader );
+	Skin.CreateToolBar( L"CHitMonitorWnd", &m_wndToolBar );
 }
 
 BOOL CHitMonitorWnd::OnQueryHits(const CQueryHit* pHits)

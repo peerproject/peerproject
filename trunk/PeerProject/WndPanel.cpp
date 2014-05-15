@@ -1,7 +1,7 @@
 //
 // WndPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,7 +95,7 @@ void CPanelWnd::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp
 {
 	if ( m_bPanelMode && m_pSkin == NULL )
 	{
-		if ( Images.m_bmPanelMark.m_hObject)
+		if ( Images.m_bmPanelMark.m_hObject )
 		{
 			NCCALCSIZE_PARAMS* pSize = (NCCALCSIZE_PARAMS*)lpncsp;
 			BITMAP info = { 0, 0, CAPTION_HEIGHT };
@@ -113,7 +113,7 @@ LRESULT CPanelWnd::OnNcHitTest(CPoint point)
 	if ( m_bPanelMode && ! m_pSkin )
 	{
 		BITMAP info = { 0, 0, CAPTION_HEIGHT };
-		if ( Images.m_bmPanelMark.m_hObject) Images.m_bmPanelMark.GetBitmap( &info );
+		if ( Images.m_bmPanelMark.m_hObject ) Images.m_bmPanelMark.GetBitmap( &info );
 
 		CRect rc;
 		GetWindowRect( &rc );
@@ -185,7 +185,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	CRect rc, rcWnd;
 
 	BITMAP info = { 0, 0, CAPTION_HEIGHT };
-	if ( Images.m_bmPanelMark.m_hObject) Images.m_bmPanelMark.GetBitmap( &info );
+	if ( Images.m_bmPanelMark.m_hObject ) Images.m_bmPanelMark.GetBitmap( &info );
 
 	GetWindowRect( &rcWnd );
 	rc.SetRect( 0, 0, rcWnd.Width(), info.bmHeight );
@@ -222,7 +222,7 @@ void CPanelWnd::PaintCaption(CDC& dc)
 	if ( m_bPanelClose )
 	{
 		pBuffer->SelectObject( &theApp.m_gdiFont );
-		CString strText	= _T("Close");
+		CString strText	= L"Close";
 		CSize szText = pBuffer->GetTextExtent( strText );
 
 		m_rcClose.SetRect( rc.right - szText.cx - 8, rc.top, rc.right, rc.bottom );

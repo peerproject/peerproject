@@ -1,7 +1,7 @@
 //
 // SchemaCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -61,7 +61,7 @@ int CSchemaCache::Load()
 	Clear();
 
 	CString strPath;
-	strPath.Format( _T("%s\\Schemas\\*.xsd"), (LPCTSTR)Settings.General.Path );
+	strPath.Format( L"%s\\Schemas\\*.xsd", (LPCTSTR)Settings.General.Path );
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
@@ -74,7 +74,7 @@ int CSchemaCache::Load()
 #ifdef _DEBUG
 		__int64 nStart = GetMicroCount();
 #endif
-		strPath.Format( _T("%s\\Schemas\\%s"), (LPCTSTR)Settings.General.Path, pFind.cFileName );
+		strPath.Format( L"%s\\Schemas\\%s", (LPCTSTR)Settings.General.Path, pFind.cFileName );
 
 		CSchema* pSchema = new CSchema();
 		if ( pSchema && pSchema->Load( strPath ) )
@@ -108,8 +108,8 @@ int CSchemaCache::Load()
 
 #ifdef _DEBUG
 		__int64 nEnd = GetMicroCount();
-		TRACE( _T("Schema \"%s\" load time : %I64i ms : %s\n"), strPath,
-			( nEnd - nStart ) / 1000, pSchema ? _T("SUCCESS") : _T("FAILED") );
+		TRACE( L"Schema \"%s\" load time : %I64i ms : %s\n", strPath,
+			( nEnd - nStart ) / 1000, pSchema ? L"SUCCESS" : L"FAILED" );
 #endif
 	}
 	while ( FindNextFile( hSearch, &pFind ) );
@@ -118,7 +118,7 @@ int CSchemaCache::Load()
 
 #ifdef _DEBUG
 	__int64 nEndTotal = GetMicroCount();
-	TRACE( _T("Schemas load time : %I64i ms. Found %d types.\n"),
+	TRACE( L"Schemas load time : %I64i ms. Found %d types.\n",
 		( nEndTotal - nStartTotal ) / 1000, m_pTypeFilters.GetCount() );
 #endif
 
@@ -207,17 +207,17 @@ CString CSchemaCache::GetFilter(LPCTSTR pszURI) const
 				if ( bResult )
 				{
 					if ( strTypes.IsEmpty() )
-						strTypes += _T("|*.") + strType;
+						strTypes += L"|*." + strType;
 					else
-						strTypes += _T(";*.") + strType;
+						strTypes += L";*." + strType;
 				}
 			}
 		}
 
 		if ( strTypes.IsEmpty() )
-			return pSchema->m_sHeaderTitle + _T("|*.*|");
+			return pSchema->m_sHeaderTitle + L"|*.*|";
 
-		return pSchema->m_sHeaderTitle + strTypes + _T("|");
+		return pSchema->m_sHeaderTitle + strTypes + L"|";
 	}
 
 	return CString();

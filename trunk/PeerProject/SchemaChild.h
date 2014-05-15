@@ -32,16 +32,14 @@ public:
 
 public:
 	CSchemaPtr	m_pSchema;
-	int			m_nType;
 	CString		m_sURI;
-public:
+	int			m_nType;
+
 	CList< CSchemaChildMap* >	m_pMap;
 
-public:
 	BOOL		Load(CXMLElement* pXML);
 	void		Clear();
 	BOOL		MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote = FALSE, BOOL bAggressive = FALSE);
-
 };
 
 
@@ -56,6 +54,5 @@ public:
 	CString		m_sLocal;
 	CString		m_sRemote;
 
-public:
 	BOOL		Load(CXMLElement* pXML);
 };

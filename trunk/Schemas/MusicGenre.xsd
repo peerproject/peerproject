@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.shareaza.com/schemas/musicGenre.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/MusicGenre.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="musicGenres">
 		<complexType>
@@ -20,6 +19,7 @@
 					<enumeration value="AlternRock"/>
 					<enumeration value="Ambient"/>
 					<enumeration value="Avantgarde"/>
+					<enumeration value="Audiobook"/>
 					<enumeration value="Ballad"/>
 					<enumeration value="Bass"/>
 					<enumeration value="Bebop"/>
@@ -46,6 +46,7 @@
 					<enumeration value="Disco"/>
 					<enumeration value="Dream"/>
 					<enumeration value="Drum Solo"/>
+					<enumeration value="Dub Step"/>
 					<enumeration value="Duet"/>
 					<enumeration value="Easy Listening"/>
 					<enumeration value="Electronic"/>
@@ -126,6 +127,7 @@
 					<enumeration value="Southern Rock"/>
 					<enumeration value="Space"/>
 					<enumeration value="Speech"/>
+					<enumeration value="Spoken Word"/>
 					<enumeration value="Swing"/>
 					<enumeration value="Symphonic Rock"/>
 					<enumeration value="Symphony"/>

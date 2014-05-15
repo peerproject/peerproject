@@ -69,7 +69,7 @@ BOOL CDownloadWithExtras::PreviewFile(DWORD nIndex, CSingleLock* /*pLock*/)
 
 BOOL CDownloadWithExtras::GotPreview() const
 {
-	return ( GetFileAttributes( SafePath( m_sPath + _T(".png") ) ) != INVALID_FILE_ATTRIBUTES );
+	return ( GetFileAttributes( SafePath( m_sPath + L".png" ) ) != INVALID_FILE_ATTRIBUTES );
 }
 
 BOOL CDownloadWithExtras::IsPreviewVisible() const
@@ -113,21 +113,21 @@ BOOL CDownloadWithExtras::AddReview(IN_ADDR* pIP, int nClientID, int nRating, LP
 	// If we have too may reviews, then exit
 	if ( m_nReviewCount > Settings.Downloads.MaxReviews )
 	{
-		theApp.Message( MSG_DEBUG, _T("Maximum number of reviews reached") );
+		theApp.Message( MSG_DEBUG, L"Maximum number of reviews reached" );
 		return FALSE;
 	}
 
 	// If we already have a review from this IP, then exit
 	if ( FindReview( pIP ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Ignoring multiple reviews from %s"), inet_ntoa( *pIP ) );
+		theApp.Message( MSG_DEBUG, L"Ignoring multiple reviews from %s", inet_ntoa( *pIP ) );
 		return FALSE;
 	}
 
 	// If we already have a review from this user name with the same data, then exit
 	if ( FindReview( nRating, pszUserName, pszComment ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Ignoring duplicate review from %s"), inet_ntoa( *pIP ) );
+		theApp.Message( MSG_DEBUG, L"Ignoring duplicate review from %s", inet_ntoa( *pIP ) );
 		return FALSE;
 	}
 
@@ -156,7 +156,7 @@ BOOL CDownloadWithExtras::AddReview(CDownloadReview* pReview)
 	// If we have too may reviews, then exit
 	if ( m_nReviewCount > Settings.Downloads.MaxReviews )
 	{
-		theApp.Message( MSG_DEBUG, _T("Maximum number of reviews reached") );
+		theApp.Message( MSG_DEBUG, L"Maximum number of reviews reached" );
 		delete pReview;
 		return FALSE;
 	}

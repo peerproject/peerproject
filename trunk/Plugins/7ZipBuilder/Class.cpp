@@ -181,7 +181,7 @@ STDMETHODIMP C7ZipBuilder::Process(
 	pISXMLRootAttributes->Add(CComBSTR("xmlns:xsi"),
 		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
 	pISXMLRootAttributes->Add(CComBSTR("xsi:noNamespaceSchemaLocation"),
-		CComBSTR("http://www.shareaza.com/schemas/archive.xsd"));
+		CComBSTR("http://schemas.peerproject.org/Archive.xsd"));
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
@@ -247,7 +247,7 @@ STDMETHODIMP C7ZipBuilder::Process(
 			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
 		CString strName( propPath.bstrVal );
-		int nBackSlashPos = strName.ReverseFind( _T('\\') );
+		int nBackSlashPos = strName.ReverseFind( L'\\' );
 		if ( nBackSlashPos >= 0 )
 			strName = strName.Mid( nBackSlashPos + 1 );
 
@@ -262,7 +262,7 @@ STDMETHODIMP C7ZipBuilder::Process(
 			if ( strFolders.GetLength() + strName.GetLength() <= MAX_SIZE_FOLDERS - 5 )
 			{
 				if ( strFolders.GetLength() )
-					strFolders += _T(", ");
+					strFolders += L", ";
 				strFolders += strName;
 			}
 			else
@@ -275,7 +275,7 @@ STDMETHODIMP C7ZipBuilder::Process(
 			if ( strFiles.GetLength() + strName.GetLength() <= MAX_SIZE_FILES - 5 )
 			{
 				if ( strFiles.GetLength() )
-					strFiles += _T(", ");
+					strFiles += L", ";
 				strFiles += strName;
 			}
 			else
@@ -296,14 +296,14 @@ STDMETHODIMP C7ZipBuilder::Process(
 	if ( ! strFiles.IsEmpty() )
 	{
 		if ( bMoreFiles )
-			strFiles += _T(", ...");
+			strFiles += L", ...";
 		pISXMLAttributes->Add( CComBSTR( "files" ), CComBSTR( strFiles ) );
 	}
 
 	if ( ! strFolders.IsEmpty() )
 	{
 		if ( bMoreFolders )
-			strFolders += _T(", ...");
+			strFolders += L", ...";
 		pISXMLAttributes->Add( CComBSTR( "folders" ), CComBSTR( strFolders ) );
 	}
 
@@ -316,20 +316,20 @@ STDMETHODIMP C7ZipBuilder::Process(
 	if ( nUnpackedSize )
 	{
 		CString strUnpackedSize;
-		strUnpackedSize.Format( _T("%I64u"), nUnpackedSize );
+		strUnpackedSize.Format( L"%I64u", nUnpackedSize );
 		pISXMLAttributes->Add( CComBSTR( "unpackedsize" ), CComBSTR( strUnpackedSize ) );
 	}
 
 	if ( nFileCount > 0 )
 	{
 		CString strFileCount;
-		strFileCount.Format( _T("%i"), nFileCount );
+		strFileCount.Format( L"%i", nFileCount );
 		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
 	}
 	else
 	{
 		CString strFileCount;
-		strFileCount.Format( _T("%I32u"), numItems );
+		strFileCount.Format( L"%I32u", numItems );
 		pISXMLAttributes->Add( CComBSTR( "filecount" ), CComBSTR( strFileCount ) );
 	}
 

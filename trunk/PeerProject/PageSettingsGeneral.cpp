@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -121,10 +121,10 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	m_wndTips.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
-	m_wndTips.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rc.right, 0 );
+	m_wndTips.InsertColumn( 0, L"Name", LVCFMT_LEFT, rc.right, 0 );
 	m_wndTips.SetExtendedStyle( LVS_EX_CHECKBOXES|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
-	CString strTitle( _T("Search Results") );
+	CString strTitle( L"Search Results" );
 
 	if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
@@ -187,7 +187,7 @@ void CGeneralSettingsPage::OnOK()
 	if ( m_bAdultFilter && ! Settings.Search.AdultFilter && ! Settings.Live.AdultWarning )
 	{
 		Settings.Live.AdultWarning = true;
-		CHelpDlg::Show( _T("GeneralHelp.AdultFilter") );
+		CHelpDlg::Show( L"GeneralHelp.AdultFilter" );
 	}
 
 	Settings.SetStartup( m_bStartup );

@@ -86,8 +86,8 @@ BEGIN_MESSAGE_MAP(CBaseMatchWnd, CPanelWnd)
 	ON_UPDATE_COMMAND_UI(ID_SEARCH_FILTER_REMOVE, OnUpdateSearchFilterRemove)
 	ON_COMMAND(ID_SEARCH_FILTER_REMOVE, OnSearchFilterRemove)
 	ON_COMMAND(ID_SEARCH_COLUMNS, OnSearchColumns)
-	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINT_WEB, OnUpdateLibraryBitprintWeb)
-	ON_COMMAND(ID_LIBRARY_BITPRINT_WEB, OnLibraryBitprintWeb)
+	ON_UPDATE_COMMAND_UI(ID_LIBRARY_BITPRINTS_WEB, OnUpdateLibraryBitprintsWeb)
+	ON_COMMAND(ID_LIBRARY_BITPRINTS_WEB, OnLibraryBitprintsWeb)
 	ON_UPDATE_COMMAND_UI(ID_SECURITY_BAN, OnUpdateSecurityBan)
 	ON_COMMAND(ID_SECURITY_BAN, OnSecurityBan)
 	ON_UPDATE_COMMAND_UI(ID_HITMONITOR_SEARCH, OnUpdateHitMonitorSearch)
@@ -168,7 +168,7 @@ int CBaseMatchWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 	m_wndToolBar.ModifyStyleEx( 0, WS_EX_CONTROLPARENT );
 
-	if ( ! m_wndFilter.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|ES_AUTOHSCROLL, rectDefault, &m_wndToolBar, IDC_FILTER_BOX, _T("Search"), _T("Filter.%.2i") ) ) return -1;
+	if ( ! m_wndFilter.Create( WS_CHILD|WS_TABSTOP|WS_VISIBLE|ES_AUTOHSCROLL, rectDefault, &m_wndToolBar, IDC_FILTER_BOX, L"Search", L"Filter.%.2i" ) ) return -1;
 	//m_wndFilter.SetFont( &CoolInterface.m_fntNormal );
 
 	SetTimer( 2, 500, NULL );
@@ -218,11 +218,11 @@ void CBaseMatchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		pMenu->AppendMenu( MF_SEPARATOR, ID_SEPARATOR, (LPCTSTR)NULL );
 		CString strText;
 		LoadString( strText, IDS_SCHEMAS );
-		pMenu->AppendMenu( MF_STRING, ID_SEARCH_COLUMNS, strText + _T("...") );
+		pMenu->AppendMenu( MF_STRING, ID_SEARCH_COLUMNS, strText + L"..." );
 
 		m_pCoolMenu = new CCoolMenu();
 		m_pCoolMenu->AddMenu( pMenu, TRUE );
-		m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+		m_pCoolMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 
 		UINT nCmd = pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|
 			TPM_RETURNCMD, point.x, point.y, this );
@@ -517,9 +517,9 @@ void CBaseMatchWnd::OnBrowseLaunch()
 	}
 }
 
-void CBaseMatchWnd::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
+void CBaseMatchWnd::OnUpdateLibraryBitprintsWeb(CCmdUI* pCmdUI)
 {
-	if ( m_pMatches->GetSelectedCount() != 1 || Settings.WebServices.BitprintWebView.IsEmpty() )
+	if ( m_pMatches->GetSelectedCount() != 1 || Settings.WebServices.BitprintsWebView.IsEmpty() )
 		pCmdUI->Enable( FALSE );
 	else if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
 		pCmdUI->Enable( TRUE );
@@ -527,12 +527,12 @@ void CBaseMatchWnd::OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI)
 		pCmdUI->Enable( TRUE );
 }
 
-void CBaseMatchWnd::OnLibraryBitprintWeb()
+void CBaseMatchWnd::OnLibraryBitprintsWeb()
 {
-	if ( ! Settings.WebServices.BitprintOkay )
+	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINT_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
-		Settings.WebServices.BitprintOkay = true;
+		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
 	}
 
@@ -548,18 +548,18 @@ void CBaseMatchWnd::OnLibraryBitprintWeb()
 		if ( pFile->m_oTiger )
 		{
 			if ( ! strURN.IsEmpty() )
-				strURN	+= _T(".");
+				strURN	+= L".";
 			else
-				strURN	= _T("tree:tiger:");
+				strURN	= L"tree:tiger:";
 
 			strURN += pFile->m_oTiger.toString();
 		}
 
 		if ( pFile->m_oED2K && strURN.IsEmpty() )
-			strURN = _T("ed2k:") + pFile->m_oED2K.toString();
+			strURN = L"ed2k:" + pFile->m_oED2K.toString();
 
 		if ( pFile->m_oMD5 && strURN.IsEmpty() )
-			strURN = _T("md5:") + pFile->m_oMD5.toString();
+			strURN = L"md5:" + pFile->m_oMD5.toString();
 	}
 	else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
 	{
@@ -569,25 +569,25 @@ void CBaseMatchWnd::OnLibraryBitprintWeb()
 		if ( pHit->m_oTiger )
 		{
 			if ( ! strURN.IsEmpty() )
-				strURN	+= _T(".");
+				strURN	+= L".";
 			else
-				strURN	= _T("tree:tiger:");
+				strURN	= L"tree:tiger:";
 
 			strURN += pHit->m_oTiger.toString();
 		}
 
 		if ( pHit->m_oED2K && strURN.IsEmpty() )
-			strURN = _T("ed2k:") + pHit->m_oED2K.toString();
+			strURN = L"ed2k:" + pHit->m_oED2K.toString();
 
 		if ( pHit->m_oMD5 && strURN.IsEmpty() )
-			strURN = _T("md5:") + pHit->m_oMD5.toString();
+			strURN = L"md5:" + pHit->m_oMD5.toString();
 	}
 
 	if ( strURN.IsEmpty() ) return;
 
-	CString strURL = Settings.WebServices.BitprintWebView;
-	strURL.Replace( _T("(URN)"), strURN );
-	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+	CString strURL = Settings.WebServices.BitprintsWebView;
+	strURL.Replace( L"(URN)", strURN );
+	ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 }
 
 // Defunct Jigle.com P2P Search Code. ToDo: Re-apply
@@ -621,8 +621,8 @@ void CBaseMatchWnd::OnLibraryBitprintWeb()
 //	if ( strED2K.IsEmpty() ) return;
 //
 //	CString strURL;
-//	strURL.Format( _T("http://jigle.com/search?p=ed2k%%3A%s&v=1"), (LPCTSTR)strED2K );
-//	ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+//	strURL.Format( L"http://jigle.com/search?p=ed2k%%3A%s&v=1", (LPCTSTR)strED2K );
+//	ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 //}
 
 void CBaseMatchWnd::OnUpdateSearchForThis(CCmdUI* pCmdUI)
@@ -725,17 +725,17 @@ void CBaseMatchWnd::OnUpdateSearchFilter(CCmdUI* pCmdUI)
 	//	{
 	//		CString strFilter =	m_pMatches->m_sFilter.Left( nAmp ) + '&' +
 	//							m_pMatches->m_sFilter.Mid( nAmp );
-	//		pCmdUI->SetText( _T("&Filtered by \"") + strFilter + _T("\"...") );
+	//		pCmdUI->SetText( L"&Filtered by \"" + strFilter + L"\"..." );
 	//	}
 	//	else
 	//	{
-	//		pCmdUI->SetText( _T("&Filtered by \"") + m_pMatches->m_sFilter + _T("\"...") );
+	//		pCmdUI->SetText( L"&Filtered by \"" + m_pMatches->m_sFilter + L"\"..." );
 	//	}
 		pCmdUI->SetCheck( TRUE );
 	}
 	else
 	{
-	//	pCmdUI->SetText( _T("&Filter Results...") );
+	//	pCmdUI->SetText( L"&Filter Results..." );
 		pCmdUI->SetCheck( FALSE );
 	}
 }

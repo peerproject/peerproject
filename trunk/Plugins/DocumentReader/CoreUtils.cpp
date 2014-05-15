@@ -4,7 +4,7 @@
 //	Created by:	Rolandas Rudomanskis
 //	Updated by:	thetruecamper
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -22,7 +22,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 
 ////////////////////////////////////////////////////////////////////
 // Core PropertySet Functions
@@ -163,7 +163,7 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 		return E_POINTER;
 
 	// Initialize PROPVARIANT...
-	PropVariantInit(&vtProperty);
+	PropVariantInit( &vtProperty );
 
 	// Make the call to read the property from the set...
 	SEH_TRY
@@ -203,12 +203,12 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 
 		case VT_LPSTR:
 			pvtResult->vt = VT_BSTR;
-			pvtResult->bstrVal = ConvertToBSTR( vtProperty.pszVal, wCodePage );
+			pvtResult->bstrVal = ConvertAToBSTR( vtProperty.pszVal, wCodePage );
 			break;
 
 		case VT_FILETIME:
 			// Check fo special case of edit time...
-			if ( ( spc.ulKind == PRSPEC_PROPID ) && ( spc.propid == PIDSI_EDITTIME ) )
+			if ( spc.ulKind == PRSPEC_PROPID && spc.propid == PIDSI_EDITTIME )
 			{
 				unsigned __int64 ns, secs;
 				// FIX -- 9/27/99 Assign to unsigned __int64 first, then shift...
@@ -229,11 +229,11 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 
 				if ( !( ( pft->dwLowDateTime == 0 ) && ( pft->dwHighDateTime == 0 ) ) )
 				{
-					if ( FileTimeToLocalFileTime(pft, &lft) )
+					if ( FileTimeToLocalFileTime( pft, &lft ) )
 						pft = &lft;
 
-					if ( FileTimeToSystemTime(pft, &lst) &&
-						SystemTimeToVariantTime(&lst, &dtDate) )
+					if ( FileTimeToSystemTime( pft, &lst ) &&
+						 SystemTimeToVariantTime( &lst, &dtDate ) )
 					{
 						pvtResult->vt = VT_DATE;
 						pvtResult->date = dtDate;
@@ -255,11 +255,11 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 			break;
 
 		case VT_CF:
-			ConvertBinaryToVarVector(&vtProperty, pvtResult);
+			ConvertBinaryToVarVector( &vtProperty, pvtResult );
 			break;
 
 		case VT_BLOB:
-			ConvertBinaryToVarVector(&vtProperty, pvtResult);
+			ConvertBinaryToVarVector( &vtProperty, pvtResult );
 			break;
 
 		default:
@@ -269,7 +269,7 @@ STDAPI ReadProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, VA
 	}
 
 	// Clear PropVariant and return...
-	PropVariantClear(&vtProperty);
+	PropVariantClear( &vtProperty );
 	return hr;
 }
 
@@ -316,7 +316,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 		if ( fUseANSI ) // When using ANSI propset, convert to local code page...
 		{
 			vtProperty.vt = VT_LPSTR;
-			vtProperty.pszVal = ConvertToMBCS(pvtValue->bstrVal, wCodePage);
+			vtProperty.pszVal = ConvertToMBCS( pvtValue->bstrVal, wCodePage );
 		}
 		else // Otherwise we save the (Unicode) BSTR...
 		{
@@ -324,7 +324,7 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 			// Win2K SP2 introduced bug with VT_BSTR types and does not show them
 			// correctly in the UI. We just copy string before handing to OLE.
 			vtProperty.vt = VT_LPWSTR;
-			vtProperty.pwszVal = ConvertToCoTaskMemStr(pvtValue->bstrVal);
+			vtProperty.pwszVal = ConvertToCoTaskMemStr( pvtValue->bstrVal );
 		}
 		break;
 
@@ -334,10 +334,10 @@ STDAPI WriteProperty(IPropertyStorage* pPropStg, PROPSPEC spc, WORD wCodePage, V
 			FILETIME lft;
 			SYSTEMTIME lst;
 			if ( ( 0 != pvtValue->date ) &&
-				( VariantTimeToSystemTime(pvtValue->date, &lst) ) &&
-				( SystemTimeToFileTime(&lst, &lft) ) )
+				( VariantTimeToSystemTime( pvtValue->date, &lst ) ) &&
+				( SystemTimeToFileTime( &lst, &lft ) ) )
 			{
-				if ( ! LocalFileTimeToFileTime(&lft, &utc) )
+				if ( ! LocalFileTimeToFileTime( &lft, &utc ) )
 					utc = lft;
 			}
 			vtProperty.vt = VT_FILETIME;
@@ -461,14 +461,14 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 
 				// Read in the property based on the PROPID...
 				hr = ReadProperty(pPropStg, spc, wCodePage, &vtItem);
-				if (SUCCEEDED(hr))
+				if ( SUCCEEDED(hr) )
 				{
 					// If we got the data, make the property object to hold it
 					// and append last item to link the list
-					bstrName = ((sps.lpwstrName) ? SysAllocString(sps.lpwstrName) : NULL);
+					bstrName = ( (sps.lpwstrName) ? SysAllocString(sps.lpwstrName) : NULL );
 					pLastItem = pList;
 
-					pList = CDocProperty::CreateObject(bstrName, spc.propid, &vtItem, FALSE, pLastItem);
+					pList = CDocProperty::CreateObject( bstrName, spc.propid, &vtItem, FALSE, pLastItem );
 					if ( pList == NULL )
 					{
 						hr = E_OUTOFMEMORY;
@@ -477,13 +477,13 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 
 					if ( bstrName )
 						SysFreeString( bstrName );
-					VariantClear(&vtItem);
+					VariantClear( &vtItem );
 				}
 			}
 			// else we just skip it...
 
-			if (sps.lpwstrName)
-				CoTaskMemFree(sps.lpwstrName);
+			if ( sps.lpwstrName )
+				CoTaskMemFree( sps.lpwstrName );
 		}
 
 		if ( SUCCEEDED(hr) ) // If here, we loaded all items fine
@@ -493,7 +493,7 @@ STDAPI LoadPropertySetList(IPropertyStorage *pPropStg, WORD *pwCodePage, CDocPro
 		}
 		else // If not, try to clean up...
 		{
-			while (pList)
+			while ( pList )
 			{
 				pLastItem = pList->GetNextProperty();
 				pList->Disconnect(); pList = pLastItem;
@@ -603,8 +603,7 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 				// Break out if error occurred...
 				if ( FAILED(hr) ) break;
 
-				// Notify object that it was saved,
-				// and bump up the modified item count...
+				// Notify object that it was saved, and bump modified item count...
 				pitem->OnSaveComplete();
 				++cItemsChanged;
 			}
@@ -624,8 +623,8 @@ STDAPI SavePropertySetList(IPropertyStorage *pPropStg, WORD wCodePage, CDocPrope
 //
 STDAPI_(LPVOID) MemAlloc(DWORD cbSize)
 {
-	CHECK_NULL_RETURN(v_hPrivateHeap, NULL);
-	return HeapAlloc(v_hPrivateHeap, 0, cbSize);
+	CHECK_NULL_RETURN( v_hPrivateHeap, NULL );
+	return HeapAlloc( v_hPrivateHeap, 0, cbSize );
 }
 
 STDAPI_(void) MemFree(LPVOID ptr)
@@ -635,7 +634,7 @@ STDAPI_(void) MemFree(LPVOID ptr)
 }
 
 //void * _cdecl operator new(size_t size){ return MemAlloc(size);}
-//void  _cdecl operator delete(void *ptr){ MemFree(ptr); }
+//void   _cdecl operator delete(void *ptr){ MemFree(ptr); }
 
 ////////////////////////////////////////////////////////////////////////
 // String Manipulation Functions
@@ -651,16 +650,16 @@ STDAPI ConvertToUnicodeEx(LPCSTR pszMbcsString, DWORD cbMbcsLen, LPWSTR pwszUnic
 	if ( IsValidCodePage((UINT)wCodePage) )
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pwszUnicode, E_POINTER);
+	CHECK_NULL_RETURN( pwszUnicode, E_POINTER );
 	pwszUnicode[0] = L'\0';
 
-	CHECK_NULL_RETURN(pszMbcsString, E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen, E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen, E_INVALIDARG);
+	CHECK_NULL_RETURN( pszMbcsString, E_POINTER );
+	CHECK_NULL_RETURN( cbMbcsLen, E_INVALIDARG );
+	CHECK_NULL_RETURN( cbUniLen, E_INVALIDARG );
 
-	cbRet = MultiByteToWideChar(iCode, 0, pszMbcsString, cbMbcsLen, pwszUnicode, cbUniLen);
+	cbRet = MultiByteToWideChar( iCode, 0, pszMbcsString, cbMbcsLen, pwszUnicode, cbUniLen );
 	if ( cbRet == 0 )
-		return HRESULT_FROM_WIN32(GetLastError());
+		return HRESULT_FROM_WIN32( GetLastError() );
 
 	pwszUnicode[cbRet] = L'\0';
 	return S_OK;
@@ -674,19 +673,19 @@ STDAPI ConvertToMBCSEx(LPCWSTR pwszUnicodeString, DWORD cbUniLen, LPSTR pszMbcsS
 	DWORD cbRet;
 	UINT iCode = CP_ACP;
 
-	if ( IsValidCodePage((UINT)wCodePage) )
+	if ( IsValidCodePage( (UINT)wCodePage ) )
 		iCode = (UINT)wCodePage;
 
-	CHECK_NULL_RETURN(pszMbcsString, E_POINTER);
+	CHECK_NULL_RETURN( pszMbcsString, E_POINTER );
 	pszMbcsString[0] = L'\0';
 
-	CHECK_NULL_RETURN(pwszUnicodeString, E_POINTER);
-	CHECK_NULL_RETURN(cbMbcsLen, E_INVALIDARG);
-	CHECK_NULL_RETURN(cbUniLen, E_INVALIDARG);
+	CHECK_NULL_RETURN( pwszUnicodeString, E_POINTER );
+	CHECK_NULL_RETURN( cbMbcsLen, E_INVALIDARG );
+	CHECK_NULL_RETURN( cbUniLen, E_INVALIDARG );
 
-	cbRet = WideCharToMultiByte(iCode, 0, pwszUnicodeString, -1, pszMbcsString, cbMbcsLen, NULL, NULL);
+	cbRet = WideCharToMultiByte( iCode, 0, pwszUnicodeString, -1, pszMbcsString, cbMbcsLen, NULL, NULL );
 	if ( cbRet == 0 )
-		return HRESULT_FROM_WIN32(GetLastError());
+		return HRESULT_FROM_WIN32( GetLastError() );
 
 	pszMbcsString[cbRet] = '\0';
 	return S_OK;
@@ -700,13 +699,13 @@ STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString)
 	LPWSTR pwsz;
 	ULONG cbLen;
 
-	CHECK_NULL_RETURN(bstrString, NULL);
+	CHECK_NULL_RETURN( bstrString, NULL );
 
-	cbLen = SysStringLen(bstrString);
-	pwsz = (LPWSTR)CoTaskMemAlloc((cbLen * 2) + sizeof(WCHAR));
+	cbLen = SysStringLen( bstrString );
+	pwsz = (LPWSTR)CoTaskMemAlloc( (cbLen * 2) + sizeof(WCHAR) );
 	if ( pwsz )
 	{
-		memcpy(pwsz, bstrString, (cbLen * 2));
+		memcpy( pwsz, bstrString, (cbLen * 2) );
 		pwsz[cbLen] = L'\0'; // Make sure it is NULL terminated.
 	}
 
@@ -716,19 +715,19 @@ STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString)
 ////////////////////////////////////////////////////////////////////////
 // ConvertToMBCS -- NOTE: This returns CoTaskMemAlloc string
 //
-STDAPI_(LPSTR) ConvertToMBCS(LPCWSTR pwszUnicodeString, WORD wCodePage)
+STDAPI_(LPSTR) ConvertToMBCS(LPCWSTR pszString, WORD wCodePage)
 {
 	LPSTR psz = NULL;
 	UINT cblen, cbnew;
 
-	CHECK_NULL_RETURN( pwszUnicodeString, NULL );
+	CHECK_NULL_RETURN( pszString, NULL );
 
-	cblen = lstrlenW(pwszUnicodeString);
+	cblen = lstrlenW( pszString );
 	cbnew = ( (cblen + 1) * sizeof(WCHAR) );
 	psz = (LPSTR)CoTaskMemAlloc(cbnew);
-	if ( (psz) && FAILED( ConvertToMBCSEx( pwszUnicodeString, cblen, psz, cbnew, wCodePage ) ) )
+	if ( (psz) && FAILED( ConvertToMBCSEx( pszString, cblen, psz, cbnew, wCodePage ) ) )
 	{
-		CoTaskMemFree(psz);
+		CoTaskMemFree( psz );
 		psz = NULL;
 	}
 
@@ -738,23 +737,34 @@ STDAPI_(LPSTR) ConvertToMBCS(LPCWSTR pwszUnicodeString, WORD wCodePage)
 ////////////////////////////////////////////////////////////////////////
 // ConvertToBSTR
 //
-STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
+STDAPI_(BSTR) ConvertToBSTR(LPCWSTR pszString, WORD wCodePage)
+{
+	BSTR bstr = NULL;
+
+	CHECK_NULL_RETURN( pszString, NULL );
+
+	bstr = SysAllocString( pszString );
+
+	return bstr;
+}
+
+STDAPI_(BSTR) ConvertAToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 {
 	BSTR bstr = NULL;
 	UINT cblen, cbnew;
 	LPWSTR pwsz;
 
-	CHECK_NULL_RETURN(pszAnsiString, NULL);
+	CHECK_NULL_RETURN( pszAnsiString, NULL );
 
-	cblen = lstrlen(pszAnsiString);
-	if ((cblen > 0) && (*pszAnsiString != '\0'))
+	cblen = lstrlenA(pszAnsiString);
+	if ( (cblen > 0) && ( *pszAnsiString != L'\0' ) )
 	{
-		cbnew = ((cblen + 1) * sizeof(WCHAR));
+		cbnew = ( (cblen + 1) * sizeof(WCHAR) );
 		pwsz = (LPWSTR)MemAlloc(cbnew);
-		if (pwsz)
+		if ( pwsz )
 		{
-			if (SUCCEEDED(ConvertToUnicodeEx(pszAnsiString, cblen, pwsz, cbnew, wCodePage)))
-				bstr = SysAllocString(pwsz);
+			if ( SUCCEEDED( ConvertToUnicodeEx( pszAnsiString, cblen, pwsz, cbnew, wCodePage ) ) )
+				bstr = SysAllocString( pwsz );
 
 			MemFree(pwsz);
 		}
@@ -766,9 +776,7 @@ STDAPI_(BSTR) ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage)
 ///////////////////////////////////////////////////////////////////////////////////
 // CompareStrings
 //
-//	Calls CompareString API using Unicode version, if available on OS. (Old OS are unsupported.)
-//	Otherwise, we have to thunk strings down to MBCS to compare. This is fairly inefficient for
-//	Win9x systems that don't handle Unicode, but hey...this is only a sample. 9
+//	Calls CompareString API using Unicode version.
 //
 STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 {
@@ -795,15 +803,15 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 			if ( pwsz1[iret] == pwsz2[iret] )
 				continue;
 
-			if ( ((pwsz1[iret] >= 'A') && (pwsz1[iret] <= 'Z')) &&
-				((pwsz1[iret] + ('a' - 'A')) == pwsz2[iret]) )
+			if ( ( (pwsz1[iret] >= 'A') && (pwsz1[iret] <= 'Z') ) &&
+				 ( (pwsz1[iret] + ('a' - 'A')) == pwsz2[iret] ) )
 				continue;
 
-			if ( ((pwsz2[iret] >= 'A') && (pwsz2[iret] <= 'Z')) &&
-				((pwsz2[iret] + ('a' - 'A')) == pwsz1[iret]) )
+			if ( ( (pwsz2[iret] >= 'A') && (pwsz2[iret] <= 'Z') ) &&
+				 ( (pwsz2[iret] + ('a' - 'A')) == pwsz1[iret] ) )
 				continue;
 
-			break; // Don't continue if we can't quickly match...
+			break;	// Don't continue if we can't quickly match...
 		}
 
 		// If we made it all the way, then they are equal...
@@ -811,20 +819,7 @@ STDAPI_(UINT) CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2)
 			return CSTR_EQUAL;
 	}
 
-	// Now ask the OS to check the strings and give us its read.
-	// (Prefer checking in Unicode, it is faster and the may be
-	// strings that can't be thunked down to the local ANSI code page)
-
-	//if ( v_fRunningOnNT )
-		iret = CompareStringW(lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2);
-	//else  // Win9x, doesn't have much choice (thunk the call)...
-	//{
-	//	LPSTR psz1 = ConvertToMBCS(pwsz1, CP_ACP);
-	//	LPSTR psz2 = ConvertToMBCS(pwsz2, CP_ACP);
-	//	iret = CompareStringA(lcid, NORM_IGNORECASE, psz1, -1, psz2, -1);
-	//	CoTaskMemFree(psz2);
-	//	CoTaskMemFree(psz1);
-	//}
+	iret = CompareStringW( lcid, NORM_IGNORECASE | NORM_IGNOREWIDTH, pwsz1, cblen1, pwsz2, cblen2 );
 
 	return iret;
 }
@@ -839,30 +834,14 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 {
 	DWORD dwRet = 0;
 
-	//if ( v_fRunningOnNT )  // Windows NT/2000/XP
-	//{
-		LPWSTR lpwszFilePart = NULL;
-		SEH_TRY
-		dwRet = SearchPathW( NULL, pwszFile, NULL, MAX_PATH, pwszPath, &lpwszFilePart );
-		SEH_EXCEPT_NULL
-		if ( ( 0 == dwRet || dwRet > MAX_PATH ) )
-			return FALSE;
-		if ( pcPathIdx )
-			*pcPathIdx = (ULONG)( ( (ULONG_PTR)lpwszFilePart - (ULONG_PTR)pwszPath ) / 2 );
-	//}
-	//else	// Win98
-	//{
-	//	CHAR szBuffer[MAX_PATH] = {};
-	//	LPSTR lpszFilePart = NULL;
-	//	LPSTR szFile = ConvertToMBCS(pwszFile, CP_ACP);
-	//	CHECK_NULL_RETURN(szFile, E_OUTOFMEMORY);
-	//	szBuffer[0] = '\0';
-	//	dwRet = SearchPathA( NULL, szFile, NULL, MAX_PATH, szBuffer, &lpszFilePart );
-	//	if ( ( 0 == dwRet || dwRet > MAX_PATH ) ) return FALSE;
-	//	if ( pcPathIdx ) *pcPathIdx = (ULONG)( (ULONG_PTR)lpszFilePart - (ULONG_PTR)&szBuffer );
-	//	if ( FAILED(ConvertToUnicodeEx( szBuffer, lstrlen(szBuffer), pwszPath, MAX_PATH, (WORD)GetACP() )) )
-	//		return FALSE;
-	//}
+	LPWSTR lpwszFilePart = NULL;
+	SEH_TRY
+	dwRet = SearchPathW( NULL, pwszFile, NULL, MAX_PATH, pwszPath, &lpwszFilePart );
+	SEH_EXCEPT_NULL
+	if ( ( 0 == dwRet || dwRet > MAX_PATH ) )
+		return FALSE;
+	if ( pcPathIdx )
+		*pcPathIdx = (ULONG)( ( (ULONG_PTR)lpwszFilePart - (ULONG_PTR)pwszPath ) / 2 );
 
 	return TRUE;
 }
@@ -872,41 +851,17 @@ STDAPI_(BOOL) FFindQualifiedFileName(LPCWSTR pwszFile, LPWSTR pwszPath, ULONG *p
 //
 STDAPI_(BOOL) FGetModuleFileName(HMODULE hModule, WCHAR** wzFileName)
 {
-	CHECK_NULL_RETURN(wzFileName, FALSE);
+	CHECK_NULL_RETURN( wzFileName, FALSE );
 	*wzFileName = NULL;
 
 	LPWSTR pwsz = (LPWSTR)MemAlloc( MAX_PATH * 2 );
-	CHECK_NULL_RETURN(pwsz, FALSE);
+	CHECK_NULL_RETURN( pwsz, FALSE );
 
-	// Call GetModuleFileNameW on Win NT/2000/XP/2003 systems...
-	//if (v_fRunningOnNT)
-	//{
-		if ( GetModuleFileNameW( hModule, pwsz, MAX_PATH ) == 0 )
-		{
-			MemFree(pwsz);
-			return FALSE;
-		}
-	//}
-	//else	// Win98, doesn't have much choice (thunk the call)...
-	//{
-	//	dw = GetModuleFileName( hModule, (LPTSTR)pwsz, MAX_PATH );
-	//	if (dw == 0)
-	//	{
-	//		MemFree(pwsz);
-	//		return FALSE;
-	//	}
-	//	LPWSTR pwsz2 = (LPWSTR)MemAlloc( MAX_PATH * 2 );
-	//	if ( pwsz2 == 0 )
-	//	{
-	//		MemFree(pwsz);
-	//		return FALSE;
-	//	}
-	//	if ( FAILED(ConvertToUnicodeEx( (LPSTR)pwsz, dw, pwsz2, MAX_PATH, CP_ACP )) )
-	//		MemFree(pwsz2); pwsz2 = NULL;
-	//
-	//	MemFree(pwsz);
-	//	pwsz = pwsz2;
-	//}
+	if ( GetModuleFileNameW( hModule, pwsz, MAX_PATH ) == 0 )
+	{
+		MemFree( pwsz );
+		return FALSE;
+	}
 
 	*wzFileName = pwsz;
 	return TRUE;
@@ -926,47 +881,27 @@ STDAPI_(BOOL) FGetIconForFile(LPCWSTR pwszFile, HICON *pico)
 	static PFN_ExtractAssociatedIconA s_pfnExtractAssociatedIconA = NULL;
 	static PFN_ExtractAssociatedIconW s_pfnExtractAssociatedIconW = NULL;
 
-	CHECK_NULL_RETURN(pico, FALSE); *pico = NULL;
+	CHECK_NULL_RETURN( pico, FALSE );
+	*pico = NULL;
 
 	if ( s_hShell32 == NULL )
 	{
-		s_hShell32 = GetModuleHandle(_T("shell32.dll"));
-		CHECK_NULL_RETURN(s_hShell32, FALSE);
+		s_hShell32 = GetModuleHandle(L"shell32.dll");
+		CHECK_NULL_RETURN( s_hShell32, FALSE );
 	}
 
-	memset(rgBuffer, 0, sizeof(rgBuffer));
+	memset( rgBuffer, 0, sizeof(rgBuffer) );
 
-	//if (v_fRunningOnNT)
-	//{
-		if ( s_pfnExtractAssociatedIconW == NULL )
-		{
-			s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress(s_hShell32, "ExtractAssociatedIconW");
-			CHECK_NULL_RETURN(s_pfnExtractAssociatedIconW, FALSE);
-		}
+	if ( s_pfnExtractAssociatedIconW == NULL )
+	{
+		s_pfnExtractAssociatedIconW = (PFN_ExtractAssociatedIconW)GetProcAddress( s_hShell32, "ExtractAssociatedIconW" );
+		CHECK_NULL_RETURN( s_pfnExtractAssociatedIconW, FALSE );
+	}
 
-		idx = (WORD)(lstrlenW(pwszFile) * 2);
-		memcpy((BYTE*)rgBuffer, (BYTE*)pwszFile, idx);
-		idx = 0;
-		*pico = s_pfnExtractAssociatedIconW(DllModuleHandle(), (LPWSTR)rgBuffer, &idx);
-	//}
-	//else	// Win98
-	//{
-	//	LPSTR psz;
-	//	if (s_pfnExtractAssociatedIconA == NULL)
-	//	{
-	//		s_pfnExtractAssociatedIconA = (PFN_ExtractAssociatedIconA)GetProcAddress(s_hShell32, "ExtractAssociatedIconA");
-	//		CHECK_NULL_RETURN(s_pfnExtractAssociatedIconA, FALSE);
-	//	}
-	//
-	//	psz = ConvertToMBCS(pwszFile, CP_ACP);
-	//	if (psz)
-	//	{
-	//		idx = (WORD)lstrlenA(psz);
-	//		memcpy((BYTE*)rgBuffer, (BYTE*)psz, idx); idx = 0;
-	//		*pico = s_pfnExtractAssociatedIconA(DllModuleHandle(), (LPSTR)rgBuffer, &idx);
-	//		CoTaskMemFree(psz);
-	//	}
-	//}
+	idx = (WORD)( lstrlenW( pwszFile ) * 2 );
+	memcpy( (BYTE*)rgBuffer, (BYTE*)pwszFile, idx );
+	idx = 0;
+	*pico = s_pfnExtractAssociatedIconW( DllModuleHandle(), (LPWSTR)rgBuffer, &idx );
 
 	return ( *pico != NULL );
 }

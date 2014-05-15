@@ -31,7 +31,7 @@ class CQueryKeys;
 class CQuerySearch;
 class CQueryHit;
 class CFirewall;
-class CUPnPFinder;
+class CUPnP;
 
 enum	// Used from CNetwork::IsFirewalled
 {
@@ -47,10 +47,8 @@ enum	// AsyncResolver command
 };
 
 
-class CNetwork : public CComObject, public CThreadImpl
+class CNetwork : public CThreadImpl
 {
-	DECLARE_DYNCREATE(CNetwork)
-
 public:
 	CNetwork();
 	~CNetwork();
@@ -59,7 +57,7 @@ public:
 	CAutoPtr< CRouteCache >	NodeRoute;
 	CAutoPtr< CRouteCache >	QueryRoute;
 	CAutoPtr< CQueryKeys >	QueryKeys;
-	CAutoPtr< CUPnPFinder >	UPnPFinder;			// Control Point UPnP
+	CAutoPtr< CUPnP >		UPnPFinder;
 	CAutoPtr< CFirewall >	Firewall;			// Windows Firewall
 
 	CMutexEx		m_pSection;
@@ -73,11 +71,8 @@ protected:
 	mutable CCriticalSection m_pHostAddressSection;
 	CStringA		m_sHostName;
 	CList< ULONG >	m_pHostAddresses;
-	DWORD			m_nSequence;
 
-	CComPtr< IUPnPNAT >			m_pNat;			// NAT UPnP
-	CComPtr< INATEventManager >	m_pNatManager;	// NAT Manager interface
-	IN_ADDR			m_nUPnPExternalAddress;		// UPnP current external address
+	DWORD			m_nUPnPTier;				// UPnP tier number (0..UPNP_MAX)
 	DWORD			m_tUPnPMap;					// Time of last UPnP port mapping
 
 	typedef struct
@@ -167,11 +162,6 @@ protected:
 	void		PostRun();
 	void		OnRun();
 
-	// Create port mapping
-	static BOOL MapPort(IStaticPortMappingCollection* pCollection, LPCWSTR szLocalIP, long nPort, LPCWSTR szProtocol, LPCWSTR szDescription);
-	void		MapPorts(); 	// Create TCP/UDP port mappings
-	void		DeletePorts();	// Remove TCP/UDP port mappings
-
 public:
 	BOOL		Init(); 		// Initialize network: Windows Sockets, Windows Firewall, UPnP NAT.
 	void		Clear();		// Shutdown network
@@ -190,8 +180,8 @@ public:
 	BOOL		Connect(BOOL bAutoConnect = FALSE);
 	BOOL		ConnectTo(LPCTSTR pszAddress, int nPort = 0, PROTOCOLID nProtocol = PROTOCOL_NULL, BOOL bNoUltraPeer = FALSE);
 	BOOL		AcquireLocalAddress(SOCKET hSocket);
-	BOOL		AcquireLocalAddress(LPCTSTR pszHeader);
-	BOOL		AcquireLocalAddress(const IN_ADDR& pAddress);
+	BOOL		AcquireLocalAddress(LPCTSTR pszHeader, WORD nPort = 0);
+	BOOL		AcquireLocalAddress(const IN_ADDR& pAddress, WORD nPort = 0);
 	static BOOL	Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNames = TRUE);
 	BOOL		AsyncResolve(LPCTSTR pszAddress, WORD nPort, PROTOCOLID nProtocol, BYTE nCommand);
 	UINT		GetResolveCount() const;				// Pending network name resolves queue size
@@ -210,6 +200,12 @@ public:
 	void		OnQueryHits(CQueryHit* pHits);			// Add query hit to queue
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);	// Handle push for downloads, chat, and browse
 
+	void 		OnMapSuccess();		// UPnP success (called by UPnP-services)
+	void 		OnMapFailed(); 		// UPnP error (called by UPnP-services)
+
+	void		MapPorts(); 		// Create TCP/UDP port mappings
+	void		DeletePorts();		// Remove TCP/UDP port mappings
+
 	// Safe ways to: accept/close socket, send/receive data
 	static SOCKET AcceptSocket(SOCKET hSocket, SOCKADDR_IN* addr, LPCONDITIONPROC lpfnCondition, DWORD_PTR dwCallbackData = 0);
 	static void	CloseSocket(SOCKET& hSocket, const bool bForce);
@@ -219,29 +215,7 @@ public:
 	static int	RecvFrom(SOCKET s, char* buf, int len, SOCKADDR_IN* pFrom);  // UDP
 	static HINTERNET SafeInternetOpen();	// Safe way to call InternetOpen
 	static HINTERNET InternetOpenUrl(HINTERNET hInternet, LPCWSTR lpszUrl, LPCWSTR lpszHeaders, DWORD dwHeadersLength, DWORD dwFlags);	// HTTP
-	static void Cleanup();	// Safe way to call WSACleanup
-
-	// Update TCP/UDP port mappings using UPnP
-	inline void UpdatePortMapping()
-	{
-		m_tUPnPMap = 0;
-	}
-
-	void OnNewExternalIPAddress(const IN_ADDR& pAddress);	// Got new external IP address (called by UPnP-services)
-	void OnMapSuccess();	// UPnP success (called by UPnP-services)
-	void OnMapFailed(); 	// UPnP error (called by UPnP-services)
-
-	// INATNumberOfEntriesCallback interface
-	BEGIN_INTERFACE_PART(NATNumberOfEntriesCallback, INATNumberOfEntriesCallback)
-		STDMETHOD(NewNumberOfEntries)(/*[in]*/ long lNewNumberOfEntries);
-	END_INTERFACE_PART(NATNumberOfEntriesCallback)
-
-	// INATExternalIPAddressCallback interface
-	BEGIN_INTERFACE_PART(NATExternalIPAddressCallback, INATExternalIPAddressCallback)
-		STDMETHOD(NewExternalIPAddress)(/*[in]*/ BSTR bstrNewExternalIPAddress);
-	END_INTERFACE_PART(NATExternalIPAddressCallback)
-
-	DECLARE_INTERFACE_MAP()
+	static void Cleanup();		// Safe way to call WSACleanup
 
 	friend class CHandshakes;
 	friend class CNeighbours;

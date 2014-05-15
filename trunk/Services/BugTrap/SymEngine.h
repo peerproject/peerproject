@@ -552,6 +552,8 @@ public:
 	BOOL GetFirstStackTraceEntry(CStackTraceEntry& rEntry, HANDLE hThread = NULL);
 	/// Get structured representation of lower call stack entry.
 	BOOL GetNextStackTraceEntry(CStackTraceEntry& rEntry);
+	/// Check the stack trace for a certain module
+	BOOL CheckStackTrace(HMODULE hModule);
 	/// Get string with CPU registers for the crash.
 	void GetRegistersString(PTSTR pszRegString, DWORD dwRegStringSize);
 	/// Get crash location and error reason.

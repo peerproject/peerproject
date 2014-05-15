@@ -48,8 +48,8 @@ bool CWebHook::IsEnabled() const
 {
 	DWORD dwWebHookEnable = FALSE;
 	DWORD dwLength = sizeof( dwWebHookEnable );
-	SHRegGetUSValue( _T("Software\\PeerProject\\PeerProject\\Downloads"),
-		_T("WebHookEnable"), NULL, &dwWebHookEnable,
+	SHRegGetUSValue( L"Software\\PeerProject\\PeerProject\\Downloads",
+		L"WebHookEnable", NULL, &dwWebHookEnable,
 		&dwLength, FALSE, &dwWebHookEnable, sizeof( dwWebHookEnable ) );
 	return ( dwWebHookEnable != FALSE );
 }
@@ -58,12 +58,12 @@ bool CWebHook::IsHooked(const CString& sExt) const
 {
 	CString sWebHookExtensions;
 	DWORD dwLength = 1024;
-	SHRegGetUSValue( _T("Software\\PeerProject\\PeerProject\\Downloads"),
-		_T("WebHookExtensions"), NULL, sWebHookExtensions.GetBuffer( dwLength ),
-		&dwLength, FALSE, _T(""), sizeof( TCHAR ) );
+	SHRegGetUSValue( L"Software\\PeerProject\\PeerProject\\Downloads",
+		L"WebHookExtensions", NULL, sWebHookExtensions.GetBuffer( dwLength ),
+		&dwLength, FALSE, L"", sizeof( TCHAR ) );
 	sWebHookExtensions.ReleaseBuffer();
 	sWebHookExtensions.MakeLower();
-	return ( sWebHookExtensions.Find( CString( _T("|") ) + sExt + _T("|") ) != -1 );
+	return ( sWebHookExtensions.Find( CString( L"|" ) + sExt + L"|" ) != -1 );
 }
 
 void CWebHook::Connect()
@@ -99,7 +99,7 @@ void CWebHook::Disconnect()
 
 void CWebHook::AddLink(const CString& sURL)
 {
-	ShellExecute( NULL, NULL, CString( _T("peerproject://url:") ) + sURL, NULL, NULL, SW_SHOWDEFAULT );
+	ShellExecute( NULL, NULL, CString( L"peerproject://url:" ) + sURL, NULL, NULL, SW_SHOWDEFAULT );
 }
 
 STDMETHODIMP CWebHook::Invoke(
@@ -129,9 +129,9 @@ STDMETHODIMP CWebHook::Invoke(
 				m_sURL.Empty();
 
 				CString sURL( bstrURL );
-				int nName = sURL.ReverseFind( _T('/') );
-				CString sName = sURL.Mid( nName + 1 ).SpanExcluding( _T("?") );
-				int nExt = sName.ReverseFind( _T('.') );
+				int nName = sURL.ReverseFind( L'/' );
+				CString sName = sURL.Mid( nName + 1 ).SpanExcluding( L"?" );
+				int nExt = sName.ReverseFind( L'.' );
 				CString sExt;
 				if ( nExt != -1 )
 					sExt = sName.Mid( nExt + 1 ).MakeLower();

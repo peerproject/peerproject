@@ -104,12 +104,12 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 
 	CoolInterface.SetImageListTo( m_wndQueues, LVSIL_SMALL );
 	m_wndQueues.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndQueues.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, rcList.right - 104 - 74 - 60, -1 );
-	m_wndQueues.InsertColumn( 1, _T("Criteria"), LVCFMT_LEFT, 104, 0 );
-	m_wndQueues.InsertColumn( 2, _T("Minimum"), LVCFMT_CENTER, 74, 1 );
-	m_wndQueues.InsertColumn( 3, _T("Slots"), LVCFMT_CENTER, 60, 2 );
-	m_wndQueues.InsertColumn( 4, _T("Priority"), LVCFMT_CENTER, 0, 3 );
-	Skin.Translate( _T("CUploadQueueList"), m_wndQueues.GetHeaderCtrl() );
+	m_wndQueues.InsertColumn( 0, L"Name", LVCFMT_LEFT, rcList.right - 104 - 74 - 60, -1 );
+	m_wndQueues.InsertColumn( 1, L"Criteria", LVCFMT_LEFT, 104, 0 );
+	m_wndQueues.InsertColumn( 2, L"Minimum", LVCFMT_CENTER, 74, 1 );
+	m_wndQueues.InsertColumn( 3, L"Slots", LVCFMT_CENTER, 60, 2 );
+	m_wndQueues.InsertColumn( 4, L"Priority", LVCFMT_CENTER, 0, 3 );
+	Skin.Translate( L"CUploadQueueList", m_wndQueues.GetHeaderCtrl() );
 
 	m_wndQueues.EnableToolTips();
 
@@ -145,7 +145,7 @@ BOOL CUploadsSettingsPage::OnInitDialog()
 	if ( Settings.Bandwidth.Uploads )
 		m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
 	else
-		m_sBandwidthLimit = _T("MAX");
+		m_sBandwidthLimit = L"MAX";
 
 	UpdateData( FALSE );
 
@@ -191,14 +191,14 @@ void CUploadsSettingsPage::UpdateQueues()
 		{
 			QWORD nBandwidth = nLimit * pQueue->m_nBandwidthPoints / max( 1ul, UploadQueues.GetTotalBandwidthPoints( TRUE ) );
 			pItem->Set( 2, Settings.SmartSpeed( nBandwidth ) + '+' );
-			pItem->Format( 3, _T("%u-%u"), pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );
+			pItem->Format( 3, L"%u-%u", pQueue->m_nMinTransfers, pQueue->m_nMaxTransfers );
 
 			pItem->SetImage( CoolInterface.ImageForID( ID_VIEW_UPLOADS ) );
 		}
 		else
 		{
-			pItem->Set( 2, _T("- ") );
-			pItem->Format( 3, _T("-"));
+			pItem->Set( 2, L"- " );
+			pItem->Format( 3, L"-");
 
 			pItem->SetImage( CoolInterface.ImageForID( ID_SYSTEM_CLEAR ) );
 		}
@@ -206,7 +206,7 @@ void CUploadsSettingsPage::UpdateQueues()
 		pItem->Set( 0, pQueue->m_sName );
 		pItem->Set( 1, pQueue->GetCriteriaString() );
 
-		pItem->Format( 4, _T("%i"), nIndex );
+		pItem->Format( 4, L"%i", nIndex );
 	}
 
 	pLock.Unlock();
@@ -236,7 +236,7 @@ void CUploadsSettingsPage::OnAgentAdd()
 	if ( m_wndAgentList.FindString( -1, strType ) >= 0 ) return;
 
 	m_wndAgentList.AddString( strType );
-	m_wndAgentList.SetWindowText( _T("") );
+	m_wndAgentList.SetWindowText( L"" );
 }
 
 void CUploadsSettingsPage::OnAgentRemove()
@@ -366,7 +366,7 @@ void CUploadsSettingsPage::OnOK()
 
 		if ( nUpload * 16 < nDownload )
 		{
-			CHelpDlg::Show( _T("GeneralHelp.UploadWarning") );
+			CHelpDlg::Show( L"GeneralHelp.UploadWarning" );
 			Settings.Live.UploadLimitWarning = true;
 		}
 	}
@@ -406,7 +406,7 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 	if ( Settings.Bandwidth.Uploads )
 		m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Uploads );
 	else
-		m_sBandwidthLimit = _T("MAX");
+		m_sBandwidthLimit = L"MAX";
 
 	// Remove any existing strings
 	m_wndBandwidthLimit.ResetContent();
@@ -429,7 +429,7 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 			m_wndBandwidthLimit.AddString( strSpeed );
 		}
 	}
-	m_wndBandwidthLimit.AddString( _T("MAX") );
+	m_wndBandwidthLimit.AddString( L"MAX" );
 
 	UpdateData( FALSE );
 
@@ -440,6 +440,6 @@ void CUploadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 bool CUploadsSettingsPage::IsLimited(CString& strText) const
 {
 	return ! ( strText.IsEmpty() ||
-		( _tcsistr( strText, _T("MAX") ) != NULL ) ||
-		( _tcsistr( strText, _T("NONE") ) != NULL ) );
+		( _tcsistr( strText, L"MAX" ) != NULL ) ||
+		( _tcsistr( strText, L"NONE" ) != NULL ) );
 }

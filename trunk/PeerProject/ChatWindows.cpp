@@ -1,7 +1,7 @@
 //
 // ChatWindows.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -116,7 +116,7 @@ CPrivateChatWnd* CChatWindows::FindED2KFrame(const SOCKADDR_IN* pAddress) const
 {
 	// For High ID clients
 	CString strHighID;
-	strHighID.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), ntohs( pAddress->sin_port ) );
+	strHighID.Format( L"%s:%hu", (LPCTSTR)CString( inet_ntoa( pAddress->sin_addr ) ), ntohs( pAddress->sin_port ) );
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
@@ -138,7 +138,7 @@ CPrivateChatWnd* CChatWindows::FindED2KFrame(DWORD nClientID, const SOCKADDR_IN*
 	if ( ( nClientID > 0 ) && ( nClientID < 16777216 ) )  // ED2K Low ID
 	{
 		CString strLowID;
-		strLowID.Format( _T("%u@%s:%hu"),
+		strLowID.Format( L"%u@%s:%hu",
 		nClientID,
 		(LPCTSTR)CString( inet_ntoa( pServerAddress->sin_addr ) ),
 		pServerAddress->sin_port );
@@ -297,14 +297,14 @@ CPrivateChatWnd* CChatWindows::OpenPrivateED2K(const Hashes::Guid& oGUID, const 
 	CString strNick;
 	if ( bMustPush && pServer )		// Firewalled user (Low ID)
 	{
-		strNick.Format( _T("%lu@%s:%hu"),
+		strNick.Format( L"%lu@%s:%hu",
 			pHost->sin_addr.S_un.S_addr,
 			(LPCTSTR)CString( inet_ntoa( pServer->sin_addr ) ),
 			ntohs( pServer->sin_port ) );
 	}
 	else	// Regular user (High ID)
 	{
-		strNick.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+		strNick.Format( L"%s:%hu", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
 	}
 
 	// Open an empty (blank) chat frame. This is totally unnecessary- The EDClient will open

@@ -1,7 +1,7 @@
 //
 // ThumbCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -96,7 +96,7 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 	CString strPath( pszPath );
 	strPath.MakeLower();
 
-	if ( ! db->Prepare( _T("SELECT FileSize, LastWriteTime, Image FROM Files WHERE Filename == ?;") ) ||
+	if ( ! db->Prepare( L"SELECT FileSize, LastWriteTime, Image FROM Files WHERE Filename == ?;" ) ||
 		 ! db->Bind( 1, strPath ) ||
 		 ! db->Step() ||
 		 ! ( db->GetCount() == 0 || db->GetCount() == 3 ) )
@@ -111,10 +111,10 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 		return FALSE;
 	}
 
-	QWORD nFileSize = (QWORD)db->GetInt64( _T("FileSize") );
-	QWORD nLastWriteTime = (QWORD)db->GetInt64( _T("LastWriteTime") );
+	QWORD nFileSize = (QWORD)db->GetInt64( L"FileSize" );
+	QWORD nLastWriteTime = (QWORD)db->GetInt64( L"LastWriteTime" );
 	int data_len;
-	LPCVOID data = db->GetBlob( _T("Image"), &data_len );
+	LPCVOID data = db->GetBlob( L"Image", &data_len );
 	if ( ! data )
 	{
 		TRACE( "CThumbCache::Load : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
@@ -127,7 +127,7 @@ BOOL CThumbCache::Load(LPCTSTR pszPath, CImageFile* pImage)
 		nLastWriteTime == MAKEQWORD( fd.ftLastWriteTime.dwLowDateTime, fd.ftLastWriteTime.dwHighDateTime ) )
 	{
 		// Load image
-		loaded = pImage->LoadFromMemory( _T(".jpg"), data, data_len );
+		loaded = pImage->LoadFromMemory( L".jpg", data, data_len );
 	}
 
 	if ( ! loaded )
@@ -148,7 +148,7 @@ void CThumbCache::Delete(LPCTSTR pszPath)
 	CString strPath( pszPath );
 	strPath.MakeLower();
 
-	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
+	if ( ! db->Prepare( L"DELETE FROM Files WHERE Filename == ?;" ) ||
 		 ! db->Bind( 1, strPath ) )
 	{
 		TRACE( "CThumbCache::Load : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
@@ -188,7 +188,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	// Save to memory as JPEG image
 	BYTE* buf = NULL;
 	DWORD data_len = 0;
-	if ( ! pImage->SaveToMemory( _T(".jpg"), Settings.Library.ThumbQuality, &buf, &data_len ) )		// ~75% JPEG
+	if ( ! pImage->SaveToMemory( L".jpg", Settings.Library.ThumbQuality, &buf, &data_len ) )		// ~75% JPEG
 	{
 		TRACE( "CThumbCache::Store : Can't save thumbnail to JPEG for %s\n", (LPCSTR)CT2A( pszPath ) );
 		return FALSE;
@@ -196,7 +196,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	auto_array< BYTE > data( buf );
 
 	// Remove old image
-	if ( ! db->Prepare( _T("DELETE FROM Files WHERE Filename == ?;") ) ||
+	if ( ! db->Prepare( L"DELETE FROM Files WHERE Filename == ?;" ) ||
 		 ! db->Bind( 1, strPath ) )
 	{
 		TRACE( "CThumbCache::Store : Database error: %s\n", (LPCSTR)CT2A( db->GetLastErrorMessage() ) );
@@ -205,7 +205,7 @@ BOOL CThumbCache::Store(LPCTSTR pszPath, CImageFile* pImage)
 	db->Step();
 
 	// Store new one
-	if ( ! db->Prepare( _T("INSERT INTO Files ( Filename, FileSize, LastWriteTime, Image ) VALUES ( ?, ?, ?, ? );") ) ||
+	if ( ! db->Prepare( L"INSERT INTO Files ( Filename, FileSize, LastWriteTime, Image ) VALUES ( ?, ?, ?, ? );" ) ||
 		 ! db->Bind( 1, strPath ) ||
 		 ! db->Bind( 2, (__int64)MAKEQWORD( fd.nFileSizeLow, fd.nFileSizeHigh ) ) ||
 		 ! db->Bind( 3, (__int64)MAKEQWORD( fd.ftLastWriteTime.dwLowDateTime, fd.ftLastWriteTime.dwHighDateTime ) ) ||

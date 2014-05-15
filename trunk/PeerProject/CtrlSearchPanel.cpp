@@ -100,7 +100,7 @@ CSearchPanel::CSearchPanel()
 BOOL CSearchPanel::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CTaskPanel::Create( _T("CSearchPanel"), WS_VISIBLE, rect, pParentWnd, 0 );
+	return CTaskPanel::Create( L"CSearchPanel", WS_VISIBLE, rect, pParentWnd, 0 );
 }
 
 int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -110,10 +110,10 @@ int CSearchPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_bAdvanced = Settings.Search.AdvancedPanel && Settings.General.GUIMode != GUI_BASIC;
 
 	// Set Box Heights & Caption Icons
-	m_boxSearch.Create( this, 136, _T("Search"), IDR_SEARCHFRAME );
-	m_boxSchema.Create( this, 0, _T("Schema"), IDR_SEARCHFRAME );
-	m_boxAdvanced.Create( this, 92, _T("Options"), IDR_SEARCHFRAME );
-	m_boxResults.Create(  this, 86, _T("Results"), IDR_SEARCHMONITORFRAME );
+	m_boxSearch.Create( this, 136, L"Search", IDR_SEARCHFRAME );
+	m_boxSchema.Create( this, 0, L"Schema", IDR_SEARCHFRAME );
+	m_boxAdvanced.Create( this, 92, L"Options", IDR_SEARCHFRAME );
+	m_boxResults.Create(  this, 86, L"Results", IDR_SEARCHMONITORFRAME );
 
 	// 1: Basic search box
 	AddBox( &m_boxSearch );
@@ -146,22 +146,22 @@ void CSearchPanel::OnSkinChange()
 	m_boxResults.SetCaption( LoadString( IDS_SEARCH_PANEL_RESULTS_CAPTION ) );
 	m_boxAdvanced.SetCaption( LoadString( IDS_SEARCH_PANEL_ADVANCED ) );
 
-	SetWatermark( _T("CSearchPanel") );
-	SetFooter( _T("CSearchPanel.Footer") );
+	SetWatermark( L"CSearchPanel" );
+	SetFooter( L"CSearchPanel.Footer" );
 
-	m_boxSearch.SetWatermark( _T("CSearchInputBox") );
-	m_boxSearch.SetCaptionmark( _T("CSearchInputBox.Caption") );
+	m_boxSearch.SetWatermark( L"CSearchInputBox" );
+	m_boxSearch.SetCaptionmark( L"CSearchInputBox.Caption" );
 	m_boxSearch.OnSkinChange();
 
-	m_boxAdvanced.SetWatermark( _T("CSearchAdvancedBox") );
-	m_boxAdvanced.SetCaptionmark( _T("CSearchAdvancedBox.Caption") );
+	m_boxAdvanced.SetWatermark( L"CSearchAdvancedBox" );
+	m_boxAdvanced.SetCaptionmark( L"CSearchAdvancedBox.Caption" );
 	m_boxAdvanced.OnSkinChange();
 
-	m_boxSchema.SetWatermark( _T("CSearchSchemaBox") );
-	m_boxSchema.SetCaptionmark( _T("CSearchSchemaBox.Caption") );
+	m_boxSchema.SetWatermark( L"CSearchSchemaBox" );
+	m_boxSchema.SetCaptionmark( L"CSearchSchemaBox.Caption" );
 
-	m_boxResults.SetWatermark( _T("CSearchResultsBox") );
-	m_boxResults.SetCaptionmark( _T("CSearchResultsBox.Caption") );
+	m_boxResults.SetWatermark( L"CSearchResultsBox" );
+	m_boxResults.SetCaptionmark( L"CSearchResultsBox.Caption" );
 
 	Invalidate();
 }
@@ -209,7 +209,7 @@ void CSearchPanel::ShowSearch(const CManagedSearch* pManaged)
 	{
 		m_boxSearch.m_wndSearch.SetWindowText(
 			pSearch->m_sSearch.IsEmpty() ? strURN :
-			( strURN + _T(" ") + pSearch->m_sSearch ) );
+			( strURN + L" " + pSearch->m_sSearch ) );
 	}
 	else
 		m_boxSearch.m_wndSearch.SetWindowText( pSearch->m_sSearch );
@@ -291,7 +291,7 @@ void CSearchPanel::OnSchemaChange()
 			{
 				CSchemaMember* pMember = pSchema->GetNextMember( pos );
 
-				if ( strMembers.Find( _T("|") + pMember->m_sName + _T("|") ) >= 0 )
+				if ( strMembers.Find( L"|" + pMember->m_sName + L"|" ) >= 0 )
 					pColumns.AddTail( pMember );
 			}
 		}
@@ -377,26 +377,26 @@ CSearchPtr CSearchPanel::GetSearch()
 			CString strWindowValue;
 
 			m_boxAdvanced.m_wndSizeMin.GetWindowText( strWindowValue );
-			if ( strWindowValue.IsEmpty() || _tcsicmp( strWindowValue, _T("any") ) == 0 )
+			if ( strWindowValue.IsEmpty() || _tcsicmp( strWindowValue, L"any" ) == 0 )
 			{
 				pSearch->m_nMinSize = 0;
 			}
 			else
 			{
-				if ( ! _tcsstr( strWindowValue, _T("B") ) && ! _tcsstr( strWindowValue, _T("b") ) )
-					strWindowValue += _T("B");
+				if ( ! _tcsstr( strWindowValue, L"B" ) && ! _tcsstr( strWindowValue, L"b" ) )
+					strWindowValue += L"B";
 				pSearch->m_nMinSize = Settings.ParseVolume( strWindowValue );
 			}
 
 			m_boxAdvanced.m_wndSizeMax.GetWindowText( strWindowValue );
-			if ( strWindowValue.IsEmpty() || _tcsicmp( strWindowValue, _T("any") ) == 0 || _tcsicmp( strWindowValue, _T("max") ) == 0 )
+			if ( strWindowValue.IsEmpty() || _tcsicmp( strWindowValue, L"any" ) == 0 || _tcsicmp( strWindowValue, L"max" ) == 0 )
 			{
 				pSearch->m_nMaxSize = SIZE_UNKNOWN;
 			}
 			else
 			{
-				if ( !_tcsstr( strWindowValue, _T("B") ) && !_tcsstr( strWindowValue, _T("b") ) )
-					strWindowValue += _T("B");
+				if ( !_tcsstr( strWindowValue, L"B" ) && !_tcsstr( strWindowValue, L"b" ) )
+					strWindowValue += L"B";
 				pSearch->m_nMaxSize = Settings.ParseVolume( strWindowValue );
 			}
 
@@ -482,11 +482,11 @@ int CSearchInputBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rc( 0, 0, 0, 0 );
 
 	if ( ! m_wndSearch.Create( ES_AUTOHSCROLL | WS_TABSTOP | WS_GROUP, rc,
-		this, IDC_SEARCH, _T("Search"), _T("Search.%.2i") ) ) return -1;
+		this, IDC_SEARCH, L"Search", L"Search.%.2i" ) ) return -1;
 
 	m_wndSearch.SetFont( &theApp.m_gdiFont );
 	m_wndSearch.ModifyStyleEx( 0, WS_EX_CLIENTEDGE );
-	//m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
+	//m_wndSearch.SetRegistryKey( L"Search", L"Search.%.2i" );
 
 	if ( ! m_wndSchemas.Create( WS_TABSTOP, rc, this, IDC_SCHEMAS ) ) return -1;
 
@@ -646,17 +646,17 @@ void CSearchInputBox::OnSearchPrefix()
 
 	CMenu mnuPopup;
 	mnuPopup.CreatePopupMenu();
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1, _T("SHA1") );
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_TIGER, _T("Tiger") );
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1_TIGER, _T("SHA1 + Tiger") );
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_ED2K, _T("ED2K") );
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_MD5, _T("MD5") );
-	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, _T("BitTorrent") );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1, L"SHA1" );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_TIGER, L"Tiger" );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_SHA1_TIGER, L"SHA1 + Tiger" );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_ED2K, L"ED2K" );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_MD5, L"MD5" );
+	mnuPopup.AppendMenu( MF_STRING, IDC_SEARCH_PREFIX_BTH, L"BitTorrent" );
 
 	// ToDo: Fix skinned menu
 	//CCoolMenu* pCoolMenu = new CCoolMenu();
 	//pCoolMenu->AddMenu( &mnuPopup );
-	//pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+	//pCoolMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 
 	CPoint pt;
 	::GetCursorPos( &pt );
@@ -673,7 +673,7 @@ void CSearchInputBox::OnSearchPrefixSHA1()
 	if ( oSHA1.fromUrn( strSearch ) || oSHA1.fromString( strSearch ) )
 		strSearch = oSHA1.toUrn();
 	else
-		strSearch = _T("urn:sha1:[SHA1]");
+		strSearch = L"urn:sha1:[SHA1]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -688,7 +688,7 @@ void CSearchInputBox::OnSearchPrefixTiger()
 	if ( oTiger.fromUrn( strSearch ) || oTiger.fromString( strSearch ) )
 		strSearch = oTiger.toUrn();
 	else
-		strSearch = _T("urn:tree:tiger/:[Tiger]");
+		strSearch = L"urn:tree:tiger/:[Tiger]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -703,10 +703,10 @@ void CSearchInputBox::OnSearchPrefixSHA1Tiger()
 	Hashes::TigerHash oTiger;
 	oSHA1.fromUrn( strSearch ) || oSHA1.fromString( strSearch );
 	oTiger.fromUrn( strSearch ) || oTiger.fromString( strSearch );
-	strSearch = _T("urn:bitprint:");
-	strSearch += oSHA1 ? oSHA1.toString() : _T("[SHA1]");
-	strSearch += _T(".");
-	strSearch += oTiger ? oTiger.toString() : _T("[Tiger]");
+	strSearch = L"urn:bitprint:";
+	strSearch += oSHA1 ? oSHA1.toString() : L"[SHA1]";
+	strSearch += L".";
+	strSearch += oTiger ? oTiger.toString() : L"[Tiger]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -721,7 +721,7 @@ void CSearchInputBox::OnSearchPrefixED2K()
 	if ( oEd2k.fromUrn( strSearch ) || oEd2k.fromString( strSearch ) )
 		strSearch = oEd2k.toUrn();
 	else
-		strSearch = _T("urn:ed2khash:[ED2K]");
+		strSearch = L"urn:ed2khash:[ED2K]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -739,7 +739,7 @@ void CSearchInputBox::OnSearchPrefixBTH()
 		 oBTH.fromString< Hashes::base16Encoding >( strSearch ) )
 		strSearch = oBTH.toUrn();
 	else
-		strSearch = _T("urn:btih:[BTIH]");
+		strSearch = L"urn:btih:[BTIH]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -754,7 +754,7 @@ void CSearchInputBox::OnSearchPrefixMD5()
 	if ( oMD5.fromUrn( strSearch ) || oMD5.fromString( strSearch ) )
 		strSearch = oMD5.toUrn();
 	else
-		strSearch = _T("urn:md5:[MD5]");
+		strSearch = L"urn:md5:[MD5]";
 
 	m_wndSearch.SetWindowText( strSearch );
 	m_wndSearch.SetFocus();
@@ -788,34 +788,34 @@ int CSearchAdvancedBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		rc, this, IDC_SEARCH_SIZEMIN ) ) return -1;
 	m_wndSizeMin.SetFont( &theApp.m_gdiFont );
 
-	m_wndSizeMin.AddString( _T("") );
-	m_wndSizeMin.AddString( _T("100 KB") );
-	m_wndSizeMin.AddString( _T("1 MB") );
-	m_wndSizeMin.AddString( _T("10 MB") );
-	m_wndSizeMin.AddString( _T("50 MB") );
-	m_wndSizeMin.AddString( _T("100 MB") );
-	m_wndSizeMin.AddString( _T("200 MB") );
-	m_wndSizeMin.AddString( _T("500 MB") );
-	m_wndSizeMin.AddString( _T("1 GB") );
-	m_wndSizeMin.AddString( _T("4 GB") );
+	m_wndSizeMin.AddString( L"" );
+	m_wndSizeMin.AddString( L"100 KB" );
+	m_wndSizeMin.AddString( L"1 MB" );
+	m_wndSizeMin.AddString( L"10 MB" );
+	m_wndSizeMin.AddString( L"50 MB" );
+	m_wndSizeMin.AddString( L"100 MB" );
+	m_wndSizeMin.AddString( L"200 MB" );
+	m_wndSizeMin.AddString( L"500 MB" );
+	m_wndSizeMin.AddString( L"1 GB" );
+	m_wndSizeMin.AddString( L"4 GB" );
 
 	// Max combo
 	if ( ! m_wndSizeMax.Create( WS_CHILD|WS_VISIBLE|WS_TABSTOP|CBS_AUTOHSCROLL|CBS_DROPDOWN,
 		rc, this, IDC_SEARCH_SIZEMAX ) ) return -1;
 	m_wndSizeMax.SetFont( &theApp.m_gdiFont );
 
-	m_wndSizeMax.AddString( _T("") );
-	m_wndSizeMax.AddString( _T("100 KB") );
-	m_wndSizeMax.AddString( _T("1 MB") );
-	m_wndSizeMax.AddString( _T("10 MB") );
-	m_wndSizeMax.AddString( _T("50 MB") );
-	m_wndSizeMax.AddString( _T("100 MB") );
-	m_wndSizeMax.AddString( _T("200 MB") );
-	m_wndSizeMax.AddString( _T("500 MB") );
-	m_wndSizeMax.AddString( _T("1 GB") );
-	m_wndSizeMax.AddString( _T("4 GB") );
+	m_wndSizeMax.AddString( L"" );
+	m_wndSizeMax.AddString( L"100 KB" );
+	m_wndSizeMax.AddString( L"1 MB" );
+	m_wndSizeMax.AddString( L"10 MB" );
+	m_wndSizeMax.AddString( L"50 MB" );
+	m_wndSizeMax.AddString( L"100 MB" );
+	m_wndSizeMax.AddString( L"200 MB" );
+	m_wndSizeMax.AddString( L"500 MB" );
+	m_wndSizeMax.AddString( L"1 GB" );
+	m_wndSizeMax.AddString( L"4 GB" );
 
-	if ( ! m_wndSizeMinMax.Create( _T(""), WS_CHILD|WS_VISIBLE|SS_CENTER, rc, this ) )
+	if ( ! m_wndSizeMinMax.Create( L"", WS_CHILD|WS_VISIBLE|SS_CENTER, rc, this ) )
 		return -1;
 	m_wndSizeMinMax.SetFont( &theApp.m_gdiFont );
 
@@ -1100,7 +1100,7 @@ CSearchResultsBox::CSearchResultsBox()
 	, m_nLeaves 	( 0 )
 {
 	Expand( Settings.Search.ResultsPanel ? TRUE : FALSE );
-//	Expand( theApp.GetProfileInt( _T("Settings"), _T("SearchPanelResults"), TRUE ) );
+//	Expand( theApp.GetProfileInt( L"Settings", L"SearchPanelResults", TRUE ) );
 }
 
 CSearchResultsBox::~CSearchResultsBox()
@@ -1189,8 +1189,8 @@ void CSearchResultsBox::OnPaint()
 		else
 		{
 			strText.Format( strFormat,
-				m_nFiles, m_nFiles != 1 ? _T("s") : _T(""),
-				m_nHits, m_nHits != 1 ? _T("s") : _T("") );
+				m_nFiles, m_nFiles != 1 ? L"s" : L"",
+				m_nHits, m_nHits != 1 ? L"s" : L"" );
 		}
 	}
 	else
@@ -1243,5 +1243,5 @@ void CSearchResultsBox::DrawText(CDC* pDC, int nX, int nY, UINT nFlags, LPCTSTR 
 void CSearchResultsBox::OnExpanded(BOOL bOpen)
 {
 	Settings.Search.ResultsPanel = ( bOpen != FALSE );
-//	theApp.WriteProfileInt( _T("Settings"), _T("SearchPanelResults"), bOpen );
+//	theApp.WriteProfileInt( L"Settings", L"SearchPanelResults", bOpen );
 }

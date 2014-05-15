@@ -1,7 +1,7 @@
 //
 // CoolInterface.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -223,7 +223,7 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 			AddIcon( nID, hIcon, nImageListType );
 #ifdef _DEBUG
 		else
-			theApp.Message( MSG_DEBUG, _T("Failed to load icon %d (%dx%d)."), nID, cx, cx );
+			theApp.Message( MSG_DEBUG, L"Failed to load icon %d (%dx%d).", nID, cx, cx );
 #endif // _DEBUG
 	}
 	if ( hIcon && bMirrored && nID != ID_HELP_ABOUT )
@@ -341,8 +341,8 @@ void CCoolInterface::LoadIconsTo(CImageList& pImageList, const UINT nID[], BOOL 
 		VERIFY( pImageList.DeleteImageList() );
 
 	VERIFY( pImageList.Create( nSize, nSize, ILC_COLOR32|ILC_MASK, nCount, 0 ) ||
-		pImageList.Create( nSize, nSize, ILC_COLOR24|ILC_MASK, nCount, 0 ) ||
-		pImageList.Create( nSize, nSize, ILC_COLOR16|ILC_MASK, nCount, 0 ) );
+			pImageList.Create( nSize, nSize, ILC_COLOR24|ILC_MASK, nCount, 0 ) ||
+			pImageList.Create( nSize, nSize, ILC_COLOR16|ILC_MASK, nCount, 0 ) );
 
 	for ( int i = 0 ; nID[ i ] ; ++i )
 	{
@@ -360,7 +360,33 @@ void CCoolInterface::LoadFlagsTo(CImageList& pImageList)
 {
 	const int nImages = pImageList.GetImageCount();
 	const int nFlags  = Flags.GetCount();
+
+	// ToDo: Reconcile size difference
+//	HIMAGELIST hList = pImageList.Detach();
+//
+//	if ( pImageList.GetSafeHandle() )
+//		VERIFY( pImageList.DeleteImageList() );
+//
+//	VERIFY( pImageList.Create( FLAG_WIDTH, 16, ILC_COLOR32|ILC_MASK, nFlags, 0 ) ||
+//			pImageList.Create( FLAG_WIDTH, 16, ILC_COLOR24|ILC_MASK, nFlags, 0 ) ||
+//			pImageList.Create( FLAG_WIDTH, 16, ILC_COLOR16|ILC_MASK, nFlags, 0 ) );
+
+//	//ImageList_SetIconSize( hList, 16, 16 );
+//	pImageList.Attach( hList );
+
 	VERIFY( pImageList.SetImageCount( nImages + nFlags ) );
+
+//	for ( int nTemp = 0 ; nTemp < nImages ; nTemp++ )
+//	{
+//		if ( HICON hIcon = ImageList_GetIcon( hList, nTemp, ILD_TRANSPARENT ) )
+//		{
+//		//	ICONINFO iInfo;
+//		//	GetIconInfo( hIcon, &iInfo );
+//			VERIFY( pImageList.Replace( nTemp, hIcon ) != -1 );
+//			VERIFY( DestroyIcon( hIcon ) );
+//		}
+//	}
+
 	for ( int nFlag = 0 ; nFlag < nFlags ; nFlag++ )
 	{
 		if ( HICON hIcon = Flags.ExtractIcon( nFlag ) )
@@ -647,7 +673,7 @@ void CCoolInterface::FixThemeControls(CWnd* pWnd, BOOL bForce /*=TRUE*/)
 	{
 		TCHAR szName[8];
 		GetClassName( pChild->GetSafeHwnd(), szName, 8 );		// Alt detection method for exceptions
-		if ( _tcsnicmp( szName, _PT("Button") ) != 0 )
+		if ( _tcsnicmp( szName, _P( L"Button" ) ) != 0 )
 			continue;
 
 		const int nID = pChild->GetDlgCtrlID();
@@ -702,27 +728,27 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 		return FALSE;
 
 	const static LPCTSTR pszNames[] = {
-		_T("id"),  _T("id1"), _T("id2"), _T("id3"), _T("id4"), _T("id5"), _T("id6"),
-		_T("id7"), _T("id8"), _T("id9"), _T("id10"), _T("id11"), _T("id12"), NULL };
+		L"id",  L"id1", L"id2", L"id3", L"id4", L"id5", L"id6",
+		L"id7", L"id8", L"id9", L"id10", L"id11", L"id12", NULL };
 	int nIndex = 0;
 	int nIndexRev = GetImageCount( nImageListType ) - 1;	// Total number of images
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pBase->GetNextElement( pos );
-		if ( ! pXML->IsNamed( _T("image") ) )
+		if ( ! pXML->IsNamed( L"image" ) )
 		{
-			TRACE( _T("Unknown tag \"%s\" inside \"%s:%s\" in CCoolInterface::Add\r\n"),
-				pXML->GetName(), pBase->GetName(), pBase->GetAttributeValue( _T("id") ) );
+			TRACE( L"Unknown tag \"%s\" inside \"%s:%s\" in CCoolInterface::Add\r\n",
+				pXML->GetName(), pBase->GetName(), pBase->GetAttributeValue( L"id" ) );
 			continue;
 		}
 
-		CString strValue = pXML->GetAttributeValue( _T("index") );
+		CString strValue = pXML->GetAttributeValue( L"index" );
 		if ( ! strValue.IsEmpty() )
 		{
-			if ( _stscanf( strValue, _T("%i"), &nIndex ) != 1 )
+			if ( _stscanf( strValue, L"%i", &nIndex ) != 1 )
 			{
-				TRACE( _T("Image \"%s\" has invalid index \"%s\" in CCoolInterface::Add\r\n"),
-					pBase->GetAttributeValue( _T("id") ), strValue );
+				TRACE( L"Image \"%s\" has invalid index \"%s\" in CCoolInterface::Add\r\n",
+					pBase->GetAttributeValue( L"id" ), strValue );
 				continue;
 			}
 		}

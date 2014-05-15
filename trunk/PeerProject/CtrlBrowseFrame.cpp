@@ -1,7 +1,7 @@
 //
 // CtrlBrowseFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -89,7 +89,7 @@ BOOL CBrowseFrameCtrl::Create(CWnd* pParentWnd, CMatchCtrl* pMatch)
 	CRect rect( 0, 0, 0, 0 );
 	m_wndList = pMatch;
 	m_wndList->SetBrowseMode();
-	return CWnd::Create( NULL, _T("CBrowseFrameCtrl"), WS_CHILD|WS_VISIBLE,
+	return CWnd::Create( NULL, L"CBrowseFrameCtrl", WS_CHILD|WS_VISIBLE,
 						rect, pParentWnd, IDC_BROWSE_FRAME, NULL );
 }
 
@@ -117,8 +117,8 @@ void CBrowseFrameCtrl::OnDestroy()
 void CBrowseFrameCtrl::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
-	Skin.CreateToolBar( _T("CBrowseTree.Top"), &m_wndTreeTop );
-	Skin.Translate( _T("CMatchCtrl"), &m_wndList->m_wndHeader );
+	Skin.CreateToolBar( L"CBrowseTree.Top", &m_wndTreeTop );
+	Skin.Translate( L"CMatchCtrl", &m_wndList->m_wndHeader );
 }
 
 void CBrowseFrameCtrl::OnSize(UINT nType, int cx, int cy)

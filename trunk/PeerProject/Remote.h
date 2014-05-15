@@ -70,6 +70,6 @@ protected:
 // Utilities
 protected:
 	void	PageSearchHeaderColumn(int nColumnID, LPCTSTR pszCaption, LPCTSTR pszAlign);
-	void	PageSearchRowColumn(int nColumnID, CMatchFile* pFile, LPCTSTR pszValue, LPCTSTR pszAlign = _T("center"));
+	void	PageSearchRowColumn(int nColumnID, CMatchFile* pFile, LPCTSTR pszValue, LPCTSTR pszAlign = L"center");
 	void	PageNetworkNetwork(int nID, bool* pbConnect, LPCTSTR pszName);
 };
