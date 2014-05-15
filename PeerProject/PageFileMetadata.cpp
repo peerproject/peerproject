@@ -1,7 +1,7 @@
 //
 // PageFileMetadata.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -72,7 +72,6 @@ BOOL CFileMetadataPage::OnInitDialog()
 	CLibraryListPtr pFiles( GetList() );
 
 	CRect rcClient, rcCombo;
-	CString strText;
 	GetClientRect( &rcClient );
 
 	m_wndSchemas.GetWindowRect( &rcCombo );
@@ -81,8 +80,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 	rcCombo.bottom = rcClient.bottom - 8;
 
 	m_wndData.Create( WS_CHILD|WS_VISIBLE|WS_BORDER|WS_TABSTOP, rcCombo, this, IDC_METADATA );
-	LoadString( strText, IDS_SEARCH_NO_METADATA );
-	m_wndSchemas.m_sNoSchemaText = strText;
+	m_wndSchemas.m_sNoSchemaText = LoadString( IDS_SEARCH_NO_METADATA );
 
 	BOOL bCollection = FALSE;
 	CSchemaPtr pSchema = NULL;
@@ -112,7 +110,7 @@ BOOL CFileMetadataPage::OnInitDialog()
 		}
 	}
 
-	m_wndSchemas.Load( pSchema != NULL ? pSchema->GetURI() : _T(""), bCollection ? -1 : 0 );
+	m_wndSchemas.Load( pSchema != NULL ? pSchema->GetURI() : L"", bCollection ? -1 : 0 );
 	OnSelChangeSchemas();
 
 	if ( pSchema != NULL )
@@ -158,50 +156,59 @@ void CFileMetadataPage::OnSelChangeSchemas()
 	CSchemaPtr pSchema = m_wndSchemas.GetSelected();
 	CString strSelectedURI = m_wndData.GetSchemaURI();
 
-	if ( pSchema && ! pSchema->CheckURI( strSelectedURI ) )
+	if ( strSelectedURI.IsEmpty() || ! pSchema || pSchema->CheckURI( strSelectedURI ) )
 	{
-		if ( strSelectedURI.IsEmpty() )
-		{
-			m_wndData.SetSchema( pSchema );
-			return;
-		}
+		m_wndData.SetSchema( pSchema );
+		return;
+	}
 
-		CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );		// SchemaMappings.xml.gz
+	// SchemaMappings.xml
+	CString strBody( ::LoadHTML( GetModuleHandle( NULL ), IDR_XML_SCHEMA_MAPS ) );
 
-		if ( CXMLElement* pXML = CXMLElement::FromString( strBody, TRUE ) )
+	if ( CXMLElement* pXML = CXMLElement::FromString( strBody, TRUE ) )
+	{
+		if ( pXML->IsNamed( L"schemaMappings" ) )
 		{
-			if ( pXML->IsNamed( L"schemaMappings" ) )
+			for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 			{
-				for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
+				if ( CXMLElement* pMapping = pXML->GetNextElement( pos ) )
 				{
-					CXMLElement* pMapping = pXML->GetNextElement( pos );
-					if ( pMapping && pMapping->IsNamed( L"schemaMapping" ) )
+					// Add attributes which correspond to other schema
+					// Don't need to delete old ones- after submitting new data, they will be ignored.
+					// Also allows to save the old ones if we switch schema back.
+
+					if ( pMapping->IsNamed( L"map" ) || pMapping->IsNamed( L"source" ) )
 					{
-						CXMLAttribute* pSourceURI = pMapping->GetAttribute( L"sourceURI" );
+						CXMLAttribute* pSourceURI = pMapping->GetAttribute( L"uri" );
 						if ( pSourceURI && pSourceURI->GetValue() == m_wndData.GetSchemaURI() )
 						{
-							// Add attributes which correspond to other schema
-							// Don't need to delete old ones- after submitting new data, they will be ignored.
-							// Also allows to save the old ones if we switch schema back.
 							AddCrossAttributes( pMapping, pSchema->GetURI() );
 							break;
 						}
 					}
+					else if ( pMapping->IsNamed( L"schemaMapping" ) )	// Legacy
+					{
+						CXMLAttribute* pSourceURI = pMapping->GetAttribute( L"sourceURI" );
+						if ( pSourceURI && pSourceURI->GetValue() == m_wndData.GetSchemaURI() )
+						{
+							AddCrossAttributes( pMapping, pSchema->GetURI() );
+							break;
+						}
+					}
+					delete pMapping;
 				}
 			}
-			delete pXML;
 		}
-
-		m_wndData.SetSchema( pSchema );
-		if ( m_pXML )
-		{
-			// Change schema of data
-			m_pXML->SetName( pSchema->m_sSingular );
-			m_wndData.UpdateData( m_pXML, FALSE );
-		}
+		delete pXML;
 	}
-	else
-		m_wndData.SetSchema( pSchema );
+
+	m_wndData.SetSchema( pSchema );
+	if ( m_pXML )
+	{
+		// Change schema of data
+		m_pXML->SetName( pSchema->m_sSingular );
+		m_wndData.UpdateData( m_pXML, FALSE );
+	}
 }
 
 void CFileMetadataPage::AddCrossAttributes(CXMLElement* pXML, LPCTSTR pszTargetURI)
@@ -227,21 +234,22 @@ void CFileMetadataPage::AddCrossAttributes(CXMLElement* pXML, LPCTSTR pszTargetU
 
 	for ( POSITION pos = pTargetURI->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pAttribute = pTargetURI->GetNextElement( pos );
+		if ( CXMLElement* pAttribute = pTargetURI->GetNextElement( pos ) )
 		{
-			if ( pAttribute && pAttribute->IsNamed( L"attribute" ) )
+			if ( pAttribute->IsNamed( L"attribute" ) )
 			{
-				CXMLAttribute* pFrom = pAttribute->GetAttribute( L"from" );
-				CXMLAttribute* pTo = pAttribute->GetAttribute( L"to" );
-				if ( pFrom && pTo )
+				if ( CXMLAttribute* pFrom = pAttribute->GetAttribute( L"from" ) )
 				{
-					CString strFrom = pFrom->GetValue();
-					CString strTo = pTo->GetValue();
-					if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
+					if ( CXMLAttribute* pTo = pAttribute->GetAttribute( L"to" ) )
+					{
+						CString strFrom = pFrom->GetValue();
+						CString strTo = pTo->GetValue();
+						if ( strFrom.IsEmpty() || strTo.IsEmpty() ) continue;
 
-					CString strValue = m_pXML->GetAttributeValue( strFrom );
-					if ( strValue.GetLength() && strValue != MULTI_VALUE )
-						m_pXML->AddAttribute( strTo, strValue );
+						CString strValue = m_pXML->GetAttributeValue( strFrom );
+						if ( strValue.GetLength() && strValue != MULTI_VALUE )
+							m_pXML->AddAttribute( strTo, strValue );
+					}
 				}
 			}
 		}
@@ -284,11 +292,12 @@ void CFileMetadataPage::OnOK()
 					if ( pFile->m_pMetadata != NULL )
 					{
 						pXML = pContainer->AddElement( pFile->m_pMetadata->Clone() );
-						// Change schema
-						pXML->SetName( pSchema->m_sSingular );
+						pXML->SetName( pSchema->m_sSingular );		// Change schema
 					}
 					else
+					{
 						pXML = pContainer->AddElement( pSchema->m_sSingular );
+					}
 
 					// Save changed data to pXML
 					m_wndData.UpdateData( pXML, TRUE );

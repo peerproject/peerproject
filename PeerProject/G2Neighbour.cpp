@@ -89,7 +89,7 @@ CG2Neighbour::CG2Neighbour(CNeighbour* pBase)
 	, m_tLastQueryIn		( 0 )
 	, m_nCountQueryIn		( 0 )
 {
-	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress, m_sUserAgent.IsEmpty() ? _T("Unknown") : (LPCTSTR)m_sUserAgent );
+	theApp.Message( MSG_INFO, IDS_HANDSHAKE_ONLINE_G2, (LPCTSTR)m_sAddress, m_sUserAgent.IsEmpty() ? L"Unknown" : (LPCTSTR)m_sUserAgent );
 
 	SendStartups();
 }
@@ -112,6 +112,7 @@ CG2Neighbour::~CG2Neighbour()
 BOOL CG2Neighbour::OnRead()
 {
 	CNeighbour::OnRead();
+
 	return ProcessPackets();
 }
 
@@ -275,6 +276,14 @@ BOOL CG2Neighbour::ProcessPackets()
 
 	CBuffer* pInput = m_pZInput ? m_pZInput : pInputLocked;
 
+	return ProcessPackets( pInput );
+}
+
+BOOL CG2Neighbour::ProcessPackets(CBuffer* pInput)
+{
+	if ( ! pInput )
+		return FALSE;
+
 	BOOL bSuccess = TRUE;
 	while ( bSuccess && pInput->m_nLength )
 	{
@@ -342,11 +351,10 @@ BOOL CG2Neighbour::ProcessPackets()
 		pInput->Remove( nLength + nLenLen + nTypeLen + 2 );
 	}
 
-	if ( bSuccess )
-		return TRUE;
+	if ( ! bSuccess )
+		Close( 0 );
 
-	Close( 0 );
-	return FALSE;
+	return bSuccess;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -398,7 +406,7 @@ BOOL CG2Neighbour::OnPacket(CG2Packet* pPacket)
 	case G2_PACKET_PROFILE_DELIVERY:
 		return OnProfileDelivery( pPacket );
 	default:
-		theApp.Message( MSG_DEBUG, _T("TCP: Received unexpected packet %s from %s"),
+		theApp.Message( MSG_DEBUG, L"TCP: Received unexpected packet %s from %s",
 			pPacket->GetType(), (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 	}
 
@@ -492,7 +500,7 @@ BOOL CG2Neighbour::OnPing(CG2Packet* pPacket, BOOL bTCP)
 		BYTE* pRelay = pPacket->WriteGetPointer( 7, 0 );
 		if ( pRelay == NULL )
 		{
-		//	theApp.Message( MSG_DEBUG, _T("Memory allocation error in CG2Neighbour::OnPing()") );
+		//	theApp.Message( MSG_DEBUG, L"Memory allocation error in CG2Neighbour::OnPing()" );
 			return TRUE;
 		}
 
@@ -629,7 +637,7 @@ CG2Packet* CG2Neighbour::CreateLNIPacket(CG2Neighbour* pOwner)
 	pPacket->WriteLongBE( (DWORD)nMyVolume );
 	if ( Network.IsFirewalled() )
 	{
-		theApp.Message( MSG_DEBUG, _T("Sending LNI/FW") );
+		theApp.Message( MSG_DEBUG, L"Sending LNI/FW" );
 		pPacket->WritePacket( G2_PACKET_FW, 0 );
 	}
 
@@ -709,11 +717,11 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 		case G2_PACKET_FW:
 			if ( nLength == 0 )
 			{
-				theApp.Message( MSG_INFO, _T("Received /LNI/FW from %s:%lu"),
+				theApp.Message( MSG_INFO, L"Received /LNI/FW from %s:%lu",
 					(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), htons( m_pHost.sin_port ) );
 
 				if ( m_nNodeType == ntHub )
-					theApp.Message( MSG_ERROR, _T("Hub %s:%lu sent LNI with firewall flag"),
+					theApp.Message( MSG_ERROR, L"Hub %s:%lu sent LNI with firewall flag",
 						(LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), htons( m_pHost.sin_port ) );
 
 				m_bFirewalled = TRUE;
@@ -861,7 +869,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 	}
 
 	if ( pOwner == NULL )
-		theApp.Message( MSG_NOTICE, _T("G2 KHL Packet Error from %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		theApp.Message( MSG_NOTICE, L"G2 KHL Packet Error from %s", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	if ( pPacket->m_bCompound )
 	{
@@ -1015,7 +1023,7 @@ BOOL CG2Neighbour::ParseKHLPacket(CG2Packet* pPacket, const SOCKADDR_IN* pHost)
 		bInvalid = TRUE;
 
 	if ( bInvalid )
-		theApp.Message( MSG_ERROR, _T("[G2] Invalid KHL packet received from %s"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		theApp.Message( MSG_ERROR, L"[G2] Invalid KHL packet received from %s", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 
 	return TRUE;
 }
@@ -1160,8 +1168,8 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 	{
 		if ( ! pSearch )
 		{
-			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G2"), (LPCTSTR)m_sAddress );
-			DEBUG_ONLY( pPacket->Debug( _T("G2 Malformed Query.") ) );
+			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, L"G2", (LPCTSTR)m_sAddress );
+			DEBUG_ONLY( pPacket->Debug( L"G2 Malformed Query." ) );
 		}
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
@@ -1170,7 +1178,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 
 	if ( Security.IsDenied( &pSearch->m_pEndpoint.sin_addr ) )
 	{
-		theApp.Message( MSG_DEBUG, IDS_PROTOCOL_BAD_QUERY, _T("G2 security"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_DEBUG, IDS_PROTOCOL_BAD_QUERY, L"G2 security", (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1181,7 +1189,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 
 	if ( bUseUDP && m_nNodeType == ntLeaf )						// Forbid UDP answer for leaf query
 	{
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2 UDP leaf"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, L"G2 UDP leaf", (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1189,7 +1197,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 
 	if ( ! Network.QueryRoute->Add( pSearch->m_oGUID, this ) )	// Forbid looped query
 	{
-		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, _T("G2 looped"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, IDS_PROTOCOL_BAD_QUERY, L"G2 looped", (LPCTSTR)m_sAddress );
 		Statistics.Current.Gnutella2.Dropped++;
 		m_nDropCount++;
 		return TRUE;
@@ -1203,7 +1211,7 @@ BOOL CG2Neighbour::OnQuery(CG2Packet* pPacket)
 			Send( Neighbours.CreateQueryWeb( pSearch->m_oGUID, false, NULL, false ) );
 
 		theApp.Message( MSG_WARNING, IDS_PROTOCOL_EXCEEDS_LIMIT,
-			(LPCTSTR)( CString( inet_ntoa( m_pHost.sin_addr ) ) + _T(" [TCP]") ),
+			(LPCTSTR)( CString( inet_ntoa( m_pHost.sin_addr ) ) + L" [TCP]" ),
 			(LPCTSTR)CString( inet_ntoa( pSearch->m_pEndpoint.sin_addr ) ) );
 
 		Statistics.Current.Gnutella2.Dropped++;
@@ -1340,7 +1348,7 @@ BOOL CG2Neighbour::OnQueryKeyAns(CG2Packet* pPacket)
 	CHostCacheHostPtr pCache = HostCache.Gnutella2.Add( (IN_ADDR*)&nAddress, nPort );
 	if ( pCache != NULL )
 	{
-		theApp.Message( MSG_DEBUG, _T("Got a query key for %s:%i via neighbour %s: 0x%x"),
+		theApp.Message( MSG_DEBUG, L"Got a query key for %s:%i via neighbour %s: 0x%x",
 			(LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort, (LPCTSTR)m_sAddress, nKey );
 		pCache->SetKey( nKey, &m_pHost.sin_addr );
 	}
@@ -1362,8 +1370,8 @@ bool CG2Neighbour::OnPush(CG2Packet* pPacket)
 	if ( ! pPacket->SkipCompound( nLength, 6 ) )
 	{
 		// Ignore packet and return that it was handled
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, _T("push") );
-		DEBUG_ONLY( pPacket->Debug( _T("BadPush") ) );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, m_sAddress, L"push" );
+		DEBUG_ONLY( pPacket->Debug( L"BadPush" ) );
 		++Statistics.Current.Gnutella2.Dropped;
 		++m_nDropCount;
 		return true;

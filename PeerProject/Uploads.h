@@ -36,6 +36,7 @@ public:
 	DWORD		m_nBestSpeed;		// Best speed
 	DWORD		m_nTorrentSpeed;	// BitTorrent clamp
 	BOOL		m_bStable;			// Stable flag
+
 protected:
 	CList< CUploadTransfer* >	m_pList;
 
@@ -89,7 +90,6 @@ public:
 	{
 		return GetTorrentCount( -3 );
 	}
-
 };
 
 extern CUploads Uploads;

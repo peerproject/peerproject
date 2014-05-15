@@ -79,7 +79,7 @@ END_MESSAGE_MAP()
 
 CMatchCtrl::CMatchCtrl()
 	: m_pMatches			( NULL )
-	, m_sType				( _T("Search") )
+	, m_sType				( L"Search" )
 
 	, m_pSchema 			( NULL )
 	, m_nTopIndex			( 0 )
@@ -123,7 +123,7 @@ BOOL CMatchCtrl::Create(CMatchList* pMatches, CWnd* pParentWnd)
 {
 	CRect rc( 0, 0, 0, 0 );
 	m_pMatches = pMatches;
-	return CWnd::CreateEx( 0, NULL, _T("CMatchCtrl"), WS_CHILD|WS_TABSTOP|WS_VSCROLL|WS_VISIBLE,
+	return CWnd::CreateEx( 0, NULL, L"CMatchCtrl", WS_CHILD|WS_TABSTOP|WS_VSCROLL|WS_VISIBLE,
 		rc, pParentWnd, IDC_MATCHES, NULL );
 }
 
@@ -139,16 +139,16 @@ int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	EnableToolTips( TRUE );
 
-	InsertColumn( MATCH_COL_NAME, _T("File"), HDF_LEFT, 220 );
-	InsertColumn( MATCH_COL_TYPE, _T("Type"), HDF_CENTER, 50 );
-	InsertColumn( MATCH_COL_SIZE, _T("Size"), HDF_CENTER, 62 );
-	InsertColumn( MATCH_COL_COUNT, _T("Host/Count"), HDF_CENTER, 110 );
-	InsertColumn( MATCH_COL_SPEED, _T("Speed"), HDF_CENTER, 60 );
-	InsertColumn( MATCH_COL_RATING, _T("Rating"), HDF_CENTER, 12*5 );
-	InsertColumn( MATCH_COL_STATUS, _T("Status"), HDF_CENTER, 16*3 );
-	InsertColumn( MATCH_COL_CLIENT, _T("Client"), HDF_CENTER, 80 );
-	InsertColumn( MATCH_COL_COUNTRY, _T("Country"), HDF_LEFT, 56 );
-	InsertColumn( MATCH_COL_TIME, _T("Time"), HDF_CENTER, 102 );
+	InsertColumn( MATCH_COL_NAME, L"File", HDF_LEFT, 220 );
+	InsertColumn( MATCH_COL_TYPE, L"Type", HDF_CENTER, 50 );
+	InsertColumn( MATCH_COL_SIZE, L"Size", HDF_CENTER, 62 );
+	InsertColumn( MATCH_COL_COUNT, L"Host/Count", HDF_CENTER, 110 );
+	InsertColumn( MATCH_COL_SPEED, L"Speed", HDF_CENTER, 60 );
+	InsertColumn( MATCH_COL_RATING, L"Rating", HDF_CENTER, 12*5 );
+	InsertColumn( MATCH_COL_STATUS, L"Status", HDF_CENTER, 16*3 );
+	InsertColumn( MATCH_COL_CLIENT, L"Client", HDF_CENTER, 80 );
+	InsertColumn( MATCH_COL_COUNTRY, L"Country", HDF_LEFT, 56 );
+	InsertColumn( MATCH_COL_TIME, L"Time", HDF_CENTER, 102 );
 
 	CBitmap bmStar;
 	bmStar.LoadBitmap( IDB_SMALL_STAR );
@@ -249,7 +249,7 @@ void CMatchCtrl::SelectSchema(CSchemaPtr pSchema, CList< CSchemaMember* >* pColu
 void CMatchCtrl::SetBrowseMode()
 {
 	SaveColumnState();
-	m_sType = _T("Browse");
+	m_sType = L"Browse";
 	HDITEM pZero = { HDI_WIDTH, 0 };
 	m_wndHeader.SetItem( MATCH_COL_STATUS, &pZero );
 	m_wndHeader.SetItem( MATCH_COL_COUNT, &pZero );
@@ -357,45 +357,45 @@ void CMatchCtrl::SaveColumnState()
 	{
 		m_wndHeader.GetItem( nColumns, &pItem );
 
-		strItem.Format( _T("%.2x"), pItem.iOrder );
+		strItem.Format( L"%.2x", pItem.iOrder );
 		strOrdering += strItem;
 
-		strItem.Format( _T("%.4x"), pItem.cxy );
+		strItem.Format( L"%.4x", pItem.cxy );
 		strWidths += strItem;
 	}
 
 	int nSort = m_pMatches->m_nSortColumn >= 0 ?
 		( m_pMatches->m_nSortColumn + 1 ) * m_pMatches->m_bSortDir : 0;
 
-	LPCTSTR pszName = _T("Null");
+	LPCTSTR pszName = L"Null";
 	if ( m_pSchema ) pszName = m_pSchema->m_sSingular;
 
-	strItem.Format( _T("CMatchCtrl.%s.%s.Ordering"), m_sType, pszName );
-	theApp.WriteProfileString( _T("ListStates"), strItem, strOrdering );
-	strItem.Format( _T("CMatchCtrl.%s.%s.Widths"), m_sType, pszName );
-	theApp.WriteProfileString( _T("ListStates"), strItem, strWidths );
-	strItem.Format( _T("CMatchCtrl.%s.%s.Sort"), m_sType, pszName );
-	theApp.WriteProfileInt( _T("ListStates"), strItem, nSort );
+	strItem.Format( L"CMatchCtrl.%s.%s.Ordering", m_sType, pszName );
+	theApp.WriteProfileString( L"ListStates", strItem, strOrdering );
+	strItem.Format( L"CMatchCtrl.%s.%s.Widths", m_sType, pszName );
+	theApp.WriteProfileString( L"ListStates", strItem, strWidths );
+	strItem.Format( L"CMatchCtrl.%s.%s.Sort", m_sType, pszName );
+	theApp.WriteProfileInt( L"ListStates", strItem, nSort );
 }
 
 BOOL CMatchCtrl::LoadColumnState()
 {
 	CString strOrdering, strWidths, strItem;
 
-	LPCTSTR pszName = _T("Null");
+	LPCTSTR pszName = L"Null";
 	if ( m_pSchema ) pszName = m_pSchema->m_sSingular;
 
-	strItem.Format( _T("CMatchCtrl.%s.%s.Ordering"), m_sType, pszName );
-	strOrdering = theApp.GetProfileString( _T("ListStates"), strItem, _T("") );
-	strItem.Format( _T("CMatchCtrl.%s.%s.Widths"), m_sType, pszName );
-	strWidths = theApp.GetProfileString( _T("ListStates"), strItem, _T("") );
-	strItem.Format( _T("CMatchCtrl.%s.%s.Sort"), m_sType, pszName );
-	int nSort = theApp.GetProfileInt( _T("ListStates"), strItem, - MATCH_COL_COUNT - 1 );
+	strItem.Format( L"CMatchCtrl.%s.%s.Ordering", m_sType, pszName );
+	strOrdering = theApp.GetProfileString( L"ListStates", strItem, L"" );
+	strItem.Format( L"CMatchCtrl.%s.%s.Widths", m_sType, pszName );
+	strWidths = theApp.GetProfileString( L"ListStates", strItem, L"" );
+	strItem.Format( L"CMatchCtrl.%s.%s.Sort", m_sType, pszName );
+	int nSort = theApp.GetProfileInt( L"ListStates", strItem, - MATCH_COL_COUNT - 1 );
 
 	HDITEM pItem = { HDI_WIDTH|HDI_ORDER };
 
-	if ( _tcsncmp( strWidths, _T("0000"), 4 ) == 0 &&
-		 _tcsncmp( strOrdering, _T("00"), 2 ) == 0 )
+	if ( _tcsncmp( strWidths, L"0000", 4 ) == 0 &&
+		 _tcsncmp( strOrdering, L"00", 2 ) == 0 )
 	{
 		strWidths = strWidths.Mid( 4 );
 		strOrdering = strOrdering.Mid( 2 );
@@ -406,8 +406,8 @@ BOOL CMatchCtrl::LoadColumnState()
 		if ( strWidths.GetLength() < 4 || strOrdering.GetLength() < 2 )
 			return FALSE;
 
-		if ( _stscanf( strWidths.Left( 4 ), _T("%x"), &pItem.cxy ) != 1 ||
-			 _stscanf( strOrdering.Left( 2 ), _T("%x"), &pItem.iOrder ) != 1 )
+		if ( _stscanf( strWidths.Left( 4 ), L"%x", &pItem.cxy ) != 1 ||
+			 _stscanf( strOrdering.Left( 2 ), L"%x", &pItem.iOrder ) != 1 )
 			return FALSE;
 
 		strWidths = strWidths.Mid( 4 );
@@ -549,7 +549,7 @@ BOOL CMatchCtrl::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	{
 		if ( pWnd != this )
 		{
-			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) )
+			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, L"CPanelCtrl" ) )
 				return pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
 		}
 	}
@@ -651,7 +651,7 @@ void CMatchCtrl::OnPaint()
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	m_nTrailWidth = dc.GetTextExtent( _T("\x2026") ).cx;
+	m_nTrailWidth = dc.GetTextExtent( L"\x2026" ).cx;
 
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, 0 );
 	rcItem.top -= m_nHitIndex * Settings.Skin.RowSize;
@@ -830,7 +830,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		GetCursorPos(&ptHover);
 		ScreenToClient(&ptHover);
 
-		LPCTSTR pszText = _T("");
+		LPCTSTR pszText = L"";
 		int nPosition, nText = -1;
 
 		dc.SetTextColor( crText );
@@ -954,27 +954,27 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					strTemp = ppHit->m_sNick;
 
 					if ( ppHit->GetSources() > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"%s+%u", (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
 					else
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), (LPCTSTR)strTemp );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"%s", (LPCTSTR)strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
 				else if ( ppHit->m_nProtocol == PROTOCOL_ED2K && ppHit->m_bPush == TRI_TRUE )
 				{
-					strTemp.Format( _T("@%s"), (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
-					//strText.Format( _T("%lu@%s"), ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
+					strTemp.Format( L"@%s", (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
+					//strText.Format( L"%lu@%s", ppHit->m_oClientID.begin()[2], (LPCTSTR)CString( inet_ntoa( (IN_ADDR&)*ppHit->m_oClientID.begin() ) ) );
 
 					if ( ppHit->GetSources() > 1 )
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"), (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"%s+%u", (LPCTSTR)strTemp, ppHit->GetSources() - 1 );
 					else
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s"), (LPCTSTR)strTemp );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"%s", (LPCTSTR)strTemp );
 					szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 				}
 				else if ( ppHit->m_pAddress.S_un.S_addr )
 				{
 					if ( ppHit->GetSources() > 1 )
 					{
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("%s+%u"),
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"%s+%u",
 							(LPCTSTR)CString( inet_ntoa( ppHit->m_pAddress ) ), ppHit->GetSources() - 1 );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
@@ -991,22 +991,22 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 						CString strSource, strText;
 						LoadSourcesString( strSource,  pFile->m_nFiltered );
 						if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
-							strText.Format( _T("%u fakes"), pFile->m_nFiltered );		// ToDo: Translate "fakes"
+							strText.Format( L"%u fakes", pFile->m_nFiltered );		// ToDo: Translate "fakes"
 						else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
-							strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
+							strText.Format( L"%u %s +%u", pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nSources > pFile->m_nFiltered )
-							strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
+							strText.Format( L"     %u %s +%u", pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 						else if ( pFile->m_nFiltered > 9 )
-							strText.Format( _T("%u %s "), pFile->m_nFiltered, (LPCTSTR)strSource );
+							strText.Format( L"%u %s ", pFile->m_nFiltered, (LPCTSTR)strSource );
 						else
-							strText.Format( _T("%u %s"), pFile->m_nFiltered, (LPCTSTR)strSource );
+							strText.Format( L"%u %s", pFile->m_nFiltered, (LPCTSTR)strSource );
 
 						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
 					else	// Not used?
 					{
-						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), _T("(Firewalled)") );
+						_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), L"(Firewalled)" );
 						szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 					}
 				}
@@ -1017,15 +1017,15 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 				CString strSource, strText;
 				LoadSourcesString( strSource, pFile->m_nFiltered );
 				if ( pFile->m_nFiltered < 5 && pFile->m_nSources > 2300 )
-					strText.Format( _T("%u fakes"), pFile->m_nFiltered );		// ToDo: Translate "fakes"
+					strText.Format( L"%u fakes", pFile->m_nFiltered );		// ToDo: Translate "fakes"
 				else if ( pFile->m_nFiltered > 99 && pFile->m_nSources > pFile->m_nFiltered )
-					strText.Format( _T("%u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
+					strText.Format( L"%u %s +%u", pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nSources > pFile->m_nFiltered )
-					strText.Format( _T("     %u %s +%u"), pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
+					strText.Format( L"     %u %s +%u", pFile->m_nFiltered, (LPCTSTR)strSource, pFile->m_nSources - pFile->m_nFiltered );
 				else if ( pFile->m_nFiltered > 9 )
-					strText.Format( _T("%u %s "), pFile->m_nFiltered, (LPCTSTR)strSource );
+					strText.Format( L"%u %s ", pFile->m_nFiltered, (LPCTSTR)strSource );
 				else
-					strText.Format( _T("%u %s"), pFile->m_nFiltered, (LPCTSTR)strSource );
+					strText.Format( L"%u %s", pFile->m_nFiltered, (LPCTSTR)strSource );
 
 				_sntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), strText, pFile->m_nFiltered );
 				szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
@@ -1108,8 +1108,8 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					{
 						// Get new date
 						int nChars = GetTimeFormat( LOCALE_USER_DEFAULT, 0, &st, NULL, szBuffer, _countof( szBuffer ) );
-						szBuffer[ nChars - 1 ] = _T(' ');
-						szBuffer[ nChars ] = _T(' ');
+						szBuffer[ nChars - 1 ] = L' ';
+						szBuffer[ nChars ] = L' ';
 						nChars += GetDateFormat( LOCALE_USER_DEFAULT, DATE_SHORTDATE, &st, NULL, szBuffer + nChars + 1, _countof( szBuffer ) - nChars );
 						szBuffer[ nChars - 5 ] = 0;			// Strip Year
 						pszText = szBuffer;
@@ -1171,7 +1171,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 			CString strTrail;
 			LPTSTR pszTrail = strTrail.GetBuffer( nText + 1 );
 			CopyMemory( pszTrail, pszText, nText * sizeof( TCHAR ) );
-			pszTrail[ nText ] = _T('\x2026');
+			pszTrail[ nText ] = L'\x2026';
 			strTrail.ReleaseBuffer( nText + 1 );
 			dc.ExtTextOut( nPosition, rcCol.top + 2,
 				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ),
@@ -1314,14 +1314,14 @@ void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF c
 {
 	int nFlagIndex = Flags.GetFlagIndex( sCountry );
 	// If the column is very narrow then don't draw the flag.
-	if ( nFlagIndex >= 0 && rcCol.Width() > 18 )
+	if ( nFlagIndex >= 0 && rcCol.Width() > FLAG_WIDTH )
 	{
 		CPoint pt( rcCol.left + 1, rcCol.top );
 		Flags.Draw( nFlagIndex, dc, pt.x, pt.y, ( bSkinned ? -1 : crBack ), crBack, bSelected ? ILD_BLEND50 : ILD_NORMAL );
-		dc.ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
+		dc.ExcludeClipRect( pt.x, pt.y, pt.x + FLAG_WIDTH, pt.y + 16 );
 		if ( ! bSkinned )
 			dc.FillSolidRect( &rcCol, crBack );
-		rcCol.left += 17;
+		rcCol.left += FLAG_WIDTH + 1;
 	}
 }
 

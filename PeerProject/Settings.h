@@ -42,6 +42,7 @@ public:
 		CString		Path;					// Installation path for PeerProject
 		CString		UserPath;				// Path for user data. (May be the same as above for single user installs)
 		CString		DataPath;				// Full path for user data. (Same as above plus \Data\)
+		CString		AntiVirus;				// Anti-virus path or CLSID
 		bool		MultiUser;				// Multiuser installation
 		bool		DialogScan;				// Create "C:\Dialogs.xml" translation template, with Skin engine in "dialog scan" mode.
 		bool		DebugLog;				// Create a log file
@@ -208,11 +209,11 @@ public:
 
 	struct sWebServices
 	{
-		CString		BitprintAgent;
-		CString		BitprintWebView;
-		CString		BitprintWebSubmit;
-		CString		BitprintXML;
-		bool		BitprintOkay;
+		CString		BitprintsAgent;
+		CString		BitprintsWebView;
+		CString		BitprintsWebSubmit;
+		CString		BitprintsXML;
+		bool		BitprintsOkay;
 	//	bool		ShareMonkeyOkay;
 	//	bool		ShareMonkeySaveThumbnail;
 	//	CString		ShareMonkeyCid;			// Affiliate ID

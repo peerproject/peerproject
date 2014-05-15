@@ -1,59 +1,59 @@
 ﻿<?xml version="1.0"?>
 <world>
 	<country code="US" name="United States">
-		<city name=""	state="~Alabama" 	latitude="32.75" longitude="-86.75"/>
-		<city name=""	state="~Alaska" 	latitude="64.00" longitude="-150.00"/>
-		<city name=""	state="~Arizona"	latitude="34.50" longitude="-111.50"/>
-		<city name=""	state="~Arkansas"  	latitude="34.75" longitude="-92.50"/>
-		<city name=""	state="~California"	latitude="37.25" longitude="-119.75"/>
-		<city name=""	state="~Colorado"	latitude="39.00" longitude="-105.50"/>
-		<city name=""	state="~Connecticut"	latitude="41.66" longitude="-72.66"/>
-		<city name=""	state="~Delaware"	latitude="39.00" longitude="-75.50"/>
-		<city name=""	state="~Florida"	latitude="28.75" longitude="-82.50"/>
-		<city name=""	state="~Georgia"	latitude="32.75" longitude="-83.50"/>
-		<city name=""	state="~Hawaii" 	latitude="20.75" longitude="-156.50"/>
-		<city name=""	state="~Idaho"		latitude="44.50" longitude="-114.25"/>
-		<city name=""	state="~Illinois"	latitude="40.00" longitude="-89.25"/>
-		<city name=""	state="~Indiana" 	latitude="40.00" longitude="-86.25"/>
-		<city name=""	state="~Iowa"		latitude="42.00" longitude="-93.50"/>
-		<city name=""	state="~Kansas"  	latitude="38.50" longitude="-98.50"/>
-		<city name=""	state="~Kentucky"	latitude="38.20" longitude="-84.87"/>
-		<city name=""	state="~Louisiana"	latitude="31.00" longitude="-92.00"/>
-		<city name=""	state="~Maine"		latitude="45.50" longitude="-69.25"/>
-		<city name=""	state="~Maryland"	latitude="39.00" longitude="-76.75"/>
-		<city name=""	state="~Massachusetts"	latitude="42.35" longitude="-71.06"/>
-		<city name=""	state="~Michigan"	latitude="44.25" longitude="-85.50"/>
-		<city name=""	state="~Minnesota"	latitude="46.25" longitude="-94.25"/>
-		<city name=""	state="~Mississippi"	latitude="32.75" longitude="-89.75"/>
-		<city name=""	state="~Missouri"	latitude="38.25" longitude="-92.50"/>
-		<city name=""	state="~Montana" 	latitude="47.00" longitude="-109.75"/>
-		<city name=""	state="~Nebraska"	latitude="41.50" longitude="-99.75"/>
-		<city name=""	state="~Nevada"		latitude="39.25" longitude="-116.75"/>
-		<city name=""	state="~New Hampshire"	latitude="43.66" longitude="-71.50"/>
-		<city name=""	state="~New Jersey"	latitude="40.16" longitude="-74.50"/>
-		<city name=""	state="~New Mexico"	latitude="34.50" longitude="-106.00"/>
-		<city name=""	state="~New York"	latitude="43.00" longitude="-75.50"/>
-		<city name=""	state="~North Carolina"	latitude="35.50" longitude="-80.00"/>
-		<city name=""	state="~North Dakota"	latitude="47.50" longitude="-100.00"/>
-		<city name=""	state="~Ohio"		latitude="40.25" longitude="-83.00"/>
-		<city name=""	state="~Oklahoma"	latitude="35.50" longitude="-97.50"/>
-		<city name=""	state="~Oregon"		latitude="44.00" longitude="-120.50"/>
-		<city name=""	state="~Pennsylvania"	latitude="40.27" longitude="-76.88"/>
-		<city name=""	state="~Rhode Island"	latitude="41.75" longitude="-71.50"/>
-		<city name=""	state="~South Carolina"	latitude="34.00" longitude="-81.00"/>
-		<city name=""	state="~South Dakota"	latitude="44.50" longitude="-100.25"/>
-		<city name=""	state="~Tennessee"	latitude="35.75" longitude="-86.25"/>
-		<city name=""	state="~Texas"		latitude="31.25" longitude="-99.25"/>
-		<city name=""	state="~Utah"		latitude="39.25" longitude="-111.75"/>
-		<city name=""	state="~Vermont"	latitude="44.00" longitude="-72.75"/>
-		<city name=""	state="~Virginia"	latitude="37.55" longitude="-77.46"/>
-		<city name=""	state="~Washington"	latitude="47.50" longitude="-120.50"/>
-		<city name=""	state="~West Virginia"	latitude="38.50" longitude="-80.50"/>
-		<city name=""	state="~Wisconsin"	latitude="44.50" longitude="-90.00"/>
-		<city name=""	state="~Wyoming"	latitude="43.00" longitude="-107.50"/>
-		<city name=""	state="~District of Columbia" latitude="38.895" longitude="-77.03666"/>
-		<city name=""	state="~Puerto Rico"	latitude="37.99816" longitude="-97.99817"/>
-		<city name=""	state="~Minor Islands"	latitude="0" longitude="-176.5"/>
+		<city state="&nbsp;Alabama" 	latitude="32.75" longitude="-86.75"/>
+		<city state="&nbsp;Alaska" 	latitude="64.00" longitude="-150.00"/>
+		<city state="&nbsp;Arizona"	latitude="34.50" longitude="-111.50"/>
+		<city state="&nbsp;Arkansas"	latitude="34.75" longitude="-92.50"/>
+		<city state="&nbsp;California"	latitude="37.25" longitude="-119.75"/>
+		<city state="&nbsp;Colorado"	latitude="39.00" longitude="-105.50"/>
+		<city state="&nbsp;Connecticut"	latitude="41.66" longitude="-72.66"/>
+		<city state="&nbsp;Delaware"	latitude="39.00" longitude="-75.50"/>
+		<city state="&nbsp;Florida"	latitude="28.75" longitude="-82.50"/>
+		<city state="&nbsp;Georgia"	latitude="32.75" longitude="-83.50"/>
+		<city state="&nbsp;Hawaii" 	latitude="20.75" longitude="-156.50"/>
+		<city state="&nbsp;Idaho"		latitude="44.50" longitude="-114.25"/>
+		<city state="&nbsp;Illinois"	latitude="40.00" longitude="-89.25"/>
+		<city state="&nbsp;Indiana" 	latitude="40.00" longitude="-86.25"/>
+		<city state="&nbsp;Iowa"		latitude="42.00" longitude="-93.50"/>
+		<city state="&nbsp;Kansas"		latitude="38.50" longitude="-98.50"/>
+		<city state="&nbsp;Kentucky"	latitude="38.20" longitude="-84.87"/>
+		<city state="&nbsp;Louisiana"	latitude="31.00" longitude="-92.00"/>
+		<city state="&nbsp;Maine"		latitude="45.50" longitude="-69.25"/>
+		<city state="&nbsp;Maryland"	latitude="39.00" longitude="-76.75"/>
+		<city state="&nbsp;Massachusetts"	latitude="42.35" longitude="-71.06"/>
+		<city state="&nbsp;Michigan"	latitude="44.25" longitude="-85.50"/>
+		<city state="&nbsp;Minnesota"	latitude="46.25" longitude="-94.25"/>
+		<city state="&nbsp;Mississippi"	latitude="32.75" longitude="-89.75"/>
+		<city state="&nbsp;Missouri"	latitude="38.25" longitude="-92.50"/>
+		<city state="&nbsp;Montana" 	latitude="47.00" longitude="-109.75"/>
+		<city state="&nbsp;Nebraska"	latitude="41.50" longitude="-99.75"/>
+		<city state="&nbsp;Nevada"		latitude="39.25" longitude="-116.75"/>
+		<city state="&nbsp;New Hampshire"	latitude="43.66" longitude="-71.50"/>
+		<city state="&nbsp;New Jersey"	latitude="40.16" longitude="-74.50"/>
+		<city state="&nbsp;New Mexico"	latitude="34.50" longitude="-106.00"/>
+		<city state="&nbsp;New York"	latitude="43.00" longitude="-75.50"/>
+		<city state="&nbsp;North Carolina"	latitude="35.50" longitude="-80.00"/>
+		<city state="&nbsp;North Dakota"	latitude="47.50" longitude="-100.00"/>
+		<city state="&nbsp;Ohio"		latitude="40.25" longitude="-83.00"/>
+		<city state="&nbsp;Oklahoma"	latitude="35.50" longitude="-97.50"/>
+		<city state="&nbsp;Oregon"		latitude="44.00" longitude="-120.50"/>
+		<city state="&nbsp;Pennsylvania"	latitude="40.27" longitude="-76.88"/>
+		<city state="&nbsp;Rhode Island"	latitude="41.75" longitude="-71.50"/>
+		<city state="&nbsp;South Carolina"	latitude="34.00" longitude="-81.00"/>
+		<city state="&nbsp;South Dakota"	latitude="44.50" longitude="-100.25"/>
+		<city state="&nbsp;Tennessee"	latitude="35.75" longitude="-86.25"/>
+		<city state="&nbsp;Texas"		latitude="31.25" longitude="-99.25"/>
+		<city state="&nbsp;Utah"		latitude="39.25" longitude="-111.75"/>
+		<city state="&nbsp;Vermont"	latitude="44.00" longitude="-72.75"/>
+		<city state="&nbsp;Virginia"	latitude="37.55" longitude="-77.46"/>
+		<city state="&nbsp;Washington"	latitude="47.50" longitude="-120.50"/>
+		<city state="&nbsp;West Virginia"	latitude="38.50" longitude="-80.50"/>
+		<city state="&nbsp;Wisconsin"	latitude="44.50" longitude="-90.00"/>
+		<city state="&nbsp;Wyoming"	latitude="43.00" longitude="-107.50"/>
+		<city state="&nbsp;Puerto Rico"	latitude="37.99816" longitude="-97.99817"/>
+		<city state="&nbsp;Minor Islands"	latitude="0" longitude="-176.5"/>
+		<city state="&nbsp;District of Columbia" latitude="38.895" longitude="-77.03666"/>
 		<city name="Abbott Park"	state="Illinois"	latitude="42.31926" longitude="-87.84771"/>
 		<city name="Aberdeen Proving Ground" state="Maryland"	latitude="39.47345" longitude="-76.14080"/>
 		<city name="Aberdeen"		state="South Dakota"	latitude="46.22477" longitude="-111.14312"/>
@@ -82,6 +82,7 @@
 		<city name="Allen"		state="Texas"		latitude="33.08807" longitude="-96.64954"/>
 		<city name="Allen Park"		state="Michigan"	latitude="42.24770" longitude="-83.20733"/>
 		<city name="Allendale"		state="Michigan"	latitude="42.96880" longitude="-85.91559"/>
+		<city name="Allendale"		state="New Jersey"	latitude="40.95963" longitude="-74.12477"/>
 		<city name="Allentown"		state="Pennsylvania"	latitude="40.58807" longitude="-75.48990"/>
 		<city name="Allison Park"	state="Pennsylvania"	latitude="40.56880" longitude="-79.96514"/>
 		<city name="Allston"		state="Massachusetts"	latitude="42.34954" longitude="-71.12477"/>
@@ -174,7 +175,7 @@
 		<city name="Bay Harbor"		state="Florida"		latitude="25.87981" longitude="-80.12477"/>
 		<city name="Bayonne"		state="New Jersey"	latitude="40.66789" longitude="-74.11926"/>
 		<city name="Beachwood"		state="Ohio"		latitude="41.46880" longitude="-81.51743"/>
-		<city name="Beale Afb"		state="California"	latitude="37.99816" longitude="-97.99817"/>
+		<city name="Beale AFB"		state="California"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Beaufort"		state="South Carolina"	latitude="35.20734" longitude="-89.35045"/>
 		<city name="Beaumont"		state="Texas"		latitude="30.06605" longitude="-94.15046"/>
 		<city name="Beaver"		state="West Virginia"	latitude="37.74770" longitude="-81.06605"/>
@@ -196,10 +197,10 @@
 		<city name="Bellingham"		state="Washington"	latitude="48.75412" longitude="-122.46054"/>
 		<city name="Bellmawr"		state="New Jersey"	latitude="39.86972" longitude="-75.08807"/>
 		<city name="Bellmore"		state="New York"	latitude="40.67889" longitude="-73.52477"/>
-		<city name="Bellows Falls"	state="Vermont"  	latitude="43.14770" longitude="-72.46788"/>
+		<city name="Bellows Falls"	state="Vermont"		latitude="43.14770" longitude="-72.46788"/>
 		<city name="Bellwood"		state="Pennsylvania"	latitude="40.59908" longitude="-78.33577"/>
 		<city name="Belmont"		state="Massachusetts"	latitude="39.95229" longitude="-96.72660"/>
-		<city name="Beloit"		state="Kansas"  	latitude="39.44862" longitude="-98.10825"/>
+		<city name="Beloit"		state="Kansas"		latitude="39.44862" longitude="-98.10825"/>
 		<city name="Beltsville"		state="Maryland"	latitude="39.04954" longitude="-76.91559"/>
 		<city name="Bemidji"		state="Minnesota"	latitude="47.48807" longitude="-94.84954"/>
 		<city name="Bend"		state="Oregon"		latitude="44.05321" longitude="-121.29358"/>
@@ -207,13 +208,13 @@
 		<city name="Bensenville"	state="Illinois"	latitude="41.94770" longitude="-87.93578"/>
 		<city name="Bentleyville"	state="Pennsylvania"	latitude="40.11743" longitude="-80.00917"/>
 		<city name="Benton Harbor"	state="Michigan"	latitude="42.10733" longitude="-86.41651"/>
-		<city name="Bentonville"	state="Arkansas"  	latitude="36.32752" longitude="-94.17798"/>
+		<city name="Bentonville"	state="Arkansas"	latitude="36.32752" longitude="-94.17798"/>
 		<city name="Bergenfield"	state="New Jersey"	latitude="40.91835" longitude="-73.99817"/>
 		<city name="Berkeley"		state="California"	latitude="37.86605" longitude="-122.26789"/>
 		<city name="Berkeley Heights"	state="New Jersey"	latitude="40.67889" longitude="-74.42752"/>
 		<city name="Berlin"		state="New Jersey"	latitude="41.39174" longitude="-75.02201"/>
 		<city name="Berrien Springs"	state="Michigan"	latitude="41.94770" longitude="-86.34495"/>
-		<city name="Berryton"		state="Kansas"  	latitude="38.93945" longitude="-95.57615"/>
+		<city name="Berryton"		state="Kansas"		latitude="38.93945" longitude="-95.57615"/>
 		<city name="Berryville"		state="Virginia"	latitude="39.14862" longitude="-77.96697"/>
 		<city name="Berwyn"		state="Pennsylvania"	latitude="40.03761" longitude="-75.44587"/>
 		<city name="Bethel"		state="Connecticut"	latitude="41.37798" longitude="-73.39816"/>
@@ -324,7 +325,7 @@
 		<city name="Camp Hill"		state="Pennsylvania"	latitude="40.23853" longitude="-76.92660"/>
 		<city name="Camp Lejeune"	state="North Carolina"	latitude="34.66789" longitude="-77.33944"/>
 		<city name="Camp Pendleton"	state="California"	latitude="33.32752" longitude="-117.40734"/>
-		<city name="Camp Smith"		state="Hawaii"  	latitude="37.99816" longitude="-97.99817"/>
+		<city name="Camp Smith"		state="Hawaii"		latitude="37.99816" longitude="-97.99817"/>
 		<city name="Camp Springs"	state="Maryland"	latitude="38.81834" longitude="-76.94862"/>
 		<city name="Campbell"		state="California"	latitude="37.27981" longitude="-121.95963"/>
 		<city name="Campo Grande"	state="Mississippi"	latitude="36.36881" longitude="-100.81651"/>
@@ -378,6 +379,7 @@
 		<city name="Charlottesville"	state="Virginia"	latitude="38.02568" longitude="-84.99633"/>
 		<city name="Chaska"		state="Minnesota"	latitude="44.80734" longitude="-93.60550"/>
 		<city name="Chatham"		state="Illinois"	latitude="40.91559" longitude="-79.23302"/>
+		<city name="Chatham"		state="New Jersey"	latitude="40.74126" longitude="-74.38518"/>
 		<city name="Chatsworth"		state="California"	latitude="34.25779" longitude="-118.58532"/>
 		<city name="Chattanooga"	state="Tennessee"	latitude="35.46605" longitude="-87.11009"/>
 		<city name="Chelmsford"		state="Massachusetts"	latitude="42.58899" longitude="-71.35596"/>
@@ -404,7 +406,7 @@
 		<city name="Cinnaminson"	state="New Jersey"	latitude="39.99908" longitude="-75.00000"/>
 		<city name="Circle"		state="Montana" 	latitude="47.42752" longitude="-105.60550"/>
 		<city name="Citrus Heights"	state="California"	latitude="38.70000" longitude="-121.30458"/>
-		<city name="City Of Industry"	state="California"	latitude="34.80825" longitude="-113.93945"/>
+		<city name="City of Industry"	state="California"	latitude="34.80825" longitude="-113.93945"/>
 		<city name="Claremont"		state="California"	latitude="38.73853" longitude="-95.02568"/>
 		<city name="Clarkesville"	state="Georgia"		latitude="34.64862" longitude="-83.51559"/>
 		<city name="Clarkston"		state="Michigan"	latitude="42.74311" longitude="-83.40000"/>
@@ -477,7 +479,7 @@
 		<city name="Cranston"		state="Rhode Island"	latitude="41.77981" longitude="-71.43853"/>
 		<city name="Creve Coeur"	state="Missouri"	latitude="38.65871" longitude="-90.45688"/>
 		<city name="Croswell"		state="Michigan"	latitude="43.25779" longitude="-82.62935"/>
-		<city name="Croton-on-hudson"	state="New York"	latitude="41.21835" longitude="-73.88807"/>
+		<city name="Croton-on-Hudson"	state="New York"	latitude="41.21835" longitude="-73.88807"/>
 		<city name="Crystal Lake"	state="Illinois"	latitude="42.26972" longitude="-88.31559"/>
 		<city name="Culver City"	state="California"	latitude="33.99633" longitude="-118.41468"/>
 		<city name="Cupertino"		state="California"	latitude="37.50825" longitude="-122.24036"/>
@@ -489,7 +491,7 @@
 		<city name="Damascus"		state="Maryland"	latitude="39.27798" longitude="-77.20733"/>
 		<city name="Danbury"		state="Connecticut"	latitude="41.40275" longitude="-73.45871"/>
 		<city name="Danvers"		state="Massachusetts"	latitude="42.54495" longitude="-70.91559"/>
-		<city name="Danville"		state="Arkansas"  	latitude="36.42936" longitude="-107.67523"/>
+		<city name="Danville"		state="Arkansas"	latitude="36.42936" longitude="-107.67523"/>
 		<city name="Darien"		state="Connecticut"	latitude="36.22844" longitude="-77.45504"/>
 		<city name="Davenport"		state="Iowa"		latitude="37.99816" longitude="-97.99817"/>
 		<city name="Davie"		state="Florida"		latitude="26.09449" longitude="-80.23486"/>
@@ -513,7 +515,7 @@
 		<city name="Denver"		state="Colorado"	latitude="39.60825" longitude="-104.53761"/>
 		<city name="Denville"		state="New Jersey"	latitude="40.88807" longitude="-74.47706"/>
 		<city name="Depere"		state="Wisconsin"	latitude="44.43853" longitude="-88.07889"/>
-		<city name="Des Moines"		state="Iowa"		latitude="40.18899" longitude="-96.08807"/>
+		<city name="Des Moines"		state="Iowa"		latitude="41.59055" longitude="-93.60350"/>
 		<city name="Des Plaines"	state="Illinois"	latitude="40.68990" longitude="-91.26055"/>
 		<city name="Destin"		state="Florida"		latitude="30.39908" longitude="-86.47706"/>
 		<city name="Detroit"		state="Michigan"	latitude="42.45137" longitude="-83.10825"/>
@@ -528,7 +530,6 @@
 		<city name="Dothan"		state="Alabama" 	latitude="31.25779" longitude="-85.40917"/>
 		<city name="Dover"		state="New Hampshire"	latitude="41.07798" longitude="-73.65688"/>
 		<city name="Downers Grove"	state="Illinois"	latitude="41.79908" longitude="-88.00734"/>
-		<city name="Downersgrove"	state="Illinois"	latitude="41.91743" longitude="-88.59633"/>
 		<city name="Downey"		state="California"	latitude="33.91926" longitude="-118.13945"/>
 		<city name="Doylestown"		state="Pennsylvania"	latitude="40.64312" longitude="-78.40183"/>
 		<city name="Draper"		state="Utah"		latitude="40.50000" longitude="-111.87523"/>
@@ -547,8 +548,6 @@
 		<city name="Duyrea"		state="Pennsylvania"	latitude="41.34770" longitude="-75.75963"/>
 		<city name="Dyer"		state="Indiana" 	latitude="41.48807" longitude="-87.50642"/>
 		<city name="Dyersburg"		state="Tennessee"	latitude="36.03853" longitude="-89.37798"/>
-		<city name="E Lansing"		state="Michigan"	latitude="42.73761" longitude="-84.47889"/>
-		<city name="E Syracuse"		state="New York"	latitude="43.06789" longitude="-76.05687"/>
 		<city name="Eagan"		state="Minnesota"	latitude="44.81834" longitude="-93.18164"/>
 		<city name="Eagle River"	state="Wisconsin"	latitude="45.91926" longitude="-89.24587"/>
 		<city name="Easley"		state="South Carolina"	latitude="34.95963" longitude="-82.55780"/>
@@ -580,7 +579,7 @@
 		<city name="Edmond"		state="Oklahoma"	latitude="35.64495" longitude="-97.46972"/>
 		<city name="Edwards AFB"	state="California"	latitude="34.92936" longitude="-117.91926"/>
 		<city name="Edwardsville"	state="Illinois"	latitude="38.80734" longitude="-89.95596"/>
-		<city name="Egg Harbor Twp"	state="New Jersey"	latitude="37.99816" longitude="-97.99817"/>
+		<city name="Egg Harbor"	state="New Jersey"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Eglin AFB"		state="Florida"		latitude="30.47890" longitude="-86.61467"/>
 		<city name="Eguene"		state="Oregon"		latitude="44.03944" longitude="-123.05504"/>
 		<city name="El Campo"		state="Texas"		latitude="29.19908" longitude="-96.26972"/>
@@ -619,7 +618,6 @@
 		<city name="Equality"		state="Illinois"	latitude="37.72844" longitude="-88.33761"/>
 		<city name="Erdenheim"		state="Pennsylvania"	latitude="40.10917" longitude="-75.14862"/>
 		<city name="Erie"		state="Pennsylvania"	latitude="42.11284" longitude="-80.12477"/>
-		<city name="Es Moines"		state="Iowa"		latitude="41.58991" longitude="-93.61651"/>
 		<city name="Escondido"		state="California"	latitude="33.10733" longitude="-117.06605"/>
 		<city name="Etna"		state="New Hampshire"	latitude="42.58899" longitude="-97.55780"/>
 		<city name="Eugene"		state="Oregon"		latitude="42.76789" longitude="-118.87156"/>
@@ -652,7 +650,7 @@
 		<city name="Farmington"		state="New Hampshire"	latitude="40.60733" longitude="-84.03302"/>
 		<city name="Farmington Hills"	state="Michigan"	latitude="42.50917" longitude="-83.37798"/>
 		<city name="Fayette City"	state="Pennsylvania"	latitude="40.09816" longitude="-79.83853"/>
-		<city name="Fayetteville"	state="Arkansas"  	latitude="35.38623" longitude="-83.96147"/>
+		<city name="Fayetteville"	state="Arkansas"	latitude="35.38623" longitude="-83.96147"/>
 		<city name="Federal Way"	state="Washington"	latitude="47.31743" longitude="-122.30642"/>
 		<city name="Fenton"		state="Missouri"	latitude="38.49908" longitude="-90.46788"/>
 		<city name="Fern Park"		state="Florida"		latitude="28.64862" longitude="-81.33577"/>
@@ -681,19 +679,19 @@
 		<city name="Fort Collins"	state="Colorado"	latitude="40.05137" longitude="-103.66238"/>
 		<city name="Fort Detrick"	state="Maryland"	latitude="39.43761" longitude="-77.44954"/>
 		<city name="Fort Dodge"		state="Iowa"		latitude="42.50917" longitude="-94.17798"/>
-		<city name="Fort George G Meade" state="Maryland"	latitude="39.10733" longitude="-76.73945"/>
 		<city name="Fort Huachuca"	state="Arizona" 	latitude="31.54954" longitude="-110.30092"/>
 		<city name="Fort Lauderdale"	state="Florida"		latitude="26.13027" longitude="-80.16330"/>
-		<city name="Fort Leavenworth"	state="Kansas"  	latitude="39.34954" longitude="-94.92660"/>
+		<city name="Fort Leavenworth"	state="Kansas"		latitude="39.34954" longitude="-94.92660"/>
 		<city name="Fort Lee"		state="Virginia"	latitude="39.04403" longitude="-75.64954"/>
 		<city name="Fort Lewis"		state="Washington"	latitude="47.09724" longitude="-122.57615"/>
 		<city name="Fort Mcpherson"	state="Georgia"		latitude="33.70734" longitude="-84.42936"/>
+		<city name="Fort Meade"		state="Maryland"	latitude="39.10733" longitude="-76.73945"/>
 		<city name="Fort Mill"		state="South Carolina"	latitude="36.51468" longitude="-89.47706"/>
 		<city name="Fort Monmouth"	state="New Jersey"	latitude="40.31834" longitude="-74.03669"/>
 		<city name="Fort Myers"		state="Florida"		latitude="26.55137" longitude="-81.81468"/>
 		<city name="Fort Ritchie"	state="Maryland"	latitude="39.70734" longitude="-77.49908"/>
-		<city name="Fort Shafter"	state="Hawaii"  	latitude="37.99816" longitude="-97.99817"/>
-		<city name="Fort Smith"		state="Arkansas"  	latitude="35.35321" longitude="-94.39266"/>
+		<city name="Fort Shafter"	state="Hawaii"		latitude="37.99816" longitude="-97.99817"/>
+		<city name="Fort Smith"		state="Arkansas"	latitude="35.35321" longitude="-94.39266"/>
 		<city name="Fort Stockton"	state="Texas"		latitude="30.88899" longitude="-102.87523"/>
 		<city name="Fort Washington"	state="Pennsylvania"	latitude="40.13945" longitude="-75.19816"/>
 		<city name="Fort Wayne"		state="Indiana" 	latitude="41.10275" longitude="-85.17247"/>
@@ -728,7 +726,6 @@
 		<city name="Ft Myers"		state="Florida"		latitude="26.56789" longitude="-81.78715"/>
 		<city name="Ft Worth"		state="Texas"		latitude="32.72202" longitude="-97.19449"/>
 		<city name="Fullerton"		state="California"	latitude="35.93945" longitude="-107.94495"/>
-		<city name="Fulton Street"	state="New York"	latitude="0.00000" longitude="0.00000"/>
 		<city name="Gadsden"		state="Alabama" 	latitude="33.99908" longitude="-86.00917"/>
 		<city name="Gahanna"		state="Ohio"		latitude="40.03761" longitude="-82.87706"/>
 		<city name="Gainesville"	state="Florida"		latitude="30.59449" longitude="-82.62935"/>
@@ -739,6 +736,7 @@
 		<city name="Garden City"	state="New York"	latitude="39.34954" longitude="-87.25321"/>
 		<city name="Garden Grove"	state="California"	latitude="33.78990" longitude="-117.92477"/>
 		<city name="Garland"		state="Texas"		latitude="32.87890" longitude="-96.63853"/>
+		<city name="Gary"		state="Indiana"		latitude="41.60208" longitude="-87.33714"/>
 		<city name="Gastonia"		state="North Carolina"	latitude="35.19908" longitude="-81.14862"/>
 		<city name="Gate City"		state="Virginia"	latitude="36.64954" longitude="-82.60733"/>
 		<city name="Gaylord"		state="Michigan"	latitude="45.00825" longitude="-84.66605"/>
@@ -760,6 +758,7 @@
 		<city name="Gladwin"		state="Michigan"	latitude="44.02844" longitude="-84.49541"/>
 		<city name="Glen Allen"		state="Virginia"	latitude="37.65963" longitude="-77.52660"/>
 		<city name="Glen Ellyn"		state="Illinois"	latitude="41.86789" longitude="-88.05687"/>
+		<city name="Glen Ridge"		state="New Jersey"	latitude="40.80825" longitude="-74.21834"/>
 		<city name="Glen Rock"		state="New Jersey"	latitude="40.95963" longitude="-74.12477"/>
 		<city name="Glendale"		state="California"	latitude="33.97156" longitude="-116.23486"/>
 		<city name="Glendora"		state="California"	latitude="34.12844" longitude="-117.85872"/>
@@ -866,7 +865,7 @@
 		<city name="Hesperia"		state="California"	latitude="34.41743" longitude="-117.29725"/>
 		<city name="Hewlett"		state="New York"	latitude="40.63761" longitude="-73.69541"/>
 		<city name="Hiawatha"		state="Iowa"		latitude="42.03853" longitude="-91.67890"/>
-		<city name="Hickam Afb"		state="Hawaii"		latitude="37.99816" longitude="-97.99817"/>
+		<city name="Hickam AFB"		state="Hawaii"		latitude="37.99816" longitude="-97.99817"/>
 		<city name="Hickory"		state="North Carolina"	latitude="37.21926" longitude="-81.22568"/>
 		<city name="Hicksville"		state="New York"	latitude="40.75871" longitude="-73.51926"/>
 		<city name="High Point"		state="North Carolina"	latitude="35.97798" longitude="-80.00367"/>
@@ -887,6 +886,7 @@
 		<city name="Hixson"		state="Tennessee"	latitude="35.15780" longitude="-85.21651"/>
 		<city name="Hoboken"		state="New Jersey"	latitude="40.73945" longitude="-74.02568"/>
 		<city name="Hoffman Estates"	state="Illinois"	latitude="42.05229" longitude="-88.10642"/>
+		<city name="Ho-Ho-Kus"		state="New Jersey"	latitude="40.95963" longitude="-74.12477"/>
 		<city name="Holland"		state="Michigan"	latitude="42.39908" longitude="-85.32660"/>
 		<city name="Hollis"		state="New Hampshire"	latitude="42.74862" longitude="-71.57615"/>
 		<city name="Hollis Hills"	state="New York"	latitude="40.72844" longitude="-73.74495"/>
@@ -896,7 +896,7 @@
 		<city name="Holmdel"		state="New Jersey"	latitude="40.38990" longitude="-74.16880"/>
 		<city name="Holtsville"		state="New York"	latitude="40.80825" longitude="-73.03486"/>
 		<city name="Holyoke"		state="Massachusetts"	latitude="42.19816" longitude="-72.62752"/>
-		<city name="Home"		state="Kansas"  	latitude="39.84770" longitude="-96.52844"/>
+		<city name="Home"		state="Kansas"		latitude="39.84770" longitude="-96.52844"/>
 		<city name="Homestead"		state="Florida"		latitude="25.47798" longitude="-80.47706"/>
 		<city name="Homewood"		state="Illinois"	latitude="41.55963" longitude="-87.65504"/>
 		<city name="Honaker"		state="Virginia"	latitude="37.02935" longitude="-81.99633"/>
@@ -911,7 +911,7 @@
 		<city name="Hornell"		state="New York"	latitude="42.32752" longitude="-77.65871"/>
 		<city name="Horseheads"		state="New York"	latitude="42.17889" longitude="-76.82752"/>
 		<city name="Horsham"		state="Pennsylvania"	latitude="40.17798" longitude="-75.14862"/>
-		<city name="Hot Springs"	state="Arkansas"  	latitude="34.50000" longitude="-93.02752"/>
+		<city name="Hot Springs"	state="Arkansas"	latitude="34.50000" longitude="-93.02752"/>
 		<city name="Houma"		state="Louisiana"	latitude="29.60917" longitude="-90.73761"/>
 		<city name="Houston"		state="Texas"		latitude="29.95871" longitude="-95.51559"/>
 		<city name="Howell"		state="Michigan"	latitude="42.61926" longitude="-83.91743"/>
@@ -965,7 +965,7 @@
 		<city name="Johnson City"	state="New York"	latitude="42.12935" longitude="-75.96881"/>
 		<city name="Johnston"		state="Iowa"		latitude="41.74954" longitude="-82.59633"/>
 		<city name="Johnstown"		state="New York"	latitude="41.65871" longitude="-76.65137"/>
-		<city name="Jonesboro"		state="Arkansas"  	latitude="35.78257" longitude="-91.01835"/>
+		<city name="Jonesboro"		state="Arkansas"	latitude="35.78257" longitude="-91.01835"/>
 		<city name="Joplin"		state="Missouri"	latitude="37.07339" longitude="-94.50825"/>
 		<city name="Juneau"		state="Alaska"		latitude="48.17889" longitude="-116.26238"/>
 		<city name="Jupiter"		state="Florida"		latitude="26.91743" longitude="-80.07522"/>
@@ -1000,7 +1000,7 @@
 		<city name="Keyport"		state="Washington"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Kihei"		state="Hawaii"		latitude="20.73853" longitude="-156.44587"/>
 		<city name="Killeen"		state="Texas"		latitude="31.10917" longitude="-97.70092"/>
-		<city name="King Of Prussia"	state="Pennsylvania"	latitude="40.09816" longitude="-75.24220"/>
+		<city name="King of Prussia"	state="Pennsylvania"	latitude="40.09816" longitude="-75.24220"/>
 		<city name="Kingfisher"		state="Oklahoma"	latitude="35.85963" longitude="-97.94862"/>
 		<city name="Kingman"		state="Arizona" 	latitude="35.25963" longitude="-114.05504"/>
 		<city name="Kingsport"		state="Tennessee"	latitude="36.51743" longitude="-82.51926"/>
@@ -1044,7 +1044,7 @@
 		<city name="Lake Success"	state="New York"	latitude="40.75871" longitude="-73.68991"/>
 		<city name="Lake Worth"		state="Florida"		latitude="26.60917" longitude="-80.16880"/>
 		<city name="Lakeland"		state="Florida"		latitude="28.03761" longitude="-81.93578"/>
-		<city name="Lakesde"		state="Oregon"		latitude="43.57981" longitude="-124.15596"/>
+		<city name="Lakeside"		state="Oregon"		latitude="43.57981" longitude="-124.15596"/>
 		<city name="Lakewood"		state="Colorado"	latitude="40.13669" longitude="-94.24954"/>
 		<city name="Lambertville"	state="New Jersey"	latitude="40.36789" longitude="-74.92844"/>
 		<city name="Lancaster"		state="California"	latitude="37.27981" longitude="-98.77981"/>
@@ -1072,20 +1072,21 @@
 		<city name="Laurens"		state="South Carolina"	latitude="34.50000" longitude="-82.02935"/>
 		<city name="Laurie"		state="Missouri"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Lavergne"		state="Tennessee"	latitude="36.00825" longitude="-86.55963"/>
-		<city name="Lawrence"		state="Kansas"  	latitude="38.95871" longitude="-95.23486"/>
+		<city name="Lawrence"		state="Kansas"		latitude="38.95871" longitude="-95.23486"/>
 		<city name="Lawrenceville"	state="Georgia"		latitude="36.06880" longitude="-80.93394"/>
 		<city name="Lawton"		state="Oklahoma"	latitude="34.60458" longitude="-98.41101"/>
-		<city name="Leavenworth"	state="Kansas"  	latitude="39.29725" longitude="-94.92660"/>
-		<city name="Leawood"		state="Kansas"  	latitude="38.89816" longitude="-94.62935"/>
+		<city name="Leavenworth"	state="Kansas"		latitude="39.29725" longitude="-94.92660"/>
+		<city name="Leawood"		state="Kansas"		latitude="38.89816" longitude="-94.62935"/>
 		<city name="Lebanon"		state="Tennessee"	latitude="39.75963" longitude="-82.63486"/>
 		<city name="Leesburg"		state="Georgia"		latitude="35.40000" longitude="-80.86239"/>
 		<city name="Leesville"		state="Louisiana"	latitude="31.13945" longitude="-93.21467"/>
+		<city name="Lee's Summit"		state="Missouri"	latitude="38.9225" longitude="-94.374"/>
 		<city name="Lehi"		state="Utah"		latitude="40.39816" longitude="-111.84771"/>
 		<city name="Leland"		state="Mississippi"	latitude="33.40734" longitude="-90.88623"/>
 		<city name="Lemoore"		state="California"	latitude="36.30825" longitude="-119.82936"/>
-		<city name="Lenexa"		state="Kansas"  	latitude="38.95871" longitude="-94.73945"/>
+		<city name="Lenexa"		state="Kansas"		latitude="38.95871" longitude="-94.73945"/>
 		<city name="Lennox"		state="Georgia"		latitude="31.72844" longitude="-83.91743"/>
-		<city name="Lenora"		state="Kansas"  	latitude="39.60825" longitude="-99.99633"/>
+		<city name="Lenora"		state="Kansas"		latitude="39.60825" longitude="-99.99633"/>
 		<city name="Leonia"		state="New Jersey"	latitude="40.85780" longitude="-73.98716"/>
 		<city name="Levelland"		state="Texas"		latitude="33.57798" longitude="-102.36880"/>
 		<city name="Levittown"		state="Pennsylvania"	latitude="40.16972" longitude="-74.81835"/>
@@ -1095,7 +1096,7 @@
 		<city name="Lewisville"		state="Texas"		latitude="33.04954" longitude="-96.99633"/>
 		<city name="Lexington"		state="South Carolina"	latitude="37.84954" longitude="-82.33210"/>
 		<city name="Libby"		state="Montana" 	latitude="48.37981" longitude="-115.53578"/>
-		<city name="Liberal"		state="Kansas"  	latitude="37.03761" longitude="-100.92660"/>
+		<city name="Liberal"		state="Kansas"		latitude="37.03761" longitude="-100.92660"/>
 		<city name="Liberty Corner"	state="New Jersey"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Liberty Lake"	state="Washington"	latitude="47.64770" longitude="-117.07706"/>
 		<city name="Libertyville"	state="Illinois"	latitude="42.27798" longitude="-87.94679"/>
@@ -1115,7 +1116,7 @@
 		<city name="Lisbon"		state="Ohio"		latitude="40.75871" longitude="-80.75779"/>
 		<city name="Lisle"		state="Illinois"	latitude="41.78807" longitude="-88.08990"/>
 		<city name="Little Falls"	state="New Jersey"	latitude="40.88807" longitude="-74.20733"/>
-		<city name="Little Rock"	state="Arkansas"  	latitude="34.75045" longitude="-92.32843"/>
+		<city name="Little Rock"	state="Arkansas"	latitude="34.75045" longitude="-92.32843"/>
 		<city name="Little Silver"	state="New Jersey"	latitude="40.33761" longitude="-74.03669"/>
 		<city name="Littleton"		state="Colorado"	latitude="40.32935" longitude="-96.62752"/>
 		<city name="Livermore"		state="California"	latitude="40.27431" longitude="-107.96147"/>
@@ -1137,7 +1138,6 @@
 		<city name="Los Alamos"		state="New Mexico"	latitude="35.86789" longitude="-106.26605"/>
 		<city name="Los Altos"		state="California"	latitude="37.42569" longitude="-122.17981"/>
 		<city name="Los Altos Hills"	state="California"	latitude="37.37890" longitude="-122.12477"/>
-		<city name="Los Angele"		state="California"	latitude="34.05963" longitude="-118.43670"/>
 		<city name="Los Angeles"	state="California"	latitude="34.05412" longitude="-118.32109"/>
 		<city name="Los Gatos"		state="California"	latitude="37.22752" longitude="-121.94862"/>
 		<city name="Louisville"		state="Kentucky"	latitude="38.32568" longitude="-87.94679"/>
@@ -1160,24 +1160,26 @@
 		<city name="Macomb"		state="Illinois"	latitude="40.45871" longitude="-90.67706"/>
 		<city name="Madison"		state="Wisconsin"	latitude="42.99908" longitude="-88.65137"/>
 		<city name="Madison Heights"	state="Michigan"	latitude="42.49816" longitude="-83.09724"/>
-		<city name="Magnolia"		state="Arkansas"  	latitude="33.25871" longitude="-93.23669"/>
+		<city name="Magnolia"		state="Arkansas"	latitude="33.25871" longitude="-93.23669"/>
 		<city name="Mahwah"		state="New Jersey"	latitude="41.06972" longitude="-74.15780"/>
 		<city name="Maitland"		state="Florida"		latitude="28.62935" longitude="-81.34678"/>
 		<city name="Malaga"		state="Washington"	latitude="47.35871" longitude="-120.20917"/>
 		<city name="Malden"		state="Missouri"	latitude="36.56972" longitude="-89.96697"/>
 		<city name="Malibu"		state="California"	latitude="34.03761" longitude="-118.73945"/>
 		<city name="Malvern"		state="Pennsylvania"	latitude="40.03761" longitude="-75.52844"/>
+		<city name="Manalapan"		state="New Jersey"	latitude="40.24954" longitude="-74.27890"/>
 		<city name="Manasquan"		state="New Jersey"	latitude="40.04862" longitude="-74.10825"/>
 		<city name="Manassas"		state="Virginia"	latitude="38.76880" longitude="-77.48807"/>
 		<city name="Manchester"		state="New Hampshire"	latitude="41.40000" longitude="-76.96514"/>
 		<city name="Manford"		state="Oklahoma"	latitude="36.08807" longitude="-96.35779"/>
-		<city name="Manhattan"		state="Kansas"  	latitude="40.22477" longitude="-81.52293"/>
+		<city name="Manhattan"		state="Kansas"		latitude="40.22477" longitude="-81.52293"/>
 		<city name="Manhattan Beach"	state="California"	latitude="33.88899" longitude="-118.39816"/>
 		<city name="Manitowoc"		state="Wisconsin"	latitude="44.09724" longitude="-87.67706"/>
 		<city name="Mankato"		state="Minnesota"	latitude="44.14954" longitude="-93.99633"/>
 		<city name="Mansfield"		state="Massachusetts"	latitude="39.02752" longitude="-83.35596"/>
 		<city name="Maple Grove"	state="Minnesota"	latitude="45.10733" longitude="-93.43486"/>
 		<city name="Maplewood"		state="Minnesota"	latitude="44.95871" longitude="-93.00550"/>
+		<city name="Maplewood"		state="New Jersey"	latitude="40.73110" longitude="-74.27688"/>
 		<city name="Marble Falls"	state="Texas"		latitude="30.56972" longitude="-98.30642"/>
 		<city name="Marblehead"		state="Massachusetts"	latitude="42.49816" longitude="-70.86605"/>
 		<city name="Margaretville"	state="New York"	latitude="42.15963" longitude="-74.64770"/>
@@ -1186,14 +1188,13 @@
 		<city name="Marine Park"	state="New York"	latitude="40.59908" longitude="-73.94862"/>
 		<city name="Marinette"		state="Michigan"	latitude="45.08807" longitude="-87.66605"/>
 		<city name="Marion"		state="North Carolina"	latitude="36.70458" longitude="-85.46972"/>
-		<city name="Marked Tree"	state="Arkansas"  	latitude="35.52935" longitude="-90.41835"/>
+		<city name="Marked Tree"	state="Arkansas"	latitude="35.52935" longitude="-90.41835"/>
 		<city name="Marksville"		state="Louisiana"	latitude="31.13945" longitude="-92.07522"/>
-		<city name="Marlboro"		state="Massachusetts"	latitude="42.34954" longitude="-71.53761"/>
 		<city name="Marlborough"	state="Massachusetts"	latitude="42.34954" longitude="-71.53761"/>
 		<city name="Marlton"		state="New Jersey"	latitude="39.87798" longitude="-74.90642"/>
 		<city name="Marquette"		state="Michigan"	latitude="46.52752" longitude="-87.38532"/>
 		<city name="Marshall"		state="Missouri"	latitude="41.77981" longitude="-94.48623"/>
-		<city name="Marshall Space Flight Center" state="Alabama" latitude="37.99816" longitude="-97.99817"/>
+		<city name="Marshall Space Center" state="Alabama"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Marshalltown"	state="Iowa"		latitude="42.03853" longitude="-92.90642"/>
 		<city name="Marshfield"		state="Wisconsin"	latitude="44.65871" longitude="-90.17614"/>
 		<city name="Martin"		state="Tennessee"	latitude="37.99816" longitude="-97.99817"/>
@@ -1269,6 +1270,7 @@
 		<city name="Mililani"		state="Hawaii"		latitude="21.44862" longitude="-158.01468"/>
 		<city name="Mill Creek"		state="Washington"	latitude="47.84862" longitude="-122.20733"/>
 		<city name="Mill Valley"	state="California"	latitude="37.89908" longitude="-122.52660"/>
+		<city name="Millburn"		state="New Jersey"	latitude="40.72450" longitude="-74.30384"/>
 		<city name="Millbury"		state="Ohio"		latitude="41.87890" longitude="-77.59816"/>
 		<city name="Millington"		state="Texas"		latitude="36.65780" longitude="-93.95229"/>
 		<city name="Milpitas"		state="California"	latitude="37.20275" longitude="-121.93761"/>
@@ -1281,9 +1283,9 @@
 		<city name="Mira Loma"		state="California"	latitude="33.98807" longitude="-117.51743"/>
 		<city name="Miramar"		state="Florida"		latitude="25.99816" longitude="-80.31743"/>
 		<city name="Mishawaka"		state="Indiana" 	latitude="41.67798" longitude="-86.16880"/>
-		<city name="Mission"		state="Kansas"  	latitude="39.02752" longitude="-94.66789"/>
+		<city name="Mission"		state="Kansas"		latitude="39.02752" longitude="-94.66789"/>
 		<city name="Mission Viejo"	state="California"	latitude="33.57798" longitude="-117.64954"/>
-		<city name="Mission Woods"	state="Kansas"  	latitude="39.02752" longitude="-94.62935"/>
+		<city name="Mission Woods"	state="Kansas"		latitude="39.02752" longitude="-94.62935"/>
 		<city name="Mississippi State"	state="Mississippi"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Missoula"		state="Montana" 	latitude="46.87981" longitude="-114.01100"/>
 		<city name="Mobile"		state="Alabama" 	latitude="32.51835" longitude="-90.58899"/>
@@ -1325,7 +1327,7 @@
 		<city name="Mount Sinai"	state="New York"	latitude="40.92936" longitude="-73.00734"/>
 		<city name="Mount Vernon"	state="Washington"	latitude="43.36789" longitude="-105.61651"/>
 		<city name="Mount Wilson"	state="California"	latitude="0.00000" longitude="0.00000"/>
-		<city name="Mountain Home"	state="Arkansas"  	latitude="36.32752" longitude="-92.37798"/>
+		<city name="Mountain Home"	state="Arkansas"	latitude="36.32752" longitude="-92.37798"/>
 		<city name="Mountain Iron"	state="Minnesota"	latitude="47.50734" longitude="-92.61467"/>
 		<city name="Mountain Lakes"	state="New Jersey"	latitude="40.88807" longitude="-74.43853"/>
 		<city name="Mountain View"	state="California"	latitude="37.43119" longitude="-122.13578"/>
@@ -1408,7 +1410,6 @@
 		<city name="Newton Centre"	state="Massachusetts"	latitude="42.31926" longitude="-71.18531"/>
 		<city name="Newtown"		state="Pennsylvania"	latitude="40.24954" longitude="-74.93945"/>
 		<city name="Newtown Square"	state="Pennsylvania"	latitude="39.98807" longitude="-75.40734"/>
-		<city name="NewYork"		state="New York"	latitude="40.70917" longitude="-73.99817"/>
 		<city name="Nicholville"	state="New York"	latitude="44.70825" longitude="-74.64770"/>
 		<city name="Niles"		state="Illinois"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Noblesville"	state="Indiana" 	latitude="40.05963" longitude="-86.01468"/>
@@ -1430,7 +1431,6 @@
 		<city name="North Mankato"	state="Minnesota"	latitude="44.17981" longitude="-94.02935"/>
 		<city name="North Miami Beach"	state="Florida"		latitude="25.92935" longitude="-80.17981"/>
 		<city name="North Palm Beach"	state="Florida"		latitude="26.82935" longitude="-80.05871"/>
-		<city name="North Quincy"	state="Massachusetts"	latitude="42.27798" longitude="-71.01468"/>
 		<city name="North Reading"	state="Massachusetts"	latitude="42.57798" longitude="-71.08623"/>
 		<city name="North Richland Hills" state="Texas"		latitude="32.84862" longitude="-97.21651"/>
 		<city name="North Salt Lake"	state="Utah"		latitude="40.83853" longitude="-111.89724"/>
@@ -1478,13 +1478,13 @@
 		<city name="Oconto Falls"	state="Wisconsin"	latitude="44.87890" longitude="-88.15596"/>
 		<city name="Odessa"		state="Texas"		latitude="30.62752" longitude="-95.76330"/>
 		<city name="Oelwein"		state="Iowa"		latitude="42.67981" longitude="-91.90458"/>
-		<city name="Offutt Afb"		state="Nebraska"	latitude="41.10825" longitude="-95.90642"/>
+		<city name="Offutt AFB"		state="Nebraska"	latitude="41.10825" longitude="-95.90642"/>
 		<city name="Ogden"		state="Utah"		latitude="41.19082" longitude="-111.96330"/>
 		<city name="Oil City"		state="Pennsylvania"	latitude="41.42752" longitude="-79.68991"/>
 		<city name="Okc"		state="Oklahoma"	latitude="35.53761" longitude="-97.52477"/>
 		<city name="Okemos"		state="Michigan"	latitude="42.70734" longitude="-84.41835"/>
 		<city name="Oklahoma City"	state="Oklahoma"	latitude="35.50183" longitude="-97.56330"/>
-		<city name="Olathe"		state="Kansas"  	latitude="38.87890" longitude="-94.80000"/>
+		<city name="Olathe"		state="Kansas"		latitude="38.87890" longitude="-94.80000"/>
 		<city name="Old Bridge"		state="New Jersey"	latitude="40.40600" longitude="-74.30600"/>
 		<city name="Old Greenwich"	state="Connecticut"	latitude="41.02844" longitude="-73.62935"/>
 		<city name="Old Lyme"		state="Connecticut"	latitude="41.32844" longitude="-72.30825"/>
@@ -1511,7 +1511,7 @@
 		<city name="Oshkosh"		state="Wisconsin"	latitude="44.01743" longitude="-88.53578"/>
 		<city name="Oswego"		state="New York"	latitude="43.43945" longitude="-76.49724"/>
 		<city name="Ottumwa"		state="Iowa"		latitude="41.01743" longitude="-92.40550"/>
-		<city name="Overland Park"	state="Kansas"  	latitude="38.95321" longitude="-94.66789"/>
+		<city name="Overland Park"	state="Kansas"		latitude="38.95321" longitude="-94.66789"/>
 		<city name="Owatonna"		state="Minnesota"	latitude="44.07798" longitude="-93.21467"/>
 		<city name="Owensboro"		state="Kentucky"	latitude="37.74770" longitude="-87.15963"/>
 		<city name="Owings Mills"	state="Maryland"	latitude="39.10733" longitude="-77.02568"/>
@@ -1531,7 +1531,6 @@
 		<city name="Palm Beach Gardens"	state="Florida"		latitude="26.83486" longitude="-80.06972"/>
 		<city name="Palm Coast"		state="Florida"		latitude="29.55963" longitude="-81.21467"/>
 		<city name="Palm Harbor"	state="Florida"		latitude="28.08440" longitude="-82.71193"/>
-		<city name="Palm Harbour"	state="Florida"		latitude="28.06789" longitude="-82.75596"/>
 		<city name="Palm Springs"	state="California"	latitude="33.79816" longitude="-116.51559"/>
 		<city name="Palmdale"		state="California"	latitude="34.56880" longitude="-118.05687"/>
 		<city name="Palmer"		state="Alaska"		latitude="61.60733" longitude="-149.06971"/>
@@ -1580,7 +1579,6 @@
 		<city name="Petaluma"		state="California"	latitude="38.24311" longitude="-122.64770"/>
 		<city name="Peterson AFB"	state="Colorado"	latitude="38.77981" longitude="-104.71927"/>
 		<city name="Phenix City"	state="Alabama" 	latitude="37.99816" longitude="-97.99817"/>
-		<city name="Phila"		state="Pennsylvania"	latitude="39.94954" longitude="-75.22568"/>
 		<city name="Philadelphia"	state="Pennsylvania"	latitude="39.98257" longitude="-75.17064"/>
 		<city name="Philipsburg"	state="Pennsylvania"	latitude="40.88807" longitude="-78.21467"/>
 		<city name="Philo"		state="Ohio"		latitude="39.84770" longitude="-81.91926"/>
@@ -1605,7 +1603,6 @@
 		<city name="Plainview"		state="New York"	latitude="37.48899" longitude="-87.59999"/>
 		<city name="Plano"		state="Texas"		latitude="33.04954" longitude="-96.74311"/>
 		<city name="Plantation"		state="Florida"		latitude="26.10825" longitude="-80.24036"/>
-		<city name="Plao Alto"		state="California"	latitude="37.41743" longitude="-122.12477"/>
 		<city name="Plattsburgh"	state="New York"	latitude="44.68899" longitude="-73.46972"/>
 		<city name="Pleasant Grove"	state="Utah"		latitude="40.36789" longitude="-111.72660"/>
 		<city name="Pleasant Hill"	state="California"	latitude="37.94862" longitude="-122.06972"/>
@@ -1639,8 +1636,8 @@
 		<city name="Poulsbo"		state="Washington"	latitude="47.73853" longitude="-122.62568"/>
 		<city name="Poway"		state="California"	latitude="32.97798" longitude="-117.03852"/>
 		<city name="Powell"		state="Wyoming" 	latitude="42.45412" longitude="-95.92293"/>
-		<city name="Prairie Grove"	state="Arkansas"  	latitude="35.98899" longitude="-94.31559"/>
-		<city name="Prairie Village"	state="Kansas"  	latitude="38.95871" longitude="-94.64587"/>
+		<city name="Prairie Grove"	state="Arkansas"	latitude="35.98899" longitude="-94.31559"/>
+		<city name="Prairie Village"	state="Kansas"		latitude="38.95871" longitude="-94.64587"/>
 		<city name="Prescott"		state="Arizona" 	latitude="34.62935" longitude="-113.01468"/>
 		<city name="Presque Isle"	state="Maine"		latitude="46.67889" longitude="-68.00917"/>
 		<city name="Prides Crossing"	state="Massachusetts"	latitude="37.99816" longitude="-97.99817"/>
@@ -1689,7 +1686,7 @@
 		<city name="Remington"		state="Indiana" 	latitude="40.76972" longitude="-87.15963"/>
 		<city name="Reno"		state="Nevada"		latitude="39.49541" longitude="-119.80183"/>
 		<city name="Renton"		state="Washington"	latitude="47.47156" longitude="-122.16880"/>
-		<city name="Research Triangle Park" state="North Carolina" latitude="38.85963" longitude="-92.00367"/>
+		<city name="Research Triangle Park"	state="North Carolina"	latitude="35.90808" longitude="-78.86290"/>
 		<city name="Reseda"		state="California"	latitude="34.20000" longitude="-118.53578"/>
 		<city name="Reston"		state="Virginia"	latitude="38.71926" longitude="-82.50825"/>
 		<city name="Rexburg"		state="Idaho"		latitude="43.80825" longitude="-111.78715"/>
@@ -1729,7 +1726,7 @@
 		<city name="Rockville"		state="Maryland"	latitude="39.06330" longitude="-77.14679"/>
 		<city name="Rockville Centre"	state="New York"	latitude="40.65963" longitude="-73.63486"/>
 		<city name="Rocky Hill"		state="Connecticut"	latitude="41.65871" longitude="-72.65504"/>
-		<city name="Rogers"		state="Arkansas"  	latitude="37.16972" longitude="-96.04953"/>
+		<city name="Rogers"		state="Arkansas"	latitude="37.16972" longitude="-96.04953"/>
 		<city name="Rohnert Park"	state="California"	latitude="38.34770" longitude="-122.68624"/>
 		<city name="Rolling Meadows"	state="Illinois"	latitude="42.10733" longitude="-88.01835"/>
 		<city name="Rome"		state="Georgia"		latitude="34.26330" longitude="-85.18348"/>
@@ -1749,18 +1746,16 @@
 		<city name="Rowland"		state="Pennsylvania"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Roy"		state="Utah"		latitude="41.16880" longitude="-112.03486"/>
 		<city name="Royal Oak"		state="Michigan"	latitude="42.50367" longitude="-83.14679"/>
-		<city name="Rtp"		state="North Carolina"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Rumford"		state="Rhode Island"	latitude="41.83761" longitude="-71.35596"/>
 		<city name="Ruston"		state="Louisiana"	latitude="32.52935" longitude="-92.63669"/>
 		<city name="Rye"		state="New York"	latitude="40.96789" longitude="-73.68991"/>
 		<city name="Rye Brook"		state="New York"	latitude="41.00917" longitude="-73.66789"/>
-		<city name="S Burlington"	state="Vermont" 	latitude="37.99816" longitude="-97.99817"/>
-		<city name="S Summit"		state="Missouri"	latitude="39.00000" longitude="-94.36513"/>
 		<city name="Sacramento"		state="California"	latitude="38.58165" longitude="-121.44220"/>
 		<city name="Safford"		state="Arizona" 	latitude="32.82935" longitude="-109.62935"/>
 		<city name="Saginaw"		state="Michigan"	latitude="43.42293" longitude="-84.00000"/>
+		<city name="Salem"		state="Massachussetts"	latitude="42.52337" longitude="-70.89080"/>
 		<city name="Salem"		state="Oregon"		latitude="43.72293" longitude="-96.93578"/>
-		<city name="Salina"		state="Kansas"  	latitude="38.81834" longitude="-97.60733"/>
+		<city name="Salina"		state="Kansas"		latitude="38.81834" longitude="-97.60733"/>
 		<city name="Salinas"		state="California"	latitude="36.66880" longitude="-121.65688"/>
 		<city name="Salisbury"		state="Maryland"	latitude="37.00458" longitude="-78.03852"/>
 		<city name="Salt Lake"		state="Utah"		latitude="39.37431" longitude="-104.93945"/>
@@ -1837,7 +1832,7 @@
 		<city name="Sharpes"		state="Florida"		latitude="37.99816" longitude="-97.99817"/>
 		<city name="Sheboygan"		state="Wisconsin"	latitude="43.73945" longitude="-87.71560"/>
 		<city name="Shelby"		state="North Carolina"	latitude="35.34770" longitude="-81.57798"/>
-		<city name="Shelby Twp"		state="Michigan"	latitude="42.65780" longitude="-82.99817"/>
+		<city name="Shelby"		state="Michigan"	latitude="42.65780" longitude="-82.99817"/>
 		<city name="Shelbyville"	state="Indiana" 	latitude="39.49816" longitude="-85.78899"/>
 		<city name="Shelton"		state="Connecticut"	latitude="41.29816" longitude="-73.12844"/>
 		<city name="Shepherdstown"	state="West Virginia"	latitude="39.42936" longitude="-77.81835"/>
@@ -1888,7 +1883,6 @@
 		<city name="Southfield"		state="Michigan"	latitude="42.49816" longitude="-83.22935"/>
 		<city name="Southington"	state="Connecticut"	latitude="41.60917" longitude="-72.86972"/>
 		<city name="Southwick"		state="Massachusetts"	latitude="42.04954" longitude="-72.76513"/>
-		<city name="Spam-recycle-bin"	state="New Jersey"	latitude="40.50000" longitude="-74.49908"/>
 		<city name="Sparkill"		state="New York"	latitude="41.02844" longitude="-73.91559"/>
 		<city name="Sparks"		state="Nevada"		latitude="39.54770" longitude="-119.75779"/>
 		<city name="Spartanburg"	state="South Carolina"	latitude="34.93761" longitude="-81.96881"/>
@@ -1898,8 +1892,8 @@
 		<city name="Spirit Lake"	state="Iowa"		latitude="43.42844" longitude="-95.10825"/>
 		<city name="Spokane"		state="Washington"	latitude="46.05137" longitude="-114.15963"/>
 		<city name="Spring"		state="Texas"		latitude="30.01926" longitude="-95.52660"/>
-		<city name="Springdale"		state="Arkansas"  	latitude="36.17889" longitude="-94.13945"/>
-		<city name="Springfield"	state="Virginia"	latitude="39.51743" longitude="-88.23853"/>
+		<city name="Springdale"		state="Arkansas"	latitude="36.17889" longitude="-94.13945"/>
+		<city name="Springfield"	state="Illinois"	latitude="39.79850" longitude="-89.65500"/>
 		<city name="Springville"	state="Utah"		latitude="40.15871" longitude="-111.59449"/>
 		<city name="St Augustine"	state="Florida"		latitude="29.87890" longitude="-81.29725"/>
 		<city name="St Charles"		state="Missouri"	latitude="38.79908" longitude="-90.50642"/>
@@ -1952,6 +1946,7 @@
 		<city name="Sugar Land"		state="Texas"		latitude="29.62844" longitude="-95.61467"/>
 		<city name="Suitland"		state="Maryland"	latitude="38.83761" longitude="-76.91559"/>
 		<city name="Sullivan"		state="Missouri"	latitude="38.22936" longitude="-91.15596"/>
+		<city name="Summit"		state="New Jersey"	latitude="40.7156" longitude="-74.36468"/>
 		<city name="Sumner"		state="Illinois"	latitude="42.95779" longitude="-104.97798"/>
 		<city name="Sumter"		state="South Carolina"	latitude="33.92752" longitude="-80.31743"/>
 		<city name="Sunbury"		state="Pennsylvania"	latitude="40.85780" longitude="-76.77798"/>
@@ -2003,7 +1998,7 @@
 		<city name="Toms River"		state="New Jersey"	latitude="39.98807" longitude="-74.18531"/>
 		<city name="Tonawanda"		state="New York"	latitude="42.99908" longitude="-78.84771"/>
 		<city name="Tooele"		state="Utah"		latitude="40.54954" longitude="-112.29908"/>
-		<city name="Topeka"		state="Kansas"  	latitude="39.03853" longitude="-95.65871"/>
+		<city name="Topeka"		state="Kansas"		latitude="39.03853" longitude="-95.65871"/>
 		<city name="Torrance"		state="California"	latitude="33.82568" longitude="-118.32109"/>
 		<city name="Torrington"		state="Connecticut"	latitude="41.80734" longitude="-73.11743"/>
 		<city name="Totowa"		state="New Jersey"	latitude="40.89908" longitude="-74.21834"/>
@@ -2032,7 +2027,7 @@
 		<city name="Tyler"		state="Texas"		latitude="32.35871" longitude="-95.26238"/>
 		<city name="Tyngsboro"		state="Massachusetts"	latitude="42.66880" longitude="-71.41651"/>
 		<city name="Ukiah"		state="California"	latitude="39.14862" longitude="-123.19816"/>
-		<city name="Ulysses"		state="Kansas"  	latitude="37.57981" longitude="-101.34495"/>
+		<city name="Ulysses"		state="Kansas"		latitude="37.57981" longitude="-101.34495"/>
 		<city name="Unadilla"		state="Georgia"		latitude="32.25963" longitude="-83.73578"/>
 		<city name="Uncasville"		state="Connecticut"	latitude="41.45779" longitude="-72.10458"/>
 		<city name="Underwood"		state="Minnesota"	latitude="46.32935" longitude="-95.83486"/>
@@ -2041,7 +2036,7 @@
 		<city name="Uniondale"		state="New York"	latitude="40.69816" longitude="-73.58532"/>
 		<city name="Uniontown"		state="Pennsylvania"	latitude="38.82935" longitude="-83.82936"/>
 		<city name="Unity"		state="Maine"		latitude="44.59816" longitude="-69.32476"/>
-		<city name="University Of Richmond" state="Virginia"	latitude="37.99816" longitude="-97.99817"/>
+		<city name="University of Richmond" state="Virginia"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="University Park"	state="Pennsylvania"	latitude="39.73486" longitude="-92.83486"/>
 		<city name="University Place"	state="Washington"	latitude="47.22936" longitude="-122.52660"/>
 		<city name="Upper Montclair"	state="New Jersey"	latitude="40.83853" longitude="-74.19632"/>
@@ -2062,7 +2057,6 @@
 		<city name="Valley Stream"	state="New York"	latitude="40.66789" longitude="-73.70642"/>
 		<city name="Van Nuys"		state="California"	latitude="34.18623" longitude="-118.45871"/>
 		<city name="Vancouver"		state="Washington"	latitude="45.64403" longitude="-122.59816"/>
-		<city name="Van-nuys"		state="California"	latitude="34.17798" longitude="-118.45871"/>
 		<city name="Veedersburg"	state="Indiana" 	latitude="40.11743" longitude="-87.25871"/>
 		<city name="Venice"		state="California"	latitude="33.98807" longitude="-118.45871"/>
 		<city name="Ventura"		state="California"	latitude="37.99816" longitude="-97.99817"/>
@@ -2084,7 +2078,7 @@
 		<city name="Virginia Beach"	state="Virginia"	latitude="36.82568" longitude="-76.12844"/>
 		<city name="Visalia"		state="California"	latitude="36.35780" longitude="-119.29541"/>
 		<city name="Vista"		state="California"	latitude="33.18990" longitude="-117.24770"/>
-		<city name="W Los Angeles"	state="California"	latitude="34.03761" longitude="-118.44770"/>
+		<city name="West Los Angeles"	state="California"	latitude="34.03761" longitude="-118.44770"/>
 		<city name="Wabasso"		state="Minnesota"	latitude="44.40825" longitude="-95.25688"/>
 		<city name="Waco"		state="Texas"		latitude="31.55504" longitude="-97.15046"/>
 		<city name="Wadsworth"		state="Ohio"		latitude="41.03944" longitude="-81.73761"/>
@@ -2092,12 +2086,13 @@
 		<city name="Waite Park"		state="Minnesota"	latitude="45.54770" longitude="-94.21651"/>
 		<city name="Waitsfield"		state="Vermont" 	latitude="44.18807" longitude="-72.82569"/>
 		<city name="Wake Forest"	state="North Carolina"	latitude="35.97798" longitude="-78.53945"/>
+		<city name="Waldwick"		state="New Jersey"	latitude="40.99816" longitude="-74.16880"/>
 		<city name="Walla Walla"	state="Washington"	latitude="46.05963" longitude="-118.32660"/>
 		<city name="Wallingford"	state="Connecticut"	latitude="41.45779" longitude="-72.81468"/>
 		<city name="Walnut"		state="California"	latitude="34.01835" longitude="-117.85872"/>
 		<city name="Walnut Creek"	state="California"	latitude="37.91284" longitude="-122.03669"/>
 		<city name="Waltham"		state="Massachusetts"	latitude="40.18899" longitude="-84.61651"/>
-		<city name="Wamego"		state="Kansas"  	latitude="39.20917" longitude="-96.31926"/>
+		<city name="Wamego"		state="Kansas"		latitude="39.20917" longitude="-96.31926"/>
 		<city name="Wapakoneta"		state="Ohio"		latitude="40.56880" longitude="-84.17614"/>
 		<city name="Wappingers Falls"	state="New York"	latitude="41.58990" longitude="-73.88807"/>
 		<city name="Warminster"		state="Pennsylvania"	latitude="40.20825" longitude="-75.08807"/>
@@ -2132,7 +2127,7 @@
 		<city name="Weehawken"		state="New Jersey"	latitude="40.76972" longitude="-74.02568"/>
 		<city name="Weirton"		state="West Virginia"	latitude="40.40917" longitude="-80.56514"/>
 		<city name="Wellesley"		state="Massachusetts"	latitude="42.30825" longitude="-71.28990"/>
-		<city name="Wellington"		state="Kansas"  	latitude="37.27981" longitude="-97.38715"/>
+		<city name="Wellington"		state="Kansas"		latitude="37.27981" longitude="-97.38715"/>
 		<city name="Wenatchee"		state="Washington"	latitude="47.42752" longitude="-120.32476"/>
 		<city name="West Babylon"	state="New York"	latitude="40.70917" longitude="-73.34862"/>
 		<city name="West Bath"		state="Maine"		latitude="43.90734" longitude="-69.82569"/>
@@ -2154,7 +2149,6 @@
 		<city name="West Point"		state="New York"	latitude="37.10917" longitude="-79.54128"/>
 		<city name="West Sacramento"	state="California"	latitude="38.57890" longitude="-121.53027"/>
 		<city name="West Valley City"	state="Utah"		latitude="39.34403" longitude="-104.97248"/>
-		<city name="Westboro"		state="Massachusetts"	latitude="40.13394" longitude="-84.80917"/>
 		<city name="Westborough"	state="Massachusetts"	latitude="42.26972" longitude="-71.61467"/>
 		<city name="Westbury"		state="New York"	latitude="40.75871" longitude="-73.56881"/>
 		<city name="Westby"		state="Wisconsin"	latitude="43.65963" longitude="-90.86972"/>
@@ -2181,7 +2175,7 @@
 		<city name="Whitehall"		state="Pennsylvania"	latitude="40.64862" longitude="-75.49541"/>
 		<city name="Whitehouse Station"	state="New Jersey"	latitude="40.59908" longitude="-74.75779"/>
 		<city name="Whiteland"		state="Indiana" 	latitude="39.55871" longitude="-86.08623"/>
-		<city name="Wichita"		state="Kansas"  	latitude="37.75321" longitude="-97.40367"/>
+		<city name="Wichita"		state="Kansas"		latitude="37.75321" longitude="-97.40367"/>
 		<city name="Wichita Falls"	state="Texas"		latitude="33.88348" longitude="-98.51009"/>
 		<city name="Wildwood"		state="New Jersey"	latitude="38.94400" longitude="-74.90528"/>
 		<city name="Wilkes-barre"	state="Pennsylvania"	latitude="41.23761" longitude="-75.87523"/>
@@ -2208,7 +2202,7 @@
 		<city name="Winona"		state="Minnesota"	latitude="44.03944" longitude="-91.64587"/>
 		<city name="Winona Lake"	state="Indiana" 	latitude="41.20734" longitude="-85.82752"/>
 		<city name="Winslow"		state="Maine"		latitude="44.54862" longitude="-69.63853"/>
-		<city name="Winston-salem"	state="North Carolina"	latitude="36.74587" longitude="-86.15229"/>
+		<city name="Winston-Salem"	state="North Carolina"	latitude="36.74587" longitude="-86.15229"/>
 		<city name="Winter Haven"	state="Florida"		latitude="27.99908" longitude="-81.74862"/>
 		<city name="Winter Park"	state="Florida"		latitude="28.60458" longitude="-81.32476"/>
 		<city name="Wisconsin Rapids"	state="Wisconsin"	latitude="44.37798" longitude="-89.80734"/>
@@ -2229,7 +2223,6 @@
 		<city name="Woodstock"		state="New York"	latitude="42.30" longitude="-82.98"/>
 		<city name="Worcester"		state="Massachusetts"	latitude="42.27798" longitude="-71.81284"/>
 		<city name="Worley"		state="Idaho"		latitude="47.42752" longitude="-116.90642"/>
-		<city name="Wpb"		state="Florida"		latitude="26.70825" longitude="-80.09724"/>
 		<city name="Wright-Patterson AFB" state="Ohio"		latitude="39.80917" longitude="-84.05504"/>
 		<city name="Wrightstown"	state="New Jersey"	latitude="40.03761" longitude="-74.58715"/>
 		<city name="Wyckoff"		state="New Jersey"	latitude="40.99816" longitude="-74.16880"/>
@@ -2252,7 +2245,7 @@
 		<city name="Ypsilanti"		state="Michigan"	latitude="42.22844" longitude="-83.62568"/>
 		<city name="Yuba City"		state="California"	latitude="39.12935" longitude="-121.65688"/>
 		<city name="Yuma"		state="Colorado"	latitude="40.12844" longitude="-102.70459"/>
-		<city name="Yuma"		state="Arizona"	latitude="32.70000" longitude="-114.64000"/>
+		<city name="Yuma"		state="Arizona"		latitude="32.70000" longitude="-114.64000"/>
 		<city name="Zebulon"		state="Georgia"		latitude="33.09908" longitude="-84.30825"/>
 		<city name="Zeeland"		state="Michigan"	latitude="42.82844" longitude="-86.00917"/>
 	</country>
@@ -2838,73 +2831,67 @@
 		<city name="Zaranj"	state="Nīmrūz" latitude="30.96666" longitude="61.88334"/>
 	</country>
 	<country code="AL" name="Albania">
-		<city name="Berat"	state="Berat" latitude="40.70583" longitude="19.95222"/>
-		<city name="Durrës"	state="Durrës" latitude="41.32306" longitude="19.44139"/>
-		<city name="Elbasan"	state="Elbasan" latitude="41.1125" longitude="20.08222"/>
-		<city name="Fier"	state="Fier" latitude="40.72389" longitude="19.55611"/>
-		<city name="Gjirokastër"	state="Gjirokastër" latitude="40.07583" longitude="20.13889"/>
-		<city name="Korçë"	state="Korçë" latitude="40.61861" longitude="20.78083"/>
-		<city name="Kukës"	state="Kukës" latitude="42.07695" longitude="20.42194"/>
-		<city name="Lezhë"	state="Lezhë" latitude="41.78361" longitude="19.64361"/>
-		<city name="Peshkopi"	state="Dibër" latitude="41.685" longitude="20.42889"/>
-		<city name="Shkodër"	state="Shkodër" latitude="42.0675" longitude="19.51306"/>
-		<city name="Tirana"	state="Tiranë" latitude="41.3275" longitude="19.81889"/>
-		<city name="Vlorë"	state="Vlorë" latitude="40.46666" longitude="19.48972"/>
+		<city name="Berat"	state="" latitude="40.70583" longitude="19.95222"/>
+		<city name="Durrës"	state="" latitude="41.32306" longitude="19.44139"/>
+		<city name="Elbasan"	state="" latitude="41.1125" longitude="20.08222"/>
+		<city name="Fier"	state="" latitude="40.72389" longitude="19.55611"/>
+		<city name="Gjirokastër"	state="" latitude="40.07583" longitude="20.13889"/>
+		<city name="Korçë"	state="" latitude="40.61861" longitude="20.78083"/>
+		<city name="Kukës"	state="" latitude="42.07695" longitude="20.42194"/>
+		<city name="Lezhë"	state="" latitude="41.78361" longitude="19.64361"/>
+		<city name="Peshkopi"	state="" latitude="41.685" longitude="20.42889"/>
+		<city name="Shkodër"	state="" latitude="42.0675" longitude="19.51306"/>
+		<city name="Tirana"	state="" latitude="41.3275" longitude="19.81889"/>
+		<city name="Vlorë"	state="" latitude="40.46666" longitude="19.48972"/>
 	</country>
 	<country code="DZ" name="Algeria">
-		<city name="Adrar (أدرار)"	state="Adrar" latitude="27.9" longitude="-0.2833333"/>
-		<city name="Aïn Temouchent (عين تيموشنت)"	state="Aïn Temouchent" latitude="35.295" longitude="-1.1375"/>
-		<city name="Algiers"	state="Alger" latitude="36.76305" longitude="3.05055"/>
-		<city name="Annaba (عناب)"	state="Annaba" latitude="36.9075" longitude="7.75722"/>
-		<city name="Annaba (عناب)"	state="Skikda" latitude="36.9" longitude="7.76666"/>
-		<city name="Batna (باتنة)"	state="Batna" latitude="35.54472" longitude="6.15972"/>
-		<city name="Béchar (بشار)"	state="Béchar" latitude="31.61666" longitude="-2.21666"/>
-		<city name="Bejaïa (بجاي)"	state="Bejaïa" latitude="36.75" longitude="5.08333"/>
-		<city name="Biskra (بسكرة)"	state="Biskra" latitude="34.85" longitude="5.73333"/>
-		<city name="Blida (البليدة)"	state="Blida" latitude="36.46861" longitude="2.82889"/>
-		<city name="Bordj Bou Arreridj (برج بوعريريج)"	state="Bordj Bou Arréridj" latitude="36.075" longitude="4.775"/>
-		<city name="Bouira (البويرة)"	state="Bouira" latitude="36.38" longitude="3.90139"/>
-		<city name="Bouira (البويرة)"	state="Sétif" latitude="36.21556" longitude="5.27833"/>
-		<city name="Boumerdas (بومرداس)"	state="Boumerdes" latitude="36.76666" longitude="3.47722"/>
-		<city name="Chlef (الشلف)"	state="Chlef" latitude="36.16472" longitude="1.33472"/>
-		<city name="Constantine (قسنطينة)"	state="Constantine" latitude="36.365" longitude="6.61472"/>
-		<city name="Djelfa (الجلفة)"	state="Djelfa" latitude="34.66666" longitude="3.25"/>
-		<city name="El Bayadh (البيض)"	state="El Bayadh" latitude="33.68611" longitude="1.01389"/>
-		<city name="El Oued (الوادي)"	state="Boumerdes" latitude="36.81833" longitude="3.75333"/>
-		<city name="El Oued (الوادي)"	state="El Oued" latitude="33.33333" longitude="6.88333"/>
-		<city name="El Tarf (الطارف)"	state="El Tarf" latitude="36.76861" longitude="8.31666"/>
-		<city name="Ghardaïa (غرداي)"	state="Ghardaïa" latitude="32.48333" longitude="3.66666"/>
-		<city name="Guelma (قالمة)"	state="Guelma" latitude="36.46611" longitude="7.43389"/>
-		<city name="Illizi (اليزي)"	state="Illizi" latitude="26.48333" longitude="8.46666"/>
-		<city name="Jijel (جيجل)"	state="Jijel" latitude="36.8" longitude="5.76666"/>
-		<city name="Khenchela (خنشلة)"	state="Khenchela" latitude="35.43583" longitude="7.14333"/>
-		<city name="Laghouat (الأغواط)"	state="Laghouat" latitude="33.8" longitude="2.88333"/>
-		<city name="Laghouat (الأغواط)"	state="Tiaret" latitude="35.15889" longitude="0.9538889"/>
-		<city name="Médéa (المدية)"	state="Médéa" latitude="36.2675" longitude="2.75"/>
-		<city name="Mila (ميلة)"	state="Mila" latitude="36.45028" longitude="6.26444"/>
-		<city name="Miliana"	state="Aïn Defla" latitude="36.31" longitude="2.16222"/>
-		<city name="Mostaganem (مستغانم)"	state="Mostaganem" latitude="35.93333" longitude="0.0902778"/>
-		<city name="M'Sila (المسيلة)"	state="M'sila" latitude="35.72556" longitude="4.52777"/>
-		<city name="Muaskar (معسكر)"	state="Muaskar" latitude="35.39444" longitude="0.1397222"/>
-		<city name="Oran (وهران)"	state="Oran" latitude="35.69111" longitude="-0.6416666"/>
-		<city name="Ouargla (ورقلة)"	state="Ouargla" latitude="31.9575" longitude="5.32777"/>
-		<city name="Oum el Bouaghi (أم البواقي)"	state="Oum el Bouaghi" latitude="35.8775" longitude="7.11361"/>
-		<city name="Relizane (غليزان)"	state="Relizane" latitude="35.7425" longitude="0.5591666"/>
-		<city name="Saïda (سعيدة)"	state="Saïda" latitude="34.83333" longitude="0.15"/>
-		<city name="Sétif (سطيف)"	state="Sétif" latitude="36.19139" longitude="5.40944"/>
-		<city name="Sidi Bel Abbès (سيدي بلعباس)"	state="Sidi Bel Abbès" latitude="35.19389" longitude="-0.6413889"/>
-		<city name="Skikda (سكيكدة)"	state="Skikda" latitude="36.86222" longitude="6.94722"/>
-		<city name="Souk Ahras (سوق أهراس)"	state="Souk Ahras" latitude="36.28639" longitude="7.95111"/>
-		<city name="Tamanrasset (تمنراست)"	state="Tamanghasset" latitude="22.785" longitude="5.52277"/>
-		<city name="Tébessa (تبسة)"	state="Tébessa" latitude="35.40417" longitude="8.12416"/>
-		<city name="Tiaret (تيارت)"	state="Tiaret" latitude="35.37583" longitude="1.31305"/>
-		<city name="Tindouf (تندوف)"	state="Tindouf" latitude="27.65195" longitude="-8.21444"/>
-		<city name="Tiout"	state="Naama" latitude="32.77111" longitude="-0.415"/>
-		<city name="Tipasa (تيبازة)"	state="Tipaza" latitude="36.58972" longitude="2.4475"/>
-		<city name="Tissemsilt (تسمسيلت)"	state="Tissemsilt" latitude="35.60778" longitude="1.81111"/>
-		<city name="Tizi Ouzou (تيزي وزو)"	state="Tizi Ouzou" latitude="36.71695" longitude="4.04972"/>
-		<city name="Tlemcen (تلمسان)"	state="Tlemcen" latitude="34.87833" longitude="-1.315"/>
-		<city name=""	state="Wilaya de Naama (ولاية النعامة)" latitude="33.25" longitude="0.75"/>
+		<city name="Algiers"	state="" latitude="36.76305" longitude="3.05055"/>
+		<city name="Adrar (أدرار)"	state="" latitude="27.9" longitude="-0.2833333"/>
+		<city name="Aïn Temouchent (عين تيموشنت)"	state="" latitude="35.295" longitude="-1.1375"/>
+		<city name="Annaba (عناب)"	state="" latitude="36.9075" longitude="7.75722"/>
+		<city name="Annaba (عناب)"	state="" latitude="36.9" longitude="7.76666"/>
+		<city name="Batna (باتنة)"		state="" latitude="35.54472" longitude="6.15972"/>
+		<city name="Béchar (بشار)"	state="" latitude="31.61666" longitude="-2.21666"/>
+		<city name="Bejaïa (بجاي)"	state="" latitude="36.75" longitude="5.08333"/>
+		<city name="Biskra (بسكرة)"	state="" latitude="34.85" longitude="5.73333"/>
+		<city name="Blida (البليدة)"	state="" latitude="36.46861" longitude="2.82889"/>
+		<city name="Bordj Bou Arreridj (برج بوعريريج)"	state="" latitude="36.075" longitude="4.775"/>
+		<city name="Bouira (البويرة)"	state="" latitude="36.38" longitude="3.90139"/>
+		<city name="Boumerdas (بومرداس)"	state="" latitude="36.76666" longitude="3.47722"/>
+		<city name="Chlef (الشلف)"	state="" latitude="36.16472" longitude="1.33472"/>
+		<city name="Constantine (قسنطينة)"	state="" latitude="36.365" longitude="6.61472"/>
+		<city name="Djelfa (الجلفة)"	state="" latitude="34.66666" longitude="3.25"/>
+		<city name="El Bayadh (البيض)"	state="" latitude="33.68611" longitude="1.01389"/>
+		<city name="El Oued (الوادي)"	state="" latitude="33.33333" longitude="6.88333"/>
+		<city name="El Tarf (الطارف)"	state="" latitude="36.76861" longitude="8.31666"/>
+		<city name="Ghardaïa (غرداي)"	state="" latitude="32.48333" longitude="3.66666"/>
+		<city name="Guelma (قالمة)"	state="" latitude="36.46611" longitude="7.43389"/>
+		<city name="Illizi (اليزي)"	state="" latitude="26.48333" longitude="8.46666"/>
+		<city name="Jijel (جيجل)"	state="" latitude="36.8" longitude="5.76666"/>
+		<city name="Khenchela (خنشلة)"	state="" latitude="35.43583" longitude="7.14333"/>
+		<city name="Laghouat (الأغواط)"	state="" latitude="33.8" longitude="2.88333"/>
+		<city name="Médéa (المدية)"	state="" latitude="36.2675" longitude="2.75"/>
+		<city name="Mila (ميلة)"	state="" latitude="36.45028" longitude="6.26444"/>
+		<city name="Mostaganem (مستغانم)"	state="" latitude="35.93333" longitude="0.0902778"/>
+		<city name="M'Sila (المسيلة)"	state="" latitude="35.72556" longitude="4.52777"/>
+		<city name="Muaskar (معسكر)"	state="" latitude="35.39444" longitude="0.1397222"/>
+		<city name="Oran (وهران)"	state="" latitude="35.69111" longitude="-0.6416666"/>
+		<city name="Ouargla (ورقلة)"	state="" latitude="31.9575" longitude="5.32777"/>
+		<city name="Oum el Bouaghi (أم البواقي)"	state="" latitude="35.8775" longitude="7.11361"/>
+		<city name="Relizane (غليزان)"	state="" latitude="35.7425" longitude="0.5591666"/>
+		<city name="Saïda (سعيدة)"	state="" latitude="34.83333" longitude="0.15"/>
+		<city name="Sétif (سطيف)"	state="" latitude="36.19139" longitude="5.40944"/>
+		<city name="Sidi Bel Abbès (سيدي بلعباس)"	state="" latitude="35.19389" longitude="-0.6413889"/>
+		<city name="Skikda (سكيكدة)"	state="" latitude="36.86222" longitude="6.94722"/>
+		<city name="Souk Ahras (سوق أهراس)"	state="" latitude="36.28639" longitude="7.95111"/>
+		<city name="Tamanrasset (تمنراست)"	state="" latitude="22.785" longitude="5.52277"/>
+		<city name="Tébessa (تبسة)"	state="" latitude="35.40417" longitude="8.12416"/>
+		<city name="Tiaret (تيارت)"	state="" latitude="35.37583" longitude="1.31305"/>
+		<city name="Tindouf (تندوف)"	state="" latitude="27.65195" longitude="-8.21444"/>
+		<city name="Tipasa (تيبازة)"	state="" latitude="36.58972" longitude="2.4475"/>
+		<city name="Tissemsilt (تسمسيلت)"	state="" latitude="35.60778" longitude="1.81111"/>
+		<city name="Tizi Ouzou (تيزي وزو)"	state="" latitude="36.71695" longitude="4.04972"/>
+		<city name="Tlemcen (تلمسان)"	state="" latitude="34.87833" longitude="-1.315"/>
 	</country>
 	<country code="AS" name="American Samoa">
 		<city name=""	state="Eastern District" latitude="-14.26666" longitude="-170.65"/>
@@ -2952,7 +2939,7 @@
 		<city name="Codrington"	state="Barbuda" latitude="17.63333" longitude="-61.83333"/>
 		<city name="English Harbour Town" state="Saint Paul" latitude="17.01666" longitude="-61.76666"/>
 		<city name="Parham"	state="Saint Peter" latitude="17.08333" longitude="-61.76666"/>
-		<city name=""	state="Parish of Saint Philip" latitude="17.05" longitude="-61.71666"/>
+		<city name=""	state="Saint Philip" latitude="17.05" longitude="-61.71666"/>
 		<city name="Saint John's"	state="Saint John" latitude="17.11666" longitude="-61.85"/>
 	</country>
 	<country code="AR" name="Argentina">
@@ -3197,15 +3184,15 @@
 		<city name=""	state="" latitude="9.5" longitude="2.0"/>
 	</country>
 	<country code="BM" name="Bermuda">
-		<city name=""	state="Devonshire Parish" latitude="32.30278" longitude="-64.75584"/>
+		<city name=""	state="Devonshire" latitude="32.30278" longitude="-64.75584"/>
 		<city name=""	state="Hamilton" latitude="32.29417" longitude="-64.78389"/>
-		<city name=""	state="Paget Parish" latitude="32.27833" longitude="-64.78167"/>
-		<city name=""	state="Pembroke Parish" latitude="32.29945" longitude="-64.79278"/>
-		<city name=""	state="Saint George's Parish" latitude="32.36361" longitude="-64.67944"/>
-		<city name=""	state="Sandys Parish" latitude="32.29194" longitude="-64.87222"/>
-		<city name=""	state="Smith's Parish" latitude="32.31528" longitude="-64.73528"/>
-		<city name=""	state="Southampton Parish" latitude="32.25083" longitude="-64.85639"/>
-		<city name=""	state="Warwick Parish" latitude="32.26583" longitude="-64.80722"/>
+		<city name=""	state="Paget" latitude="32.27833" longitude="-64.78167"/>
+		<city name=""	state="Pembroke" latitude="32.29945" longitude="-64.79278"/>
+		<city name=""	state="Saint George" latitude="32.36361" longitude="-64.67944"/>
+		<city name=""	state="Sandy" latitude="32.29194" longitude="-64.87222"/>
+		<city name=""	state="Smith" latitude="32.31528" longitude="-64.73528"/>
+		<city name=""	state="Southampton" latitude="32.25083" longitude="-64.85639"/>
+		<city name=""	state="Warwick" latitude="32.26583" longitude="-64.80722"/>
 	</country>
 	<country code="BT" name="Bhutan">
 		<city name="Thimphu"	state="" latitude="27.48333" longitude="89.6"/>
@@ -3310,34 +3297,34 @@
 		<city name="Bandar Seri Begawan"	state="" latitude="4.88333" longitude="114.9333"/>
 	</country>
 	<country code="BG" name="Bulgaria">
-		<city name="Благоевград"	state="Благоевградска обл." latitude="42.01666" longitude="23.1"/>
-		<city name="Бургас"	state="Бургаска обл." latitude="42.5" longitude="27.46666"/>
-		<city name="Варна"	state="Варненска обл." latitude="43.21666" longitude="27.91666"/>
-		<city name="Велико Търново"	state="Великотърновска обл." latitude="43.08583" longitude="25.65556"/>
-		<city name="Видин"	state="Видинска обл." latitude="43.99" longitude="22.8725"/>
-		<city name="Враца"	state="Врачанска обл." latitude="43.21" longitude="23.5625"/>
-		<city name="Габрово"	state="Габровска обл." latitude="42.87472" longitude="25.33417"/>
-		<city name="Добрич"	state="Добричка обл." latitude="43.56666" longitude="27.83333"/>
-		<city name="Кърджали"	state="Кърджалийска обл." latitude="41.65" longitude="25.36666"/>
-		<city name="Кюстендил"	state="Кюстендилска обл." latitude="42.28389" longitude="22.69111"/>
-		<city name="Ловеч"	state="Ловешка обл." latitude="43.13334" longitude="24.71666"/>
-		<city name="Монтана"	state="Монтанска обл." latitude="43.4125" longitude="23.225"/>
-		<city name="Пазарджик"	state="Пазарджишка обл." latitude="42.2" longitude="24.33333"/>
-		<city name="Перник"	state="Пернишка обл." latitude="42.6" longitude="23.03333"/>
-		<city name="Плевен"	state="Плевенска обл." latitude="43.41666" longitude="24.61666"/>
-		<city name="Пловдив"	state="Пловдивска обл." latitude="42.15" longitude="24.75"/>
-		<city name="Разград"	state="Разградска обл." latitude="43.53333" longitude="26.51666"/>
-		<city name="Русе"	state="Русенска обл." latitude="43.85639" longitude="25.97083"/>
-		<city name="Силистра"	state="Силистренска обл." latitude="44.11666" longitude="27.26666"/>
-		<city name="Сливен"	state="Сливенска обл." latitude="42.68583" longitude="26.32917"/>
-		<city name="Смолян"	state="Смолянска обл." latitude="41.58528" longitude="24.69194"/>
-		<city name=""	state="Софийска област" latitude="42.65" longitude="23.63333"/>
-		<city name="София"	state="Област София-град" latitude="42.68333" longitude="23.31666"/>
-		<city name="Стара Загора"	state="Старозагорска обл." latitude="42.43278" longitude="25.64194"/>
-		<city name="Търговище"	state="Търговищка обл." latitude="43.25917" longitude="26.58917"/>
-		<city name="Хасково"	state="Хасково" latitude="41.94028" longitude="25.56944"/>
-		<city name="Шумен"	state="Шуменска обл." latitude="43.27666" longitude="26.92917"/>
-		<city name="Ямбол"	state="Ямболска обл." latitude="42.48333" longitude="26.5"/>
+		<city name="Благоевград"	state="" latitude="42.01666" longitude="23.1"/>
+		<city name="Бургас"	state="" latitude="42.5" longitude="27.46666"/>
+		<city name="Варна"	state="" latitude="43.21666" longitude="27.91666"/>
+		<city name="Велико Търново"	state="" latitude="43.08583" longitude="25.65556"/>
+		<city name="Видин"	state="" latitude="43.99" longitude="22.8725"/>
+		<city name="Враца"	state="" latitude="43.21" longitude="23.5625"/>
+		<city name="Габрово"	state="" latitude="42.87472" longitude="25.33417"/>
+		<city name="Добрич"	state="" latitude="43.56666" longitude="27.83333"/>
+		<city name="Кърджали"	state="" latitude="41.65" longitude="25.36666"/>
+		<city name="Кюстендил"	state="" latitude="42.28389" longitude="22.69111"/>
+		<city name="Ловеч"	state="" latitude="43.13334" longitude="24.71666"/>
+		<city name="Монтана"	state="" latitude="43.4125" longitude="23.225"/>
+		<city name="Пазарджик"	state="" latitude="42.2" longitude="24.33333"/>
+		<city name="Перник"	state="" latitude="42.6" longitude="23.03333"/>
+		<city name="Плевен"	state="" latitude="43.41666" longitude="24.61666"/>
+		<city name="Пловдив"	state="" latitude="42.15" longitude="24.75"/>
+		<city name="Разград"	state="" latitude="43.53333" longitude="26.51666"/>
+		<city name="Русе"	state="" latitude="43.85639" longitude="25.97083"/>
+		<city name="Силистра"	state="" latitude="44.11666" longitude="27.26666"/>
+		<city name="Сливен"	state="" latitude="42.68583" longitude="26.32917"/>
+		<city name="Смолян"	state="" latitude="41.58528" longitude="24.69194"/>
+		<city name="Софийска"	state="" latitude="42.65" longitude="23.63333"/>
+		<city name="София"	state="" latitude="42.68333" longitude="23.31666"/>
+		<city name="Стара Загора"	state="" latitude="42.43278" longitude="25.64194"/>
+		<city name="Търговище"	state="" latitude="43.25917" longitude="26.58917"/>
+		<city name="Хасково"	state="" latitude="41.94028" longitude="25.56944"/>
+		<city name="Шумен"	state="" latitude="43.27666" longitude="26.92917"/>
+		<city name="Ямбол"	state="" latitude="42.48333" longitude="26.5"/>
 	</country>
 	<country code="BF" name="Burkina Faso">
 		<city name="Ouagadougou"	state="" latitude="12.37028" longitude="-1.52472"/>
@@ -3349,16 +3336,16 @@
 		<city name="Phnom Penh"	state="" latitude="11.55" longitude="104.9167"/>
 	</country>
 	<country code="CM" name="Cameroon">
-		<city name="Bafoussam"	state="Province du Ouest" latitude="5.46666" longitude="10.41666"/>
-		<city name="Bamenda"	state="Province du Nord-Ouest" latitude="5.93333" longitude="10.16666"/>
-		<city name="Bertoua"	state="Province du Est" latitude="4.58333" longitude="13.68333"/>
-		<city name="Buea"	state="Province du Sud-Ouest" latitude="4.15944" longitude="9.23666"/>
-		<city name="Douala"	state="Littoral Province" latitude="4.05027" longitude="9.7"/>
-		<city name="Ébolowa"	state="Province du Sud" latitude="2.9" longitude="11.15"/>
-		<city name="Garoua"	state="Province du Nord" latitude="9.3" longitude="13.4"/>
-		<city name="Maroua"	state="Extreme-Nord Province" latitude="10.59556" longitude="14.32472"/>
+		<city name="Bafoussam"	state="Ouest" latitude="5.46666" longitude="10.41666"/>
+		<city name="Bamenda"	state="Nord-Ouest" latitude="5.93333" longitude="10.16666"/>
+		<city name="Bertoua"	state="Est" latitude="4.58333" longitude="13.68333"/>
+		<city name="Buea"	state="Sud-Ouest" latitude="4.15944" longitude="9.23666"/>
+		<city name="Ébolowa"	state="Sud" latitude="2.9" longitude="11.15"/>
+		<city name="Garoua"	state="Nord" latitude="9.3" longitude="13.4"/>
+		<city name="Maroua"	state="Extreme-Nord" latitude="10.59556" longitude="14.32472"/>
+		<city name="Yaoundé"	state="Centre" latitude="3.86666" longitude="11.51666"/>
 		<city name="Ngaoundéré"	state="Adamaoua" latitude="7.31666" longitude="13.58333"/>
-		<city name="Yaoundé"	state="Province du Centre" latitude="3.86666" longitude="11.51666"/>
+		<city name="Douala"	state="Littoral Province" latitude="4.05027" longitude="9.7"/>
 	</country>
 	<country code="CV" name="Cape Verde">
 		<city name="Praia"	state="" latitude="14.91666" longitude="-23.51666"/>
@@ -3738,52 +3725,52 @@
 		<city name="Paphos"	state="Paphos" latitude="34.76666" longitude="32.41666"/>
 	</country>
 	<country code="CZ" name="Czech Republic">
-		<city name="Brno"	state="Jihomoravský Kraj" latitude="49.2" longitude="16.63333"/>
-		<city name="České Budějovice"	state="Jihočeský Kraj" latitude="48.98333" longitude="14.46666"/>
-		<city name="Hradec Králové"	state="Královéhradecký Kraj" latitude="50.21167" longitude="15.84417"/>
+		<city name="Brno"	state="Jihomoravský" latitude="49.2" longitude="16.63333"/>
+		<city name="České Budějovice"	state="Jihočeský" latitude="48.98333" longitude="14.46666"/>
+		<city name="Hradec Králové"	state="Královéhradecký" latitude="50.21167" longitude="15.84417"/>
 		<city name="Jihlava"	state="Vysočina" latitude="49.4" longitude="15.58333"/>
-		<city name="Karlovy Vary"	state="Karlovarský Kraj" latitude="50.21666" longitude="12.9"/>
-		<city name="Liberec"	state="Liberecký Kraj" latitude="50.76389" longitude="15.06528"/>
-		<city name="Olomouc"	state="Olomoucký Kraj" latitude="49.58333" longitude="17.25"/>
-		<city name="Ostrava"	state="Moravskoslezský Kraj" latitude="49.83333" longitude="18.28333"/>
-		<city name="Pardubice"	state="Pardubický Kraj" latitude="50.02778" longitude="15.77583"/>
-		<city name="Plzeň"	state="Plzeňský Kraj" latitude="49.75" longitude="13.36666"/>
+		<city name="Karlovy Vary"	state="Karlovarský" latitude="50.21666" longitude="12.9"/>
+		<city name="Liberec"	state="Liberecký" latitude="50.76389" longitude="15.06528"/>
+		<city name="Olomouc"	state="Olomoucký" latitude="49.58333" longitude="17.25"/>
+		<city name="Ostrava"	state="Moravskoslezský" latitude="49.83333" longitude="18.28333"/>
+		<city name="Pardubice"	state="Pardubický" latitude="50.02778" longitude="15.77583"/>
+		<city name="Plzeň"	state="Plzeňský" latitude="49.75" longitude="13.36666"/>
 		<city name="Praha"	state="Hlavní Město Praha" latitude="50.08333" longitude="14.46666"/>
-		<city name="Rožnov pod Radhoštěm"	state="Zlínský kraj" latitude="49.46666" longitude="18.13333"/>
-		<city name=""	state="Středočeský Kraj" latitude="50.12718" longitude="14.1964"/>
-		<city name="Ústí nad Labem"	state="Ústecký Kraj" latitude="50.66666" longitude="14.03333"/>
-		<city name="Zlín"	state="Zlínský Kraj" latitude="49.21666" longitude="17.66666"/>
+		<city name="Rožnov pod Radhoštěm"	state="Zlínský" latitude="49.46666" longitude="18.13333"/>
+		<city name=""	state="Středočeský" latitude="50.12718" longitude="14.1964"/>
+		<city name="Ústí nad Labem"	state="Ústecký" latitude="50.66666" longitude="14.03333"/>
+		<city name="Zlín"	state="Zlínský" latitude="49.21666" longitude="17.66666"/>
 	</country>
 	<country code="DK" name="Denmark">
-		<city name="Åbenrå"	state="Sønderjyllands Amt" latitude="55.03333" longitude="9.43333"/>
-		<city name="Ålborg"	state="Nordjyllands Amt" latitude="57.05" longitude="9.93333"/>
-		<city name="Århus"	state="Århus Amt" latitude="56.15" longitude="10.21666"/>
-		<city name="Bagsværd"	state="Københavns Amt" latitude="55.76666" longitude="12.46666"/>
-		<city name="Ballerup"	state="Københavns Amt" latitude="55.73333" longitude="12.36666"/>
-		<city name="Fakse"	state="Storstrøms Amt" latitude="55.25" longitude="12.13333"/>
+		<city name="Åbenrå"	state="Sønderjyllands" latitude="55.03333" longitude="9.43333"/>
+		<city name="Ålborg"	state="Nordjyllands" latitude="57.05" longitude="9.93333"/>
+		<city name="Århus"	state="Århus" latitude="56.15" longitude="10.21666"/>
+		<city name="Bagsværd"	state="Københavns" latitude="55.76666" longitude="12.46666"/>
+		<city name="Ballerup"	state="Københavns" latitude="55.73333" longitude="12.36666"/>
+		<city name="Fakse"	state="Storstrøms" latitude="55.25" longitude="12.13333"/>
 		<city name="Frederiksberg"	state="Frederiksberg Kommune" latitude="55.68333" longitude="12.53333"/>
-		<city name="Glostrup"	state="Københavns Amt" latitude="55.66666" longitude="12.4"/>
-		<city name="Glostrup"	state="Storstrøms Amt" latitude="54.9" longitude="11.15"/>
-		<city name="Glostrup"	state="Vestsjællands Amt" latitude="55.83333" longitude="11.68333"/>
-		<city name="Herlev"	state="Københavns Amt" latitude="55.71666" longitude="12.45"/>
-		<city name="Hillerød"	state="Frederiksborg Amt" latitude="55.93333" longitude="12.31666"/>
-		<city name="Holstebro"	state="Ringkøbing Amt" latitude="56.38334" longitude="8.56666"/>
-		<city name="Hørsholm"	state="Frederiksborg Amt" latitude="55.88334" longitude="12.5"/>
-		<city name="København"	state="Københavns Amt" latitude="55.66666" longitude="12.58333"/>
-		<city name="Lyngby"	state="Århus Amt" latitude="56.36666" longitude="10.75"/>
-		<city name="Lyngby"	state="Nordjyllands Amt" latitude="56.85" longitude="10.05"/>
-		<city name="Lyngby"	state="Viborg Amt" latitude="56.86666" longitude="8.31666"/>
-		<city name="Nordborg"	state="Sønderjyllands Amt" latitude="55.05" longitude="9.75"/>
-		<city name="Nykøbing"	state="Storstrøms Amt" latitude="54.76666" longitude="11.88333"/>
-		<city name="Odense"	state="Fyns Amt" latitude="55.4" longitude="10.38333"/>
-		<city name="Ribe"	state="Ribe Amt" latitude="55.35" longitude="8.76666"/>
-		<city name="Ringkøbing"	state="Ringkøbing Amt" latitude="56.08333" longitude="8.25"/>
-		<city name="Rønne"	state="Bornholms Amt" latitude="55.1" longitude="14.7"/>
-		<city name="Roskilde"	state="Roskilde Amt" latitude="55.65" longitude="12.08333"/>
-		<city name="Slagelse"	state="Vestsjællands Amt" latitude="55.4" longitude="11.36666"/>
-		<city name="Sorø"	state="Vestsjællands Amt" latitude="55.43333" longitude="11.56666"/>
-		<city name="Vejle"	state="Vejle Amt" latitude="55.7" longitude="9.53333"/>
-		<city name="Viborg"	state="Viborg Amt" latitude="56.43333" longitude="9.4"/>
+		<city name="Glostrup"	state="Københavns" latitude="55.66666" longitude="12.4"/>
+		<city name="Glostrup"	state="Storstrøms" latitude="54.9" longitude="11.15"/>
+		<city name="Glostrup"	state="Vestsjællands" latitude="55.83333" longitude="11.68333"/>
+		<city name="Herlev"	state="Københavns" latitude="55.71666" longitude="12.45"/>
+		<city name="Hillerød"	state="Frederiksborg" latitude="55.93333" longitude="12.31666"/>
+		<city name="Holstebro"	state="Ringkøbing" latitude="56.38334" longitude="8.56666"/>
+		<city name="Hørsholm"	state="Frederiksborg" latitude="55.88334" longitude="12.5"/>
+		<city name="København"	state="Københavns" latitude="55.66666" longitude="12.58333"/>
+		<city name="Lyngby"	state="Århus" latitude="56.36666" longitude="10.75"/>
+		<city name="Lyngby"	state="Nordjyllands" latitude="56.85" longitude="10.05"/>
+		<city name="Lyngby"	state="Viborg" latitude="56.86666" longitude="8.31666"/>
+		<city name="Nordborg"	state="Sønderjyllands" latitude="55.05" longitude="9.75"/>
+		<city name="Nykøbing"	state="Storstrøms" latitude="54.76666" longitude="11.88333"/>
+		<city name="Odense"	state="Fyns" latitude="55.4" longitude="10.38333"/>
+		<city name="Ribe"	state="Ribe" latitude="55.35" longitude="8.76666"/>
+		<city name="Ringkøbing"	state="Ringkøbing" latitude="56.08333" longitude="8.25"/>
+		<city name="Rønne"	state="Bornholms" latitude="55.1" longitude="14.7"/>
+		<city name="Roskilde"	state="Roskilde" latitude="55.65" longitude="12.08333"/>
+		<city name="Slagelse"	state="Vestsjællands" latitude="55.4" longitude="11.36666"/>
+		<city name="Sorø"	state="Vestsjællands" latitude="55.43333" longitude="11.56666"/>
+		<city name="Vejle"	state="Vejle" latitude="55.7" longitude="9.53333"/>
+		<city name="Viborg"	state="Viborg" latitude="56.43333" longitude="9.4"/>
 	</country>
 	<country code="DJ" name="Djibouti">
 		<city name="'Ali Sabieh"	state="Ali Sabieh" latitude="11.15583" longitude="42.7125"/>
@@ -3999,17 +3986,17 @@
 		<city name="Tórshavn"	state="" latitude="62.01666" longitude="-6.76666"/>
 	</country>
 	<country code="FJ" name="Fiji">
-		<city name="Lambasa"	state="Northern Division" latitude="-16.41666" longitude="179.3833"/>
-		<city name="Lami"	state="Central Division" latitude="-17.93333" longitude="178.4"/>
-		<city name="Lautoka"	state="Western Division" latitude="-17.61666" longitude="177.4666"/>
-		<city name="Levuka"	state="Eastern Division" latitude="-17.68333" longitude="178.8333"/>
+		<city name="Lambasa"	state="Northern" latitude="-16.41666" longitude="179.3833"/>
+		<city name="Lami"	state="Central" latitude="-17.93333" longitude="178.4"/>
+		<city name="Lautoka"	state="Western" latitude="-17.61666" longitude="177.4666"/>
+		<city name="Levuka"	state="Eastern" latitude="-17.68333" longitude="178.8333"/>
 		<city name="Nasinu"	state="" latitude="-17.71666" longitude="178.8333"/>
-		<city name="Nausori"	state="Central Division" latitude="-18.03333" longitude="178.5333"/>
-		<city name="Savusavu"	state="Northern Division" latitude="-16.78333" longitude="179.3333"/>
-		<city name="Savusavu"	state="Western Division" latitude="-17.68333" longitude="177.4666"/>
-		<city name="Suva"	state="Central Division" latitude="-18.13333" longitude="178.4167"/>
+		<city name="Nausori"	state="Central" latitude="-18.03333" longitude="178.5333"/>
+		<city name="Savusavu"	state="Northern" latitude="-16.78333" longitude="179.3333"/>
+		<city name="Savusavu"	state="Western" latitude="-17.68333" longitude="177.4666"/>
+		<city name="Suva"	state="Central" latitude="-18.13333" longitude="178.4167"/>
 		<city name="Tavua"	state="" latitude="-17.3" longitude="179.3666"/>
-		<city name="Vaileka"	state="Western Division" latitude="-17.38333" longitude="178.15"/>
+		<city name="Vaileka"	state="Western" latitude="-17.38333" longitude="178.15"/>
 	</country>
 	<country code="FI" name="Finland">
 		<city name="Äänekoski"	state="Länsi-Suomen" latitude="62.58333" longitude="25.71666"/>
@@ -4193,13 +4180,13 @@
 		<city name=""	state="Cayenne" latitude="3.21666" longitude="-52.46666"/>
 	</country>
 	<country code="PF" name="French Polynesia">
-		<city name=""	state="Australes" latitude="-22.43333" longitude="-151.3333"/>
+		<city name="Papeetē"	state="" latitude="-17.53333" longitude="-149.5666"/>
+		<city name=""	state="Tahiti" latitude="-17.53333" longitude="-149.5666"/>
 		<city name=""	state="Bora-Bora" latitude="-16.51666" longitude="-151.75"/>
-		<city name=""	state="Îles Sous-le-Vent" latitude="-16.51666" longitude="-151.75"/>
-		<city name=""	state="Îles du Vent" latitude="-17.53333" longitude="-149.5666"/>
-		<city name="Papeete"	state="" latitude="-17.53333" longitude="-149.5666"/>
-		<city name=""	state="Marquesas" latitude="-9.95" longitude="-139.0833"/>
-		<city name=""	state="Tuamotu-Gambier" latitude="" longitude=""/>
+		<city name=""	state="Îles Australes" latitude="-22.43333" longitude="-151.3333"/>
+		<city name=""	state="Îles Societe" latitude="-17.53333" longitude="-149.5666"/>
+		<city name=""	state="Îles Marquesas" latitude="-9.95" longitude="-139.0833"/>
+		<city name=""	state="Îles Tuamotu-Gambier" latitude="-19" longitude="-139"/>
 	</country>
 	<country code="TF" name="French Southern Territories">
 		<city name="Base Alfred Faure"	state="Archipel Crozet" latitude="-46.43333" longitude="51.86666"/>
@@ -4408,57 +4395,57 @@
 	</country>
 	<country code="GR" name="Greece">
 		<city name=""	state="Aftónomos Periochí Agíou Órous" latitude="40.25" longitude="24.25"/>
-		<city name="Ágios Nikólaos"	state="Nomós Lasithíou" latitude="35.19139" longitude="25.71333"/>
-		<city name="Alexandroúpolis"	state="Nomós Évrou" latitude="40.8475" longitude="25.87444"/>
-		<city name="Ámfissa"	state="Nomós Fokídos" latitude="38.525" longitude="22.37306"/>
-		<city name="Argostólion"	state="Nomós Kefallinías" latitude="38.17305" longitude="20.48195"/>
-		<city name="Árta"	state="Nomós Ártis" latitude="39.16056" longitude="20.98528"/>
-		<city name="Athens"	state="Nomós Attikís" latitude="37.98333" longitude="23.73333"/>
-		<city name="Chalkís"	state="Nomós Evvoías" latitude="38.46361" longitude="23.59945"/>
-		<city name="Chaniá"	state="Nomós Chaníon" latitude="35.51222" longitude="24.01556"/>
-		<city name="Chíos"	state="Nomós Chíou" latitude="38.36778" longitude="26.13583"/>
-		<city name="Corinth"	state="Nomós Korinthías" latitude="37.93778" longitude="22.93222"/>
-		<city name="Dráma"	state="Nomós Drámas" latitude="41.15445" longitude="24.13944"/>
-		<city name="Édessa"	state="Nomós Péllis" latitude="40.80056" longitude="22.04722"/>
-		<city name="Ermoúpolis"	state="Nomós Kykládon" latitude="37.45" longitude="24.93333"/>
-		<city name="Flórina"	state="Nomós Florínis" latitude="40.78333" longitude="21.4"/>
-		<city name="Grevená"	state="Nomós Grevenón" latitude="40.08333" longitude="21.41666"/>
-		<city name="Igoumenítsa"	state="Nomós Thesprotías" latitude="39.50389" longitude="20.26556"/>
-		<city name="Ioánnina"	state="Nomós Ioannínon" latitude="39.6675" longitude="20.85083"/>
-		<city name="Irákleion"	state="Nomós Irakleíou" latitude="35.325" longitude="25.13056"/>
-		<city name="Kalamáta"	state="Nomós Messinías" latitude="37.03889" longitude="22.11417"/>
-		<city name="Kardítsa"	state="Nomós Kardítsis" latitude="39.36555" longitude="21.92167"/>
-		<city name="Karpenísion"	state="Nomós Evrytanías" latitude="38.91666" longitude="21.78333"/>
-		<city name="Kastoriá"	state="Nomós Kastoriás" latitude="40.51666" longitude="21.26666"/>
-		<city name="Kateríni"	state="Nomós Pierías" latitude="40.27195" longitude="22.5025"/>
-		<city name="Kavála"	state="Nomós Kaválas" latitude="40.93972" longitude="24.40195"/>
-		<city name="Kérkyra"	state="Nomós Kerkýras" latitude="39.62" longitude="19.91972"/>
-		<city name="Kilkís"	state="Nomós Kilkís" latitude="40.99194" longitude="22.87083"/>
-		<city name="Komotiní"	state="Nomós Rodópis" latitude="41.12278" longitude="25.39639"/>
-		<city name="Kozáni"	state="Nomós Kozánis" latitude="40.30111" longitude="21.78639"/>
-		<city name="Lamía"	state="Nomós Fthiótidos" latitude="38.9" longitude="22.43333"/>
-		<city name="Lárisa"	state="Nomós Larísis" latitude="39.63722" longitude="22.42028"/>
-		<city name="Lefkás"	state="Nomós Lefkádos" latitude="38.8275" longitude="20.70194"/>
-		<city name="Levádeia"	state="Nomós Voiotías" latitude="38.435" longitude="22.87389"/>
+		<city name="Ágios Nikólaos"	state="Lasithíou" latitude="35.19139" longitude="25.71333"/>
+		<city name="Alexandroúpolis"	state="Évrou" latitude="40.8475" longitude="25.87444"/>
+		<city name="Ámfissa"	state="Fokídos" latitude="38.525" longitude="22.37306"/>
+		<city name="Argostólion"	state="Kefallinías" latitude="38.17305" longitude="20.48195"/>
+		<city name="Árta"	state="Ártis" latitude="39.16056" longitude="20.98528"/>
+		<city name="Athens"	state="Attikís" latitude="37.98333" longitude="23.73333"/>
+		<city name="Chalkís"	state="Evvoías" latitude="38.46361" longitude="23.59945"/>
+		<city name="Chaniá"	state="Chaníon" latitude="35.51222" longitude="24.01556"/>
+		<city name="Chíos"	state="Chíou" latitude="38.36778" longitude="26.13583"/>
+		<city name="Corinth"	state="Korinthías" latitude="37.93778" longitude="22.93222"/>
+		<city name="Dráma"	state="Drámas" latitude="41.15445" longitude="24.13944"/>
+		<city name="Édessa"	state="Péllis" latitude="40.80056" longitude="22.04722"/>
+		<city name="Ermoúpolis"	state="Kykládon" latitude="37.45" longitude="24.93333"/>
+		<city name="Flórina"	state="Florínis" latitude="40.78333" longitude="21.4"/>
+		<city name="Grevená"	state="Grevenón" latitude="40.08333" longitude="21.41666"/>
+		<city name="Igoumenítsa"	state="Thesprotías" latitude="39.50389" longitude="20.26556"/>
+		<city name="Ioánnina"	state="Ioannínon" latitude="39.6675" longitude="20.85083"/>
+		<city name="Irákleion"	state="Irakleíou" latitude="35.325" longitude="25.13056"/>
+		<city name="Kalamáta"	state="Messinías" latitude="37.03889" longitude="22.11417"/>
+		<city name="Kardítsa"	state="Kardítsis" latitude="39.36555" longitude="21.92167"/>
+		<city name="Karpenísion"	state="Evrytanías" latitude="38.91666" longitude="21.78333"/>
+		<city name="Kastoriá"	state="Kastoriás" latitude="40.51666" longitude="21.26666"/>
+		<city name="Kateríni"	state="Pierías" latitude="40.27195" longitude="22.5025"/>
+		<city name="Kavála"	state="Kaválas" latitude="40.93972" longitude="24.40195"/>
+		<city name="Kérkyra"	state="Kerkýras" latitude="39.62" longitude="19.91972"/>
+		<city name="Kilkís"	state="Kilkís" latitude="40.99194" longitude="22.87083"/>
+		<city name="Komotiní"	state="Rodópis" latitude="41.12278" longitude="25.39639"/>
+		<city name="Kozáni"	state="Kozánis" latitude="40.30111" longitude="21.78639"/>
+		<city name="Lamía"	state="Fthiótidos" latitude="38.9" longitude="22.43333"/>
+		<city name="Lárisa"	state="Larísis" latitude="39.63722" longitude="22.42028"/>
+		<city name="Lefkás"	state="Lefkádos" latitude="38.8275" longitude="20.70194"/>
+		<city name="Levádeia"	state="Voiotías" latitude="38.435" longitude="22.87389"/>
 		<city name="Mesolóngion"	state="Aitolía kai Akarnanía" latitude="38.36917" longitude="21.42917"/>
-		<city name="Mytilíni"	state="Nomós Lésvou" latitude="39.11" longitude="26.55472"/>
-		<city name="Náfplion"	state="Nomós Argolídos" latitude="37.56361" longitude="22.8075"/>
-		<city name="Pátrai"	state="Nomós Achaḯas" latitude="38.24445" longitude="21.73444"/>
-		<city name="Polýgyros"	state="Nomós Chalkidikís" latitude="40.37444" longitude="23.43833"/>
-		<city name="Préveza"	state="Nomós Prevézis" latitude="38.95" longitude="20.75"/>
-		<city name="Pýrgos"	state="Nomós Ileías" latitude="37.68333" longitude="21.45"/>
-		<city name="Réthymnon"	state="Nomós Rethýmnis" latitude="35.36472" longitude="24.47139"/>
-		<city name="Ródos"	state="Nomós Dodekanísou" latitude="36.44083" longitude="28.2225"/>
-		<city name="Sámos"	state="Nomós Sámou" latitude="37.75722" longitude="26.97694"/>
-		<city name="Sérrai"	state="Nomós Serrón" latitude="41.08556" longitude="23.54972"/>
-		<city name="Sparta"	state="Nomós Lakonías" latitude="37.07333" longitude="22.42972"/>
-		<city name="Thessaloníki"	state="Nomós Thessaloníkis" latitude="40.64028" longitude="22.94389"/>
-		<city name="Tríkala"	state="Nomós Trikálon" latitude="39.55528" longitude="21.7675"/>
-		<city name="Trípolis"	state="Nomós Arkadías" latitude="37.50889" longitude="22.37944"/>
-		<city name="Véroia"	state="Nomós Imathías" latitude="40.52333" longitude="22.20361"/>
-		<city name="Vólos"	state="Nomós Magnisías" latitude="39.36666" longitude="22.94583"/>
-		<city name="Xánthi"	state="Nomós Xánthis" latitude="41.14139" longitude="24.88361"/>
-		<city name="Zákynthos"	state="Nomós Zakýnthou" latitude="37.79139" longitude="20.89528"/>
+		<city name="Mytilíni"	state="Lésvou" latitude="39.11" longitude="26.55472"/>
+		<city name="Náfplion"	state="Argolídos" latitude="37.56361" longitude="22.8075"/>
+		<city name="Pátrai"	state="Achaḯas" latitude="38.24445" longitude="21.73444"/>
+		<city name="Polýgyros"	state="Chalkidikís" latitude="40.37444" longitude="23.43833"/>
+		<city name="Préveza"	state="Prevézis" latitude="38.95" longitude="20.75"/>
+		<city name="Pýrgos"	state="Ileías" latitude="37.68333" longitude="21.45"/>
+		<city name="Réthymnon"	state="Rethýmnis" latitude="35.36472" longitude="24.47139"/>
+		<city name="Ródos"	state="Dodekanísou" latitude="36.44083" longitude="28.2225"/>
+		<city name="Sámos"	state="Sámou" latitude="37.75722" longitude="26.97694"/>
+		<city name="Sérrai"	state="Serrón" latitude="41.08556" longitude="23.54972"/>
+		<city name="Sparta"	state="Lakonías" latitude="37.07333" longitude="22.42972"/>
+		<city name="Thessaloníki"	state="Thessaloníkis" latitude="40.64028" longitude="22.94389"/>
+		<city name="Tríkala"	state="Trikálon" latitude="39.55528" longitude="21.7675"/>
+		<city name="Trípolis"	state="Arkadías" latitude="37.50889" longitude="22.37944"/>
+		<city name="Véroia"	state="Imathías" latitude="40.52333" longitude="22.20361"/>
+		<city name="Vólos"	state="Magnisías" latitude="39.36666" longitude="22.94583"/>
+		<city name="Xánthi"	state="Xánthis" latitude="41.14139" longitude="24.88361"/>
+		<city name="Zákynthos"	state="Zakýnthou" latitude="37.79139" longitude="20.89528"/>
 	</country>
 	<country code="GL" name="Greenland">
 		<city name="Godthåb"	state="Vestgrønland" latitude="64.18333" longitude="-51.75"/>
@@ -4466,12 +4453,8 @@
 		<city name="Tasiilaq"	state="Østgrønland" latitude="65.6" longitude="-37.63334"/>
 	</country>
 	<country code="GD" name="Grenada">
-		<city name=""	state="Saint Andrew" latitude="12.11666" longitude="-61.65"/>
-		<city name=""	state="Saint David" latitude="12.05" longitude="-61.66666"/>
-		<city name=""	state="Saint George" latitude="12.05" longitude="-61.75"/>
-		<city name=""	state="Saint John" latitude="12.13333" longitude="-61.71666"/>
-		<city name=""	state="Saint Mark" latitude="12.18333" longitude="-61.68333"/>
-		<city name=""	state="Saint Patrick" latitude="12.2" longitude="-61.63334"/>
+		<city name="Saint George's"	state="" latitude="12.05" longitude="-61.75"/>
+		<city name=""	state="Grenada" latitude="12.13333" longitude="-61.71666"/>
 	</country>
 	<country code="GP" name="Guadeloupe">
 		<city name="Basse-Terre"	state="" latitude="16" longitude="-61.71666"/>
@@ -4554,7 +4537,7 @@
 		<city name=""	state="Departmento de La Paz" latitude="14.08333" longitude="-87.91666"/>
 		<city name="Tegucigalpa"	state="Francisco Morazán" latitude="14.1" longitude="-87.21666"/>
 	</country>
-	<country code="HK" name="Hong Kong S.A.R.">
+	<country code="HK" name="Hong Kong SAR">
 		<city name="Hong Kong"	state="" latitude="22.28333" longitude="114.15"/>
 	</country>
 	<country code="HU" name="Hungary">
@@ -5743,20 +5726,12 @@
 		<city name="Yamoussoukro"	state="Yamoussoukro" latitude="6.81666" longitude="-5.28333"/>
 	</country>
 	<country code="JM" name="Jamaica">
-		<city name="Kingston"	state="Parish of Kingston" latitude="18" longitude="-76.8"/>
-		<city name=""	state="Parish of Clarendon" latitude="17.98333" longitude="-77.3"/>
-		<city name=""	state="Parish of Hanover" latitude="18.41666" longitude="-78.13333"/>
-		<city name=""	state="Parish of Manchester" latitude="18.05" longitude="-77.53333"/>
-		<city name=""	state="Parish of Portland" latitude="18.13333" longitude="-76.53333"/>
-		<city name=""	state="Parish of Saint Andrew" latitude="18.06666" longitude="-76.75"/>
-		<city name=""	state="Parish of Saint Ann" latitude="18.35" longitude="-77.26666"/>
-		<city name=""	state="Parish of Saint Catherine" latitude="18.06666" longitude="-77.01666"/>
-		<city name=""	state="Parish of Saint Elizabeth" latitude="18.05" longitude="-77.78333"/>
-		<city name=""	state="Parish of Saint James" latitude="18.38333" longitude="-77.88333"/>
-		<city name=""	state="Parish of Saint Mary" latitude="18.31666" longitude="-76.9"/>
-		<city name=""	state="Parish of Saint Thomas" latitude="17.9" longitude="-76.43333"/>
-		<city name=""	state="Parish of Trelawny" latitude="18.38333" longitude="-77.63333"/>
-		<city name=""	state="Parish of Westmoreland" latitude="18.23333" longitude="-78.15"/>
+		<city name="Kingston"	state="" latitude="18" longitude="-76.8"/>
+		<city name="Montego Bay"	state="" latitude="18.4666" longitude="-77.9166"/>
+		<city name="Spanish Town"	state="" latitude="17.99580" longitude="-76.955"/>
+		<city name=""	state="Middlesex County" latitude="17.98333" longitude="-77.3"/>
+		<city name=""	state="Surrey County" latitude="17.9" longitude="-76.43333"/>
+		<city name=""	state="Cornwall County" latitude="18.23333" longitude="-78.15"/>
 	</country>
 	<country code="JP" name="Japan">
 		<city name="Akita"	state="Akita-ken" latitude="39.71666" longitude="140.0666"/>
@@ -5851,7 +5826,7 @@
 		<city name="Nyeri"	state="Central Province" latitude="-0.4166666" longitude="36.95"/>
 	</country>
 	<country code="KI" name="Kiribati">
-		<city name="Bairiki"	state="" latitude="1.31666" longitude="172.9666"/>
+		<city name="Bairiki"	state="South Tarawa" latitude="1.31666" longitude="172.9666"/>
 	</country>
 	<country code="KW" name="Kuwait">
 		<city name="Kuwait"	state="Al-Kuwait" latitude="29.36972" longitude="47.97833"/>
@@ -5863,14 +5838,14 @@
 		<city name=""	state="Jahrā'" latitude="29.33333" longitude="47.66666"/>
 	</country>
 	<country code="KG" name="Kyrgyzstan">
-		<city name=""	state="Batken oblasty" latitude="39.83333" longitude="71"/>
-		<city name="Bishkek"	state="Bishkek Shaary" latitude="42.87305" longitude="74.60028"/>
-		<city name=""	state="Chuy oblasty" latitude="42.41666" longitude="74.5"/>
-		<city name="Jalal-Abad"	state="Jalal-Abad oblasty" latitude="40.93333" longitude="73"/>
-		<city name="Karakol"	state="Ysyk-Köl oblasty" latitude="42.48333" longitude="78.4"/>
-		<city name="Naryn"	state="Naryn oblasty" latitude="41.43" longitude="76"/>
-		<city name="Osh"	state="Osh oblasty" latitude="40.52945" longitude="72.79"/>
-		<city name="Talas"	state="Talas oblasty" latitude="42.52222" longitude="72.24194"/>
+		<city name=""	state="Batken" latitude="39.83333" longitude="71"/>
+		<city name=""	state="Bishkek Shaary" latitude="42.87305" longitude="74.60028"/>
+		<city name=""	state="Chuy" latitude="42.41666" longitude="74.5"/>
+		<city name=""	state="Jalal-Abad" latitude="40.93333" longitude="73"/>
+		<city name=""	state="Ysyk-Köl" latitude="42.48333" longitude="78.4"/>
+		<city name=""	state="Naryn" latitude="41.43" longitude="76"/>
+		<city name=""	state="Osh" latitude="40.52945" longitude="72.79"/>
+		<city name=""	state="Talas" latitude="42.52222" longitude="72.24194"/>
 	</country>
 	<country code="LA" name="Laos">
 		<city name="Attapu"	state="Khouèng Attapu" latitude="14.8" longitude="106.8333"/>
@@ -5901,13 +5876,13 @@
 	</country>
 	<country code="LB" name="Lebanon">
 		<city name="Beirut"	state="Beyrouth" latitude="33.87194" longitude="35.50972"/>
-		<city name=""	state="Mohafazat Aakâr" latitude="34.53333" longitude="36.16666"/>
-		<city name=""	state="Mohafazat Baalbek-Hermel" latitude="34.20833" longitude="36.3"/>
-		<city name=""	state="Mohafazat Béqaa" latitude="33.66666" longitude="35.83333"/>
-		<city name=""	state="Mohafazat Liban-Nord" latitude="34.33333" longitude="35.91666"/>
-		<city name=""	state="Mohafazat Liban-Sud" latitude="33.41666" longitude="35.33333"/>
-		<city name=""	state="Mohafazat Mont-Liban" latitude="33.91666" longitude="35.66666"/>
-		<city name=""	state="Mohafazat Nabatîyé" latitude="33.25" longitude="35.5"/>
+		<city name=""	state="Aakâr" latitude="34.53333" longitude="36.16666"/>
+		<city name=""	state="Baalbek-Hermel" latitude="34.20833" longitude="36.3"/>
+		<city name=""	state="Béqaa" latitude="33.66666" longitude="35.83333"/>
+		<city name=""	state="Liban-Nord" latitude="34.33333" longitude="35.91666"/>
+		<city name=""	state="Liban-Sud" latitude="33.41666" longitude="35.33333"/>
+		<city name=""	state="Mont-Liban" latitude="33.91666" longitude="35.66666"/>
+		<city name=""	state="Nabatîyé" latitude="33.25" longitude="35.5"/>
 	</country>
 	<country code="LS" name="Lesotho">
 		<city name="Maseru"	state="Maseru" latitude="-29.31666" longitude="27.48333"/>
@@ -5986,23 +5961,23 @@
 		<city name=""	state="Liechtenstein" latitude="47.1" longitude="9.5"/>
 	</country>
 	<country code="LT" name="Lithuania">
-		<city name="Alytus"	state="Alytaus apskritis" latitude="54.4" longitude="24.05"/>
-		<city name="Kaunas"	state="Kauno apskritis" latitude="54.9" longitude="23.9"/>
-		<city name="Klaipėda"	state="Klaipėdos apskritis" latitude="55.71722" longitude="21.1175"/>
-		<city name="Marijampolė"	state="Marijampolės apskritis" latitude="54.56666" longitude="23.35"/>
-		<city name="Panevėžys"	state="Panevėžio apskritis" latitude="55.73333" longitude="24.35"/>
-		<city name="Šiauliai"	state="Šiaulių apskritis" latitude="55.93333" longitude="23.31666"/>
-		<city name="Tauragė"	state="Tauragės apskritis" latitude="55.25222" longitude="22.28972"/>
-		<city name="Telšiai"	state="Telšių apskritis" latitude="55.98139" longitude="22.24722"/>
-		<city name="Utena"	state="Utenos apskritis" latitude="55.5" longitude="25.6"/>
-		<city name="Vilnius"	state="Vilniaus apskritis" latitude="54.68333" longitude="25.31666"/>
+		<city name="Alytus"	state="" latitude="54.4" longitude="24.05"/>
+		<city name="Kaunas"	state="" latitude="54.9" longitude="23.9"/>
+		<city name="Klaipėda"	state="" latitude="55.71722" longitude="21.1175"/>
+		<city name="Marijampolė"	state="" latitude="54.56666" longitude="23.35"/>
+		<city name="Panevėžys"	state="" latitude="55.73333" longitude="24.35"/>
+		<city name="Šiauliai"	state="" latitude="55.93333" longitude="23.31666"/>
+		<city name="Tauragė"	state="" latitude="55.25222" longitude="22.28972"/>
+		<city name="Telšiai"	state="" latitude="55.98139" longitude="22.24722"/>
+		<city name="Utena"	state="" latitude="55.5" longitude="25.6"/>
+		<city name="Vilnius"	state="" latitude="54.68333" longitude="25.31666"/>
 	</country>
 	<country code="LU" name="Luxembourg">
-		<city name="Diekirch"	state="Diekirch" latitude="49.86778" longitude="6.15583"/>
-		<city name="Grevenmacher"	state="Grevenmacher" latitude="49.67472" longitude="6.44194"/>
-		<city name="Luxembourg"	state="Luxembourg" latitude="49.61167" longitude="6.13"/>
+		<city name="Diekirch"	state="" latitude="49.86778" longitude="6.15583"/>
+		<city name="Grevenmacher"	state="" latitude="49.67472" longitude="6.44194"/>
+		<city name="Luxembourg"	state="" latitude="49.61167" longitude="6.13"/>
 	</country>
-	<country code="MO" name="Macao S.A.R.">
+	<country code="MO" name="Macao SAR">
 		<city name=""	state="Concelho das Ilhas" latitude="22.13333" longitude="113.5666"/>
 		<city name=""	state="Concelho de Macau" latitude="22.2" longitude="113.5333"/>
 		<city name=""	state="Macau" latitude="22.2" longitude="113.55"/>
@@ -6022,18 +5997,18 @@
 		<city name=""	state="Veles" latitude="41.71556" longitude="21.77555"/>
 	</country>
 	<country code="MG" name="Madagascar">
-		<city name="Antananarivo"	state="Faritanin' Antananarivo" latitude="-18.91666" longitude="47.51666"/>
-		<city name="AntsiraḤana"	state="Faritany d' Antsiranana" latitude="-12.26666" longitude="49.28333"/>
-		<city name="Fianarantsoa"	state="Faritanin' i Fianarantsoa" latitude="-21.43333" longitude="47.08333"/>
-		<city name="Mahajanga"	state="Faritanin' i Mahajanga" latitude="-15.71666" longitude="46.31666"/>
-		<city name="Toamasina"	state="Faritanin' i Toamasina" latitude="-18.16666" longitude="49.38334"/>
-		<city name="Toliara"	state="Faritanin' i Toliara" latitude="-23.35" longitude="43.66666"/>
+		<city name="Antananarivo"	state="" latitude="-18.91666" longitude="47.51666"/>
+		<city name="AntsiraḤana"	state="" latitude="-12.26666" longitude="49.28333"/>
+		<city name="Fianarantsoa"	state="" latitude="-21.43333" longitude="47.08333"/>
+		<city name="Mahajanga"	state="" latitude="-15.71666" longitude="46.31666"/>
+		<city name="Toamasina"	state="" latitude="-18.16666" longitude="49.38334"/>
+		<city name="Toliara"	state="" latitude="-23.35" longitude="43.66666"/>
 	</country>
 	<country code="MW" name="Malawi">
 		<city name="Lilongwe"	state="" latitude="-13.98333" longitude="33.78333"/>
 		<city name="Blantyre"	state="" latitude="-15.78333" longitude="35"/>
 		<city name="Mzuzu"	state="" latitude="-11.60" longitude="34.288"/>
-		<city name=""	state="" latitude="-12.91666" longitude="34.30"/>
+		<city name=""	state="Malawi" latitude="-12.91666" longitude="34.30"/>
 	</country>
 	<country code="MY" name="Malaysia">
 		<city name="Alor Setar"	state="Negeri Kedah" latitude="6.11666" longitude="100.3666"/>
@@ -6079,19 +6054,8 @@
 		<city name="Fort-de-France"	state="Martinique" latitude="14.6" longitude="-61.08333"/>
 	</country>
 	<country code="MR" name="Mauritania">
-		<city name="Akjoujt"	state="Inchiri" latitude="19.69695" longitude="-14.41639"/>
-		<city name="Aleg"	state="Brakna" latitude="17.01444" longitude="-13.96167"/>
-		<city name="Atâr"	state="Adrar" latitude="20.42722" longitude="-13.065"/>
-		<city name="'Ayoûn el 'Atroûs"	state="Hodh El Gharbi" latitude="16.5825" longitude="-9.58472"/>
-		<city name="Fdérik"	state="Tiris Zemmour" latitude="22.61111" longitude="-12.73361"/>
-		<city name="Kaédi"	state="Gorgol" latitude="16.11528" longitude="-13.57666"/>
-		<city name="Kiffa"	state="Assaba" latitude="16.54944" longitude="-11.40917"/>
-		<city name="Néma"	state="Hodh Ech Chargui" latitude="16.56639" longitude="-7.17583"/>
-		<city name="Nouâdhibou"	state="Dakhlet Nouadhibou" latitude="20.9025" longitude="-17.04222"/>
 		<city name="Nouakchott"	state="Trarza" latitude="18.11944" longitude="-16.04056"/>
-		<city name="Rosso"	state="Trarza" latitude="16.51028" longitude="-15.91417"/>
-		<city name="Sélibabi"	state="Guidimaka" latitude="15.11" longitude="-12.22306"/>
-		<city name="Tidjikja"	state="Tagant" latitude="18.46472" longitude="-11.46389"/>
+		<city name=""	state="Mauritania" latitude="18.46472" longitude="-11.46389"/>
 	</country>
 	<country code="MU" name="Mauritius">
 		<city name="Port Louis"	state="Mauritius" latitude="-20.16195" longitude="57.49889"/>
@@ -6131,7 +6095,7 @@
 		<city name=""	state="Veracruz-Llave" latitude="19.33333" longitude="-96.66666"/>
 		<city name=""	state="Yucatán" latitude="20.83333" longitude="-89"/>
 		<city name=""	state="Zacatecas" latitude="23" longitude="-103"/>
-		<city name="Mexico"	state="Distrito Federal" latitude="19.43417" longitude="-99.13861"/>
+		<city name="Ciudad Mexico"	state="Distrito Federal" latitude="19.43417" longitude="-99.13861"/>
 	</country>
 	<country code="FM" name="Micronesia">
 		<city name="Colonia"	state="Yap" latitude="9.51444" longitude="138.1292"/>
@@ -6142,7 +6106,7 @@
 	</country>
 	<country code="MD" name="Moldova">
 		<city name="Bălţi"	state="" latitude="47.76167" longitude="27.92889"/>
-		<city name="Chişinău"	state="Municipiul Chişinău" latitude="47.00555" longitude="28.8575"/>
+		<city name="Chişinău"	state="" latitude="47.00555" longitude="28.8575"/>
 		<city name="Bendery"	state="" latitude="46.83333" longitude="29.45"/>
 		<city name="Tiraspol"	state="" latitude="45.91666" longitude="28.58333"/>
 		<city name="Rîbniţa"	state="" latitude="45.91666" longitude="28.58333"/>
@@ -6267,13 +6231,13 @@
 		<city name=""	state="Denigomodu" latitude="-0.5333333" longitude="166.9167"/>
 	</country>
 	<country code="NP" name="Nepal">
+		<city name="Kathmandu"	state="Nepal" latitude="27.71666" longitude="85.31666"/>
 		<city name=""	state="Bāgmatī Zone" latitude="28" longitude="85.41666"/>
 		<city name=""	state="Bherī Zone" latitude="28.5" longitude="81.58334"/>
 		<city name=""	state="Dhawalāgiri Zone" latitude="28.83333" longitude="83.5"/>
 		<city name=""	state="Gandakī Zone" latitude="28.16666" longitude="84.5"/>
 		<city name=""	state="Janakpur Zone" latitude="27.16666" longitude="85.91666"/>
 		<city name=""	state="Karnālī Zone" latitude="29.58333" longitude="82.16666"/>
-		<city name="Kathmandu"	state="Nepal" latitude="27.71666" longitude="85.31666"/>
 		<city name=""	state="Kosī Zone" latitude="27.16666" longitude="87.41666"/>
 		<city name=""	state="Lumbinī Zone" latitude="27.75" longitude="83.5"/>
 		<city name=""	state="Mahākālī Zone" latitude="29.5" longitude="80.5"/>
@@ -6404,14 +6368,14 @@
 		<city name=""	state="Región Autónoma Atlántico Sur" latitude="12.25" longitude="-84.25"/>
 	</country>
 	<country code="NE" name="Niger">
-		<city name="Agadez"	state="Agadez" latitude="16.97389" longitude="7.99083"/>
-		<city name="Diffa"	state="Diffa" latitude="13.31556" longitude="12.60889"/>
-		<city name="Dosso"	state="Dosso" latitude="13.04444" longitude="3.19472"/>
-		<city name="Maradi"	state="Maradi" latitude="13.49167" longitude="7.09639"/>
-		<city name="Niamey"	state="Niamey" latitude="13.51666" longitude="2.11666"/>
-		<city name="Tahoua"	state="Tahoua" latitude="14.89028" longitude="5.26777"/>
-		<city name="Tillabéri"	state="Tillabéri" latitude="14.21167" longitude="1.45305"/>
-		<city name="Zinder"	state="Zinder" latitude="13.8" longitude="8.98333"/>
+		<city name="Agadez"	state="" latitude="16.97389" longitude="7.99083"/>
+		<city name="Diffa"	state="" latitude="13.31556" longitude="12.60889"/>
+		<city name="Dosso"	state="" latitude="13.04444" longitude="3.19472"/>
+		<city name="Maradi"	state="" latitude="13.49167" longitude="7.09639"/>
+		<city name="Niamey"	state="" latitude="13.51666" longitude="2.11666"/>
+		<city name="Tahoua"	state="" latitude="14.89028" longitude="5.26777"/>
+		<city name="Tillabéri"	state="" latitude="14.21167" longitude="1.45305"/>
+		<city name="Zinder"	state="" latitude="13.8" longitude="8.98333"/>
 	</country>
 	<country code="NG" name="Nigeria">
 		<city name="Abakaliki"	state="Ebonyi State" latitude="6.33333" longitude="8.1"/>
@@ -6665,9 +6629,6 @@
 		<city name="Vigan"	state="Ilocos Sur" latitude="17.57472" longitude="120.3869"/>
 		<city name="Virac"	state="Catanduanes" latitude="13.57861" longitude="124.2306"/>
 	</country>
-	<country code="PN" name="Pitcairn">
-		<city name="Adamstown"	state="" latitude="-25.06666" longitude="-130.0833"/>
-	</country>
 	<country code="PL" name="Poland">
 		<city name="Białystok"	state="Podlaskie" latitude="53.13334" longitude="23.15"/>
 		<city name="Bydgoszcz"	state="Kujawsko-Pomorskie" latitude="53.15" longitude="18"/>
@@ -6723,8 +6684,8 @@
 		<city name=""	state="Baladīyat Umm Şalāl" latitude="25.53333" longitude="51.41666"/>
 		<city name="Doha"	state="Baladīyat ad Dawḩah" latitude="25.28666" longitude="51.53333"/>
 	</country>
-	<country code="RE" name="Reunion">
-		<city name="Saint-Denis"	state="" latitude="-20.86666" longitude="55.46666"/>
+	<country code="RE" name="Réunion">
+		<city name="Saint-Denis"	state="La Réunion" latitude="-20.86666" longitude="55.46666"/>
 	</country>
 	<country code="RO" name="Romania">
 		<city name="Alba Iulia"	state="Judeţul Alba" latitude="46.06666" longitude="23.58333"/>
@@ -6899,7 +6860,7 @@
 		<city name="Apia"	state="" latitude="-13.83333" longitude="-171.7333"/>
 	</country>
 	<country code="SM" name="San Marino">
-		<city name="San Marino"	state="San Marino" latitude="43.93333" longitude="12.45"/>
+		<city name="San Marino"	state="" latitude="43.93333" longitude="12.45"/>
 	</country>
 	<country code="ST" name="Sao Tome and Principe">
 		<city name=""	state="Príncipe" latitude="1.61666" longitude="7.41666"/>
@@ -6921,45 +6882,45 @@
 		<city name="Riyadh"	state="Ar Riyāḑ" latitude="24.64083" longitude="46.77278"/>
 	</country>
 	<country code="SN" name="Senegal">
-		<city name="Dakar"	state="Dakar" latitude="14.73666" longitude="-17.63389"/>
-		<city name="Diourbel"	state="Diourbel" latitude="14.66278" longitude="-16.3925"/>
-		<city name="Fatick"	state="Fatick" latitude="14.35806" longitude="-16.58583"/>
-		<city name="Kaolack"	state="Kaolack" latitude="14.1825" longitude="-16.25333"/>
-		<city name="Kolda"	state="Kolda" latitude="12.88333" longitude="-14.95"/>
-		<city name="Louga"	state="Louga" latitude="15.64333" longitude="-16.34611"/>
-		<city name="Matam"	state="Matam" latitude="15.6175" longitude="-13.33028"/>
-		<city name="Saint-Louis"	state="Saint-Louis" latitude="16.03222" longitude="-16.61666"/>
-		<city name="Tambacounda"	state="Tambacounda" latitude="13.75389" longitude="-13.75861"/>
-		<city name="Thiès"	state="Thiès" latitude="14.83417" longitude="-17.10611"/>
-		<city name="Ziguinchor"	state="Ziguinchor" latitude="12.58333" longitude="-16.27194"/>
+		<city name="Dakar"	state="" latitude="14.73666" longitude="-17.63389"/>
+		<city name="Diourbel"	state="" latitude="14.66278" longitude="-16.3925"/>
+		<city name="Fatick"	state="" latitude="14.35806" longitude="-16.58583"/>
+		<city name="Kaolack"	state="" latitude="14.1825" longitude="-16.25333"/>
+		<city name="Kolda"	state="" latitude="12.88333" longitude="-14.95"/>
+		<city name="Louga"	state="" latitude="15.64333" longitude="-16.34611"/>
+		<city name="Matam"	state="" latitude="15.6175" longitude="-13.33028"/>
+		<city name="Saint-Louis"	state="" latitude="16.03222" longitude="-16.61666"/>
+		<city name="Tambacounda"	state="" latitude="13.75389" longitude="-13.75861"/>
+		<city name="Thiès"	state="" latitude="14.83417" longitude="-17.10611"/>
+		<city name="Ziguinchor"	state="" latitude="12.58333" longitude="-16.27194"/>
 	</country>
 	<country code="RS" name="Serbia">
 		<city name="Belgrade"	state="Belgrade" latitude="44.81861" longitude="20.46806"/>
-		<city name="Bor"	state="Borski okrug" latitude="44.07833" longitude="22.09528"/>
-		<city name="Braničevo"	state="Braničevski okrug" latitude="44.705" longitude="21.53833"/>
-		<city name="Čačak"	state="Moravički okrug" latitude="43.89139" longitude="20.34972"/>
-		<city name="Jagodina"	state="Pomoravski okrug" latitude="43.98139" longitude="21.26222"/>
-		<city name="Kikinda"	state="Severnobanatski okrug" latitude="45.82972" longitude="20.46528"/>
-		<city name="Kragujevac"	state="Šumadijski okrug" latitude="44.01666" longitude="20.91666"/>
-		<city name="Kraljevo"	state="Raški okrug" latitude="43.72583" longitude="20.68944"/>
-		<city name="Kruševac"	state="Rasinski okrug" latitude="43.58" longitude="21.33389"/>
-		<city name="Leskovac"	state="Jablanički okrug" latitude="42.68361" longitude="20.58556"/>
-		<city name="Niš"	state="Nišavski okrug" latitude="43.32472" longitude="21.90333"/>
-		<city name="Novi Sad"	state="Južnobački okrug" latitude="45.25167" longitude="19.83694"/>
-		<city name="Pančevo"	state="Južnobanatski okrug" latitude="44.87083" longitude="20.64028"/>
-		<city name="Pirot"	state="Pirotski okrug" latitude="43.15306" longitude="22.58611"/>
-		<city name="Požarevac"	state="Braničevski okrug" latitude="44.61528" longitude="21.1825"/>
-		<city name="Prokuplje"	state="Toplički okrug" latitude="43.23417" longitude="21.58805"/>
-		<city name="Šabac"	state="Mačvanski okrug" latitude="44.74666" longitude="19.69"/>
-		<city name="Smederevo"	state="Podunavski okrug" latitude="44.66278" longitude="20.93"/>
-		<city name="Sombor"	state="Zapadnobački okrug" latitude="45.77417" longitude="19.11222"/>
-		<city name="Sremska Mitrovica"	state="Sremski okrug" latitude="44.97639" longitude="19.61222"/>
-		<city name="Subotica"	state="Severnobački okrug" latitude="46.1" longitude="19.66666"/>
-		<city name="Užice"	state="Zlatiborski okrug" latitude="43.85583" longitude="19.84111"/>
-		<city name="Valjevo"	state="Kolubarski okrug" latitude="44.27083" longitude="19.88417"/>
-		<city name="Vranje"	state="Pčinjski okrug" latitude="42.55139" longitude="21.90028"/>
-		<city name="Zaječar"	state="Zaječarski okrug" latitude="43.90417" longitude="22.28472"/>
-		<city name="Zrenjanin"	state="Srednjebanatski okrug" latitude="45.38361" longitude="20.38194"/>
+		<city name="Bor"	state="Borski" latitude="44.07833" longitude="22.09528"/>
+		<city name="Braničevo"	state="Braničevski" latitude="44.705" longitude="21.53833"/>
+		<city name="Čačak"	state="Moravički" latitude="43.89139" longitude="20.34972"/>
+		<city name="Jagodina"	state="Pomoravski" latitude="43.98139" longitude="21.26222"/>
+		<city name="Kikinda"	state="Severnobanatski" latitude="45.82972" longitude="20.46528"/>
+		<city name="Kragujevac"	state="Šumadijski" latitude="44.01666" longitude="20.91666"/>
+		<city name="Kraljevo"	state="Raški" latitude="43.72583" longitude="20.68944"/>
+		<city name="Kruševac"	state="Rasinski" latitude="43.58" longitude="21.33389"/>
+		<city name="Leskovac"	state="Jablanički" latitude="42.68361" longitude="20.58556"/>
+		<city name="Niš"	state="Nišavski" latitude="43.32472" longitude="21.90333"/>
+		<city name="Novi Sad"	state="Južnobački" latitude="45.25167" longitude="19.83694"/>
+		<city name="Pančevo"	state="Južnobanatski" latitude="44.87083" longitude="20.64028"/>
+		<city name="Pirot"	state="Pirotski" latitude="43.15306" longitude="22.58611"/>
+		<city name="Požarevac"	state="Braničevski" latitude="44.61528" longitude="21.1825"/>
+		<city name="Prokuplje"	state="Toplički" latitude="43.23417" longitude="21.58805"/>
+		<city name="Šabac"	state="Mačvanski" latitude="44.74666" longitude="19.69"/>
+		<city name="Smederevo"	state="Podunavski" latitude="44.66278" longitude="20.93"/>
+		<city name="Sombor"	state="Zapadnobački" latitude="45.77417" longitude="19.11222"/>
+		<city name="Sremska Mitrovica"	state="Sremski" latitude="44.97639" longitude="19.61222"/>
+		<city name="Subotica"	state="Severnobački" latitude="46.1" longitude="19.66666"/>
+		<city name="Užice"	state="Zlatiborski" latitude="43.85583" longitude="19.84111"/>
+		<city name="Valjevo"	state="Kolubarski" latitude="44.27083" longitude="19.88417"/>
+		<city name="Vranje"	state="Pčinjski" latitude="42.55139" longitude="21.90028"/>
+		<city name="Zaječar"	state="Zaječarski" latitude="43.90417" longitude="22.28472"/>
+		<city name="Zrenjanin"	state="Srednjebanatski" latitude="45.38361" longitude="20.38194"/>
 	</country>
 	<country code="SC" name="Seychelles">
 		<city name="Victoria"	state="" latitude="-4.61666" longitude="55.45"/>
@@ -6971,7 +6932,7 @@
 		<city name="Makeni"	state="Northern Province" latitude="8.88333" longitude="-12.05"/>
 	</country>
 	<country code="SG" name="Singapore">
-		<city name="Singapore"	state="Singapore" latitude="1.29305" longitude="103.8558"/>
+		<city name="Singapore"	state="" latitude="1.29305" longitude="103.8558"/>
 	</country>
 	<country code="SK" name="Slovakia">
 		<city name="Banská Bystrica"	state="Banskobystrický" latitude="48.73333" longitude="19.15"/>
@@ -7022,32 +6983,23 @@
 		<city name="Turnišče"	state="Prekmurje" latitude="46.62778" longitude="16.32028"/>
 	</country>
 	<country code="SB" name="Solomon Islands">
-		<city name=""	state="Central Province" latitude="-9" longitude="159.75"/>
 		<city name="Honiara"	state="Guadalcanal" latitude="-9.43333" longitude="159.95"/>
-		<city name=""	state="Isabel Province" latitude="-8" longitude="159.5"/>
-		<city name=""	state="Makira Province" latitude="-11" longitude="162.5"/>
-		<city name=""	state="Malaita Province" latitude="-9" longitude="161"/>
-		<city name=""	state="Temotu Province" latitude="-10.75" longitude="167"/>
-		<city name=""	state="Western Province" latitude="-8" longitude="157"/>
+		<city name=""	state="Central" latitude="-9" longitude="159.75"/>
+		<city name=""	state="Isabel" latitude="-8" longitude="159.5"/>
+		<city name=""	state="Makira" latitude="-11" longitude="162.5"/>
+		<city name=""	state="Malaita" latitude="-9" longitude="161"/>
+		<city name=""	state="Temotu" latitude="-10.75" longitude="167"/>
+		<city name=""	state="Western" latitude="-8" longitude="157"/>
 	</country>
 	<country code="SO" name="Somalia">
-		<city name=""	state="Awdal" latitude="10.5" longitude="43.5"/>
-		<city name=""	state="Bakool" latitude="4" longitude="44"/>
-		<city name=""	state="Bari" latitude="10" longitude="50"/>
-		<city name=""	state="Bay" latitude="3" longitude="43.5"/>
-		<city name=""	state="Galguduud" latitude="5" longitude="47"/>
-		<city name=""	state="Gedo" latitude="3" longitude="42"/>
-		<city name=""	state="Hiiraan" latitude="4" longitude="45.5"/>
-		<city name=""	state="Jubbada Dhexe" latitude="2" longitude="41.5"/>
-		<city name=""	state="Jubbada Hoose" latitude="0" longitude="42"/>
-		<city name=""	state="Mudug" latitude="7" longitude="48"/>
-		<city name=""	state="Nugaal" latitude="8.16666" longitude="49"/>
-		<city name=""	state="Sanaag" latitude="10.5" longitude="48"/>
-		<city name=""	state="Shabeellaha Dhexe" latitude="3" longitude="46"/>
-		<city name=""	state="Shabeellaha Hoose" latitude="1" longitude="44"/>
-		<city name=""	state="Sool" latitude="8.66666" longitude="47.5"/>
-		<city name=""	state="Togdheer" latitude="9.33333" longitude="45.41666"/>
-		<city name="Hargeysa"	state="Woqooyi Galbeed" latitude="44.065" longitude="9.56"/>
+		<city name=""	state="Somaliland" latitude="9.5" longitude="45.5"/>
+		<city name=""	state="Puntland" latitude="9.5" longitude="50.5"/>
+		<city name=""	state="Khatumo" latitude="8.6" longitude="48"/>
+		<city name=""	state="Galmudug" latitude="6.6" longitude="47.5"/>
+		<city name=""	state="Jubaland" latitude="0" longitude="42"/>
+		<city name=""	state="Islamic Emirate" latitude="3.6" longitude="47"/>
+		<city name=""	state="Federal Republic" latitude="6.6" longitude="47.5"/>
+		<city name="Hargeysa"	state="Woqooyi Galbeed" latitude="9.55" longitude="44"/>
 		<city name="Mogadishu"	state="Banaadir" latitude="2.06666" longitude="45.36666"/>
 	</country>
 	<country code="ZA" name="South Africa">
@@ -7063,7 +7015,7 @@
 		<city name="Polokwane"	state="Limpopo" latitude="-23.9" longitude="29.45"/>
 		<city name="Pretoria"	state="Gauteng" latitude="-25.70694" longitude="28.22944"/>
 		<city name="Rosebank"	state="Johannesburg" latitude="-26.14954" longitude="28.02935"/>
-		<city name="Stellenbosch"	state="Province Of The Western Cape" latitude="-33.92752" longitude="18.84770"/>
+		<city name="Stellenbosch"	state="Province of the Western Cape" latitude="-33.92752" longitude="18.84770"/>
 	</country>
 	<country code="KR" name="South Korea">
 		<city name="Ch'angwŏn"	state="Kyŏngsang-namdo" latitude="35.22805" longitude="128.6811"/>
@@ -7083,6 +7035,9 @@
 		<city name="Taegu"	state="Taegu-gwangyŏksi" latitude="35.87028" longitude="128.5911"/>
 		<city name="Taejŏn"	state="Taejŏn-gwangyŏksi" latitude="36.32139" longitude="127.4197"/>
 		<city name="Ulsan"	state="Ulsan-gwangyŏksi" latitude="35.53722" longitude="129.3167"/>
+	</country>
+	<country code="SS" name="South Sudan">
+		<city name="Juba"	state="Central Equatoria" latitude="4.85" longitude="31.6"/>
 	</country>
 	<country code="ES" name="Spain">
 		<city name="Balaguer"	state="Catalunya" latitude="41.90483" longitude="1.06430"/>
@@ -7109,43 +7064,33 @@
 		<city name="Zaragoza"	state="Aragón" latitude="41.65606" longitude="-0.8773398"/>
 	</country>
 	<country code="LK" name="Sri Lanka">
-		<city name=""	state="Central Province" latitude="7.33333" longitude="80.75"/>
 		<city name="Colombo"	state="Western Province" latitude="6.93194" longitude="79.84778"/>
+		<city name="Sri Jayewardenepura Kotte"	state="Western Province" latitude="6.90277" longitude="79.90833"/>
+		<city name=""	state="Central Province" latitude="7.33333" longitude="80.75"/>
 		<city name=""	state="North Central Province" latitude="8.33333" longitude="80.5"/>
 		<city name=""	state="North Eastern Province" latitude="8.25" longitude="81.33334"/>
 		<city name=""	state="North Western Province" latitude="7.75" longitude="80.16666"/>
 		<city name=""	state="Province of Sabaragamuwa" latitude="6.75" longitude="80.5"/>
 		<city name=""	state="Province of Uva" latitude="7" longitude="81.25"/>
 		<city name=""	state="Southern Province" latitude="6.16666" longitude="80.75"/>
-		<city name="Sri Jayewardenepura Kotte"	state="Western Province" latitude="6.90277" longitude="79.90833"/>
 	</country>
 	<country code="SD" name="Sudan">
-		<city name="Ad Damazīn"	state="An Nīl al Azraq" latitude="11.76666" longitude="34.35"/>
-		<city name="Ad-Damar"	state="Nahr an Nīl" latitude="17.59278" longitude="33.95917"/>
-		<city name="Al Fāshir"	state="Shamāl Dārfūr" latitude="13.63333" longitude="25.35"/>
-		<city name="Al Fūlah"	state="Gharb Kurdufān" latitude="11.8" longitude="28.4"/>
-		<city name="Al Junaynah"	state="Gharb Dārfūr" latitude="13.45" longitude="22.45"/>
-		<city name="Al Qaḑārif"	state="Al Qaḑārif" latitude="14.03333" longitude="35.4"/>
-		<city name="Al Ubayyiḑ"	state="Shamāl Kurdufān" latitude="13.18333" longitude="30.21666"/>
-		<city name="Bentiu"	state="Al Waḩdah" latitude="9.23333" longitude="29.83333"/>
-		<city name="Bor"	state="Junqalī" latitude="6.20722" longitude="31.55917"/>
-		<city name="Dunqulah"	state="Ash Shamālīyah" latitude="19.16666" longitude="30.48333"/>
-		<city name="Juba"	state="Baḩr al Jabal" latitude="4.85" longitude="31.61666"/>
-		<city name="Kāduglī"	state="Janūb Kurdufān" latitude="11.01666" longitude="29.71666"/>
-		<city name="Kapoeta"	state="Sharq al Istiwā'īyah" latitude="4.77166" longitude="33.59028"/>
-		<city name="Kassala"	state="Kassalā" latitude="15.45583" longitude="36.39889"/>
-		<city name="Khartoum"	state="Al Kharţūm" latitude="15.58806" longitude="32.53417"/>
-		<city name="Malakāl"	state="A‘alī an Nīl" latitude="9.53694" longitude="31.65611"/>
-		<city name="Nyala"	state="Janūb Dārfūr" latitude="12.05" longitude="24.88333"/>
-		<city name="Port Sudan"	state="Al Baḩr al Aḩmar" latitude="19.61583" longitude="37.21639"/>
-		<city name="Rabak"	state="An Nīl al Abyaḑ" latitude="13.15" longitude="32.73333"/>
-		<city name="Rumbek"	state="Al Buḩayrāt" latitude="6.8" longitude="29.68333"/>
-		<city name="Sinjah"	state="Sinnār" latitude="13.15" longitude="33.93333"/>
-		<city name="Uwayl"	state="Shamāl Baḩr al Ghazāl" latitude="8.76666" longitude="27.4"/>
-		<city name="Wad Madanī"	state="Al Jazīrah" latitude="14.4" longitude="33.53333"/>
-		<city name="Warab"	state="Warab" latitude="8.13333" longitude="28.61666"/>
-		<city name="Wāw"	state="Gharb Baḩr al Ghazāl" latitude="7.7" longitude="28"/>
-		<city name="Yambio"	state="Gharb al Istiwā'īyah" latitude="4.57055" longitude="28.41639"/>
+		<city name="Khartoum"	state="" latitude="15.58806" longitude="32.53417"/>
+		<city name="Port Sudan"	state="" latitude="19.61583" longitude="37.21639"/>
+		<city name=""	state="Dārfūr" latitude="12.05" longitude="24.88333"/>
+		<city name=""	state="Sinnār" latitude="13.15" longitude="33.93333"/>
+		<city name=""	state="Shamāl Kurdufān" latitude="13.18333" longitude="30.21666"/>
+		<city name=""	state="Gharb Kurdufān" latitude="11.8" longitude="28.4"/>
+		<city name=""	state="Janūb Kurdufān" latitude="11.01666" longitude="29.71666"/>
+		<city name=""	state="Nahr an Nīl" latitude="17.59278" longitude="33.95917"/>
+		<city name=""	state="An Nīl al Azraq" latitude="11.76666" longitude="34.35"/>
+		<city name=""	state="An Nīl al Abyaḑ" latitude="13.15" longitude="32.73333"/>
+		<city name=""	state="Al Jazīrah" latitude="14.4" longitude="33.53333"/>
+		<city name=""	state="Al Qaḑārif" latitude="14.03333" longitude="35.4"/>
+		<city name=""	state="Kassalā" latitude="15.45583" longitude="36.3989"/>
+		<city name=""	state="Ash Shamālīyah" latitude="19.16666" longitude="30.48333"/>
+		<city name=""	state="Al Baḥr al Aḥmar (Red Sea)" latitude="19.615" longitude="37.216"/>
+		<city name=""	state="Al Kharţūm" latitude="15.588" longitude="32.534"/>
 	</country>
 	<country code="SR" name="Suriname">
 		<city name=""	state="Brokopondo" latitude="4.75" longitude="-55.16666"/>
@@ -7159,7 +7104,7 @@
 		<city name=""	state="Wanica" latitude="5.75" longitude="-55.25"/>
 		<city name=""	state="Paramaribo" latitude="5.83333" longitude="-55.16666"/>
 	</country>
-	<country code="SJ" name="Svalbard and Jan Mayen">
+	<country code="SJ" name="Svalbard & Jan Mayen">
 		<city name="Longyearbyen"	state="Svalbard" latitude="78.21666" longitude="15.63333"/>
 	</country>
 	<country code="SZ" name="Swaziland">
@@ -7251,109 +7196,21 @@
 		<city name=""	state="Viloyati Sughd" latitude="40" longitude="69"/>
 	</country>
 	<country code="TZ" name="Tanzania">
-		<city name=""	state="Arusha" latitude="-3.36666" longitude="36.68333"/>
-		<city name=""	state="Manyara" latitude="-4.21666" longitude="35.75"/>
-		<city name=""	state="Kagera" latitude="-1.33166" longitude="31.81222"/>
-		<city name=""	state="Pemba South" latitude="-5.25" longitude="39.76666"/>
-		<city name=""	state="Dar es Salaam" latitude="-6.8" longitude="39.28333"/>
-		<city name=""	state="Dodoma" latitude="-6.18333" longitude="35.75"/>
-		<city name=""	state="Iringa" latitude="-7.76666" longitude="35.7"/>
-		<city name=""	state="Kigoma" latitude="-4.87694" longitude="29.62666"/>
-		<city name=""	state="Pwani" latitude="-7.4" longitude="39.33333"/>
-		<city name=""	state="Lindi" latitude="-10" longitude="39.71666"/>
-		<city name=""	state="Mbeya" latitude="-8.9" longitude="33.45"/>
-		<city name=""	state="Morogoro" latitude="-6.81666" longitude="37.66666"/>
+		<city name="Arusha"	state="" latitude="-3.36666" longitude="36.68333"/>
+		<city name="Dar es Salaam"	state="" latitude="-6.8" longitude="39.28333"/>
+		<city name="Dodoma"	state="" latitude="-6.18333" longitude="35.75"/>
 		<city name=""	state="Kilimanjaro" latitude="-3.35" longitude="37.33333"/>
-		<city name=""	state="Mtwara" latitude="-10.26666" longitude="40.18333"/>
-		<city name=""	state="Mara" latitude="-1.5" longitude="33.8"/>
-		<city name=""	state="Mwanza" latitude="-2.51666" longitude="32.9"/>
-		<city name=""	state="Shinyanga" latitude="-3.66666" longitude="33.43333"/>
-		<city name=""	state="Singida" latitude="-4.81666" longitude="34.75"/>
-		<city name=""	state="Ruvuma" latitude="-10.68333" longitude="35.65"/>
-		<city name=""	state="Rukwa" latitude="-7.96666" longitude="31.61666"/>
-		<city name=""	state="Tabora" latitude="-5.01666" longitude="32.8"/>
-		<city name=""	state="Tanga" latitude="-5.06666" longitude="39.1"/>
-		<city name=""	state="Pemba" latitude="-5.06666" longitude="39.71666"/>
 		<city name=""	state="Zanzibar" latitude="-6.16666" longitude="39.18333"/>
 	</country>
 	<country code="TH" name="Thailand">
-		<city name=""	state="Amnat Charoen" latitude="15.85" longitude="104.6333"/>
-		<city name=""	state="Ang Thong" latitude="14.58333" longitude="100.45"/>
-		<city name=""	state="Bangkok" latitude="13.75" longitude="100.5167"/>
-		<city name=""	state="Buriram" latitude="15" longitude="103.1167"/>
-		<city name=""	state="Chachoengsao" latitude="13.7" longitude="101.0833"/>
-		<city name=""	state="Chai Nat" latitude="15.18333" longitude="100.1333"/>
-		<city name=""	state="Chaiyaphum" latitude="15.8" longitude="102.0333"/>
-		<city name=""	state="Chanthaburi" latitude="12.6" longitude="102.15"/>
-		<city name=""	state="Chiang Mai" latitude="18.79028" longitude="98.98167"/>
-		<city name=""	state="Chiang Rai" latitude="19.9" longitude="99.83334"/>
-		<city name=""	state="Chon Buri" latitude="13.36666" longitude="100.9833"/>
-		<city name=""	state="Chumphon" latitude="10.5" longitude="99.16666"/>
-		<city name=""	state="Kalasin" latitude="16.43333" longitude="103.5"/>
-		<city name=""	state="Kamphaeng Phet" latitude="16.46666" longitude="99.5"/>
-		<city name=""	state="Kanchanaburi" latitude="14.01917" longitude="99.52972"/>
-		<city name=""	state="Khon Kaen" latitude="16.43333" longitude="102.8333"/>
-		<city name=""	state="Krabi" latitude="8.06666" longitude="98.91666"/>
-		<city name=""	state="Krung Thep Mahanakhon" latitude="13.75" longitude="100.5167"/>
-		<city name=""	state="Lampang" latitude="18.29833" longitude="99.50723"/>
-		<city name=""	state="Lamphun" latitude="18.58111" longitude="99.00916"/>
-		<city name=""	state="Loei" latitude="17.48333" longitude="101.7167"/>
-		<city name=""	state="Lop Buri" latitude="14.8" longitude="100.6167"/>
-		<city name=""	state="Mae Hong Son" latitude="19.26666" longitude="97.93333"/>
-		<city name=""	state="Maha Sarakham" latitude="16.18333" longitude="103.3"/>
-		<city name=""	state="Mukdahan" latitude="16.53333" longitude="104.7167"/>
-		<city name=""	state="Nakhon Nayok" latitude="14.20306" longitude="101.2147"/>
-		<city name=""	state="Nakhon Pathom" latitude="13.81666" longitude="100.05"/>
-		<city name=""	state="Nakhon Phanom" latitude="17.4" longitude="104.7833"/>
-		<city name=""	state="Nakhon Ratchasima" latitude="14.96666" longitude="102.1167"/>
-		<city name=""	state="Nakhon Sawan" latitude="15.68333" longitude="100.1167"/>
-		<city name=""	state="Nakhon Si Thammarat" latitude="8.43333" longitude="99.96666"/>
-		<city name=""	state="Nan" latitude="18.78333" longitude="100.7833"/>
-		<city name=""	state="Narathiwat" latitude="6.42444" longitude="101.8236"/>
-		<city name=""	state="Nong Bua Lamphu" latitude="17.20222" longitude="102.4389"/>
-		<city name=""	state="Nong Khai" latitude="17.87611" longitude="102.7444"/>
-		<city name=""	state="Nonthaburi" latitude="13.83333" longitude="100.4833"/>
-		<city name=""	state="Pathum Thani" latitude="14.01666" longitude="100.5333"/>
-		<city name=""	state="Pattani" latitude="6.88861" longitude="101.2742"/>
-		<city name=""	state="Phangnga" latitude="8.46666" longitude="98.53333"/>
-		<city name=""	state="Phatthalung" latitude="7.61666" longitude="100.0833"/>
-		<city name=""	state="Phayao" latitude="19.16666" longitude="99.91666"/>
-		<city name=""	state="Phetchabun" latitude="16.41666" longitude="101.1333"/>
-		<city name=""	state="Phetchaburi" latitude="13.1" longitude="99.95"/>
-		<city name=""	state="Phichit" latitude="16.43333" longitude="100.3666"/>
-		<city name=""	state="Phitsanulok" latitude="16.83333" longitude="100.25"/>
-		<city name=""	state="Phra Nakhon Si Ayutthaya" latitude="14.35" longitude="100.55"/>
-		<city name=""	state="Phrae" latitude="18.15" longitude="100.1333"/>
-		<city name=""	state="Phuket" latitude="7.88333" longitude="98.4"/>
-		<city name=""	state="Prachin Buri" latitude="14.05028" longitude="101.3703"/>
-		<city name=""	state="Prachuap Khiri Khan" latitude="11.81666" longitude="99.8"/>
-		<city name=""	state="Ranong" latitude="9.96666" longitude="98.63333"/>
-		<city name=""	state="Ratchaburi" latitude="13.53333" longitude="99.8"/>
-		<city name=""	state="Rayong" latitude="12.66666" longitude="101.2833"/>
-		<city name=""	state="Roi Et" latitude="16.05" longitude="103.6666"/>
-		<city name=""	state="Sa Kaeo" latitude="13.81666" longitude="102.0666"/>
-		<city name=""	state="Sakon Nakhon" latitude="17.16666" longitude="104.15"/>
-		<city name=""	state="Samut Prakan" latitude="13.6" longitude="100.6"/>
-		<city name=""	state="Samut Sakhon" latitude="13.53333" longitude="100.2833"/>
-		<city name=""	state="Samut Songkhram" latitude="13.4" longitude="100"/>
-		<city name=""	state="Sara Buri" latitude="14.53333" longitude="100.9167"/>
-		<city name=""	state="Satun" latitude="6.61666" longitude="100.0666"/>
-		<city name=""	state="Sisaket" latitude="15.11666" longitude="104.3333"/>
-		<city name=""	state="Sing Buri" latitude="14.88333" longitude="100.4167"/>
-		<city name=""	state="Songkhla" latitude="7.2" longitude="100.6"/>
-		<city name=""	state="Sukhothai" latitude="17.00639" longitude="99.82333"/>
-		<city name=""	state="Suphan Buri" latitude="14.46666" longitude="100.1167"/>
-		<city name=""	state="Surat Thani" latitude="9.13333" longitude="99.31666"/>
-		<city name=""	state="Surin" latitude="14.88333" longitude="103.4833"/>
-		<city name=""	state="Tak" latitude="16.86666" longitude="99.13333"/>
-		<city name=""	state="Trang" latitude="7.55" longitude="99.6"/>
-		<city name=""	state="Trat" latitude="12.23333" longitude="102.5"/>
-		<city name=""	state="Ubon Ratchathani" latitude="15.23306" longitude="104.8631"/>
-		<city name=""	state="Udon Thani" latitude="17.4075" longitude="102.7931"/>
-		<city name=""	state="Uthai Thani" latitude="15.36666" longitude="100.05"/>
-		<city name=""	state="Uttaradit" latitude="17.63111" longitude="100.1008"/>
-		<city name=""	state="Yala" latitude="6.54277" longitude="101.2836"/>
-		<city name=""	state="Yasothon" latitude="15.79528" longitude="104.1494"/>
+		<city name="Bangkok"	state="" latitude="13.75" longitude="100.5167"/>
+		<city name="Pattaya"	state="" latitude="12.9275" longitude="100.8752"/>
+		<city name="Nonthaburi"	state="" latitude="13.83333" longitude="100.4833"/>
+		<city name=""	state="Central" latitude="14.46666" longitude="100.1167"/>
+		<city name=""	state="East" latitude="12.6" longitude="102.15"/>
+		<city name=""	state="North" latitude="17.00639" longitude="99.82333"/>
+		<city name=""	state="Northeast/Isan" latitude="17.48333" longitude="101.7167"/>
+		<city name=""	state="South" latitude="8.06666" longitude="98.91666"/>
 	</country>
 	<country code="TG" name="Togo">
 		<city name="Atakpamé"	state="Plateaux" latitude="7.53333" longitude="1.13333"/>
@@ -7367,14 +7224,6 @@
 	</country>
 	<country code="TT" name="Trinidad and Tobago">
 		<city name=""	state="Arima" latitude="10.63333" longitude="-61.28333"/>
-		<city name=""	state="County of Caroni" latitude="10.5" longitude="-61.36666"/>
-		<city name=""	state="County of Mayaro" latitude="10.16666" longitude="-61.08333"/>
-		<city name=""	state="County of Nariva" latitude="10.36666" longitude="-61.16666"/>
-		<city name=""	state="County of Saint Andrew" latitude="10.58333" longitude="-61.16666"/>
-		<city name=""	state="County of Saint David" latitude="10.78333" longitude="-61.05"/>
-		<city name=""	state="County of Saint George" latitude="10.66666" longitude="-61.41666"/>
-		<city name=""	state="County of Saint Patrick" latitude="10.16666" longitude="-61.58333"/>
-		<city name=""	state="County of Victoria" latitude="10.25" longitude="-61.33333"/>
 		<city name=""	state="Port of Spain" latitude="10.65" longitude="-61.51666"/>
 		<city name=""	state="San Fernando" latitude="10.28333" longitude="-61.46666"/>
 		<city name=""	state="Ward of Tobago" latitude="11.25" longitude="-60.66666"/>
@@ -7513,33 +7362,33 @@
 	</country>
 	<country code="UA" name="Ukraine">
 		<city name=""	state="Avtonomna Respublika Krym" latitude="45" longitude="34"/>
-		<city name="Cherkasy"	state="Cherkas'ka Oblast'" latitude="49.43333" longitude="32.06666"/>
-		<city name=""	state="Chernihivs'ka Oblast'" latitude="51" longitude="32"/>
-		<city name="Chernivtsi"	state="Chernivets'ka Oblast'" latitude="48.3" longitude="25.93333"/>
-		<city name="Dnipropetrovs'k"	state="Dnipropetrovs'ka Oblast'" latitude="48.45" longitude="34.98333"/>
-		<city name="Donets'k"	state="Donets'ka Oblast'" latitude="48" longitude="37.8"/>
-		<city name="Ivano-Frankivs'k"	state="Ivano-Frankivs'ka Oblast'" latitude="48.91722" longitude="24.70722"/>
-		<city name="Kharkiv"	state="Kharkivs'ka Oblast'" latitude="50" longitude="36.25"/>
-		<city name="Kherson"	state="Khersons'ka Oblast'" latitude="46.63334" longitude="32.6"/>
-		<city name="Khmel'nyts'kyy"	state="Khmel'nyts'ka Oblast'" latitude="49.41666" longitude="27"/>
+		<city name="Cherkasy"	state="Cherkas" latitude="49.43333" longitude="32.06666"/>
+		<city name=""	state="Chernihivs" latitude="51" longitude="32"/>
+		<city name="Chernivtsi"	state="Chernivets" latitude="48.3" longitude="25.93333"/>
+		<city name="Dnipropetrovs'k"	state="Dnipropetrovs" latitude="48.45" longitude="34.98333"/>
+		<city name="Donets'k"	state="Donets" latitude="48" longitude="37.8"/>
+		<city name="Ivano-Frankivs'k"	state="Ivano-Frankivs" latitude="48.91722" longitude="24.70722"/>
+		<city name="Kharkiv"	state="Kharkivs" latitude="50" longitude="36.25"/>
+		<city name="Kherson"	state="Khersons" latitude="46.63334" longitude="32.6"/>
+		<city name="Khmel'nyts'kyy"	state="Khmel'nyts" latitude="49.41666" longitude="27"/>
 		<city name="Kiev"	state="Misto Kyyiv" latitude="50.43333" longitude="30.51666"/>
-		<city name="Kirovohrad"	state="Kirovohrads'ka Oblast'" latitude="48.50417" longitude="32.26305"/>
-		<city name=""	state="Kyyivs'ka Oblast'" latitude="50.25" longitude="30.5"/>
-		<city name="Luhans'k"	state="Luhans'ka Oblast'" latitude="48.56666" longitude="39.33333"/>
-		<city name="Luts'k"	state="Volyns'ka Oblast'" latitude="50.75" longitude="25.33333"/>
-		<city name="L'viv"	state="L'vivs'ka Oblast'" latitude="49.83333" longitude="24"/>
-		<city name="Mykolayiv"	state="Mykolayivs'ka Oblast'" latitude="46.96666" longitude="32"/>
-		<city name="Odesa"	state="Odes'ka Oblast" latitude="46.46666" longitude="30.73333"/>
-		<city name="Poltava"	state="Poltavs'ka Oblast'" latitude="49.58333" longitude="34.56666"/>
-		<city name=""	state="Rivnens'ka Oblast'" latitude="51" longitude="26.5"/>
+		<city name="Kirovohrad"	state="Kirovohrads" latitude="48.50417" longitude="32.26305"/>
+		<city name=""	state="Kyyivs" latitude="50.25" longitude="30.5"/>
+		<city name="Luhans'k"	state="Luhans" latitude="48.56666" longitude="39.33333"/>
+		<city name="Luts'k"	state="Volyns" latitude="50.75" longitude="25.33333"/>
+		<city name="L'viv"	state="L'vivs" latitude="49.83333" longitude="24"/>
+		<city name="Mykolayiv"	state="Mykolayivs" latitude="46.96666" longitude="32"/>
+		<city name="Odesa"	state="Odes" latitude="46.46666" longitude="30.73333"/>
+		<city name="Poltava"	state="Poltavs" latitude="49.58333" longitude="34.56666"/>
+		<city name=""	state="Rivnens" latitude="51" longitude="26.5"/>
 		<city name=""	state="Sevastopol'" latitude="44.6" longitude="33.53333"/>
-		<city name="Sumy"	state="Sums'ka Oblast'" latitude="50.91972" longitude="34.78194"/>
-		<city name="Ternopil'"	state="Ternopil's'ka Oblast'" latitude="49.55" longitude="25.58333"/>
-		<city name="Uzhhorod"	state="Zakarpats'ka Oblast'" latitude="48.61666" longitude="22.3"/>
-		<city name="Vinnytsya"	state="Vinnyts'ka Oblast'" latitude="49.23333" longitude="28.48333"/>
-		<city name="Zaporizhzhya"	state="Zaporiz'ka Oblast'" latitude="47.81666" longitude="35.18333"/>
-		<city name=""	state="Zaporiz'ka Oblast'" latitude="47.5" longitude="35.5"/>
-		<city name=""	state="Zhytomyrs'ka Oblast'" latitude="50.5" longitude="28.5"/>
+		<city name="Sumy"	state="Sums" latitude="50.91972" longitude="34.78194"/>
+		<city name="Ternopil'"	state="Ternopil's" latitude="49.55" longitude="25.58333"/>
+		<city name="Uzhhorod"	state="Zakarpats" latitude="48.61666" longitude="22.3"/>
+		<city name="Vinnytsya"	state="Vinnyts" latitude="49.23333" longitude="28.48333"/>
+		<city name="Zaporizhzhya"	state="Zaporiz" latitude="47.81666" longitude="35.18333"/>
+		<city name=""	state="Zaporiz" latitude="47.5" longitude="35.5"/>
+		<city name=""	state="Zhytomyrs" latitude="50.5" longitude="28.5"/>
 	</country>
 	<country code="AE" name="United Arab Emirates">
 		<city name="Abu Dhabi"	state="Abū Z̧aby" latitude="24.46666" longitude="54.36666"/>
@@ -7572,20 +7421,23 @@
 		<city name=""	state="Montevideo" latitude="-34.85806" longitude="-56.17083"/>
 	</country>
 	<country code="UZ" name="Uzbekistan">
-		<city name="Andijon"	state="Andijon Viloyati" latitude="40.78305" longitude="72.34389"/>
-		<city name="Buxoro"	state="Buxoro Viloyati" latitude="39.77472" longitude="64.42861"/>
-		<city name="Farg'ona"	state="Farg'ona Viloyati" latitude="40.39333" longitude="71.77944"/>
-		<city name="Guliston"	state="Sirdaryo Viloyati" latitude="40.48972" longitude="68.78416"/>
-		<city name="Jizzax"	state="Jizzax Viloyati" latitude="40.11583" longitude="67.84222"/>
-		<city name="Namangan"	state="Namangan Viloyati" latitude="40.99528" longitude="71.6725"/>
-		<city name="Navoiy"	state="Navoiy Viloyati" latitude="40.08445" longitude="65.37917"/>
+		<city name="Andijon"	state="Andijon" latitude="40.78305" longitude="72.34389"/>
+		<city name="Buxoro"	state="Buxoro" latitude="39.77472" longitude="64.42861"/>
+		<city name="Farg'ona"	state="Farg'ona" latitude="40.39333" longitude="71.77944"/>
+		<city name="Guliston"	state="Sirdaryo" latitude="40.48972" longitude="68.78416"/>
+		<city name="Jizzax"	state="Jizzax" latitude="40.11583" longitude="67.84222"/>
+		<city name="Namangan"	state="Namangan" latitude="40.99528" longitude="71.6725"/>
+		<city name="Navoiy"	state="Navoiy" latitude="40.08445" longitude="65.37917"/>
 		<city name="Nukus"	state="Qoraqalpog'iston" latitude="42.45306" longitude="59.61028"/>
-		<city name="Qarshi"	state="Qashqadaryo Viloyati" latitude="38.86333" longitude="65.79778"/>
-		<city name="Samarqand"	state="Samarqand Viloyati" latitude="39.65417" longitude="66.95972"/>
+		<city name="Qarshi"	state="Qashqadaryo" latitude="38.86333" longitude="65.79778"/>
+		<city name="Samarqand"	state="Samarqand" latitude="39.65417" longitude="66.95972"/>
 		<city name="Tashkent"	state="Toshkent Shahri" latitude="41.31666" longitude="69.25"/>
-		<city name="Termiz"	state="Surxondaryo Viloyati" latitude="37.22417" longitude="67.27834"/>
-		<city name=""	state="Toshkent Viloyati" latitude="41" longitude="69.66666"/>
-		<city name="Urganch"	state="Xorazm Viloyati" latitude="41.55" longitude="60.63334"/>
+		<city name="Termiz"	state="Surxondaryo" latitude="37.22417" longitude="67.27834"/>
+		<city name=""	state="Toshkent" latitude="41" longitude="69.66666"/>
+		<city name="Urganch"	state="Xorazm" latitude="41.55" longitude="60.63334"/>
+	</country>
+	<country code="VA" name="Vatican">
+		<city name="Vatican City"	state="" latitude="41.90250" longitude="12.4540"/>
 	</country>
 	<country code="VU" name="Vanuatu">
 		<city name="Port Vila"	state="Shefa" latitude="-17.73333" longitude="168.3167"/>
@@ -7638,16 +7490,14 @@
 		<city name="El Aaiún"	state="" latitude="27.15361" longitude="-13.20333"/>
 	</country>
 	<country code="YE" name="Yemen">
-		<city name=""	state="Aden Municipality" latitude="12.76666" longitude="45.01666"/>
+		<city name=""	state="Aden" latitude="12.76666" longitude="45.01666"/>
 		<city name=""	state="Abyan" latitude="13.83333" longitude="44.75"/>
-		<city name=""	state="aḑ Ḑāli'" latitude="13.5" longitude="44.75"/>
 		<city name=""	state="'Adan" latitude="12.83333" longitude="44.91666"/>
+		<city name=""	state="aḑ Ḑāli'" latitude="13.5" longitude="44.75"/>
 		<city name=""	state="al Bayḑā'" latitude="14" longitude="45.6"/>
 		<city name=""	state="al Ḩudaydah" latitude="15" longitude="43"/>
-		<city name=""	state="al Jawf" latitude="16.5" longitude="45"/>
-		<city name=""	state="al Jawf" latitude="16" longitude="44.61666"/>
+		<city name=""	state="al Jawf" latitude="16.5" longitude="44.61666"/>
 		<city name=""	state="al Mahrah" latitude="17" longitude="51.5"/>
-		<city name=""	state="al Maḩwīt" latitude="15.48333" longitude="43.56666"/>
 		<city name=""	state="al Maḩwīt" latitude="15.48333" longitude="43.56666"/>
 		<city name=""	state="'Amrān" latitude="16.08333" longitude="43.75"/>
 		<city name=""	state="Ḩaḑramawt" latitude="16" longitude="49"/>
@@ -7672,13 +7522,13 @@
 	</country>
 	<country code="ZW" name="Zimbabwe">
 		<city name="Harare"	state="Mashonaland East" latitude="-17.81778" longitude="31.04472"/>
-		<city name=""	state="Bulawayo Province" latitude="-20.15" longitude="28.58"/>
-		<city name=""	state="Harare Province" latitude="-18" longitude="31"/>
-		<city name=""	state="Manicaland Province" latitude="-19" longitude="32.5"/>
-		<city name=""	state="Mashonaland Province" latitude="-17" longitude="30"/>
-		<city name=""	state="Masvingo Province" latitude="-21" longitude="31"/>
-		<city name=""	state="Matabeleland Province" latitude="-20" longitude="28"/>
-		<city name=""	state="Midlands Province" latitude="-19" longitude="30"/>
+		<city name=""	state="Bulawayo" latitude="-20.15" longitude="28.58"/>
+		<city name=""	state="Harare" latitude="-18" longitude="31"/>
+		<city name=""	state="Manicaland" latitude="-19" longitude="32.5"/>
+		<city name=""	state="Mashonaland" latitude="-17" longitude="30"/>
+		<city name=""	state="Masvingo" latitude="-21" longitude="31"/>
+		<city name=""	state="Matabeleland" latitude="-20" longitude="28"/>
+		<city name=""	state="Midlands" latitude="-19" longitude="30"/>
 	</country>
 </world>
 

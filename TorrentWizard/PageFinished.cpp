@@ -56,8 +56,6 @@ END_MESSAGE_MAP()
 CFinishedPage::CFinishedPage() : CWizardPage(CFinishedPage::IDD)
 	, m_pBuilder( NULL )
 {
-	//{{AFX_DATA_INIT(CFinishedPage)
-	//}}AFX_DATA_INIT
 }
 
 CFinishedPage::~CFinishedPage()
@@ -209,7 +207,7 @@ void CFinishedPage::OnTimer(UINT_PTR nIDEvent)
 		if ( m_pBuilder->GetTotalProgress( nPos, nLen ) )
 		{
 			m_wndProgress.SetRange32( 0, nLen );
-			// m_wndProgress.SetRange( 0, nLen );
+			//m_wndProgress.SetRange( 0, nLen );
 			m_wndProgress.SetPos( nPos );
 		}
 
@@ -365,11 +363,11 @@ void CFinishedPage::OnTorrentCopy()
 void CFinishedPage::OnTorrentOpen()
 {
 //	GET_PAGE( COutputPage, pOutput );
-//	ShellExecute( GetSafeHwnd(), _T("open"), pOutput->m_sFolder, NULL, NULL, SW_SHOWNORMAL );
+//	ShellExecute( GetSafeHwnd(), L"open", pOutput->m_sFolder, NULL, NULL, SW_SHOWNORMAL );
 
 	CString strPath;
 	m_wndTorrentName.GetWindowText( strPath );
-	ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), "/select, " + strPath, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", CString( L"/select, " ) + strPath, NULL, SW_SHOWNORMAL );
 }
 
 void CFinishedPage::OnTorrentSeed()

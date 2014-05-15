@@ -1,7 +1,7 @@
 //
 // CtrlMediaList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -139,8 +139,8 @@ BOOL CMediaListCtrl::Open(LPCTSTR pszFile)
 
 BOOL CMediaListCtrl::Enqueue(LPCTSTR pszFile, BOOL bStart)
 {
-	if ( _tcsistr( pszFile, _T(".m3u") ) != NULL ||
-		 _tcsistr( pszFile, _T(".pls") ) != NULL )
+	if ( _tcsistr( pszFile, L".m3u" ) != NULL ||
+		 _tcsistr( pszFile, L".pls" ) != NULL )
 	{
 		LoadTextList( pszFile );
 	}
@@ -162,7 +162,7 @@ int CMediaListCtrl::RecursiveEnqueue(LPCTSTR pszPath)
 	HANDLE hSearch;
 	int nCount = 0;
 
-	strPath.Format( _T("%s\\*.*"), pszPath );
+	strPath.Format( L"%s\\*.*", pszPath );
 
 	hSearch = FindFirstFile( strPath, &pFind );
 
@@ -171,9 +171,9 @@ int CMediaListCtrl::RecursiveEnqueue(LPCTSTR pszPath)
 		do
 		{
 			if ( pFind.cFileName[0] == '.' ) continue;
-			if ( _tcsicmp( pFind.cFileName, _T("Metadata") ) == 0 ) continue;
+			if ( _tcsicmp( pFind.cFileName, L"Metadata" ) == 0 ) continue;
 
-			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
+			strPath.Format( L"%s\\%s", pszPath, pFind.cFileName );
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 				nCount += RecursiveEnqueue( strPath );
@@ -240,7 +240,7 @@ BOOL CMediaListCtrl::SaveTextList(LPCTSTR pszFile)
 		if ( _tcsnicmp( strPath, strItem, strPath.GetLength() ) == 0 )
 			strItem = strItem.Mid( strPath.GetLength() );	// Relative path
 
-		strFile += strItem + _T("\r\n");
+		strFile += strItem + L"\r\n";
 	}
 
 	CFile pFile;
@@ -401,8 +401,8 @@ int CMediaListCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CListCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
 	ShellIcons.AttachTo( this, 16 );	// SetImageList()
-	InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 100, -1 );
-	InsertColumn( 1, _T("Path"), LVCFMT_LEFT, 0, 0 );
+	InsertColumn( 0, L"Name", LVCFMT_LEFT, 100, -1 );
+	InsertColumn( 1, L"Path", LVCFMT_LEFT, 0, 0 );
 
 	SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP|LVS_EX_FULLROWSELECT );
 
@@ -469,7 +469,7 @@ void CMediaListCtrl::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CMediaList"), point, ID_MEDIA_SELECT );
+	Skin.TrackPopupMenu( L"CMediaList", point, ID_MEDIA_SELECT );
 }
 
 void CMediaListCtrl::OnKeyDown(NMHDR* pNMHDR, LRESULT* pResult)
@@ -774,8 +774,8 @@ void CMediaListCtrl::OnUpdateMediaSave(CCmdUI* pCmdUI)
 
 void CMediaListCtrl::OnMediaSave()
 {
-	CFileDialog dlg( FALSE, _T("m3u"), NULL, OFN_HIDEREADONLY|OFN_ENABLESIZING,
-		_T("Media Playlists|*.m3u|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( FALSE, L"m3u", NULL, OFN_HIDEREADONLY|OFN_ENABLESIZING,
+		L"Media Playlists|*.m3u|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -833,8 +833,8 @@ void CMediaListCtrl::OnMediaCollection()
 	// The album title name is a collection folder name
 	// Leave it empty to have the collection mounted under collections folder
 
-	//CAlbumFolder* pCollection = new CAlbumFolder( NULL, NULL, _T(""), TRUE );		// Obsolete
-	CAutoPtr< CAlbumFolder > pCollection( new CAlbumFolder( NULL, NULL, _T(""), TRUE ) );
+	//CAlbumFolder* pCollection = new CAlbumFolder( NULL, NULL, L"", TRUE );		// Obsolete
+	CAutoPtr< CAlbumFolder > pCollection( new CAlbumFolder( NULL, NULL, L"", TRUE ) );
 	if ( pCollection )
 	{
 		for ( int nItem = GetItemCount() - 1 ; nItem >= 0 ; nItem-- )
@@ -849,13 +849,13 @@ void CMediaListCtrl::OnMediaCollection()
 
 	CCollectionExportDlg dlg( pCollection );
 	dlg.DoModal();
-//	delete pCollection;		// Obsolete
+//	delete pCollection;		// Obsolete (CAutoPtr)
 }
 
 void CMediaListCtrl::OnSkinChange()
 {
 	SetBkColor( Colors.m_crMediaPanelBack );
-	SetBkImage( Skin.GetWatermark( _T("CMediaList") ) );
+	SetBkImage( Skin.GetWatermark( L"CMediaList" ) );
 
 	// Update Dropshadow
 	m_wndTip.DestroyWindow();

@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "dllmain.h"
 
 CPreviewModule _AtlModule;
@@ -28,7 +28,7 @@ CPreviewModule _AtlModule;
 extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpReserved)
 {
 	hInstance;
-	return _AtlModule.DllMain(dwReason, lpReserved); 
+	return _AtlModule.DllMain(dwReason, lpReserved);
 }
 
 void LoadData(CAtlMap< CString, CString >& oData)
@@ -48,8 +48,8 @@ void LoadData(CAtlMap< CString, CString >& oData)
 				szCommand, &nCommandSize, SHREGENUM_HKCU );
 			if ( ERROR_SUCCESS != ret )
 				break;
-			StrTrim( szExt, _T(" /t") );
-			StrTrim( szCommand, _T(" /t") );
+			StrTrim( szExt, L" /t" );
+			StrTrim( szCommand, L" /t" );
 			if ( nType == REG_SZ && *szExt && *szCommand )
 			{
 				oData.SetAt( szExt, szCommand );
@@ -86,7 +86,7 @@ void SaveData(const CAtlMap< CString, CString >& oData)
 				break;
 			if ( nType == REG_SZ && lstrcmpi( szPlugin, szCLSID ) == 0 )
 			{
-				sExtList.AddTail( szExt );				
+				sExtList.AddTail( szExt );
 			}
 		}
 		SHRegCloseUSKey( hKey );
@@ -112,14 +112,14 @@ void SaveData(const CAtlMap< CString, CString >& oData)
 			sCommand.GetLength() * sizeof( TCHAR ), SHREGSET_FORCE_HKCU );
 
 		// ... PeerProject settings
-		TCHAR szKey[ MAX_PATH ] = { _T(".") };
+		TCHAR szKey[ MAX_PATH ] = { L"." };
 		for ( LPCTSTR str = sExt.GetBuffer(); ; ++str )
 		{
-			LPTSTR space = StrChr( str, _T(' ') );
+			LPTSTR space = StrChr( str, L' ' );
 			if ( space )
-				*space = _T('\0');
+				*space = L'\0';
 			lstrcpyn( szKey + 1, str, _countof( szKey ) - 1 );
-			StrTrim( szKey + 1, _T(". /t") );
+			StrTrim( szKey + 1, L". /t" );
 
 			if ( *szKey )
 				SHRegSetUSValue( PLUGIN_PATH, szKey, REG_SZ, szCLSID,

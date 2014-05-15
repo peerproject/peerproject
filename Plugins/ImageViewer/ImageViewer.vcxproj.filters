@@ -11,7 +11,7 @@
     </Filter>
     <Filter Include="Resource Files">
       <UniqueIdentifier>{395aa6e6-5b70-436a-9919-c9dbfe0a4fbe}</UniqueIdentifier>
-      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;jpe</Extensions>
+      <Extensions>ico;cur;bmp;dlg;rc2;rct;bin;cnt;rtf;gif;jpg;jpeg;png</Extensions>
     </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{ed20f703-48ce-4313-a5d8-ccd1a999c739}</UniqueIdentifier>
@@ -42,7 +42,7 @@
     <None Include="ImageViewer.def">
       <Filter>Source Files</Filter>
     </None>
-    <None Include="Commands.bmp">
+    <None Include="CommandImages.png">
       <Filter>Resource Files</Filter>
     </None>
     <None Include="GrabMove.cur">

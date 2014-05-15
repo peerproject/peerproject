@@ -1,7 +1,7 @@
 //
 // CtrlHomeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,6 +21,7 @@
 #include "PeerProject.h"
 #include "CtrlHomeView.h"
 #include "RichElement.h"
+#include "Images.h"
 #include "Skin.h"
 
 #include "Network.h"
@@ -87,12 +88,12 @@ void CHomeViewCtrl::OnSkinChange()
 	m_pDocument.Clear();
 	m_peHeader = m_peSearch = m_peUpgrade = m_peRemote1 = m_peRemote2 = m_peRemoteBrowse = NULL;
 
-	if ( ! Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header") ) )
-		Skin.GetWatermark( &m_bmHeader1, _T("CHomeViewCtrl.Header1") );		// .sks
-	if ( ! Skin.GetWatermark( &m_bmHeader2, _T("CHomeViewCtrl.HeaderRepeat") ) )
-		Skin.GetWatermark( &m_bmHeader2, _T("CHomeViewCtrl.Header2") );		// .sks
+	if ( ! Skin.GetWatermark( &m_bmHeader1, L"CHomeViewCtrl.Header1" ) )	// Legacy .sks first
+		Skin.GetWatermark( &m_bmHeader1, L"CHomeViewCtrl.Header" );
+	if ( ! Skin.GetWatermark( &m_bmHeader2, L"CHomeViewCtrl.Header2" ) )	// Legacy .sks first
+		Skin.GetWatermark( &m_bmHeader2, L"CHomeViewCtrl.HeaderRepeat" );
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CHomeViewCtrl") );
+	CXMLElement* pXML = Skin.GetDocument( L"CHomeViewCtrl" );
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 
 	if ( pXML == NULL || ! m_pDocument.LoadXML( pXML, &pMap ) )
@@ -102,12 +103,15 @@ void CHomeViewCtrl::OnSkinChange()
 		return;
 	}
 
-	pMap.Lookup( _T("Header"), m_peHeader );
-	pMap.Lookup( _T("SearchBox"), m_peSearch );
-	pMap.Lookup( _T("Upgrade"), m_peUpgrade );
-	pMap.Lookup( _T("RemoteAccessURL1"), m_peRemote1 );
-	pMap.Lookup( _T("RemoteAccessURL2"), m_peRemote2 );
-	pMap.Lookup( _T("RemoteBrowseURL"), m_peRemoteBrowse );
+	Images.BlendAlpha( &m_bmHeader1, m_pDocument.m_crBackground );
+	Images.BlendAlpha( &m_bmHeader2, m_pDocument.m_crBackground );
+
+	pMap.Lookup( L"Header", m_peHeader );
+	pMap.Lookup( L"SearchBox", m_peSearch );
+	pMap.Lookup( L"Upgrade", m_peUpgrade );
+	pMap.Lookup( L"RemoteAccessURL1", m_peRemote1 );
+	pMap.Lookup( L"RemoteAccessURL2", m_peRemote2 );
+	pMap.Lookup( L"RemoteBrowseURL", m_peRemoteBrowse );
 
 	m_wndSearch.OnSkinChange( m_pDocument.m_crBackground, m_pDocument.m_crText );
 
@@ -154,13 +158,13 @@ void CHomeViewCtrl::Update()
 	if ( m_peRemoteBrowse )
 	{
 		CString strURL;
-		strURL.Format( _T("gnutella:browse:%s:%i"),
+		strURL.Format( L"gnutella:browse:%s:%i",
 			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 			(int)ntohs( Network.m_pHost.sin_port ) );
 
 		if ( Settings.Community.ServeFiles )
-			m_peRemoteBrowse->m_sLink = _T("command:copy:") + strURL;
-		m_peRemoteBrowse->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
+			m_peRemoteBrowse->m_sLink = L"command:copy:" + strURL;
+		m_peRemoteBrowse->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
 	}
 
 	if ( Settings.Remote.Enable && ! Settings.Remote.Username.IsEmpty() &&
@@ -170,17 +174,17 @@ void CHomeViewCtrl::Update()
 
 		if ( m_peRemote1 )
 		{
-			strURL.Format( _T("http://%s:%i/remote/"),
+			strURL.Format( L"http://%s:%i/remote/",
 				(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 				(int)ntohs( Network.m_pHost.sin_port ) );
-			m_peRemote1->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
+			m_peRemote1->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
 			m_peRemote1->m_sLink = strURL;
 		}
 		if ( m_peRemote2 )
 		{
-			strURL.Format( _T("http://localhost:%i/remote/"),
+			strURL.Format( L"http://localhost:%i/remote/",
 				(int)ntohs( Network.m_pHost.sin_port ) );
-			m_peRemote2->SetText( Settings.General.LanguageRTL ? _T("\x202A") + strURL : strURL );
+			m_peRemote2->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
 			m_peRemote2->m_sLink = strURL;
 		}
 
@@ -224,52 +228,6 @@ void CHomeViewCtrl::OnLayoutComplete()
 		m_wndSearch.ShowWindow( SW_HIDE );
 	}
 }
-
-///////////////////////////////////////////////////////////////////////////
-// CHomeViewCtrl Scrolling (Non-Functional/Redundant)
-//
-//void CHomeViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
-//{
-//	SCROLLINFO pScroll = {};
-//	pScroll.cbSize	= sizeof(pScroll);
-//	pScroll.fMask	= SIF_ALL & ~SIF_TRACKPOS;
-//
-//	GetScrollInfo( SB_VERT, &pScroll );
-//
-//	switch ( nSBCode )
-//	{
-//	case SB_BOTTOM:
-//		pScroll.nPos = pScroll.nMax;
-//		break;
-//	case SB_LINEDOWN:
-//		pScroll.nPos ++;
-//		break;
-//	case SB_LINEUP:
-//		pScroll.nPos --;
-//		break;
-//	case SB_PAGEDOWN:
-//		pScroll.nPos += pScroll.nPage;
-//		break;
-//	case SB_PAGEUP:
-//		pScroll.nPos -= pScroll.nPage;
-//		break;
-//	case SB_THUMBPOSITION:
-//	case SB_THUMBTRACK:
-//		pScroll.nPos = nPos;
-//		break;
-//	case SB_TOP:
-//		pScroll.nPos = 0;
-//		break;
-//	}
-//
-//	pScroll.fMask = SIF_POS;
-//	pScroll.nPos  = max( 0, min( pScroll.nPos, pScroll.nMax - (int)pScroll.nPage + 1 ) );
-//	SetScrollPos( SB_VERT, pScroll.nPos, TRUE );
-//
-//	OnVScrolled();
-//	Invalidate();
-//}
-
 
 /////////////////////////////////////////////////////////////////////////////
 // CHomeViewCtrl paint event
@@ -316,6 +274,11 @@ void CHomeViewCtrl::OnPaintBegin(CDC* pDC)
 		dcHeader.SelectObject( pbmOld );
 		dcHeader.DeleteDC();
 
+		if ( pHeader1.bmHeight < rcAnchor.Height() )
+			rcAnchor.bottom = rcAnchor.top + pHeader1.bmHeight;
+		if ( m_bmHeader2.m_hObject == NULL )
+			rcAnchor.right = rcAnchor.left + pHeader1.bmWidth;
+
 		pDC->ExcludeClipRect( &rcAnchor );
 	}
 }
@@ -327,3 +290,48 @@ void CHomeViewCtrl::OnVScrolled()
 {
 	OnLayoutComplete();
 }
+
+///////////////////////////////////////////////////////////////////////////
+// CHomeViewCtrl Scrolling (Non-Functional/Redundant)
+//
+//void CHomeViewCtrl::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrollBar*/)
+//{
+//	SCROLLINFO pScroll = {};
+//	pScroll.cbSize	= sizeof(pScroll);
+//	pScroll.fMask	= SIF_ALL & ~SIF_TRACKPOS;
+//
+//	GetScrollInfo( SB_VERT, &pScroll );
+//
+//	switch ( nSBCode )
+//	{
+//	case SB_BOTTOM:
+//		pScroll.nPos = pScroll.nMax;
+//		break;
+//	case SB_LINEDOWN:
+//		pScroll.nPos ++;
+//		break;
+//	case SB_LINEUP:
+//		pScroll.nPos --;
+//		break;
+//	case SB_PAGEDOWN:
+//		pScroll.nPos += pScroll.nPage;
+//		break;
+//	case SB_PAGEUP:
+//		pScroll.nPos -= pScroll.nPage;
+//		break;
+//	case SB_THUMBPOSITION:
+//	case SB_THUMBTRACK:
+//		pScroll.nPos = nPos;
+//		break;
+//	case SB_TOP:
+//		pScroll.nPos = 0;
+//		break;
+//	}
+//
+//	pScroll.fMask = SIF_POS;
+//	pScroll.nPos  = max( 0, min( pScroll.nPos, pScroll.nMax - (int)pScroll.nPage + 1 ) );
+//	SetScrollPos( SB_VERT, pScroll.nPos, TRUE );
+//
+//	OnVScrolled();
+//	Invalidate();
+//}

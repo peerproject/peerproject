@@ -291,15 +291,15 @@ BOOL CDownloadTransferHTTP::SendRequest()
 
 	if ( Settings.Downloads.RequestHTTP11 )
 	{
-		strLine.Format( _T("GET %s HTTP/1.1\r\n"), (LPCTSTR)pURL.m_sPath );
+		strLine.Format( L"GET %s HTTP/1.1\r\n", (LPCTSTR)pURL.m_sPath );
 		Write( strLine );
 
-		strLine.Format( _T("Host: %s\r\n"), (LPCTSTR)pURL.m_sAddress );
+		strLine.Format( L"Host: %s\r\n", (LPCTSTR)pURL.m_sAddress );
 		Write( strLine );
 	}
 	else
 	{
-		strLine.Format( _T("GET %s HTTP/1.0\r\n"), (LPCTSTR)m_pSource->m_sURL );
+		strLine.Format( L"GET %s HTTP/1.0\r\n", (LPCTSTR)m_pSource->m_sURL );
 		Write( strLine );
 	}
 
@@ -316,9 +316,9 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	if ( m_nOffset != SIZE_UNKNOWN && ! m_bTigerFetch && ! m_bMetaFetch )
 	{
 		if ( m_nLength == SIZE_UNKNOWN || m_nLength == 0 || m_nOffset + m_nLength == m_pDownload->m_nSize )
-			strLine.Format( _T("Range: bytes=%I64u-\r\n"), m_nOffset );
+			strLine.Format( L"Range: bytes=%I64u-\r\n", m_nOffset );
 		else
-			strLine.Format( _T("Range: bytes=%I64u-%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
+			strLine.Format( L"Range: bytes=%I64u-%I64u\r\n", m_nOffset, m_nOffset + m_nLength - 1 );
 
 		Write( strLine );
 	}
@@ -411,7 +411,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 			{
 				if ( m_pSource->m_nGnutella < 2 )
 				{
-					strLine.Format( _T("%s:%i"),
+					strLine.Format( L"%s:%i",
 						(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 						htons( Network.m_pHost.sin_port ) );
 					Write( _P("X-Alt: ") );
@@ -419,7 +419,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 				else
 				{
 					strLine = m_pDownload->GetURL( Network.m_pHost.sin_addr,
-						htons( Network.m_pHost.sin_port ) ) + _T(" ") +
+						htons( Network.m_pHost.sin_port ) ) + L" " +
 						TimeToString( time( NULL ) - 180 );
 					Write( _P("Alt-Location: ") );
 				}
@@ -581,27 +581,27 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 	if ( strLine.IsEmpty() ) return TRUE;
 
 	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
-		strLine = _T("#LINE_TOO_LONG#");
+		strLine = L"#LINE_TOO_LONG#";
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> DOWNLOAD RESPONSE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> DOWNLOAD RESPONSE: %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
-	if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _PT("HTTP/1.1 ") ) )
+	if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _P( L"HTTP/1.1 " ) ) )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 		m_bKeepAlive = TRUE;
 	}
-	else if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _PT("HTTP/1.0 ") ) )
+	else if ( strLine.GetLength() >= 12 && ::StartsWith( strLine, _P( L"HTTP/1.0 " ) ) )
 	{
 		strCode		= strLine.Mid( 9, 3 );
 		strMessage	= strLine.Mid( 12 );
 		m_bKeepAlive = FALSE;
 	}
-	else if ( strLine.GetLength() >= 8 && ::StartsWith( strLine, _PT("HTTP") ) )
+	else if ( strLine.GetLength() >= 8 && ::StartsWith( strLine, _P( L"HTTP" ) ) )
 	{
 		strCode		= strLine.Mid( 5, 3 );
 		strMessage	= strLine.Mid( 8 );
-		theApp.Message( MSG_DEBUG, _T("HTTP with unknown version: %s"), (LPCTSTR)strLine );
+		theApp.Message( MSG_DEBUG, L"HTTP with unknown version: %s", (LPCTSTR)strLine );
 		m_bKeepAlive = FALSE;
 	}
 	else
@@ -611,16 +611,16 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 		return FALSE;
 	}
 
-	if ( strCode == _T("200") || strCode == _T("206") )
+	if ( strCode == L"200" || strCode == L"206" )
 	{
 		SetState( dtsHeaders );
 		m_pSource->m_nFailures = 0;
 		m_pSource->m_nBusyCount = 0;
 	}
-	else if ( strCode == _T("503") )
+	else if ( strCode == L"503" )
 	{
 		// 503 response without an X-Available-Ranges header means the complete file is available
-		if ( _tcsistr( strMessage, _T("range") ) != NULL )
+		if ( _tcsistr( strMessage, L"range" ) != NULL )
 		{
 			m_bRangeFault = TRUE;
 		}
@@ -632,12 +632,12 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 
 		SetState( dtsHeaders );
 	}
-	else if ( strCode == _T("416") )
+	else if ( strCode == L"416" )
 	{
 		m_bRangeFault = TRUE;
 		SetState( dtsHeaders );
 	}
-	else if ( strCode == _T("301") || strCode == _T("302") )
+	else if ( strCode == L"301" || strCode == L"302" )
 	{
 		m_bRedirect = TRUE;
 		SetState( dtsHeaders );
@@ -645,7 +645,7 @@ BOOL CDownloadTransferHTTP::ReadResponseLine()
 	else
 	{
 		strMessage.TrimLeft();
-		if ( strMessage.GetLength() > 128 ) strMessage = _T("No Message");
+		if ( strMessage.GetLength() > 128 ) strMessage = L"No Message";
 		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_HTTPCODE, (LPCTSTR)m_sAddress, (LPCTSTR)strCode, (LPCTSTR)strMessage );
 		SetState( dtsHeaders );
 		m_bBadResponse = TRUE;
@@ -730,22 +730,22 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( m_pSource->m_sServer.GetLength() > 64 ) m_pSource->m_sServer = m_pSource->m_sServer.Left( 64 );
 
 		if ( m_bClientExtended ) m_pSource->SetGnutella( 3 );
-		if ( _tcsistr( m_sUserAgent, _T("trustyfiles") ) != NULL ) m_pSource->SetGnutella( 3 );
-		if ( _tcsistr( m_sUserAgent, _T("gnucdna") ) != NULL ) m_pSource->SetGnutella( 3 );
-		if ( _tcsistr( m_sUserAgent, _T("vagaa") ) != NULL ) m_pSource->SetGnutella( 3 );
-		if ( _tcsistr( m_sUserAgent, _T("mxie") ) != NULL ) m_pSource->SetGnutella( 3 );
-		if ( _tcsistr( m_sUserAgent, _T("adagio") ) != NULL ) m_pSource->SetGnutella( 2 );
+		if ( _tcsistr( m_sUserAgent, L"trustyfiles" ) != NULL ) m_pSource->SetGnutella( 3 );
+		if ( _tcsistr( m_sUserAgent, L"gnucdna" ) != NULL ) m_pSource->SetGnutella( 3 );
+		if ( _tcsistr( m_sUserAgent, L"vagaa" ) != NULL ) m_pSource->SetGnutella( 3 );
+		if ( _tcsistr( m_sUserAgent, L"mxie" ) != NULL ) m_pSource->SetGnutella( 3 );
+		if ( _tcsistr( m_sUserAgent, L"adagio" ) != NULL ) m_pSource->SetGnutella( 2 );
 		break;
 
 	case 'C':		// "Connection"
-		if ( strValue.CompareNoCase( _T("Keep-Alive") ) == 0 ) m_bKeepAlive = TRUE;
-		if ( strValue.CompareNoCase( _T("close") ) == 0 ) m_bKeepAlive = FALSE;
+		if ( strValue.CompareNoCase( L"Keep-Alive" ) == 0 ) m_bKeepAlive = TRUE;
+		if ( strValue.CompareNoCase( L"close" ) == 0 ) m_bKeepAlive = FALSE;
 		break;
 
 	case 'l':		// "Content-Length"
 		{
 			QWORD nTotal;
-			if ( _stscanf( strValue, _T("%I64u"), &nTotal ) == 1 && nTotal > 0 )
+			if ( _stscanf( strValue, L"%I64u", &nTotal ) == 1 && nTotal > 0 )
 				m_nContentLength = nTotal;
 		}
 		break;
@@ -753,8 +753,8 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'r':		// "Content-Range"
 		{
 			QWORD nFirst, nLast, nTotal;
-			if ( ( _stscanf( strValue, _T("bytes %I64u-%I64u/%I64u"), &nFirst, &nLast, &nTotal ) == 3 ||
-				   _stscanf( strValue, _T("bytes=%I64u-%I64u/%I64u"), &nFirst, &nLast, &nTotal ) == 3 ) &&
+			if ( ( _stscanf( strValue, L"bytes %I64u-%I64u/%I64u", &nFirst, &nLast, &nTotal ) == 3 ||
+				   _stscanf( strValue, L"bytes=%I64u-%I64u/%I64u", &nFirst, &nLast, &nTotal ) == 3 ) &&
 				   nFirst <= nLast && nTotal > 0 && nLast < nTotal )
 			{
 				if ( m_bTigerFetch || m_bMetaFetch )
@@ -816,34 +816,34 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 
 	case 'e':		// "Content-Encoding"
-		if ( _tcsistr( strValue, _T("backwards") ) )
+		if ( _tcsistr( strValue, L"backwards" ) )
 		{
 			m_bRecvBackwards = TRUE;
 			if ( ! Settings.Downloads.AllowBackwards )
 			{
-				theApp.Message( MSG_DEBUG, _T("Backwards encoding disabled") );
+				theApp.Message( MSG_DEBUG, L"Backwards encoding disabled" );
 				Close( TRI_FALSE );
 				return FALSE;
 			}
 		}
-		if ( _tcsistr( strValue, _T("gzip") ) )		// gzip or x-gzip
+		if ( _tcsistr( strValue, L"gzip" ) )		// gzip or x-gzip
 		{
 			m_bGzip = TRUE;
-			theApp.Message( MSG_DEBUG, _T("Gzip encoding not supported") );
+			theApp.Message( MSG_DEBUG, L"Gzip encoding not supported" );
 			Close( TRI_FALSE );
 			return FALSE;
 		}
-		if ( _tcsistr( strValue, _T("compress") ) )	// compress or x-compress
+		if ( _tcsistr( strValue, L"compress" ) )	// compress or x-compress
 		{
 			m_bCompress = TRUE;
-			theApp.Message( MSG_DEBUG, _T("Compress encoding not supported") );
+			theApp.Message( MSG_DEBUG, L"Compress encoding not supported" );
 			Close( TRI_FALSE );
 			return FALSE;
 		}
-		if ( _tcsistr( strValue, _T("deflate") ) )	// deflate
+		if ( _tcsistr( strValue, L"deflate" ) )	// deflate
 		{
 			m_bDeflate = TRUE;
-			theApp.Message( MSG_DEBUG, _T("Deflate encoding not supported") );
+			theApp.Message( MSG_DEBUG, L"Deflate encoding not supported" );
 			Close( TRI_FALSE );
 			return FALSE;
 		}
@@ -854,7 +854,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 
 	case 'E':		// "Transfer-Encoding"
-		if ( _tcsistr( strValue, _T("chunked") ) )
+		if ( _tcsistr( strValue, L"chunked" ) )
 		{
 			m_bChunked = TRUE;
 			m_ChunkState = Header;
@@ -862,7 +862,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		}
 		else
 		{
-			theApp.Message( MSG_DEBUG, _T("Unknown transfer encoding: %s"), strValue );
+			theApp.Message( MSG_DEBUG, L"Unknown transfer encoding: %s", strValue );
 			Close( TRI_FALSE );
 			return FALSE;
 		}
@@ -919,8 +919,8 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'g':		// "X-TigerTree-Path"
 		if ( Settings.Downloads.VerifyTiger && ! m_bTigerIgnore && m_sTigerTree.IsEmpty() )
 		{
-			if ( strValue.Find( _T("tigertree/v1") ) < 0 &&
-				 strValue.Find( _T("tigertree/v2") ) < 0 )
+			if ( strValue.Find( L"tigertree/v1" ) < 0 &&
+				 strValue.Find( L"tigertree/v2" ) < 0 )
 				m_sTigerTree = strValue;
 		}
 		break;
@@ -928,10 +928,10 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'h':		// "X-Thex-URI"
 		if ( Settings.Downloads.VerifyTiger && ! m_bTigerIgnore )
 		{
-			if ( strValue[ 0 ] == _T('/') )
+			if ( strValue[ 0 ] == L'/' )
 			{
-				m_sTigerTree = strValue.SpanExcluding( _T("; ") );
-				m_sTigerTree.Replace( _T("ed2k=0"), _T("ed2k=1") );
+				m_sTigerTree = strValue.SpanExcluding( L"; " );
+				m_sTigerTree.Replace( L"ed2k=0", L"ed2k=1" );
 			}
 		}
 		m_pSource->SetGnutella( 1 );
@@ -949,7 +949,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_pSource->SetGnutella( 1 );
 		if ( m_pSource->m_oAvailable.empty() )
 		{
-			theApp.Message( MSG_DEBUG, _T("Header did not include valid ranges, dropping source...") );
+			theApp.Message( MSG_DEBUG, L"Header did not include valid ranges, dropping source..." );
 			Close( TRI_FALSE );
 			return FALSE;
 		}
@@ -961,38 +961,38 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		{
 			ToLower( strValue );
 
-			int nPos = strValue.Find( _T("position=") );
+			int nPos = strValue.Find( L"position=" );
 			if ( nPos >= 0 )
-				_stscanf( strValue.Mid( nPos + 9 ), _T("%u"), &m_nQueuePos );
+				_stscanf( strValue.Mid( nPos + 9 ), L"%u", &m_nQueuePos );
 
-			nPos = strValue.Find( _T("length=") );
+			nPos = strValue.Find( L"length=" );
 			if ( nPos >= 0 )
-				_stscanf( strValue.Mid( nPos + 7 ), _T("%u"), &m_nQueueLen );
+				_stscanf( strValue.Mid( nPos + 7 ), L"%u", &m_nQueueLen );
 
 			DWORD nLimit = 0;
 
-			nPos = strValue.Find( _T("pollmin=") );
-			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
+			nPos = strValue.Find( L"pollmin=" );
+			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%u", &nLimit ) == 1 )
 				m_nRetryDelay = max( m_nRetryDelay, nLimit * 1000 + 3000 );
 
-			nPos = strValue.Find( _T("pollmax=") );
-			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), _T("%u"), &nLimit ) == 1 )
+			nPos = strValue.Find( L"pollmax=" );
+			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%u", &nLimit ) == 1 )
 				m_nRetryDelay = min( m_nRetryDelay, nLimit * 1000 - 8000 );
 
-			nPos = strValue.Find( _T("id=") );
+			nPos = strValue.Find( L"id=" );
 			if ( nPos >= 0 )
 			{
 				m_sQueueName = strValue.Mid( nPos + 3 );
 				m_sQueueName.TrimLeft();
 				if ( m_sQueueName.Find( '\"' ) == 0 )
-					m_sQueueName = m_sQueueName.Mid( 1 ).SpanExcluding( _T("\"") );
+					m_sQueueName = m_sQueueName.Mid( 1 ).SpanExcluding( L"\"" );
 				else
-					m_sQueueName = m_sQueueName.SpanExcluding( _T("\" ") );
+					m_sQueueName = m_sQueueName.SpanExcluding( L"\" " );
 
-				if ( m_sQueueName == _T("s") )
-					m_sQueueName = _T("Small Queue");
-				else if ( m_sQueueName == _T("l") )
-					m_sQueueName = _T("Large Queue");
+				if ( m_sQueueName == L"s" )
+					m_sQueueName = L"Small Queue";
+				else if ( m_sQueueName == L"l" )
+					m_sQueueName = L"Large Queue";
 			}
 		}
 		break;
@@ -1000,7 +1000,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'R':		// "Retry-After"
 		{
 			DWORD nLimit = 0;
-			if ( _stscanf( strValue, _T("%u"), &nLimit ) == 1 )
+			if ( _stscanf( strValue, L"%u", &nLimit ) == 1 )
 				m_nRetryAfter = nLimit;
 		}
 		break;
@@ -1008,7 +1008,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'p':		// "X-PerHost" "X-Gnutella-maxSlotsPerHost"
 		{
 			DWORD nLimit = 0;
-			if ( _stscanf( strValue, _T("%u"), &nLimit ) != 1 )
+			if ( _stscanf( strValue, L"%u", &nLimit ) != 1 )
 				Downloads.SetPerHostLimit( &m_pHost.sin_addr, nLimit );
 		}
 		break;
@@ -1022,11 +1022,11 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 
 	case 'f':		// "X-Features"
-		if ( _tcsistr( strValue, _T("g2/") ) != NULL )
+		if ( _tcsistr( strValue, L"g2/" ) != NULL )
 			m_pSource->SetGnutella( 2 );
-		else if ( _tcsistr( strValue, _T("gnutella2/") ) != NULL )
+		else if ( _tcsistr( strValue, L"gnutella2/" ) != NULL )
 			m_pSource->SetGnutella( 2 );
-		else if ( _tcsistr( strValue, _T("gnet2/") ) != NULL )
+		else if ( _tcsistr( strValue, L"gnet2/" ) != NULL )
 			m_pSource->SetGnutella( 2 );
 		m_pSource->SetGnutella( 1 );
 		break;
@@ -1042,17 +1042,17 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			// Accept Content-Disposition only if the current display name is empty or if it came from Web Servers and the current display name is shorter than 13 chars (Likely to be default.html, default.asp, etc.).
 			if ( m_pDownload->m_sName.IsEmpty() || ( ! bIsP2P && m_pDownload->m_sName.GetLength() < 13 ) )
 			{
-				const int nPos = strValue.Find( _T("filename=") );
+				const int nPos = strValue.Find( L"filename=" );
 				if ( nPos >= 0 )
 				{
 					// If exactly, it should follow RFC 2184 rules
-					CString strFilename = URLDecode( strValue.Mid( nPos + 9 ) ).Trim( _T(" \t\r\n\"") );
+					CString strFilename = URLDecode( strValue.Mid( nPos + 9 ) ).Trim( L" \t\r\n\"" );
 
 					// If the filenames contain an invalid character (Because web servers or P2P clients are evil, or because sometimes non-ascii chars are encoded as "?" (%3F) by faulty coding)
 					if ( strFilename == SafeFilename( strFilename ) ||
 						 ( m_pDownload->GetSourceCount() <= 1 && ! bIsP2P ) )
 						m_pDownload->Rename( strFilename );
-						//theApp.Message( MSG_DEBUG, _T("Content-Disposition filename: %s"), (LPCTSTR)strFilename);
+						//theApp.Message( MSG_DEBUG, L"Content-Disposition filename: %s", (LPCTSTR)strFilename);
 				}
 			}
 		}
@@ -1062,7 +1062,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		{
 			Hashes::Md5Hash oMD5;
 			oMD5.fromString( strValue );
-			theApp.Message( MSG_DEBUG, _T("Content-MD5: %s"), (LPCTSTR)oMD5.toString() );
+			theApp.Message( MSG_DEBUG, L"Content-MD5: %s", (LPCTSTR)oMD5.toString() );
 		}
 		break;
 
@@ -1071,7 +1071,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 
 	default:		// Unknown Headers?
-		theApp.Message( MSG_DEBUG, _T("Unknown header: %s"), (LPCTSTR)strCase );
+		theApp.Message( MSG_DEBUG, L"Unknown header: %s", (LPCTSTR)strCase );
 		break;
 	}
 
@@ -1184,9 +1184,9 @@ BOOL CDownloadTransferHTTP::OnHeadersComplete()
 			return FALSE;
 		}
 
-		if ( m_sContentType.CompareNoCase( _T("application/tigertree-breadthfirst") ) &&
-			 m_sContentType.CompareNoCase( _T("application/dime") ) &&
-			 m_sContentType.CompareNoCase( _T("application/binary") ) )		// Content Type used by Phex
+		if ( m_sContentType.CompareNoCase( L"application/tigertree-breadthfirst" ) &&
+			 m_sContentType.CompareNoCase( L"application/dime" ) &&
+			 m_sContentType.CompareNoCase( L"application/binary" ) )		// Content Type used by Phex
 		{
 			theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_RANGE, (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
@@ -1498,22 +1498,22 @@ BOOL CDownloadTransferHTTP::ReadTiger(bool bDropped)
 
 	if ( pInput->m_nLength < m_nLength ) return TRUE;
 
-	if ( m_sContentType.CompareNoCase( _T("application/tigertree-breadthfirst") ) == 0 )
+	if ( m_sContentType.CompareNoCase( L"application/tigertree-breadthfirst" ) == 0 )
 	{
 		m_pDownload->SetTigerTree( pInput->m_pBuffer, (DWORD)m_nLength );
 		pInput->Remove( (DWORD)m_nLength );
 	}
-	else if ( m_sContentType.CompareNoCase( _T("application/dime") ) == 0 ||
-			  m_sContentType.CompareNoCase( _T("application/binary") ) == 0 )
+	else if ( m_sContentType.CompareNoCase( L"application/dime" ) == 0 ||
+			  m_sContentType.CompareNoCase( L"application/binary" ) == 0 )
 	{
-		CString strID, strType, strUUID = _T("x");
+		CString strID, strType, strUUID = L"x";
 		DWORD nFlags, nBody;
 
 		while ( pInput->ReadDIME( &nFlags, &strID, &strType, &nBody ) )
 		{
-			theApp.Message( MSG_DEBUG, _T("THEX DIME: %i, '%s', '%s', %i"), nFlags, (LPCTSTR)strID, (LPCTSTR)strType, nBody );
+			theApp.Message( MSG_DEBUG, L"THEX DIME: %i, '%s', '%s', %i", nFlags, (LPCTSTR)strID, (LPCTSTR)strType, nBody );
 
-			if ( ( nFlags & 1 ) && strType.CompareNoCase( _T("text/xml") ) == 0 && nBody < 1024*1024 )
+			if ( ( nFlags & 1 ) && strType.CompareNoCase( L"text/xml" ) == 0 && nBody < 1024*1024 )
 			{
 				BOOL bSize = FALSE, bDigest = FALSE, bEncoding = FALSE;
 				CString strXML;
@@ -1522,37 +1522,37 @@ BOOL CDownloadTransferHTTP::ReadTiger(bool bDropped)
 
 				if ( CXMLElement* pXML = CXMLElement::FromString( strXML ) )
 				{
-					if ( pXML->IsNamed( _T("hashtree") ) )
+					if ( pXML->IsNamed( L"hashtree" ) )
 					{
-						if ( CXMLElement* pxFile = pXML->GetElementByName( _T("file") ) )
+						if ( CXMLElement* pxFile = pXML->GetElementByName( L"file" ) )
 						{
 							QWORD nSize = 0;
-							_stscanf( pxFile->GetAttributeValue( _T("size") ), _T("%I64i"), &nSize );
+							_stscanf( pxFile->GetAttributeValue( L"size" ), L"%I64i", &nSize );
 							bSize = ( nSize == m_pDownload->m_nSize );
 						}
-						if ( CXMLElement* pxDigest = pXML->GetElementByName( _T("digest") ) )
+						if ( CXMLElement* pxDigest = pXML->GetElementByName( L"digest" ) )
 						{
-							if ( pxDigest->GetAttributeValue( _T("algorithm") ).CompareNoCase( _T("http://open-content.net/spec/digest/tiger") ) == 0 )
-								bDigest = ( pxDigest->GetAttributeValue( _T("outputsize") ) == _T("24") );
+							if ( pxDigest->GetAttributeValue( L"algorithm" ).CompareNoCase( L"http://open-content.net/spec/digest/tiger" ) == 0 )
+								bDigest = ( pxDigest->GetAttributeValue( L"outputsize" ) == L"24" );
 						}
-						if ( CXMLElement* pxTree = pXML->GetElementByName( _T("serializedtree") ) )
+						if ( CXMLElement* pxTree = pXML->GetElementByName( L"serializedtree" ) )
 						{
-							bEncoding = ( pxTree->GetAttributeValue( _T("type") ).CompareNoCase( _T("http://open-content.net/spec/thex/breadthfirst") ) == 0 );
-							strUUID = pxTree->GetAttributeValue( _T("uri") );
+							bEncoding = ( pxTree->GetAttributeValue( L"type" ).CompareNoCase( L"http://open-content.net/spec/thex/breadthfirst" ) == 0 );
+							strUUID = pxTree->GetAttributeValue( L"uri" );
 						}
 					}
 					delete pXML;
 				}
 
-				theApp.Message( MSG_DEBUG, _T("THEX XML: size=%i, digest=%i, encoding=%i"), bSize, bDigest, bEncoding );
+				theApp.Message( MSG_DEBUG, L"THEX XML: size=%i, digest=%i, encoding=%i", bSize, bDigest, bEncoding );
 
 				if ( ! bSize || ! bDigest || ! bEncoding ) break;
 			}
-			else if ( ( strID == strUUID || strID.IsEmpty() ) && strType.CompareNoCase( _T("http://open-content.net/spec/thex/breadthfirst") ) == 0 )
+			else if ( ( strID == strUUID || strID.IsEmpty() ) && strType.CompareNoCase( L"http://open-content.net/spec/thex/breadthfirst" ) == 0 )
 			{
 				m_pDownload->SetTigerTree( pInput->m_pBuffer, nBody );
 			}
-			else if ( strType.CompareNoCase( _T("http://edonkey2000.com/spec/md4-hashset") ) == 0 )
+			else if ( strType.CompareNoCase( L"http://edonkey2000.com/spec/md4-hashset" ) == 0 )
 			{
 				m_pDownload->SetHashset( pInput->m_pBuffer, nBody );
 			}
@@ -1615,7 +1615,7 @@ BOOL CDownloadTransferHTTP::ReadFlush()
 		{
 			// Made two requests already and the source does advertise available ranges,
 			// but we still managed to request a wrong one.  ToDo: Determine if/why this is still happening
-			theApp.Message( MSG_ERROR, _T("BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment"), (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, L"BUG: PeerProject requested a fragment from host %s, although it knew that the host doesn't have that fragment", (LPCTSTR)m_sAddress );
 			Close( TRI_TRUE );
 			return FALSE;
 		}
@@ -1645,7 +1645,7 @@ void CDownloadTransferHTTP::OnDropped()
 	else if ( m_nState == dtsTiger )
 	{
 		// This is basically for PHEX DIME download
-		theApp.Message( MSG_DEBUG, _T("Reading THEX from the closed connection...") );
+		theApp.Message( MSG_DEBUG, L"Reading THEX from the closed connection..." );
 		// Closed connection with no content length, so assume content length equal to the size of buffer when the connection gets cut.
 		// It is important to set it because the DIME decoding code check if the content length is equals to size of buffer.
 		m_nLength = m_nContentLength = GetInputLength();

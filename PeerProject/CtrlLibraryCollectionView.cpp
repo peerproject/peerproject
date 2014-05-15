@@ -1,7 +1,7 @@
 //
 // CtrlLibraryCollectionView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -74,7 +74,7 @@ CLibraryCollectionView::CLibraryCollectionView()
 	, m_bLockdown	( FALSE )
 {
 	m_nCommandID	= ID_LIBRARY_VIEW_COLLECTION;
-	m_pszToolBar	= _T("CLibraryCollectionView");
+	m_pszToolBar	= L"CLibraryCollectionView";
 
 	m_xExternal.m_pView = this;
 }
@@ -93,7 +93,7 @@ BOOL CLibraryCollectionView::Create(CWnd* pParentWnd)
 	SelClear( FALSE );
 	// Do not add WS_VSCROLL here.  The IE frame that gets loaded
 	// will have its own scrollbar and will handle its own scrolling.
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryCollectionView"),
+	return CWnd::CreateEx( 0, NULL, L"CLibraryCollectionView",
 		WS_CHILD |WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
@@ -159,8 +159,8 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 
 		if ( m_pCollection->Open( pFile->GetPath() ) )
 		{
-			if ( SUCCEEDED( m_pWebCtrl->Navigate( CString( _T("p2p-col://") ) +
-				pFile->m_oSHA1.toString() + _T("/") ) ) )
+			if ( SUCCEEDED( m_pWebCtrl->Navigate( CString( L"p2p-col://" ) +
+				pFile->m_oSHA1.toString() + L"/" ) ) )
 			{
 				m_oSHA1 = pFile->m_oSHA1;
 				return TRUE;
@@ -174,7 +174,7 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 	{
 		m_pCollection->Close();
 		if ( m_pWebCtrl != NULL )
-			m_pWebCtrl->Navigate( _T("about:blank") );
+			m_pWebCtrl->Navigate( L"about:blank" );
 	}
 
 	return FALSE;
@@ -199,7 +199,7 @@ int CLibraryCollectionView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 			m_pWebCtrl->EnableCoolMenu();
 		m_pWebCtrl->EnableSandbox();
 		m_pWebCtrl->SetExternal( m_xExternal.GetDispatch() );
-		m_pWebCtrl->Navigate( _T("about:blank") );
+		m_pWebCtrl->Navigate( L"about:blank" );
 	}
 	else
 	{
@@ -259,8 +259,8 @@ void CLibraryCollectionView::OnWebContextMenu(NMHDR* pNMHDR, LPARAM* pResult)
 			}
 		}
 
-		CString strName = _T("CLibraryFileView");
-		strName += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");
+		CString strName = L"CLibraryFileView";
+		strName += Settings.Library.ShowVirtual ? L".Virtual" : L".Physical";
 		Skin.TrackPopupMenu( strName, point, ID_LIBRARY_LAUNCH, oFiles );
 	}
 }
@@ -309,7 +309,7 @@ STDMETHODIMP CHtmlCollection::XView::get_Application(IApplication **ppApplicatio
 	CLibraryCollectionView* pView = pThis->m_pView;
 
 	if ( pView->m_bTrusted == TRI_UNKNOWN )
-		pView->m_bTrusted = ( MsgBox( /*IDS_LIBRARY_COLLECTION_ACCESS*/_T("The collection has requested script access to the application. \nAllow this access?"), MB_ICONEXCLAMATION | MB_YESNO ) == IDYES ) ? TRI_TRUE : TRI_FALSE;
+		pView->m_bTrusted = ( MsgBox( /*IDS_LIBRARY_COLLECTION_ACCESS*/ L"The collection has requested script access to the application. \nAllow this access?", MB_ICONEXCLAMATION | MB_YESNO ) == IDYES ) ? TRI_TRUE : TRI_FALSE;
 
 	return ( pView->m_bTrusted == TRI_TRUE ) ? CApplication::GetApp( ppApplication ) : E_ACCESSDENIED;
 }
@@ -327,11 +327,11 @@ STDMETHODIMP CHtmlCollection::XView::Detect(BSTR sURN, BSTR *psState)
 
 		if ( pView->m_bLockdown )
 		{
-			str = _T("Lockdown");
+			str = L"Lockdown";
 		}
 		else if ( pView->m_pCollection->FindByURN( strURN ) == NULL )
 		{
-			str = _T("NotInCollection");
+			str = L"NotInCollection";
 		}
 		else
 		{
@@ -340,7 +340,7 @@ STDMETHODIMP CHtmlCollection::XView::Detect(BSTR sURN, BSTR *psState)
 			{
 				if ( CDownload* pDownload = Downloads.FindByURN( strURN ) )
 				{
-					str.Format( _T("%.2f%%"), pDownload->GetProgress() );
+					str.Format( L"%.2f%%", pDownload->GetProgress() );
 				}
 				pLock.Unlock();
 			}
@@ -349,7 +349,7 @@ STDMETHODIMP CHtmlCollection::XView::Detect(BSTR sURN, BSTR *psState)
 			{
 				if ( CLibraryFile* pFile = LibraryMaps.LookupFileByURN( strURN ) )
 				{
-					str = pFile->IsAvailable() ? _T("Complete") : _T("Ghost");
+					str = pFile->IsAvailable() ? L"Complete" : L"Ghost";
 				}
 			}
 		}

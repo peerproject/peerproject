@@ -138,7 +138,7 @@ void CDownloadMonitorDlg::OnSkinChange(BOOL bSet)
 
 		if ( bSet )
 		{
-			pDlg->SkinMe( _T("CDownloadMonitorDlg"), IDI_DOWNLOAD_MONITOR );
+			pDlg->SkinMe( L"CDownloadMonitorDlg", IDI_DOWNLOAD_MONITOR );
 		//	pDlg->Invalidate(); 	// ToDo: Fix Banner Disappearing Here (from above)
 
 			// Quick workaround hack: Don't paint missing banner, but obvious when size changes or moved offscreen  (Not Shareaza bug, ToDo: Fix this properly!)
@@ -172,11 +172,11 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDownloadMonitorDlg"), IDI_DOWNLOAD_MONITOR );
+	SkinMe( L"CDownloadMonitorDlg", IDI_DOWNLOAD_MONITOR );
 
 	CMenu* pMenu = GetSystemMenu( FALSE );
 	pMenu->InsertMenu( 0, MF_BYPOSITION|MF_SEPARATOR, ID_SEPARATOR );
-	pMenu->InsertMenu( 0, MF_BYPOSITION|MF_STRING, SC_NEXTWINDOW, _T("&Always on Top") );
+	pMenu->InsertMenu( 0, MF_BYPOSITION|MF_STRING, SC_NEXTWINDOW, L"&Always on Top" );
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
@@ -229,13 +229,11 @@ void CDownloadMonitorDlg::OnDestroy()
 	if ( m_pDownload != NULL )
 	{
 		CSingleLock pLock( &Transfers.m_pSection );
-
 		if ( pLock.Lock( 250 ) )
 		{
 			if ( Downloads.Check( m_pDownload ) )
 				m_pDownload->m_pMonitorWnd = NULL;
 			m_pDownload = NULL;
-			pLock.Unlock();
 		}
 	}
 
@@ -254,7 +252,7 @@ void CDownloadMonitorDlg::PostNcDestroy()
 	delete this;
 }
 
-void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
+void CDownloadMonitorDlg::OnTimer(UINT_PTR nIDEvent)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 100 ) ) return;
@@ -280,7 +278,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		if ( nSpeed > 4000 && ! Settings.General.LanguageRTL )
 		{
 			CString strText;
-			strText.Format( _T("%s %s %s  (%.2f%%)"),
+			strText.Format( L"%s %s %s  (%.2f%%)",
 				Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
 				LoadString( IDS_GENERAL_OF ),
 				Settings.SmartVolume( m_pDownload->m_nSize ),
@@ -314,18 +312,18 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strText.Format( _T("%s %s %.2f%%"),
+			strText.Format( L"%s %s %.2f%%",
 				(LPCTSTR)m_pDownload->m_sName, (LPCTSTR)strOf, m_pDownload->GetProgress() );
 		}
 		else
 		{
-			strText.Format( _T("%.2f%% %s %s"),
+			strText.Format( L"%.2f%% %s %s",
 				m_pDownload->GetProgress(), (LPCTSTR)strOf, (LPCTSTR)m_pDownload->m_sName );
 		}
 	}
 	else
 	{
-		strText.Format( _T("%s"),
+		strText.Format( L"%s",
 			(LPCTSTR)m_pDownload->m_sName );
 	}
 
@@ -337,7 +335,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		{
 			m_pTray.uFlags = NIF_TIP;
 			_tcsncpy( m_pTray.szTip, strText, _countof( m_pTray.szTip ) - 1 );
-			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
+			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = L'\0';
 
 			Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 		}
@@ -369,7 +367,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	if ( bCompleted )
 	{
 		if ( m_pDownload->IsSeeding() )
-			strText += _T("  (") + LoadString( IDS_STATUS_SEEDING ) + _T(")");
+			strText += L"  (" + LoadString( IDS_STATUS_SEEDING ) + L")";
 		else
 			LoadString( strText, IDS_MONITOR_COMPLETED_WORD );
 		LoadString( strAction, IDS_MONITOR_ACTION_OPEN );
@@ -394,7 +392,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	{
 	//	LoadString( strText, IDS_MONITOR_PAUSED );
 	//	Update( &m_wndStatus, strText );
-		strText.Format( _T("%i"), nSourceCount );
+		strText.Format( L"%i", nSourceCount );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, IDS_STATUS_PAUSED );
 		Update( &m_wndTime, strNA );
@@ -413,8 +411,8 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	//	LoadString( strText, IDS_MONITOR_DOWNLOADING );
 	//	Update( &m_wndStatus, strText );
 
-		strText.Format( _T("%i  (%s %i)"), nTransferCount, (LPCTSTR)strOf, nSourceCount );
-		if ( Settings.General.LanguageRTL ) strText = _T("\x202B") + strText;
+		strText.Format( L"%i  (%s %i)", nTransferCount, (LPCTSTR)strOf, nSourceCount );
+		if ( Settings.General.LanguageRTL ) strText = L"\x202B" + strText;
 		Update( &m_wndSources, strText );
 
 		if ( m_pDownload->GetAverageSpeed() > 10 )
@@ -457,7 +455,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	{
 	//	LoadString( strText, IDS_MONITOR_DOWNLOADING );
 	//	Update( &m_wndStatus, strText );
-		strText.Format( _T("%i"), nSourceCount );
+		strText.Format( L"%i", nSourceCount );
 		Update( &m_wndSources, strText );
 		Update( &m_wndSpeed, strNA );
 		Update( &m_wndTime, strNA );
@@ -476,7 +474,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 	{
 		if ( Settings.General.LanguageRTL )
 		{
-			strText.Format( _T("(%.2f%%)  %s %s %s"),
+			strText.Format( L"(%.2f%%)  %s %s %s",
 				m_pDownload->GetProgress(),
 				(LPCTSTR)Settings.SmartVolume( m_pDownload->m_nSize ),
 				(LPCTSTR)strOf,
@@ -484,7 +482,7 @@ void CDownloadMonitorDlg::OnTimer( UINT_PTR nIDEvent )
 		}
 		else
 		{
-			strText.Format( _T("%s %s %s  (%.2f%%)"),
+			strText.Format( L"%s %s %s  (%.2f%%)",
 				(LPCTSTR)Settings.SmartVolume( m_pDownload->GetVolumeComplete() ),
 				(LPCTSTR)strOf,
 				(LPCTSTR)Settings.SmartVolume( m_pDownload->m_nSize ),
@@ -660,7 +658,7 @@ void CDownloadMonitorDlg::OnSysCommand(UINT nID, LPARAM lParam)
 			m_pTray.uFlags				= NIF_ICON | NIF_MESSAGE | NIF_TIP;
 			m_pTray.hIcon				= CoolInterface.ExtractIcon( IDI_DOWNLOAD_MONITOR, FALSE );
 			_tcsncpy( m_pTray.szTip, Settings.SmartAgent(), _countof( m_pTray.szTip ) - 1 );
-			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
+			m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = L'\0';
 			Shell_NotifyIcon( NIM_ADD, &m_pTray );
 			ShowWindow( SW_HIDE );
 			m_bTray = TRUE;
@@ -721,7 +719,7 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	const BOOL bCompleted = m_pDownload->IsCompleted();
 
 	CMenu* pPopup = ::Skin.GetMenu( bCompleted ?
-		( m_pDownload->IsSeeding() ? _T("CDownloadsWnd.Seeding") : _T("CDownloadsWnd.Completed") ) : _T("CDownloadsWnd.Download") );
+		( m_pDownload->IsSeeding() ? L"CDownloadsWnd.Seeding" : L"CDownloadsWnd.Completed" ) : L"CDownloadsWnd.Download" );
 	if ( ! pPopup ) return;
 
 	MENUITEMINFO pInfo;

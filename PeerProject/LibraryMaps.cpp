@@ -513,7 +513,7 @@ void CLibraryMaps::Clear()
 		CString k;
 		CLibraryFile* v;
 		m_pPathMap.GetNextAssoc( p, k, v );
-		TRACE ( _T("m_pPathMap lost : %ls = 0x%08x\n"), (LPCTSTR)k, v );
+		TRACE ( L"m_pPathMap lost : %ls = 0x%08x\n", (LPCTSTR)k, v );
 	}
 #endif
 

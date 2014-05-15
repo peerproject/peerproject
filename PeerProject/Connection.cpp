@@ -133,7 +133,7 @@ void CConnection::LogOutgoing()
 		if ( pOutput->m_nLength )
 		{
 			CStringA msg( (const char*)pOutput->m_pBuffer, pOutput->m_nLength );
-			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("%s << %s"), (LPCTSTR)m_sAddress, (LPCTSTR)CString( msg ) );
+			theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, L"%s << %s", (LPCTSTR)m_sAddress, (LPCTSTR)CString( msg ) );
 		}
 	}
 }
@@ -192,6 +192,23 @@ BOOL CConnection::ConnectTo(const IN_ADDR* pAddress, WORD nPort)
 	// Create a socket and store it in m_hSocket
 	// Normal IPv4 not IPv6, and the two-way sequenced reliable byte streams of TCP, not the datagrams of UDP
 	m_hSocket = socket( PF_INET, SOCK_STREAM, IPPROTO_TCP );
+
+	if ( ! IsValid() )	// Now, make sure it has been created
+	{
+		// Second attempt
+		m_hSocket = socket( PF_INET, SOCK_STREAM, IPPROTO_TCP );
+		if ( ! IsValid() )
+		{
+			theApp.Message( MSG_ERROR, L"Failed to create socket." );
+			return FALSE;
+		}
+	}
+
+	// Disables the Nagle algorithm for send coalescing
+	VERIFY( setsockopt( m_hSocket, IPPROTO_TCP, TCP_NODELAY, "\x01", 1 ) == 0 );
+
+	// Allows the socket to be bound to an address that is already in use
+	VERIFY( setsockopt( m_hSocket, SOL_SOCKET, SO_REUSEADDR, "\x01", 1 ) == 0 );
 
 	// Choose asynchronous, non-blocking reading and writing on our new socket
 	DWORD dwValue = 1;
@@ -407,7 +424,7 @@ BOOL CConnection::DoRun()
 	// If the close event happened
 	if ( bClosed )
 	{
-		// theApp.Message( MSG_DEBUG, _T("socket close() error %i"), pEvents.iErrorCode[ FD_CLOSE_BIT ] );
+		// theApp.Message( MSG_DEBUG, L"socket close() error %i", pEvents.iErrorCode[ FD_CLOSE_BIT ] );
 		// Call OnDropped, telling it true if there is a close error
 		OnDropped();	// True if there is an nonzero error code for the close bit
 		return FALSE;
@@ -560,7 +577,7 @@ void CConnection::Measure()
 	// Time period for bytes
 	const DWORD tCutoff = GetTickCount() - METER_PERIOD;
 
-	// Calculate Input and Output seperately
+	// Calculate Input and Output separately
 	m_mInput.nMeasure  = m_mInput.CalculateUsage( tCutoff )  / ( METER_PERIOD / METER_SECOND );
 	m_mOutput.nMeasure = m_mOutput.CalculateUsage( tCutoff ) / ( METER_PERIOD / METER_SECOND );
 }
@@ -597,10 +614,10 @@ BOOL CConnection::ReadHeaders()
 	{
 		// If the line is more than 256 KB, change it to the long line error code
 		if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
-			strLine = _T("#LINE_TOO_LONG#");
+			strLine = L"#LINE_TOO_LONG#";
 
 		// Find the first colon in the line
-		int nPos = strLine.Find( _T(":") );
+		int nPos = strLine.Find( L":" );
 
 		// The line is empty, it's just a \n character
 		if ( strLine.IsEmpty() )
@@ -655,26 +672,26 @@ BOOL CConnection::ReadHeaders()
 // Returns true to have ReadHeaders keep going
 BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 {
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> %s: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strHeader, (LPCTSTR)strValue );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> %s: %s", (LPCTSTR)m_sAddress, (LPCTSTR)strHeader, (LPCTSTR)strValue );
 
 	// It's the user agent header
-	if ( strHeader.CompareNoCase( _T("User-Agent") ) == 0 )
+	if ( strHeader.CompareNoCase( L"User-Agent" ) == 0 )
 	{
 		// Copy the value into the user agent member string
 		m_sUserAgent = strValue;	// This tells what software the remote computer is running
 		m_bClientExtended = VendorCache.IsExtended( m_sUserAgent );
 	}
 	// It's the remote IP header
-	else if ( strHeader.CompareNoCase( _T("Remote-IP") ) == 0 )
+	else if ( strHeader.CompareNoCase( L"Remote-IP" ) == 0 )
 	{
 		// Add this address to our record of them
 		Network.AcquireLocalAddress( strValue );
 	}
 	// It's the x my address, listen IP, or node header, like "X-My-Address: 10.254.0.16:6349"
-	else if (  strHeader.CompareNoCase( _T("X-My-Address") ) == 0
-			|| strHeader.CompareNoCase( _T("Listen-IP") ) == 0
-			|| strHeader.CompareNoCase( _T("X-Node") ) == 0
-			|| strHeader.CompareNoCase( _T("Node") ) == 0 )
+	else if (  strHeader.CompareNoCase( L"X-My-Address" ) == 0
+			|| strHeader.CompareNoCase( L"Listen-IP" ) == 0
+			|| strHeader.CompareNoCase( L"X-Node" ) == 0
+			|| strHeader.CompareNoCase( L"Node" ) == 0 )
 	{
 		// Find another colon in the value
 		int nColon = strValue.Find( ':' );
@@ -684,21 +701,21 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 		{
 			// Read the number after the colon into nPort
 			int nPort = protocolPorts[ PROTOCOL_G1 ];	// Start out nPort as the default value, 6346
-			if ( _stscanf( strValue.Mid( nColon + 1 ), _T("%lu"), &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
+			if ( _stscanf( strValue.Mid( nColon + 1 ), L"%lu", &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
 			{
 				// Save the found port number in m_pHost
 				m_pHost.sin_port = htons( u_short( nPort ) );	// Convert Windows little endian to big for the Internet with htons
 			}
 		}
 	}
-	else if ( strHeader.CompareNoCase( _T("Accept") ) == 0 )
+	else if ( strHeader.CompareNoCase( L"Accept" ) == 0 )
 	{
-		if ( _tcsistr( strValue, _T("application/x-gnutella-packets") ) &&
+		if ( _tcsistr( strValue, L"application/x-gnutella-packets" ) &&
 			m_nProtocol != PROTOCOL_G2 )
 			m_nProtocol = PROTOCOL_G1;
-		if ( _tcsistr( strValue, _T("application/x-gnutella2") ) ||
-			 _tcsistr( strValue, _T("application/x-shareaza") ) ||
-			 _tcsistr( strValue, _T("application/x-peerproject") ) )
+		if ( _tcsistr( strValue, L"application/x-gnutella2" ) ||
+			 _tcsistr( strValue, L"application/x-shareaza" ) ||
+			 _tcsistr( strValue, L"application/x-peerproject" ) )
 			m_nProtocol = PROTOCOL_G2;
 	}
 
@@ -726,7 +743,7 @@ BOOL CConnection::SendMyAddress()
 		// Compose header text
 		CString strHeader;
 		strHeader.Format(
-			_T("Listen-IP: %s:%hu\r\n"),								// Make it like "Listen-IP: 67.176.34.172:6346\r\n"
+			L"Listen-IP: %s:%hu\r\n",								// Make it like "Listen-IP: 67.176.34.172:6346\r\n"
 			(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),	// Insert the IP address like "67.176.34.172"
 			htons( Network.m_pHost.sin_port ) );						// Our port number in big endian
 
@@ -755,7 +772,7 @@ void CConnection::SendHTML(UINT nResourceID)
 	if ( strResponse.IsEmpty() )
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 	else
-		Write( _T("HTTP/1.1 ") + strResponse );
+		Write( L"HTTP/1.1 " + strResponse );
 
 	if ( nResourceID == IDR_HTML_BUSY )
 		Write( _P("Retry-After: 30\r\n") );
@@ -765,7 +782,7 @@ void CConnection::SendHTML(UINT nResourceID)
 	CStringA strBodyUTF8 = UTF8Encode( strBody );
 
 	CString strLength;
-	strLength.Format( _T("Content-Length: %i\r\n\r\n"), strBodyUTF8.GetLength() );
+	strLength.Format( L"Content-Length: %i\r\n\r\n", strBodyUTF8.GetLength() );
 	Write( strLength );
 
 	LogOutgoing();
@@ -813,7 +830,7 @@ DWORD CConnection::TCPBandwidthMeter::CalculateLimit(DWORD tNow, DWORD nBandwidt
 		nLimit = nData;
 	}
 
-	tLastLimit = tNow;	// The time of this limit calculation
+	tLastLimit = tNow;	// Time of this limit calculation
 
 	return nLimit;		// Return the new limit
 }

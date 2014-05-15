@@ -59,7 +59,7 @@ BOOL CDonkeyImportDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDonkeyImportDlg"), IDR_MAINFRAME );
+	SkinMe( L"CDonkeyImportDlg", IDR_MAINFRAME );
 
 	CString str;
 	m_wndCancel.GetWindowText( str );

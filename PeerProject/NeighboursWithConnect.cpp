@@ -308,13 +308,13 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	DWORD nRating = 0;		// Increment this number as we find signs we can be a hub
 
 	// If the caller wants us to report debugging information, start out with a header line
-	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is G2 hub capable?") );		// protocolNames[ PROTOCOL_G2 ]
+	if ( bDebug ) theApp.Message( MSG_DEBUG, L"Is G2 hub capable?" );		// protocolNames[ PROTOCOL_G2 ]
 
 	// We can't be a Gnutella2 hub if the user has not chosen to connect to Gnutella2 in the program settings
 	if ( ! Network.IsConnected() || ! Settings.Gnutella2.Enabled )
 	{
 		// Finish the lines of debugging information, and report no, we can't be a hub
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: G2 not enabled") );		// protocolNames[ PROTOCOL_G2 ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: G2 not enabled" );		// protocolNames[ PROTOCOL_G2 ]
 		return FALSE;
 	}
 
@@ -322,7 +322,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	if ( Settings.Gnutella2.ClientMode == MODE_LEAF )	// If user disabled hub mode in settings
 	{
 		// Finish the lines of debugging information, and report no, we can't be a hub
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: hub mode disabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: hub mode disabled" );
 		return FALSE;
 	}
 
@@ -330,20 +330,20 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	if ( IsG2Leaf() )
 	{
 		// We can never be a hub because we are a leaf (do)
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: leaf") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: leaf" );
 		return FALSE;
 	}
 	else // We are not running as a Gnutella2 leaf right now (do)
 	{
 		// Note this and keep going
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a leaf") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: not a leaf" );
 	}
 
 	// The user can check a box in settings to let the program become a hub without passing the additional tests below
 	if ( Settings.Gnutella2.ClientMode == MODE_HUB )
 	{
 		// Make a note about this and keep going
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("YES: hub mode forced") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"YES: hub mode forced" );
 	}
 	else // MODE_AUTO: User didn't check the force hub box in settings, so the client will have to pass additional tests below
 	{
@@ -353,7 +353,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		if ( Settings.Connection.InSpeed < 200 )	// If the inbound speed is less than 200 (do)
 		{
 			// Download speed too slow
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: less than 200 Kb/s in") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: less than 200 Kb/s in" );
 			return FALSE;
 		}
 
@@ -361,7 +361,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		if ( Settings.Connection.OutSpeed < 200 )
 		{
 			// Upload speed too slow
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: less than 200 Kb/s out") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: less than 200 Kb/s out" );
 			return FALSE;
 		}
 
@@ -369,7 +369,7 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		if ( IsG1Ultrapeer() )
 		{
 			// Already ultrapeer mode overhead
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella ultrapeer active") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: Gnutella ultrapeer active" );
 			return FALSE;
 		}
 
@@ -381,21 +381,21 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 				// Systems that have been good hubs before can promote in 2 hours
 				if ( Network.GetStableTime() < 7200 )
 				{
-					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 2 hours") );
+					if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: not stable for 2 hours" );
 					return FALSE;
 				}
 
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 2 hours") );
+				if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: stable for 2 hours" );
 			}
 			else // Untested hubs need 3 hours uptime to be considered
 			{
 				if ( Network.GetStableTime() < 10800 )
 				{
-					if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 3 hours") );
+					if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: not stable for 3 hours" );
 					return FALSE;
 				}
 
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 3 hours") );
+				if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: stable for 3 hours" );
 			}
 		}
 
@@ -403,17 +403,17 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 		if ( Network.IsFirewalled(CHECK_UDP) )
 		{
 			// Record this is why we can't be a hub, and return no
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: datagram not stable") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: datagram not stable" );
 			return FALSE;
 		}
 		else // The datagram is stable (do)
 		{
 			// Make a note we passed this test, and keep going
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: datagram stable") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: datagram stable" );
 		}
 
 		// Report that we meet the minimum requirements to be a hub
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("YES: hub capable by test") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"YES: hub capable by test" );
 	}
 
 	// If we've made it this far, change the rating number from 0 to 1
@@ -424,31 +424,31 @@ DWORD CNeighboursWithConnect::IsG2HubCapable(BOOL bIgnoreTime, BOOL bDebug) cons
 	if ( ! Settings.Gnutella1.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Gnutella not enabled") );		// protocolNames[ PROTOCOL_G1 ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"Gnutella not enabled" );		// protocolNames[ PROTOCOL_G1 ]
 	}
 
 	if ( ! Settings.eDonkey.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );		// protocolNames[ PROTOCOL_ED2K ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"eDonkey not enabled" );		// protocolNames[ PROTOCOL_ED2K ]
 	}
 
 	if ( ! Settings.DC.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("DC++ not enabled") );			// protocolNames[ PROTOCOL_DC ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"DC++ not enabled" );			// protocolNames[ PROTOCOL_DC ]
 	}
 
 	if ( ! Settings.BitTorrent.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );	// protocolNames[ PROTOCOL_BT ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"BitTorrent not enabled" );	// protocolNames[ PROTOCOL_BT ]
 	}
 
 	if ( bDebug )
 	{
 		CString strRating;
-		strRating.Format( _T("Hub rating: %u"), nRating );
+		strRating.Format( L"Hub rating: %u", nRating );
 		theApp.Message( MSG_DEBUG, strRating );
 	}
 
@@ -479,19 +479,19 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	DWORD nRating = 0;		// If we can be an ultrapeer, we'll set this to 1, and then make it higher if we'd be an even better ultrapeer
 
 	// If the caller requested we write out debugging information, start out by titling that the messages that follow come from this method
-	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Is Gnutella ultrapeer capable?") );	// protocolNames[ PROTOCOL_G1 ]
+	if ( bDebug ) theApp.Message( MSG_DEBUG, L"Is Gnutella ultrapeer capable?" );	// protocolNames[ PROTOCOL_G1 ]
 
 	// We can't be a Gnutella ultrapeer if we're not connected to the Gnutella network
 	if ( ! Settings.Gnutella1.Enabled || ! Network.IsConnected() )
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Gnutella not enabled") );		// protocolNames[ PROTOCOL_G1 ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: Gnutella not enabled" );		// protocolNames[ PROTOCOL_G1 ]
 		return FALSE;
 	}
 
 	// The user can go into settings and check a box to make the program never become an ultrapeer, even if it could
 	if ( Settings.Gnutella1.ClientMode == MODE_LEAF )
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: ultrapeer mode disabled") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: ultrapeer mode disabled" );
 		return FALSE;
 	}
 
@@ -499,19 +499,19 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	if ( IsG1Leaf() )
 	{
 		// We can never be an ultrapeer because we are a leaf (do)
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: leaf") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: leaf" );
 		return FALSE;
 	}
 	else // We are running as a Gnutella ultrapeer already (do)
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a leaf") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: not a leaf" );
 	}
 
 	// The user can check a box in settings to let the program become an ultrapeer without passing the additional tests below
 	if ( Settings.Gnutella1.ClientMode == MODE_ULTRAPEER )
 	{
 		// Note this and keep going
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("YES: ultrapeer mode forced") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"YES: ultrapeer mode forced" );
 	}
 	else // MODE_AUTO: User didn't check the force ultrapeer box in settings, so the program will have to pass additional tests below
 	{
@@ -521,13 +521,13 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 			// ToDo: Check what sort of machine could handle being both a Gnutella ultrapeer and a Gnutella2 hub at the same time
 
 			// Report the reason we can't be an ultrapeer, and return no
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Acting as a G2 hub") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: Acting as a G2 hub" );
 			return FALSE;
 		}
 		else // We aren't a Gnutella2 hub right now
 		{
 			// Make a note we passed this test, and keep going
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: not a G2 hub") );		// protocolNames[ PROTOCOL_G2 ]
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: not a G2 hub" );		// protocolNames[ PROTOCOL_G2 ]
 		}
 
 		// Note base physical memory check in CalculateSystemPerformanceScore
@@ -535,21 +535,21 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 		// Check the connection speed, make sure the download speed is fast enough
 		if ( Settings.Connection.InSpeed < 200 )	// If inbound speed is less than 200 kbps (do)
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: less than 200 Kb/s in") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: less than 200 Kb/s in" );
 			return FALSE;
 		}
 
 		// Make sure the upload speed is fast enough
 		if ( Settings.Connection.OutSpeed < 200 )
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: less than 200 Kb/s out") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: less than 200 Kb/s out" );
 			return FALSE;
 		}
 
 		// Make sure settings aren't limiting the upload speed too much
 		if ( Settings.Bandwidth.Uploads <= 4096 && Settings.Bandwidth.Uploads != 0 )
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: Upload limit set too low") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: Upload limit set too low" );
 			return FALSE;
 		}
 
@@ -558,27 +558,27 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 		{
 			if ( Network.GetStableTime() < 12000 )	// 14400 seconds is 4 hours, hedge 1200 for 3h20m
 			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: not stable for 4 hours") );
+				if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: not stable for 4 hours" );
 				return FALSE;
 			}
 			else // Connected to Gnutella network for more than 4 hours
 			{
-				if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: stable for 4 hours") );
+				if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: stable for 4 hours" );
 			}
 		}
 
 		// Make sure the datagram is stable (do)
 		if ( Network.IsFirewalled(CHECK_UDP) )
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("NO: datagram not stable") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"NO: datagram not stable" );
 			return FALSE;
 		}
 		else // The datagram is stable (do)
 		{
-			if ( bDebug ) theApp.Message( MSG_DEBUG, _T("OK: datagram stable") );
+			if ( bDebug ) theApp.Message( MSG_DEBUG, L"OK: datagram stable" );
 		}
 
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("YES: Ultrapeer capable by test") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"YES: Ultrapeer capable by test" );
 	}
 
 	// If we've made it this far, change the rating number from 0 to 1
@@ -590,25 +590,25 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	if ( ! Settings.Gnutella2.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("G2 not enabled") );			// protocolNames[ PROTOCOL_G2 ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"G2 not enabled" );			// protocolNames[ PROTOCOL_G2 ]
 	}
 
 	if ( ! Settings.eDonkey.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("eDonkey not enabled") );		// protocolNames[ PROTOCOL_ED2K]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"eDonkey not enabled" );		// protocolNames[ PROTOCOL_ED2K]
 	}
 
 	if ( ! Settings.DC.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("DC++ not enabled") );			// protocolNames[ PROTOCOL_DC ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"DC++ not enabled" );			// protocolNames[ PROTOCOL_DC ]
 	}
 
 	if ( ! Settings.BitTorrent.Enabled )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BitTorrent not enabled") );	// protocolNames[ PROTOCOL_BT ]
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"BitTorrent not enabled" );	// protocolNames[ PROTOCOL_BT ]
 	}
 
 	// If debug mode is enabled, display the ultrapeer rating in the system window log (do)
@@ -616,7 +616,7 @@ DWORD CNeighboursWithConnect::IsG1UltrapeerCapable(BOOL bIgnoreTime, BOOL bDebug
 	{
 		// Compose text that includes the rating, and show it in the user interface
 		CString strRating;
-		strRating.Format( _T("Ultrapeer rating: %u"), nRating );
+		strRating.Format( L"Ultrapeer rating: %u", nRating );
 		theApp.Message( MSG_DEBUG, strRating );
 	}
 
@@ -1213,11 +1213,11 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	if ( pMemory.ullTotalPhys > 1000 * 1024 * 1024 )		// Computer has at least 1 GB of memory
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 1 GB RAM") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"More than 1 GB RAM" );
 	}
 	else if ( pMemory.ullTotalPhys < 500 * 1024 * 1024 )	// Computer has less than 512 MB of memory
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Less than 512 MB RAM") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"Less than 512 MB RAM" );
 		Settings.Gnutella2.ClientMode = MODE_LEAF;			// Skip future auto hub promotion checks
 		Settings.Gnutella1.ClientMode = MODE_LEAF;
 		return 0;
@@ -1226,11 +1226,11 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	if ( pMemory.ullAvailPhys > 800 * 1024 * 1024 )			// Computer has at least ~1 GB of free memory
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 800 MB free RAM") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"More than 800 MB free RAM" );
 	}
 	else if ( pMemory.ullAvailPhys < 20 * 1024 * 1024 )		// Computer has no free memory
 	{
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("No free RAM") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"No free RAM" );
 		return 0;
 	}
 
@@ -1238,21 +1238,21 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	if ( Settings.Connection.InSpeed > 1000 )	// More than 1 Mbps inbound (do)
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 1 Mb/s in") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"More than 1 Mb/s in" );
 	}
 
 	// Our Internet connection allows fast uploads
 	if ( Settings.Connection.OutSpeed > 1000 )	// More than 1 Mbps outbound (do)
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("More than 1 Mb/s out") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"More than 1 Mb/s out" );
 	}
 
 	// If the program has been connected (do) for more than 8 hours, give it another point
 	if ( Network.GetStableTime() > 28800 )		// 8 hours uptime in seconds
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Stable for 8 hours") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"Stable for 8 hours" );
 	}
 
 	// If the scheduler isn't enabled, award another point
@@ -1263,28 +1263,28 @@ DWORD CNeighboursWithConnect::CalculateSystemPerformanceScore(BOOL bDebug) const
 	//else if ( Scheduler.GetHoursTo( BANDWIDTH_STOP|SYSTEM_DISCONNECT|SYSTEM_EXIT|SYSTEM_SHUTDOWN ) > 6 )
 	//{
 	//	nRating++;
-	//	if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Scheduler won't disconnect in the next 6 hours") );
+	//	if ( bDebug ) theApp.Message( MSG_DEBUG, L"Scheduler won't disconnect in the next 6 hours" );
 	//}
 
 	// The user has disabled BitTorrent, so that won't be taking up any bandwidth
 	if ( ! Settings.BitTorrent.Enabled || ! Settings.BitTorrent.EnableAlways )
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("BT is not in use") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"BT is not in use" );
 	}
 
 	// Having more CPUs has significant effect on performance
 	if ( System.dwNumberOfProcessors > 1 )
 	{
 		nRating += System.dwNumberOfProcessors / 2;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("%u Processors"), System.dwNumberOfProcessors );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"%u Processors", System.dwNumberOfProcessors );
 	}
 
 	// 64-bit benefit
 #ifdef WIN64
 	{
 		nRating++;
-		if ( bDebug ) theApp.Message( MSG_DEBUG, _T("Mode: 64-bit") );
+		if ( bDebug ) theApp.Message( MSG_DEBUG, L"Mode: 64-bit" );
 	}
 #endif	// x64
 

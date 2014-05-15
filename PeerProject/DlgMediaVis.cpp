@@ -1,7 +1,7 @@
 //
 // DlgMediaVis.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -78,9 +78,9 @@ BOOL CMediaVisDlg::OnInitDialog()
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
 	CoolInterface.SetImageListTo( m_wndList, LVSIL_SMALL );
-	m_wndList.InsertColumn( 0, _T("Description"), LVCFMT_LEFT, rc.right, -1 );
-	m_wndList.InsertColumn( 1, _T("CLSID"), LVCFMT_LEFT, 0, 0 );
-	m_wndList.InsertColumn( 2, _T("Subpath"), LVCFMT_LEFT, 0, 1 );
+	m_wndList.InsertColumn( 0, L"Description", LVCFMT_LEFT, rc.right, -1 );
+	m_wndList.InsertColumn( 1, L"CLSID", LVCFMT_LEFT, 0, 0 );
+	m_wndList.InsertColumn( 2, L"Subpath", LVCFMT_LEFT, 0, 1 );
 
 	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT );
 
@@ -107,7 +107,7 @@ void CMediaVisDlg::Enumerate()
 	HKEY hKey;
 
 	if ( RegOpenKeyEx( HKEY_CURRENT_USER,
-		REGISTRY_KEY _T("\\Plugins\\AudioVis"),
+		REGISTRY_KEY L"\\Plugins\\AudioVis",
 		NULL, KEY_READ, &hKey ) != ERROR_SUCCESS ) return;
 
 	for ( DWORD nKey = 0 ; ; nKey++ )
@@ -125,7 +125,7 @@ void CMediaVisDlg::Enumerate()
 		if ( ! Hashes::fromGuid( szCLSID, &pCLSID ) ) continue;
 		if ( ! Plugins.LookupEnable( pCLSID ) ) continue;
 
-		if ( _tcsistr( szName, _T("wrap") ) )
+		if ( _tcsistr( szName, L"wrap" ) )
 		{
 			if ( ! EnumerateWrapped( szName, pCLSID, szCLSID ) )
 				AddPlugin( szName, szCLSID, NULL );
@@ -192,7 +192,7 @@ BOOL CMediaVisDlg::EnumerateWrapped(LPCTSTR pszName, REFCLSID pCLSID, LPCTSTR ps
 		BSTR bsValue = NULL;
 
 		strName = pszName;
-		strName += _T(": ");
+		strName += L": ";
 
 		pIndex[0] = 0;
 		SafeArrayGetElement( pArray, pIndex, &bsValue );

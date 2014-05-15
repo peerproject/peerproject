@@ -1,7 +1,7 @@
 //
 // CtrlSchema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -58,9 +58,7 @@ CSchemaCtrl::CSchemaCtrl()
 	, m_pSchema 		( NULL )
 	, m_nScroll 		( 0 )
 {
-	CString strText;
-	LoadString( strText, IDS_MULTIPLE_VALUES );
-	m_sMultipleString = _T("(") + strText + _T(")");
+	m_sMultipleString = L"(" + LoadString( IDS_MULTIPLE_VALUES ) + L")";
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -148,7 +146,7 @@ void CSchemaCtrl::SetSchema(CSchemaPtr pSchema, BOOL bPromptOnly)
 			pControl = pEdit;
 		}
 
-		CString strCaption = pMember->m_sTitle + ':';
+		CString strCaption = pMember->m_sTitle + L':';
 
 		m_pCaptions.Add( strCaption );
 		m_pControls.Add( pControl );
@@ -436,7 +434,7 @@ void CSchemaCtrl::OnPaint()
 
 	if ( ! m_nCaptionWidth ) nOffset -= 18 + 4;
 
-	nOffset = nOffset / 2 - dc.GetTextExtent( _T("Xg") ).cy / 2 - 1;
+	nOffset = nOffset / 2 - dc.GetTextExtent( L"Xg" ).cy / 2 - 1;
 
 	for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 	{

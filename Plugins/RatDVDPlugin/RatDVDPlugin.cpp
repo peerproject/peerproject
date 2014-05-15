@@ -1,7 +1,7 @@
 //
 // RatDVDPlugin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2011
+// This file is part of PeerProject (peerproject.org) © 2008-2010
 // Portions Copyright Shareaza Development Team, 2002-2007.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -20,27 +20,27 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "RatDVDPlugin.h"
 
-LPCWSTR	CRatDVDPlugin::uriVideo = L"http://www.limewire.com/schemas/video.xsd";
+LPCWSTR	CRatDVDPlugin::uriVideo = L"http://schemas.peerproject.org/Video.xsd";
 
 // RatDVDPlugin
 CRatDVDPlugin::CRatDVDPlugin()
 {
-	ODS(_T("CRatDVDPlugin::CRatDVDPlugin\n"));
+	ODS(L"CRatDVDPlugin::CRatDVDPlugin\n");
 }
 
 CRatDVDPlugin::~CRatDVDPlugin()
 {
-	ODS(_T("CRatDVDPlugin::~CRatDVDPlugin\n"));
+	ODS(L"CRatDVDPlugin::~CRatDVDPlugin\n");
 }
 
 // ILibraryBuilderPlugin Methods
 
 STDMETHODIMP CRatDVDPlugin::Process(BSTR sFile, ISXMLElement* pXML)
 {
-	ODS(_T("CRatDVDPlugin::Process\n"));
+	ODS(L"CRatDVDPlugin::Process\n");
 
 	CHECK_NULL_RETURN(sFile, E_INVALIDARG);
 
@@ -49,7 +49,7 @@ STDMETHODIMP CRatDVDPlugin::Process(BSTR sFile, ISXMLElement* pXML)
 
 	HRESULT hr = E_FAIL;
 	LPCWSTR pszExt = _wcslwr( wcsrchr( sFile, '.') );
-	if ( wcsncmp( pszExt, L".ratdvd", 7 ) != 0 && 
+	if ( wcsncmp( pszExt, L".ratdvd", 7 ) != 0 &&
 		 wcsncmp( pszExt, L".fluxdvd", 8 ) != 0 )
 	{
 		DllRelease();
@@ -74,7 +74,7 @@ STDMETHODIMP CRatDVDPlugin::Process(BSTR sFile, ISXMLElement* pXML)
 
 STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 {
-	ODS(_T("CRatDVDPlugin::ProcessRatDVD\n"));
+	ODS(L"CRatDVDPlugin::ProcessRatDVD\n");
 
 	CHECK_NULL_RETURN(hFile, E_INVALIDARG);
 
@@ -350,7 +350,7 @@ STDMETHODIMP CRatDVDPlugin::ProcessRatDVD(HANDLE hFile, ISXMLElement* pXML)
 								CString strTruncated( strValue );
 								CString strSep( strSeparator );
 								strTruncated = strTruncated.SpanExcluding( strSep );
-								strTruncated.Trim( _T("\"") );
+								strTruncated.Trim( L"\"" );
 								strValue = strTruncated;
 							}
 
@@ -411,7 +411,7 @@ CComBSTR CRatDVDPlugin::ReadXML(HANDLE hFile, DWORD nBytes)
 
 STDMETHODIMP CRatDVDPlugin::LoadFromFile(BSTR sFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage)
 {
-	ODS(_T("CRatDVDPlugin::LoadFromFile\n"));
+	ODS(L"CRatDVDPlugin::LoadFromFile\n");
 
 	EnterCritical();
 	DllAddRef();
@@ -437,7 +437,7 @@ STDMETHODIMP CRatDVDPlugin::LoadFromFile(BSTR sFile, IMAGESERVICEDATA* pParams, 
 
 STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage)
 {
-	ODS(_T("CRatDVDPlugin::GetRatDVDThumbnail\n"));
+	ODS(L"CRatDVDPlugin::GetRatDVDThumbnail\n");
 
 
 	CHECK_NULL_RETURN(bsFile, E_INVALIDARG);
@@ -578,7 +578,9 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 	if ( nRead < nContentLength )
 	{
 		if ( pParams->nFlags & IMAGESERVICE_PARTIAL_IN )
+		{
 			 pParams->nFlags |= IMAGESERVICE_PARTIAL_OUT;
+		}
 		else
 		{
 			delete [] pBuffer;
@@ -599,40 +601,40 @@ STDMETHODIMP CRatDVDPlugin::GetRatDVDThumbnail(BSTR bsFile, IMAGESERVICEDATA* pP
 	delete [] pBuffer;
 	SafeArrayUnaccessData( psa );
 
-	if ( FAILED(hr) ) return E_FAIL;
+	if ( FAILED( hr ) ) return E_FAIL;
 
 	// Initialize COM
 	HRESULT hr_coinit = CoInitialize( NULL );
-	if ( FAILED(hr_coinit) && hr_coinit != RPC_E_CHANGED_MODE ) return E_FAIL;
+	if ( FAILED( hr_coinit ) && hr_coinit != RPC_E_CHANGED_MODE ) return E_FAIL;
 
 	CComPtr<IImageServicePlugin> pPNGReader;
 	hr = pPNGReader.CoCreateInstance( CLSID_ImageReader, NULL, CLSCTX_ALL );
-	if ( FAILED(hr) ) return E_FAIL;
+	if ( FAILED( hr ) ) return E_FAIL;
 
 	hr = pPNGReader->LoadFromMemory( CComBSTR( str.c_str() ), psa, pParams, ppImage );
 
-	if ( SUCCEEDED(hr_coinit) ) CoUninitialize();
+	if ( SUCCEEDED( hr_coinit ) ) CoUninitialize();
 
 	return hr;
 }
 
 STDMETHODIMP CRatDVDPlugin::LoadFromMemory(BSTR /*sType*/, SAFEARRAY* /*pMemory*/, IMAGESERVICEDATA* /*pParams*/, SAFEARRAY** /*ppImage*/)
 {
-	ODS(_T("CRatDVDPlugin::LoadFromMemory\n"));
+	ODS(L"CRatDVDPlugin::LoadFromMemory\n");
 
 	return E_NOTIMPL;
 }
 
 STDMETHODIMP CRatDVDPlugin::SaveToFile(BSTR /*sFile*/, IMAGESERVICEDATA* /*pParams*/, SAFEARRAY* /*pImage*/)
 {
-	ODS(_T("CRatDVDPlugin::SaveToFile\n"));
+	ODS(L"CRatDVDPlugin::SaveToFile\n");
 
 	return E_NOTIMPL;
 }
 
 STDMETHODIMP CRatDVDPlugin::SaveToMemory(BSTR /*sType*/, SAFEARRAY** /*ppMemory*/, IMAGESERVICEDATA* /*pParams*/, SAFEARRAY* /*pImage*/)
 {
-	ODS(_T("CRatDVDPlugin::SaveToMemory\n"));
+	ODS(L"CRatDVDPlugin::SaveToMemory\n");
 
 	return E_NOTIMPL;
 }

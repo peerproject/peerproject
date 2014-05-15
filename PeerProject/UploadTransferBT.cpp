@@ -103,7 +103,7 @@ void CUploadTransferBT::SetChoke(BOOL bChoke)
 		m_pClient->UnChoke();		// BT_PACKET_UNCHOKE
 	}
 
-	theApp.Message( MSG_DEBUG, _T("%s upload to %s"), bChoke ? _T("Choking") : _T("Unchoking"), (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_DEBUG, L"%s upload to %s", bChoke ? L"Choking" : L"Unchoking", (LPCTSTR)m_sAddress );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -214,7 +214,7 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 	if ( nLength > Settings.BitTorrent.RequestLimit )
 	{
 		// Error
-		theApp.Message( MSG_DEBUG, _T("CUploadTransferBT::OnRequest(): Request size %I64i is too large"), nLength );
+		theApp.Message( MSG_DEBUG, L"CUploadTransferBT::OnRequest(): Request size %I64i is too large", nLength );
 		Close();
 		return FALSE;
 	}
@@ -222,7 +222,7 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 	if ( nOffset + nLength > m_nSize )
 	{
 		// Error
-		theApp.Message( MSG_DEBUG, _T("CUploadTransferBT::OnRequest(): Request through %I64i > %I64i"), nLength, m_nSize );
+		theApp.Message( MSG_DEBUG, L"CUploadTransferBT::OnRequest(): Request through %I64i > %I64i", nLength, m_nSize );
 		Close();
 		return FALSE;
 	}
@@ -338,7 +338,7 @@ BOOL CUploadTransferBT::ServeRequests()
 	{
 		if ( ! OpenFile() ) return FALSE;
 
-		theApp.Message( MSG_DEBUG, IDS_UPLOAD_CONTENT, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, _T("BT") );
+		theApp.Message( MSG_DEBUG, IDS_UPLOAD_CONTENT, m_nOffset, m_nOffset + m_nLength - 1, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress, L"BT" );
 
 		CBuffer pBuffer;
 		pBuffer.EnsureBuffer( m_nLength );

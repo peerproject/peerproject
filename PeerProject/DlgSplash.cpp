@@ -138,7 +138,7 @@ void CSplashDlg::Step(LPCTSTR pszText)
 	ASSERT( m_nPos < m_nMax );
 
 	m_nPos ++;
-	m_sState.Format( m_bClosing ? _T("%s...") : _T("Starting %s..."), pszText );
+	m_sState.Format( m_bClosing ? L"%s..." : L"Starting %s...", pszText );
 	SetWindowText( m_sState );
 
 	CClientDC dc( this );
@@ -150,7 +150,7 @@ void CSplashDlg::Step(LPCTSTR pszText)
 
 void CSplashDlg::Update(LPCTSTR pszText /*NULL*/)
 {
-	m_sState.Format( m_bClosing ? _T("%s...") : _T("Starting %s..."), pszText );
+	m_sState.Format( m_bClosing ? L"%s..." : L"Starting %s...", pszText );
 	SetWindowText( m_sState );
 
 	CClientDC dc( this );
@@ -170,7 +170,7 @@ void CSplashDlg::Hide(BOOL bAbort)
 		// Check if m_nMax was set too high during construction, or if not enough steps were run
 		//ASSERT( m_nPos == m_nMax );
 
-		m_sState = _T("Ready");
+		m_sState = L"Ready";
 		SetWindowText( m_sState );
 		Invalidate();
 

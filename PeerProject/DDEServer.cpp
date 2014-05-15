@@ -30,7 +30,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-CDDEServer DDEServer( _T("PeerProject") );
+CDDEServer DDEServer( L"PeerProject" );
 
 
 //////////////////////////////////////////////////////////////////////
@@ -176,10 +176,10 @@ CString CDDEServer::ReadArgument(LPCTSTR& pszMessage)
 
 BOOL CDDEServer::CheckAccept(LPCTSTR pszTopic)
 {
-	BOOL bResult =	_tcsicmp( pszTopic, _T("URL") ) == 0 ||
-					_tcsicmp( pszTopic, _T("PEERFORMAT") ) == 0;
+	BOOL bResult =	_tcsicmp( pszTopic, L"URL" ) == 0 ||
+					_tcsicmp( pszTopic, L"PEERFORMAT" ) == 0;
 	if ( ! bResult )
-		theApp.Message( MSG_ERROR, _T("Received an unsupported topic in the DDE message: %s"), pszTopic );
+		theApp.Message( MSG_ERROR, L"Received an unsupported topic in the DDE message: %s", pszTopic );
 
 	return bResult;
 }
@@ -234,9 +234,9 @@ BOOL CDDEServer::Execute(LPCTSTR pszTopic, LPCTSTR pszMessage)
 {
 	ASSERT( pszMessage );
 
-	if ( _tcscmp( pszTopic, _T("URL") ) == 0 )
+	if ( _tcscmp( pszTopic, L"URL" ) == 0 )
 		return theApp.OpenURL( pszMessage );
-	if ( _tcscmp( pszTopic, _T("PEERFORMAT") ) == 0 )
+	if ( _tcscmp( pszTopic, L"PEERFORMAT" ) == 0 )
 		return theApp.DisplayFile( pszMessage ) || theApp.Open( pszMessage );
 
 	return FALSE;

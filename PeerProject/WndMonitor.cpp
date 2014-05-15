@@ -1,7 +1,7 @@
 //
 // WndMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -99,7 +99,7 @@ BOOL CRemoteWnd::Create(CMonitorBarCtrl* pMonitor)
 	m_pMonitor	= pMonitor;
 	m_pSkin		= NULL;
 
-	return CreateEx( WS_EX_TOOLWINDOW, m_hClass, _T("PeerProject Remote"),
+	return CreateEx( WS_EX_TOOLWINDOW, m_hClass, L"PeerProject Remote",
 					 WS_OVERLAPPED|WS_CLIPCHILDREN, 0, 0, 0, 0, NULL, 0 );
 }
 
@@ -120,8 +120,8 @@ int CRemoteWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	OnSkinChange();
 	EnableToolTips();
 
-	int nWindowX = AfxGetApp()->GetProfileInt( _T("Windows"), _T("CRemoteWnd.Left"), 0 );
-	int nWindowY = AfxGetApp()->GetProfileInt( _T("Windows"), _T("CRemoteWnd.Top"), 0 );
+	int nWindowX = AfxGetApp()->GetProfileInt( L"Windows", L"CRemoteWnd.Left", 0 );
+	int nWindowY = AfxGetApp()->GetProfileInt( L"Windows", L"CRemoteWnd.Top", 0 );
 
 	SetWindowPos( &wndTopMost, nWindowX, nWindowY, 0, 0, SWP_NOSIZE|SWP_SHOWWINDOW );
 
@@ -162,7 +162,7 @@ void CRemoteWnd::OnWindowPosChanging(WINDOWPOS FAR* lpwndpos)
 	{
 		lpwndpos->y = rcWork.top;
 	}
-	else if ( ( lpwndpos->y + lpwndpos->cy ) >= ( rcWork.bottom - SNAP_PIXELS) &&
+	else if ( ( lpwndpos->y + lpwndpos->cy ) >= ( rcWork.bottom - SNAP_PIXELS ) &&
 			  ( lpwndpos->y + lpwndpos->cy ) <= ( rcWork.bottom + SNAP_PIXELS ) )
 	{
 		lpwndpos->y = rcWork.bottom - lpwndpos->cy;
@@ -252,7 +252,7 @@ void CRemoteWnd::OnSkinChange()
 
 	if ( m_hWnd == NULL ) return;
 
-	m_pSkin = Skin.GetWindowSkin( _T("CRemoteWnd") );
+	m_pSkin = Skin.GetWindowSkin( L"CRemoteWnd" );
 
 	if ( m_pSkin == NULL )
 	{
@@ -260,7 +260,7 @@ void CRemoteWnd::OnSkinChange()
 		return;
 	}
 
-	if ( ! m_pSkin->GetPart( _T("Background"), m_rcBackground ) )
+	if ( ! m_pSkin->GetPart( L"Background", m_rcBackground ) )
 	{
 		m_pSkin = NULL;
 		ShowWindow( SW_HIDE );
@@ -277,36 +277,36 @@ void CRemoteWnd::OnSkinChange()
 			m_pButtons.AddTail( new CmdButton( strAnchor ) );
 	}
 
-	m_bsStatusText		= m_pSkin->GetAnchor( _T("StatusText"), m_rcsStatusText );
+	m_bsStatusText		= m_pSkin->GetAnchor( L"StatusText", m_rcsStatusText );
 
-	m_bsHistoryDest		= m_pSkin->GetAnchor( _T("History"), m_rcsHistoryDest );
-	m_bsHistoryTx[0]	= m_pSkin->GetPart( _T("HistoryTx1"), m_rcsHistoryTx[0] );
-	m_bsHistoryTx[1]	= m_pSkin->GetPart( _T("HistoryTx2"), m_rcsHistoryTx[1] );
-	m_bsHistoryRx[0]	= m_pSkin->GetPart( _T("HistoryRx1"), m_rcsHistoryRx[0] );
-	m_bsHistoryRx[1]	= m_pSkin->GetPart( _T("HistoryRx2"), m_rcsHistoryRx[1] );
-	m_bsFlowTxDest		= m_pSkin->GetAnchor( _T("FlowTx"), m_rcsFlowTxDest );
-	m_bsFlowTxSrc[0]	= m_pSkin->GetPart( _T("FlowTx1"), m_rcsFlowTxSrc[0] );
-	m_bsFlowTxSrc[1]	= m_pSkin->GetPart( _T("FlowTx2"), m_rcsFlowTxSrc[1] );
-	m_bsFlowRxDest		= m_pSkin->GetAnchor( _T("FlowRx"), m_rcsFlowRxDest );
-	m_bsFlowRxSrc[0]	= m_pSkin->GetPart( _T("FlowRx1"), m_rcsFlowRxSrc[0] );
-	m_bsFlowRxSrc[1]	= m_pSkin->GetPart( _T("FlowRx2"), m_rcsFlowRxSrc[1] );
-	m_bsScalerTrack		= m_pSkin->GetAnchor( _T("ScalerTrack"), m_rcsScalerTrack );
-	m_bsScalerTab		= m_pSkin->GetPart( _T("ScalerTab"), m_rcsScalerTab );
-	m_bsScalerBar		= m_pSkin->GetPart( _T("ScalerBar"), m_rcsScalerBar );
+	m_bsHistoryDest		= m_pSkin->GetAnchor( L"History", m_rcsHistoryDest );
+	m_bsHistoryTx[0]	= m_pSkin->GetPart( L"HistoryTx1", m_rcsHistoryTx[0] );
+	m_bsHistoryTx[1]	= m_pSkin->GetPart( L"HistoryTx2", m_rcsHistoryTx[1] );
+	m_bsHistoryRx[0]	= m_pSkin->GetPart( L"HistoryRx1", m_rcsHistoryRx[0] );
+	m_bsHistoryRx[1]	= m_pSkin->GetPart( L"HistoryRx2", m_rcsHistoryRx[1] );
+	m_bsFlowTxDest		= m_pSkin->GetAnchor( L"FlowTx", m_rcsFlowTxDest );
+	m_bsFlowTxSrc[0]	= m_pSkin->GetPart( L"FlowTx1", m_rcsFlowTxSrc[0] );
+	m_bsFlowTxSrc[1]	= m_pSkin->GetPart( L"FlowTx2", m_rcsFlowTxSrc[1] );
+	m_bsFlowRxDest		= m_pSkin->GetAnchor( L"FlowRx", m_rcsFlowRxDest );
+	m_bsFlowRxSrc[0]	= m_pSkin->GetPart( L"FlowRx1", m_rcsFlowRxSrc[0] );
+	m_bsFlowRxSrc[1]	= m_pSkin->GetPart( L"FlowRx2", m_rcsFlowRxSrc[1] );
+	m_bsScalerTrack		= m_pSkin->GetAnchor( L"ScalerTrack", m_rcsScalerTrack );
+	m_bsScalerTab		= m_pSkin->GetPart( L"ScalerTab", m_rcsScalerTab );
+	m_bsScalerBar		= m_pSkin->GetPart( L"ScalerBar", m_rcsScalerBar );
 
-	m_bsMediaSeekTrack	= m_pSkin->GetAnchor( _T("MediaSeekTrack"), m_rcsMediaSeekTrack );
-	m_bsMediaSeekTab	= m_pSkin->GetPart( _T("MediaSeekTab"), m_rcsMediaSeekTab );
-	m_bsMediaSeekBar	= m_pSkin->GetPart( _T("MediaSeekBar"), m_rcsMediaSeekBar );
-	m_bsMediaVolTrack	= m_pSkin->GetAnchor( _T("MediaVolTrack"), m_rcsMediaVolTrack );
-	m_bsMediaVolTab		= m_pSkin->GetPart( _T("MediaVolTab"), m_rcsMediaVolTab );
-	m_bsMediaVolBar		= m_pSkin->GetPart( _T("MediaVolBar"), m_rcsMediaVolBar );
+	m_bsMediaSeekTrack	= m_pSkin->GetAnchor( L"MediaSeekTrack", m_rcsMediaSeekTrack );
+	m_bsMediaSeekTab	= m_pSkin->GetPart( L"MediaSeekTab", m_rcsMediaSeekTab );
+	m_bsMediaSeekBar	= m_pSkin->GetPart( L"MediaSeekBar", m_rcsMediaSeekBar );
+	m_bsMediaVolTrack	= m_pSkin->GetAnchor( L"MediaVolTrack", m_rcsMediaVolTrack );
+	m_bsMediaVolTab		= m_pSkin->GetPart( L"MediaVolTab", m_rcsMediaVolTab );
+	m_bsMediaVolBar		= m_pSkin->GetPart( L"MediaVolBar", m_rcsMediaVolBar );
 
-	m_bsMediaStates[0][0]	= m_pSkin->GetAnchor( _T("MediaStateStopped"), m_rcsMediaStates[0][0] );
-	m_bsMediaStates[0][1]	= m_pSkin->GetAnchor( _T("MediaStatePlaying"), m_rcsMediaStates[0][1] );
-	m_bsMediaStates[0][2]	= m_pSkin->GetAnchor( _T("MediaStatePaused"), m_rcsMediaStates[0][2] );
-	m_bsMediaStates[1][0]	= m_pSkin->GetPart( _T("MediaStateStopped"), m_rcsMediaStates[1][0] );
-	m_bsMediaStates[1][1]	= m_pSkin->GetPart( _T("MediaStatePlaying"), m_rcsMediaStates[1][1] );
-	m_bsMediaStates[1][2]	= m_pSkin->GetPart( _T("MediaStatePaused"), m_rcsMediaStates[1][2] );
+	m_bsMediaStates[0][0]	= m_pSkin->GetAnchor( L"MediaStateStopped", m_rcsMediaStates[0][0] );
+	m_bsMediaStates[0][1]	= m_pSkin->GetAnchor( L"MediaStatePlaying", m_rcsMediaStates[0][1] );
+	m_bsMediaStates[0][2]	= m_pSkin->GetAnchor( L"MediaStatePaused", m_rcsMediaStates[0][2] );
+	m_bsMediaStates[1][0]	= m_pSkin->GetPart( L"MediaStateStopped", m_rcsMediaStates[1][0] );
+	m_bsMediaStates[1][1]	= m_pSkin->GetPart( L"MediaStatePlaying", m_rcsMediaStates[1][1] );
+	m_bsMediaStates[1][2]	= m_pSkin->GetPart( L"MediaStatePaused", m_rcsMediaStates[1][2] );
 
 	SetWindowPos( NULL, 0, 0, m_rcBackground.Width(), m_rcBackground.Height(), SWP_NOMOVE );
 	m_pSkin->OnSize( this );
@@ -861,8 +861,8 @@ void CRemoteWnd::OnNcLButtonDblClk(UINT /*nFlags*/, CPoint point)
 
 void CRemoteWnd::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 {
-	CMenu* pMenu = Skin.GetMenu( _T("CRemoteWnd") );
-	if ( pMenu == NULL ) pMenu = Skin.GetMenu( _T("CMainWnd.Tray") );
+	CMenu* pMenu = Skin.GetMenu( L"CRemoteWnd" );
+	if ( pMenu == NULL ) pMenu = Skin.GetMenu( L"CMainWnd.Tray" );
 	if ( pMenu == NULL ) return;
 
 	MENUITEMINFO pInfo;
@@ -891,7 +891,7 @@ INT_PTR CRemoteWnd::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 			}
 			else
 			{
-				strTip = strTip.SpanExcluding( _T(".") );
+				strTip = strTip.SpanExcluding( L"." );
 				pTI->lpszText = _tcsdup( strTip );
 			}
 		}
@@ -1106,24 +1106,24 @@ void CRemoteWnd::CmdButton::Paint(CDC* pdcWindow, CRect& rcWindow, CSkinWindow* 
 
 	if ( m_bChecked )
 	{
-		if ( ! pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Checked"), m_sName ) )
-			pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Down"), m_sName );
+		if ( ! pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Checked", m_sName ) )
+			pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Down", m_sName );
 	}
 	else if ( ! m_bEnabled )
 	{
-		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Disabled"), m_sName );
+		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Disabled", m_sName );
 	}
 	else if ( pHover == this && pDown == this )
 	{
-		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Down"), m_sName );
+		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Down", m_sName );
 	}
 	else if ( ( pHover == this && pDown == NULL ) || ( pDown == this ) )
 	{
-		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Hover"), m_sName );
+		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Hover", m_sName );
 	}
 	else
 	{
-		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + _T(".Up"), m_sName );
+		pSkin->PaintPartOnAnchor( pdcWindow, rcWindow, m_sName + L".Up", m_sName );
 	}
 }
 

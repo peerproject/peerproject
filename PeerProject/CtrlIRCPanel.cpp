@@ -1,7 +1,7 @@
 //
 // CtrlIRCPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -81,15 +81,15 @@ CIRCPanel::~CIRCPanel()
 BOOL CIRCPanel::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CTaskPanel::Create( _T("CIRCPanel"), WS_VISIBLE, rect, pParentWnd, 0 );
+	return CTaskPanel::Create( L"CIRCPanel", WS_VISIBLE, rect, pParentWnd, 0 );
 }
 
 int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_boxChans.Create( this, 200, _T("Channels"), IDR_CHANSFRAME );
-	m_boxUsers.Create( this, 200, _T("Users"), IDR_USERSFRAME );
+	m_boxChans.Create( this, 200, L"Channels", IDR_CHANSFRAME );
+	m_boxUsers.Create( this, 200, L"Users", IDR_USERSFRAME );
 
 #ifndef WIN64
 	if ( ! theApp.m_bIsWin2000 )
@@ -119,15 +119,15 @@ void CIRCPanel::OnSkinChange()
 	LoadString( strCaption, IDS_IRC_USERLIST );
 	m_boxUsers.SetCaption( strCaption );
 
-	SetWatermark( _T("CIRCPanel") );
-	SetFooter( _T("CIRCPanel.Footer") );
+	SetWatermark( L"CIRCPanel" );
+	SetFooter( L"CIRCPanel.Footer" );
 
-	m_boxChans.SetWatermark( _T("CIRCChannelsBox") );
-	m_boxChans.SetCaptionmark( _T("CIRCChannelsBox.Caption") );
+	m_boxChans.SetWatermark( L"CIRCChannelsBox" );
+	m_boxChans.SetCaptionmark( L"CIRCChannelsBox.Caption" );
 	m_boxChans.OnSkinChange();
 
-	m_boxUsers.SetWatermark( _T("CIRCUsersBox") );
-	m_boxUsers.SetCaptionmark( _T("CIRCUsersBox.Caption") );
+	m_boxUsers.SetWatermark( L"CIRCUsersBox" );
+	m_boxUsers.SetCaptionmark( L"CIRCUsersBox.Caption" );
 	m_boxUsers.OnSkinChange();
 
 	Invalidate();
@@ -162,8 +162,8 @@ int CIRCChannelsBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		rc, this, IDC_IRC_CHANNELS );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndChanList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_TRANSPARENTBKGND|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndChanList.InsertColumn( 0, _T("Channels"), LVCFMT_LEFT, rc.right - 36 );
-	m_wndChanList.InsertColumn( 1, _T("UserCount"), LVCFMT_RIGHT, 36 );
+	m_wndChanList.InsertColumn( 0, L"Channels", LVCFMT_LEFT, rc.right - 36 );
+	m_wndChanList.InsertColumn( 1, L"UserCount", LVCFMT_RIGHT, 36 );
 
 	m_wndAddChannel.Create( rc, this, IDC_IRC_ADDCHANNEL, WS_TABSTOP | BS_DEFPUSHBUTTON );
 	m_wndAddChannel.SetHandCursor( TRUE );
@@ -195,7 +195,7 @@ void CIRCChannelsBox::OnSkinChange()
 	m_wndRemoveChannel.SetWindowText( strCaption );
 	m_wndRemoveChannel.SetCoolIcon( ID_IRC_REMOVE, Settings.General.LanguageRTL );
 
-	if ( m_wndChanList.SetBkImage( Skin.GetWatermark( _T("CIRCChannelsBox") ) ) )
+	if ( m_wndChanList.SetBkImage( Skin.GetWatermark( L"CIRCChannelsBox" ) ) )
 		m_wndChanList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP ); 	// No LVS_EX_DOUBLEBUFFER
 	else
 		m_wndChanList.SetBkColor( Colors.m_crTaskBoxClient );
@@ -249,7 +249,7 @@ void CIRCChannelsBox::OnAddChannel()
 		{
 			if ( strChannel.CompareNoCase( m_wndChanList.GetItemText( nChannel, 0 ) ) == 0 )
 			{
-				MsgBox( _T("Channel already in list."), MB_OK );
+				MsgBox( L"Channel already in list.", MB_OK );
 				return;
 			}
 		}
@@ -300,7 +300,7 @@ int CIRCUsersBox::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CIRCUsersBox::OnSkinChange()
 {
-	// ToDo: Skin m_wndUserList ListBox HBRUSH:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, _T("CIRCUsersBox") )
+	// ToDo: Skin m_wndUserList ListBox HBRUSH:  Colors.m_crTaskBoxClient + Skin.GetWatermark( &bmTaskBox, L"CIRCUsersBox" )
 }
 
 HBRUSH CIRCUsersBox::OnCtlColor(CDC* pDC, CWnd* /*pWnd*/, UINT /*nCtlColor*/)
@@ -374,7 +374,7 @@ void CIRCUsersBox::UpdateCaptionCount()
 	CString strCaption;
 	LoadString( strCaption, IDS_IRC_USERLIST );
 	CString strCount;
-	strCount.Format( _T(" (%d)"), m_wndUserList.GetCount() );
+	strCount.Format( L" (%d)", m_wndUserList.GetCount() );
 	SetCaption( strCaption + strCount );
 }
 
@@ -393,17 +393,17 @@ int CIRCUsersBox::OnCompareItem(int nIDCtl, LPCOMPAREITEMSTRUCT lpCompareItemStr
 	int nModeColumn1 = 0, nModeColumn2 = 0;
 	switch ( *lpszUser1 )
 	{
-		case _T('+'): nModeColumn1 = 1; break;
-		case _T('%'): nModeColumn1 = 2; break;
-		case _T('@'): nModeColumn1 = 3; break;
-		case _T('&'): nModeColumn1 = 4;
+		case L'+': nModeColumn1 = 1; break;
+		case L'%': nModeColumn1 = 2; break;
+		case L'@': nModeColumn1 = 3; break;
+		case L'&': nModeColumn1 = 4;
 	}
 	switch ( *lpszUser2 )
 	{
-		case _T('+'): nModeColumn2 = 1; break;
-		case _T('%'): nModeColumn2 = 2; break;
-		case _T('@'): nModeColumn2 = 3; break;
-		case _T('&'): nModeColumn2 = 4;
+		case L'+': nModeColumn2 = 1; break;
+		case L'%': nModeColumn2 = 2; break;
+		case L'@': nModeColumn2 = 3; break;
+		case L'&': nModeColumn2 = 4;
 	}
 	if ( nModeColumn1 == nModeColumn2 )
 	{

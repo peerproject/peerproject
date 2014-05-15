@@ -41,9 +41,6 @@ END_MESSAGE_MAP()
 
 CCertificateProfilePage::CCertificateProfilePage()
 	: CSettingsPage( CCertificateProfilePage::IDD )
-	, m_sGUID	( _T("") )
-	, m_sGUIDBT	( _T("") )
-//	, m_sTime	( _T("") )
 {
 }
 

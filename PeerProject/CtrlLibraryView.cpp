@@ -102,7 +102,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 
 		LoadString( strFormat, IDS_LIBHEAD_EXPLORE_FOLDER );
 		if ( Settings.General.LanguageRTL )
-			str = _T("\x202A") + str + _T(" \x200E") + strFormat;
+			str = L"\x202A" + str + L" \x200E" + strFormat;
 		else
 			str = strFormat + ' ' + str;
 
@@ -126,7 +126,7 @@ void CLibraryView::GetHeaderContent(int& nImage, CString& str)
 		if ( Settings.General.LanguageRTL )
 		{
 			CString strCaption( psz ? psz + 1 : pSchema->m_sTitle );
-			str = _T("\x202A") + strCaption + _T(" \x200E") + str;
+			str = L"\x202A" + strCaption + L" \x200E" + str;
 		}
 		else
 		{
@@ -434,8 +434,8 @@ BOOL CLibraryView::OnMouseWheel(UINT nFlags, short zDelta, CPoint pt)
 	{
 		if ( pWnd != this )
 		{
-			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CPanelCtrl") ) ||
-				 pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, _T("CLibraryTreeView") ) )
+			if ( pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, L"CPanelCtrl" ) ||
+				 pWnd == FindWindowEx( GetParent()->GetSafeHwnd(), NULL, NULL, L"CLibraryTreeView" ) )
 			{
 				pWnd->PostMessage( WM_MOUSEWHEEL, MAKEWPARAM( nFlags, zDelta ), MAKELPARAM( pt.x, pt.y ) );
 				return TRUE;

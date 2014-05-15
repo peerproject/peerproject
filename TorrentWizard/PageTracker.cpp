@@ -65,13 +65,13 @@ BOOL CTrackerPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
+	int nCount = theApp.GetProfileInt( L"Trackers", L"Count", 0 );
 
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName, strURL;
-		strName.Format( _T("%.3i.URL"), nItem + 1 );
-		strURL = theApp.GetProfileString( _T("Trackers"), strName );
+		strName.Format( L"%.3i.URL", nItem + 1 );
+		strURL = theApp.GetProfileString( L"Trackers", strName );
 		if ( strURL.GetLength() )
 		{
 			m_wndTracker.AddString( strURL );
@@ -79,9 +79,9 @@ BOOL CTrackerPage::OnInitDialog()
 		}
 	}
 
-	m_sTracker = theApp.GetProfileString( _T("Trackers"), _T("Last") );
+	m_sTracker = theApp.GetProfileString( L"Trackers", L"Last" );
 	if ( m_sTracker.GetLength() < 14 )
-		m_sTracker = _T("udp://tracker.openbittorrent.com:80/announce");
+		m_sTracker = L"udp://tracker.openbittorrent.com:80/announce";
 	UpdateData( FALSE );
 
 	return TRUE;
@@ -106,7 +106,7 @@ BOOL CTrackerPage::OnSetActive()
 
 void CTrackerPage::OnClearTrackers()
 {
-	theApp.WriteProfileInt( _T("Trackers"), _T("Count"), 0 );
+	theApp.WriteProfileInt( L"Trackers", L"Count", 0 );
 	m_sTracker.Empty();
 	UpdateData( FALSE );
 	m_wndTracker.ResetContent();
@@ -130,9 +130,9 @@ LRESULT CTrackerPage::OnWizardNext()
 	UpdateData( TRUE );
 
 	if ( m_sTracker.GetLength() < 16 ||
-		( m_sTracker.Left( 6 ).CompareNoCase( _T("udp://") ) != 0 &&
-		  m_sTracker.Left( 7 ).CompareNoCase( _T("http://") ) != 0 &&
-		  m_sTracker.Left( 8 ).CompareNoCase( _T("https://") ) != 0 ) )
+		( m_sTracker.Left( 6 ).CompareNoCase( L"udp://" ) != 0 &&
+		  m_sTracker.Left( 7 ).CompareNoCase( L"http://" ) != 0 &&
+		  m_sTracker.Left( 8 ).CompareNoCase( L"https://" ) != 0 ) )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_URL, MB_ICONQUESTION|MB_YESNO ) )
 		{
@@ -141,7 +141,7 @@ LRESULT CTrackerPage::OnWizardNext()
 		}
 	}
 
-	if ( m_sTracker.Right( 9 ).CompareNoCase( _T("/announce") ) != 0 )
+	if ( m_sTracker.Right( 9 ).CompareNoCase( L"/announce" ) != 0 )
 	{
 		if ( IDYES != AfxMessageBox( IDS_TRACKER_NEED_ANNOUNCE, MB_ICONQUESTION|MB_YESNO ) )
 		{
@@ -163,25 +163,25 @@ void CTrackerPage::SaveTrackers()
 		m_wndTracker2.AddString( m_sTracker );
 
 		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.URL"), ++nCount );
-		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
+		int nCount = theApp.GetProfileInt( L"Trackers", L"Count", 0 );
+		strName.Format( L"%.3i.URL", ++nCount );
+		theApp.WriteProfileInt( L"Trackers", L"Count", nCount );
+		theApp.WriteProfileString( L"Trackers", strName, m_sTracker );
 	}
 
-	if ( m_sTracker2.GetLength() > 15 && m_sTracker2.Find( _T("://") ) > 0 && m_wndTracker2.FindStringExact( -1, m_sTracker2 ) < 0 )
+	if ( m_sTracker2.GetLength() > 15 && m_sTracker2.Find( L"://" ) > 0 && m_wndTracker2.FindStringExact( -1, m_sTracker2 ) < 0 )
 	{
 		m_wndTracker.AddString( m_sTracker2 );
 		m_wndTracker2.AddString( m_sTracker2 );
 
 		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Trackers"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.URL"), ++nCount );
-		theApp.WriteProfileInt( _T("Trackers"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Trackers"), strName, m_sTracker );
+		int nCount = theApp.GetProfileInt( L"Trackers", L"Count", 0 );
+		strName.Format( L"%.3i.URL", ++nCount );
+		theApp.WriteProfileInt( L"Trackers", L"Count", nCount );
+		theApp.WriteProfileString( L"Trackers", strName, m_sTracker );
 	}
 
-	theApp.WriteProfileString( _T("Trackers"), _T("Last"), m_sTracker );
+	theApp.WriteProfileString( L"Trackers", L"Last", m_sTracker );
 }
 
 void CTrackerPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/)

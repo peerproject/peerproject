@@ -49,39 +49,39 @@ static const struct
 KnownPlayers[] =
 {
 	// Windows Media Player
-	{ _T("wmplayer.exe"),	_T("/SHELLHLP_V9 Enqueue \"%s\"") },
+	{ L"wmplayer.exe",	L"/SHELLHLP_V9 Enqueue \"%s\"" },
 	// Media Player Classic
-	{ _T("mplayerc.exe"),	_T("\"%s\" /add") },
+	{ L"mplayerc.exe",	L"\"%s\" /add" },
 	// MediaPlayerClassic HomeCinema
-	{ _T("mpc-hc.exe"), 	_T("\"%s\" /add") },
+	{ L"mpc-hc.exe", 	L"\"%s\" /add" },
 	// MediaPlayerClassic HomeCinema 64
-	{ _T("mpc-hc64.exe"),	_T("\"%s\" /add") },
+	{ L"mpc-hc64.exe",	L"\"%s\" /add" },
 	// MPlayer
-	{ _T("mplayer.exe"),	_T("-enqueue %s") },
+	{ L"mplayer.exe",	L"-enqueue %s" },
 	// SMplayer (GUI for MPlayer)
-	{ _T("smplayer.exe"),	_T("-add-to-playlist \"%s\"") },
+	{ L"smplayer.exe",	L"-add-to-playlist \"%s\"" },
 	// VideoLAN
-	{ _T("vlc.exe"),		_T("--one-instance --playlist-enqueue \"%s\"") },
+	{ L"vlc.exe",		L"--one-instance --playlist-enqueue \"%s\"" },
 	// WinAmp
-	{ _T("winamp.exe"),		_T("/ADD \"%s\"") },
+	{ L"winamp.exe",		L"/ADD \"%s\"" },
 	// Light Alloy
-	{ _T("la.exe"),			_T("/ADD \"%s\"") },
+	{ L"la.exe",			L"/ADD \"%s\"" },
 	// KMPlayer
-	{ _T("kmplayer.exe"),	_T("/ADD \"%s\"") },
+	{ L"kmplayer.exe",	L"/ADD \"%s\"" },
 	// BSPlayer
-	{ _T("bsplayer.exe"),	_T("\"%s\" -ADD") },
+	{ L"bsplayer.exe",	L"\"%s\" -ADD" },
 	// Zoom Player
-	{ _T("zplayer.exe"),	_T("\"/Queue:%s\"") },
+	{ L"zplayer.exe",	L"\"/Queue:%s\"" },
 	// (end)
 	{ NULL, NULL }
 };
 
 int PathGetArgsIndex(const CString& str)
 {
-	if ( str.GetAt( 0 ) == _T('\"') )
+	if ( str.GetAt( 0 ) == L'\"' )
 	{
 		// "command" args
-		int quote = str.Find( _T('\"'), 1 );
+		int quote = str.Find( L'\"', 1 );
 		if ( quote == -1 )
 			return -1;	// No closing quote
 
@@ -91,9 +91,9 @@ int PathGetArgsIndex(const CString& str)
 	int i = -1;
 	for ( ;; )
 	{
-		const int slash = str.Find( _T('\\'), i + 1 );
+		const int slash = str.Find( L'\\', i + 1 );
 		if ( slash == -1 || GetFileAttributes( SafePath( str.Mid( 0, slash + 1 ) ) ) == INVALID_FILE_ATTRIBUTES )
-			return str.Find( _T(' '), i + 1 );
+			return str.Find( L' ', i + 1 );
 
 		i = slash;
 	}
@@ -120,14 +120,14 @@ void CFileExecutor::DetectFileType(LPCTSTR pszFile, LPCTSTR szType, bool& bVideo
 		CString strMime = ShellIcons.GetMIME( szType );
 		if ( ! strMime.IsEmpty() )
 		{
-			CString strMimeMajor = strMime.SpanExcluding( _T("/") );
-			if ( strMimeMajor == _T("video") )
+			CString strMimeMajor = strMime.SpanExcluding( L"/" );
+			if ( strMimeMajor == L"video" )
 				bVideo = true;
-			else if ( strMimeMajor == _T("audio") )
+			else if ( strMimeMajor == L"audio" )
 				bAudio = true;
-			else if ( strMimeMajor == _T("image") )
+			else if ( strMimeMajor == L"image" )
 				bImage = true;
-			else if ( strMime == _T("application/x-shockwave-flash") )
+			else if ( strMime == L"application/x-shockwave-flash" )
 				bVideo = true;
 		}
 	}
@@ -154,11 +154,11 @@ CString CFileExecutor::GetCustomPlayer()
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
 		CString strPlayer = *i;
-		if ( strPlayer.Right( 1 ) != _T('*') )	// SELECTED_PLAYER_TOKEN
+		if ( strPlayer.Right( 1 ) != L'*' )	// SELECTED_PLAYER_TOKEN
 			continue;
 
 		// Has Asterisk at end to indicate selected player
-		strPlayer.TrimRight( _T('*') );			// SELECTED_PLAYER_TOKEN
+		strPlayer.TrimRight( L'*' );			// SELECTED_PLAYER_TOKEN
 		return strPlayer;
 	}
 
@@ -249,9 +249,9 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 		strType = CString( PathFindExtension( pszFile ) ).MakeLower();
 
 	// Handle collections
-	if ( strType == _T(".co") ||
-		 strType == _T(".collection") ||
-		 strType == _T(".emulecollection") )
+	if ( strType == L".co" ||
+		 strType == L".collection" ||
+		 strType == L".emulecollection" )
 	{
 		if ( CLibraryWnd* pWnd = CLibraryWnd::GetLibraryWindow() )
 			pWnd->OnCollection( pszFile );
@@ -272,7 +272,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 
 	// Prepare partials
 	bool bPartial = false;
-	if ( strType == _T(".partial") && pszExt )
+	if ( strType == L".partial" && pszExt )
 	{
 		bPartial = true;
 		strType = pszExt;
@@ -319,8 +319,8 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 				pszFile = pszShortPath;
 		}
 
-		HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"),
-			strCustomPlayer, CString( _T('\"') ) + pszFile + _T('\"'), NULL, SW_SHOWNORMAL );
+		HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"open",
+			strCustomPlayer, CString( L'\"' ) + pszFile + L'\"', NULL, SW_SHOWNORMAL );
 		if ( hResult > (HINSTANCE)32 )
 			return TRUE;
 	}
@@ -379,7 +379,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 		strType = CString( PathFindExtension( pszFile ) ).MakeLower();
 
 	// Prepare partials
-	if ( strType == _T(".partial") && pszExt )
+	if ( strType == L".partial" && pszExt )
 	{
 		strType = pszExt;
 		strType.MakeLower();
@@ -444,7 +444,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 		CString strCommand, strParam;
 		DWORD nBufferSize = MAX_PATH;
 		HRESULT hr = AssocQueryString( ASSOCF_OPEN_BYEXENAME, ASSOCSTR_COMMAND,
-			strCustomPlayer, _T("enqueue"),
+			strCustomPlayer, L"enqueue",
 			strCommand.GetBuffer( MAX_PATH ), &nBufferSize );
 		strCommand.ReleaseBuffer();
 		int nPos = PathGetArgsIndex( strCommand );
@@ -453,13 +453,13 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 			strParam = strCommand.Mid( nPos ).Trim();
 			strCommand = strCommand.Left( nPos );
 		}
-		strCommand = strCommand.Trim( _T("\" ") );
+		strCommand = strCommand.Trim( L"\" " );
 		if ( hr == S_OK )
 		{
-			int nFind = strParam.Find( _T("%1") );
+			int nFind = strParam.Find( L"%1" );
 			if ( nFind != -1 )
 			{
-				strParam.Replace( _T("%1"), strFile );
+				strParam.Replace( L"%1", strFile );
 				HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
 					strCommand, strParam, NULL, SW_SHOWNORMAL );
 				if ( hResult > (HINSTANCE)32 )
@@ -487,7 +487,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 	}
 
 	// Try Shell "enqueue" verb
-	HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("enqueue"),
+	HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"enqueue",
 		strFile, NULL, NULL, SW_SHOWNORMAL );
 	if ( hResult > (HINSTANCE)32 )
 		return TRUE;
@@ -502,7 +502,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 	if ( nPos != -1 )
 		strCommand = strCommand.Left( nPos );
 
-	strCommand = strCommand.Trim( _T("\" ") );
+	strCommand = strCommand.Trim( L"\" " );
 	if ( hr == S_OK )
 	{
 		CString strParam, strExecutable = PathFindFileName( strCommand );
@@ -552,18 +552,18 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CFileExecutor show Bitprint listing
+// CFileExecutor show Bitprints listing (Bitzi ticket)
 //
 // Note: Moved to new WebServices class
 //
-//BOOL CFileExecutor::ShowBitprintTicket(DWORD nIndex)
+//BOOL CFileExecutor::ShowBitprintsTicket(DWORD nIndex)
 
 //////////////////////////////////////////////////////////////////////
 // CFileExecutor display a URL
 
 //BOOL CFileExecutor::DisplayURL(LPCTSTR pszURL)
 //{
-//	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), _T("open"), pszURL, NULL, NULL, SW_SHOWNORMAL );
+//	ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), L"open", pszURL, NULL, NULL, SW_SHOWNORMAL );
 //	return TRUE;
 //
 //#if 0
@@ -581,7 +581,7 @@ BOOL CFileExecutor::Enqueue(const CStringList& pList)
 //	if ( HCONV hConv = DdeConnect( hInstance, hszService, hszTopic, NULL ) )
 //	{
 //		CString strCommand;
-//		strCommand.Format( _T("\"%s\",,0"), pszURL );
+//		strCommand.Format( L"\"%s\",,0", pszURL );
 //		CT2A pszCommand( (LPCTSTR)strCommand );
 //
 //		DdeClientTransaction( (LPBYTE)pszCommand, pszCommand, hConv, 0, 0, XTYP_EXECUTE, 4000, NULL );

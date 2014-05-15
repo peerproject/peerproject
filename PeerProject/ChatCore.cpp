@@ -79,7 +79,7 @@ BOOL CChatCore::OnAccept(CConnection* pConnection)
 
 	if ( ! Settings.Community.ChatEnable || ! MyProfile.IsValid() )
 	{
-		theApp.Message( MSG_ERROR, _T("Rejecting incoming connection from %s, chat disabled."), (LPCTSTR)pConnection->m_sAddress );
+		theApp.Message( MSG_ERROR, L"Rejecting incoming connection from %s, chat disabled.", (LPCTSTR)pConnection->m_sAddress );
 		pConnection->Write( _P("CHAT/0.2 503 Unavailable\r\n\r\n") );
 		pConnection->LogOutgoing();
 		pConnection->DelayClose( IDS_CONNECTION_CLOSED );

@@ -1,7 +1,7 @@
 //
 // WndSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,7 +95,7 @@ CSearchWnd::CSearchWnd(CQuerySearch* pSearch)
 	, m_nCacheHubs		( 0 )
 	, m_nCacheLeaves	( 0 )
 	, m_bWaitMore		( FALSE )
-	, m_sCaption		( _T("") )
+	, m_sCaption		( L"" )
 	, m_nMaxResults		( 0 )
 	, m_nMaxED2KResults ( 0 )
 	, m_nMaxQueryCount  ( 0 )
@@ -142,7 +142,7 @@ int CSearchWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		m_wndList.SelectSchema( pSchema, &pColumns );
 	}
 
-	LoadState( _T("CSearchWnd"), TRUE );
+	LoadState( L"CSearchWnd", TRUE );
 
 	ExecuteSearch();
 
@@ -174,7 +174,7 @@ void CSearchWnd::OnDestroy()
 			Settings.Search.BlankSchemaURI.Empty();
 	}
 
-	SaveState( _T("CSearchWnd") );
+	SaveState( L"CSearchWnd" );
 
 	OnSearchStop();
 
@@ -231,14 +231,14 @@ void CSearchWnd::OnSkinChange()
 
 	m_wndToolBar.Clear();
 
-	if ( ! Skin.CreateToolBar( m_bPanel ? _T("CSearchWnd.Panel") : _T("CSearchWnd.Full"), &m_wndToolBar ) )
-		Skin.CreateToolBar( _T("CSearchWnd"), &m_wndToolBar );
+	if ( ! Skin.CreateToolBar( m_bPanel ? L"CSearchWnd.Panel" : L"CSearchWnd.Full", &m_wndToolBar ) )
+		Skin.CreateToolBar( L"CSearchWnd", &m_wndToolBar );
 
 	OnSize( SIZE_INTERNAL, 0, 0 );
 	UpdateMessages();
 
 	m_wndPanel.OnSkinChange();
-	Skin.Translate( _T("CMatchCtrl"), &m_wndList.m_wndHeader );
+	Skin.Translate( L"CMatchCtrl", &m_wndList.m_wndHeader );
 }
 
 void CSearchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
@@ -247,7 +247,7 @@ void CSearchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		ClientToScreen( &point );
 
 	if ( m_bContextMenu )
-		Skin.TrackPopupMenu( _T("CSearchWnd"), point, ID_SEARCH_DOWNLOAD );
+		Skin.TrackPopupMenu( L"CSearchWnd", point, ID_SEARCH_DOWNLOAD );
 	else
 		CBaseMatchWnd::OnContextMenu( pWnd, point );
 }
@@ -288,7 +288,7 @@ void CSearchWnd::OnPaint()
 		dc.FillSolidRect( rcBar.left, rcBar.top + 2, rcBar.Width(), rcBar.Height() - 3, Colors.m_crResizebarFace );
 	}
 
-	if ( m_bPaused || m_bWaitMore) return;
+	if ( m_bPaused || m_bWaitMore ) return;
 
 	CRect rc( &rcClient );
 	rc.bottom = rc.top + STATUS_HEIGHT;
@@ -464,7 +464,7 @@ void CSearchWnd::OnSearchSearch()
 			CSearchPtr pManaged = m_oSearches.back();
 
 			// Re-activate search window
-			theApp.Message( MSG_DEBUG, _T("Resuming Search") );
+			theApp.Message( MSG_DEBUG, L"Resuming Search" );
 			pManaged->SetActive( TRUE );
 			m_bWaitMore = FALSE;
 
@@ -492,7 +492,7 @@ void CSearchWnd::OnSearchSearch()
 	m_wndPanel.m_boxSearch.m_wndSearch.GetWindowText( strText );
 	if ( theApp.OpenURL( strText, TRUE ) )
 	{
-		m_wndPanel.m_boxSearch.m_wndSearch.SetWindowText( _T("") );
+		m_wndPanel.m_boxSearch.m_wndSearch.SetWindowText( L"" );
 		return;
 	}
 
@@ -671,7 +671,7 @@ void CSearchWnd::ExecuteSearch()
 			else if ( AdultFilter.IsSearchFiltered( pSearch->m_sKeywords ) )
 			{
 				// Adult search blocked, open help window
-				CHelpDlg::Show( _T("SearchHelp.AdultSearch") );
+				CHelpDlg::Show( L"SearchHelp.AdultSearch" );
 			}
 			else
 			{
@@ -710,15 +710,15 @@ void CSearchWnd::UpdateMessages()
 
 	CString strCaption;
 	Skin.LoadString( strCaption, IDR_SEARCHFRAME );
-	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
+	if ( Settings.General.LanguageRTL ) strCaption = L"\x200F" + strCaption + L"\x202E";
 
 	if ( pManaged )
 	{
 		CQuerySearchPtr pSearch = pManaged->GetSearch();
 		if ( pSearch )
 		{
-			strCaption += _T(" : ");
-			if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
+			strCaption += L" : ";
+			if ( Settings.General.LanguageRTL ) strCaption += L"\x202B";
 
 			if ( ! pSearch->m_sSearch.IsEmpty() )
 				strCaption += pSearch->m_sSearch;
@@ -736,14 +736,14 @@ void CSearchWnd::UpdateMessages()
 				strCaption += pSearch->m_pSchema->GetIndexedWords( pSearch->m_pXML->GetFirstElement() );
 
 			if ( pSearch->m_pSchema )
-				strCaption += _T(" (") + pSearch->m_pSchema->m_sTitle + _T(")");
+				strCaption += L" (" + pSearch->m_pSchema->m_sTitle + L")";
 
 			if ( m_pMatches->m_nFilteredFiles || m_pMatches->m_nFilteredHits )
 			{
 				CString strStats;
-				strStats.Format( _T(" [%lu/%lu]"), m_pMatches->m_nFilteredFiles, m_pMatches->m_nFilteredHits );
+				strStats.Format( L" [%lu/%lu]", m_pMatches->m_nFilteredFiles, m_pMatches->m_nFilteredHits );
 				if ( Settings.General.LanguageRTL )
-					strStats = _T("\x200F") + strStats;
+					strStats = L"\x200F" + strStats;
 				strCaption += strStats;
 				pManaged->m_nHits = m_pMatches->m_nFilteredHits;
 			}
@@ -828,14 +828,14 @@ BOOL CSearchWnd::OnQueryHits(const CQueryHit* pHits)
 						(*pManaged)->SetActive( FALSE );
 					}
 					(*pManaged)->m_tLastED2K = 0xFFFFFFFF;
-					theApp.Message( MSG_DEBUG, _T("ED2K Search Reached Maximum Number of Files") );
+					theApp.Message( MSG_DEBUG, L"ED2K Search Reached Maximum Number of Files" );
 				}
 
 				if ( ! m_bWaitMore && ( m_pMatches->m_nGnutellaHits >= m_nMaxResults ) && ! Settings.Experimental.LAN_Mode )
 				{
 					m_bWaitMore = TRUE;
 					(*pManaged)->SetActive( FALSE );
-					theApp.Message( MSG_DEBUG, _T("Gnutella Search Reached Maximum Number of Files") );
+					theApp.Message( MSG_DEBUG, L"Gnutella Search Reached Maximum Number of Files" );
 				}
 
 				return TRUE;
@@ -863,7 +863,7 @@ void CSearchWnd::OnTimer(UINT_PTR nIDEvent)
 			{
 				m_bWaitMore = TRUE;
 				pManaged->SetActive( FALSE );
-				theApp.Message( MSG_DEBUG, _T("Search Reached Maximum Duration") );
+				theApp.Message( MSG_DEBUG, L"Search Reached Maximum Duration" );
 				m_bUpdate = TRUE;
 			}
 			// We need to keep the lock for now- release after we update the progress panel

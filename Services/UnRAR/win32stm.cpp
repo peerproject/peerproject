@@ -5,18 +5,14 @@ void ExtractStreams20(Archive &Arc,const wchar *FileName)
 {
   if (Arc.BrokenHeader)
   {
-#ifndef SILENT
-    Log(Arc.FileName,St(MStreamBroken),FileName);
-#endif
+    uiMsg(UIERROR_STREAMBROKEN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_CRC);
     return;
   }
 
   if (Arc.StreamHead.Method<0x31 || Arc.StreamHead.Method>0x35 || Arc.StreamHead.UnpVer>VER_PACK)
   {
-#ifndef SILENT
-    Log(Arc.FileName,St(MStreamUnknown),FileName);
-#endif
+    uiMsg(UIERROR_STREAMUNKNOWN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_WARNING);
     return;
   }
@@ -32,9 +28,7 @@ void ExtractStreams20(Archive &Arc,const wchar *FileName)
   if (wcslen(StreamName)+strlen(Arc.StreamHead.StreamName)>=ASIZE(StreamName) ||
       Arc.StreamHead.StreamName[0]!=':')
   {
-#ifndef SILENT
-    Log(Arc.FileName,St(MStreamBroken),FileName);
-#endif
+    uiMsg(UIERROR_STREAMBROKEN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_CRC);
     return;
   }
@@ -67,9 +61,7 @@ void ExtractStreams20(Archive &Arc,const wchar *FileName)
 
     if (Arc.StreamHead.StreamCRC!=DataIO.UnpHash.GetCRC32())
     {
-#ifndef SILENT
-      Log(Arc.FileName,St(MStreamBroken),StreamName);
-#endif
+      uiMsg(UIERROR_STREAMBROKEN,Arc.FileName,StreamName);
       ErrHandler.SetErrorCode(RARX_CRC);
     }
     else
@@ -77,8 +69,7 @@ void ExtractStreams20(Archive &Arc,const wchar *FileName)
   }
   File HostFile;
   if (Found && HostFile.Open(FileName,FMF_OPENSHARED|FMF_UPDATE))
-    SetFileTime(HostFile.GetHandle(),&fd.ftCreationTime,&fd.ftLastAccessTime,
-                &fd.ftLastWriteTime);
+    SetFileTime(HostFile.GetHandle(),&fd.ftCreationTime,&fd.ftLastAccessTime,&fd.ftLastWriteTime);
   if ((fd.FileAttr & FILE_ATTRIBUTE_READONLY)!=0)
     SetFileAttr(FileName,fd.FileAttr);
 }
@@ -104,9 +95,7 @@ void ExtractStreams(Archive &Arc,const wchar *FileName)
   GetStreamNameNTFS(Arc,StreamName,ASIZE(StreamName));
   if (*StreamName!=':')
   {
-#if !defined(SILENT) && !defined(SFX_MODULE)
-    Log(Arc.FileName,St(MStreamBroken),FileName);
-#endif
+    uiMsg(UIERROR_STREAMBROKEN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_CRC);
     return;
   }
@@ -123,8 +112,7 @@ void ExtractStreams(Archive &Arc,const wchar *FileName)
     CurFile.Close();
   File HostFile;
   if (Found && HostFile.Open(FileName,FMF_OPENSHARED|FMF_UPDATE))
-    SetFileTime(HostFile.GetHandle(),&fd.ftCreationTime,&fd.ftLastAccessTime,
-                &fd.ftLastWriteTime);
+    SetFileTime(HostFile.GetHandle(),&fd.ftCreationTime,&fd.ftLastAccessTime,&fd.ftLastWriteTime);
 
   // Restoring original file attributes. Important if file was read only
   // or did not have "Archive" attribute

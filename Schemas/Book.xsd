@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.limewire.com/schemas/book.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Book.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Doc"/>
@@ -58,6 +57,7 @@
 			<attribute name="type">
 				<simpleType base="string">
 					<enumeration value="Book"/>
+					<enumeration value="Comic Book"/>
 					<enumeration value="Magazine"/>
 					<enumeration value="Article"/>
 				</simpleType>
@@ -84,9 +84,10 @@
 					<enumeration value="French"/>
 					<enumeration value="German"/>
 					<enumeration value="Italian"/>
-					<enumeration value="Korean"/>
 					<enumeration value="Japanese"/>
+					<enumeration value="Korean"/>
 					<enumeration value="Mandarin"/>
+					<enumeration value="Portuguese"/>
 					<enumeration value="Russian"/>
 					<enumeration value="Spanish"/>
 				</simpleType>
@@ -113,6 +114,8 @@
 			<attribute name="releasegroup" type="string"/>
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="link" type="uriReference"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

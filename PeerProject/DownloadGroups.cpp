@@ -1,7 +1,7 @@
 //
 // DownloadGroups.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -201,39 +201,39 @@ void CDownloadGroups::CreateDefault()
 
 	const BOOL bLang = ! Settings.General.LanguageDefault;		// Folder naming fixes
 
-	pGroup = Add( _T("DEFAULT") );			// DEFAULT Names are translated by Schema
+	pGroup = Add( L"DEFAULT" );			// DEFAULT Names are translated by Schema
 	pGroup->SetSchema( CSchema::uriAudio );
 	pGroup->SetFolder( pGroup->m_sName );	// Settings.Downloads.CompletePath + "\\Audio"
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( _T("DEFAULT") );
+	pGroup = Add( L"DEFAULT" );
 	pGroup->SetSchema( CSchema::uriVideo );
 	pGroup->SetFolder( pGroup->m_sName );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bLang ? _T("DEFAULT") : _T("Images") );
+	pGroup = Add( bLang ? L"DEFAULT" : L"Images" );
 	pGroup->SetSchema( CSchema::uriImage );
-	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Images") );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : L"Images" );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bLang ? _T("DEFAULT") : _T("Documents") );
+	pGroup = Add( bLang ? L"DEFAULT" : L"Documents" );
 	pGroup->SetSchema( CSchema::uriBook );
-	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Documents") );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : L"Documents" );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( bLang ? _T("DEFAULT") : _T("Archives") );
+	pGroup = Add( bLang ? L"DEFAULT" : L"Archives" );
 	pGroup->SetSchema( CSchema::uriArchive );
-	pGroup->SetFolder( bLang ? pGroup->m_sName : _T("Archives") );
+	pGroup->SetFolder( bLang ? pGroup->m_sName : L"Archives" );
 	pGroup->SetDefaultFilters();
 
-	pGroup = Add( _T("BitTorrent") );
+	pGroup = Add( L"BitTorrent" );
 	pGroup->SetSchema( CSchema::uriBitTorrent );
-	pGroup->SetFolder( _T("BitTorrent") );
+	pGroup->SetFolder( L"BitTorrent" );
 	pGroup->SetDefaultFilters();
 	//pGroup->m_bTorrent = TRUE;	// Obsolete, Schema is detected
 
 // ToDo: Popularize Collections and re-add this group
-//	pGroup = Add( _T("Collection") );
+//	pGroup = Add( L"Collection" );
 //	pGroup->SetSchema( CSchema::uriCollection );
 //	pGroup->SetFolder( Settings.Downloads.CollectionPath );
 //	pGroup->SetDefaultFilters();
@@ -242,7 +242,7 @@ void CDownloadGroups::CreateDefault()
 	LoadString( str, IDS_GENERAL_CUSTOM );
 	pGroup = Add( str );
 	pGroup->SetFolder( str );
-	//pGroup->AddFilter( _T("PeerProject") );
+	//pGroup->AddFilter( L"PeerProject" );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ void CDownloadGroups::CreateDefault()
 CString CDownloadGroups::GetCompletedPath(CDownload* pDownload)
 {
 	if ( Settings.Downloads.CompletePath.GetLength() < 3 )
-		Settings.Downloads.CompletePath = Settings.General.Path + _T("\\Downloads");
+		Settings.Downloads.CompletePath = Settings.General.Path + L"\\Downloads";
 
 	CQuickLock pLock( m_pSection );
 
@@ -263,10 +263,10 @@ CString CDownloadGroups::GetCompletedPath(CDownload* pDownload)
 		{
 			if ( ! pGroup->m_sFolder.IsEmpty() )
 			{
-				if ( pGroup->m_sFolder.Find( _T(":\\") ) == 1 )
+				if ( pGroup->m_sFolder.Find( L":\\" ) == 1 )
 					return pGroup->m_sFolder;
 
-				return Settings.Downloads.CompletePath + _T("\\") + pGroup->m_sFolder;
+				return Settings.Downloads.CompletePath + L"\\" + pGroup->m_sFolder;
 			}
 		}
 	}
@@ -295,12 +295,12 @@ void CDownloadGroups::Clear()
 
 BOOL CDownloadGroups::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("DownloadGroups.dat");
+	const CString strFile = Settings.General.DataPath + L"DownloadGroups.dat";
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load download groups: %s", strFile );
 		return FALSE;
 	}
 
@@ -320,7 +320,7 @@ BOOL CDownloadGroups::Load()
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
+			theApp.Message( MSG_ERROR, L"Failed to load download groups: %s", strFile );
 		}
 		pFile.Close();
 	}
@@ -328,7 +328,7 @@ BOOL CDownloadGroups::Load()
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Failed to load download groups: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load download groups: %s", strFile );
 	}
 
 	m_nSaveCookie = m_nBaseCookie;
@@ -341,14 +341,14 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	if ( ! bForce && m_nBaseCookie == m_nSaveCookie )
 		return FALSE;
 
-	const CString strFile = Settings.General.DataPath + _T("DownloadGroups.dat");
-	const CString strTemp = Settings.General.DataPath + _T("DownloadGroups.tmp");
+	const CString strFile = Settings.General.DataPath + L"DownloadGroups.dat";
+	const CString strTemp = Settings.General.DataPath + L"DownloadGroups.tmp";
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save download groups: %s", strTemp );
 		return FALSE;
 	}
 
@@ -370,7 +370,7 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 			ar.Abort();
 			pFile.Abort();
 			pException->Delete();
-			theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
+			theApp.Message( MSG_ERROR, L"Failed to save download groups: %s", strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -379,14 +379,14 @@ BOOL CDownloadGroups::Save(BOOL bForce)
 	{
 		pFile.Abort();
 		pException->Delete();
-		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save download groups: %s", strTemp );
 		return FALSE;
 	}
 
 	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save download groups: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to save download groups: %s", strFile );
 		return FALSE;
 	}
 

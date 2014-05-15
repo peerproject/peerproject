@@ -320,19 +320,19 @@ void CDeleteFileDlg::OnCbnChangeOptions()
 		m_nRateValue = m_nOriginalRating;
 		break;
 	case 1:	// Poor quality
-		m_sComments = _T("Very poor quality or outdated");
+		m_sComments = L"Very poor quality or outdated";
 		m_nRateValue = 2;
 		break;
 	case 2:	// Misnamed
-		m_sComments = _T("Misnamed \"") + m_sName + _T("\"");
+		m_sComments = L"Misnamed \"" + m_sName + L"\"";
 		m_nRateValue = 1;
 		break;
 	case 3:	// Fake
-		m_sComments = _T("File is Fake/Corrupt");
+		m_sComments = L"File is Fake/Corrupt";
 		m_nRateValue = 1;
 		break;
 	case 4: // Copyright
-		m_sComments = _T("Restricted Copyright Material  (Promote an alternative)");
+		m_sComments = L"Restricted Copyright Material  (Promote an alternative)";
 		m_nRateValue = 2;
 		break;
 	case 5: // New comments

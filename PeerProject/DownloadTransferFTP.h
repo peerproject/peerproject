@@ -1,7 +1,7 @@
 //
 // DownloadTransferFTP.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 
 // PeerProject is free software. You may redistribute and/or modify it
@@ -90,22 +90,22 @@ protected:
 
 		virtual QWORD ExtractFileSize() const
 		{
-			TRACE( _T("Extracting file size from:\n%ls\n"), m_sData );
+			TRACE( L"Extracting file size from:\n%ls\n", m_sData );
 			CString in( m_sData ), out;
-			for ( int n = 0 ; Split( in, _T(' '), out ) ; ++n )
+			for ( int n = 0 ; Split( in, L' ', out ) ; ++n )
 			{
 				int i = 0;
 				for ( ; i < out.GetLength() ; ++i )
 					if ( ! isdigit( out [i] ) )
 						break;
-				if ( i == out.GetLength() && out [0] != _T('0') && n != 2 )
+				if ( i == out.GetLength() && out [0] != L'0' && n != 2 )
 				{
 					QWORD size = _tstoi64( out );
-					TRACE( _T("File size: %ld bytes\n"), size );
+					TRACE( L"File size: %ld bytes\n", size );
 					return size;
 				}
 			}
-			TRACE( _T("Unknown file size.\n") );
+			TRACE( L"Unknown file size.\n" );
 			return SIZE_UNKNOWN;
 		}
 
@@ -114,7 +114,7 @@ protected:
 
 		inline bool Split(CString& in, TCHAR token, CString& out) const
 		{
-			in = in.Trim( _T(" \t\r\n") );
+			in = in.Trim( L" \t\r\n" );
 			if ( in.IsEmpty() )
 			{
 				out.Empty();

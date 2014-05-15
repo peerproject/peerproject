@@ -1,7 +1,7 @@
 //
 // GraphLine.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -43,9 +43,8 @@ CLineGraph::CLineGraph()
 	, m_crBack		( Colors.m_crTrafficWindowBack )
 	, m_crGrid		( Colors.m_crTrafficWindowGrid )
 	, m_nMinGridVert ( 32 )
-
 	, m_nSpeed		( 100 )
-	, m_nScale		( 1 )	// ToDo: Remove?  Was "2"
+	, m_nScale		( MIN_GRID_SIZE_HORZ )
 	, m_nMaximum	( 0 )
 	, m_nUpdates	( 0 )
 	, m_tLastScale	( 0 )
@@ -317,7 +316,7 @@ void CLineGraph::PaintGrid(CDC* pDC, CRect* pRect)
 			if ( bVolume )
 				strValue = Settings.SmartSpeed( nScale * nPos, bits );
 			else
-				strValue.Format( _T("%lu"), nScale * nPos );
+				strValue.Format( L"%lu", nScale * nPos );
 			pDC->ExtTextOut( pRect->left + 4, nY + 1, 0, NULL, strValue, NULL );
 			// Add the scale to the right side also
 			pDC->ExtTextOut( pRect->right - 4 - pDC->GetTextExtent( strValue ).cx, nY + 1, 0, NULL, strValue, NULL );
@@ -329,7 +328,7 @@ void CLineGraph::PaintGrid(CDC* pDC, CRect* pRect)
 
 void CLineGraph::PaintLegend(CDC* pDC, CRect* pRect)
 {
-	int nHeight	= pDC->GetTextExtent( _T("Cy") ).cy;
+	int nHeight	= pDC->GetTextExtent( L"Cy" ).cy;
 	int nLeft	= pRect->left + ( ( pRect->Width() > 128 ) ? 64 : 0 );
 	int nTop	= pRect->top + 1;
 
@@ -344,6 +343,6 @@ void CLineGraph::PaintLegend(CDC* pDC, CRect* pRect)
 		else
 			strText = pItem->m_sName;
 
-		pDC->ExtTextOut( nLeft, nTop, 0, NULL, _T("\x2022 ") + strText, NULL );
+		pDC->ExtTextOut( nLeft, nTop, 0, NULL, L"\x2022 " + strText, NULL );
 	}
 }

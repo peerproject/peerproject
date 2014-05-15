@@ -2,10 +2,10 @@
 		<div class="poetry">
 			<ul class="tabs">
 				<li class="active"><a href="home" class="noline">Domů</a></li>
-				<li class="inactive"><a href="search" class="noline">Hledání</a></li>
 				<li class="inactive"><a href="downloads" class="noline">Stahování</a></li>
 				<li class="inactive"><a href="uploads" class="noline">Odesílání</a></li>
 				<li class="inactive"><a href="network" class="noline">Sítě</a></li>
+				<li class="inactive"><a href="search" class="noline">Hledání</a></li>
 			</ul>
 		</div>
 		<!-- /tabs -->
@@ -21,20 +21,20 @@
 							<input type="text" name="search" size="20" />
 							<select name="schema">
 								<option value="">Jakýkoliv soubor</option>
-								<option value="http://www.shareaza.com/schemas/application.xsd">Aplikace</option>
-								<option value="http://www.limewire.com/schemas/audio.xsd">Zvuk</option>
-								<option value="http://www.shareaza.com/schemas/bittorent.xsd">BitTorrent</option>
-								<option value="http://www.limewire.com/schemas/book.xsd">Kniha</option>
-								<option value="http://www.shareaza.com/schemas/collection.xsd">Sbírka</option>
-								<option value="http://www.shareaza.com/schemas/image.xsd">Obrázek</option>
-								<option value="http://www.shareaza.com/schemas/presentation.xsd">Prezentace</option>
-								<option value="http://www.shareaza.com/schemas/rom.xsd">ROM Image</option>
-								<option value="http://www.shareaza.com/schemas/shareazaSkin.xsd">Skin</option>
-								<option value="http://www.shareaza.com/schemas/sourceCode.xsd">Zdrojový kód</option>
-								<option value="http://www.shareaza.com/schemas/spreadsheet.xsd">Tabulka</option>
-								<option value="http://www.shareaza.com/schemas/subtitle.xsd">Titulky</option>
-								<option value="http://www.limewire.com/schemas/video.xsd">Video</option>
-								<option value="http://www.shareaza.com/schemas/wordProcessing.xsd">Textový soubor</option>
+								<option value="http://schemas.peerproject.org/Application.xsd">Aplikace</option>
+								<option value="http://schemas.peerproject.org/Archive.xsd">Archiv</option>
+								<option value="http://schemas.peerproject.org/Audio.xsd">Zvuk</option>
+								<option value="http://schemas.peerproject.org/Video.xsd">Video</option>
+								<option value="http://schemas.peerproject.org/Image.xsd">Obrázek</option>
+								<option value="http://schemas.peerproject.org/Book.xsd">Kniha</option>
+								<option value="http://schemas.peerproject.org/Document.xsd">Textový soubor</option>
+								<option value="http://schemas.peerproject.org/BitTorrent.xsd">BitTorrent</option>
+								<option value="http://schemas.peerproject.org/Collection.xsd">Sbírka</option>
+								<option value="http://schemas.peerproject.org/ROM.xsd">ROM Image</option>
+								<option value="http://schemas.peerproject.org/Skin.xsd">Skin</option>
+								<option value="http://schemas.peerproject.org/SourceCode.xsd">Zdrojový kód</option>
+								<option value="http://schemas.peerproject.org/Spreadsheet.xsd">Tabulka</option>
+								<option value="http://schemas.peerproject.org/Subtitle.xsd">Titulky</option>
 							</select>
 							<input type="submit" value="Ok" />
 						</div>
@@ -50,7 +50,7 @@
 			</div>
 			<h3>Užitečné odkazy:</h3>
 			<ul>
-				<li><a href="http://www.peerweb.org/" onclick="window.open(this.href); return false;">Peerweb.org</a></li>
+				<li><a href="http://peerproject.org/cs" onclick="window.open(this.href); return false;">PeerProject.org/cs</a></li>
 				<li><a href="http://www.freebase.be/" onclick="window.open(this.href); return false;">Freebase.be</a></li>
 				<li><a href="http://www.legaltorrents.com/" onclick="window.open(this.href); return false;">LegalTorrents.com</a></li>
 				<li><a href="http://content.emule-project.net/" onclick="window.open(this.href); return false;">eMule content DB</a></li>

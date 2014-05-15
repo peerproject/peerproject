@@ -1,7 +1,7 @@
 //
 // DlgCloseMode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -52,7 +52,7 @@ BOOL CCloseModeDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CCloseModeDlg"), IDR_MAINFRAME );
+	SkinMe( L"CCloseModeDlg", IDR_MAINFRAME );
 
 	if ( Settings.General.CloseMode )
 		m_nMode = Settings.General.CloseMode - 1;

@@ -1,7 +1,7 @@
 //
 // CtrlPrivateChatFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -60,7 +60,7 @@ END_MESSAGE_MAP()
 CPrivateChatFrame::CPrivateChatFrame()
 {
 	CRect rc( 0, 0, 0, 0 );
-	Create( NULL, _T("Chat"), WS_CHILD|WS_CLIPCHILDREN, rc, AfxGetMainWnd(), 100 );
+	Create( NULL, L"Chat", WS_CHILD|WS_CLIPCHILDREN, rc, AfxGetMainWnd(), 100 );
 }
 
 CPrivateChatFrame::~CPrivateChatFrame()
@@ -107,7 +107,7 @@ void CPrivateChatFrame::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CChatFrame::OnSkinChange();
-	Skin.CreateToolBar( _T("CPrivateChatFrame"), &m_wndToolBar );
+	Skin.CreateToolBar( L"CPrivateChatFrame", &m_wndToolBar );
 }
 
 void CPrivateChatFrame::OnSize(UINT nType, int cx, int cy)
@@ -145,7 +145,7 @@ void CPrivateChatFrame::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CPrivateChatFrame"), point );
+	Skin.TrackPopupMenu( L"CPrivateChatFrame", point );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -158,26 +158,26 @@ void CPrivateChatFrame::OnProfileReceived()
 	AddTimestamp();
 
 	m_pContent.Add( retText, LoadString( IDS_CHAT_PROFILE_ACCEPTED ), NULL, retfColor )->m_cColor = Colors.m_crChatNull;
-	m_pContent.Add( retLink, m_sNick, _T("command:ID_CHAT_BROWSE") );
+	m_pContent.Add( retLink, m_sNick, L"command:ID_CHAT_BROWSE" );
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();
 
 	CString strCaption;
 	LoadString( strCaption, IDR_CHATFRAME );
-	if ( Settings.General.LanguageRTL ) strCaption = _T("\x200F") + strCaption + _T("\x202E");
-	strCaption += _T(" : ");
-	if ( Settings.General.LanguageRTL ) strCaption += _T("\x202B");
+	if ( Settings.General.LanguageRTL ) strCaption = L"\x200F" + strCaption + L"\x202E";
+	strCaption += L" : ";
+	if ( Settings.General.LanguageRTL ) strCaption += L"\x202B";
 	strCaption += m_sNick;
 	CString strAddress;
-	strAddress.Format( _T(" (%s:%lu)"),
+	strAddress.Format( L" (%s:%lu)",
 		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
 		ntohs( m_pSession->m_pHost.sin_port ) );
-	if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
+	if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
 	strCaption += strAddress;
 	if ( ! m_pSession->m_sUserAgent.IsEmpty() )
 	{
-		if ( Settings.General.LanguageRTL ) strCaption += _T("\x200F");
-		strCaption = strCaption + _T(" - ") + m_pSession->m_sUserAgent;
+		if ( Settings.General.LanguageRTL ) strCaption += L"\x200F";
+		strCaption = strCaption + L" - " + m_pSession->m_sUserAgent;
 	}
 
 	SetWindowText( strCaption );
@@ -198,12 +198,12 @@ void CPrivateChatFrame::OnRemoteMessage(BOOL bAction, LPCTSTR pszText)
 	{
 		CString strTime;
 		if ( nIdle > 86400 )
-			strTime.Format( _T("%u:%.2u:%.2u:%.2u"), nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
+			strTime.Format( L"%u:%.2u:%.2u:%.2u", nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
 		else
-			strTime.Format( _T("%u:%.2u:%.2u"), nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
+			strTime.Format( L"%u:%.2u:%.2u", nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
 
 		CString strMessage;
-		strMessage.Format( LoadString( IDS_CHAT_PRIVATE_AWAY ), _T(""), strTime );
+		strMessage.Format( LoadString( IDS_CHAT_PRIVATE_AWAY ), L"", strTime );
 		m_pSession->SendPrivateMessage( true, strMessage );
 	}
 
@@ -213,7 +213,7 @@ void CPrivateChatFrame::OnRemoteMessage(BOOL bAction, LPCTSTR pszText)
 
 	// Notify chat plugins about new remote message
 	CString strChatID;
-	strChatID.Format( _T("%s:%hu"),
+	strChatID.Format( L"%s:%hu",
 		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
 		ntohs( m_pSession->m_pHost.sin_port ) );
 	Plugins.OnChatMessage( strChatID, FALSE, m_sNick, MyProfile.GetNick(), pszText );
@@ -247,7 +247,7 @@ void CPrivateChatFrame::OnLocalMessage(bool bAction, LPCTSTR pszText)
 
 	// Notify chat plugins about new local message
 	CString strChatID;
-	strChatID.Format( _T("%s:%hu"),
+	strChatID.Format( L"%s:%hu",
 		(LPCTSTR)CString( inet_ntoa( m_pSession->m_pHost.sin_addr ) ),
 		ntohs( m_pSession->m_pHost.sin_port ) );
 	Plugins.OnChatMessage( strChatID, TRUE, MyProfile.GetNick(), m_sNick, pszText );
@@ -258,7 +258,7 @@ void CPrivateChatFrame::OnLocalMessage(bool bAction, LPCTSTR pszText)
 
 void CPrivateChatFrame::OnLocalCommand(LPCTSTR pszCommand, LPCTSTR pszArgs)
 {
-	if ( _tcsicmp( pszCommand, _T("/browse") ) == 0 )
+	if ( _tcsicmp( pszCommand, L"/browse" ) == 0 )
 		PostMessage( WM_COMMAND, ID_CHAT_BROWSE );
 	else
 		CChatFrame::OnLocalCommand( pszCommand, pszArgs );

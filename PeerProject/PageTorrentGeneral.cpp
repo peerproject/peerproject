@@ -1,7 +1,7 @@
 //
 // PageTorrentGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -83,19 +83,19 @@ BOOL CTorrentGeneralPage::OnInitDialog()
 	if ( oInfo.m_tCreationDate > 0 )
 	{
 		CTime pTime( (time_t)oInfo.m_tCreationDate );
-		m_sCreationDate = pTime.Format( _T("%Y-%m-%d  %H:%M") );
+		m_sCreationDate = pTime.Format( L"%Y-%m-%d  %H:%M" );
 	}
 
 	// Assembler 'other' string
 	if ( oInfo.m_bPrivate )
 	{
 		m_sTorrentOther += LoadString( IDS_BT_PRIVATE );
-		m_sTorrentOther += _T(", ");
+		m_sTorrentOther += L", ";
 	}
 	if ( oInfo.HasEncodingError() )
 	{
 		m_sTorrentOther += LoadString( IDS_BT_ENCODING );
-		m_sTorrentOther += _T(", ");
+		m_sTorrentOther += L", ";
 	}
 
 	// Cut off last comma
@@ -104,7 +104,7 @@ BOOL CTorrentGeneralPage::OnInitDialog()
 
 	m_wndStartDownloads.SetCurSel( oInfo.m_nStartDownloads );
 
-	m_sUploadTotal.Format( _T(" %s"),
+	m_sUploadTotal.Format( L" %s",
 		(LPCTSTR)Settings.SmartVolume( oInfo.m_nTotalUpload ) );
 
 	UpdateData( FALSE );

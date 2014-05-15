@@ -1,7 +1,7 @@
 //
 // PageSettingsBitTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -49,9 +49,6 @@ CBitTorrentSettingsPage::CBitTorrentSettingsPage()
 	, m_nClearPercentage ( 0 )
 	, m_nDownloads		( 0 )
 	, m_nLinks			( 0 )
-//	, m_sTracker		( _T("") )
-//	, m_sTorrentPath	( _T("") )
-//	, m_sMakerPath		( _T("") )
 {
 }
 
@@ -138,7 +135,7 @@ void CBitTorrentSettingsPage::OnTorrentsAutoClear()
 
 void CBitTorrentSettingsPage::OnTorrentsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for torrents:"),
+	CString strPath( BrowseForFolder( L"Select folder for torrents:",
 		m_sTorrentPath ) );
 	if ( strPath.IsEmpty() )
 		return;
@@ -150,8 +147,8 @@ void CBitTorrentSettingsPage::OnTorrentsBrowse()
 
 void CBitTorrentSettingsPage::OnMakerBrowse()
 {
-	CFileDialog dlg( TRUE, _T("exe"), _T("TorrentWizard.exe"), OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
-		_T("Executable Files|*.exe|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( TRUE, L"exe", L"TorrentWizard.exe", OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
+		L"Executable Files|*.exe|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -192,8 +189,8 @@ void CBitTorrentSettingsPage::OnOK()
 	Settings.Downloads.TorrentPath			= m_sTorrentPath;
 	Settings.BitTorrent.TorrentCreatorPath	= m_sMakerPath;
 
-	if ( ! StartsWith( Settings.BitTorrent.DefaultTracker, _PT("http://") ) &&
-		 ! StartsWith( Settings.BitTorrent.DefaultTracker, _PT("udp://") ) )
+	if ( ! StartsWith( Settings.BitTorrent.DefaultTracker, _P( L"http://" ) ) &&
+		 ! StartsWith( Settings.BitTorrent.DefaultTracker, _P( L"udp://" ) ) )
 		Settings.SetDefault( &Settings.BitTorrent.DefaultTracker );
 
 	CSettingsPage::OnOK();

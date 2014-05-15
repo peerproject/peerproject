@@ -192,7 +192,7 @@ void CSettingsPage::OnSkinChange()
 //	{
 //		TCHAR szName[8];
 //		GetClassName( pWnd->GetSafeHwnd(), szName, 8 );			// Alt detection method for exceptions
-//		if ( _tcsnicmp( szName, _PT("Button") ) == 0 &&
+//		if ( _tcsnicmp( szName, _P( L"Button" ) ) == 0 &&
 //			 ( pWnd->GetStyle() & BS_CHECKBOX ) || ( ( pWnd->GetStyle() & BS_GROUPBOX ) && pWnd->GetDlgCtrlID() == IDC_STATIC ) )
 //			CCoolInterface::EnableTheme( pWnd, bThemed );
 //	}
@@ -293,7 +293,7 @@ HBRUSH CSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 		//TCHAR szName[24];
 		//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );			// Alt detection method for exceptions
-		//if ( _tcsistr( szName, _T("Static") ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+		//if ( _tcsistr( szName, L"Static" ) )					// "Static" "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
 
 		// Offset background image brush to mimic transparency
 		CRect rc;
@@ -371,5 +371,5 @@ void CEditPath::OnLButtonDblClk(UINT nFlags, CPoint point)
 	if ( PathIsDirectory( strPath ) )
 		ShellExecute( GetSafeHwnd(), NULL, strPath, NULL, NULL, SW_SHOWDEFAULT );
 	else if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
-		ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
+		ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
 }

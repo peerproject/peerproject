@@ -1,7 +1,7 @@
 //
 // SchemaChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -49,14 +49,14 @@ CSchemaChild::~CSchemaChild()
 
 BOOL CSchemaChild::Load(CXMLElement* pXML)
 {
-	m_sURI = pXML->GetAttributeValue( _T("location") );
+	m_sURI = pXML->GetAttributeValue( L"location" );
 	if ( m_sURI.IsEmpty() ) return FALSE;
 
-	CString strType = pXML->GetAttributeValue( _T("type") );
+	CString strType = pXML->GetAttributeValue( L"type" );
 
-	if ( strType == _T("folder") )
+	if ( strType == L"folder" )
 		m_nType = CSchema::stFolder;
-	else if ( strType == _T("file") )
+	else if ( strType == L"file" )
 		m_nType = CSchema::stFile;
 	else
 		return FALSE;
@@ -65,8 +65,8 @@ BOOL CSchemaChild::Load(CXMLElement* pXML)
 	{
 		CXMLElement* pElement = pXML->GetNextElement( pos );
 
-		if ( pElement->IsNamed( _T("identity") ) ||
-			 pElement->IsNamed( _T("shared") ) )
+		if ( pElement->IsNamed( L"identity" ) ||
+			 pElement->IsNamed( L"shared" ) )
 		{
 			CSchemaChildMap* pMap = new CSchemaChildMap();
 
@@ -142,6 +142,7 @@ BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bT
 	return bChanged;
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // CSchemaChildMap construction
 
@@ -158,17 +159,18 @@ CSchemaChildMap::~CSchemaChildMap()
 
 BOOL CSchemaChildMap::Load(CXMLElement* pXML)
 {
-	if ( pXML->IsNamed( _T("identity") ) )
+	if ( pXML->IsNamed( L"identity" ) )
 		m_bIdentity = TRUE;
-	else if ( pXML->IsNamed( _T("shared") ) )
+	else if ( pXML->IsNamed( L"shared" ) )
 		m_bIdentity = FALSE;
 	else
 		return FALSE;
 
-	m_sLocal	= pXML->GetAttributeValue( _T("local") );
-	m_sRemote	= pXML->GetAttributeValue( _T("remote") );
+	m_sLocal  = pXML->GetAttributeValue( L"local" );
+	m_sRemote = pXML->GetAttributeValue( L"remote" );
 
-	if ( m_sLocal.IsEmpty() || m_sRemote.IsEmpty() ) return FALSE;
+	if ( m_sLocal.IsEmpty() || m_sRemote.IsEmpty() )
+		return FALSE;
 
 	return TRUE;
 }

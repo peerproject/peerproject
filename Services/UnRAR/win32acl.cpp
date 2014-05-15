@@ -3,6 +3,7 @@ static void SetACLPrivileges();
 static bool ReadSacl=false;
 
 
+
 #ifndef SFX_MODULE
 void ExtractACL20(Archive &Arc,const wchar *FileName)
 {
@@ -10,14 +11,14 @@ void ExtractACL20(Archive &Arc,const wchar *FileName)
 
   if (Arc.BrokenHeader)
   {
-    Log(Arc.FileName,St(MACLBroken),FileName);
+    uiMsg(UIERROR_ACLBROKEN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_CRC);
     return;
   }
 
   if (Arc.EAHead.Method<0x31 || Arc.EAHead.Method>0x35 || Arc.EAHead.UnpVer>VER_PACK)
   {
-    Log(Arc.FileName,St(MACLUnknown),FileName);
+    uiMsg(UIERROR_ACLUNKNOWN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_WARNING);
     return;
   }
@@ -37,7 +38,7 @@ void ExtractACL20(Archive &Arc,const wchar *FileName)
 
   if (Arc.EAHead.EACRC!=DataIO.UnpHash.GetCRC32())
   {
-    Log(Arc.FileName,St(MACLBroken),FileName);
+    uiMsg(UIERROR_ACLBROKEN,Arc.FileName,FileName);
     ErrHandler.SetErrorCode(RARX_CRC);
     return;
   }
@@ -52,7 +53,7 @@ void ExtractACL20(Archive &Arc,const wchar *FileName)
 
   if (!SetCode)
   {
-    Log(Arc.FileName,St(MACLSetError),FileName);
+    uiMsg(UIERROR_ACLSET,Arc.FileName,FileName);
     ErrHandler.SysErrMsg();
     ErrHandler.SetErrorCode(RARX_WARNING);
   }
@@ -68,8 +69,7 @@ void ExtractACL(Archive &Arc,const wchar *FileName)
 
   SetACLPrivileges();
 
-  SECURITY_INFORMATION si=OWNER_SECURITY_INFORMATION|GROUP_SECURITY_INFORMATION|
-                          DACL_SECURITY_INFORMATION;
+  SECURITY_INFORMATION si=OWNER_SECURITY_INFORMATION|GROUP_SECURITY_INFORMATION|DACL_SECURITY_INFORMATION;
   if (ReadSacl)
     si|=SACL_SECURITY_INFORMATION;
   SECURITY_DESCRIPTOR *sd=(SECURITY_DESCRIPTOR *)&SubData[0];
@@ -84,7 +84,7 @@ void ExtractACL(Archive &Arc,const wchar *FileName)
 
   if (!SetCode)
   {
-    Log(Arc.FileName,St(MACLSetError),FileName);
+    uiMsg(UIERROR_ACLSET,Arc.FileName,FileName);
     ErrHandler.SysErrMsg();
     ErrHandler.SetErrorCode(RARX_WARNING);
   }

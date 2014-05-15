@@ -94,7 +94,7 @@ CCoolBarCtrl::~CCoolBarCtrl()
 BOOL CCoolBarCtrl::Create(CWnd* pParentWnd, DWORD dwStyle, UINT nID)
 {
 	CRect rc( 0, 0, 0, 0 );
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CCoolBarCtrl"),
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CCoolBarCtrl",
 		dwStyle | WS_CHILD, rc, pParentWnd, nID, NULL );
 }
 
@@ -531,7 +531,7 @@ INT_PTR CCoolBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 					Skin.GetTextFlowChange( strTip, &bRTL );
 					if ( bRTL ) strTip.MakeReverse();
 				}
-				strTip = strTip.SpanExcluding( _T(".\x2026") );
+				strTip = strTip.SpanExcluding( L".\x2026" );
 				if ( bRTL ) strTip.MakeReverse();
 				pTI->lpszText = _tcsdup( strTip );
 			}

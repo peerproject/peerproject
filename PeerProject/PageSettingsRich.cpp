@@ -1,7 +1,7 @@
 //
 // PageSettingsRich.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -49,7 +49,7 @@ CRichSettingsPage::CRichSettingsPage(LPCTSTR pszName)
 {
 	// Early caption load for settings tree items
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )
-		m_sCaption = pXML->GetAttributeValue( _T("title"), m_sName );
+		m_sCaption = pXML->GetAttributeValue( L"title", m_sName );
 }
 
 CRichSettingsPage::~CRichSettingsPage()
@@ -86,7 +86,7 @@ void CRichSettingsPage::OnSkinChange()
 	// (Re)Load document
 	if ( CXMLElement* pXML = Skin.GetDocument( m_sName ) )
 	{
-		m_sCaption = pXML->GetAttributeValue( _T("title"), m_sName );
+		m_sCaption = pXML->GetAttributeValue( L"title", m_sName );
 		SetWindowText( m_sCaption );
 
 		delete m_pDocument;
@@ -102,7 +102,7 @@ void CRichSettingsPage::OnClickView(NMHDR* pNotify, LRESULT* /*pResult*/)
 	CRichElement* pElement = ( (RVN_ELEMENTEVENT*)pNotify )->pElement;
 	if ( ! pElement ) return;
 
-	if ( _tcsncmp( pElement->m_sLink, _T("page:"), 5 ) == 0 )
+	if ( _tcsncmp( pElement->m_sLink, L"page:", 5 ) == 0 )
 	{
 		CString strPage = pElement->m_sLink.Mid( 5 );
 		GetSheet()->SetActivePage( GetSheet()->GetPage( strPage ) );

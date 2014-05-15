@@ -1,7 +1,7 @@
 //
 // DlgDiscoveryService.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -65,7 +65,7 @@ BOOL CDiscoveryServiceDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDiscoveryServiceDlg"), IDR_DISCOVERYFRAME );
+	SkinMe( L"CDiscoveryServiceDlg", IDR_DISCOVERYFRAME );
 
 	CSingleLock pLock( &Network.m_pSection, TRUE );
 
@@ -105,7 +105,7 @@ void CDiscoveryServiceDlg::OnChangeAddress()
 	UpdateData();
 
 	m_wndOK.EnableWindow( m_nType ?
-		_tcsncmp( m_sAddress, _T("http://"), 7 ) == 0 :
+		_tcsncmp( m_sAddress, L"http://", 7 ) == 0 :
 		_tcschr( m_sAddress, '.' ) != NULL );
 }
 
@@ -151,7 +151,7 @@ void CDiscoveryServiceDlg::OnOK()
 	case 4:
 		m_pService->m_nType = CDiscoveryService::dsServerList;
 		m_pService->m_nProtocolID =
-			( m_sAddress.Find( _T("hublist"), 6 ) > 6 || m_sAddress.Find( _T(".xml.bz2"), 8 ) > 8 ) ?
+			( m_sAddress.Find( L"hublist", 6 ) > 6 || m_sAddress.Find( L".xml.bz2", 8 ) > 8 ) ?
 			PROTOCOL_DC : PROTOCOL_ED2K;
 		break;
 	default:
@@ -161,30 +161,30 @@ void CDiscoveryServiceDlg::OnOK()
 
 	if ( m_pService->m_nType == CDiscoveryService::dsGnutella )
 	{
-		if ( StartsWith( m_sAddress, _PT("gnutella2:host:") ) ||
-			 StartsWith( m_sAddress, _PT("g2:host:") ) )
+		if ( StartsWith( m_sAddress, _P( L"gnutella2:host:" ) ) ||
+			 StartsWith( m_sAddress, _P( L"g2:host:" ) ) )
 		{
 			m_pService->m_bGnutella2	= TRUE;
 			m_pService->m_bGnutella1	= FALSE;
 			m_pService->m_nProtocolID	= PROTOCOL_G2;
 			m_pService->m_nSubType		= CDiscoveryService::dsGnutella2TCP;
 		}
-		else if ( StartsWith( m_sAddress, _PT("gnutella1:host:") ) ||
-			 StartsWith( m_sAddress, _PT("gnutella:host:") ) )
+		else if ( StartsWith( m_sAddress, _P( L"gnutella1:host:" ) ) ||
+			 StartsWith( m_sAddress, _P( L"gnutella:host:" ) ) )
 		{
 			m_pService->m_bGnutella2	= FALSE;
 			m_pService->m_bGnutella1	= TRUE;
 			m_pService->m_nProtocolID	= PROTOCOL_G1;
 			m_pService->m_nSubType		= CDiscoveryService::dsGnutellaTCP;
 		}
-		else if ( StartsWith( m_sAddress, _PT("uhc:") ) )
+		else if ( StartsWith( m_sAddress, _P( L"uhc:" ) ) )
 		{
 			m_pService->m_bGnutella2	= FALSE;
 			m_pService->m_bGnutella1	= TRUE;
 			m_pService->m_nProtocolID	= PROTOCOL_G1;
 			m_pService->m_nSubType		= CDiscoveryService::dsGnutellaUDPHC;
 		}
-		else if ( StartsWith( m_sAddress, _PT("ukhl:") ) )
+		else if ( StartsWith( m_sAddress, _P( L"ukhl:" ) ) )
 		{
 			m_pService->m_bGnutella2	= TRUE;
 			m_pService->m_bGnutella1	= FALSE;

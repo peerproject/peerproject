@@ -63,7 +63,12 @@ public:
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual DWORD   GetUserCount() const { return m_nUserCount; }
 	virtual DWORD   GetUserLimit() const { return m_nUserLimit; }
+
+	virtual BOOL	ProcessPackets(CBuffer* pInput);	// Process packets from input buffer
+
 protected:
+	virtual BOOL	ProcessPackets();					// Process packets from internal input buffer
+
 	virtual BOOL	SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal);
 	virtual BOOL	OnRun();
 	virtual BOOL	OnRead();

@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -22,9 +22,9 @@ class CLibraryList;
 class CLibraryTreeItem;
 class CAlbumFolder;
 
-#define CF_PEERPROJECT			_T("InPeerProjectDragLoop")
-#define CF_PEERPROJECT_ALBUMS	_T("PeerProjectAlbums")
-#define CF_PEERPROJECT_FILES	_T("PeerProjectFiles")
+#define CF_PEERPROJECT			L"InPeerProjectDragLoop"
+#define CF_PEERPROJECT_ALBUMS	L"PeerProjectAlbums"
+#define CF_PEERPROJECT_FILES	L"PeerProjectFiles"
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectDataSource

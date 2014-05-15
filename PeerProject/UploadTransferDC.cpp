@@ -40,9 +40,9 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-#define FILE_NOT_AVAILABLE	_T("$Error File Not Available|")
-#define UPLOAD_BUSY			_T("$MaxedOut|")
-#define UPLOAD_QUEUE		_T("$MaxedOut %i|")
+#define FILE_NOT_AVAILABLE	L"$Error File Not Available|"
+#define UPLOAD_BUSY			L"$MaxedOut|"
+#define UPLOAD_QUEUE		L"$MaxedOut %i|"
 
 
 CUploadTransferDC::CUploadTransferDC(CDCClient* pClient)
@@ -332,7 +332,7 @@ BOOL CUploadTransferDC::OnUpload(const std::string& strType, const std::string& 
 	else
 	{
 		// Invalid request type
-		theApp.Message( MSG_ERROR, _T("DC++ Invalid request type from %s"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_ERROR, L"DC++ Invalid request type from %s", (LPCTSTR)m_sAddress );
 		return FALSE;
 	}
 
@@ -480,7 +480,7 @@ BOOL CUploadTransferDC::SendFile()
 	else
 	{
 		CString strAnswer;
-		strAnswer.Format( _T("$ADCSND file TTH/%s %I64u %I64u|"), m_oTiger.toString(), m_nOffset, m_nLength );
+		strAnswer.Format( L"$ADCSND file TTH/%s %I64u %I64u|", m_oTiger.toString(), m_nOffset, m_nLength );
 
 		m_pClient->SendCommand( strAnswer );
 	}
@@ -533,7 +533,7 @@ BOOL CUploadTransferDC::RequestTigerTree(CLibraryFile* pFile, QWORD nOffset, QWO
 	}
 
 	CString strAnswer;
-	strAnswer.Format( _T("$ADCSND tthl TTH/%s %I64u %I64u|"),
+	strAnswer.Format( L"$ADCSND tthl TTH/%s %I64u %I64u|",
 		m_oTiger.toString(), nOffset, nLength );
 
 	m_pClient->SendCommand( strAnswer );
@@ -596,7 +596,7 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 	if ( m_bGet )
 	{
 		CString strAnswer;
-		strAnswer.Format( _T("$FileLength %I64u|"), nLength );
+		strAnswer.Format( L"$FileLength %I64u|", nLength );
 
 		m_pClient->SendCommand( strAnswer );
 
@@ -604,9 +604,9 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 	}
 
 	CString strAnswer;
-	strAnswer.Format( _T("$ADCSND %hs %hs %I64u %I64u%hs|"),
+	strAnswer.Format( L"$ADCSND %hs %hs %I64u %I64u%hs|",
 		( bFile ? "file" : "list" ), strFilename.c_str(),
-		nOffset, nLength, ( bZip ? " ZL1" : "") );
+		nOffset, nLength, ( bZip ? " ZL1" : "" ) );
 
 	m_pClient->SendCommand( strAnswer );
 
@@ -625,12 +625,12 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 //	CSingleLock oLock( &Library.m_pSection, TRUE );
 //
 //	CString strFileListing;
-//	strFileListing.Format( _T("<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\r\n")
-//		_T("<FileListing Version=\"1\" Base=\"%s\" Generator=\"%s\">\r\n"),
+//	strFileListing.Format( L"<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>\r\n"
+//		L"<FileListing Version=\"1\" Base=\"%s\" Generator=\"%s\">\r\n",
 //		Escape( strRoot ), Escape( theApp.m_sSmartAgent ) );
 //	pXML.Print( strFileListing, CP_UTF8 );
 //
-//	if ( strRoot == _T("/") )	// All folders
+//	if ( strRoot == L"/" )	// All folders
 //	{
 //		for ( POSITION pos = LibraryFolders.GetFolderIterator() ; pos ; )
 //			FolderToFileList( LibraryFolders.GetNextFolder( pos ), pXML );
@@ -649,7 +649,7 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 //		return;
 //
 //	CString strFolder;
-//	strFolder.Format( _T("<Directory Name=\"%s\">\r\n"),
+//	strFolder.Format( L"<Directory Name=\"%s\">\r\n",
 //		Escape( pFolder->m_sName ) );
 //	pXML.Print( strFolder, CP_UTF8 );
 //
@@ -668,7 +668,7 @@ BOOL CUploadTransferDC::RequestFileList(BOOL bFile, BOOL bZip, const std::string
 //		return;
 //
 //	CString strFile;
-//	strFile.Format( _T("<File Name=\"%s\" Size=\"%I64u\" TTH=\"%s\"/>\r\n"),
+//	strFile.Format( L"<File Name=\"%s\" Size=\"%I64u\" TTH=\"%s\"/>\r\n",
 //		Escape( pFile->m_sName ), pFile->m_nSize, pFile->m_oTiger.toString() );
 //	pXML.Print( strFile, CP_UTF8 );
 //}

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <schema targetNamespace="http://schemas.peerproject.org/PeerTags.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="PeerTags">
@@ -7,7 +6,6 @@
 			<element name="PeerTag" type="peertagType" minOccurs="0" maxOccurs="unbounded"/>
 		</complexType>
 	</element>
-
 	<complexType name="peertagType">
 		<all>
 			<attribute name="peertag" type="boolean"/>

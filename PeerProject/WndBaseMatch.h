@@ -97,8 +97,8 @@ protected:
 	afx_msg void OnUpdateSearchFilterRemove(CCmdUI* pCmdUI);
 	afx_msg void OnSearchFilterRemove();
 	afx_msg void OnSearchColumns();
-	afx_msg void OnUpdateLibraryBitprintWeb(CCmdUI* pCmdUI);
-	afx_msg void OnLibraryBitprintWeb();
+	afx_msg void OnUpdateLibraryBitprintsWeb(CCmdUI* pCmdUI);
+	afx_msg void OnLibraryBitprintsWeb();
 	afx_msg void OnUpdateSecurityBan(CCmdUI* pCmdUI);
 	afx_msg void OnSecurityBan();
 	afx_msg void OnUpdateHitMonitorSearch(CCmdUI* pCmdUI);

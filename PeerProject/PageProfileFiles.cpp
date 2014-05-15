@@ -1,7 +1,7 @@
 //
 // PageProfileFiles.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -53,7 +53,7 @@ CFilesProfilePage::~CFilesProfilePage()
 void CFilesProfilePage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
-	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
+	DDX_Control( pDX, IDC_FILE_LIST, m_wndList );
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -66,13 +66,13 @@ BOOL CFilesProfilePage::OnInitDialog()
 	CRect rc;
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
-	m_wndList.InsertColumn( 0, _T("File"), LVCFMT_LEFT, rc.right, -1 );
+	m_wndList.InsertColumn( 0, L"File", LVCFMT_LEFT, rc.right, -1 );
 	ShellIcons.AttachTo( &m_wndList, 16 );	// m_wndList.SetImageList()
 
 	{
 		CQuickLock oLock( Library.m_pSection );
 
-		CAlbumFolder* pFolder = LibraryFolders.GetAlbumTarget( CSchema::uriFavouritesFolder, _T("Title"), NULL );
+		CAlbumFolder* pFolder = LibraryFolders.GetAlbumTarget( CSchema::uriFavoritesFolder, L"Title", NULL );
 		if ( pFolder != NULL )
 		{
 			for ( POSITION pos = pFolder->GetFileIterator() ; pos ; )
@@ -80,10 +80,8 @@ BOOL CFilesProfilePage::OnInitDialog()
 				CLibraryFile* pFile = pFolder->GetNextFile( pos );
 
 				if ( pFile->IsShared() )
-				{
 					m_wndList.InsertItem( LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM, m_wndList.GetItemCount(),
 						pFile->m_sName, 0, 0, ShellIcons.Get( pFile->GetPath(), 16 ), pFile->m_nIndex );
-				}
 			}
 		}
 	}

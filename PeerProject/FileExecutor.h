@@ -29,7 +29,7 @@ public:
 	static BOOL		Execute(const CStringList& pList);
 	static BOOL		Enqueue(LPCTSTR pszFiles, LPCTSTR pszExt = NULL);
 	static BOOL		Enqueue(const CStringList& pList);
-//	static BOOL		ShowBitprintTicket(DWORD nFile);	// Moved to WebServices
+//	static BOOL		ShowBitprintsTicket(DWORD nFile);	// Moved to WebServices
 //	static BOOL		DisplayURL(LPCTSTR pszURL);
 
 protected:

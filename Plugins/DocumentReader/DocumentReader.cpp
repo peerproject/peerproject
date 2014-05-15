@@ -20,7 +20,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Resource.h"
 #include "DocumentReader.h"
 
@@ -31,8 +31,7 @@ HINSTANCE         v_hModule;				// DLL module handle
 ULONG             v_cLocks;					// Count of server locks
 CRITICAL_SECTION  v_csSynch;				// Critical Section
 HANDLE            v_hPrivateHeap;			// Private Heap for Component
-BOOL              v_fRunningOnNT;			// Flag set when on Unicode OS (Always true)
-PFN_STGOPENSTGEX  v_pfnStgOpenStorageEx;	// StgOpenStorageEx (Win2K/XP only)
+PFN_STGOPENSTGEX  v_pfnStgOpenStorageEx;	// StgOpenStorageEx
 
 class CDocumentReaderModule : public CAtlDllModuleT< CDocumentReaderModule >
 {
@@ -49,10 +48,10 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
-		v_hModule = hInstance; v_cLocks = 0;
-		v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
-		v_fRunningOnNT = TRUE;	// ( ( GetVersion() & 0x80000000 ) != 0x80000000 ); 	// Windows9X is unsupported
-		v_pfnStgOpenStorageEx = ( (PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( _T("OLE32") ), "StgOpenStorageEx" ) );
+		v_cLocks = 0;
+		v_hModule = hInstance;
+		v_hPrivateHeap = HeapCreate( 0, 0x1000, 0 );
+		v_pfnStgOpenStorageEx = (PFN_STGOPENSTGEX)GetProcAddress( GetModuleHandle( L"OLE32" ), "StgOpenStorageEx" );
 		InitializeCriticalSection( &v_csSynch );
 		DisableThreadLibraryCalls( hInstance );
 		break;
@@ -76,19 +75,19 @@ STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 	return _AtlModule.DllGetClassObject( rclsid, riid, ppv );
 }
 
-// Add entries to the system registry
+// Add entries to system registry
 STDAPI DllRegisterServer(void)
 {
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't register...
-	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule ) )
 		return E_UNEXPECTED;
 
 	return _AtlModule.DllRegisterServer();
 }
 
-// Remove entries from the system registry
+// Remove entries from system registry
 STDAPI DllUnregisterServer(void)
 {
 	LPWSTR  pwszModule;
@@ -102,22 +101,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }

@@ -180,8 +180,8 @@ BOOL CImageWindow::Refresh()
 	// Create a caption showing only the filename part of the path, plus " : Image Viewer" (Obsolete)
 	//LPCTSTR pszName = _tcsrchr( m_sFile, '\\' );
 	//CComBSTR bsFile( pszName ? pszName + 1 : m_sFile );
-	//bsFile.Append( _T(" : Image Viewer") );
-	SetWindowText( (CString)PathFindFileName( m_sFile ) + _T(" Viewer") );
+	//bsFile.Append( L" : Image Viewer" );
+	SetWindowText( (CString)PathFindFileName( m_sFile ) + L" Viewer" );
 
 	// If this is the first load, resize the window
 	ResizeWindow();
@@ -438,11 +438,11 @@ LRESULT CImageWindow::OnPaint(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*
 	{
 		// If there is no image, we couldn't load it.  Display an error message instead.
 
-		CString strText = _T("Unable to load: ") + m_sFile;;
+		CString strText = L"Unable to load: " + m_sFile;;
 		ExtTextOut( hDC, 6, 6, ETO_OPAQUE, &rcClient, strText, strText.GetLength(), NULL );
 		rcClient.top += 24;
 		ExtTextOut( hDC, 6, 30, ETO_OPAQUE, &rcClient,
-			_T("Hold Shift key to open in default application."), 50, NULL );
+			L"Hold Shift key to open in default application.", 50, NULL );
 	}
 
 	// Finish painting
@@ -797,7 +797,7 @@ void CImageWindow::OnNext()
 	CString sSearchDir = m_sFile.Left( (int)( szFileName - szFile ) );
 
 	WIN32_FIND_DATA wfd = {};
-	HANDLE hFind = FindFirstFile( sSearchDir + _T("*.*"), &wfd );
+	HANDLE hFind = FindFirstFile( sSearchDir + L"*.*", &wfd );
 	if ( hFind != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -834,7 +834,7 @@ void CImageWindow::OnPrevious()
 	CString sSearchDir = m_sFile.Left( (int)( szFileName - szFile ) );
 
 	WIN32_FIND_DATA wfd = {};
-	HANDLE hFind = FindFirstFile( sSearchDir + _T("*.*"), &wfd );
+	HANDLE hFind = FindFirstFile( sSearchDir + L"*.*", &wfd );
 	if ( hFind != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -873,7 +873,7 @@ void CImageWindow::OnFirst()
 	CString sSearchDir = m_sFile.Left( (int)( szFileName - szFile ) );
 
 	WIN32_FIND_DATA wfd = {};
-	HANDLE hFind = FindFirstFile( sSearchDir + _T("*.*"), &wfd );
+	HANDLE hFind = FindFirstFile( sSearchDir + L"*.*", &wfd );
 	if ( hFind != INVALID_HANDLE_VALUE )
 	{
 		do
@@ -904,7 +904,7 @@ void CImageWindow::OnLast()
 	CString sSearchDir = m_sFile.Left( (int)( szFileName - szFile ) );
 
 	WIN32_FIND_DATA wfd = {};
-	HANDLE hFind = FindFirstFile( sSearchDir + _T("*.*"), &wfd );
+	HANDLE hFind = FindFirstFile( sSearchDir + L"*.*", &wfd );
 	if ( hFind != INVALID_HANDLE_VALUE )
 	{
 		do

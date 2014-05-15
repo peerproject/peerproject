@@ -2,7 +2,7 @@
 // Class.cpp : Implementation of CClass
 //
 // #COPYRIGHT#
-// This file is part of PeerProject (peerproject.org) © 2008
+// This file is part of PeerProject (peerproject.org) © 2010
 //
 // PeerProject is free software; you can redistribute it and/or
 // modify it under the terms of the GNU General Public License

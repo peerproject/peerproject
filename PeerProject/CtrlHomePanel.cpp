@@ -98,17 +98,17 @@ CHomePanel::CHomePanel()
 BOOL CHomePanel::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, Settings.Skin.SidebarWidth, 0 );
-	return CTaskPanel::Create( _T("CHomePanel"), WS_VISIBLE, rect, pParentWnd, IDC_HOME_PANEL );
+	return CTaskPanel::Create( L"CHomePanel", WS_VISIBLE, rect, pParentWnd, IDC_HOME_PANEL );
 }
 
 int CHomePanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CTaskPanel::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	m_boxConnection.Create( this, _T("Connection"), IDR_NEIGHBOURSFRAME );
-	m_boxLibrary.Create( this, _T("Library"), IDR_LIBRARYFRAME );
-	m_boxDownloads.Create( this, _T("Downloads"), IDR_DOWNLOADSFRAME );
-	m_boxUploads.Create( this, _T("Uploads"), IDR_UPLOADSFRAME );
+	m_boxConnection.Create( this, L"Connection", IDR_NEIGHBOURSFRAME );
+	m_boxLibrary.Create( this, L"Library", IDR_LIBRARYFRAME );
+	m_boxDownloads.Create( this, L"Downloads", IDR_DOWNLOADSFRAME );
+	m_boxUploads.Create( this, L"Uploads", IDR_UPLOADSFRAME );
 
 	AddBox( &m_boxConnection );
 	AddBox( &m_boxLibrary );
@@ -121,8 +121,8 @@ int CHomePanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CHomePanel::OnSkinChange()
 {
-	SetWatermark( _T("CHomePanel") );
-	SetFooter( _T("CHomePanel.Footer") );
+	SetWatermark( L"CHomePanel" );
+	SetFooter( L"CHomePanel.Footer" );
 
 	m_boxConnection.OnSkinChange();
 	m_boxLibrary.OnSkinChange();
@@ -182,12 +182,12 @@ void CHomeConnectionBox::OnSkinChange()
 		}
 	}
 
-	SetCaptionmark( _T("CHomeConnectionBox.Caption") );
+	SetCaptionmark( L"CHomeConnectionBox.Caption" );
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CHomeConnectionBox") );
+	CXMLElement* pXML = Skin.GetDocument( L"CHomeConnectionBox" );
 	if ( pXML == NULL ) return;
 
-	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Connection") ) );
+	SetCaption( pXML->GetAttributeValue( L"title", L"Connection" ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_NEIGHBOURSFRAME, Settings.General.LanguageRTL );
 	if ( hIcon ) SetIcon( hIcon );
 
@@ -196,20 +196,20 @@ void CHomeConnectionBox::OnSkinChange()
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 	if ( ! m_pDocument->LoadXML( pXML, &pMap ) ) return;
 
-	pMap.Lookup( _T("ConnectedHours"), m_pdConnectedHours );
-	pMap.Lookup( _T("ConnectedMinutes"), m_pdConnectedMinutes );
+	pMap.Lookup( L"ConnectedHours", m_pdConnectedHours );
+	pMap.Lookup( L"ConnectedMinutes", m_pdConnectedMinutes );
 
-	pMap.Lookup( _T("G1Peers"), m_pdCount[PROTOCOL_G1][ntNode] );
-	pMap.Lookup( _T("G1Hubs"), m_pdCount[PROTOCOL_G1][ntHub] );
-	pMap.Lookup( _T("G1Leaves"), m_pdCount[PROTOCOL_G1][ntLeaf] );
+	pMap.Lookup( L"G1Peers", m_pdCount[PROTOCOL_G1][ntNode] );
+	pMap.Lookup( L"G1Hubs", m_pdCount[PROTOCOL_G1][ntHub] );
+	pMap.Lookup( L"G1Leaves", m_pdCount[PROTOCOL_G1][ntLeaf] );
 
-	pMap.Lookup( _T("G2Peers"), m_pdCount[PROTOCOL_G2][ntNode] );
-	pMap.Lookup( _T("G2Hubs"), m_pdCount[PROTOCOL_G2][ntHub] );
-	pMap.Lookup( _T("G2Leaves"), m_pdCount[PROTOCOL_G2][ntLeaf] );
+	pMap.Lookup( L"G2Peers", m_pdCount[PROTOCOL_G2][ntNode] );
+	pMap.Lookup( L"G2Hubs", m_pdCount[PROTOCOL_G2][ntHub] );
+	pMap.Lookup( L"G2Leaves", m_pdCount[PROTOCOL_G2][ntLeaf] );
 
-	pMap.Lookup( _T("EDServers"), m_pdCount[PROTOCOL_ED2K][ntHub] );
+	pMap.Lookup( L"EDServers", m_pdCount[PROTOCOL_ED2K][ntHub] );
 
-	pMap.Lookup( _T("DCHubs"), m_pdCount[PROTOCOL_DC][ntHub] );
+	pMap.Lookup( L"DCHubs", m_pdCount[PROTOCOL_DC][ntHub] );
 
 	for ( PROTOCOLID nP = PROTOCOL_NULL ; nP < PROTOCOL_LAST ; ++nP )
 	{
@@ -354,12 +354,12 @@ void CHomeConnectionBox::Update()
 
 	if ( m_pdConnectedHours )
 	{
-		str.Format( _T("%I64u "), Statistics.Today.Timer.Connected / ( 60 * 60 ) );
+		str.Format( L"%I64u ", Statistics.Today.Timer.Connected / ( 60 * 60 ) );
 		m_pdConnectedHours->SetText( str );
 	}
 	if ( m_pdConnectedMinutes )
 	{
-		str.Format( _T("%I64u "), ( Statistics.Today.Timer.Connected / 60 ) % 60 );
+		str.Format( L"%I64u ", ( Statistics.Today.Timer.Connected / 60 ) % 60 );
 		m_pdConnectedMinutes->SetText( str );
 	}
 
@@ -415,12 +415,12 @@ void CHomeLibraryBox::OnSkinChange()
 	m_pDocument = NULL;
 	m_pdLibraryFiles = m_pdLibraryVolume = m_pdLibraryHashRemaining = NULL;
 
-	SetCaptionmark( _T("CHomeLibraryBox.Caption") );
+	SetCaptionmark( L"CHomeLibraryBox.Caption" );
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CHomeLibraryBox") );
+	CXMLElement* pXML = Skin.GetDocument( L"CHomeLibraryBox" );
 	if ( pXML == NULL ) return;
 
-	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Library") ) );
+	SetCaption( pXML->GetAttributeValue( L"title", L"Library" ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_LIBRARYFRAME, Settings.General.LanguageRTL );
 	if ( hIcon ) SetIcon( hIcon );
 
@@ -429,9 +429,9 @@ void CHomeLibraryBox::OnSkinChange()
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 	if ( ! m_pDocument->LoadXML( pXML, &pMap ) ) return;
 
-	pMap.Lookup( _T("LibraryFiles"), m_pdLibraryFiles );
-	pMap.Lookup( _T("LibraryVolume"), m_pdLibraryVolume );
-	pMap.Lookup( _T("LibraryHashRemaining"), m_pdLibraryHashRemaining );
+	pMap.Lookup( L"LibraryFiles", m_pdLibraryFiles );
+	pMap.Lookup( L"LibraryVolume", m_pdLibraryVolume );
+	pMap.Lookup( L"LibraryHashRemaining", m_pdLibraryHashRemaining );
 
 	SetDocument( m_pDocument );
 
@@ -505,7 +505,7 @@ void CHomeLibraryBox::Update()
 
 	if ( m_pdLibraryFiles )
 	{
-		str.Format( _T("%lu "), nFiles );
+		str.Format( L"%lu ", nFiles );
 		if ( m_pdLibraryFiles->m_sText.Compare( str ) != 0 )
 		{
 			m_pdLibraryFiles->SetText( str );
@@ -527,7 +527,7 @@ void CHomeLibraryBox::Update()
 
 	if ( nHashing > 0 )
 	{
-		str.Format( _T("%lu "), nHashing );
+		str.Format( L"%lu ", nHashing );
 		if ( m_pdLibraryHashRemaining && m_pdLibraryHashRemaining->m_sText.Compare( str ) != 0 )
 		{
 			m_pdLibraryHashRemaining->SetText( str );
@@ -626,11 +626,11 @@ void CHomeLibraryBox::OnPaint()
 
 		if ( dc.GetTextExtent( str ).cx > rcText.Width() - 8 )
 		{
-			while ( str.GetLength() && dc.GetTextExtent( str + _T('\x2026') ).cx > rcText.Width() - 8 )
+			while ( str.GetLength() && dc.GetTextExtent( str + L'\x2026' ).cx > rcText.Width() - 8 )
 			{
 				str = str.Left( str.GetLength() - 1 );
 			}
-			str += _T('\x2026');
+			str += L'\x2026';
 		}
 
 		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
@@ -846,12 +846,12 @@ void CHomeDownloadsBox::OnSkinChange()
 	m_pdDownloadsNone = m_pdDownloadsOne = m_pdDownloadsMany = NULL;
 	m_pdDownloadedNone = m_pdDownloadedOne = m_pdDownloadedMany = m_pdDownloadedVolume = NULL;
 
-	SetCaptionmark( _T("CHomeDownloadsBox.Caption") );
+	SetCaptionmark( L"CHomeDownloadsBox.Caption" );
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CHomeDownloadsBox") );
+	CXMLElement* pXML = Skin.GetDocument( L"CHomeDownloadsBox" );
 	if ( pXML == NULL ) return;
 
-	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Downloads") ) );
+	SetCaption( pXML->GetAttributeValue( L"title", L"Downloads" ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_DOWNLOADSFRAME, Settings.General.LanguageRTL );
 	if ( hIcon ) SetIcon( hIcon );
 
@@ -860,13 +860,13 @@ void CHomeDownloadsBox::OnSkinChange()
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 	if ( ! m_pDocument->LoadXML( pXML, &pMap ) ) return;
 
-	pMap.Lookup( _T("DownloadsNone"), m_pdDownloadsNone );
-	pMap.Lookup( _T("DownloadsOne"), m_pdDownloadsOne );
-	pMap.Lookup( _T("DownloadsMany"), m_pdDownloadsMany );
-	pMap.Lookup( _T("DownloadedNone"), m_pdDownloadedNone );
-	pMap.Lookup( _T("DownloadedOne"), m_pdDownloadedOne );
-	pMap.Lookup( _T("DownloadedMany"), m_pdDownloadedMany );
-	pMap.Lookup( _T("DownloadedVolume"), m_pdDownloadedVolume );
+	pMap.Lookup( L"DownloadsNone", m_pdDownloadsNone );
+	pMap.Lookup( L"DownloadsOne", m_pdDownloadsOne );
+	pMap.Lookup( L"DownloadsMany", m_pdDownloadsMany );
+	pMap.Lookup( L"DownloadedNone", m_pdDownloadedNone );
+	pMap.Lookup( L"DownloadedOne", m_pdDownloadedOne );
+	pMap.Lookup( L"DownloadedMany", m_pdDownloadedMany );
+	pMap.Lookup( L"DownloadedVolume", m_pdDownloadedVolume );
 
 	if ( m_pdDownloadsMany ) m_sDownloadsMany = m_pdDownloadsMany->m_sText;
 	if ( m_pdDownloadedMany ) m_sDownloadedMany = m_pdDownloadedMany->m_sText;
@@ -1107,11 +1107,11 @@ void CHomeDownloadsBox::OnPaint()
 
 		if ( dc.GetTextExtent( str ).cx > rcText.Width() - 8 )
 		{
-			while ( str.GetLength() && dc.GetTextExtent( str + _T('\x2026') ).cx > rcText.Width() - 8 )
+			while ( str.GetLength() && dc.GetTextExtent( str + L'\x2026' ).cx > rcText.Width() - 8 )
 			{
 				str = str.Left( str.GetLength() - 1 );
 			}
-			str += _T('\x2026');
+			str += L'\x2026';
 		}
 
 		dc.SetTextColor( m_pHover == pItem ? Colors.m_crTextLinkHot : Colors.m_crTextLink );
@@ -1265,12 +1265,12 @@ void CHomeUploadsBox::OnSkinChange()
 	m_pdUploadedNone = m_pdUploadedOne = m_pdUploadedMany = NULL;
 	m_pdTorrentsOne = m_pdTorrentsMany = NULL;
 
-	SetCaptionmark( _T("CHomeUploadsBox.Caption") );
+	SetCaptionmark( L"CHomeUploadsBox.Caption" );
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CHomeUploadsBox") );
+	CXMLElement* pXML = Skin.GetDocument( L"CHomeUploadsBox" );
 	if ( pXML == NULL ) return;
 
-	SetCaption( pXML->GetAttributeValue( _T("title"), _T("Uploads") ) );
+	SetCaption( pXML->GetAttributeValue( L"title", L"Uploads" ) );
 	HICON hIcon = CoolInterface.ExtractIcon( IDR_UPLOADSFRAME, Settings.General.LanguageRTL );
 	if ( hIcon ) SetIcon( hIcon );
 
@@ -1279,14 +1279,14 @@ void CHomeUploadsBox::OnSkinChange()
 	CMap< CString, const CString&, CRichElement*, CRichElement* > pMap;
 	if ( ! m_pDocument->LoadXML( pXML, &pMap ) ) return;
 
-	pMap.Lookup( _T("UploadsNone"), m_pdUploadsNone );
-	pMap.Lookup( _T("UploadsOne"), m_pdUploadsOne );
-	pMap.Lookup( _T("UploadsMany"), m_pdUploadsMany );
-	pMap.Lookup( _T("UploadedNone"), m_pdUploadedNone );
-	pMap.Lookup( _T("UploadedOne"), m_pdUploadedOne );
-	pMap.Lookup( _T("UploadedMany"), m_pdUploadedMany );
-	pMap.Lookup( _T("TorrentsOne"), m_pdTorrentsOne );
-	pMap.Lookup( _T("TorrentsMany"), m_pdTorrentsMany );
+	pMap.Lookup( L"UploadsNone", m_pdUploadsNone );
+	pMap.Lookup( L"UploadsOne", m_pdUploadsOne );
+	pMap.Lookup( L"UploadsMany", m_pdUploadsMany );
+	pMap.Lookup( L"UploadedNone", m_pdUploadedNone );
+	pMap.Lookup( L"UploadedOne", m_pdUploadedOne );
+	pMap.Lookup( L"UploadedMany", m_pdUploadedMany );
+	pMap.Lookup( L"TorrentsOne", m_pdTorrentsOne );
+	pMap.Lookup( L"TorrentsMany", m_pdTorrentsMany );
 
 	if ( m_pdUploadedOne ) m_sUploadedOne = m_pdUploadedOne->m_sText;
 	if ( m_pdUploadedMany ) m_sUploadedMany = m_pdUploadedMany->m_sText;

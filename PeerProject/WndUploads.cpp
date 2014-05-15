@@ -170,8 +170,8 @@ void CUploadsWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
-	Skin.Translate( _T("CUploadCtrl"), &m_wndUploads.m_wndHeader);
-	Skin.CreateToolBar( _T("CUploadsWnd"), &m_wndToolBar );
+	Skin.Translate( L"CUploadCtrl", &m_wndUploads.m_wndHeader);
+	Skin.CreateToolBar( L"CUploadsWnd", &m_wndToolBar );
 	m_wndUploads.OnSkinChange();
 }
 
@@ -230,7 +230,7 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 	{
 		m_wndUploads.ClientToScreen( &point );
-		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
+		Skin.TrackPopupMenu( L"CUploadsWnd.Default", point, ID_UPLOADS_HELP );
 		return;
 	}
 
@@ -250,9 +250,9 @@ void CUploadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	}
 
 	if ( bHit )
-		Skin.TrackPopupMenu( _T("CUploadsWnd.Upload"), point, ID_UPLOADS_LAUNCH );
+		Skin.TrackPopupMenu( L"CUploadsWnd.Upload", point, ID_UPLOADS_LAUNCH );
 	else
-		Skin.TrackPopupMenu( _T("CUploadsWnd.Default"), point, ID_UPLOADS_HELP );
+		Skin.TrackPopupMenu( L"CUploadsWnd.Default", point, ID_UPLOADS_HELP );
 }
 
 void CUploadsWnd::OnMDIActivate(BOOL bActivate, CWnd* pActivateWnd, CWnd* pDeactivateWnd)
@@ -362,7 +362,7 @@ void CUploadsWnd::Prepare()
 
 				if ( ! pFile->m_sPath.IsEmpty() )	// Not multifile torrent
 					m_bSelPartial = FALSE;
-				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) )		// Try multifile torrent default,  ToDo: Need better detection
+				else if ( PathIsDirectory( Settings.Downloads.TorrentPath + L"\\" + pFile->m_sName ) )		// Try multifile torrent default,  ToDo: Need better detection
 					m_bSelPartial = FALSE;
 
 				//CPeerProjectFile oFile = *pFile;
@@ -373,7 +373,7 @@ void CUploadsWnd::Prepare()
 				//		m_bSelPartial = FALSE;
 				//	else if ( pFile->m_sPath.Find( pFile->m_sName ) > 3 )	// Not multifile torrent  (Not in library, but shared seed from untracked download group)
 				//		m_bSelPartial = FALSE;
-				//	else if ( PathIsDirectory( Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName ) ) 	// Try multifile torrent default, need better detection
+				//	else if ( PathIsDirectory( Settings.Downloads.TorrentPath + L"\\" + pFile->m_sName ) ) 	// Try multifile torrent default, need better detection
 				//		m_bSelPartial = FALSE;
 				//}
 			}
@@ -393,7 +393,7 @@ void CUploadsWnd::OnUpdateUploadsDisconnect(CCmdUI* pCmdUI)
 void CUploadsWnd::OnUploadsDisconnect()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! SafeLock( pLock) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CList<CUploadFile*> pList;
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
@@ -405,7 +405,7 @@ void CUploadsWnd::OnUploadsDisconnect()
 
 	while ( ! pList.IsEmpty() )
 	{
-		if ( ! SafeLock( pLock) ) continue;
+		if ( ! SafeLock( pLock ) ) continue;
 
 		CUploadFile* pFile = pList.RemoveHead();
 
@@ -510,7 +510,7 @@ void CUploadsWnd::OnUpdateUploadsClear(CCmdUI* pCmdUI)
 void CUploadsWnd::OnUploadsClear()
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! SafeLock( pLock) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CList<CUploadFile*> pList;
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
@@ -578,9 +578,9 @@ void CUploadsWnd::OnUploadsLaunch()
 		// Multifile torrent always opens folder
 		if ( pFile->m_sPath.IsEmpty() )				// ToDo: Update this path assumption when fixed elsewhere
 		{
-			const CString strPath = Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName;		// Try default multifile torrent folder  (Need better detection)
+			const CString strPath = Settings.Downloads.TorrentPath + L"\\" + pFile->m_sName;		// Try default multifile torrent folder  (Need better detection)
 			if ( PathIsDirectory( strPath ) )
-				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 			continue;
 		}
 
@@ -659,12 +659,12 @@ void CUploadsWnd::OnUploadsFolder()
 			CPeerProjectFile oFile = *pFile;
 			if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( &oFile, FALSE, TRUE ) )
 			{
-				strPath = pLibFile->GetPath();	// = pLibFile->GetFolder() + _T("\\") + pFile->m_sName;
+				strPath = pLibFile->GetPath();	// = pLibFile->GetFolder() + L"\\" + pFile->m_sName;
 			}
 			else //if ( strPath.IsEmpty() )
 			{
 				// ToDo: Fix non-default multifile torrents
-				strPath = Settings.Downloads.TorrentPath + _T("\\") + pFile->m_sName;
+				strPath = Settings.Downloads.TorrentPath + L"\\" + pFile->m_sName;
 			}
 
 			// Show corresponding download with Shift key  (ToDo: Fix multifile torrents. Note holding Shift may cause many files to highlight.)
@@ -679,9 +679,9 @@ void CUploadsWnd::OnUploadsFolder()
 			}
 
 			if ( PathIsDirectory( strPath ) )
-				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 			else if ( PathFileExists( strPath ) )
-				ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
 		}
 	}
 }
@@ -709,7 +709,7 @@ void CUploadsWnd::OnUploadsChat()
 			else if ( pFile->GetActive()->m_nProtocol == PROTOCOL_ED2K )// ED2K chat.
 				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_ED2K );
 			//else		// Should never be called
-			//	theApp.Message( MSG_DEBUG, _T("Error while initiating chat- Unable to select protocol") );
+			//	theApp.Message( MSG_DEBUG, L"Error while initiating chat- Unable to select protocol" );
 		}
 	}
 }
@@ -812,12 +812,12 @@ void CUploadsWnd::OnUploadsAutoClear()
 
 void CUploadsWnd::OnUploadsSettings()
 {
-	CSettingsManagerDlg::Run( _T("CUploadsSettingsPage") );
+	CSettingsManagerDlg::Run( L"CUploadsSettingsPage" );
 }
 
 void CUploadsWnd::OnUploadsHelp()
 {
-	CHelpDlg::Show( _T("UploadHelp") );
+	CHelpDlg::Show( L"UploadHelp" );
 }
 
 BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)
@@ -851,7 +851,7 @@ BOOL CUploadsWnd::PreTranslateMessage(MSG* pMsg)
 
 void CUploadsWnd::OnUploadsFilterMenu()
 {
-	CMenu* pMenu = Skin.GetMenu( _T("CUploadsWnd.Filter") );
+	CMenu* pMenu = Skin.GetMenu( L"CUploadsWnd.Filter" );
 	m_wndToolBar.ThrowMenu( ID_UPLOADS_FILTER_MENU, pMenu, NULL, FALSE, TRUE );
 }
 

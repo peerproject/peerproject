@@ -1,7 +1,7 @@
 //
 // WizardInterfacePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -42,7 +42,8 @@ END_MESSAGE_MAP()
 
 CWizardInterfacePage::CWizardInterfacePage() : CWizardPage(CWizardInterfacePage::IDD)
 {
-	m_bExpert = Settings.General.GUIMode != GUI_BASIC;
+	m_nSkin = 0;
+	m_bBasic = Settings.General.GUIMode == GUI_BASIC;
 	m_bSimpleDownloadBars = Settings.Downloads.SimpleBar;
 }
 
@@ -57,8 +58,12 @@ void CWizardInterfacePage::DoDataExchange(CDataExchange* pDX)
 	DDX_Control(pDX, IDC_DESCRIPTION_BASIC, m_wndDescriptionBasic);
 	DDX_Control(pDX, IDC_INTERFACE_EXPERT, m_wndInterfaceExpert);
 	DDX_Control(pDX, IDC_INTERFACE_BASIC, m_wndInterfaceBasic);
-	DDX_Radio(pDX, IDC_INTERFACE_BASIC, m_bExpert);
+	DDX_Control(pDX, IDC_WIZARD_NOSKIN, m_wndSkinNoChange);
+	DDX_Control(pDX, IDC_WIZARD_DEFAULTSKIN, m_wndSkinDefault);
+	DDX_Control(pDX, IDC_WIZARD_DARKSKIN, m_wndSkinDark);
 	DDX_Check(pDX, IDC_DOWNLOADS_SIMPLEBAR, m_bSimpleDownloadBars);
+	DDX_Radio(pDX, IDC_INTERFACE_EXPERT, m_bBasic);
+	DDX_Radio(pDX, IDC_WIZARD_NOSKIN, m_nSkin);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -68,10 +73,15 @@ BOOL CWizardInterfacePage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardInterfacePage"), this );
+	Skin.Apply( L"CWizardInterfacePage", this );
 
-	m_bExpert = Settings.General.GUIMode != GUI_BASIC;
+	m_nSkin = 0;
+	m_bBasic = Settings.General.GUIMode == GUI_BASIC;
 	m_bSimpleDownloadBars = Settings.Downloads.SimpleBar;
+
+	m_wndSkinNoChange.SetCheck( TRUE );
+	m_wndSkinDefault.SetCheck( FALSE );
+	m_wndSkinDark.SetCheck( FALSE );
 
 	UpdateData( FALSE );
 
@@ -124,7 +134,7 @@ void CWizardInterfacePage::OnLButtonDown(UINT nFlags, CPoint point)
 		}
 	}
 
-	CWizardPage::OnLButtonDown(nFlags, point);
+	CWizardPage::OnLButtonDown( nFlags, point );
 }
 
 LRESULT CWizardInterfacePage::OnWizardNext()
@@ -133,26 +143,102 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 
 	Settings.Downloads.SimpleBar = m_bSimpleDownloadBars != FALSE;
 
-	if ( m_bExpert && Settings.General.GUIMode == GUI_BASIC )
+	if ( ! m_bBasic && Settings.General.GUIMode == GUI_BASIC )
 	{
 		CWaitCursor pCursor;
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
-		Settings.General.GUIMode = GUI_TABBED;
 		Settings.Skin.RowSize = 17;
+		Settings.General.GUIMode = GUI_TABBED;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
-	else if ( ! m_bExpert && Settings.General.GUIMode != GUI_BASIC )
+	else if ( m_bBasic && Settings.General.GUIMode != GUI_BASIC )
 	{
 		CWaitCursor pCursor;
 		CMainWnd* pMainWnd = (CMainWnd*)AfxGetMainWnd();
 
-		Settings.General.GUIMode = GUI_BASIC;
 		Settings.Skin.RowSize = 18;
+		Settings.General.GUIMode = GUI_BASIC;
 		pMainWnd->SetGUIMode( Settings.General.GUIMode, FALSE );
 	}
 
 	Settings.Save();
 
+	if ( m_nSkin )
+	{
+		CWaitCursor pCursor;
+
+		ClearSkins();
+
+		if ( m_nSkin == 2 )	// Dark Skin
+		{
+			theApp.WriteProfileInt( L"Skins", L"SkinCarbon\\SkinCarbon.xml", 1 );
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinEightFrames.xml", 1 );
+		}
+		else if ( theApp.m_nWinVer >= WIN_8 )
+		{
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinEight.xml", 1 );
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinEightFrames.xml", 1 );
+		}
+		else if ( theApp.m_nWinVer == WIN_7 )
+		{
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinSeven.xml", 1 );
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinVistaFrames.xml", 1 );
+		}
+		else if ( theApp.m_nWinVer < WIN_7 )
+		{
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinVista.xml", 1 );
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinVistaFrames.xml", 1 );
+		}
+
+		// Crashfix workaround:
+		GetParent()->ModifyStyle( WS_VISIBLE, 0 );
+		PostMainWndMessage( WM_SKINCHANGED );
+		Sleep( 2500 );
+		GetParent()->ModifyStyle( 0, WS_VISIBLE );
+		GetParent()->Invalidate();
+	}
+
 	return 0;
+}
+
+void CWizardInterfacePage::ClearSkins(LPCTSTR pszPath /*NULL*/)
+{
+	WIN32_FIND_DATA pFind;
+	HANDLE hSearch;
+
+	CString strPath;
+	strPath.Format( L"%s\\Skins\\%s*.*",
+		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : L"" );
+
+	hSearch = FindFirstFile( strPath, &pFind );
+
+	if ( hSearch != INVALID_HANDLE_VALUE )
+	{
+		do
+		{
+			if ( pFind.cFileName[0] == '.' ) continue;
+
+			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
+			{
+				if ( _tcsicmp( pFind.cFileName, L"Languages" ) == 0 ) continue;
+
+				strPath.Format( L"%s%s\\",
+					pszPath ? pszPath : L"", pFind.cFileName );
+
+				ClearSkins( strPath );
+			}
+			else if ( _tcsistr( pFind.cFileName, L".xml" ) != NULL )
+			{
+				strPath.Format( L"%s%s",
+					pszPath ? pszPath : L"", pFind.cFileName );
+
+				if ( EndsWith( strPath, _P( L".xml" ) ) )
+					theApp.WriteProfileInt( L"Skins", strPath, 0 );
+			}
+		}
+		while ( FindNextFile( hSearch, &pFind ) );
+
+		FindClose( hSearch );
+	}
 }

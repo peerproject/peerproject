@@ -80,7 +80,7 @@ BOOL CFolderScanDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CFolderScanDlg"), IDR_LIBRARYFRAME );
+	SkinMe( L"CFolderScanDlg", IDR_LIBRARYFRAME );
 
 	SetTimer( 1, 500, NULL );
 	m_tLastUpdate	= 0;
@@ -135,7 +135,7 @@ void CFolderScanDlg::InstanceUpdate(LPCTSTR pszName, DWORD nVolume)
 		m_wndFile.SetWindowText( pszName );
 
 		CString strItem;
-		strItem.Format( _T("%lu"), m_nFiles );
+		strItem.Format( L"%lu", m_nFiles );
 		m_wndFiles.SetWindowText( strItem );
 
 		strItem = Settings.SmartVolume( m_nVolume, KiloBytes );

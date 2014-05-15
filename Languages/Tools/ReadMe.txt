@@ -6,13 +6,13 @@ ___________________________________________
 Localization is supported through the theme engine with .XML skin files.
 
 An always-updated English sample skin is the basis for all other languages:
-http://peerproject.svn.sourceforge.net/svnroot/peerproject/trunk/Languages/default-en.xml
+http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml
 
 
 There are over 4000 availble strings of varying priority, uniquely formatted for PeerProject.
 Unfortunately there is no very simple way to maintain updates in such files.
 The basic method is using WinMerge (winmerge.org) or similar tool to compare default-en and new default-XX,
-while tracking updates from http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk/Languages/default-en.xml?view=log
+while tracking updates from http://sourceforge.net/p/peerproject/code/HEAD/log/?path=/trunk/Languages/en.xml
 
 - The SkinExtract commandline tool will export all isolated strings/tips resources to an .XML file for reference. (To update default-en)
 
@@ -75,21 +75,21 @@ How to Update existing translation in Poedit:
 5. Translate new strings.
 6. Convert default-XX.po back to default-XX.xml (see Usage #3 above).
 7. Run WinMerge.
-8. Drag'n'Drop pre-existing default-XX.xml, then Drag'n'Drop new default-XX.xml, and make any highlighted changes.
+8. Drag'n'Drop pre-existing XX.xml, then Drag'n'Drop new XX.xml, and make any highlighted changes.
 9. Test final .XML in installed PeerProject/skins/languages folder.
 10.Upload both updated files to Translation forum. (New .XML and .PO)
 
 
 How to Create new translation in Poedit:
 
-1. Create default-en.pot from default-en.xml (see Usage #1 above).
+1. Create en.pot from en.xml (see Usage #1 above).
 2. Run Poedit.
-3. Select menu: File -> New catalog from POT file... -> Select default-en.pot.
+3. Select menu: File -> New catalog from POT file... -> Select en.pot.
 4. Fill translation properties (codepage MUST be UTF-8). Press OK.
-5. Save as default-XX.po, where XX is a two letter language code.
+5. Save as XX.po, where XX is a two letter language code.
 6. Translate.
-7. Convert default-XX.po back to default-XX.xml (see Usage #3 above).
-8. Make language flag (default-XX.ico file) or request one.
+7. Convert XX.po back to XX.xml (see Usage #3 above).
+8. Make language flag (XX.ico file) or request one.
 9. Upload all files to Translation forum.
 
 
@@ -97,9 +97,9 @@ How to Create new translation natively:
 
 0. Find your new XX 2-letter code ( http://en.wikipedia.org/wiki/List_of_ISO_639-1_codes )
 
-1. Copy default-en.xml to installed \PeerProject\Skins\Languages\default-XX.xml
-2. Copy another flag temporarily as \PeerProject\Skins\Languages\default-XX.ico
-3. Open .XML in Notepad, etc., or WinMerge with original default-en.
+1. Copy en.xml to installed \PeerProject\Skins\Languages\XX.xml
+2. Copy another flag temporarily as \PeerProject\Skins\Languages\XX.ico
+3. Open .XML in Notepad, etc., or WinMerge with original en.xml.
 4. Look through the file to get familiar before making any changes.
 5. First thing DELETE <commandTips> section from the middle of the file, (<tip id="") are least important.
 6. Now update the Manifest at the beginning of the file to reflect the new language.
@@ -109,5 +109,4 @@ How to Create new translation natively:
 10.Test often. Select your language once from the Tools menu, and simply press Ctrl+R or Ctrl+Shift+Z to refresh your changes.
 
 
-Note the 30 languages inherited from Shareaza have all been extensively updated structurally, but still outdated text and flaws.
-
+Note the 30 languages inherited from Shareaza have all been extensively updated structurally, but still contain outdated text and flaws.

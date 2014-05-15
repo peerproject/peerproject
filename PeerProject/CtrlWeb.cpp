@@ -1,7 +1,7 @@
 //
 // CtrlWeb.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -95,7 +95,7 @@ void CWebCtrl::EnableCoolMenu(BOOL bEnable)
 	{
 		if ( ! bEnable ) return;
 		m_pMenu = new CCoolMenu();
-		m_pMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+		m_pMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 	}
 }
 
@@ -205,7 +205,7 @@ void CWebCtrl::OnPaint()
 
 	if ( ! ::IsWindow( m_wndBrowser.m_hWnd ) )
 	{
-		CString str = _T("Internet Explorer is required for this feature.");
+		CString str = L"Internet Explorer is required for this feature.";
 		CRect rc;
 		GetClientRect( &rc );
 		dc.FillSolidRect( &rc, GetSysColor( COLOR_WINDOW ) );
@@ -244,7 +244,7 @@ void CWebCtrl::EnterMenu(POINT* pPoint)
 
 	TCHAR szClass[128];
 	GetClassName( *pChild, szClass, 128 );
-	if ( _tcsistr( szClass, _T("Internet Explorer") ) == NULL ) return;
+	if ( _tcsistr( szClass, L"Internet Explorer" ) == NULL ) return;
 
 	m_pThis = this;
 	m_hWndThis = pChild->GetSafeHwnd();
@@ -293,11 +293,11 @@ void CWebCtrl::BeforeNavigate2(LPDISPATCH /*pDispatch*/, VARIANT* pvURL, VARIANT
 	{
 		CString strURL( V_BSTR(pvURL) );
 
-		if ( _tcsncmp( strURL, _T("http"), 4 ) == 0 )
+		if ( _tcsncmp( strURL, L"http", 4 ) == 0 )
 		{
 			*pvCancel = VARIANT_TRUE;
 			m_tFrame = GetTickCount();
-			COleVariant vFrame( _T("_blank"), VT_BSTR );
+			COleVariant vFrame( L"_blank", VT_BSTR );
 			m_pBrowser->Navigate2( pvURL, pvFlags, &vFrame, pvPostData, pvHeaders );
 		}
 	}

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHistoryPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -113,7 +113,7 @@ void CLibraryHistoryPanel::Update()
 			FileTimeToSystemTime( &pRecent->m_tAdded, &pItem->m_pTime );
 			SystemTimeToTzSpecificLocalTime( NULL, &pItem->m_pTime, &pItem->m_pTime );
 			GetDateFormat( LOCALE_USER_DEFAULT, NULL, &pItem->m_pTime,
-				_T("ddd',' MMM dd"), pItem->m_sTime.GetBuffer( 64 ), 64 );
+				L"ddd',' MMM dd", pItem->m_sTime.GetBuffer( 64 ), 64 );
 			pItem->m_sTime.ReleaseBuffer();
 
 			m_pList.InsertAt( nCount++, pItem );
@@ -241,12 +241,12 @@ void CLibraryHistoryPanel::OnPaint()
 				{
 					while ( ! str.IsEmpty() )
 					{
-						szText = dc.GetTextExtent( str + _T('\x2026') );
+						szText = dc.GetTextExtent( str + L'\x2026' );
 						if ( szText.cx < rcText.Width() - 4 ) break;
 						str = str.Left( str.GetLength() - 1 );
 					}
 
-					str += _T('\x2026');
+					str += L'\x2026';
 				}
 
 				rcText.right = rcText.left + szText.cx + 4;

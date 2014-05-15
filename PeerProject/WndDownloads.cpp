@@ -246,8 +246,8 @@ void CDownloadsWnd::OnSkinChange()
 	OnSize( 0, rc.Width(), rc.Height() );
 
 	CPanelWnd::OnSkinChange();
-	Skin.Translate( _T("CDownloadCtrl"), &m_wndDownloads.m_wndHeader);
-	Skin.CreateToolBar( _T("CDownloadsWnd"), &m_wndToolBar );
+	Skin.Translate( L"CDownloadCtrl", &m_wndDownloads.m_wndHeader);
+	Skin.CreateToolBar( L"CDownloadsWnd", &m_wndToolBar );
 	m_wndDownloads.OnSkinChange();
 	m_wndTabBar.OnSkinChange();
 }
@@ -436,14 +436,14 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		if ( m_bSelDownload )
 		{
 			if ( m_bSelCompleted && m_bSelTorrent )
-				Skin.TrackPopupMenu( _T("CDownloadsWnd.Seeding"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				Skin.TrackPopupMenu( L"CDownloadsWnd.Seeding", point, ID_DOWNLOADS_LAUNCH_COMPLETE );
 			else if ( m_bSelCompleted )
-				Skin.TrackPopupMenu( _T("CDownloadsWnd.Completed"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				Skin.TrackPopupMenu( L"CDownloadsWnd.Completed", point, ID_DOWNLOADS_LAUNCH_COMPLETE );
 			else
-				Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
+				Skin.TrackPopupMenu( L"CDownloadsWnd.Download", point, ID_DOWNLOADS_LAUNCH_COPY );
 			return;
 		}
-		Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
+		Skin.TrackPopupMenu( L"CDownloadsWnd.Default", point, ID_DOWNLOADS_HELP );
 		return;
 	}
 
@@ -462,7 +462,7 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		if ( pSource )
 		{
 			pLock.Unlock();
-			Skin.TrackPopupMenu( _T("CDownloadsWnd.Source"), point, ID_TRANSFERS_CONNECT );
+			Skin.TrackPopupMenu( L"CDownloadsWnd.Source", point, ID_TRANSFERS_CONNECT );
 			return;
 		}
 		if ( pDownload )
@@ -470,24 +470,24 @@ void CDownloadsWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 			if ( pDownload->IsSeeding() )
 			{
 				pLock.Unlock();
-				Skin.TrackPopupMenu( _T("CDownloadsWnd.Seeding"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				Skin.TrackPopupMenu( L"CDownloadsWnd.Seeding", point, ID_DOWNLOADS_LAUNCH_COMPLETE );
 				return;
 			}
 			if ( pDownload->IsCompleted() )
 			{
 				pLock.Unlock();
-				Skin.TrackPopupMenu( _T("CDownloadsWnd.Completed"), point, ID_DOWNLOADS_LAUNCH_COMPLETE );
+				Skin.TrackPopupMenu( L"CDownloadsWnd.Completed", point, ID_DOWNLOADS_LAUNCH_COMPLETE );
 				return;
 			}
 
 			pLock.Unlock();
-			Skin.TrackPopupMenu( _T("CDownloadsWnd.Download"), point, ID_DOWNLOADS_LAUNCH_COPY );
+			Skin.TrackPopupMenu( L"CDownloadsWnd.Download", point, ID_DOWNLOADS_LAUNCH_COPY );
 			return;
 		}
 	}
 
 	pLock.Unlock();
-	Skin.TrackPopupMenu( _T("CDownloadsWnd.Default"), point, ID_DOWNLOADS_HELP );
+	Skin.TrackPopupMenu( L"CDownloadsWnd.Default", point, ID_DOWNLOADS_HELP );
 }
 
 BOOL CDownloadsWnd::PreTranslateMessage(MSG* pMsg)
@@ -1084,7 +1084,7 @@ void CDownloadsWnd::OnDownloadsRemotePreview()
 				{
 					if ( pSource->m_sPreview.IsEmpty() )
 					{
-						pSource->m_sPreview.Format( _T("http://%s:%i/gnutella/preview/v1?%s"),
+						pSource->m_sPreview.Format( L"http://%s:%i/gnutella/preview/v1?%s",
 							(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), pSource->m_nPort,
 							(LPCTSTR)pDownload->m_oSHA1.toUrn() );
 					}
@@ -1234,7 +1234,7 @@ void CDownloadsWnd::OnDownloadsSources()
 		else
 		{
 			// Warn user
-			theApp.Message( MSG_DEBUG, _T("Find more sources unable to start due to excessive network traffic") );
+			theApp.Message( MSG_DEBUG, L"Find more sources unable to start due to excessive network traffic" );
 			// Prevent ed2k bans, client drops, etc.
 			m_tMoreSourcesTimer = GetTickCount();
 			if ( m_nMoreSourcesLimiter < -30 ) m_nMoreSourcesLimiter = -30;
@@ -1360,7 +1360,7 @@ void CDownloadsWnd::OnDownloadsMergeLocal()
 		{
 			szFile += _tcslen( szFile ) + 1;
 			if ( *szFile )	// Folder + files
-				oFiles.AddTail( strFolder + _T("\\") + szFile );
+				oFiles.AddTail( strFolder + L"\\" + szFile );
 			else	// Single file
 				oFiles.AddTail( strFolder );
 		}
@@ -1738,7 +1738,7 @@ void CDownloadsWnd::OnTransfersChat()
 				else if ( pSource->m_nProtocol == PROTOCOL_ED2K )					// ED2K chat
 					ChatWindows.OpenPrivate( Hashes::Guid(), &pSource->m_pAddress, pSource->m_nPort, pSource->m_bPushOnly, pSource->m_nProtocol, &pSource->m_pServerAddress, pSource->m_nServerPort );
 				//else		// Should never be called
-				//	theApp.Message( MSG_DEBUG, _T("Error while initiating chat- Unable to select protocol") );
+				//	theApp.Message( MSG_DEBUG, L"Error while initiating chat- Unable to select protocol" );
 			}
 		}
 	}
@@ -1802,7 +1802,7 @@ void CDownloadsWnd::OnDownloadsFolder()
 
 		if ( pDownload->GetFileCount() == 1 )
 		{
-			ShellExecute( GetSafeHwnd(), NULL, _T("Explorer.exe"), _T("/select, ") + strPath, NULL, SW_SHOWNORMAL );
+			ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
 		}
 		else
 		{
@@ -1813,7 +1813,7 @@ void CDownloadsWnd::OnDownloadsFolder()
 				strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
 
 			if ( PathIsDirectory( strPath ) )
-				ShellExecute( GetSafeHwnd(), _T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+				ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 		}
 	}
 }
@@ -1963,7 +1963,7 @@ void CDownloadsWnd::OnDownloadsAutoClear()
 
 void CDownloadsWnd::OnDownloadsFilterMenu()
 {
-	CMenu* pMenu = Skin.GetMenu( _T("CDownloadsWnd.Filter") );
+	CMenu* pMenu = Skin.GetMenu( L"CDownloadsWnd.Filter" );
 	m_wndToolBar.ThrowMenu( ID_DOWNLOADS_FILTER_MENU, pMenu, NULL, FALSE, TRUE );
 }
 
@@ -2035,7 +2035,7 @@ void CDownloadsWnd::OnDownloadsFilterSeeds()
 
 void CDownloadsWnd::OnDownloadsSettings()
 {
-	CSettingsManagerDlg::Run( _T("CDownloadsSettingsPage") );
+	CSettingsManagerDlg::Run( L"CDownloadsSettingsPage" );
 }
 
 void CDownloadsWnd::OnUpdateDownloadGroupShow(CCmdUI* pCmdUI)

@@ -118,9 +118,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RegisterOutput>true</RegisterOutput>
       <PerUserRedirection>true</PerUserRedirection>
-      <SubSystem>Windows</SubSystem>
       <BaseAddress>0x1af20000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
+      <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -165,8 +165,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <RegisterOutput>true</RegisterOutput>
       <PerUserRedirection>true</PerUserRedirection>
-      <SubSystem>Windows</SubSystem>
       <LargeAddressAware>true</LargeAddressAware>
+      <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
@@ -200,7 +200,7 @@
       <EnableEnhancedInstructionSet>StreamingSIMDExtensions</EnableEnhancedInstructionSet>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
@@ -213,12 +213,12 @@
     <Link>
       <ModuleDefinitionFile>SWFPlugin.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
       <BaseAddress>0x1af20000</BaseAddress>
       <LargeAddressAware>true</LargeAddressAware>
+      <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
     </Link>
     <Bscmake>
@@ -251,7 +251,7 @@
       <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
       <OmitFramePointers>true</OmitFramePointers>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level4</WarningLevel>
@@ -263,11 +263,11 @@
     </ResourceCompile>
     <Link>
       <ModuleDefinitionFile>SWFPlugin.def</ModuleDefinitionFile>
-      <SubSystem>Windows</SubSystem>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <SetChecksum>true</SetChecksum>
       <LargeAddressAware>true</LargeAddressAware>
+      <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX64</TargetMachine>
     </Link>
     <Bscmake>
@@ -287,15 +287,15 @@
     </Midl>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SWFBuilder.cpp" />
-    <ClCompile Include="SWFPlugin.cpp" />
     <ClCompile Include="SWFReader.cpp" />
+    <ClCompile Include="SWFPlugin.cpp" />
     <ClCompile Include="SWFPlugin_i.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
@@ -309,16 +309,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="SWFPlugin.def" />
-    <None Include="SWFBuilder.rgs" />
     <None Include="SWFPlugin.rgs" />
+    <None Include="SWFBuilder.rgs" />
     <None Include="SWFReader.rgs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="stdafx.h" />
+    <ClInclude Include="StdAfx.h" />
+    <ClInclude Include="SWFPlugin.h" />
     <ClInclude Include="SWFBuilder.h" />
     <ClInclude Include="SWFReader.h" />
-    <ClInclude Include="SWFPlugin.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="SWFPlugin.rc" />

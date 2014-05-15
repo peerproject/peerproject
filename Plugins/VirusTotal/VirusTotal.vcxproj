@@ -239,7 +239,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Plugin.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -262,16 +262,15 @@
     <Midl Include="VirusTotal.idl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="VirusTotal.def" />
     <None Include="VirusTotal.ico" />
-    <None Include="Plugin.rgs" />
+    <None Include="VirusTotal.def" />
     <None Include="VirusTotal.rgs" />
+    <None Include="Plugin.rgs" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Plugin.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TargetVer.h" />
+    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="VirusTotal.h" />
   </ItemGroup>
   <ItemGroup>

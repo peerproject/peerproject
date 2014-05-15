@@ -1,7 +1,7 @@
 //
 // DCNeighbour.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2014
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -45,10 +45,14 @@ public:
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual DWORD	GetUserCount() const { return m_oUsers.GetCount(); }
 
+	virtual BOOL	ProcessPackets(CBuffer* pInput);		// Process packets from input buffer
+
 protected:
-	CChatUser::Map	m_oUsers;		// Hub user list
+	CChatUser::Map	m_oUsers;			// Hub user list
 
 	void			RemoveAllUsers();
+
+	virtual BOOL	ProcessPackets();	// Process packets from internal input buffer
 
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();

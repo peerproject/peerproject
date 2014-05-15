@@ -9,12 +9,16 @@
 
 #pragma warning( disable : 4127 )	// conditional expression is constant
 
-
-#ifndef STRICT
-#define STRICT
+#if !defined(_UNICODE) || !defined(UNICODE)
+	#error Unicode Required
 #endif
 
-#include "TargetVer.h"
+// TargetVer.h: (WINVER)
+#define NTDDI_VERSION	0x05010200	// NTDDI_WINXPSP2
+#define _WIN32_WINNT	0x0501		// XP
+
+#define VC_EXTRALEAN
+#define STRICT
 
 #define _ATL_FREE_THREADED
 #define _ATL_NO_AUTOMATIC_NAMESPACE
@@ -29,8 +33,8 @@
 
 #include <atlbase.h>
 #include <atlcom.h>
-#include <atlstr.h>
 #include <atltypes.h>
+#include <atlstr.h>
 
 #include <dshow.h>
 #include <mmreg.h>

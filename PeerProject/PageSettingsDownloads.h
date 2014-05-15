@@ -1,7 +1,7 @@
 //
 // PageSettingsDownloads.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -28,7 +28,7 @@ class CDownloadsSettingsPage : public CSettingsPage
 
 public:
 	CDownloadsSettingsPage();
-	virtual ~CDownloadsSettingsPage();
+//	virtual ~CDownloadsSettingsPage();
 
 	enum { IDD = IDD_SETTINGS_DOWNLOADS };
 
@@ -40,6 +40,7 @@ protected:
 	CIconButtonCtrl	m_wndDownloadsPath;
 	CComboBox		m_wndBandwidthLimit;
 	CComboBox		m_wndQueueLimit;
+	CComboBox		m_wndAntiVirus;
 	CString			m_sDownloadsPath;
 	CString			m_sIncompletePath;
 	int				m_nMaxDownFiles;
@@ -52,7 +53,7 @@ protected:
 	CEditPath		m_wndDownloadsFolder;
 	CEditPath		m_wndIncompleteFolder;
 
-	bool	IsLimited(CString& strText) const;
+	bool			IsLimited(CString& strText) const;
 
 public:
 	virtual void OnOK();
@@ -62,9 +63,11 @@ protected:
 	virtual BOOL OnInitDialog();
 	virtual void DoDataExchange(CDataExchange* pDX);
 
+	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
+	afx_msg void OnDestroy();
 	afx_msg void OnDownloadsBrowse();
 	afx_msg void OnIncompleteBrowse();
-	afx_msg void OnShowWindow(BOOL bShow, UINT nStatus);
+	afx_msg void OnCbnDropdownAntivirus();
 
 	DECLARE_MESSAGE_MAP()
 };

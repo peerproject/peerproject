@@ -18,7 +18,7 @@
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
 #ifdef _WIN32
 LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
-#pragma code_page(1257)
+#pragma code_page(1252)
 #endif // _WIN32
 
 #ifdef APSTUDIO_INVOKED
@@ -73,7 +73,7 @@ BEGIN
             VALUE "FileDescription", "SWF Library Builder & Image Service Plugins"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "SWFPlugin"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2010"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
             VALUE "OriginalFilename", "SWFPlugin.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1.0.0.0"
@@ -103,7 +103,7 @@ IDR_SWFBUILDER		REGISTRY		"SWFBuilder.rgs"
 // Icon with lowest ID value placed first to ensure
 // application icon remains consistent on all systems.
 
-//IDI_ICON		ICON			"Icon.ico"
+//IDI_ICON			ICON			"Icon.ico"
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -118,7 +118,6 @@ END
 
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
-
 
 
 #ifndef APSTUDIO_INVOKED

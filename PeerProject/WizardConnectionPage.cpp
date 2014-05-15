@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -96,7 +96,7 @@ BOOL CWizardConnectionPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardConnectionPage"), this );
+	Skin.Apply( L"CWizardConnectionPage", this );
 
 	CString strTemp;
 
@@ -152,9 +152,9 @@ BOOL CWizardConnectionPage::OnInitDialog()
 		m_wndUploadSpeed.AddString( strTemp );
 	}
 
-	strTemp.Format( _T("%lu kbps"), Settings.Connection.InSpeed );
+	strTemp.Format( L"%lu kbps", Settings.Connection.InSpeed );
 	m_wndDownloadSpeed.SetWindowText( strTemp );
-	strTemp.Format( _T("%lu kbps"), Settings.Connection.OutSpeed );
+	strTemp.Format( L"%lu kbps", Settings.Connection.OutSpeed );
 	m_wndUploadSpeed.SetWindowText( strTemp );
 
 	m_wndUPnP.AddString( LoadString( IDS_GENERAL_YES ) );
@@ -169,21 +169,21 @@ BOOL CWizardConnectionPage::OnInitDialog()
 		m_nPort	= protocolPorts[ PROTOCOL_NULL ];		// Substitute Non-standard Port (6480)
 
 		// Obsolete check:
-		//CString strRegName = _T("InPort");
-		//CString strRegPath = _T("Connection");
+		//CString strRegName = L"InPort";
+		//CString strRegPath = L"Connection";
 		//DWORD nPort = CRegistry::GetDword( (LPCTSTR)strRegPath, (LPCTSTR)strRegName );
 
 		// Initially try Shareaza's port to accomodate possible existing port-forwarding (with conflict)
-		const CString strRegPath = _T("Software\\Shareaza\\Shareaza\\Connection");
+		const CString strRegPath = L"Software\\Shareaza\\Shareaza\\Connection";
 		DWORD nType = 0, nEnabled = 1, nPort, nSize = sizeof( m_nPort );
 
-		CString strRegName = _T("EnableUPnP");
+		CString strRegName = L"EnableUPnP";
 		LONG nErrorCode = SHRegGetUSValue( (LPCTSTR)strRegPath, (LPCTSTR)strRegName,
 			&nType, (PBYTE)&nEnabled, &nSize, FALSE, NULL, 0 );
 
 		if ( nErrorCode == ERROR_SUCCESS && nEnabled == 0 )	// Plug'n'Play disabled, assume deliberately
 		{
-			strRegName = _T("InPort");
+			strRegName = L"InPort";
 			nErrorCode = SHRegGetUSValue( (LPCTSTR)strRegPath, (LPCTSTR)strRegName,
 				&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
 
@@ -228,8 +228,8 @@ void CWizardConnectionPage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint 
 
 void CWizardConnectionPage::OnSelChangeConnectionType()
 {
-//	m_wndDownloadSpeed.SetWindowText( _T("") );
-//	m_wndUploadSpeed.SetWindowText( _T("") );
+//	m_wndDownloadSpeed.SetWindowText( L"" );
+//	m_wndUploadSpeed.SetWindowText( L"" );
 
 	const int nIndex = m_wndType.GetCurSel();
 	if ( nIndex < 0 )
@@ -298,17 +298,17 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 		double nTemp;
 
 		m_wndDownloadSpeed.GetWindowText( strSpeed );
-		if ( _stscanf( strSpeed, _T("%lf"), &nTemp ) == 1 )
+		if ( _stscanf( strSpeed, L"%lf", &nTemp ) == 1 )
 		{
-			if ( nTemp < 400 && strSpeed.Find( _T("mbps") ) )
+			if ( nTemp < 400 && strSpeed.Find( L"mbps" ) )
 				nTemp *= 1024;
 			nDownloadSpeed = (DWORD)nTemp;
 		}
 
 		m_wndUploadSpeed.GetWindowText( strSpeed );
-		if ( _stscanf( strSpeed, _T("%lf"), &nTemp ) == 1 )
+		if ( _stscanf( strSpeed, L"%lf", &nTemp ) == 1 )
 		{
-			if ( nTemp < 400 && strSpeed.Find( _T("mbps") ) )
+			if ( nTemp < 400 && strSpeed.Find( L"mbps" ) )
 				nTemp *= 1024;
 			nUploadSpeed = (DWORD)nTemp;
 		}
@@ -338,7 +338,7 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	UploadQueues.CreateDefault();
 
 	//if ( theApp.m_bLimitedConnections && ! Settings.General.IgnoreXPsp2 )
-	//	CHelpDlg::Show( _T("GeneralHelp.XPsp2") );
+	//	CHelpDlg::Show( L"GeneralHelp.XPsp2" );
 
 	m_nProgressSteps = 0;
 
@@ -422,7 +422,7 @@ void CWizardConnectionPage::OnRun()
 		nCurrentStep += 30;
 		m_wndProgress.PostMessage( PBM_SETPOS, nCurrentStep );
 		Sleep( 10 );	// Mixed text bugfix?
-		m_wndStatus.SetWindowText( _T("") );
+		m_wndStatus.SetWindowText( L"" );
 	}
 
 	if ( m_bQueryDiscoveries )
@@ -497,15 +497,15 @@ CString CWizardConnectionPage::SpeedFormat(const double nSpeed) const
 	CString strSpeed;
 
 	if ( nSpeed < 100 )
-		strSpeed.Format( _T("%.1f kbps    (%.1f KB/s)"), nSpeed, nSpeed / 8 );
+		strSpeed.Format( L"%.1f kbps    (%.1f KB/s)", nSpeed, nSpeed / 8 );
 	else if ( nSpeed < 1024 )
-		strSpeed.Format( _T("%.0f kbps    (%.0f KB/s)"), nSpeed, nSpeed / 8 );
+		strSpeed.Format( L"%.0f kbps    (%.0f KB/s)", nSpeed, nSpeed / 8 );
 	else if ( nSpeed < 8190 )
-		strSpeed.Format( _T("%.1f mbps    (%.0f KB/s)"), nSpeed / 1024, nSpeed / 8 );
+		strSpeed.Format( L"%.1f mbps    (%.0f KB/s)", nSpeed / 1024, nSpeed / 8 );
 	else if ( nSpeed < 10240 )
-		strSpeed.Format( _T("%.1f mbps    (%.2f MB/s)"), nSpeed / 1024, nSpeed / (1024*8) );
+		strSpeed.Format( L"%.1f mbps    (%.2f MB/s)", nSpeed / 1024, nSpeed / (1024*8) );
 	else
-		strSpeed.Format( _T("%.0f mbps     (%.2f MB/s)"), nSpeed / 1024, nSpeed / (1024*8) );
+		strSpeed.Format( L"%.0f mbps     (%.2f MB/s)", nSpeed / 1024, nSpeed / (1024*8) );
 
 	return strSpeed;
 }
@@ -558,9 +558,9 @@ void CWizardConnectionPage::OnLButtonDown(UINT nFlags, CPoint point)
 	if ( ! rc.PtInRect( point ) )
 		return;
 
-	const CString strTestSite = _T("http://www.speedtest.net/switch_language.php?lang=") + Settings.General.Language.Left(2);
+	const CString strTestSite = L"http://www.speedtest.net/switch_language.php?lang=" + Settings.General.Language.Left(2);
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strTestSite, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open", strTestSite, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CWizardConnectionPage::OnRButtonDown(UINT nFlags, CPoint point)
@@ -573,7 +573,7 @@ void CWizardConnectionPage::OnRButtonDown(UINT nFlags, CPoint point)
 	if ( ! rc.PtInRect( point ) )
 		return;
 
-	const CString strTestSite = _T("http://www.speedtest.net/switch_language.php?lang=") + Settings.General.Language.Left(2);
+	const CString strTestSite = L"http://www.speedtest.net/switch_language.php?lang=" + Settings.General.Language.Left(2);
 
 	theApp.SetClipboard( strTestSite, TRUE );
 }

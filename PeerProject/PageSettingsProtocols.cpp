@@ -1,7 +1,7 @@
 //
 // PageSettingsProtocols.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -57,82 +57,82 @@ BOOL CProtocolsSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	HTREEITEM hNetworks = AddItem( NULL, _T("Peer-to-Peer Network Protocols") );
+	HTREEITEM hNetworks = AddItem( NULL, L"Peer-to-Peer Network Protocols" );
 
-	HTREEITEM hG2 = AddItem( hNetworks, _T("Gnutella2 Network") );
-	AddItem( hG2, _T("Name"), _T("Gnutella2  (\"G2\")") );
-	AddItem( hG2, _T("Type"), _T("Decentralized") );
-	AddItem( hG2, _T("NodeClass"), _T("Hub, Leaf") );
-	AddItem( hG2, _T("PrimaryURN"), _T("sha1") );
-	AddItem( hG2, _T("ProtocolVersion"), _T("1.0") );
-	AddItem( hG2, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hG2 = AddItem( hNetworks, L"Gnutella2 Network" );
+	AddItem( hG2, L"Name", L"Gnutella2  (\"G2\")" );
+	AddItem( hG2, L"Type", L"Decentralized" );
+	AddItem( hG2, L"NodeClass", L"Hub, Leaf" );
+	AddItem( hG2, L"PrimaryURN", L"sha1" );
+	AddItem( hG2, L"ProtocolVersion", L"1.0" );
+	AddItem( hG2, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hG1 = AddItem( hNetworks, _T("Gnutella Network") );
-	AddItem( hG1, _T("Name"), _T("Gnutella") );
-	AddItem( hG1, _T("Type"), _T("Decentralized") );
-	AddItem( hG1, _T("NodeClass"), _T("Leaf, Ultrapeer*") );
-	AddItem( hG1, _T("PrimaryURN"), _T("sha1") );
-	AddItem( hG1, _T("ProtocolVersion"), _T("0.6") );
-	AddItem( hG1, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hG1 = AddItem( hNetworks, L"Gnutella Network" );
+	AddItem( hG1, L"Name", L"Gnutella" );
+	AddItem( hG1, L"Type", L"Decentralized" );
+	AddItem( hG1, L"NodeClass", L"Leaf, Ultrapeer*" );
+	AddItem( hG1, L"PrimaryURN", L"sha1" );
+	AddItem( hG1, L"ProtocolVersion", L"0.6" );
+	AddItem( hG1, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hED = AddItem( hNetworks, _T("eDonkey2000 Network") );
-	AddItem( hED, _T("Name"), _T("eDonkey2000") );
-	AddItem( hED, _T("Type"), _T("Server-Based") );
-	AddItem( hED, _T("NodeClass"), _T("Client") );
-	AddItem( hED, _T("PrimaryURN"), _T("ed2k (compound md4)") );
-	AddItem( hED, _T("ProtocolVersion"), _T("1.1") );
-	AddItem( hED, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hED = AddItem( hNetworks, L"eDonkey2000 Network" );
+	AddItem( hED, L"Name", L"eDonkey2000" );
+	AddItem( hED, L"Type", L"Server-Based" );
+	AddItem( hED, L"NodeClass", L"Client" );
+	AddItem( hED, L"PrimaryURN", L"ed2k (compound md4)" );
+	AddItem( hED, L"ProtocolVersion", L"1.1" );
+	AddItem( hED, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hDC = AddItem( hNetworks, _T("ADC/NMDC Network") );
-	AddItem( hDC, _T("Name"), _T("Direct Connect  (\"DC++\")") );
-	AddItem( hDC, _T("Type"), _T("Hub-Based") );
-	AddItem( hDC, _T("NodeClass"), _T("Client") );
-	AddItem( hDC, _T("PrimaryURN"), _T("ttr") );
-	AddItem( hDC, _T("ProtocolVersion"), _T("1.0") );
-	AddItem( hDC, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hDC = AddItem( hNetworks, L"ADC/NMDC Network" );
+	AddItem( hDC, L"Name", L"Direct Connect  (\"DC++\")" );
+	AddItem( hDC, L"Type", L"Hub-Based" );
+	AddItem( hDC, L"NodeClass", L"Client" );
+	AddItem( hDC, L"PrimaryURN", L"ttr" );
+	AddItem( hDC, L"ProtocolVersion", L"1.0" );
+	AddItem( hDC, L"ComponentVersion", L"1.0.0.0" );
 
-	//HTREEITEM hED = AddItem( hNetworks, _T("KAD Network") );
-	//AddItem( hED, _T("Name"), _T("KAD (Inactive)") );
-	//AddItem( hED, _T("ComponentVersion"), _T("0.0.0.0") );
+	//HTREEITEM hED = AddItem( hNetworks, L"KAD Network" );
+	//AddItem( hED, L"Name", L"KAD (Inactive)" );
+	//AddItem( hED, L"ComponentVersion", L"0.0.0.0" );
 
-	HTREEITEM hTransfers = AddItem( NULL, _T("File Transfer Protocols") );
+	HTREEITEM hTransfers = AddItem( NULL, L"File Transfer Protocols" );
 
-	HTREEITEM hHTTP = AddItem( hTransfers, _T("Hypertext Transfer Protocol (HTTP)") );
-	AddItem( hHTTP, _T("Name"), _T("Hypertext Transfer Protocol (HTTP)") );
-	AddItem( hHTTP, _T("Prefix"), _T("http://") );
-	AddItem( hHTTP, _T("TransferMode"), _T("Stream") );
-	AddItem( hHTTP, _T("Directions"), _T("Download, Upload") );
-	AddItem( hHTTP, _T("Encodings"), _T("Deflate, Backwards") );
-	AddItem( hHTTP, _T("Capabilities"), _T("THEX, PFS, Metadata, HUGE, Browse") );
-	AddItem( hHTTP, _T("ProtocolVersion"), _T("1.1") );
-	AddItem( hHTTP, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hHTTP = AddItem( hTransfers, L"Hypertext Transfer Protocol (HTTP)" );
+	AddItem( hHTTP, L"Name", L"Hypertext Transfer Protocol (HTTP)" );
+	AddItem( hHTTP, L"Prefix", L"http://" );
+	AddItem( hHTTP, L"TransferMode", L"Stream" );
+	AddItem( hHTTP, L"Directions", L"Download, Upload" );
+	AddItem( hHTTP, L"Encodings", L"Deflate, Backwards" );
+	AddItem( hHTTP, L"Capabilities", L"THEX, PFS, Metadata, HUGE, Browse" );
+	AddItem( hHTTP, L"ProtocolVersion", L"1.1" );
+	AddItem( hHTTP, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hFTP = AddItem( hTransfers, _T("File Transfer Protocol (FTP)") );
-	AddItem( hFTP, _T("Name"), _T("File Transfer Protocol (FTP)") );
-	AddItem( hFTP, _T("Prefix"), _T("ftp://") );
-	AddItem( hFTP, _T("TransferMode"), _T("Stream") );
-	AddItem( hFTP, _T("Directions"), _T("Download") );
-	AddItem( hFTP, _T("Capabilities"), _T("Passive") );
-	AddItem( hFTP, _T("ProtocolVersion"), _T("1.0") );
-	AddItem( hFTP, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hFTP = AddItem( hTransfers, L"File Transfer Protocol (FTP)" );
+	AddItem( hFTP, L"Name", L"File Transfer Protocol (FTP)" );
+	AddItem( hFTP, L"Prefix", L"ftp://" );
+	AddItem( hFTP, L"TransferMode", L"Stream" );
+	AddItem( hFTP, L"Directions", L"Download" );
+	AddItem( hFTP, L"Capabilities", L"Passive" );
+	AddItem( hFTP, L"ProtocolVersion", L"1.0" );
+	AddItem( hFTP, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hEFTP = AddItem( hTransfers, _T("eDonkey2000 Client Link (EFTP)") );
-	AddItem( hEFTP, _T("Name"), _T("eDonkey2000 Client Link FTP (EFTP)") );
-	AddItem( hEFTP, _T("Prefix"), _T("ed2kftp://") );
-	AddItem( hEFTP, _T("TransferMode"), _T("Block") );
-	AddItem( hEFTP, _T("Directions"), _T("Download, Upload") );
-	AddItem( hEFTP, _T("Capabilities"), _T("Hashset, SourceExchange, Deflate") );
-	AddItem( hEFTP, _T("ProtocolVersion"), _T("1.1") );
-	AddItem( hEFTP, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hEFTP = AddItem( hTransfers, L"eDonkey2000 Client Link (EFTP)" );
+	AddItem( hEFTP, L"Name", L"eDonkey2000 Client Link FTP (EFTP)" );
+	AddItem( hEFTP, L"Prefix", L"ed2kftp://" );
+	AddItem( hEFTP, L"TransferMode", L"Block" );
+	AddItem( hEFTP, L"Directions", L"Download, Upload" );
+	AddItem( hEFTP, L"Capabilities", L"Hashset, SourceExchange, Deflate" );
+	AddItem( hEFTP, L"ProtocolVersion", L"1.1" );
+	AddItem( hEFTP, L"ComponentVersion", L"1.0.0.0" );
 
-	HTREEITEM hBT = AddItem( hTransfers, _T("BitTorrent Coupling (BT)") );
-	AddItem( hBT, _T("Name"), _T("BitTorrent Coupling (BT)") );
-	AddItem( hBT, _T("Prefix"), _T("btc://") );
-	AddItem( hBT, _T("TransferMode"), _T("Block") );
-	AddItem( hBT, _T("Directions"), _T("Download, Upload") );
-	AddItem( hBT, _T("Capabilities"), _T("PeerExchange, (etc.)") );
-	AddItem( hBT, _T("ProtocolVersion"), _T("1.0") );
-	AddItem( hBT, _T("ComponentVersion"), _T("1.0.0.0") );
+	HTREEITEM hBT = AddItem( hTransfers, L"BitTorrent Coupling (BT)" );
+	AddItem( hBT, L"Name", L"BitTorrent Coupling (BT)" );
+	AddItem( hBT, L"Prefix", L"btc://" );
+	AddItem( hBT, L"TransferMode", L"Block" );
+	AddItem( hBT, L"Directions", L"Download, Upload" );
+	AddItem( hBT, L"Capabilities", L"PeerExchange, (etc.)" );
+	AddItem( hBT, L"ProtocolVersion", L"1.0" );
+	AddItem( hBT, L"ComponentVersion", L"1.0.0.0" );
 
 	return TRUE;
 }
@@ -143,15 +143,15 @@ HTREEITEM CProtocolsSettingsPage::AddItem(HTREEITEM hParent, LPCTSTR pszText, LP
 	if ( pszValue != NULL )
 	{
 		CString str;
-		str.Format( _T("%s = %s"), pszText, pszValue );
-		if ( Settings.General.LanguageRTL ) str = _T("\x202A") + str;
+		str.Format( L"%s = %s", pszText, pszValue );
+		if ( Settings.General.LanguageRTL ) str = L"\x202A" + str;
 		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str,
 			0, 0, 0, 0, 0, hParent, TVI_LAST );
 	}
 	else
 	{
 		CString str( pszText );
-		if ( Settings.General.LanguageRTL ) str = _T("\x202A") + str;
+		if ( Settings.General.LanguageRTL ) str = L"\x202A" + str;
 		return m_wndTree.InsertItem( TVIF_TEXT|TVIF_STATE, str,
 			0, 0, TVIS_EXPANDED|TVIS_BOLD, TVIS_EXPANDED|TVIS_BOLD, 0, hParent, TVI_LAST );
 	}

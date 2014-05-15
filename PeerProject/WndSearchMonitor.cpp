@@ -105,14 +105,14 @@ int CSearchMonitorWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 //	m_wndList.SetFont( &theApp.m_gdiFont );
 
-	m_wndList.InsertColumn( COL_SEARCH, _T("Search"), LVCFMT_LEFT, 400, -1 );
-//	m_wndList.InsertColumn( COL_URN, _T("URN"), LVCFMT_LEFT, 340, 0 );
-//	m_wndList.InsertColumn( COL_SIZE, _T("Size"), LVCFMT_LEFT, 100, 1 );
-	m_wndList.InsertColumn( COL_SCHEMA, _T("Schema"), LVCFMT_LEFT, 150, 1 );
-//	m_wndList.InsertColumn( COL_NETWORK, _T("Network"), LVCFMT_LEFT, 60, 3 );
-	m_wndList.InsertColumn( COL_ENDPOINT, _T("Endpoint"), LVCFMT_LEFT, 150, 2 );
+	m_wndList.InsertColumn( COL_SEARCH, L"Search", LVCFMT_LEFT, 400, -1 );
+//	m_wndList.InsertColumn( COL_URN, L"URN", LVCFMT_LEFT, 340, 0 );
+//	m_wndList.InsertColumn( COL_SIZE, L"Size", LVCFMT_LEFT, 100, 1 );
+	m_wndList.InsertColumn( COL_SCHEMA, L"Schema", LVCFMT_LEFT, 150, 1 );
+//	m_wndList.InsertColumn( COL_NETWORK, L"Network", LVCFMT_LEFT, 60, 3 );
+	m_wndList.InsertColumn( COL_ENDPOINT, L"Endpoint", LVCFMT_LEFT, 150, 2 );
 
-	LoadState( _T("CSearchMonitorWnd"), TRUE );
+	LoadState( L"CSearchMonitorWnd", TRUE );
 
 //	m_bPaused = FALSE;
 	SetTimer( 2, 250, NULL );
@@ -136,8 +136,8 @@ void CSearchMonitorWnd::OnDestroy()
 		m_pQueue.RemoveAll();
 	}
 
-	Settings.SaveList( _T("CSearchMonitorWnd"), &m_wndList );
-	SaveState( _T("CSearchMonitorWnd") );
+	Settings.SaveList( L"CSearchMonitorWnd", &m_wndList );
+	SaveState( L"CSearchMonitorWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -147,7 +147,7 @@ void CSearchMonitorWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 
 	// Columns
-	Settings.LoadList( _T("CSearchMonitorWnd"), &m_wndList );
+	Settings.LoadList( L"CSearchMonitorWnd", &m_wndList );
 
 	// Fonts & Colors
 	m_wndList.SetFont( &theApp.m_gdiFont );
@@ -174,7 +174,7 @@ void CSearchMonitorWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CSearchMonitorWnd"), point, ID_HITMONITOR_SEARCH );
+	Skin.TrackPopupMenu( L"CSearchMonitorWnd", point, ID_HITMONITOR_SEARCH );
 }
 
 void CSearchMonitorWnd::OnUpdateSearchMonitorSearch(CCmdUI* pCmdUI)
@@ -192,13 +192,13 @@ void CSearchMonitorWnd::OnSearchMonitorSearch()
 		pSearch->m_sSearch = m_wndList.GetItemText( nItem, 0 );
 
 		if ( pSearch->m_sSearch.IsEmpty() ||
-			 _tcscmp( pSearch->m_sSearch, _T("\\") ) == 0 )
+			 _tcscmp( pSearch->m_sSearch, L"\\" ) == 0 )
 		{
 			pSearch->m_sSearch = m_wndList.GetItemText( nItem, 1 );
 
-			if ( _tcsicmp( pSearch->m_sSearch, _T("None") ) != 0 &&
-				 _tcsncmp( pSearch->m_sSearch, _T("btih:"), 5 ) != 0 )
-				pSearch->m_sSearch = _T("urn:") + m_wndList.GetItemText( nItem, 1 );
+			if ( _tcsicmp( pSearch->m_sSearch, L"None" ) != 0 &&
+				 _tcsncmp( pSearch->m_sSearch, L"btih:", 5 ) != 0 )
+				pSearch->m_sSearch = L"urn:" + m_wndList.GetItemText( nItem, 1 );
 			else
 				pSearch->m_sSearch.Empty();
 		}
@@ -256,40 +256,40 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	{
 		strSize = Settings.SmartVolume( pSearch->m_nMinSize );
 		if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && ( pSearch->m_nMaxSize - pSearch->m_nMinSize ) < 1024 * 1025 )
-			strSize = _T("~ ") + Settings.SmartVolume( pSearch->m_nMaxSize );	// Specific size
+			strSize = L"~ " + Settings.SmartVolume( pSearch->m_nMaxSize );	// Specific size
 		else if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && pSearch->m_nMaxSize > 512 )
-			strSize = strSize + _T(" - ") + Settings.SmartVolume( pSearch->m_nMaxSize );
+			strSize = strSize + L" - " + Settings.SmartVolume( pSearch->m_nMaxSize );
 		else
-			strSize = _T("> ") + strSize;
+			strSize = L"> " + strSize;
 	}
 	else if ( pSearch->m_nMaxSize != SIZE_UNKNOWN && pSearch->m_nMaxSize > 100 )
 	{
-		strSize = _T("< ") + Settings.SmartVolume( pSearch->m_nMaxSize );
+		strSize = L"< " + Settings.SmartVolume( pSearch->m_nMaxSize );
 	}
 
 	CString strNode;
 	if ( pSearch->m_pEndpoint.sin_addr.s_addr )
-		strNode.Format( _T("%hs:%u"),
+		strNode.Format( L"%hs:%u",
 			inet_ntoa( pSearch->m_pEndpoint.sin_addr ),
 			ntohs( pSearch->m_pEndpoint.sin_port ) );
 
 	if ( pSearch->m_nProtocol > PROTOCOL_NULL )
 	{
 		if ( pSearch->m_nProtocol == PROTOCOL_G2 )
-			strNode += _T("  G2");
+			strNode += L"  G2";
 		else if ( pSearch->m_nProtocol == PROTOCOL_G1 )
-			strNode += _T("  G1");
+			strNode += L"  G1";
 		else if ( pSearch->m_nProtocol == PROTOCOL_ED2K )
-			strNode += _T("  ED2K");
+			strNode += L"  ED2K";
 		else if ( pSearch->m_nProtocol == PROTOCOL_DC )
-			strNode += _T("  DC++");
+			strNode += L"  DC++";
 		else
-			strNode += _T("  ??");		// Others?
+			strNode += L"  ??";		// Others?
 	}
 
 	CString strURN;
 	if ( pSearch->m_oSHA1 && pSearch->m_oTiger )
-		strURN	= _T("bitprint:") + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
+		strURN	= L"bitprint:" + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
 	else if ( pSearch->m_oTiger )
 		strURN = pSearch->m_oTiger.toShortUrn();
 	else if ( pSearch->m_oSHA1 )
@@ -301,29 +301,29 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	else if ( pSearch->m_oMD5 )
 		strURN = pSearch->m_oMD5.toShortUrn();
 	//else
-	//	strURN = _T("-");
+	//	strURN = L"-";
 
 	if ( pSearch->m_bWhatsNew )
-		strSearch = _T("What's New?");
+		strSearch = L"What's New?";
 
 	if ( pSearch->m_pXML )
 	{
-		strSearch += _T('«');
+		strSearch += L'«';
 		strSearch += pSearch->m_pXML->GetRecursiveWords();
-		strSearch += _T('»');
+		strSearch += L'»';
 	}
 
 	CString strSchema;
 	if ( pSearch->m_pSchema )
 		strSchema = pSearch->m_pSchema->m_sTitle;
 	else
-		strSchema = _T("-");
+		strSchema = L"-";
 
 	// ToDo: Add proper Size and Network columns to HitMonitor instead?
 	if ( strSize.GetLength() > 1 )
 	{
 		if ( strSchema.GetLength() > 3 )
-			strSchema += _T("  ") + strSize;
+			strSchema += L"  " + strSize;
 		else
 			strSchema = strSize;
 	}
@@ -331,7 +331,7 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	if ( ! strURN.IsEmpty() )
 	{
 		if ( strSearch.GetLength() > 1 )
-			strSearch += _T("  ") + strURN;
+			strSearch += L"  " + strURN;
 		else
 			strSearch = strURN;
 	}
@@ -392,7 +392,7 @@ void CSearchMonitorWnd::OnSecurityBan()
 	SOCKADDR_IN pHost = { 0 };
 	pHost.sin_family = AF_INET;
 	CString strNode = m_wndList.GetItemText( nItem, 3 );
-	int nPos = strNode.Find( _T(':') );
+	int nPos = strNode.Find( L':' );
 	pHost.sin_addr.s_addr = inet_addr( CT2CA( (LPCTSTR)strNode.Left( nPos ) ) );
 	pHost.sin_port = htons( (WORD)_tstoi( strNode.Mid( nPos + 1 ) ) );
 	Security.Ban( &pHost.sin_addr, banSession );
@@ -411,7 +411,7 @@ void CSearchMonitorWnd::OnBrowseLaunch()
 		SOCKADDR_IN pHost = { 0 };
 		pHost.sin_family = AF_INET;
 		CString strNode = m_wndList.GetItemText( nItem, 3 );
-		int nPos = strNode.Find( _T(':') );
+		int nPos = strNode.Find( L':' );
 		pHost.sin_addr.s_addr = inet_addr( CT2CA( (LPCTSTR)strNode.Left( nPos ) ) );
 		pHost.sin_port = htons( (WORD)_tstoi( strNode.Mid( nPos + 1 ) ) );
 		new CBrowseHostWnd( PROTOCOL_ANY, &pHost );

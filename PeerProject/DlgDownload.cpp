@@ -64,7 +64,7 @@ BOOL CDownloadDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CDownloadDlg"), IDR_DOWNLOADSFRAME );
+	SkinMe( L"CDownloadDlg", IDR_DOWNLOADSFRAME );
 
 	if ( OpenClipboard() )
 	{
@@ -83,7 +83,7 @@ BOOL CDownloadDlg::OnInitDialog()
 		CloseClipboard();
 	}
 
-	m_sURL.Trim( _T(" \t\r\n") );
+	m_sURL.Trim( L" \t\r\n" );
 
 	CPeerProjectURL pURL;
 	if ( ! pURL.Parse( m_sURL, m_pURLs ) )
@@ -110,8 +110,8 @@ void CDownloadDlg::OnTorrentFile()
 {
 	UpdateData();
 
-	CFileDialog dlg( TRUE, _T("torrent"), ( Settings.Downloads.TorrentPath + _T("\\.") ), OFN_HIDEREADONLY,
-		_T("Torrent Files|*.torrent|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( TRUE, L"torrent", ( Settings.Downloads.TorrentPath + L"\\." ), OFN_HIDEREADONLY,
+		L"Torrent Files|*.torrent|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 

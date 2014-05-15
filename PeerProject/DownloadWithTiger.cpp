@@ -457,7 +457,7 @@ bool CDownloadWithTiger::RunMergeFile(LPCTSTR szFilename, BOOL bMergeValidation,
 					pFile = m_pTorrent.m_pFiles.GetNext( pos );
 					if ( pFile->m_sPath == pSelectFile->m_sPath )
 					{
-						DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Selected File: ") + pFile->m_sPath ) );
+						DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"Merge Selected File: " + pFile->m_sPath ) );
 						qwSourceOffset = qwOffset;
 						bFound = TRUE;	// Avoid checks below
 						break;
@@ -477,7 +477,7 @@ bool CDownloadWithTiger::RunMergeFile(LPCTSTR szFilename, BOOL bMergeValidation,
 
 				if ( strTargetName.CompareNoCase( strSourceName ) == 0 )
 				{
-					DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Filename: ") + pFile->m_sPath ) );
+					DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"Merge Filename: " + pFile->m_sPath ) );
 					qwSourceOffset = qwOffset;
 					bFound = TRUE;	// Avoid fallback check below
 					break;
@@ -496,7 +496,7 @@ bool CDownloadWithTiger::RunMergeFile(LPCTSTR szFilename, BOOL bMergeValidation,
 
 				if ( pFile->m_nSize == qwSourceSize )	// && strExt == PathFindExtension( pFile->m_sPath )
 				{
-					DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Merge Filesize Fallback") ) );
+					DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"Merge Filesize Fallback" ) );
 					qwSourceOffset = qwOffset;
 				//	bFound = TRUE;
 					break;
@@ -1081,11 +1081,11 @@ BOOL CDownloadWithTiger::GetFragment(CDownloadTransfer* pTransfer)
 //		if ( bSuccess )
 //		{
 //			if ( strRanges.IsEmpty() )
-//				strRanges = _T("bytes ");
+//				strRanges = L"bytes ";
 //			else
 //				strRanges += ',';
 //
-//			strRange.Format( _T("%I64i-%I64i"), nOffset, nOffset + nLength - 1 );
+//			strRange.Format( L"%I64i-%I64i", nOffset, nOffset + nLength - 1 );
 //			strRanges += strRange;
 //			if ( strRanges.GetLength() > HTTP_HEADER_MAX_LINE - 256 )
 //				break;	// Prevent too long a line

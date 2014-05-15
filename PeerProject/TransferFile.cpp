@@ -1,7 +1,7 @@
 //
 // TransferFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -141,6 +141,7 @@ void CTransferFiles::Remove(CTransferFile* pFile)
 	if ( POSITION pos = m_pDeferred.Find( pFile ) )
 		m_pDeferred.RemoveAt( pos );
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CTransferFile construction
@@ -284,7 +285,7 @@ BOOL CTransferFile::Read(QWORD nOffset, LPVOID pBuffer, QWORD nBuffer, QWORD* pn
 
 	if ( ! ReadFile( m_hFile, pBuffer, (DWORD)nBuffer, (DWORD*)pnRead, NULL ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Can't read from file \"%s\". %s"), m_sPath, GetErrorString() );
+		theApp.Message( MSG_ERROR, L"Can't read from file \"%s\". %s", m_sPath, GetErrorString() );
 		return FALSE;
 	}
 
@@ -334,7 +335,7 @@ BOOL CTransferFile::Write(QWORD nOffset, LPCVOID pBuffer, QWORD nBuffer, QWORD* 
 
 	if ( ! WriteFile( m_hFile, pBuffer, (DWORD)nBuffer, (LPDWORD)pnWritten, NULL ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Can't write to file \"%s\". %s"), m_sPath, GetErrorString() );
+		theApp.Message( MSG_ERROR, L"Can't write to file \"%s\". %s", m_sPath, GetErrorString() );
 		return FALSE;
 	}
 

@@ -268,7 +268,7 @@
     </ClCompile>
     <ClCompile Include="Preview.cpp" />
     <ClCompile Include="PreviewPlugin.cpp" />
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="StdAfx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -286,8 +286,8 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Preview.def" />
     <None Include="Icon.ico" />
+    <None Include="Preview.def" />
     <None Include="Preview.rgs" />
     <None Include="PreviewPlugin.rgs" />
   </ItemGroup>
@@ -300,8 +300,7 @@
     <ClInclude Include="dllmain.h" />
     <ClInclude Include="PreviewPlugin.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="TargetVer.h" />
+    <ClInclude Include="StdAfx.h" />
     <ClInclude Include="Preview_i.h" />
   </ItemGroup>
   <ItemGroup>

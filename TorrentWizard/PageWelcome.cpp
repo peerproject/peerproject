@@ -42,7 +42,7 @@ END_MESSAGE_MAP()
 
 CWelcomePage::CWelcomePage() : CWizardPage(CWelcomePage::IDD)
 {
-	m_nType = theApp.GetProfileInt( _T(""), _T("Mode"), 0 );
+	m_nType = theApp.GetProfileInt( L"", L"Mode", 0 );
 }
 
 //CWelcomePage::~CWelcomePage()
@@ -61,7 +61,7 @@ void CWelcomePage::DoDataExchange(CDataExchange* pDX)
 
 void CWelcomePage::OnReset()
 {
-	m_nType = theApp.GetProfileInt( _T(""), _T("Mode"), 0 );
+	m_nType = theApp.GetProfileInt( L"", L"Mode", 0 );
 	UpdateData( FALSE );
 }
 
@@ -79,7 +79,7 @@ BOOL CWelcomePage::OnSetActive()
 
 	UpdateData( FALSE );
 
-	if ( m_nType == 2 && theApp.GetProfileInt( _T(""), _T("Expert"), FALSE ) == TRUE )
+	if ( m_nType == 2 && theApp.GetProfileInt( L"", L"Expert", FALSE ) == TRUE )
 		Next();
 
 	return CWizardPage::OnSetActive();
@@ -95,9 +95,9 @@ LRESULT CWelcomePage::OnWizardNext()
 {
 	UpdateData();
 
-	theApp.WriteProfileInt( _T(""), _T("Mode"), m_nType );
+	theApp.WriteProfileInt( L"", L"Mode", m_nType );
 	if ( m_nType == 2 )
-		theApp.WriteProfileInt( _T(""), _T("Expert"), TRUE );
+		theApp.WriteProfileInt( L"", L"Expert", TRUE );
 
 	if ( m_nType == 0 )
 		return IDD_SINGLE_PAGE;
@@ -107,5 +107,4 @@ LRESULT CWelcomePage::OnWizardNext()
 		return IDD_EXPERT_PAGE;
 
 	return -1;
-	//	AfxMessageBox( IDS_WELCOME_NEED_TYPE, MB_ICONEXCLAMATION );
 }

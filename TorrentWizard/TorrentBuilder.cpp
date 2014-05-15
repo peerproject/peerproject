@@ -342,7 +342,7 @@ BOOL CTorrentBuilder::ScanFiles()
 	m_nTotalSize = 0;
 	if ( m_pBuffer != NULL )
 		delete [] m_pBuffer;
-	m_sThisFile = _T(" Prescanning files...");
+	m_sThisFile = L" Prescanning files...";
 	m_pSection.Unlock();
 
 	delete [] m_pFileSize;
@@ -353,7 +353,7 @@ BOOL CTorrentBuilder::ScanFiles()
 	{
 		CString strFile = m_pFiles.GetNext( pos );
 		if ( strFile.GetLength() > MAX_PATH )
-			strFile = CString( _T("\\\\?\\") ) + strFile;
+			strFile = CString( L"\\\\?\\" ) + strFile;
 
 		HANDLE hFile = CreateFile( strFile, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -527,7 +527,7 @@ BOOL CTorrentBuilder::ProcessFile(DWORD nFile, LPCTSTR pszFile)
 	m_pSection.Unlock();
 
 	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
-		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+		pszFile : (LPCTSTR)( CString( L"\\\\?\\" ) + pszFile );
 
 	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 	if ( hFile == INVALID_HANDLE_VALUE )
@@ -670,11 +670,11 @@ BOOL CTorrentBuilder::WriteOutput()
 	if ( ! m_sComment.IsEmpty() )
 		pRoot.Add( "comment" )->SetString( m_sComment );
 
-	pRoot.Add( "created by" )->SetString( _T("PeerProject TorrentWizard ") + theApp.m_sVersion );
+	pRoot.Add( "created by" )->SetString( L"PeerProject TorrentWizard " + theApp.m_sVersion );
 
 	pRoot.Add( "creation date" )->SetInt( (QWORD)time( NULL ) );
 
-	pRoot.Add( "encoding" )->SetString( _T("UTF-8") );
+	pRoot.Add( "encoding" )->SetString( L"UTF-8" );
 
 	if ( CBENode* pInfo = pRoot.Add( "info" ) )
 	{
@@ -777,7 +777,7 @@ BOOL CTorrentBuilder::WriteOutput()
 						CBENode* pPath = pFile->Add( "path" );
 						while ( ! strFile.IsEmpty() )
 						{
-							CString strPart = strFile.SpanExcluding( _T("\\/") );
+							CString strPart = strFile.SpanExcluding( L"\\/" );
 							if ( strPart.IsEmpty() ) break;
 
 							pPath->Add( NULL, NULL )->SetString( strPart );
@@ -829,8 +829,8 @@ BOOL CTorrentBuilder::WriteOutput()
 	CBuffer pOutput;
 	pRoot.Encode( &pOutput );
 
-	if ( m_sOutput.GetLength() > MAX_PATH && m_sOutput[0] != _T('\\') )
-		m_sOutput = CString( _T("\\\\?\\") ) + m_sOutput;
+	if ( m_sOutput.GetLength() > MAX_PATH && m_sOutput[0] != L'\\' )
+		m_sOutput = CString( L"\\\\?\\" ) + m_sOutput;
 
 	HANDLE hFile = CreateFile( m_sOutput, GENERIC_WRITE, 0, NULL, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL );
 

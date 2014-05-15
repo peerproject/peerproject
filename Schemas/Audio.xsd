@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.limewire.com/schemas/audio.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Audio.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Audio"/>
@@ -321,6 +320,8 @@
 				<simpleType base="GUIDType"/>
 			</attribute>
 			<attribute name="cddb" type="string"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

@@ -14,15 +14,11 @@
 	<file type="oddfile" path="plaintext.row.tpl"/>
 </files>
 <wizardText>
-	<text language="pt-br">
+	<text language="pt">
 		<item id="title" type="textbox" value="Título da Coleção" default="PeerProject"/>
 		<item id="description" type="textbox" value="Descrição"/>
 	</text>
 	<text language="es">
-		<item id="title" type="textbox" value="Título de la colección" default="PeerProject"/>
-		<item id="description" type="textbox" value="Descripción"/>
-	</text>
-	<text language="es-mx">
 		<item id="title" type="textbox" value="Título de la colección" default="PeerProject"/>
 		<item id="description" type="textbox" value="Descripción"/>
 	</text>

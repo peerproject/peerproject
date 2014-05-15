@@ -61,7 +61,7 @@ CIconButtonCtrl::CIconButtonCtrl()
 
 BOOL CIconButtonCtrl::Create(const RECT& rect, CWnd* pParentWnd, UINT nControlID, DWORD dwStyle)
 {
-	if ( CWnd::CreateEx( 0, NULL, _T(""), dwStyle | WS_CHILD | WS_VISIBLE,
+	if ( CWnd::CreateEx( 0, NULL, L"", dwStyle | WS_CHILD | WS_VISIBLE,
 		rect, pParentWnd, nControlID ) )
 	{
 		// Fix
@@ -316,7 +316,7 @@ void CIconButtonCtrl::OnPaint()
 	}
 	else if ( IsWindowEnabled() )	// Button Default w/o Focus
 	{
-		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_DEFAULT) )	// IconButton
+		if ( ! bTextButton && Images.DrawButtonState( &dc, &rc, ICONBUTTON_DEFAULT ) )	// IconButton
 		{
 			bSkinned = TRUE;
 		}

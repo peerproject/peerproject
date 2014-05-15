@@ -155,7 +155,7 @@ CRouteCacheItem* CRouteCache::Lookup(const Hashes::Guid& oGUID, CNeighbour** ppN
 
 		// This needs to be done, because CRouteCache::Add() can cause m_pHistory cache table deleted.
 		// Thus need to copy data member of CRouteCacheItem if it is in m_pHistory, before it gets deleted.
-		Hashes::Guid oTempGUID( pItem->m_oGUID);
+		Hashes::Guid oTempGUID( pItem->m_oGUID );
 		CNeighbour* pTempNeighbour = const_cast<CNeighbour*>(pItem->m_pNeighbour);
 		SOCKADDR_IN pTempEndPoint = pItem->m_pEndpoint;
 		DWORD tTempAddTime = pItem->m_tAdded;

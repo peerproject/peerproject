@@ -73,7 +73,7 @@ void CVersionChecker::ClearVersionCheck()
 BOOL CVersionChecker::IsVersionNewer()
 {
 	WORD nVersion[ 4 ];
-	return ( _stscanf_s( Settings.VersionCheck.UpgradeVersion, _T("%hu.%hu.%hu.%hu"),
+	return ( _stscanf_s( Settings.VersionCheck.UpgradeVersion, L"%hu.%hu.%hu.%hu",
 		&nVersion[ 0 ], &nVersion[ 1 ], &nVersion[ 2 ], &nVersion[ 3 ] ) == 4 ) &&
 	//	( theApp.m_nVersion[ 0 ] < nVersion[ 0 ] ||
 		( theApp.m_nVersion[ 0 ] == nVersion[ 0 ] &&
@@ -147,18 +147,18 @@ void CVersionChecker::OnRun()
 BOOL CVersionChecker::ExecuteRequest()
 {
 	const CString strURL = UPDATE_URL		// Settings.VersionCheck.UpdateCheckURL
-		  _T("?Version=") + theApp.m_sVersion
+		  L"?Version=" + theApp.m_sVersion
 #ifdef WIN64
-		+ _T("&Platform=x64")
+		+ L"&Platform=x64"
 #else
-		+ _T("&Platform=Win32")
+		+ L"&Platform=Win32"
 #endif	// WIN64
-		+ _T("&Language=") + Settings.General.Language.Left(2);
+		+ L"&Language=" + Settings.General.Language.Left(2);
 
 	if ( ! m_pRequest.SetURL( strURL ) )
 		return FALSE;
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[VersionChecker] Request: %s"), (LPCTSTR)strURL );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, L"[VersionChecker] Request: %s", (LPCTSTR)strURL );
 
 	if ( ! m_pRequest.Execute( false ) )
 		return FALSE;
@@ -168,14 +168,14 @@ BOOL CVersionChecker::ExecuteRequest()
 
 	CString strOutput = m_pRequest.GetResponseString();
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[VersionChecker] Response: %s"), (LPCTSTR)strOutput );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[VersionChecker] Response: %s", (LPCTSTR)strOutput );
 
 	for ( strOutput += '&' ; strOutput.GetLength() ; )
 	{
-		CString strItem	= strOutput.SpanExcluding( _T("&") );
+		CString strItem	= strOutput.SpanExcluding( L"&" );
 		strOutput		= strOutput.Mid( strItem.GetLength() + 1 );
 
-		CString strKey = strItem.SpanExcluding( _T("=") );
+		CString strKey = strItem.SpanExcluding( L"=" );
 		if ( strKey.GetLength() == strItem.GetLength() ) continue;
 
 		strItem = URLDecode( strItem.Mid( strKey.GetLength() + 1 ) );
@@ -195,41 +195,41 @@ void CVersionChecker::ProcessResponse()
 	int nDays = VERSIONCHECKER_FREQUENCY;
 	CString strValue;
 
-	if ( m_pResponse.Lookup( _T("Message"), strValue ) ||
-		 m_pResponse.Lookup( _T("MessageBox"), strValue ) )
+	if ( m_pResponse.Lookup( L"Message", strValue ) ||
+		 m_pResponse.Lookup( L"MessageBox", strValue ) )
 	{
 		m_sMessage = strValue;
 	}
 
-	if ( m_pResponse.Lookup( _T("Quote"), strValue ) )
+	if ( m_pResponse.Lookup( L"Quote", strValue ) )
 	{
 		Settings.VersionCheck.Quote = strValue;
 	}
 
-	if ( m_pResponse.Lookup( _T("SystemMsg"), strValue ) )
+	if ( m_pResponse.Lookup( L"SystemMsg", strValue ) )
 	{
 		for ( strValue += '\n' ; strValue.GetLength() ; )
 		{
-			CString strLine	= strValue.SpanExcluding( _T("\r\n") );
+			CString strLine	= strValue.SpanExcluding( L"\r\n" );
 			strValue		= strValue.Mid( strLine.GetLength() + 1 );
 			if ( ! strLine.IsEmpty() ) theApp.Message( MSG_NOTICE, strLine );
 		}
 	}
 
-	if ( m_pResponse.Lookup( _T("UpgradePrompt"), strValue ) )
+	if ( m_pResponse.Lookup( L"UpgradePrompt", strValue ) )
 	{
 		Settings.VersionCheck.UpgradePrompt = strValue;
 
-		m_pResponse.Lookup( _T("UpgradeFile"), Settings.VersionCheck.UpgradeFile );
-		m_pResponse.Lookup( _T("UpgradeSHA1"), Settings.VersionCheck.UpgradeSHA1 );
-		m_pResponse.Lookup( _T("UpgradeTiger"), Settings.VersionCheck.UpgradeTiger );
-		m_pResponse.Lookup( _T("UpgradeSize"), Settings.VersionCheck.UpgradeSize );
-		m_pResponse.Lookup( _T("UpgradeSources"), Settings.VersionCheck.UpgradeSources );
-		m_pResponse.Lookup( _T("UpgradeVersion"), Settings.VersionCheck.UpgradeVersion );
+		m_pResponse.Lookup( L"UpgradeFile", Settings.VersionCheck.UpgradeFile );
+		m_pResponse.Lookup( L"UpgradeSHA1", Settings.VersionCheck.UpgradeSHA1 );
+		m_pResponse.Lookup( L"UpgradeTiger", Settings.VersionCheck.UpgradeTiger );
+		m_pResponse.Lookup( L"UpgradeSize", Settings.VersionCheck.UpgradeSize );
+		m_pResponse.Lookup( L"UpgradeSources", Settings.VersionCheck.UpgradeSources );
+		m_pResponse.Lookup( L"UpgradeVersion", Settings.VersionCheck.UpgradeVersion );
 
 		// Old name
 		if ( Settings.VersionCheck.UpgradeSHA1.IsEmpty() )
-			m_pResponse.Lookup( _T("UpgradeHash"), Settings.VersionCheck.UpgradeSHA1 );
+			m_pResponse.Lookup( L"UpgradeHash", Settings.VersionCheck.UpgradeSHA1 );
 	}
 	else
 	{
@@ -239,32 +239,32 @@ void CVersionChecker::ProcessResponse()
 	if ( ! IsVersionNewer() )
 		ClearVersionCheck();
 
-	if ( m_pResponse.Lookup( _T("AddDiscovery"), strValue ) )
+	if ( m_pResponse.Lookup( L"AddDiscovery", strValue ) )
 	{
 		strValue.Trim();
-		theApp.Message( MSG_DEBUG, _T("[VersionChecker] %s = %s"), _T("AddDiscovery"), (LPCTSTR)strValue );
+		theApp.Message( MSG_DEBUG, L"[VersionChecker] %s = %s", L"AddDiscovery", (LPCTSTR)strValue );
 		DiscoveryServices.Add( strValue, CDiscoveryService::dsWebCache );
 	}
 
-	if ( m_pResponse.Lookup( _T("AddDiscoveryUHC"), strValue ) )
+	if ( m_pResponse.Lookup( L"AddDiscoveryUHC", strValue ) )
 	{
 		strValue.Trim();
-		theApp.Message( MSG_DEBUG, _T("[VersionChecker] %s = %s"), _T("AddDiscoveryUHC"), (LPCTSTR)strValue );
+		theApp.Message( MSG_DEBUG, L"[VersionChecker] %s = %s", L"AddDiscoveryUHC", (LPCTSTR)strValue );
 		DiscoveryServices.Add( strValue, CDiscoveryService::dsGnutella, PROTOCOL_G1 );
 	}
 
-	if ( m_pResponse.Lookup( _T("AddDiscoveryKHL"), strValue ) )
+	if ( m_pResponse.Lookup( L"AddDiscoveryKHL", strValue ) )
 	{
 		strValue.Trim();
-		theApp.Message( MSG_DEBUG, _T("[VersionChecker] %s = %s"), _T("AddDiscoveryKHL"), (LPCTSTR)strValue );
+		theApp.Message( MSG_DEBUG, L"[VersionChecker] %s = %s", L"AddDiscoveryKHL", (LPCTSTR)strValue );
 		DiscoveryServices.Add( strValue, CDiscoveryService::dsGnutella, PROTOCOL_G2 );
 	}
 
-	if ( m_pResponse.Lookup( _T("NextCheck"), strValue ) )
+	if ( m_pResponse.Lookup( L"NextCheck", strValue ) )
 	{
 		strValue.Trim();
-		theApp.Message( MSG_DEBUG, _T("[VersionChecker] %s = %s"), _T("NextCheck"), (LPCTSTR)strValue );
-		_stscanf( strValue, _T("%lu"), &nDays );
+		theApp.Message( MSG_DEBUG, L"[VersionChecker] %s = %s", L"NextCheck", (LPCTSTR)strValue );
+		_stscanf( strValue, L"%lu", &nDays );
 	}
 
 	SetNextCheck( nDays );
@@ -302,7 +302,7 @@ BOOL CVersionChecker::CheckUpgradeHash(const CLibraryFile* pFile)
 		if ( pFile &&
 			 pFile->m_nSize == oFilter.m_nSize &&
 			 validAndEqual( pFile->m_oSHA1, oFilter.m_oSHA1 ) &&
-			 EndsWith( pFile->GetPath(), _PT(".exe") ) )	//_tcsicmp( PathFindExtension( pFile->GetPath() ), _T(".exe") ) == 0 )
+			 EndsWith( pFile->GetPath(), _P( L".exe" ) ) )	//_tcsicmp( PathFindExtension( pFile->GetPath() ), L".exe" ) == 0 )
 		{
 			m_sUpgradePath = pFile->GetPath();
 			PostMainWndMessage( WM_VERSIONCHECK, VC_UPGRADE );

@@ -98,7 +98,7 @@ void CAppThread::Add(CAppThread* pThread, LPCSTR pszName)
 	CThreadTag tag = { pThread, pszName };
 	m_ThreadMap.SetAt( pThread->m_hThread, tag );
 
-	TRACE( _T("Creating '%hs' thread (0x%08x). Count: %d\n"),
+	TRACE( L"Creating '%hs' thread (0x%08x). Count: %d\n",
 		( pszName ? pszName : "unnamed" ), pThread->m_hThread, m_ThreadMap.GetCount() );
 }
 
@@ -114,7 +114,7 @@ void CAppThread::Remove(HANDLE hThread)
 	{
 		m_ThreadMap.RemoveKey( hThread );
 
-		TRACE( _T("Removing '%hs' thread (0x%08x). Count: %d\n"),
+		TRACE( L"Removing '%hs' thread (0x%08x). Count: %d\n",
 			( tag.pszName ? tag.pszName : "unnamed" ),
 			hThread, m_ThreadMap.GetCount() );
 	}
@@ -138,15 +138,15 @@ void CAppThread::Terminate(HANDLE hThread)
 		else
 			CloseHandle( hThread );
 
-		theApp.Message( MSG_DEBUG, _T("WARNING: Terminating '%hs' thread (0x%08x)."),
+		theApp.Message( MSG_DEBUG, L"WARNING: Terminating '%hs' thread (0x%08x).",
 			( tag.pszName ? tag.pszName : "unnamed" ), hThread );
-		TRACE( _T("WARNING: Terminating '%hs' thread (0x%08x).\n"),
+		TRACE( L"WARNING: Terminating '%hs' thread (0x%08x).\n",
 			( tag.pszName ? tag.pszName : "unnamed" ), hThread );
 	}
 	else
 	{
-		theApp.Message( MSG_DEBUG, _T("WARNING: Terminating thread (0x%08x) failed."), hThread );
-		TRACE( _T("WARNING: Terminating thread (0x%08x) failed.\n"), hThread );
+		theApp.Message( MSG_DEBUG, L"WARNING: Terminating thread (0x%08x) failed.", hThread );
+		TRACE( L"WARNING: Terminating thread (0x%08x) failed.\n", hThread );
 	}
 }
 

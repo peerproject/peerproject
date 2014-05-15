@@ -107,7 +107,7 @@ void CEDPartImporter::ImportFolder(LPCTSTR pszPath)
 
 	Message( IDS_ED2K_EPI_FOLDER, pszPath );
 
-	strPath.Format( _T("%s\\*.part.met"), pszPath );
+	strPath.Format( L"%s\\*.part.met", pszPath );
 	hSearch = FindFirstFile( strPath, &pFind );
 	if ( hSearch == INVALID_HANDLE_VALUE ) return;
 
@@ -121,7 +121,7 @@ void CEDPartImporter::ImportFolder(LPCTSTR pszPath)
 			continue;
 
 		strPath = pFind.cFileName;
-		int nPos = strPath.Find( _T(".part.met") );
+		int nPos = strPath.Find( L".part.met" );
 		if ( nPos < 1 ) continue;
 		strPath = strPath.Left( nPos );
 
@@ -143,7 +143,7 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	Message( IDS_ED2K_EPI_FILE_START, pszFile );
 
 	CString strPath;
-	strPath.Format( _T("%s\\%s.part.met"), pszPath, pszFile );
+	strPath.Format( L"%s\\%s.part.met", pszPath, pszFile );
 
 	CFile pFile;
 	if ( ! pFile.Open( strPath, CFile::modeRead ) )
@@ -250,14 +250,14 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 			if ( pTag.m_sKey.GetAt( 0 ) == 0x09 )		// Start of gap
 			{
 				int nPart = 0;
-				_stscanf( (LPCTSTR)pTag.m_sKey + 1, _T("%i"), &nPart );
+				_stscanf( (LPCTSTR)pTag.m_sKey + 1, L"%i", &nPart );
 				pGapStart.SetAt( nPart, pTag.m_nValue );
 				pGapIndex.Add( nPart );
 			}
 			else if ( pTag.m_sKey.GetAt( 0 ) == 0x0A )	// End of gap
 			{
 				int nPart = 0;
-				_stscanf( (LPCTSTR)pTag.m_sKey + 1, _T("%i"), &nPart );
+				_stscanf( (LPCTSTR)pTag.m_sKey + 1, L"%i", &nPart );
 				pGapStop.SetAt( nPart, pTag.m_nValue );
 			}
 		}
@@ -296,9 +296,9 @@ BOOL CEDPartImporter::ImportFile(LPCTSTR pszPath, LPCTSTR pszFile)
 	}
 
 	if ( strPartName.IsEmpty() )
-		strPath.Format( _T("%s\\%s.part"), pszPath, pszFile );
+		strPath.Format( L"%s\\%s.part", pszPath, pszFile );
 	else
-		strPath.Format( _T("%s\\%s"), pszPath, (LPCTSTR)strPartName );
+		strPath.Format( L"%s\\%s", pszPath, (LPCTSTR)strPartName );
 
 	CFile pData;
 	if ( ! pData.Open( strPath, CFile::modeRead ) )
@@ -377,7 +377,7 @@ void CEDPartImporter::Message(UINT nMessageID, ...)
 	LoadString( strFormat, nMessageID );
 	va_start( pArgs, nMessageID );
 	_vsntprintf_s( szBuffer.get(), nBufferLength, nBufferLength - 8, strFormat, pArgs );
-	_tcscat( szBuffer.get(), _T("\r\n") );
+	_tcscat( szBuffer.get(), L"\r\n" );
 	va_end( pArgs );
 
 	int nLen = pCtrl->GetWindowTextLength();

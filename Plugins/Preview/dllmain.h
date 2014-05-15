@@ -7,8 +7,8 @@
 #include "Resource.h"
 #include "Preview.h"
 
-#define REGISTRY_PATH	_T("Software\\PeerProject\\PeerProject Preview Plugin")
-#define PLUGIN_PATH		_T("Software\\PeerProject\\PeerProject\\Plugins\\DownloadPreview")
+#define REGISTRY_PATH	L"Software\\PeerProject\\PeerProject Preview Plugin"
+#define PLUGIN_PATH		L"Software\\PeerProject\\PeerProject\\Plugins\\DownloadPreview"
 
 
 class CPreviewModule : public CAtlDllModuleT< CPreviewModule >

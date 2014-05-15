@@ -135,7 +135,7 @@ BOOL CLibraryFrame::HasPanel() const
 BOOL CLibraryFrame::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CLibraryFrame"),
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CLibraryFrame",
 		WS_CHILD | WS_VISIBLE | WS_CLIPSIBLINGS | WS_CLIPCHILDREN,
 		rect, pParentWnd, 0, NULL );
 }
@@ -170,15 +170,15 @@ int CLibraryFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndBottomDynamic.SetBarStyle( m_wndBottomDynamic.GetBarStyle() | CBRS_TOOLTIPS|CBRS_BORDER_TOP );
 	m_wndBottomDynamic.SetOwner( GetOwner() );
 
-	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX, _T("Search"), _T("Search.%.2i") ) ) return -1;
+	if ( ! m_wndSearch.Create( WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|ES_AUTOHSCROLL, rcTypes, &m_wndViewBottom, IDC_SEARCH_BOX, L"Search", L"Search.%.2i" ) ) return -1;
 	//m_wndSearch.SetFont( &CoolInterface.m_fntNormal );
-	//m_wndSearch.SetRegistryKey( _T("Search"), _T("Search.%.2i") );
+	//m_wndSearch.SetRegistryKey( L"Search", L"Search.%.2i" );
 
 	// Legacy ShareMonkey for reference:
 	//if ( ! m_wndSaveOption.Create( NULL, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|BS_AUTOCHECKBOX, rcTypes, &m_wndBottomDynamic, ID_SHAREMONKEY_SAVE_OPTION ) ) return -1;
 	//m_wndSaveOption.EnableWindow( FALSE );
 	//m_wndSaveOption.SetCheck( Settings.WebServices.ShareMonkeySaveThumbnail );
-	//m_wndSaveOption.SetFont( &CoolInterface.m_fntNormal);
+	//m_wndSaveOption.SetFont( &CoolInterface.m_fntNormal );
 
 	m_wndTree.Create( this );
 	m_wndHeader.Create( this );
@@ -208,17 +208,17 @@ void CLibraryFrame::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	m_wndTree.SetVirtual( Settings.Library.ShowVirtual );
 
-	Skin.CreateToolBar( _T("CLibraryTree.Top"), &m_wndTreeTop );
+	Skin.CreateToolBar( L"CLibraryTree.Top", &m_wndTreeTop );
 
 	if ( Settings.Library.ShowVirtual )
 	{
-		Skin.CreateToolBar( _T("CLibraryHeaderBar.Virtual"), &m_wndViewTop );
-		Skin.CreateToolBar( _T("CLibraryTree.Virtual"), &m_wndTreeBottom );
+		Skin.CreateToolBar( L"CLibraryHeaderBar.Virtual", &m_wndViewTop );
+		Skin.CreateToolBar( L"CLibraryTree.Virtual", &m_wndTreeBottom );
 	}
 	else
 	{
-		Skin.CreateToolBar( _T("CLibraryHeaderBar.Physical"), &m_wndViewTop );
-		Skin.CreateToolBar( _T("CLibraryTree.Physical"), &m_wndTreeBottom );
+		Skin.CreateToolBar( L"CLibraryHeaderBar.Physical", &m_wndViewTop );
+		Skin.CreateToolBar( L"CLibraryTree.Physical", &m_wndTreeBottom );
 
 		m_wndTreeTypes.SetEmptyString( IDS_LIBRARY_TYPE_FILTER_ALL );
 		m_wndTreeTypes.Load( Settings.Library.FilterURI );
@@ -383,7 +383,7 @@ void CLibraryFrame::OnPaint()
 	{
 		rc.SetRect( rcClient.left, rcClient.bottom - Settings.Skin.ToolbarHeight,
 			rcClient.left + m_nTreeSize, rcClient.bottom - m_nTreeTypesHeight );
-		if ( Settings.Skin.ToolbarHeight <= m_nTreeTypesHeight || ! Images.DrawImage( &dc, &rc, &Images.m_bmToolbar ) )		// _T("System.Toolbars")
+		if ( Settings.Skin.ToolbarHeight <= m_nTreeTypesHeight || ! Images.DrawImage( &dc, &rc, &Images.m_bmToolbar ) )		// L"System.Toolbars"
 		{
 			// ToDo: Draw Splitter?
 			dc.FillSolidRect( rc.left, rc.top, rc.Width(), 1, Colors.m_crSys3DShadow );
@@ -689,7 +689,7 @@ void CLibraryFrame::SetView(CLibraryView* pView, BOOL bUpdate, BOOL bUser)
 	if ( HasView() )
 	{
 		CString strBar( m_pView->m_pszToolBar );
-		strBar += Settings.Library.ShowVirtual ? _T(".Virtual") : _T(".Physical");
+		strBar += Settings.Library.ShowVirtual ? L".Virtual" : L".Physical";
 		Skin.CreateToolBar( strBar, &m_wndViewBottom );
 		m_wndViewTip.SetOwner( m_pView );
 
@@ -1028,7 +1028,7 @@ void CLibraryFrame::OnLibrarySearchQuick()
 		CQuerySearchPtr pSearch = new CQuerySearch();
 		pSearch->m_sSearch = str;
 		RunLocalSearch( pSearch );
-		m_wndSearch.SetWindowText( _T("") );
+		m_wndSearch.SetWindowText( L"" );
 	}
 	else
 	{
@@ -1051,7 +1051,7 @@ void CLibraryFrame::OnToolbarEscape()
 {
 	if ( GetFocus() == &m_wndSearch )
 	{
-		m_wndSearch.SetWindowText( _T("") );
+		m_wndSearch.SetWindowText( L"" );
 		if ( HasView() )
 			m_pView->SetFocus();
 	}
@@ -1110,7 +1110,7 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 	CAlbumFolder* pFolder = pRoot->GetFolderByURI( CSchema::uriSearchFolder );
 	if ( pFolder == NULL )
 	{
-		pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, _T("Search Results") );
+		pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, L"Search Results" );
 		if ( pFolder->m_pSchema != NULL )
 		{
 			int nColon = pFolder->m_pSchema->m_sTitle.Find( ':' );
@@ -1131,7 +1131,7 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 
 		if ( pFolder == NULL )
 		{
-			pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, _T("Search Results") );
+			pFolder = pRoot->AddFolder( CSchema::uriSearchFolder, L"Search Results" );
 			if ( pFolder->m_pSchema != NULL && ! strFolderName.IsEmpty() )
 				pFolder->m_sName = strFolderName;
 		}
@@ -1145,16 +1145,16 @@ void CLibraryFrame::RunLocalSearch(CQuerySearch* pSearch)
 		SYSTEMTIME pTime;
 
 		GetLocalTime( &pTime );
-		GetDateFormat( LOCALE_USER_DEFAULT, 0, &pTime, _T("yyyy-MM-dd"), strDate.GetBuffer( 64 ), 64 );
-		GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pTime, _T("hh:mm tt"), strTime.GetBuffer( 64 ), 64 );
+		GetDateFormat( LOCALE_USER_DEFAULT, 0, &pTime, L"yyyy-MM-dd", strDate.GetBuffer( 64 ), 64 );
+		GetTimeFormat( LOCALE_USER_DEFAULT, 0, &pTime, L"hh:mm tt", strTime.GetBuffer( 64 ), 64 );
 		strDate.ReleaseBuffer(); strTime.ReleaseBuffer();
 
 		CXMLElement* pOuter = pFolder->m_pSchema->Instantiate();
-		CXMLElement* pInner = pOuter->AddElement( _T("searchFolder") );
-		pInner->AddAttribute( _T("title"), pFolder->m_sName );
-		pInner->AddAttribute( _T("content"), pSearch->m_sSearch );
-		pInner->AddAttribute( _T("date"), strDate );
-		pInner->AddAttribute( _T("time"), strTime );
+		CXMLElement* pInner = pOuter->AddElement( L"searchFolder" );
+		pInner->AddAttribute( L"title", pFolder->m_sName );
+		pInner->AddAttribute( L"content", pSearch->m_sSearch );
+		pInner->AddAttribute( L"date", strDate );
+		pInner->AddAttribute( L"time", strTime );
 		pFolder->SetMetadata( pOuter );
 		delete pOuter;
 	}
@@ -1213,6 +1213,6 @@ void CLibraryFrame::OnUpdateShowWebServices(CCmdUI* pCmdUI)
 
 void CLibraryFrame::OnShowWebServices()
 {
-	CMenu* pMenu = Skin.GetMenu( _T("WebServices.List.Menu") );
+	CMenu* pMenu = Skin.GetMenu( L"WebServices.List.Menu" );
 	m_wndViewBottom.ThrowMenu( ID_WEBSERVICES_LIST, pMenu, NULL, FALSE, TRUE );
 }

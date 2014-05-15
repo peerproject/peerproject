@@ -148,7 +148,7 @@ CString CLibraryFile::GetFolder() const
 CString CLibraryFile::GetPath() const
 {
 	if ( m_pFolder )
-		return m_pFolder->m_sPath + _T('\\') + m_sName;
+		return m_pFolder->m_sPath + L'\\' + m_sName;
 
 	return m_sName;
 }
@@ -177,7 +177,7 @@ CString CLibraryFile::GetSearchName() const
 	else
 	{
 		ASSERT( m_pFolder->m_sPath.GetLength() > nBase );
-		str = m_pFolder->m_sPath.Mid( nBase + 1 ) + _T('\\') + m_sName;
+		str = m_pFolder->m_sPath.Mid( nBase + 1 ) + L'\\' + m_sName;
 	}
 
 	ToLower( str );
@@ -194,51 +194,51 @@ CXMLElement* CLibraryFile::CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, XmlTy
 	switch ( nType )
 	{
 	case xmlDC:
-		pFile = pRoot->AddElement( _T("file") );
+		pFile = pRoot->AddElement( L"file" );
 		if ( pFile )
 		{
-			pFile->AddAttribute( _T("name"), m_sName );
-			pFile->AddAttribute( _T("size"), m_nSize );
-			pFile->AddAttribute( _T("tth"), m_oTiger.toString() );
+			pFile->AddAttribute( L"name", m_sName );
+			pFile->AddAttribute( L"size", m_nSize );
+			pFile->AddAttribute( L"tth", m_oTiger.toString() );
 		}
 		break;
 
 	default:
-		pFile = pRoot->AddElement( _T("file") );
+		pFile = pRoot->AddElement( L"file" );
 		if ( pFile )
 		{
 			if ( m_oSHA1 && m_oTiger )
-				pFile->AddElement( _T("id") )->SetValue( _T("urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString() );
+				pFile->AddElement( L"id" )->SetValue( L"urn:bitprint:" + m_oSHA1.toString() + L'.' + m_oTiger.toString() );
 			else if ( m_oSHA1 )
-				pFile->AddElement( _T("id") )->SetValue( m_oSHA1.toUrn() );
+				pFile->AddElement( L"id" )->SetValue( m_oSHA1.toUrn() );
 			else if ( m_oTiger )
-				pFile->AddElement( _T("id") )->SetValue( m_oTiger.toUrn() );
+				pFile->AddElement( L"id" )->SetValue( m_oTiger.toUrn() );
 
 			if ( m_oMD5 )
-				pFile->AddElement( _T("id") )->SetValue( m_oMD5.toUrn() );
+				pFile->AddElement( L"id" )->SetValue( m_oMD5.toUrn() );
 
 			if ( m_oED2K )
-				pFile->AddElement( _T("id") )->SetValue( m_oED2K.toUrn() );
+				pFile->AddElement( L"id" )->SetValue( m_oED2K.toUrn() );
 
 			if ( m_oBTH )
-				pFile->AddElement( _T("id") )->SetValue( m_oBTH.toUrn() );
+				pFile->AddElement( L"id" )->SetValue( m_oBTH.toUrn() );
 
-			if ( CXMLElement* pDescription = pFile->AddElement( _T("description") ) )
+			if ( CXMLElement* pDescription = pFile->AddElement( L"description" ) )
 			{
-				pDescription->AddElement( _T("name") )->SetValue( m_sName );
+				pDescription->AddElement( L"name" )->SetValue( m_sName );
 
 				CString str;
-				str.Format( _T("%I64u"), GetSize() );
-				pDescription->AddElement( _T("size") )->SetValue( str );
+				str.Format( L"%I64u", GetSize() );
+				pDescription->AddElement( L"size" )->SetValue( str );
 			}
 
 			if ( m_pMetadata && m_pSchema )
 			{
-				if ( CXMLElement* pMetadata = pFile->AddElement( _T("metadata") ) )
+				if ( CXMLElement* pMetadata = pFile->AddElement( L"metadata" ) )
 				{
 					m_pMetadata->m_bOrdered = FALSE;	// Workaround
-					pMetadata->AddAttribute( _T("xmlns:s"), m_pSchema->GetURI() );
-					pMetadata->AddElement( m_pMetadata->Prefix( _T("s:") ) );
+					pMetadata->AddAttribute( L"xmlns:s", m_pSchema->GetURI() );
+					pMetadata->AddElement( m_pMetadata->Prefix( L"s:" ) );
 				}
 			}
 		}
@@ -303,7 +303,7 @@ bool CLibraryFile::IsPrivateTorrent() const
 {
 	return m_pSchema && m_pMetadata &&
 		m_pSchema->CheckURI( CSchema::uriBitTorrent ) &&
-		m_pMetadata->GetAttributeValue( _T("privateflag"), _T("false") ).Compare( _T("true") ) == 0;		// Set "true" in LibraryBuilderInternals if "private=1"
+		m_pMetadata->GetAttributeValue( L"privateflag", L"false" ).Compare( L"true" ) == 0;		// Set "true" in LibraryBuilderInternals if "private=1"
 }
 
 DWORD CLibraryFile::GetCreationTime()
@@ -460,8 +460,8 @@ BOOL CLibraryFile::Rename(LPCTSTR pszName)
 
 	//if ( m_pMetadata )
 	//{
-	//	CString strMetaOld = m_pFolder->m_sPath + _T("\\Metadata\\") + m_sName + _T(".xml");
-	//	CString strMetaNew = m_pFolder->m_sPath + _T("\\Metadata\\") + pszName + _T(".xml");
+	//	CString strMetaOld = m_pFolder->m_sPath + L"\\Metadata\\" + m_sName + L".xml";
+	//	CString strMetaNew = m_pFolder->m_sPath + L"\\Metadata\\" + pszName + L".xml";
 	//	MoveFile( strMetaOld, strMetaNew );
 	//}
 
@@ -523,7 +523,7 @@ void CLibraryFile::UpdateMetadata(const CDownload* pDownload)
 		else if ( CXMLElement* pBody = pDownload->m_pXML->GetFirstElement() )
 		{
 			// Recreate metadata
-			TRACE( _T("Using download XML:%s"), pBody->ToString( FALSE, TRUE ) );
+			TRACE( L"Using download XML:%s", pBody->ToString( FALSE, TRUE ) );
 			m_pSchema = SchemaCache.Get( pDownload->m_pXML->GetAttributeValue( CXMLAttribute::schemaName ) );
 			m_pMetadata = pBody->Clone();
 			m_bMetadataAuto = TRUE;
@@ -792,24 +792,24 @@ CString CLibraryFile::GetAlternateSources(CList< CString >* pState, int nMaximum
 		if ( ! pSource->IsExpired( ftNow ) &&
 			 ( pState == NULL || pState->Find( pSource->m_sURL ) == NULL ) )
 		{
-			if ( ( nProtocol == PROTOCOL_HTTP ) && ( _tcsncmp( pSource->m_sURL, _T("http://"), 7 ) != 0 ) )
+			if ( ( nProtocol == PROTOCOL_HTTP ) && ( _tcsncmp( pSource->m_sURL, L"http://", 7 ) != 0 ) )
 				continue;
 
 			if ( pState != NULL )
 				pState->AddTail( pSource->m_sURL );
 
-			if ( pSource->m_sURL.Find( _T("Zhttp://") ) >= 0 ||
-				pSource->m_sURL.Find( _T("Z%2C http://") ) >= 0 )
+			if ( pSource->m_sURL.Find( L"Zhttp://" ) >= 0 ||
+				pSource->m_sURL.Find( L"Z%2C http://" ) >= 0 )
 			{
 				// Ignore buggy URLs
-				TRACE( _T("CLibraryFile::GetAlternateSources() Bad URL: %s\n"), pSource->m_sURL );
+				TRACE( L"CLibraryFile::GetAlternateSources() Bad URL: %s\n", pSource->m_sURL );
 			}
 			else
 			{
 				CString strURL = pSource->m_sURL;
-				strURL.Replace( _T(","), _T("%2C") );
+				strURL.Replace( L",", L"%2C" );
 
-				if ( ! strSources.IsEmpty() ) strSources += _T(", ");
+				if ( ! strSources.IsEmpty() ) strSources += L", ";
 				strSources += strURL;
 				strSources += ' ';
 				strSources += TimeToString( &pSource->m_pTime );
@@ -1003,7 +1003,7 @@ void CLibraryFile::Serialize(CArchive& ar, int nVersion)
 				CSharedSource* pSource = new CSharedSource();
 				if ( pSource == NULL )
 					break;
-					// theApp.Message( MSG_DEBUG, _T("Memory allocation error in CLibraryFile::Serialize") );
+					// theApp.Message( MSG_DEBUG, L"Memory allocation error in CLibraryFile::Serialize" );
 
 				pSource->Serialize( ar, nVersion );
 
@@ -1239,9 +1239,9 @@ BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs) con
 			const CXMLNode* pNode = pMetadata->GetNextAttribute( pos );
 			CString str = pNode->GetName();
 			CString strReplace = pNode->GetValue();
-			if ( str == _T("seconds") || str == _T("minutes") )
+			if ( str == L"seconds" || str == L"minutes" )
 			{
-				double nTotalSecs = ( str == _T("minutes") ) ?
+				double nTotalSecs = ( str == L"minutes" ) ?
 					_tstof( (LPCTSTR)strReplace ) * 60 : _tstof( (LPCTSTR)strReplace );
 				int nSecs = (int)nTotalSecs;
 				int nHours = nSecs / 3600;
@@ -1249,29 +1249,29 @@ BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs) con
 				int nMins = nSecs / 60;
 				nSecs -= nMins * 60;
 
-				str.Format( _T("%d"), nHours );
-				ReplaceNoCase( strDoc, _T("$meta:hours$"), str );
-				str.Format( _T("%d"), nMins );
-				ReplaceNoCase( strDoc, _T("$meta:minutes$"), str );
-				str.Format( _T("%d"), nSecs );
-				ReplaceNoCase( strDoc, _T("$meta:seconds$"), str );
+				str.Format( L"%d", nHours );
+				ReplaceNoCase( strDoc, L"$meta:hours$", str );
+				str.Format( L"%d", nMins );
+				ReplaceNoCase( strDoc, L"$meta:minutes$", str );
+				str.Format( L"%d", nSecs );
+				ReplaceNoCase( strDoc, L"$meta:seconds$", str );
 
 				if ( nHours )
-					str.Format( _T("%d:%d:%.2d"), nHours, nMins, nSecs );
+					str.Format( L"%d:%d:%.2d", nHours, nMins, nSecs );
 				else
-					str.Format( _T("%d:%.2d"), nMins, nSecs );
-				ReplaceNoCase( strDoc, _T("$meta:time$"), str );
+					str.Format( L"%d:%.2d", nMins, nSecs );
+				ReplaceNoCase( strDoc, L"$meta:time$", str );
 			}
 			else if ( str == "track" )
 			{
 				int nTrack = _ttoi( (LPCTSTR)strReplace );
-				str.Format( _T("%d"), nTrack );
-				ReplaceNoCase( strDoc, _T("$meta:track$"), str );
+				str.Format( L"%d", nTrack );
+				ReplaceNoCase( strDoc, L"$meta:track$", str );
 			}
 			else
 			{
 				CString strOld;
-				strOld.Format( _T("$meta:%s$"), (LPCTSTR)str );
+				strOld.Format( L"$meta:%s$", (LPCTSTR)str );
 				ReplaceNoCase( strDoc, strOld, strReplace );
 			}
 		}
@@ -1287,83 +1287,83 @@ BOOL CLibraryFile::PrepareDoc(LPCTSTR pszTemplate, CArray< CString >& oDocs) con
 
 	if ( m_nSize != SIZE_UNKNOWN )
 	{
-		strSize.Format( _T("%I64u"), m_nSize ); // bytes
-		ReplaceNoCase( strDoc, _T("$meta:sizebytes$"), strSize );
+		strSize.Format( L"%I64u", m_nSize ); // bytes
+		ReplaceNoCase( strDoc, L"$meta:sizebytes$", strSize );
 
 		CString strHumanSize;
 		if ( m_nSize / ( 1024*1024 ) > 1 )
-			strHumanSize.Format( _T("%.2f MB"), (float)m_nSize / 1024 / 1024 );
+			strHumanSize.Format( L"%.2f MB", (float)m_nSize / 1024 / 1024 );
 		else
-			strHumanSize.Format( _T("%.2f KB"), (float)m_nSize / 1024 );
+			strHumanSize.Format( L"%.2f KB", (float)m_nSize / 1024 );
 
-		ReplaceNoCase( strDoc, _T("$meta:size$"), strHumanSize );
+		ReplaceNoCase( strDoc, L"$meta:size$", strHumanSize );
 	}
 
 	if ( m_oSHA1 )
 	{
-		strMagnet = _T("xt=urn:sha1:") + m_oSHA1.toString();
+		strMagnet = L"xt=urn:sha1:" + m_oSHA1.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:sha1$"), m_oSHA1.toString() );
-		ReplaceNoCase( strDoc, _T("$meta:gnutella$"), _T("gnutella://urn:sha1:") + m_oSHA1.toString() + _T('/') + strNameURI + _T('/') );
+		ReplaceNoCase( strDoc, L"$meta:sha1$", m_oSHA1.toString() );
+		ReplaceNoCase( strDoc, L"$meta:gnutella$", L"gnutella://urn:sha1:" + m_oSHA1.toString() + L'/' + strNameURI + L'/' );
 	}
 
 	if ( m_oTiger )
 	{
-		strMagnet = _T("xt=urn:tree:tiger/:") + m_oTiger.toString();
+		strMagnet = L"xt=urn:tree:tiger/:" + m_oTiger.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:tiger$"), m_oTiger.toString() );
+		ReplaceNoCase( strDoc, L"$meta:tiger$", m_oTiger.toString() );
 	}
 
 	if ( m_oSHA1 && m_oTiger )
 	{
-		strMagnet = _T("xt=urn:bitprint:") + m_oSHA1.toString() + _T('.') + m_oTiger.toString();
+		strMagnet = L"xt=urn:bitprint:" + m_oSHA1.toString() + L'.' + m_oTiger.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:bitprint$"), m_oSHA1.toString() + _T('.') + m_oTiger.toString() );
+		ReplaceNoCase( strDoc, L"$meta:bitprint$", m_oSHA1.toString() + L'.' + m_oTiger.toString() );
 	}
 
 	if ( m_oED2K )
 	{
-		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;");
-		strMagnet += _T("xt=urn:ed2khash:") + m_oED2K.toString();
+		if ( ! strMagnet.IsEmpty() ) strMagnet += L"&amp;";
+		strMagnet += L"xt=urn:ed2khash:" + m_oED2K.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:ed2khash$"), m_oED2K.toString() );
+		ReplaceNoCase( strDoc, L"$meta:ed2khash$", m_oED2K.toString() );
 		if ( ! strSize.IsEmpty() )
-			ReplaceNoCase( strDoc, _T("$meta:ed2k$"), _T("ed2k://|file|") + strNameURI + _T('|') + strSize + _T('|') + m_oED2K.toString() + _T("|/") );
+			ReplaceNoCase( strDoc, L"$meta:ed2k$", L"ed2k://|file|" + strNameURI + L'|' + strSize + L'|' + m_oED2K.toString() + L"|/" );
 	}
 
 	if ( m_oMD5 )
 	{
-		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;");
-		strMagnet += _T("xt=urn:md5:") + m_oMD5.toString();
+		if ( ! strMagnet.IsEmpty() ) strMagnet += L"&amp;";
+		strMagnet += L"xt=urn:md5:" + m_oMD5.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:md5$"), m_oMD5.toString() );
+		ReplaceNoCase( strDoc, L"$meta:md5$", m_oMD5.toString() );
 	}
 
 	if ( m_oBTH )
 	{
-		if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;");
-		strMagnet += _T("xt=urn:btih:") + m_oMD5.toString();
+		if ( ! strMagnet.IsEmpty() ) strMagnet += L"&amp;";
+		strMagnet += L"xt=urn:btih:" + m_oMD5.toString();
 
-		ReplaceNoCase( strDoc, _T("$meta:btih$"), m_oBTH.toString() );
+		ReplaceNoCase( strDoc, L"$meta:btih$", m_oBTH.toString() );
 	}
 
-	if ( ! strMagnet.IsEmpty() ) strMagnet += _T("&amp;xl=") + strSize;
-	strMagnet = _T("magnet:?") + strMagnet + _T("&amp;dn=") + strNameURI;
-	ReplaceNoCase( strDoc, _T("$meta:magnet$"), strMagnet );
+	if ( ! strMagnet.IsEmpty() ) strMagnet += L"&amp;xl=" + strSize;
+	strMagnet = L"magnet:?" + strMagnet + L"&amp;dn=" + strNameURI;
+	ReplaceNoCase( strDoc, L"$meta:magnet$", strMagnet );
 
-	ReplaceNoCase( strDoc, _T("$meta:name$"), strFileName );
+	ReplaceNoCase( strDoc, L"$meta:name$", strFileName );
 	if ( ! m_sComments.IsEmpty() )
-		ReplaceNoCase( strDoc, _T("$meta:comments$"), m_sComments );
+		ReplaceNoCase( strDoc, L"$meta:comments$", m_sComments );
 
 	CString strNumber;
-	strNumber.Format( _T("%d"), oDocs.GetCount() + 1 );
-	ReplaceNoCase( strDoc, _T("$meta:number$"), strNumber );
+	strNumber.Format( L"%d", oDocs.GetCount() + 1 );
+	ReplaceNoCase( strDoc, L"$meta:number$", strNumber );
 
 	// Replace all "$meta:xxx$" which were left in the file to "--"
-	while ( LPCTSTR szStart = StrStrI( strDoc, _T("$meta:") ) )
+	while ( LPCTSTR szStart = StrStrI( strDoc, L"$meta:" ) )
 	{
-		if ( LPCTSTR szEnd = StrChr( szStart + 6, _T('$') ) )
-			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), _T("--") );
+		if ( LPCTSTR szEnd = StrChr( szStart + 6, L'$' ) )
+			strDoc.Replace( CString( szStart, szEnd - szStart + 1 ), L"--" );
 		else
 			break;
 	}

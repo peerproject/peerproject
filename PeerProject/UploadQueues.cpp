@@ -1,7 +1,7 @@
 //
 // UploadQueues.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -116,7 +116,7 @@ int CUploadQueues::GetPosition(CUploadTransfer* pUpload, BOOL bStart)
 		}
 	}
 
-	theApp.Message( MSG_ERROR, _T("Rejecting Upload connection to %s, network core overloaded."), (LPCTSTR)pUpload->m_sAddress );
+	theApp.Message( MSG_ERROR, L"Rejecting Upload connection to %s, network core overloaded.", (LPCTSTR)pUpload->m_sAddress );
 
 	// Upload has no valid queue, or network core overloaded, or shutdown
 	return -1;
@@ -438,7 +438,7 @@ void CUploadQueues::Clear()
 
 BOOL CUploadQueues::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("UploadQueues.dat");
+	const CString strFile = Settings.General.DataPath + L"UploadQueues.dat";
 
 	{
 		CQuickLock oLock( m_pSection );
@@ -481,7 +481,7 @@ BOOL CUploadQueues::Load()
 	}
 
 	if ( ! bSuccess )
-		theApp.Message( MSG_ERROR, _T("Failed to load upload queues: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to load upload queues: %s", strFile );
 
 	if ( GetCount() == 0 )
 		CreateDefault();
@@ -493,8 +493,8 @@ BOOL CUploadQueues::Load()
 
 BOOL CUploadQueues::Save()
 {
-	CString strFile = Settings.General.DataPath + _T("UploadQueues.dat");
-	CString strTemp = Settings.General.DataPath + _T("UploadQueues.tmp");
+	CString strFile = Settings.General.DataPath + L"UploadQueues.dat";
+	CString strTemp = Settings.General.DataPath + L"UploadQueues.tmp";
 
 	CFile pFile;
 	if ( pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
@@ -533,7 +533,7 @@ BOOL CUploadQueues::Save()
 		DeleteFile( strTemp );
 	}
 
-	theApp.Message( MSG_ERROR, _T("Failed to save upload queues: %s"), strFile );
+	theApp.Message( MSG_ERROR, L"Failed to save upload queues: %s", strFile );
 	return FALSE;
 }
 
@@ -584,7 +584,7 @@ void CUploadQueues::CreateDefault()
 {
 	CQuickLock oLock( m_pSection );
 
-	theApp.Message( MSG_NOTICE, _T("Creating default upload queues") );
+	theApp.Message( MSG_NOTICE, L"Creating default upload queues" );
 
 	CUploadQueue* pQueue = NULL;
 
@@ -937,30 +937,30 @@ void CUploadQueues::Validate()
 	CQuickLock oLock( m_pSection );
 
 	const bool bHTTP_NoPartial =
-		SelectQueue( PROTOCOL_HTTP, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
-		SelectQueue( PROTOCOL_HTTP, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+		SelectQueue( PROTOCOL_HTTP, L"Filename", 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_HTTP, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
 	const bool bHTTP_NoLibrary =
-		SelectQueue( PROTOCOL_HTTP, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
-		SelectQueue( PROTOCOL_HTTP, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+		SelectQueue( PROTOCOL_HTTP, L"Filename", 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_HTTP, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
 
 	const bool bED2K_NoPartial =
-		SelectQueue( PROTOCOL_ED2K, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
-		SelectQueue( PROTOCOL_ED2K, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+		SelectQueue( PROTOCOL_ED2K, L"Filename", 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_ED2K, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
 	const bool bED2K_NoLibrary =
-		SelectQueue( PROTOCOL_ED2K, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
-		SelectQueue( PROTOCOL_ED2K, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+		SelectQueue( PROTOCOL_ED2K, L"Filename", 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_ED2K, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
 
 	const bool bDC_NoPartial =
-		SelectQueue( PROTOCOL_DC, _T("Filename"), 1, CUploadQueue::ulqPartial ) == NULL ||
-		SelectQueue( PROTOCOL_DC, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
+		SelectQueue( PROTOCOL_DC, L"Filename", 1, CUploadQueue::ulqPartial ) == NULL ||
+		SelectQueue( PROTOCOL_DC, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqPartial ) == NULL;
 	const bool bDC_NoLibrary =
-		SelectQueue( PROTOCOL_DC, _T("Filename"), 1, CUploadQueue::ulqLibrary ) == NULL ||
-		SelectQueue( PROTOCOL_DC, _T("Filename"), SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
+		SelectQueue( PROTOCOL_DC, L"Filename", 1, CUploadQueue::ulqLibrary ) == NULL ||
+		SelectQueue( PROTOCOL_DC, L"Filename", SIZE_UNKNOWN - 1, CUploadQueue::ulqLibrary ) == NULL;
 
 	if ( bHTTP_NoPartial || bHTTP_NoLibrary )
 	{
 		CUploadQueue* pQueue		= Create( LoadString( IDS_UPLOAD_QUEUE_HTTP_GUARD ) );
-		pQueue->m_nProtocols		= ( 1 << PROTOCOL_HTTP);
+		pQueue->m_nProtocols		= ( 1 << PROTOCOL_HTTP );
 		pQueue->m_nMaxTransfers		= 5;
 		pQueue->m_bRotate			= TRUE;
 		pQueue->m_nFileStateFlag	= ( bHTTP_NoPartial && bHTTP_NoLibrary ) ?
@@ -1038,5 +1038,5 @@ void CUploadQueues::Validate()
 
 	// Display warning if needed
 	if ( m_bDonkeyLimited && Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways )
-		theApp.Message( MSG_NOTICE, _T("eDonkey upload ratio active: Low uploads may slow downloads.") );
+		theApp.Message( MSG_NOTICE, L"eDonkey upload ratio active: Low uploads may slow downloads." );
 }

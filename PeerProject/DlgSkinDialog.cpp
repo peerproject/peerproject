@@ -313,16 +313,16 @@ HBRUSH CSkinDialog::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 	//	if ( pWnd->GetDlgCtrlID() != IDC_STATIC )					// Named controls  (Dynamic handling)
 	//	{
 	//		//if ( ! pWnd->IsWindowEnabled() || ( pWnd->GetStyle() & ES_READONLY ) )	// (Note SS_REALSIZEIMAGE conflict)
-	//		//	return Images.m_brDialog;								// Skip disabled edit boxes
+	//		//	return Images.m_brDialog;							// Skip disabled edit boxes
 	//
 	//		// Handle exceptions (Icons)
 	//		const int nCtrlID = pWnd->GetDlgCtrlID();
 	//		if ( nCtrlID == IDC_MONITOR_ICON || nCtrlID == IDC_INFO_ICON )	// || nCtrlID == IDC_BANDWIDTH_SLIDER )
-	//			return Images.m_brDialog;								// Dynmic controls (UploadQueue slider, variable icon, etc.)
+	//			return Images.m_brDialog;							// Dynmic controls (UploadQueue slider, variable icon, etc.)
 	//
 	//		//TCHAR szName[24];
 	//		//GetClassName( pWnd->GetSafeHwnd(), szName, 24 );		// Alt detection method
-	//		//if ( _tcsistr( szName, _T("Static") ) )				// "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
+	//		//if ( _tcsistr( szName, L"Static" ) )					// "Button" "ListBox" "ComboBox" "Edit" "RICHEDIT" etc
 	//
 	//		// Skinning fix for checkbox labels, dynamic text, etc.
 	//		CRect rc;

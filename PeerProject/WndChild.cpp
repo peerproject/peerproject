@@ -1,7 +1,7 @@
 //
 // WndChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -214,7 +214,7 @@ BOOL CChildWnd::LoadState(LPCTSTR pszName, BOOL bDefaultMaximise)
 		{
 			CString strClassName( GetRuntimeClass()->m_lpszClassName );
 			CString strName( pszName ? pszName : (LPCTSTR)strClassName );
-			m_nGroupSize = (float)theApp.GetProfileInt( _T("Windows"), strName + _T(".Splitter"), 500 ) / 1000;
+			m_nGroupSize = (float)theApp.GetProfileInt( L"Windows", strName + L".Splitter", 500 ) / 1000;
 		}
 
 		if ( rcParent.Width() > 64 && rcParent.Height() > 32 )
@@ -231,8 +231,8 @@ BOOL CChildWnd::SaveState(LPCTSTR pszName)
 	if ( m_bTabMode && m_pGroupParent == NULL )
 	{
 		CString strName = ( pszName != NULL ) ? CString( pszName ) : CString( GetRuntimeClass()->m_lpszClassName );
-		strName += _T(".Splitter");
-		theApp.WriteProfileInt( _T("Windows"), strName, (int)( m_nGroupSize * 1000 ) );
+		strName += L".Splitter";
+		theApp.WriteProfileInt( L"Windows", strName, (int)( m_nGroupSize * 1000 ) );
 		return TRUE;
 	}
 
@@ -500,7 +500,7 @@ void CChildWnd::OnSkinChange()
 		CString strCaption;
 		LoadString( strCaption, m_nResID );
 
-		SetWindowText( _T("") );
+		SetWindowText( L"" );
 		SetWindowText( strCaption );
 	}
 

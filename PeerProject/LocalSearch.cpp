@@ -335,17 +335,17 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 
 	if ( pFile->m_oSHA1 && pFile->m_oTiger )
 	{
-		pPacket->WriteString( _T("urn:bitprint:") + pFile->m_oSHA1.toString() + _T('.') + pFile->m_oTiger.toString(), FALSE );
+		pPacket->WriteString( L"urn:bitprint:" + pFile->m_oSHA1.toString() + L'.' + pFile->m_oTiger.toString(), FALSE );
 		pPacket->WriteByte( G1_PACKET_HIT_SEP );
 	}
 	else if ( pFile->m_oSHA1 )
 	{
-		pPacket->WriteString( _T("urn:sha1:") + pFile->m_oSHA1.toString(), FALSE );
+		pPacket->WriteString( L"urn:sha1:" + pFile->m_oSHA1.toString(), FALSE );
 		pPacket->WriteByte( G1_PACKET_HIT_SEP );
 	}
 	else if ( pFile->m_oTiger )
 	{
-		pPacket->WriteString( _T("urn:ttroot:") + pFile->m_oTiger.toString(), FALSE );
+		pPacket->WriteString( L"urn:ttroot:" + pFile->m_oTiger.toString(), FALSE );
 		pPacket->WriteByte( G1_PACKET_HIT_SEP );
 	}
 
@@ -425,8 +425,8 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 		if ( CXMLElement* pXML = pFile->m_pMetadata->Clone() )
 		{
 			CString strIndex;
-			strIndex.Format( _T("%d"), nIndex );
-			pXML->AddAttribute( _T("index"), strIndex );
+			strIndex.Format( L"%d", nIndex );
+			pXML->AddAttribute( L"index", strIndex );
 			pGroup->AddElement( pXML );
 		}
 	}
@@ -567,9 +567,9 @@ void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 
 			if ( LPCTSTR pszType = _tcsrchr( pFile->m_sName, '.' ) )
 			{
-				if ( _tcsicmp( pszType, _T(".co") ) == 0 ||
-					 _tcsicmp( pszType, _T(".collection") ) == 0 ||
-					 _tcsicmp( pszType, _T(".emulecollection") ) == 0 )
+				if ( _tcsicmp( pszType, L".co" ) == 0 ||
+					 _tcsicmp( pszType, L".collection" ) == 0 ||
+					 _tcsicmp( pszType, L".emulecollection" ) == 0 )
 				{
 					if ( ! pFile->m_bBogus )
 					{
@@ -647,13 +647,13 @@ void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 			{
 				CString strComment;
 				if ( pFile->m_nRating > 0 )
-					strComment.Format( _T("<comment rating=\"%i\">"), pFile->m_nRating - 1 );
+					strComment.Format( L"<comment rating=\"%i\">", pFile->m_nRating - 1 );
 				else
-					strComment = _T("<comment>");
+					strComment = L"<comment>";
 				strComment += Escape( pFile->m_sComments );
 				if ( strComment.GetLength() > 2048 ) strComment = strComment.Left( 2048 );
-				strComment += _T("</comment>");
-				strComment.Replace( _T("\r\n"), _T("{n}") );
+				strComment += L"</comment>";
+				strComment.Replace( L"\r\n", L"{n}" );
 				if ( bCalculate )
 				{
 					nGroup += G2_PACKET_LEN( G2_PACKET_COMMENT, pPacket->GetStringLen( strComment ) );
@@ -707,7 +707,7 @@ void CLocalSearch::AddHitDC(CDCPacket* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 
 	CString strHubName;
 	if ( pFile->m_oTiger )	// It's TTH search
-		strHubName = _T("TTH:") + pFile->m_oTiger.toString();
+		strHubName = L"TTH:" + pFile->m_oTiger.toString();
 	else
 		strHubName = m_pSearch->m_sMyHub;
 
@@ -718,7 +718,7 @@ void CLocalSearch::AddHitDC(CDCPacket* pPacket, CSchemaMap& /*pSchemas*/, CLibra
 	pAnswer.Print( pFile->m_sName );
 	pAnswer.Add( _P("\x05") );
 	CString strSize;
-	strSize.Format( _T("%I64u %d/%d"), pFile->m_nSize, nFreeSlots, nTotalSlots );
+	strSize.Format( L"%I64u %d/%d", pFile->m_nSize, nFreeSlots, nTotalSlots );
 	pAnswer.Print( strSize );
 	pAnswer.Add( _P("\x05") );
 	pAnswer.Print( strHubName );
@@ -1199,7 +1199,7 @@ void CLocalSearch::WriteTrailerG1(CG1Packet* pPacket, CSchemaMap& pSchemas, BYTE
 		pPacket->m_nPosition = 0;
 	}
 	else
-		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G1] PeerProject produced search packet above but cannot parse it back.") );
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, L"[G1] PeerProject produced search packet above but cannot parse it back." );
 #endif	// _DEBUG
 }
 
@@ -1217,7 +1217,7 @@ void CLocalSearch::WriteTrailerG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, 
 		pPacket->m_nPosition = 0;
 	}
 	else
-		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, _T("[G2] PeerProject produced search packet above but cannot parse it back.") );
+		theApp.Message( MSG_ERROR | MSG_FACILITY_SEARCH, L"[G2] PeerProject produced search packet above but cannot parse it back." );
 #endif // _DEBUG
 }
 

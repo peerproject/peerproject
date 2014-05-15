@@ -220,8 +220,8 @@ void CDownload::Remove()
 
 	if ( ! m_sPath.IsEmpty() )
 	{
-		DeleteFileEx( m_sPath + _T(".png"), FALSE, FALSE, TRUE );
-		DeleteFileEx( m_sPath + _T(".sav"), FALSE, FALSE, TRUE );
+		DeleteFileEx( m_sPath + L".png", FALSE, FALSE, TRUE );
+		DeleteFileEx( m_sPath + L".sav", FALSE, FALSE, TRUE );
 		DeleteFileEx( m_sPath, FALSE, FALSE, TRUE );
 		m_sPath.Empty();
 	}
@@ -403,9 +403,9 @@ CString CDownload::GetDownloadStatus() const
 		else
 		{
 			if ( nTime > 86400 )
-				strText.Format( _T("%u:%.2u:%.2u:%.2u"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
+				strText.Format( L"%u:%.2u:%.2u:%.2u", nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
 			else
-				strText.Format( _T("%u:%.2u:%.2u"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
+				strText.Format( L"%u:%.2u:%.2u", nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
 		}
 	}
 	else if ( GetEffectiveSourceCount() > 0 )
@@ -450,13 +450,13 @@ CString CDownload::GetDownloadSources() const
 	{
 		CString strSource;
 		LoadSourcesString( strSource, nSources );
-		strText.Format( _T("(%i %s)"), nSources, (LPCTSTR)strSource );
+		strText.Format( L"(%i %s)", nSources, (LPCTSTR)strSource );
 	}
 	else
 	{
 		CString strSource;
 		LoadSourcesString( strSource, nTotalSources, true );
-		strText.Format( _T("(%i/%i %s)"), nSources, nTotalSources, (LPCTSTR)strSource );
+		strText.Format( L"(%i/%i %s)", nSources, nTotalSources, (LPCTSTR)strSource );
 	}
 	return strText;
 }
@@ -661,8 +661,8 @@ void CDownload::OnMoved()
 
 	pTransfersLock.Unlock();
 
-	DeleteFileEx( strPath + _T(".png"), FALSE, FALSE, TRUE );
-	DeleteFileEx( strPath + _T(".sav"), FALSE, FALSE, TRUE );
+	DeleteFileEx( strPath + L".png", FALSE, FALSE, TRUE );
+	DeleteFileEx( strPath + L".sav", FALSE, FALSE, TRUE );
 	DeleteFileEx( strPath, FALSE, FALSE, TRUE );
 
 	pTransfersLock.Lock();
@@ -703,7 +703,7 @@ BOOL CDownload::OpenDownload()
 		strFileError.Format( LoadString( IDS_DOWNLOAD_DISK_SPACE ), m_sName, Settings.SmartVolume( m_nSize ) );
 		SetFileError( ERROR_DISK_FULL, strFileError );
 
-		theApp.Message( MSG_ERROR, _T("%s"), strFileError );
+		theApp.Message( MSG_ERROR, L"%s", strFileError );
 	}
 
 	return FALSE;
@@ -827,7 +827,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		pFile.Close();
 	}
 
-	if ( ! bSuccess && pFile.Open( m_sPath + _T(".sav"), CFile::modeRead ) )
+	if ( ! bSuccess && pFile.Open( m_sPath + L".sav", CFile::modeRead ) )
 	{
 		TRY
 		{
@@ -842,7 +842,7 @@ BOOL CDownload::Load(LPCTSTR pszName)
 		}
 		AND_CATCH_ALL( pException )
 		{
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, m_sPath + _T(".sav") );
+			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_FILE_OPEN_ERROR, m_sPath + L".sav" );
 		}
 		END_CATCH_ALL
 
@@ -865,10 +865,10 @@ BOOL CDownload::Save(BOOL bFlush)
 		DeleteFileEx( LPCTSTR( m_sPath ), FALSE, FALSE, FALSE );
 
 	if ( m_sPath.IsEmpty() || m_sPath.Right( 3 ) != L".pd" )		// From incomplete folder or .sd imports
-		m_sPath = SafePath( Settings.Downloads.IncompletePath + _T("\\") + GetFilename() + _T(".pd") );
+		m_sPath = SafePath( Settings.Downloads.IncompletePath + L"\\" + GetFilename() + L".pd" );
 
 	// Escape Windows path length limit with \\?\ if needed?  (SafePath() above)
-	//const CString strPath = ( m_sPath.GetLength() > ( MAX_PATH - 4 ) ) ? ( _T("\\\\?\\")  + m_sPath ) : m_sPath;
+	//const CString strPath = ( m_sPath.GetLength() > ( MAX_PATH - 4 ) ) ? ( L"\\\\?\\"  + m_sPath ) : m_sPath;
 
 	m_nSaveCookie = m_nCookie;
 	m_tSaved = GetTickCount();
@@ -879,7 +879,7 @@ BOOL CDownload::Save(BOOL bFlush)
 	if ( m_bSeeding && ! Settings.BitTorrent.AutoSeed )
 		return TRUE;
 
-	const CString strPathSav = m_sPath + _T(".sav");
+	const CString strPathSav = m_sPath + L".sav";
 	const LPCTSTR pszPath = m_sPath;
 	const LPCTSTR pszPathSav = strPathSav;
 
@@ -903,7 +903,7 @@ BOOL CDownload::Save(BOOL bFlush)
 		{
 			ar.Abort();
 			pFile.Abort();
-			theApp.Message( MSG_ERROR, _T("Serialize Error: %s"), GetFilename() );
+			theApp.Message( MSG_ERROR, L"Serialize Error: %s", GetFilename() );
 			pException->Delete();
 			return FALSE;
 		}
@@ -1041,7 +1041,7 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 //	ASSERT( ar.IsLoading() );
 //
 //	ar >> m_sPath;
-//	m_sPath += _T(".sd");
+//	m_sPath += L".sd";
 //	ar >> m_sName;
 //
 //	DWORD nSize;
@@ -1093,7 +1093,7 @@ BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal /*FAL
 		const CString strPath = IsMultiFileTorrent() ?
 			GetPath( 0 ).Left( GetPath( 0 ).ReverseFind( '\\' ) + 1 ) : GetPath( 0 );
 		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
-			_T("open"), strPath, NULL, NULL, SW_SHOWNORMAL );
+			L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 		return TRUE;
 	}
 

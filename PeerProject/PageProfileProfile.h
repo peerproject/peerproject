@@ -40,7 +40,8 @@ public:
 	CComboBox	m_wndInterestAll;
 	CComboBox	m_wndAge;
 	CComboBox	m_wndCity;
-	CComboBox	m_wndCountry;
+	CComboBoxEx	m_wndCountry;
+	CImageList	m_gdiFlags;
 	CString 	m_sLocCity;
 	CString 	m_sLocCountry;
 	CString 	m_sLocLatitude;
@@ -53,8 +54,7 @@ public:
 private:
 	int 		LoadDefaultInterests();
 
-public:
-	protected:
+protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual void OnOK();
 	virtual BOOL OnInitDialog();

@@ -1,7 +1,7 @@
 //
 // DlgFileProperties.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -81,7 +81,7 @@ BOOL CFilePropertiesDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CFilePropertiesDlg"), IDI_PROPERTIES );
+	SkinMe( L"CFilePropertiesDlg", IDI_PROPERTIES );
 
 	CRect rc;
 	GetWindowRect( &rc );
@@ -91,7 +91,7 @@ BOOL CFilePropertiesDlg::OnInitDialog()
 
 	Update();
 
-	if ( ! Settings.LoadWindow( _T("CFilePropertiesDlg"), this ) )
+	if ( ! Settings.LoadWindow( L"CFilePropertiesDlg", this ) )
 	{
 		GetWindowRect( &rc );
 		rc.bottom++;
@@ -118,12 +118,12 @@ void CFilePropertiesDlg::Update()
 	m_sName = pFile->m_sName;
 	m_sPath = pFile->GetFolder();
 	m_sSize = Settings.SmartVolume( pFile->GetSize() );
-	m_sIndex.Format( _T("# %lu"), pFile->m_nIndex );
+	m_sIndex.Format( L"# %lu", pFile->m_nIndex );
 
 	if ( pFile->m_oSHA1 )
 	{
 		if ( m_bHexHash )
-			m_sSHA1 = _T("sha1:") + pFile->m_oSHA1.toString< Hashes::base16Encoding >();
+			m_sSHA1 = L"sha1:" + pFile->m_oSHA1.toString< Hashes::base16Encoding >();
 		else
 			m_sSHA1 = pFile->m_oSHA1.toShortUrn();
 	}
@@ -148,8 +148,8 @@ void CFilePropertiesDlg::Update()
 		CXMLElement* pXML = pFile->m_pMetadata->Clone();
 
 		if ( pFile->m_oSHA1 )
-			pXML->AddAttribute( _T("SHA1"), pFile->m_oSHA1.toString() );
-		else if ( CXMLAttribute* pSHA1 = pXML->GetAttribute( _T("SHA1") ) )
+			pXML->AddAttribute( L"SHA1", pFile->m_oSHA1.toString() );
+		else if ( CXMLAttribute* pSHA1 = pXML->GetAttribute( L"SHA1" ) )
 			pSHA1->Delete();
 
 		m_wndSchema.UpdateData( pXML, FALSE );
@@ -240,7 +240,7 @@ void CFilePropertiesDlg::OnOK()
 
 				m_wndSchema.UpdateData( pSingular, TRUE );
 
-				if ( CXMLAttribute* pSHA1 = pSingular->GetAttribute( _T("SHA1") ) )
+				if ( CXMLAttribute* pSHA1 = pSingular->GetAttribute( L"SHA1" ) )
 					pSHA1->Delete();
 
 				pFile->SetMetadata( pXML );
@@ -260,6 +260,6 @@ void CFilePropertiesDlg::OnOK()
 
 void CFilePropertiesDlg::OnDestroy()
 {
-	Settings.SaveWindow( _T("CFilePropertiesDlg"), this );
+	Settings.SaveWindow( L"CFilePropertiesDlg", this );
 	CSkinDialog::OnDestroy();
 }

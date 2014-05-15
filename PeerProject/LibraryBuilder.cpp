@@ -25,6 +25,7 @@
 #include "SharedFile.h"
 #include "HashDatabase.h"
 #include "ThumbCache.h"
+#include "AntiVirus.h"
 #include "Downloads.h"
 #include "Transfers.h" // Locks
 #include "Security.h"
@@ -340,7 +341,7 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 			WIN32_FILE_ATTRIBUTE_DATA wfad;
 			if ( GetFileAttributesEx( strPath, GetFileExInfoStandard, &wfad ) )
 			{
-				int nSlash = strPath.ReverseFind( _T('\\') );
+				int nSlash = strPath.ReverseFind( L'\\' );
 				if ( CLibrary::IsBadFile( strPath.Mid( nSlash + 1 ), strPath.Left( nSlash ), wfad.dwFileAttributes ) )
 				{
 					// Remove bad file
@@ -447,7 +448,7 @@ void CLibraryBuilder::OnRun()
 		VERIFY_FILE_ACCESS( hFile, m_sPath )
 		if ( hFile != INVALID_HANDLE_VALUE )
 		{
-			theApp.Message( MSG_DEBUG, _T("Hashing: %s"), (LPCTSTR)m_sPath );
+			theApp.Message( MSG_DEBUG, L"Hashing: %s", (LPCTSTR)m_sPath );
 
 			// ToDo: We need MD5 hash of the audio file without tags
 			if ( HashFile( m_sPath, hFile ) )
@@ -662,7 +663,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 	// Security checks
 	if ( //pFile->IsShared() &&
 		( Security.IsDenied( pFile ) ||
-	//	 ! AntiVirus.Scan( pFile->GetPath() ) ||
+		! AntiVirus.Scan( pFile->GetPath() ) ||
 		( Settings.Search.AdultFilter &&
 		( AdultFilter.IsChildPornography( pFile->GetSearchName() ) ||
 		  AdultFilter.IsChildPornography( pFile->GetMetadataWords() ) ) ) ) )
@@ -680,7 +681,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	Library.Update();
 
-	theApp.Message( MSG_DEBUG, _T("Hashing completed: %s"), szPath );
+	theApp.Message( MSG_DEBUG, L"Hashing completed: %s", szPath );
 
 	return true;
 }
@@ -746,7 +747,7 @@ bool CLibraryBuilder::DetectVirtualFile(LPCTSTR szPath, HANDLE hFile, QWORD& nOf
 {
 	bool bVirtual = false;
 
-	if ( _tcsistr( szPath, _T(".mp3") ) != NULL )
+	if ( _tcsistr( szPath, L".mp3" ) != NULL )
 	{
 		bVirtual |= DetectVirtualID3v2( hFile, nOffset, nLength );
 		bVirtual |= DetectVirtualID3v1( hFile, nOffset, nLength );
@@ -1151,7 +1152,7 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 		pFile->m_bMetadataAuto = TRUE;
 	}
 
-	theApp.Message( MSG_DEBUG, _T("Refreshing: %s"), (LPCTSTR)sPath );
+	theApp.Message( MSG_DEBUG, L"Refreshing: %s", (LPCTSTR)sPath );
 
 	bool bResult = false;
 	HANDLE hFile = CreateFile( SafePath( sPath ), GENERIC_READ,

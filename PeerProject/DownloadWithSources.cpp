@@ -752,21 +752,21 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 					strSources += ',';
 				strSources += CString( inet_ntoa( pSource->m_pAddress ) );
 				CString strURL;
-				strURL.Format( _T("%hu"), pSource->m_nPort );
+				strURL.Format( L"%hu", pSource->m_nPort );
 				strSources += ':' + strURL;
 			}
-			else if ( pSource->m_sURL.Find( _T("Zhttp://") ) >= 0 ||
-				pSource->m_sURL.Find( _T("Z%2C http://") ) >= 0 )
+			else if ( pSource->m_sURL.Find( L"Zhttp://" ) >= 0 ||
+				pSource->m_sURL.Find( L"Z%2C http://" ) >= 0 )
 			{
 				// Ignore buggy URLs
-				TRACE( _T("CDownloadWithSources::GetSourceURLs() Bad URL: %s\n"), pSource->m_sURL );
+				TRACE( L"CDownloadWithSources::GetSourceURLs() Bad URL: %s\n", pSource->m_sURL );
 			}
 			else
 			{
 				CString strURL = pSource->m_sURL;
-				strURL.Replace( _T(","), _T("%2C") );
+				strURL.Replace( L",", L"%2C" );
 
-				if ( ! strSources.IsEmpty() ) strSources += _T(", ");
+				if ( ! strSources.IsEmpty() ) strSources += L", ";
 				strSources += strURL;
 				strSources += ' ';
 				strSources += TimeToString( &pSource->m_tLastSeen );
@@ -799,7 +799,7 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 		// Only return sources which we detected as failed
 		if ( pResult && pResult->m_bLocal )
 		{
-			if ( _tcsistr( pResult->m_sURL, _T("http://") ) != NULL )
+			if ( _tcsistr( pResult->m_sURL, L"http://" ) != NULL )
 			{
 				int nPos = pResult->m_sURL.Find( ':', 8 );
 				if ( nPos < 0 ) continue;
@@ -882,7 +882,7 @@ CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bRe
 		if ( pResult && pResult->m_sURL.Compare( pszUrl ) == 0 )
 		{
 #ifndef NDEBUG
-			theApp.Message( MSG_DEBUG, _T("Votes for file %s: negative - %i, positive - %i; offline status: %i"),
+			theApp.Message( MSG_DEBUG, L"Votes for file %s: negative - %i, positive - %i; offline status: %i",
 				pszUrl, pResult->m_nNegativeVotes,
 				pResult->m_nPositiveVotes,
 				pResult->m_bOffline );
@@ -910,7 +910,7 @@ void CDownloadWithSources::AddFailedSource(const CDownloadSource* pSource, bool 
 	CString strURL;
 	if ( pSource->m_nProtocol == PROTOCOL_BT && pSource->m_oGUID )
 	{
-		strURL.Format( _T("btc://%s/%s/"),
+		strURL.Format( L"btc://%s/%s/",
 			(LPCTSTR)pSource->m_oGUID.toString(),
 			(LPCTSTR)m_oBTH.toString() );
 	}
@@ -1208,11 +1208,11 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 			pSource->Serialize( ar, nVersion );
 
 			// Extract ed2k client ID from url (m_pAddress) because it wasn't saved
-			if ( ! pSource->m_nPort && _tcsnicmp( pSource->m_sURL, _T("ed2kftp://"), 10 ) == 0 )
+			if ( ! pSource->m_nPort && _tcsnicmp( pSource->m_sURL, L"ed2kftp://", 10 ) == 0 )
 			{
 				CString strURL = pSource->m_sURL.Mid( 10 );
 				if ( ! strURL.IsEmpty() )
-					_stscanf( strURL, _T("%lu"), &pSource->m_pAddress.S_un.S_addr );
+					_stscanf( strURL, L"%lu", &pSource->m_pAddress.S_un.S_addr );
 			}
 
 			InternalAdd( pSource.Detach() );

@@ -22,11 +22,11 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Resource.h"
 #include "GFLImageServices.h"	// Generated
 
-#define REG_IMAGESERVICE_KEY _T("Software\\PeerProject\\PeerProject\\Plugins\\ImageService")
+#define REG_IMAGESERVICE_KEY L"Software\\PeerProject\\PeerProject\\Plugins\\ImageService"
 
 class CGFLImageServicesModule : public CAtlDllModuleT< CGFLImageServicesModule >
 {
@@ -60,8 +60,8 @@ inline void FillExtMap()
 				CString ext (info.Extension [j]);
 				ext.MakeLower();
 				ATLTRACE( " .%s", info.Extension [j] );
-				if ( !_ExtMap.Lookup(ext, tmp) )
-					_ExtMap.SetAt(ext, name);
+				if ( !_ExtMap.Lookup( ext, tmp ) )
+					_ExtMap.SetAt( ext, name );
 			}
 			ATLTRACE( "\n" );
 		}
@@ -143,13 +143,13 @@ STDAPI DllRegisterServer(void)
 	POSITION pos = _ExtMap.GetStartPosition();
 	while ( pos )
 	{
-		_ExtMap.GetNextAssoc(pos, ext, tmp);
-		if ( ext == _T("vst") ) continue;
-		ext.Insert (0, _T('.'));
+		_ExtMap.GetNextAssoc( pos, ext, tmp );
+		if ( ext == L"vst" ) continue;
+		ext.Insert( 0, L'.' );
 		ATLTRACE( "Add %s\n", CT2A( ext ) );
-		SHSetValue(HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
-			_T("{C9314782-CB91-40B8-B375-F631FF30C1C8}"),
-			38 * sizeof (TCHAR));
+		SHSetValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
+			L"{C9314782-CB91-40B8-B375-F631FF30C1C8}",
+			38 * sizeof(TCHAR) );
 	}
 
 	return hr;
@@ -165,10 +165,10 @@ STDAPI DllUnregisterServer(void)
 	while ( pos )
 	{
 		_ExtMap.GetNextAssoc(pos, ext, tmp);
-		if ( ext == _T("vst") ) continue;
-		ext.Insert(0, _T('.'));
+		if ( ext == L"vst" ) continue;
+		ext.Insert( 0, L'.' );
 		ATLTRACE( "Remove %s\n", CT2A( ext ) );
-		SHDeleteValue(HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext);
+		SHDeleteValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext );
 	}
 
 	return hr;
@@ -176,22 +176,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }
@@ -207,7 +201,7 @@ HRESULT SAFEgflLoadBitmap(LPCWSTR filename, GFL_BITMAP **bitmap, const GFL_LOAD_
 		else
 			ATLTRACE( "gflLoadBitmap() error : %s\n", gflGetErrorString(err) );
 	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
+	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
 		ATLTRACE( "gflLoadBitmap() exception\n" );
 	}
@@ -225,7 +219,7 @@ HRESULT SAFEgflLoadBitmapFromMemory(const GFL_UINT8 *data, GFL_UINT32 data_lengt
 		else
 			ATLTRACE( "gflLoadBitmapFromMemory() error : %s\n", gflGetErrorString(err) );
 	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
+	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
 		ATLTRACE( "gflLoadBitmapFromMemory() exception\n" );
 	}
@@ -243,7 +237,7 @@ HRESULT SAFEgflSaveBitmapIntoMemory(GFL_UINT8 **data, GFL_UINT32 *data_length, c
 		else
 			ATLTRACE( "gflSaveBitmapIntoMemory() error : %s\n", gflGetErrorString(err) );
 	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
+	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
 		ATLTRACE( "gflSaveBitmapIntoMemory() exception\n" );
 	}
@@ -261,7 +255,7 @@ HRESULT SAFEgflSaveBitmap(LPCWSTR filename, const GFL_BITMAP *bitmap, const GFL_
 		else
 			ATLTRACE( "gflSaveBitmap() error : %s\n", gflGetErrorString(err) );
 	}
-	__except (EXCEPTION_EXECUTE_HANDLER)
+	__except ( EXCEPTION_EXECUTE_HANDLER )
 	{
 		ATLTRACE( "gflSaveBitmap() exception\n" );
 	}
@@ -271,8 +265,8 @@ HRESULT SAFEgflSaveBitmap(LPCWSTR filename, const GFL_BITMAP *bitmap, const GFL_
 int GetFormatIndexByExt(LPCTSTR ext)
 {
 	CString name;
-	if (_ExtMap.Lookup(ext, name))
-		return gflGetFormatIndexByName(CT2CA(name));
+	if ( _ExtMap.Lookup( ext, name ) )
+		return gflGetFormatIndexByName( CT2CA(name) );
 
 	return -1;
 }

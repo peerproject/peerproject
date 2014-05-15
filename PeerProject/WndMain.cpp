@@ -184,7 +184,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP_WEB_2, OnHelpWeb2)
 	ON_COMMAND(ID_HELP_WEB_3, OnHelpWeb3)
 	ON_COMMAND(ID_HELP_WEB_4, OnHelpWeb4)
-	ON_COMMAND(ID_HELP_WEB_BITPRINT, OnHelpWebBitprint)
+	ON_COMMAND(ID_HELP_WEB_BITPRINTS, OnHelpWebBitprints)
 	ON_COMMAND(ID_HELP_WEB_SKINS, OnHelpWebSkins)
 	ON_COMMAND(ID_HELP_FAQ, OnHelpFaq)
 	ON_COMMAND(ID_HELP_GUIDE, OnHelpGuide)
@@ -398,12 +398,12 @@ CMainWnd::~CMainWnd()
 void CMainWnd::SaveState()
 {
 	if ( ! IsIconic() )
-		SaveBarState( _T("Toolbars\\CoolBar") );
+		SaveBarState( L"Toolbars\\CoolBar" );
 
 	Settings.Toolbars.ShowRemote = ( m_wndRemoteWnd.IsVisible() != FALSE );
 	Settings.Toolbars.ShowMonitor = ( m_wndMonitorBar.IsVisible() != FALSE );
 
-	Settings.SaveWindow( _T("CMainWnd"), this );
+	Settings.SaveWindow( L"CMainWnd", this );
 
 	m_pWindows.SaveWindowStates();
 }
@@ -413,7 +413,7 @@ void CMainWnd::SaveState()
 
 BOOL CMainWnd::PreCreateWindow(CREATESTRUCT& cs)
 {
-	cs.lpszClass = CLIENT_HWND;		// _T("PeerProjectMainWnd")
+	cs.lpszClass = CLIENT_HWND;		// L"PeerProjectMainWnd"
 	if ( ! ( cs.hInstance ) )
 		return FALSE;
 
@@ -469,20 +469,20 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Menu Bar
 	SetMenu( NULL );
 	if ( ! m_wndMenuBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_TOP, IDW_MENU_BAR ) ) return -1;
-	m_wndMenuBar.SetWindowText( _T("Menubar") );
+	m_wndMenuBar.SetWindowText( L"Menubar" );
 	m_wndMenuBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	DockControlBar( &m_wndMenuBar, AFX_IDW_DOCKBAR_TOP );
 
 	// Tab Bar
 	if ( ! m_wndTabBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_TAB_BAR ) ) return -1;
-	m_wndTabBar.SetWindowText( _T("Windows") );
+	m_wndTabBar.SetWindowText( L"Windows" );
 	m_wndTabBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	m_wndTabBar.SetBarStyle( m_wndTabBar.GetBarStyle() | CBRS_TOOLTIPS );
 	DockControlBar( &m_wndTabBar, AFX_IDW_DOCKBAR_TOP );
 
 	// Nav Bar
 	if ( ! m_wndNavBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_TOP, IDW_NAV_BAR ) ) return -1;
-	m_wndNavBar.SetWindowText( _T("Navigation Bar") );
+	m_wndNavBar.SetWindowText( L"Navigation Bar" );
 	m_wndNavBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	m_wndNavBar.SetBarStyle( m_wndNavBar.GetBarStyle() | CBRS_TOOLTIPS );
 	DockControlBar( &m_wndNavBar, AFX_IDW_DOCKBAR_TOP );
@@ -491,7 +491,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	// Tool Bar
 	m_wndToolBar.EnableDrop();
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|CBRS_TOP, IDW_TOOL_BAR ) ) return -1;
-	m_wndToolBar.SetWindowText( _T("Toolbar") );
+	m_wndToolBar.SetWindowText( L"Toolbar" );
 	m_wndToolBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS );
 	m_wndToolBar.SetGripper( TRUE );
@@ -502,7 +502,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndMonitorBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_BOTTOM, IDW_MONITOR_BAR ) ) return -1;
 	m_wndMonitorBar.m_pSnapBar[0] = &m_wndNavBar;
 	m_wndMonitorBar.m_pSnapBar[1] = &m_wndToolBar;
-	m_wndMonitorBar.SetWindowText( _T("Monitor") );
+	m_wndMonitorBar.SetWindowText( L"Monitor" );
 	m_wndMonitorBar.EnableDocking( CBRS_ALIGN_TOP | CBRS_ALIGN_BOTTOM );
 	m_wndMonitorBar.SetBarStyle( m_wndMonitorBar.GetBarStyle() | CBRS_TOOLTIPS );
 	DockControlBar( &m_wndMonitorBar, AFX_IDW_DOCKBAR_TOP );
@@ -532,8 +532,8 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	Plugins.Enumerate();
 
 	// Window Setup
-	Settings.LoadWindow( _T("CMainWnd"), this );
-	LoadBarState( _T("Toolbars\\CoolBar") );
+	Settings.LoadWindow( L"CMainWnd", this );
+	LoadBarState( L"Toolbars\\CoolBar" );
 
 	if ( ! m_wndMenuBar.IsVisible() )
 		ShowControlBar( &m_wndMenuBar, TRUE, TRUE );
@@ -676,7 +676,6 @@ void CMainWnd::OnEndSession(BOOL bEnding)
 		AfxOleSetUserCtrl( TRUE );		// Keep from randomly shutting down
 		SendMessage( WM_CLOSE );
 	}
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -826,7 +825,7 @@ void CMainWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 			ClientToScreen( &point );
 
-		CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.View") );
+		CMenu* pMenu = Skin.GetMenu( L"CMainWnd.View" );
 		if ( pMenu != NULL )
 			pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON, point.x, point.y, this );
 	}
@@ -964,7 +963,7 @@ void CMainWnd::AddTray()
 
 		m_pTray.uFlags = NIF_ICON | NIF_MESSAGE | NIF_TIP;
 		_tcsncpy( m_pTray.szTip, Settings.SmartAgent(), _countof( m_pTray.szTip ) - 1 );
-		m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
+		m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = L'\0';
 
 		m_bTrayUpdate = TRUE;
 		m_bTrayIcon = Shell_NotifyIcon( NIM_ADD, &m_pTray );
@@ -1054,7 +1053,7 @@ void CMainWnd::OpenTrayMenu()
 
 	SetForegroundWindow();
 
-	CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.Tray") );
+	CMenu* pMenu = Skin.GetMenu( L"CMainWnd.Tray" );
 	if ( pMenu == NULL ) return;
 
 	MENUITEMINFO pInfo = {};
@@ -1213,31 +1212,31 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 
 	if ( Settings.Skin.DropMenu )
 	{
-		if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+		if ( CMenu* pMenu = Skin.GetMenu( L"CMainWnd.DropMenu" ) )
 		{
 			if ( Settings.Skin.DropMenuLabel > 1 )
 			{
-				CString strWidth = _T(" ");
+				CString strWidth = L" ";
 				for ( int nCount = 1 ; nCount <= Settings.Skin.DropMenuLabel ; nCount++ )
-					strWidth.Append( _T(" ") );
+					strWidth.Append( L" " );
 				pMenu->ModifyMenu( 0, MF_BYPOSITION|MF_STRING, 0, strWidth );
 			}
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
 		}
-		else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
+		else if ( CMenu* pMenu = Skin.GetMenu( L"CMainWnd" ) )
 		{
 			m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
 		}
 	}
-	else if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd") ) )
+	else if ( CMenu* pMenu = Skin.GetMenu( L"CMainWnd" ) )
 	{
 		m_wndMenuBar.SetMenu( pMenu->GetSafeHmenu() );
 	}
 
-	Skin.CreateToolBar( _T("CMainWnd"), &m_wndToolBar );
+	Skin.CreateToolBar( L"CMainWnd", &m_wndToolBar );
 	m_wndNavBar.OnSkinChange();
 
-	m_wndMenuBar.SetWatermark( Skin.GetWatermark( _T("CCoolMenuBar") ) );
+	m_wndMenuBar.SetWatermark( Skin.GetWatermark( L"CCoolMenuBar" ) );
 	m_wndTabBar.OnSkinChange();
 
 	// ToDo: Skin m_wndStatusBar?
@@ -1248,7 +1247,7 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		m_brDockArea.DeleteObject();
 
 		CBitmap bmDockArea;
-		if ( Skin.GetWatermark( &bmDockArea, _T("CMainWnd") ) )
+		if ( Skin.GetWatermark( &bmDockArea, L"CMainWnd" ) )
 			m_brDockArea.CreatePatternBrush( &bmDockArea );
 		else
 			m_brDockArea.CreateSolidBrush( Colors.m_crMidtone );
@@ -1320,9 +1319,10 @@ LRESULT CMainWnd::OnHandleURL(WPARAM wParam, LPARAM /*lParam*/)
 
 LRESULT CMainWnd::OnHandleImport(WPARAM wParam, LPARAM /*lParam*/)
 {
+	CWaitCursor wc;
+
 	LPTSTR pszPath = (LPTSTR)wParam;
 
-	CWaitCursor wc;
 	HostCache.Import( pszPath );
 
 	delete [] pszPath;
@@ -1395,8 +1395,8 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 		strMessage.Format( LoadString( IDS_UPGRADE_LAUNCH ), (LPCTSTR)Settings.VersionCheck.UpgradeFile );
 		if ( MsgBox( strMessage, MB_ICONQUESTION|MB_YESNO ) == IDYES )
 		{
-			ShellExecute( GetSafeHwnd(), _T("open"), VersionChecker.m_sUpgradePath,
-				_T("/launch"), NULL, SW_SHOWNORMAL );
+			ShellExecute( GetSafeHwnd(), L"open", VersionChecker.m_sUpgradePath,
+				L"/launch", NULL, SW_SHOWNORMAL );
 			PostMessage( WM_CLOSE );
 		}
 		else
@@ -1412,6 +1412,7 @@ LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 LRESULT CMainWnd::OnOpenChat(WPARAM wParam, LPARAM /*lParam*/)
 {
 	CSingleLock pLock( &ChatCore.m_pSection, TRUE );
+
 	CChatSession* pSession = (CChatSession*)wParam;
 	if ( ChatCore.Check( pSession ) ) pSession->OnOpenWindow();
 	return 0;
@@ -1536,7 +1537,7 @@ void CMainWnd::UpdateMessages()
 		}
 
 		if ( ! Settings.VersionCheck.Quote.IsEmpty() )
-			strStatusbar += _T("  ") + Settings.VersionCheck.Quote;
+			strStatusbar += L"  " + Settings.VersionCheck.Quote;
 
 		if ( m_nIDLastMessage == AFX_IDS_IDLEMESSAGE )
 		{
@@ -1586,7 +1587,7 @@ void CMainWnd::UpdateMessages()
 
 		m_pTray.uFlags = NIF_TIP;
 		_tcsncpy( m_pTray.szTip, strTip, _countof( m_pTray.szTip ) - 1 );
-		m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = _T('\0');
+		m_pTray.szTip[ _countof( m_pTray.szTip ) - 1 ] = L'\0';
 		m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 	}
 
@@ -1603,7 +1604,7 @@ void CMainWnd::UpdateMessages()
 			m_pTaskbar->SetProgressState( hWnd, TBPF_NORMAL );
 			m_pTaskbar->SetProgressValue( hWnd, nComplete, nTotal );
 
-			strAppBarTip.Format( _T("%s\r\n%s %.2f%%\r\n%s %s"), Settings.SmartAgent(),
+			strAppBarTip.Format( L"%s\r\n%s %.2f%%\r\n%s %s", Settings.SmartAgent(),
 				LoadString( IDS_MONITOR_VOLUME_DOWNLOADED ), float( ( 10000 * nComplete ) / nTotal ) / 100.f,
 				LoadString( IDS_MONITOR_TOTAL_SPEED ), Settings.SmartSpeed( CGraphItem::GetValue( GRC_TOTAL_BANDWIDTH_IN ), bits ) );
 		}
@@ -1611,7 +1612,7 @@ void CMainWnd::UpdateMessages()
 		{
 			m_pTaskbar->SetProgressState( hWnd, TBPF_NOPROGRESS );
 			strAppBarTip = Settings.SmartAgent();
-			DEBUG_ONLY( strAppBarTip += _T(" Debug") );
+			DEBUG_ONLY( strAppBarTip += L" Debug" );
 		}
 		m_pTaskbar->SetThumbnailTooltip( hWnd, strAppBarTip );
 	}
@@ -1688,7 +1689,7 @@ void CMainWnd::LocalSystemChecks()
 				if ( nConnectionFailCount > 1 )
 				{
 					if ( Settings.Connection.DetectConnectionReset )
-						theApp.Message( MSG_ERROR, _T("Internet disconnection detected, shutting down network") );
+						theApp.Message( MSG_ERROR, L"Internet disconnection detected, shutting down network" );
 					else
 						PostMessage( WM_COMMAND, ID_HELP_CONNECTIONFAIL );
 
@@ -1706,7 +1707,7 @@ void CMainWnd::LocalSystemChecks()
 				{
 					nConnectionFailCount = 0;
 					PostMessage( WM_COMMAND, ID_NETWORK_CONNECT );
-					theApp.Message( MSG_ERROR, _T("Internet reconnect detected- restarting network") );
+					theApp.Message( MSG_ERROR, L"Internet reconnect detected - restarting network" );
 				}
 			}
 		}
@@ -2013,7 +2014,7 @@ void CMainWnd::OnNetworkAutoClose()
 
 	Settings.Live.AutoClose = true;
 
-	strCaption += _T("  ") + LoadString( IDS_CLOSING_AFTER );
+	strCaption += L"  " + LoadString( IDS_CLOSING_AFTER );
 	SetWindowText( strCaption );
 
 	if ( ! m_bTrayHide )
@@ -2022,7 +2023,7 @@ void CMainWnd::OnNetworkAutoClose()
 
 void CMainWnd::OnNetworkExit()
 {
-	SetWindowText( LoadString( IDR_MAINFRAME ) + _T(" (") + LoadString( IDS_NEIGHBOUR_CLOSING ) + _T(")") );
+	SetWindowText( LoadString( IDR_MAINFRAME ) + L" (" + LoadString( IDS_NEIGHBOUR_CLOSING ) + L")" );
 
 	//PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
 	if ( ! m_bTrayHide )
@@ -2423,7 +2424,7 @@ void CMainWnd::OnUpdateTabMenu(CCmdUI* pCmdUI)
 
 void CMainWnd::OnTabMenu()
 {
-	if ( CMenu* pMenu = Skin.GetMenu( _T("CMainWnd.DropMenu") ) )
+	if ( CMenu* pMenu = Skin.GetMenu( L"CMainWnd.DropMenu" ) )
 	{
 		pMenu = pMenu->GetSubMenu( 0 );
 
@@ -2499,11 +2500,9 @@ void CMainWnd::OnToolsDownload()
 			{
 				if ( CDownload* pDownload = Downloads.Add( pURL ) )
 				{
-					if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 &&
-						! Network.IsWellConnected() )
-					{
+					if ( ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) == 0 && ! Network.IsWellConnected() )
 						Network.Connect( TRUE );
-					}
+
 					m_pWindows.Open( RUNTIME_CLASS(CDownloadsWnd) );
 				}
 			}
@@ -2541,13 +2540,13 @@ void CMainWnd::OnOpenDownloadsFolder()
 	CMainWnd* pMainWnd = theApp.SafeMainWnd();
 
 	if ( pMainWnd )
-		ShellExecute( pMainWnd->GetSafeHwnd(), _T("open"), Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
+		ShellExecute( pMainWnd->GetSafeHwnd(), L"open", Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CMainWnd::OnToolsSkin()
 {
 	if ( ! IsWindowEnabled() ) return;
-	CSettingsManagerDlg::Run( _T("CSkinsSettingsPage") );
+	CSettingsManagerDlg::Run( L"CSkinsSettingsPage" );
 }
 
 void CMainWnd::OnToolsLanguage()
@@ -2555,7 +2554,7 @@ void CMainWnd::OnToolsLanguage()
 	if ( ! IsWindowEnabled() )
 		return;
 
-	theApp.WriteProfileInt( _T("Windows"), _T("RunLanguage"), TRUE );
+	theApp.WriteProfileInt( L"Windows", L"RunLanguage", TRUE );
 
 	CLanguageDlg dlg;
 	if ( dlg.DoModal() != IDOK )
@@ -2573,7 +2572,7 @@ void CMainWnd::OnToolsLanguage()
 	if ( bRestart )
 	{
 		HINSTANCE hResult = ShellExecute( AfxGetMainWnd()->GetSafeHwnd(), NULL,
-			theApp.m_strBinaryPath, _T("-nowarn -wait"), Settings.General.Path, SW_SHOWNORMAL );
+			theApp.m_strBinaryPath, L"-nowarn -wait", Settings.General.Path, SW_SHOWNORMAL );
 		if ( hResult > (HINSTANCE)32 )
 		{
 			PostMessage( WM_CLOSE );
@@ -2586,9 +2585,9 @@ void CMainWnd::OnToolsLanguage()
 
 void CMainWnd::OnToolsSeedTorrent()
 {
-	CFileDialog dlgFile( TRUE, _T("torrent"),
-		( Settings.Downloads.TorrentPath + _T("\\.") ), OFN_HIDEREADONLY,
-		_T("Torrent Files|*.torrent|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlgFile( TRUE, L"torrent",
+		( Settings.Downloads.TorrentPath + L"\\." ), OFN_HIDEREADONLY,
+		L"Torrent Files|*.torrent|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlgFile.DoModal() != IDOK ) return;
 
@@ -2610,29 +2609,29 @@ void CMainWnd::OnToolsCreateTorrent()
 {
 // ToDo: Detect Selected Files for Command Line Message
 //	if ( CLibraryFile* pFile = GetSelectedFile() )
-//		CString strCommandLine = _T(" -sourcefile \"") + pFile->GetPath() );
-//	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
-	ShellExecute( GetSafeHwnd(), _T("open"), Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
+//		CString strCommandLine = L" -sourcefile \"" + pFile->GetPath() );
+//	ShellExecute( GetSafeHwnd(), L"open", Settings.BitTorrent.TorrentCreatorPath, strCommandLine, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open", Settings.BitTorrent.TorrentCreatorPath, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CMainWnd::OnDiskSpace()
 {
-	CHelpDlg::Show( _T("GeneralHelp.DiskSpace") );
+	CHelpDlg::Show( L"GeneralHelp.DiskSpace" );
 }
 
 void CMainWnd::OnDiskWriteFail()
 {
-	CHelpDlg::Show( _T("GeneralHelp.DiskWriteFail") );
+	CHelpDlg::Show( L"GeneralHelp.DiskWriteFail" );
 }
 
 void CMainWnd::OnConnectionFail()
 {
-	CHelpDlg::Show( _T("GeneralHelp.ConnectionFail") );
+	CHelpDlg::Show( L"GeneralHelp.ConnectionFail" );
 }
 
 void CMainWnd::OnNoDonkeyServers()
 {
-	CHelpDlg::Show( _T("GeneralHelp.DonkeyServerList") );
+	CHelpDlg::Show( L"GeneralHelp.DonkeyServerList" );
 }
 
 void CMainWnd::OnToolsProfile()
@@ -2734,7 +2733,7 @@ void CMainWnd::OnWindowNavBar()
 	}
 	else
 	{
-		m_wndTabBar.SetMessage( _T("") );
+		m_wndTabBar.SetMessage( L"" );
 	}
 }
 
@@ -2754,7 +2753,7 @@ void CMainWnd::OnWindowToolBar()
 	}
 	else
 	{
-		m_wndTabBar.SetMessage( _T("") );
+		m_wndTabBar.SetMessage( L"" );
 	}
 }
 
@@ -2842,8 +2841,8 @@ void CMainWnd::OnHelpHomepage()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("?Version=") + theApp.m_sVersion,
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"?Version=" + theApp.m_sVersion,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2851,7 +2850,7 @@ void CMainWnd::OnHelpWeb1()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link1"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"external/?link1",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2859,7 +2858,7 @@ void CMainWnd::OnHelpWeb2()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link2"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"external/?link2",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2867,7 +2866,7 @@ void CMainWnd::OnHelpWeb3()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link3"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"external/?link3",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2875,15 +2874,13 @@ void CMainWnd::OnHelpWeb4()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("external/?link4"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"external/?link4",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
-void CMainWnd::OnHelpWebBitprint()
+void CMainWnd::OnHelpWebBitprints()
 {
-	const CString strWebSite( WEB_SITE );
-
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("/bitprint"),
+	ShellExecute( GetSafeHwnd(), L"open", L"bitprints.peerproject.org",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2892,11 +2889,11 @@ void CMainWnd::OnHelpWebSkins()
 	CString strWebSite( WEB_SITE );
 
 	if ( Settings.General.LanguageDefault )
-		strWebSite = strWebSite + _T("skins");	// Forwards to forums/skins
+		strWebSite = strWebSite + L"skins";	// Forwards to forums/skins
 	else
-		strWebSite = strWebSite + Settings.General.Language.Left(2) + _T("/forums/skins");
+		strWebSite = strWebSite + Settings.General.Language.Left(2) + L"/forums/skins";
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite,
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2904,18 +2901,18 @@ void CMainWnd::OnHelpStartpage()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("start"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"start",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CMainWnd::OnHelpConnectiontest()
 {
 	CString strTestUrl;
-	strTestUrl.Format( _T("%s/connectiontest/?port=%u&lang=%s&Version=%s"),
+	strTestUrl.Format( L"%s/connectiontest/?port=%u&lang=%s&Version=%s",
 		WEB_SITE, Settings.Connection.InPort,
 		(LPCTSTR)Settings.General.Language, (LPCTSTR)theApp.m_sVersion );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strTestUrl,
+	ShellExecute( GetSafeHwnd(), L"open", strTestUrl,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2923,8 +2920,8 @@ void CMainWnd::OnHelpFaq()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("wiki/faq"),
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"wiki/faq",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2932,8 +2929,8 @@ void CMainWnd::OnHelpGuide()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("wiki/userguide"),
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"wiki/userguide",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2941,8 +2938,8 @@ void CMainWnd::OnHelpForums()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("forums"),
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"forums",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2950,8 +2947,8 @@ void CMainWnd::OnHelpForumsLocal()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("forums/local/") + Settings.General.Language.Left(2),
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"forums/local/" + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2959,14 +2956,14 @@ void CMainWnd::OnHelpUpdate()
 {
 	const CString strUpdateSite( UPDATE_URL );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strUpdateSite + _T("?Version=") + theApp.m_sVersion
+	ShellExecute( GetSafeHwnd(), L"open",
+		strUpdateSite + L"?Version=" + theApp.m_sVersion
 #ifdef WIN64
-		+ _T("?Platform=x64")
+		+ L"?Platform=x64"
 #else
-		+ _T("?Platform=Win32")
+		+ L"?Platform=Win32"
 #endif
-		+ _T("&Language=") + Settings.General.Language.Left(2),
+		+ L"&Language=" + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 	// Run CVersionChecker::ExecuteRequest() instead?
 }
@@ -2975,7 +2972,7 @@ void CMainWnd::OnHelpRouter()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), _T("http://portforward.com"),	// ToDo: "wiki/userguide/router"
+	ShellExecute( GetSafeHwnd(), L"open", L"http://portforward.com",	// ToDo: "wiki/userguide/router"
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2983,7 +2980,7 @@ void CMainWnd::OnHelpSecurity()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/security"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"wiki/userguide/security",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -2991,7 +2988,7 @@ void CMainWnd::OnHelpSecurity()
 //{
 //	const CString strWebSite(WEB_SITE_T);
 //
-//	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/scheduler"),
+//	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"wiki/userguide/scheduler",
 //		NULL, NULL, SW_SHOWNORMAL );
 //}
 
@@ -2999,7 +2996,7 @@ void CMainWnd::OnHelpCodec()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("wiki/userguide/codecs"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"wiki/userguide/codecs",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -3007,7 +3004,7 @@ void CMainWnd::OnHelpDonate()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strWebSite + _T("donations"),
+	ShellExecute( GetSafeHwnd(), L"open", strWebSite + L"donations",
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -3035,13 +3032,13 @@ void CMainWnd::OnHelpFakeShareaza()
 {
 	if ( Settings.General.LanguageDefault )
 	{
-		ShellExecute( GetSafeHwnd(), _T("open"), _T("http://fakeshareaza.com"),		// ToDo: Update URL
+		ShellExecute( GetSafeHwnd(), L"open", L"http://fakeshareaza.com",		// ToDo: Update URL
 		NULL, NULL, SW_SHOWNORMAL );
 	}
 	else
 	{
-		ShellExecute( GetSafeHwnd(), _T("open"),
-		_T("http://translate.google.com/translate?u=fakeshareaza.com&hl=en&tl=") + Settings.General.Language.Left(2),
+		ShellExecute( GetSafeHwnd(), L"open",
+		L"http://translate.google.com/translate?u=fakeshareaza.com&hl=en&tl=" + Settings.General.Language.Left(2),
 		NULL, NULL, SW_SHOWNORMAL );
 	}
 }
@@ -3238,7 +3235,7 @@ BOOL CMainWnd::OnDrop(IDataObject* pDataObj, DWORD /*grfKeyState*/, POINT /*ptSc
 int CMainWnd::SnarlCommand(LPCSTR szCommand)
 {
 	DWORD_PTR lResult = (DWORD_PTR)-1;
-	if ( HWND hWndSnarl = ::FindWindow( _T("w>Snarl"), _T("Snarl") ) )
+	if ( HWND hWndSnarl = ::FindWindow( L"w>Snarl", L"Snarl" ) )
 	{
 		const ULONG_PTR uSnarlMagic = 0x534e4c03;
 		COPYDATASTRUCT cds = { uSnarlMagic, (DWORD)strlen( szCommand ) + 1, (LPSTR)szCommand };
@@ -3263,12 +3260,12 @@ bool CMainWnd::SnarlNotify(const CString& sText, const CString& sTitle, DWORD dw
 		return false;
 
 	CString strSafeTitle = sTitle;
-	strSafeTitle.Replace( _T("="), _T("==") );
-	strSafeTitle.Replace( _T("&"), _T("&&") );
+	strSafeTitle.Replace( L"=", L"==" );
+	strSafeTitle.Replace( L"&", L"&&" );
 
 	CString strSafeText = sText;
-	strSafeText.Replace( _T("="), _T("==") );
-	strSafeText.Replace( _T("&"), _T("&&") );
+	strSafeText.Replace( L"=", L"==" );
+	strSafeText.Replace( L"&", L"&&" );
 
 	CStringA sCommand;
 	sCommand.Format( "notify?app-sig=app/%s&timeout=%u&title=%s&text=%s",
@@ -3316,21 +3313,21 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 	m_pTray.uFlags = NIF_INFO;
 
 	_tcsncpy( m_pTray.szInfo, sText, _countof( m_pTray.szInfo ) - 1 );
-	m_pTray.szInfo[ _countof( m_pTray.szInfo ) - 1 ] = _T('\0');
+	m_pTray.szInfo[ _countof( m_pTray.szInfo ) - 1 ] = L'\0';
 	if ( sText.GetLength() >= _countof( m_pTray.szInfo ) - 1 )
 	{
-		if ( sText[ _countof( m_pTray.szInfo ) - 1 ] != _T(' ') )
+		if ( sText[ _countof( m_pTray.szInfo ) - 1 ] != L' ' )
 		{
-			if ( LPTSTR pWordEnd = _tcsrchr( m_pTray.szInfo, _T(' ') ) )
+			if ( LPTSTR pWordEnd = _tcsrchr( m_pTray.szInfo, L' ' ) )
 			{
-				pWordEnd[ 0 ] = _T('\x2026');
-				pWordEnd[ 1 ] = _T('\0');
+				pWordEnd[ 0 ] = L'\x2026';
+				pWordEnd[ 1 ] = L'\0';
 			}
 		}
 	}
 
 	_tcsncpy( m_pTray.szInfoTitle, sTitle, _countof( m_pTray.szInfoTitle ) - 1 );
-	m_pTray.szInfoTitle[ _countof( m_pTray.szInfoTitle ) - 1 ] = _T('\0');
+	m_pTray.szInfoTitle[ _countof( m_pTray.szInfoTitle ) - 1 ] = L'\0';
 
 	if ( ( dwIcon & NIIF_ICON_MASK ) == NIIF_USER )
 		m_pTray.hBalloonIcon = CoolInterface.ExtractIcon( IDI_USER, FALSE, theApp.m_bIsVistaOrNewer ? LVSIL_NORMAL : LVSIL_SMALL );
@@ -3342,8 +3339,8 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 
 	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
 
-	m_pTray.szInfo[ 0 ] = _T('\0');
-	m_pTray.szInfoTitle[ 0 ] = _T('\0');
+	m_pTray.szInfo[ 0 ] = L'\0';
+	m_pTray.szInfoTitle[ 0 ] = L'\0';
 }
 
 

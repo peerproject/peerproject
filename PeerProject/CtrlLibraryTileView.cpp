@@ -100,7 +100,7 @@ BOOL CLibraryTileView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryTileView"),
+	return CWnd::CreateEx( 0, NULL, L"CLibraryTileView",
 		WS_CHILD | WS_VSCROLL | WS_TABSTOP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
@@ -1015,28 +1015,30 @@ bool CLibraryTileItem::Update()
 void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BOOL bFocus )
 {
 	CRect rc( &rcBlock );
+	CPoint pt( rc.left + 5, rc.top + 4 );
 
 	if ( m_nIcon48 >= 0 )
 	{
-		ShellIcons.Draw( pDC, m_nIcon48, 48,
-			rc.left + 5, rc.top + 4, CLR_NONE, m_bSelected );
-		if ( m_bCollection )
-			CoolInterface.Draw( pDC, IDI_COLLECTION_MASK, 16,
-				rc.left + 5, rc.top + 4, CLR_NONE, m_bSelected );
+		ShellIcons.Draw( pDC, m_nIcon48, 48, pt.x, pt.y, CLR_NONE, m_bSelected );
 	}
 	else if ( m_nIcon32 >= 0 )
 	{
-		ShellIcons.Draw( pDC, m_nIcon32, 32,
-			rc.left + 5 + 8, rc.top + 4 + 8, CLR_NONE, m_bSelected );
-		if ( m_bCollection )
-			CoolInterface.Draw( pDC, IDI_COLLECTION_MASK, 16,
-				rc.left + 5 + 8, rc.top + 4 + 8, CLR_NONE, m_bSelected );
+		pt.x += 8;
+		pt.y += 8;
+		ShellIcons.Draw( pDC, m_nIcon32, 32, pt.x, pt.y, CLR_NONE, m_bSelected );
 	}
+	else
+	{
+		CoolInterface.Draw( pDC, IDI_FOLDER_OPEN, 48, pt.x, pt.y, CLR_NONE, m_bSelected );
+	}
+
+	if ( m_bCollection )
+		CoolInterface.Draw( pDC, IDI_COLLECTION_MASK, 16, pt.x, pt.y, CLR_NONE, m_bSelected );
 
 	rc.left += 48 + 5;
 	rc.DeflateRect( 10, 5 );
 
-	BOOL bSelectmark = m_bSelected && Images.m_bmSelected.m_hObject != NULL;
+	const BOOL bSelectmark = m_bSelected && Images.m_bmSelected.m_hObject != NULL;
 
 	if ( m_bSelected )
 	{
@@ -1053,7 +1055,7 @@ void CLibraryTileItem::Paint(CDC* pDC, const CRect& rcBlock, CDC* /*pMemDC*/, BO
 
 	int nX = rc.left + 1;
 	int nY = ( rc.top + rc.bottom ) / 2;
-	int nH = pDC->GetTextExtent( _T("Xy") ).cy;
+	int nH = pDC->GetTextExtent( L"Xy" ).cy;
 	CRect rcUnion( nX, nY, nX, nY );
 
 	if ( ! m_sSubtitle1.IsEmpty() )

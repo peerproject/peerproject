@@ -214,7 +214,7 @@ typedef struct
 
 
 //
-// Services/MainlineDHT
+// BitTorrentDHT/
 //
 
 class CDHT

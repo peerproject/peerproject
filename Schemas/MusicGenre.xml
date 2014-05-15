@@ -1,18 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- See ReadMe.txt for translation credits -->
-
-<schemaDescriptor location="http://www.shareaza.com/schemas/musicGenre.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
+<schemaDescriptor location="http://schemas.peerproject.org/MusicGenre.xsd" xmlns="http://schemas.peerproject.org/SchemaDescriptor.xsd">
 
 	<object type="folder" availability="default"/>
 	<viewContent version="1.0" preferredView="CLibraryAlbumView"/>
 	<contains>
-		<object type="file" location="http://www.limewire.com/schemas/audio.xsd">
+		<object type="file" location="http://schemas.peerproject.org/Audio.xsd">
 			<identity local="name" remote="genre" compare="exact"/>
 		</object>
 	</contains>
 	<extends>
-		<schema location="http://www.shareaza.com/schemas/folder.xsd"/>
+		<schema location="http://schemas.peerproject.org/Folder.xsd"/>
 	</extends>
 	<images>
 		<icon path="MusicFolder.ico"/>
@@ -25,24 +22,23 @@
 		<title language="de">Musikgenre</title>
 		<title language="ee">Muusika Stiil</title>
 		<title language="es">Género de Música</title>
-		<title language="es-mx">Género de Música</title>
 		<title language="fr">Genre musical</title>
 		<title language="gr">Μουσικό Είδος</title>
-		<title language="heb">&#160;מוזיקה ז'אנר</title>
+		<title language="he">מוזיקה ז'אנר</title>
 		<title language="hr">Muzika Žanr</title>
 		<title language="hu">Zene műfaj</title>
 		<title language="it">Genere musicale</title>
-		<title language="ja">&#160;音楽 ジャンル</title>
 		<title language="lt">Muzikos stilius</title>
 		<title language="nl">Muziek Genre</title>
 		<title language="no">Musikksjanger</title>
-		<title language="pt-br">Gênero Musical</title>
-		<title language="ru">&#160;Стиль музыки</title>
+		<title language="pt">Gênero Musical</title>
+		<title language="ru">Стиль музыки</title>
 		<title language="sl">Glasbeni žanr</title>
 		<title language="sq">Gjinia e Muzikës</title>
 		<title language="sr">Muzika Žanr</title>
 		<title language="sv">Musikgenre</title>
 		<title language="tr">Müzik Tarzı</title>
+		<title language="ja">音楽 ジャンル</title>
 		<title language="zhs">流派</title>
 		<title language="zht">音樂-類型</title>
 	</titles>
@@ -54,24 +50,23 @@
 		<title language="de">{name} Musik</title>
 		<title language="ee">{name} Muusika</title>
 		<title language="es">{name} Música</title>
-		<title language="es-mx">{name} Música</title>
 		<title language="fr">Musique {name}</title>
 		<title language="gr">{name} Μουσική</title>
-		<title language="heb">שירים של {name}</title>
+		<title language="he">שירים של {name}</title>
 		<title language="hr">{name} - Muzika</title>
 		<title language="hu">{name} Zene</title>
 		<title language="it">Musica {name}</title>
-		<title language="ja">{name} 音楽</title>
 		<title language="lt">{name} muzika</title>
 		<title language="nl">{name} Muziek</title>
 		<title language="no">{name} Musikk</title>
-		<title language="pt-br">{name} - Música</title>
+		<title language="pt">{name} - Música</title>
 		<title language="ru">Музыка {name}</title>
 		<title language="sl">{name} Glasba</title>
 		<title language="sq">{name} Muzikë</title>
 		<title language="sr">{name} - Muzika</title>
 		<title language="sv">{name} musik</title>
 		<title language="tr">{name} Müzik</title>
+		<title language="ja">{name} 音楽</title>
 		<title language="zhs">{name} 音乐</title>
 		<title language="zht">{name} 音樂</title>
 		<subtitle language="en">This folder contains all of your music which falls into the {name} genre.</subtitle>
@@ -81,24 +76,23 @@
 		<subtitle language="de">Dieser Ordner enthält alle Musik aus dem {name} Genre.</subtitle>
 		<subtitle language="ee">See kaust sisaldab muusikat, mis on {name} stiilist</subtitle>
 		<subtitle language="es">Esta carpeta contiene musica que es del Género {name}</subtitle>
-		<subtitle language="es-mx">Esta carpeta contiene musica que es del Género {name}</subtitle>
 		<subtitle language="fr">Ce dossier contient toutes les musiques {name} de votre bibliothèque.</subtitle>
 		<subtitle language="gr">Αυτός ο φάκελος περιέχει μουσική είδους {name}.</subtitle>
-		<subtitle language="heb">ספרייה זו מכילה רשימה של המוזיקה שלך שמתאימה לז'אנר {name}</subtitle>
+		<subtitle language="he">ספרייה זו מכילה רשימה של המוזיקה שלך שמתאימה לז'אנר {name}</subtitle>
 		<subtitle language="hr">Ova mapa sadrži sve vaše pjesme koje spadaju u {name} žanr.</subtitle>
 		<subtitle language="hu">Ez a mappa a(z) {name} műfaj zenéit tartalmazza.</subtitle>
 		<subtitle language="it">Questa cartella contiene tutta la musica che cade nel genere {name}.</subtitle>
-		<subtitle language="ja">このフォルダーにはあなたの所有する "{name}" に属する音楽が収録されています</subtitle>
 		<subtitle language="lt">Šiame kataloge yra visa Jūsų muzika, priklausanti „{name}“ žanrui/stiliui.</subtitle>
 		<subtitle language="nl">Deze map bevat al je muziek die valt onder het genre {name}.</subtitle>
 		<subtitle language="no">Denne mappen inneholder all musikk som faller inn i {name}-sjangeren.</subtitle>
-		<subtitle language="pt-br">Esta pasta contém todas as suas músicas que caem no gênero: {name}.</subtitle>
+		<subtitle language="pt">Esta pasta contém todas as suas músicas que caem no gênero: {name}.</subtitle>
 		<subtitle language="ru">Эта папка отображает всю музыку стиля {name}.</subtitle>
 		<subtitle language="sl">Ta mapa vsebuje vso vašo glasbo, ki sodi v žanr {name}.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban gjithë muzikën e gjinisë {name}.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži sve vaše pesme koje spadaju u {name} žanr.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller all musik som tillhör genren {name}.</subtitle>
 		<subtitle language="tr">Bu klasör {name} tarzının tüm müziklerini içerir.</subtitle>
+		<subtitle language="ja">このフォルダーにはあなたの所有する "{name}" に属する音楽が収録されています</subtitle>
 		<subtitle language="zhs">此文件夹中包含了流派为 {name} 的音乐。</subtitle>
 		<subtitle language="zht">這個資料夾包含了您所有以 {name} 流派的音樂.</subtitle>
 	</headerContent>
@@ -112,25 +106,25 @@
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
 			<title language="es">Título</title>
-			<title language="es-mx">Título</title>
 			<title language="fr">Titre</title>
 			<title language="gr">Τίτλος</title>
-			<title language="heb">כותרת</title>
+			<title language="he">כותרת</title>
 			<title language="hr">Naslov</title>
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
-			<title language="ja">タイトル</title>
-			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
-			<title language="pt-br">Título</title>
+			<title language="pl">Tytuł</title>
+			<title language="pt">Título</title>
 			<title language="ru">Название</title>
 			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="zhs">标题</title>
 			<title language="zht">標題</title>
 		</member>
@@ -142,24 +136,23 @@
 			<title language="de">Beschreibung</title>
 			<title language="ee">Kirjeldus</title>
 			<title language="es">Descripción</title>
-			<title language="es-mx">Descripción</title>
 			<title language="fr">Description</title>
 			<title language="gr">Περιγραφή</title>
-			<title language="heb">תיאור</title>
+			<title language="he">תיאור</title>
 			<title language="hr">Opis</title>
 			<title language="hu">Leírás</title>
 			<title language="it">Descrizione</title>
-			<title language="ja">詳細</title>
 			<title language="lt">Aprašas</title>
 			<title language="nl">Omschrijving</title>
 			<title language="no">Beskrivelse</title>
-			<title language="pt-br">Descrição</title>
+			<title language="pt">Descrição</title>
 			<title language="ru">Описание</title>
 			<title language="sl">Opis</title>
 			<title language="sq">Përshkrimi</title>
 			<title language="sr">Opis</title>
 			<title language="sv">Beskrivning</title>
 			<title language="tr">Tanımlama</title>
+			<title language="ja">詳細</title>
 			<title language="zhs">描述</title>
 			<title language="zht">描述</title>
 		</member>
@@ -171,24 +164,23 @@
 			<title language="de">Sammler</title>
 			<title language="ee">Koguja</title>
 			<title language="es">Colector</title>
-			<title language="es-mx">Colector</title>
 			<title language="fr">Collecteur</title>
 			<title language="gr">Συλλέκτης</title>
-			<title language="heb">שם יוצר האוסף</title>
+			<title language="he">שם יוצר האוסף</title>
 			<title language="hr">Sakupio</title>
 			<title language="hu">Gyűjtő</title>
 			<title language="it">Raccoglitore</title>
-			<title language="ja">コレクター</title>
 			<title language="lt">Kolekcionierius</title>
 			<title language="nl">Samensteller</title>
 			<title language="no">Samler</title>
-			<title language="pt-br">Colecionador</title>
+			<title language="pt">Colecionador</title>
 			<title language="ru">Коллекционер</title>
 			<title language="sl">Kolektor</title>
 			<title language="sq">Koleksionuesi</title>
 			<title language="sr">Sakupio</title>
 			<title language="sv">Samlare</title>
 			<title language="tr">Koleksiyoncu</title>
+			<title language="ja">コレクター</title>
 			<title language="zhs">收藏者</title>
 			<title language="zht">美術品收藏者</title>
 		</member>
@@ -200,24 +192,23 @@
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>
 			<title language="es">Comentarios</title>
-			<title language="es-mx">Comentarios</title>
 			<title language="fr">Commentaires</title>
 			<title language="gr">Σχόλια</title>
-			<title language="heb">הערות</title>
+			<title language="he">הערות</title>
 			<title language="hr">Komentari</title>
 			<title language="hu">Megjegyzés</title>
 			<title language="it">Commenti</title>
-			<title language="ja">コメント</title>
 			<title language="lt">Komentarai</title>
 			<title language="nl">Opmerkingen</title>
 			<title language="no">Kommentar</title>
-			<title language="pt-br">Comentários</title>
+			<title language="pt">Comentários</title>
 			<title language="ru">Коментарии</title>
 			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
 			<title language="tr">Yorumlar</title>
+			<title language="ja">コメント</title>
 			<title language="zhs">注释</title>
 			<title language="zht">注釋</title>
 		</member>

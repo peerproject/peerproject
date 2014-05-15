@@ -18,7 +18,7 @@
 
 // Example:		/Data/PeerProject.db3
 //	auto_ptr< CDatabase* > db( theApp.GetDatabase( DB_DEFAULT ) );
-//	if ( db->Prepare( _T("SELECT Number FROM Table;") ) )
+//	if ( db->Prepare( L"SELECT Number FROM Table;" ) )
 //	{
 //		while ( db->Step() || db->IsBusy() )
 //		{
@@ -27,7 +27,7 @@
 //				Sleep( 1000 );
 //				continue;
 //			}
-//			int n = db->GetInt32( _T("Number") );
+//			int n = db->GetInt32( L"Number" );
 //		}
 //	}
 

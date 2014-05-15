@@ -1,7 +1,7 @@
 //
 // HttpRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -80,7 +80,7 @@ BOOL CHttpRequest::SetURL(LPCTSTR pszURL)
 {
 	if ( IsPending() )
 		return FALSE;
-	if ( pszURL == NULL || _tcsncmp( pszURL, _T("http"), 4 ) )
+	if ( pszURL == NULL || _tcsncmp( pszURL, L"http", 4 ) )
 		return FALSE;
 
 	m_sURL = pszURL;
@@ -97,9 +97,9 @@ void CHttpRequest::AddHeader(LPCTSTR pszKey, LPCTSTR pszValue)
 	if ( IsPending() ) return;
 
 	m_sRequestHeaders += pszKey;
-	m_sRequestHeaders += _T(": ");
+	m_sRequestHeaders += L": ";
 	m_sRequestHeaders += pszValue;
-	m_sRequestHeaders += _T("\r\n");
+	m_sRequestHeaders += L"\r\n";
 }
 
 //void CHttpRequest::SetPostData(LPCVOID pBody, DWORD nBody)
@@ -143,20 +143,20 @@ bool CHttpRequest::GetStatusSuccess() const
 
 CString CHttpRequest::GetStatusString() const
 {
-	return IsPending() ? _T("") : m_sStatusString;
+	return IsPending() ? L"" : m_sStatusString;
 }
 
 CString CHttpRequest::GetHeader(LPCTSTR pszName) const
 {
 	CString strIn( pszName ), strOut;
 	ToLower( strIn );
-	return ( ! IsPending() && m_pResponseHeaders.Lookup( strIn, strOut ) ) ? strOut : _T("");
+	return ( ! IsPending() && m_pResponseHeaders.Lookup( strIn, strOut ) ) ? strOut : L"";
 }
 
 CString CHttpRequest::GetResponseString(UINT nCodePage) const
 {
 	return ( ! IsPending() && m_pResponse ) ?
-		m_pResponse->ReadString( m_pResponse->m_nLength, nCodePage ) : _T("");
+		m_pResponse->ReadString( m_pResponse->m_nLength, nCodePage ) : L"";
 }
 
 CBuffer* CHttpRequest::GetResponseBuffer() const
@@ -169,11 +169,11 @@ BOOL CHttpRequest::InflateResponse()
 	if ( IsPending() || m_pResponse == NULL )
 		return FALSE;
 
-	CString strEncoding( GetHeader( _T("Content-Encoding") ) );
+	CString strEncoding( GetHeader( L"Content-Encoding" ) );
 
-	if ( strEncoding.CompareNoCase( _T("deflate") ) == 0 )
+	if ( strEncoding.CompareNoCase( L"deflate" ) == 0 )
 		return m_pResponse->Inflate();
-	if ( strEncoding.CompareNoCase( _T("gzip") ) == 0 )
+	if ( strEncoding.CompareNoCase( L"gzip" ) == 0 )
 		return m_pResponse->Ungzip();
 
 	return TRUE;
@@ -289,7 +289,7 @@ void CHttpRequest::OnRun()
 								strName.Trim();
 								ToLower( strName );
 								while ( m_pResponseHeaders.Lookup( strName, strValue ) )
-									strName += _T('_');
+									strName += L'_';
 								strValue = strHeader.Mid( nColon + 1 );
 								strValue.Trim();
 								m_pResponseHeaders.SetAt( strName, strValue );

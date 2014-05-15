@@ -1,7 +1,7 @@
 //
 // PageTorrentTrackers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -111,7 +111,7 @@ void CTorrentTrackersPage::UpdateInterface()
 	{
 		CString strTracker = m_wndTrackers.GetItemText( i, 0 );
 		const UINT nIconID = ( i == nCurrentItem ) ? ID_MEDIA_SELECT :
-			( StartsWith( strTracker, _PT("http://") ) || StartsWith( strTracker, _PT("udp://") ) ) ? ID_DOWNLOADS_URI : ID_DISCOVERY_BLOCKED;
+			( StartsWith( strTracker, _P( L"http://" ) ) || StartsWith( strTracker, _P( L"udp://" ) ) ) ? ID_DOWNLOADS_URI : ID_DISCOVERY_BLOCKED;
 		lvi.iItem = i;
 		lvi.iImage = CoolInterface.ImageForID( nIconID );
 		lvi.lParam = ( i == nCurrentItem ) ? TRUE : FALSE;
@@ -261,16 +261,16 @@ void CTorrentTrackersPage::EditTracker(int nItem, LPCTSTR szText)
 	}
 
 	// Fix URL
-	if ( ! StartsWith( strNewTracker, _PT("http://") ) &&
-		 ! StartsWith( strNewTracker, _PT("udp://") ) &&
-		 ! StartsWith( strNewTracker, _PT("https://") ) &&
-		 ! StartsWith( strNewTracker, _PT("•") ) &&
-		 strNewTracker.Find( _T("://") ) < 3 )
-		strNewTracker = _T("http://") + strNewTracker;
+	if ( ! StartsWith( strNewTracker, _P( L"http://" ) ) &&
+		 ! StartsWith( strNewTracker, _P( L"udp://" ) ) &&
+		 ! StartsWith( strNewTracker, _P( L"https://" ) ) &&
+		 ! StartsWith( strNewTracker, _P( L"•" ) ) &&
+		 strNewTracker.Find( L"://" ) < 3 )
+		strNewTracker = L"http://" + strNewTracker;
 
 	if ( strNewTracker.GetLength() < 22 ||
-		 strNewTracker.Right( 9 ) != _T("/announce") ||
-		 strNewTracker.Find( _T('.') ) < 6 )
+		 strNewTracker.Right( 9 ) != L"/announce" ||
+		 strNewTracker.Find( L'.' ) < 6 )
 	{
 		if ( MsgBox( IDS_BT_ENCODING, MB_ICONQUESTION|MB_OKCANCEL ) == IDCANCEL )
 		{
@@ -279,7 +279,7 @@ void CTorrentTrackersPage::EditTracker(int nItem, LPCTSTR szText)
 		}
 	}
 
-	if ( ! StartsWith( strNewTracker, _PT("http://") ) && ! StartsWith( strNewTracker, _PT("udp://") ) )
+	if ( ! StartsWith( strNewTracker, _P( L"http://" ) ) && ! StartsWith( strNewTracker, _P( L"udp://" ) ) )
 		m_wndTrackers.SetItemText( nItem, 1, LoadString( IDS_STATUS_UNSUPPORTED ) );
 	else if ( m_wndTrackers.GetItemText( nItem, 1 ) == LoadString( IDS_STATUS_UNSUPPORTED ) )
 		m_wndTrackers.SetItemText( nItem, 1, LoadString( IDS_STATUS_UNKNOWN ) );
@@ -352,12 +352,12 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 
 	CoolInterface.SetImageListTo( m_wndTrackers, LVSIL_SMALL );
 	m_wndTrackers.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
-	m_wndTrackers.InsertColumn( 0, _T("Tracker"), LVCFMT_LEFT, rc.right - 82, -1 );
-	m_wndTrackers.InsertColumn( 1, _T("Status"), LVCFMT_CENTER, 82, 0 );
-	m_wndTrackers.InsertColumn( 2, _T("Type"), LVCFMT_CENTER, 0, 0 );
-	Skin.Translate( _T("CTorrentTrackerList"), m_wndTrackers.GetHeaderCtrl() );
+	m_wndTrackers.InsertColumn( 0, L"Tracker", LVCFMT_LEFT, rc.right - 82, -1 );
+	m_wndTrackers.InsertColumn( 1, L"Status", LVCFMT_CENTER, 82, 0 );
+	m_wndTrackers.InsertColumn( 2, L"Type", LVCFMT_CENTER, 0, 0 );
+	Skin.Translate( L"CTorrentTrackerList", m_wndTrackers.GetHeaderCtrl() );
 
-	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndTrackers.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
+	if ( m_wndTrackers.SetBkImage( Skin.GetWatermark( L"CListCtrl" ) ) )		// || m_wndTrackers.SetBkImage( Images.m_bmSystemWindow.m_hObject )		"System.Windows"
 		m_wndTrackers.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_DOUBLEBUFFER
 	else
 	{
@@ -390,8 +390,8 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 		// Display status
 		CString strStatus;
 		UINT nStatusIcon = ID_DOWNLOADS_URI;
-		if ( ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _PT("http://") ) &&
-			 ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _PT("udp://") ) )
+		if ( ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _P( L"http://" ) ) &&
+			 ! StartsWith( oInfo.GetTrackerAddress( nTracker ), _P( L"udp://" ) ) )
 		{
 			// Bad format, or BAD_TRACKER_TOKEN Tagged for display only (*https:// etc.)
 			LoadString( strStatus, IDS_STATUS_UNSUPPORTED );
@@ -419,9 +419,9 @@ BOOL CTorrentTrackersPage::OnInitDialog()
 		m_wndTrackers.SetItemText( nItem, 1, strStatus );
 
 		// Display type
-		CString strType = _T("Announce");
+		CString strType = L"Announce";
 		if ( oInfo.IsMultiTracker() )
-			strType.Format( _T("Tier %i"), oInfo.GetTrackerTier( nTracker ) );
+			strType.Format( L"Tier %i", oInfo.GetTrackerTier( nTracker ) );
 
 		m_wndTrackers.SetItemText( nItem, 2, strType );
 	}
@@ -503,15 +503,15 @@ void CTorrentTrackersPage::OnTimer(UINT_PTR nIDEvent)
 		if ( nIDEvent == 3 )
 		{
 			CString str;
-			str.Format( _T("%u"), m_nComplete );
+			str.Format( L"%u", m_nComplete );
 			m_wndComplete.SetWindowText( str );
-			str.Format( _T("%u"), m_nIncomplete );
+			str.Format( L"%u", m_nIncomplete );
 			m_wndIncomplete.SetWindowText( str );
 		}
 		else
 		{
-			m_wndComplete.SetWindowText( _T("") );
-			m_wndIncomplete.SetWindowText( _T("") );
+			m_wndComplete.SetWindowText( L"" );
+			m_wndIncomplete.SetWindowText( L"" );
 		}
 	}
 }
@@ -680,23 +680,23 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //			m_pRequest.Clear();
 //
 //			CString strURL = m_sTracker;
-//			if ( strURL.Left( 4 ) == _T("http") &&	// ToDo: Support UDP Tracker Scrape!
-//				strURL.Replace( _T("/announce"), _T("/scrape") ) == 1 )
+//			if ( strURL.Left( 4 ) == L"http" &&	// ToDo: Support UDP Tracker Scrape!
+//				strURL.Replace( L"/announce", L"/scrape" ) == 1 )
 //			{
 //				// Fetch scrape only for the given info hash
-//				strURL = strURL.TrimRight( _T('&') ) +
-//					( ( strURL.Find( _T('?') ) != -1 ) ? _T('&') : _T('?') ) +
-//					_T("info_hash=") + CBTTrackerRequest::Escape( pDownload->m_pTorrent.m_oBTH ) +
-//					_T("&peer_id=")  + CBTTrackerRequest::Escape( pDownload->m_pPeerID );
+//				strURL = strURL.TrimRight( L'&' ) +
+//					( ( strURL.Find( L'?' ) != -1 ) ? L'&' : L'?' ) +
+//					L"info_hash=" + CBTTrackerRequest::Escape( pDownload->m_pTorrent.m_oBTH ) +
+//					L"&peer_id="  + CBTTrackerRequest::Escape( pDownload->m_pPeerID );
 //
 //				oLock.Unlock();
 //
 //				m_pRequest.SetURL( strURL );
-//				m_pRequest.AddHeader( _T("Accept-Encoding"), _T("deflate, gzip") );
+//				m_pRequest.AddHeader( L"Accept-Encoding", L"deflate, gzip" );
 //				m_pRequest.EnableCookie( false );
 //				m_pRequest.SetUserAgent( Settings.SmartAgent() );
 //
-//				theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, _T("[BT] Sending BitTorrent tracker scrape: %s"), strURL );
+//				theApp.Message( MSG_DEBUG | MSG_FACILITY_OUTGOING, L"[BT] Sending BitTorrent tracker scrape: %s", strURL );
 //
 //				if ( m_pRequest.Execute( FALSE ) && m_pRequest.InflateResponse() )
 //				{
@@ -705,7 +705,7 @@ void CTorrentTrackersPage::OnCustomDrawList(NMHDR* pNMHDR, LRESULT* pResult)
 //					{
 //						if ( CBENode* pNode = CBENode::Decode( pResponse ) )
 //						{
-//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("[BT] Received BitTorrent tracker response: %s"), pNode->Encode() );
+//							theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[BT] Received BitTorrent tracker response: %s", pNode->Encode() );
 //
 //							if ( oLock.Lock( 250 ) )
 //							{

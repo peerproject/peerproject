@@ -155,14 +155,14 @@ int CPacketWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rcList;
 	m_wndList.GetClientRect( &rcList );
 
-	m_wndList.InsertColumn( COL_TIME,	_T("Time"), 	LVCFMT_CENTER,	80, -1 );
-	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"), LVCFMT_LEFT,	110, -1 );
-	m_wndList.InsertColumn( COL_PROTOCOL, _T("Protocol"), LVCFMT_CENTER, 80, 0 );
-	m_wndList.InsertColumn( COL_TYPE,	_T("Type"), 	LVCFMT_CENTER,	80, 1 );
-	m_wndList.InsertColumn( COL_HOPS,	_T("TTL/Hops"), LVCFMT_CENTER,	50, 2 );
-	m_wndList.InsertColumn( COL_GUID,	_T("GUID"), 	LVCFMT_LEFT,	50, 5 );
-	m_wndList.InsertColumn( COL_HEX,	_T("Hex"),		LVCFMT_LEFT,	50, 3 );
-	m_wndList.InsertColumn( COL_ASCII,	_T("ASCII"),	LVCFMT_LEFT,	rcList.Width() - 540, 4 );
+	m_wndList.InsertColumn( COL_TIME,	L"Time", 	LVCFMT_CENTER,	80, -1 );
+	m_wndList.InsertColumn( COL_ADDRESS, L"Address", LVCFMT_LEFT,	110, -1 );
+	m_wndList.InsertColumn( COL_PROTOCOL, L"Protocol", LVCFMT_CENTER, 80, 0 );
+	m_wndList.InsertColumn( COL_TYPE,	L"Type", 	LVCFMT_CENTER,	80, 1 );
+	m_wndList.InsertColumn( COL_HOPS,	L"TTL/Hops", LVCFMT_CENTER,	50, 2 );
+	m_wndList.InsertColumn( COL_GUID,	L"GUID", 	LVCFMT_LEFT,	50, 5 );
+	m_wndList.InsertColumn( COL_HEX,	L"Hex",		LVCFMT_LEFT,	50, 3 );
+	m_wndList.InsertColumn( COL_ASCII,	L"ASCII",	LVCFMT_LEFT,	rcList.Width() - 540, 4 );
 
 	LoadState();
 
@@ -182,8 +182,8 @@ void CPacketWnd::OnDestroy()
 
 	KillTimer( 2 );
 
-	Settings.SaveList( _T("CPacketWnd"), &m_wndList );
-	SaveState( _T("CPacketWnd") );
+	Settings.SaveList( L"CPacketWnd", &m_wndList );
+	SaveState( L"CPacketWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -193,7 +193,7 @@ void CPacketWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 
 	// Columns
-	Settings.LoadList( _T("CPacketWnd"), &m_wndList );
+	Settings.LoadList( L"CPacketWnd", &m_wndList );
 
 	// Fonts
 	if ( m_pFont.m_hObject ) m_pFont.DeleteObject();
@@ -310,14 +310,14 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 
 	CTime pNow( CTime::GetCurrentTime() );
 	CString strNow;
-	strNow.Format( _T("%0.2i:%0.2i:%0.2i"),
+	strNow.Format( L"%0.2i:%0.2i:%0.2i",
 		pNow.GetHour(), pNow.GetMinute(), pNow.GetSecond() );
 	const CString strAddress( inet_ntoa( pAddress->sin_addr ) );
 	const CString strProtocol( protocolAbbr[ pPacket->m_nProtocol ] );
 
 	pItem->Set( COL_TIME,	strNow );
-	pItem->Set( COL_ADDRESS, bUDP ? _T("(") + strAddress + _T(")") : strAddress );
-	pItem->Set( COL_PROTOCOL, strProtocol + ( bUDP ? _T(" UDP") : _T(" TCP") ) );
+	pItem->Set( COL_ADDRESS, bUDP ? L"(" + strAddress + L")" : strAddress );
+	pItem->Set( COL_PROTOCOL, strProtocol + ( bUDP ? L" UDP" : L" TCP" ) );
 	pItem->Set( COL_TYPE,	pPacket->GetType() );
 	pItem->Set( COL_HEX,	pPacket->ToHex() );
 	pItem->Set( COL_ASCII,	pPacket->ToASCII() );
@@ -327,12 +327,12 @@ void CPacketWnd::SmartDump(const CPacket* pPacket, const SOCKADDR_IN* pAddress, 
 
 	if ( pPacket->m_nProtocol == PROTOCOL_G1 )
 	{
-		pItem->Format( COL_HOPS, _T("%u/%u"), ((CG1Packet*)pPacket)->m_nTTL, ((CG1Packet*)pPacket)->m_nHops );
+		pItem->Format( COL_HOPS, L"%u/%u", ((CG1Packet*)pPacket)->m_nTTL, ((CG1Packet*)pPacket)->m_nHops );
 		pItem->Set( COL_GUID, ((CG1Packet*)pPacket)->GetGUID() );
 	}
 	else if ( pPacket->m_nLength )
 	{
-		pItem->Format( COL_GUID, _T("(%u)"), pPacket->m_nLength );
+		pItem->Format( COL_GUID, L"(%u)", pPacket->m_nLength );
 	}
 
 	CQuickLock pLock( m_pSection );
@@ -415,7 +415,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	CMenu pMenu, pHosts[2], pTypesG1, pTypesG2, pTypesED, pTypesDC, pTypesBT;
 
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! SafeLock( pLock) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( int nGroup = 0 ; nGroup < 2 ; nGroup++ )
 	{
@@ -423,8 +423,8 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 
 		pHosts[nGroup].CreatePopupMenu();
 
-		AddNeighbour( pHosts, nGroup, nID++, 1, _T("Disable") );
-		AddNeighbour( pHosts, nGroup, nID++, 0, _T("Any Neighbour") );
+		AddNeighbour( pHosts, nGroup, nID++, 1, L"Disable" );
+		AddNeighbour( pHosts, nGroup, nID++, 0, L"Any Neighbour" );
 		pHosts[nGroup].AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
 
 		for ( POSITION pos = Neighbours.GetIterator() ; pos ; nID++ )
@@ -435,7 +435,7 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 		}
 
 		if ( ( nID % 1000 ) == 2 )
-			pHosts[nGroup].AppendMenu( MF_STRING|MF_GRAYED, ID_NONE, _T("No Neighbours") );
+			pHosts[nGroup].AppendMenu( MF_STRING|MF_GRAYED, ID_NONE, L"No Neighbours" );
 	}
 
 	pTypesG1.CreatePopupMenu();
@@ -467,26 +467,26 @@ void CPacketWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	const CString strType = Settings.General.LanguageDefault ? L"Types" : LoadString( IDS_TIP_TYPE );
 
 	pMenu.CreatePopupMenu();
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), _T("&Incoming") );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[1].GetSafeHmenu(), _T("&Outgoing") );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[0].GetSafeHmenu(), L"&Incoming" );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pHosts[1].GetSafeHmenu(), L"&Outgoing" );
 	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG1.GetSafeHmenu(), _T("&G1 ") + strType );
-	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG2.GetSafeHmenu(), _T("G&2 ") + strType );
-//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesED.GetSafeHmenu(), _T("&ED2K ") + strType );
-//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesDC.GetSafeHmenu(), _T("&DC ") + strType );
-//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesBT.GetSafeHmenu(), _T("&BT ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), ID_BASE_ED2K, _T("&ED2K ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), ID_BASE_DC, _T("&DC ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), ID_BASE_BT, _T("&BT ") + strType );
-	pMenu.AppendMenu( MF_STRING|( m_bTypeOther ? MF_CHECKED : 0 ), ID_BASE_LAST, _T("&Other ") + strType );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG1.GetSafeHmenu(), L"&G1 " + strType );
+	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesG2.GetSafeHmenu(), L"G&2 " + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesED.GetSafeHmenu(), L"&ED2K " + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesDC.GetSafeHmenu(), L"&DC " + strType );
+//	pMenu.AppendMenu( MF_STRING|MF_POPUP, (UINT_PTR)pTypesBT.GetSafeHmenu(), L"&BT " + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeED ? MF_CHECKED : 0 ), ID_BASE_ED2K, L"&ED2K " + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeDC ? MF_CHECKED : 0 ), ID_BASE_DC, L"&DC " + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeBT ? MF_CHECKED : 0 ), ID_BASE_BT, L"&BT " + strType );
+	pMenu.AppendMenu( MF_STRING|( m_bTypeOther ? MF_CHECKED : 0 ), ID_BASE_LAST, L"&Other " + strType );
 	pMenu.AppendMenu( MF_SEPARATOR, ID_SEPARATOR );
-	pMenu.AppendMenu( MF_STRING|( m_bPaused ? MF_CHECKED : 0 ), 1, _T("&Pause Display") );
-	pMenu.AppendMenu( MF_STRING, ID_SYSTEM_CLEAR, _T("&Clear Buffer") );
+	pMenu.AppendMenu( MF_STRING|( m_bPaused ? MF_CHECKED : 0 ), 1, L"&Pause Display" );
+	pMenu.AppendMenu( MF_STRING, ID_SYSTEM_CLEAR, L"&Clear Buffer" );
 
 	m_pCoolMenu = new CCoolMenu();
 	m_pCoolMenu->AddMenu( &pMenu, TRUE );
 
-	m_pCoolMenu->SetWatermark( Skin.GetWatermark( _T("CCoolMenu") ) );
+	m_pCoolMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );

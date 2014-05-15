@@ -1,7 +1,7 @@
 //
 // WndChat.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -37,7 +37,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-#define NEWLINE_FORMAT	_T("2")
+#define NEWLINE_FORMAT	L"2"
 #define EDIT_HISTORY	256
 #define EDIT_HEIGHT		32
 //#define TOOLBAR_HEIGHT 30	// Settings.Skin.ToolbarHeight
@@ -145,7 +145,7 @@ BOOL CChatWnd::PreTranslateMessage(MSG* pMsg)
 
 				for ( ; strCurrent.GetLength() ; strCurrent = strCurrent.Mid( 1 ) )
 				{
-					CString strLine = strCurrent.SpanExcluding( _T("\r\n") );
+					CString strLine = strCurrent.SpanExcluding( L"\r\n" );
 					if ( strLine.GetLength() )
 					{
 						if ( ! OnLocalText( strLine ) )
@@ -158,7 +158,7 @@ BOOL CChatWnd::PreTranslateMessage(MSG* pMsg)
 				return TRUE;
 			}
 		case VK_ESCAPE:
-			m_wndEdit.SetWindowText( _T("") );
+			m_wndEdit.SetWindowText( L"" );
 			m_nHistory = static_cast< int >( m_pHistory.GetSize() );
 			return TRUE;
 		case VK_UP:
@@ -263,9 +263,9 @@ BOOL CChatWnd::IsInRange(LPCTSTR pszToken)
 
 	ToLower( strRange );
 	strRange.MakeReverse();
-	strToken.Format( _T("]%s["), pszToken );
+	strToken.Format( L"]%s[", pszToken );
 	nStart = strRange.Find( strToken );
-	strToken.Format( _T("]%s/["), pszToken );
+	strToken.Format( L"]%s/[", pszToken );
 	nEnd = strRange.Find( strToken );
 
 	if ( nStart < 0 ) return FALSE;
@@ -289,7 +289,7 @@ void CChatWnd::InsertText(LPCTSTR pszToken)
 		m_wndEdit.GetWindowText( strIn );
 		if ( nEnd < nStart )
 			m_wndEdit.GetSel( nEnd, nStart );
-		strOut.Format( _T("%s%s[/%c]"), pszToken,
+		strOut.Format( L"%s%s[/%c]", pszToken,
 			(LPCTSTR)strIn.Mid( nStart, nEnd - nStart ), pszToken[1] );
 		m_wndEdit.ReplaceSel( strOut );
 	}
@@ -308,7 +308,7 @@ void CChatWnd::AddTimestamp()
 	CTime tNow = CTime::GetCurrentTime();
 
 	CString str;
-	str.Format( _T("[%.2i:%.2i:%.2i] "), tNow.GetHour(), tNow.GetMinute(), tNow.GetSecond() );
+	str.Format( L"[%.2i:%.2i:%.2i] ", tNow.GetHour(), tNow.GetMinute(), tNow.GetSecond() );
 	m_pContent.Add( retText, str, NULL, retfColor )->m_cColor = Colors.m_crChatNull;
 }
 
@@ -317,7 +317,7 @@ void CChatWnd::AddLogin(LPCTSTR pszText)
 	AddTimestamp();
 
 	m_pContent.Add( retText, LoadString( IDS_CHAT_PROFILE_ACCEPTED ), NULL, retfColor )->m_cColor = Colors.m_crChatNull;
-	m_pContent.Add( retLink, pszText, _T("command:ID_CHAT_BROWSE") );
+	m_pContent.Add( retLink, pszText, L"command:ID_CHAT_BROWSE" );
 	m_pContent.Add( retNewline, NEWLINE_FORMAT );
 	m_wndView.InvalidateIfModified();
 }
@@ -343,7 +343,7 @@ void CChatWnd::AddText(bool bAction, bool bOutgoing, LPCTSTR pszNick, LPCTSTR ps
 	AddTimestamp();
 
 	CString str;
-	str.Format( bAction ? _T("* %s ") : _T("<%s> "), pszNick );
+	str.Format( bAction ? L"* %s " : L"<%s> ", pszNick );
 	m_pContent.Add( retText, str, NULL, retfBold | retfColor )->m_cColor
 		= ( bOutgoing ? Colors.m_crChatIn : Colors.m_crChatOut );
 
@@ -368,7 +368,7 @@ void CChatWnd::OnSkinChange()
 	Skin.CreateToolBar( CString( GetRuntimeClass()->m_lpszClassName ), &m_wndToolBar );
 
 	// Columns (Not shown)
-	//Settings.LoadList( _T("CChatWnd"), &m_wndUsers );
+	//Settings.LoadList( L"CChatWnd", &m_wndUsers );
 
 	// Fonts
 	m_wndUsers.SetFont( &theApp.m_gdiFont );
@@ -401,18 +401,18 @@ BOOL CChatWnd::OnLocalText(const CString& sText)
 	if ( m_pHistory.GetSize() > EDIT_HISTORY ) m_pHistory.RemoveAt( 0 );
 	m_nHistory = static_cast< int >( m_pHistory.GetSize() );
 
-	if ( sText.GetAt( 0 ) == _T('/') )
+	if ( sText.GetAt( 0 ) == L'/' )
 	{
-		CString strCommand = sText.SpanExcluding( _T(" \t") ).Trim();
-		if ( strCommand.CompareNoCase( _T("/me") ) == 0 )
+		CString strCommand = sText.SpanExcluding( L" \t" ).Trim();
+		if ( strCommand.CompareNoCase( L"/me" ) == 0 )
 			return OnLocalMessage( true, sText.Mid( 4 ) );	// Action text
 
 		if ( OnLocalCommand( strCommand, sText.Mid( strCommand.GetLength() + 1 ).Trim() ) )
 			return TRUE;	// Handled command
 	}
-	else if ( sText.GetAt( 0 ) == _T('*') || sText.GetAt( 0 ) == _T('•') )
+	else if ( sText.GetAt( 0 ) == L'*' || sText.GetAt( 0 ) == L'•' )
 	{
-		if ( sText.GetAt( 1 ) == _T(' ') || sText.GetAt( 1 ) == _T('\t') )
+		if ( sText.GetAt( 1 ) == L' ' || sText.GetAt( 1 ) == L'\t' )
 			return OnLocalMessage( true, sText.Mid( 2 ) );	// Action text
 	}
 
@@ -422,21 +422,21 @@ BOOL CChatWnd::OnLocalText(const CString& sText)
 
 BOOL CChatWnd::OnLocalCommand(const CString& sCommand, const CString& /*sArgs*/)
 {
-	if ( sCommand.CompareNoCase( _T("/clear") ) == 0 )
+	if ( sCommand.CompareNoCase( L"/clear" ) == 0 )
 	{
 		PostMessage( WM_COMMAND, ID_CHAT_CLEAR );
 		return TRUE;
 	}
 
-	if ( sCommand.CompareNoCase( _T("/close") ) == 0 ||
-		 sCommand.CompareNoCase( _T("/exit")  ) == 0 ||
-		 sCommand.CompareNoCase( _T("/quit")  ) == 0 )
+	if ( sCommand.CompareNoCase( L"/close" ) == 0 ||
+		 sCommand.CompareNoCase( L"/exit"  ) == 0 ||
+		 sCommand.CompareNoCase( L"/quit"  ) == 0 )
 	{
 		PostMessage( WM_CLOSE );
 		return TRUE;
 	}
 
-	if ( sCommand.CompareNoCase( _T("/disconnect") ) == 0 )
+	if ( sCommand.CompareNoCase( L"/disconnect" ) == 0 )
 	{
 		PostMessage( WM_COMMAND, ID_CHAT_DISCONNECT );
 		return TRUE;
@@ -511,7 +511,7 @@ int CChatWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndUsers.Create( WS_CHILD|WS_VSCROLL|WS_TABSTOP|WS_VISIBLE|WS_VSCROLL|LVS_SINGLESEL|LVS_REPORT|LVS_NOCOLUMNHEADER|LVS_SORTASCENDING|LVS_NOLABELWRAP|WS_CLIPSIBLINGS, rc, this, IDC_CHAT_USERS ) ) return -1;
 	m_wndUsers.SetExtendedStyle( m_wndUsers.GetExtendedStyle()|LVS_EX_FULLROWSELECT|LVS_EX_DOUBLEBUFFER );
 	m_wndUsers.SetFont( &theApp.m_gdiFont );
-	m_wndUsers.InsertColumn( 0, _T("Name") );
+	m_wndUsers.InsertColumn( 0, L"Name" );
 	m_wndUsers.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
@@ -524,7 +524,7 @@ int CChatWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	ChatWindows.Add( this );
 
-	LoadState( _T("CChatWnd"), FALSE );
+	LoadState( L"CChatWnd", FALSE );
 
 //	SetAlert();
 
@@ -537,7 +537,7 @@ void CChatWnd::OnDestroy()
 
 	Settings.Community.UserPanelSize = m_nUsersSize;
 
-	SaveState( _T("CChatWnd") );
+	SaveState( L"CChatWnd" );
 
 	ChatWindows.Remove( this );
 
@@ -626,41 +626,41 @@ void CChatWnd::OnPaint()
 
 void CChatWnd::OnUpdateChatBold(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( IsInRange( _T("b") ) );
+	pCmdUI->SetCheck( IsInRange( L"b" ) );
 }
 
 void CChatWnd::OnChatBold()
 {
-	if ( IsInRange( _T("b") ) )
-		InsertText( _T("[/b]") );
+	if ( IsInRange( L"b" ) )
+		InsertText( L"[/b]" );
 	else
-		InsertText( _T("[b]") );
+		InsertText( L"[b]" );
 }
 
 void CChatWnd::OnUpdateChatItalic(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( IsInRange( _T("i") ) );
+	pCmdUI->SetCheck( IsInRange( L"i" ) );
 }
 
 void CChatWnd::OnChatItalic()
 {
-	if ( IsInRange( _T("i") ) )
-		InsertText( _T("[/i]") );
+	if ( IsInRange( L"i" ) )
+		InsertText( L"[/i]" );
 	else
-		InsertText( _T("[i]") );
+		InsertText( L"[i]" );
 }
 
 void CChatWnd::OnUpdateChatUnderline(CCmdUI* pCmdUI)
 {
-	pCmdUI->SetCheck( IsInRange( _T("u") ) );
+	pCmdUI->SetCheck( IsInRange( L"u" ) );
 }
 
 void CChatWnd::OnChatUnderline()
 {
-	if ( IsInRange( _T("u") ) )
-		InsertText( _T("[/u]") );
+	if ( IsInRange( L"u" ) )
+		InsertText( L"[/u]" );
 	else
-		InsertText( _T("[u]") );
+		InsertText( L"[u]" );
 }
 
 void CChatWnd::OnChatColor()
@@ -671,7 +671,7 @@ void CChatWnd::OnChatColor()
 	COLORREF cr = dlg.GetColor();
 
 	CString str;
-	str.Format( _T("[c:#%.2x%.2x%.2x]"), GetRValue( cr ), GetGValue( cr ), GetBValue( cr ) );
+	str.Format( L"[c:#%.2x%.2x%.2x]", GetRValue( cr ), GetGValue( cr ), GetBValue( cr ) );
 	InsertText( str );
 }
 
@@ -681,7 +681,7 @@ void CChatWnd::OnChatEmoticons()
 	if ( UINT nID = m_wndToolBar.ThrowMenu( ID_CHAT_EMOTICONS, pIconMenu, this, TRUE ) )
 	{
 		if ( LPCTSTR pszToken = Emoticons.GetText( nID - 1 ) )
-			InsertText( _T(" ") + (CString)pszToken + _T(" ") );
+			InsertText( L" " + (CString)pszToken + L" " );
 	}
 }
 
@@ -887,7 +887,7 @@ LRESULT CChatWnd::OnChatMessage(WPARAM /*wParam*/, LPARAM lParam)
 		break;
 
 	case cmtCaption:
-		m_sCaption = _T(" : ") + pMsg->m_sMessage;
+		m_sCaption = L" : " + pMsg->m_sMessage;
 		break;
 
 	//default:
@@ -1038,7 +1038,7 @@ void CChatWnd::DeleteAllUsers()
 //		{
 //			CString str;
 //			m_pFrame->GetWindowText( str );
-//			if ( str.Find( _T("Chat : ") ) == 0 )
+//			if ( str.Find( L"Chat : " ) == 0 )
 //				str = LoadString( IDR_CHATFRAME ) + str.Mid( 4 );
 //			SetWindowText( str );
 //		}

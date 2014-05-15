@@ -144,12 +144,12 @@ void CWorldGPS::Serialize(CArchive& ar)
 
 BOOL CWorldGPS::LoadFrom(CXMLElement* pRoot)
 {
-	if ( ! pRoot->IsNamed( _T("world") ) ) return FALSE;
+	if ( ! pRoot->IsNamed( L"world" ) ) return FALSE;
 
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("country") ) ) m_nCountry++;
+		if ( pElement->IsNamed( L"country" ) ) m_nCountry++;
 	}
 
 	m_pCountry = new CWorldCountry[ m_nCountry ];
@@ -158,7 +158,7 @@ BOOL CWorldGPS::LoadFrom(CXMLElement* pRoot)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("country") ) )
+		if ( pElement->IsNamed( L"country" ) )
 			m_pCountry[ m_nCountry++ ].LoadFrom( pElement );
 	}
 
@@ -221,10 +221,10 @@ void CWorldCountry::Serialize(CArchive& ar)
 
 BOOL CWorldCountry::LoadFrom(CXMLElement* pRoot)
 {
-	if ( ! pRoot->IsNamed( _T("country") ) ) return FALSE;
+	if ( ! pRoot->IsNamed( L"country" ) ) return FALSE;
 
-	m_sName = pRoot->GetAttributeValue( _T("name") );
-	CString strID = pRoot->GetAttributeValue( _T("code") );
+	m_sName = pRoot->GetAttributeValue( L"name" );
+	CString strID = pRoot->GetAttributeValue( L"code" );
 
 	if ( strID.GetLength() != 2 ) return FALSE;
 	m_szID[0] = (CHAR)strID.GetAt( 0 );
@@ -233,7 +233,7 @@ BOOL CWorldCountry::LoadFrom(CXMLElement* pRoot)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("city") ) ) m_nCity++;
+		if ( pElement->IsNamed( L"city" ) ) m_nCity++;
 	}
 
 	m_pCity = new CWorldCity[ m_nCity ];
@@ -242,7 +242,7 @@ BOOL CWorldCountry::LoadFrom(CXMLElement* pRoot)
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
-		if ( pElement->IsNamed( _T("city") ) )
+		if ( pElement->IsNamed( L"city" ) )
 			m_pCity[ m_nCity++ ].LoadFrom( pElement );
 	}
 
@@ -258,6 +258,7 @@ void CWorldCountry::Clear()
 	m_pCity = NULL;
 	m_nCity = 0;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CWorldCity load
@@ -291,16 +292,16 @@ void CWorldCity::Serialize(CArchive& ar)
 
 BOOL CWorldCity::LoadFrom(CXMLElement* pRoot)
 {
-	if ( ! pRoot->IsNamed( _T("city") ) ) return FALSE;
+	if ( ! pRoot->IsNamed( L"city" ) ) return FALSE;
 
-	m_sName  = pRoot->GetAttributeValue( _T("name") );
-	m_sState = pRoot->GetAttributeValue( _T("state") );
+	m_sName  = pRoot->GetAttributeValue( L"name" );
+	m_sState = pRoot->GetAttributeValue( L"state" );
 
-	CString strValue = pRoot->GetAttributeValue( _T("latitude") );
-	if ( _stscanf( strValue, _T("%f"), &m_nLatitude ) != 1 ) return FALSE;
+	CString strValue = pRoot->GetAttributeValue( L"latitude" );
+	if ( _stscanf( strValue, L"%f", &m_nLatitude ) != 1 ) return FALSE;
 
-	strValue = pRoot->GetAttributeValue( _T("longitude") );
-	if ( _stscanf( strValue, _T("%f"), &m_nLongitude ) != 1 ) return FALSE;
+	strValue = pRoot->GetAttributeValue( L"longitude" );
+	if ( _stscanf( strValue, L"%f", &m_nLongitude ) != 1 ) return FALSE;
 
 	return TRUE;
 }

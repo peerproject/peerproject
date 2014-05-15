@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <schema targetNamespace="http://schemas.peerproject.org/Skin.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="PeerProjectSkins">
@@ -7,7 +6,6 @@
 			<element name="PeerProjectSkin" type="skinType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
 	</element>
-
 	<complexType name="skinType">
 		<all>
 			<attribute name="name" type="string"/>
@@ -32,6 +30,8 @@
 					<enumeration value="Data"/>
 				</simpleType>
 			</attribute>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

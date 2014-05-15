@@ -1,7 +1,7 @@
 //
 // PageSettingsDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,6 +20,7 @@
 #include "Settings.h"
 #include "PeerProject.h"
 #include "PageSettingsDownloads.h"
+#include "AntiVirus.h"
 #include "Library.h"
 #include "LibraryFolders.h"
 #include "SharedFolder.h"
@@ -34,9 +35,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CDownloadsSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CDownloadsSettingsPage, CSettingsPage)
-	ON_BN_CLICKED(IDC_DOWNLOADS_BROWSE, OnDownloadsBrowse)
-	ON_BN_CLICKED(IDC_INCOMPLETE_BROWSE, OnIncompleteBrowse)
+	ON_BN_CLICKED(IDC_DOWNLOADS_BROWSE, &CDownloadsSettingsPage::OnDownloadsBrowse)
+	ON_BN_CLICKED(IDC_INCOMPLETE_BROWSE, &CDownloadsSettingsPage::OnIncompleteBrowse)
+	ON_CBN_DROPDOWN(IDC_ANTIVIRUS, &CDownloadsSettingsPage::OnCbnDropdownAntivirus)
 	ON_WM_SHOWWINDOW()
+	ON_WM_DESTROY()
 END_MESSAGE_MAP()
 
 
@@ -52,9 +55,9 @@ CDownloadsSettingsPage::CDownloadsSettingsPage()
 {
 }
 
-CDownloadsSettingsPage::~CDownloadsSettingsPage()
-{
-}
+//CDownloadsSettingsPage::~CDownloadsSettingsPage()
+//{
+//}
 
 void CDownloadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 {
@@ -75,6 +78,7 @@ void CDownloadsSettingsPage::DoDataExchange(CDataExchange* pDX)
 	DDX_CBString(pDX, IDC_DOWNLOADS_BANDWIDTH_LIMIT, m_sBandwidthLimit);
 	DDX_CBString(pDX, IDC_DOWNLOADS_QUEUE_LIMIT, m_sQueueLimit);
 	DDX_Check(pDX, IDC_REQUIRE_CONNECT, m_bRequireConnect);
+	DDX_Control(pDX, IDC_ANTIVIRUS, m_wndAntiVirus);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -95,13 +99,16 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 	Settings.SetRange( &Settings.Downloads.MaxTransfers, m_wndMaxDownTransfers );
 	Settings.SetRange( &Settings.Downloads.MaxFileTransfers, m_wndMaxFileTransfers );
 
+	// Enum available anti-viruses
+	AntiVirus.Enum( m_wndAntiVirus );
+
 	m_wndDownloadsPath.SetIcon( IDI_BROWSE );
 	m_wndIncompletePath.SetIcon( IDI_BROWSE );
 
 	if ( Settings.Downloads.QueueLimit )
-		m_sQueueLimit.Format( _T("%u"), Settings.Downloads.QueueLimit );
+		m_sQueueLimit.Format( L"%u", Settings.Downloads.QueueLimit );
 	else	// 0 = Unlimited
-		m_sQueueLimit = _T("MAX");
+		m_sQueueLimit = L"MAX";
 
 	m_bDownloadsChanged = FALSE;
 
@@ -109,7 +116,7 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 	if ( Settings.Bandwidth.Downloads )
 		m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Downloads );
 	else	// 0 = Unlimited
-		m_sBandwidthLimit = _T("MAX");
+		m_sBandwidthLimit = L"MAX";
 
 	UpdateData( FALSE );
 
@@ -121,7 +128,7 @@ BOOL CDownloadsSettingsPage::OnInitDialog()
 
 void CDownloadsSettingsPage::OnDownloadsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for downloads:"), m_sDownloadsPath ) );
+	CString strPath( BrowseForFolder( L"Select folder for downloads:", m_sDownloadsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -147,7 +154,7 @@ void CDownloadsSettingsPage::OnDownloadsBrowse()
 
 void CDownloadsSettingsPage::OnIncompleteBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"), m_sIncompletePath ) );
+	CString strPath( BrowseForFolder( L"Select folder for incomplete files:", m_sIncompletePath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -195,6 +202,8 @@ void CDownloadsSettingsPage::OnOK()
 {
 	DWORD nQueueLimit = 0;
 	UpdateData( TRUE );
+
+	AntiVirus.UpdateData( m_wndAntiVirus );
 
 	// Figure out what the text in the queue limit box means
 	if ( IsLimited( m_sQueueLimit ) )
@@ -258,9 +267,9 @@ void CDownloadsSettingsPage::OnOK()
 
 	// Redraw the text in the queue limit box (in case the limit changed)
 	if ( Settings.Downloads.QueueLimit > 0 )
-		m_sQueueLimit.Format( _T("%u"), Settings.Downloads.QueueLimit );
+		m_sQueueLimit.Format( L"%u", Settings.Downloads.QueueLimit );
 	else
-		m_sQueueLimit = _T("MAX");
+		m_sQueueLimit = L"MAX";
 
 	// Display any data changes
 	UpdateData( FALSE );
@@ -315,7 +324,7 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		if ( Settings.Bandwidth.Downloads )
 			m_sBandwidthLimit = Settings.SmartSpeed( Settings.Bandwidth.Downloads );
 		else
-			m_sBandwidthLimit = _T("MAX");
+			m_sBandwidthLimit = L"MAX";
 
 		// Remove any existing strings
 		m_wndBandwidthLimit.ResetContent();
@@ -338,7 +347,7 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 				m_wndBandwidthLimit.AddString( strSpeed );
 			}
 		}
-		m_wndBandwidthLimit.AddString( _T("MAX") );
+		m_wndBandwidthLimit.AddString( L"MAX" );
 
 		// Update the queue limit combo values
 
@@ -349,26 +358,38 @@ void CDownloadsSettingsPage::OnShowWindow(BOOL bShow, UINT nStatus)
 		// Add the new ones
 		if ( Settings.eDonkey.Enabled || Settings.eDonkey.EnableAlways )
 		{
-			m_wndQueueLimit.AddString( _T("2000") );
-			m_wndQueueLimit.AddString( _T("5000") );
-			m_wndQueueLimit.AddString( _T("10000") );
-			m_wndQueueLimit.AddString( _T("MAX") );
+			m_wndQueueLimit.AddString( L"2000" );
+			m_wndQueueLimit.AddString( L"5000" );
+			m_wndQueueLimit.AddString( L"10000" );
+			m_wndQueueLimit.AddString( L"MAX" );
 		}
 		else
 		{
-			m_wndQueueLimit.AddString( _T("5") );
-			m_wndQueueLimit.AddString( _T("10") );
-			m_wndQueueLimit.AddString( _T("20") );
-			m_wndQueueLimit.AddString( _T("MAX") );
+			m_wndQueueLimit.AddString( L"5" );
+			m_wndQueueLimit.AddString( L"10" );
+			m_wndQueueLimit.AddString( L"20" );
+			m_wndQueueLimit.AddString( L"MAX" );
 		}
 
 		UpdateData( FALSE );
 	}
 }
 
+void CDownloadsSettingsPage::OnDestroy()
+{
+	AntiVirus.Free( m_wndAntiVirus );
+
+	CSettingsPage::OnDestroy();
+}
+
+void CDownloadsSettingsPage::OnCbnDropdownAntivirus()
+{
+	RecalcDropWidth( &m_wndAntiVirus );
+}
+
 bool CDownloadsSettingsPage::IsLimited(CString& strText) const
 {
 	return ! ( strText.IsEmpty() ||
-		( _tcsistr( strText, _T("MAX") ) != NULL ) ||
-		( _tcsistr( strText, _T("NONE") ) != NULL ) );
+		( _tcsistr( strText, L"MAX" ) != NULL ) ||
+		( _tcsistr( strText, L"NONE" ) != NULL ) );
 }

@@ -101,10 +101,10 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, const CQueryHit* pH
 	else if ( pHit->m_nProtocol == PROTOCOL_ED2K )
 	{
 		// Add the size if it was missing.
-		if ( ( m_sURL.Right( 3 ) == _T("/0/") ) && ( pDownload->m_nSize ) )
+		if ( ( m_sURL.Right( 3 ) == L"/0/" ) && ( pDownload->m_nSize ) )
 		{
 			CString strTemp = m_sURL.Left( m_sURL.GetLength() - 2 );
-			m_sURL.Format( _T("%s%I64u/"), (LPCTSTR)strTemp, pDownload->m_nSize );
+			m_sURL.Format( L"%s%I64u/", (LPCTSTR)strTemp, pDownload->m_nSize );
 		}
 	}
 //	else if ( pHit->m_nProtocol == PROTOCOL_DC )	// Obsolete
@@ -147,21 +147,21 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload, DWORD nClientID,
 
 	if ( ( m_bPushOnly = CEDPacket::IsLowID( nClientID ) ) != FALSE )
 	{
-		m_sURL.Format( _T("ed2kftp://%lu@%s:%hu/%s/%I64u/"),
+		m_sURL.Format( L"ed2kftp://%lu@%s:%hu/%s/%I64u/",
 			nClientID,
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nServerIP ) ), nServerPort,
 			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 	else
 	{
-		m_sURL.Format( _T("ed2kftp://%s:%hu/%s/%I64u/"),
+		m_sURL.Format( L"ed2kftp://%s:%hu/%s/%I64u/",
 			(LPCTSTR)CString( inet_ntoa( (IN_ADDR&)nClientID ) ), nClientPort,
 			(LPCTSTR)m_pDownload->m_oED2K.toString(), m_pDownload->m_nSize );
 	}
 
 	m_bED2K		= TRUE;
 	m_oGUID		= oGUID;
-	m_sServer	= _T("eDonkey2000");	// protocolNames[ PROTOCOL_ED2K ]
+	m_sServer	= L"eDonkey2000";	// protocolNames[ PROTOCOL_ED2K ]
 
 	ResolveURL();
 }
@@ -178,21 +178,21 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload,
 
 	if ( oGUID )
 	{
-		m_sURL.Format( _T("btc://%s:%i/%s/%s/"),
+		m_sURL.Format( L"btc://%s:%i/%s/%s/",
 			(LPCTSTR)CString( inet_ntoa( *pAddress ) ), nPort,
 			(LPCTSTR)oGUID.toString(),
 			(LPCTSTR)pDownload->m_oBTH.toString() );
 	}
 	else
 	{
-		m_sURL.Format( _T("btc://%s:%i//%s/"),
+		m_sURL.Format( L"btc://%s:%i//%s/",
 			(LPCTSTR)CString( inet_ntoa( *pAddress ) ), nPort,
 			(LPCTSTR)pDownload->m_oBTH.toString() );
 	}
 
 	m_bBTH		= TRUE;
 	m_oGUID		= transformGuid( oGUID );
-	m_sServer	= _T("BitTorrent");
+	m_sServer	= L"BitTorrent";
 
 	ResolveURL();
 }
@@ -279,7 +279,7 @@ BOOL CDownloadSource::ResolveURL()
 
 	if ( ! pURL.Parse( m_sURL ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Unable to parse URL: %s"), (LPCTSTR)m_sURL );
+		theApp.Message( MSG_ERROR, L"Unable to parse URL: %s", (LPCTSTR)m_sURL );
 		return FALSE;
 	}
 
@@ -372,7 +372,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 		ar >> m_sURL;
 		ar >> m_nProtocol;
 
-		SerializeIn( ar, m_oGUID, nVersion);
+		SerializeIn( ar, m_oGUID, nVersion );
 
 		ar >> m_nPort;
 		if ( m_nPort ) ReadArchive( ar, &m_pAddress, sizeof( m_pAddress ) );
@@ -439,7 +439,7 @@ void CDownloadSource::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERS
 	//	{
 	//		DWORD nV;
 	//		ar >> nV;
-	//		m_sServer.Format( _T("%c%c%c%c"), nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
+	//		m_sServer.Format( L"%c%c%c%c", nV & 0xFF, ( nV >> 8 ) & 0xFF, ( nV >> 16 ) & 0xFF, nV >> 24 );
 	//	}
 	//	else if ( nVersion >= 9 )
 	//		ar >> m_sServer;
@@ -933,13 +933,13 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 	m_oAvailable.clear();
 
 	if ( ! pszRanges || ! *pszRanges ) return;
-	if ( _tcsnicmp( pszRanges, _T("bytes"), 5 ) ) return;
+	if ( _tcsnicmp( pszRanges, L"bytes", 5 ) ) return;
 
 	CString strRanges( pszRanges + 6 );
 
 	for ( strRanges += ',' ; strRanges.GetLength() ; )
 	{
-		CString strRange = strRanges.SpanExcluding( _T(", \t") );
+		CString strRange = strRanges.SpanExcluding( L", \t" );
 		strRanges = strRanges.Mid( strRange.GetLength() + 1 );
 		if ( strRange.Find( '-' ) < 0 ) continue;
 		strRange.Trim();
@@ -947,7 +947,7 @@ void CDownloadSource::SetAvailableRanges(LPCTSTR pszRanges)
 		QWORD nFirst = 0, nLast = 0;
 
 		// 0 - 0 has special meaning
-		if ( _stscanf( strRange, _T("%I64i-%I64i"), &nFirst, &nLast ) == 2 && nLast > nFirst )
+		if ( _stscanf( strRange, L"%I64i-%I64i", &nFirst, &nLast ) == 2 && nLast > nFirst )
 		{
 			// Sanity check:  Perhaps the file size we expect is incorrect or the source is erronous,
 			// in either case we make sure the range fits - so we chop off the end if necessary.

@@ -1,7 +1,7 @@
 //
 // DlgUpgrade.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 // CUpgradeDlg dialog
 
 CUpgradeDlg::CUpgradeDlg(CWnd* pParent) : CSkinDialog(CUpgradeDlg::IDD, pParent)
-//	, m_sMessage	( _T("") )
+//	, m_sMessage	( L"" )
 	, m_bCheck		( FALSE )
 {
 }
@@ -60,7 +60,7 @@ BOOL CUpgradeDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CUpgradeDlg"), IDR_MAINFRAME );
+	SkinMe( L"CUpgradeDlg", IDR_MAINFRAME );
 
 	m_sMessage	= Settings.VersionCheck.UpgradePrompt;
 	m_bCheck	= FALSE;
@@ -85,7 +85,7 @@ void CUpgradeDlg::OnOK()
 	if ( Settings.VersionCheck.UpgradeSize.GetLength() )
 	{
 		QWORD nSize;
-		if ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), _T("%I64i"), &nSize ) == 1 && nSize > 0 )
+		if ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), L"%I64i", &nSize ) == 1 && nSize > 0 )
 		{
 			pURL.m_bSize = TRUE;
 			pURL.m_nSize = nSize;
@@ -114,5 +114,5 @@ void CUpgradeDlg::ParseCheckAgain()
 	UpdateData();
 
 	if ( m_bCheck )
-		VersionChecker.SetNextCheck( 30 );		// ToDo: Set Update Delay
+		VersionChecker.SetNextCheck( 21 );		// ToDo: Set Update Delay
 }

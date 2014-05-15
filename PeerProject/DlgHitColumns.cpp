@@ -1,7 +1,7 @@
 //
 // DlgHitColumns.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -55,14 +55,14 @@ BOOL CSchemaColumnsDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CSchemaColumnsDlg"), IDR_SEARCHFRAME );
+	SkinMe( L"CSchemaColumnsDlg", IDR_SEARCHFRAME );
 
-	m_wndColumns.InsertColumn( 0, _T("Member"), LVCFMT_LEFT, 128, -1 );
-	m_wndColumns.InsertColumn( 1, _T("Type"), LVCFMT_LEFT, 0, 0 );
+	m_wndColumns.InsertColumn( 0, L"Member", LVCFMT_LEFT, 128, -1 );
+	m_wndColumns.InsertColumn( 1, L"Type", LVCFMT_LEFT, 0, 0 );
 	ListView_SetExtendedListViewStyle( m_wndColumns.GetSafeHwnd(), LVS_EX_CHECKBOXES );
 
 	LoadString( m_wndSchemas.m_sNoSchemaText, IDS_SEARCH_NO_SCHEMA );
-	m_wndSchemas.Load( m_pSchema ? m_pSchema->GetURI() : _T("") );
+	m_wndSchemas.Load( m_pSchema ? m_pSchema->GetURI() : L"" );
 
 	OnSelChangeSchemas();
 
@@ -83,10 +83,10 @@ void CSchemaColumnsDlg::OnSelChangeSchemas()
 	m_wndColumns.DeleteAllItems();
 	if ( ! pSchema ) return;
 
-	CString strMembers = theApp.GetProfileString( _T("Interface"),
-		_T("SchemaColumns.") + pSchema->m_sSingular, _T("(EMPTY)") );
+	CString strMembers = theApp.GetProfileString( L"Interface",
+		L"SchemaColumns." + pSchema->m_sSingular, L"(EMPTY)" );
 
-	if ( strMembers == _T("(EMPTY)") )
+	if ( strMembers == L"(EMPTY)" )
 		strMembers = pSchema->m_sDefaultColumns;
 
 	for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; )
@@ -106,7 +106,7 @@ void CSchemaColumnsDlg::OnSelChangeSchemas()
 			pItem.pszText	= (LPTSTR)(LPCTSTR)pMember->m_sType;
 			m_wndColumns.SetItem( &pItem );
 
-			if ( strMembers.Find( _T("|") + pMember->m_sName + _T("|") ) >= 0 )
+			if ( strMembers.Find( L"|" + pMember->m_sName + L"|" ) >= 0 )
 			{
 				m_wndColumns.SetItemState( pItem.iItem, INDEXTOSTATEIMAGEMASK( 2 ),
 					LVIS_STATEIMAGEMASK );
@@ -146,15 +146,15 @@ BOOL CSchemaColumnsDlg::LoadColumns(CSchemaPtr pSchema, CList< CSchemaMember* >*
 	if ( ! pSchema || ! pColumns ) return FALSE;
 	pColumns->RemoveAll();
 
-	CString strMembers = theApp.GetProfileString( _T("Interface"),
-		_T("SchemaColumns.") + pSchema->m_sSingular, _T("(EMPTY)") );
+	CString strMembers = theApp.GetProfileString( L"Interface",
+		L"SchemaColumns." + pSchema->m_sSingular, L"(EMPTY)" );
 
-	if ( strMembers == _T("(EMPTY)") ) strMembers = pSchema->m_sDefaultColumns;
+	if ( strMembers == L"(EMPTY)" ) strMembers = pSchema->m_sDefaultColumns;
 
 	for ( POSITION pos = pSchema->GetMemberIterator() ; pos ; )
 	{
 		CSchemaMember* pMember = pSchema->GetNextMember( pos );
-		if ( ! pMember->m_bHidden && strMembers.Find( _T("|") + pMember->m_sName + _T("|") ) >= 0 )
+		if ( ! pMember->m_bHidden && strMembers.Find( L"|" + pMember->m_sName + L"|" ) >= 0 )
 			pColumns->AddTail( pMember );
 	}
 
@@ -178,8 +178,8 @@ BOOL CSchemaColumnsDlg::SaveColumns(CSchemaPtr pSchema, CList< CSchemaMember* >*
 		strMembers += '|';
 	}
 
-	theApp.WriteProfileString( _T("Interface"),
-		_T("SchemaColumns.") + pSchema->m_sSingular, strMembers );
+	theApp.WriteProfileString( L"Interface",
+		L"SchemaColumns." + pSchema->m_sSingular, strMembers );
 
 	return TRUE;
 }

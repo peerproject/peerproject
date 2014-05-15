@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.shareaza.com/schemas/collection.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Collection.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<element name="collections">
 		<complexType>
@@ -8,7 +7,6 @@
 		</complexType>
 	</element>
 	<complexType name="collectionType">
-
 		<attribute name="title" type="string"/>
 		<attribute name="version" type="string"/>
 		<attribute name="fileDescription" type="string"/>
@@ -17,7 +15,6 @@
 		<attribute name="originalFileName" type="string"/>
 		<attribute name="company" type="string"/>
 		<attribute name="copyright" type="string"/>
-
 		<attribute name="type">
 			<simpleType base="string">
 				<enumeration value="Book"/>
@@ -81,6 +78,8 @@
 		<attribute name="releasegroup" type="string"/>
 		<attribute name="releasegroupLink" type="uriReference"/>
 		<attribute name="link" type="uriReference"/>
-	</complexType>
-</schema>
+		<attribute name="peertag" type="boolean"/>
+		<attribute name="peerinfo" type="string"/>
+ 	</complexType>
 
+</schema>

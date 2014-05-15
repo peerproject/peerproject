@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2010
 // #COPYRIGHT#
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -32,37 +32,37 @@ STDMETHODIMP C#PROJECT#::Process (
 		return E_POINTER;
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
-	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
+	HRESULT hr = pXML->get_Elements( &pISXMLRootElements );
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create(CComBSTR("videos"), &pXMLRootElement);
+	hr = pISXMLRootElements->Create( CComBSTR("videos"), &pXMLRootElement );
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
-	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
+	hr = pXMLRootElement->get_Attributes( &pISXMLRootAttributes );
 	if ( FAILED( hr ) )
 		return hr;
-	pISXMLRootAttributes->Add(CComBSTR("xmlns:xsi"),
-		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR("xsi:noNamespaceSchemaLocation"),
-		CComBSTR("http://www.limewire.com/schemas/video.xsd"));
+	pISXMLRootAttributes->Add( CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance") );
+	pISXMLRootAttributes->Add( CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://schemas.peerproject.org/Video.xsd") );
 
 	CComPtr <ISXMLElements> pISXMLElements;
-	hr = pXMLRootElement->get_Elements(&pISXMLElements);
+	hr = pXMLRootElement->get_Elements( &pISXMLElements );
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create(CComBSTR("video"), &pXMLElement);
+	hr = pISXMLElements->Create( CComBSTR("video"), &pXMLElement );
 	if ( FAILED( hr ) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
-	hr = pXMLElement->get_Attributes(&pISXMLAttributes);
+	hr = pXMLElement->get_Attributes( &pISXMLAttributes );
 	if ( FAILED( hr ) )
 		return hr;
 
-	pISXMLAttributes->Add(CComBSTR("width"), CComBSTR("320"));
-	pISXMLAttributes->Add(CComBSTR("height"), CComBSTR("240"));
+	pISXMLAttributes->Add( CComBSTR("width"), CComBSTR("640") );
+	pISXMLAttributes->Add( CComBSTR("height"), CComBSTR("480") );
 */
-	ATLTRACENOTIMPL ("C#PROJECT#::Process");
+	ATLTRACENOTIMPL("C#PROJECT#::Process");
 }

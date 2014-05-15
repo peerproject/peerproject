@@ -1,44 +1,40 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- See ReadMe.txt for translation credits -->
-
-<schemaDescriptor location="http://www.shareaza.com/schemas/musicAlbumCollection.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
+<schemaDescriptor location="http://schemas.peerproject.org/MusicAlbumCollection.xsd" xmlns="http://schemas.peerproject.org/SchemaDescriptor.xsd">
 
 	<object type="folder" availability="system"/>
 	<contains>
-		<object type="folder" location="http://www.shareaza.com/schemas/musicAlbum.xsd"/>
+		<object type="folder" location="http://schemas.peerproject.org/MusicAlbum.xsd"/>
 	</contains>
 	<images>
 		<icon path="MusicFolder.ico"/>
 	</images>
 	<titles>
-		<title language="en">Music:By Album</title>
-		<title language="af">Musiek:Volgens Album</title>
-		<title language="ca">Música: per àlbum</title>
-		<title language="cz">Hudba:Podle alba</title>
-		<title language="de">Musik:Nach Album</title>
-		<title language="ee">Muusika:Albumid</title>
+		<title language="en">Music: By Album</title>
+		<title language="af">Musiek: Volgens Album</title>
+		<title language="ca">Música: Per àlbum</title>
+		<title language="cz">Hudba: Podle alba</title>
+		<title language="de">Musik: Nach Album</title>
+		<title language="ee">Muusika: Albumid</title>
 		<title language="es">Música: Por Album</title>
-		<title language="es-mx">Música: Por Album</title>
-		<title language="fr">Musique:Par Album</title>
-		<title language="gr">Μουσική:Ανά Album</title>
-		<title language="heb">&#160;שירים:לפי אלבום</title>
-		<title language="hr">Muzika:Po Albumima</title>
+		<title language="fr">Musique: Par Album</title>
+		<title language="gr">Μουσική: Ανά Album</title>
+		<title language="he">שירים: לפי אלבום</title>
+		<title language="hr">Muzika: Po Albumima</title>
 		<title language="hu">Zene: Album szerint</title>
-		<title language="it">Musica:Per album</title>
-		<title language="ja">&#160;音楽: アルバム別</title>
-		<title language="lt">Muzika:Pagal albumus</title>
-		<title language="nl">Muziek:Per Album</title>
-		<title language="no">Musikk: per album</title>
-		<title language="pt-br">Música: Por Álbum</title>
-		<title language="ru">&#160;Музыка: По альбомам</title>
-		<title language="sl">Glasba:Po albumu</title>
-		<title language="sq">Muzikë:Sipas Albumit</title>
-		<title language="sr">Muzika:Po Albumima</title>
+		<title language="it">Musica: Per album</title>
+		<title language="lt">Muzika: Pagal albumus</title>
+		<title language="nl">Muziek: Per Album</title>
+		<title language="no">Musikk: Per album</title>
+		<title language="pt">Música: Por Álbum</title>
+		<title language="ru">Музыка: По альбомам</title>
+		<title language="sl">Glasba: Po albumu</title>
+		<title language="sq">Muzikë: Sipas Albumit</title>
+		<title language="sr">Muzika: Po Albumima</title>
 		<title language="sv">Musik: Efter album</title>
 		<title language="tr">Müzik: Albümden</title>
-		<title language="zhs">&#160;音乐:按 - 专辑</title>
-		<title language="zht">音樂:由-專輯</title>
+		<title language="ja">音楽: アルバム別</title>
+		<title language="zhs">音乐: 按 - 专辑</title>
+		<title language="zht">音樂: 由-專輯</title>
 	</titles>
 	<headerContent version="1.0">
 		<title language="en">Music By Album</title>
@@ -48,24 +44,23 @@
 		<title language="de">Musik nach Album</title>
 		<title language="ee">Muusika Albumid</title>
 		<title language="es">Música por Album</title>
-		<title language="es-mx">Música por Album</title>
 		<title language="fr">Musique par album</title>
 		<title language="gr">Μουσική Ανά Album</title>
-		<title language="heb">מוזיקה לפי אלבום</title>
+		<title language="he">מוזיקה לפי אלבום</title>
 		<title language="hr">Muzika Po Albumima</title>
 		<title language="hu">Zene album szerint</title>
 		<title language="it">Musica per album</title>
-		<title language="ja">&#160;音楽: アルバム別</title>
 		<title language="lt">Muzika pagal albumus</title>
 		<title language="nl">Muziek Per Album</title>
 		<title language="no">Musikk per album</title>
-		<title language="pt-br">Música por Álbum</title>
+		<title language="pt">Música por Álbum</title>
 		<title language="ru">Музыка по альбомам</title>
 		<title language="sl">Glasba Po albumu</title>
 		<title language="sq">Muzikë Sipas Albumit</title>
 		<title language="sr">Muzika Po Albumima</title>
 		<title language="sv">Musik efter album</title>
 		<title language="tr">Albümden Müzik</title>
+		<title language="ja">音楽: アルバム別</title>
 		<title language="zhs">音乐 按专辑</title>
 		<title language="zht">音樂-由-專輯</title>
 		<subtitle language="en">This folder contains a list of albums you have in your library.</subtitle>
@@ -75,24 +70,23 @@
 		<subtitle language="de">Dieser Ordner enthält eine Liste aller Alben in ihrer Bibliothek.</subtitle>
 		<subtitle language="ee">See kaust sisaldab nimekirja albumitest sinu raamatukogus.</subtitle>
 		<subtitle language="es">Esta carpeta contiene los albums que tienes en tu librería</subtitle>
-		<subtitle language="es-mx">Esta carpeta contiene los albums que tienes en tu librería</subtitle>
 		<subtitle language="fr">Ce dossier contient tous les albums musicaux de votre bibliothèque.</subtitle>
 		<subtitle language="gr">Αυτός ο φάκελος περιέχει όσα μουσικά αρχεία μπορούν να οργανωθούν ανά album.</subtitle>
-		<subtitle language="heb">ספרייה זו מכילה רשימה של האלבומים שבספרייה שלך</subtitle>
+		<subtitle language="he">ספרייה זו מכילה רשימה של האלבומים שבספרייה שלך</subtitle>
 		<subtitle language="hr">Ova mapa sadrži popis albuma koje imate u kolekciji.</subtitle>
 		<subtitle language="hu">Ez a mappa albumokat tartalmaz.</subtitle>
 		<subtitle language="it">Questa cartella contiene la lista degli album che hai nella tua libreria.</subtitle>
-		<subtitle language="ja">このフォルダーにはライブラリー内にあるアルバムの一覧があります</subtitle>
 		<subtitle language="lt">Šiame kataloge pateikiamas Jūsų kolekcijos albumų sąrašas.</subtitle>
 		<subtitle language="nl">Deze map bevat een lijst met albums die je in je bibliotheek hebt.</subtitle>
 		<subtitle language="no">Denne mappen inneholder en liste over alle dine album</subtitle>
-		<subtitle language="pt-br">Esta pasta contém todos os álbuns presentes na sua biblioteca.</subtitle>
+		<subtitle language="pt">Esta pasta contém todos os álbuns presentes na sua biblioteca.</subtitle>
 		<subtitle language="ru">Эта папка отображает список музыкальных альбомов найденных в файлах Вашего хранилища.</subtitle>
 		<subtitle language="sl">Ta mapa vsebuje seznam albumov v vaši knjižnici.</subtitle>
 		<subtitle language="sq">Kjo dosje përmban një listë me albumet që janë në librarinë tuaj.</subtitle>
 		<subtitle language="sr">Ova fascikla sadrži popis albuma koje imate u kolekciji.</subtitle>
 		<subtitle language="sv">Denna mapp innehåller en lista över album som du har i ditt bibliotek.</subtitle>
 		<subtitle language="tr">Bu klasör arşivinizdeki albümlerin bir listesini içerir.</subtitle>
+		<subtitle language="ja">このフォルダーにはライブラリー内にあるアルバムの一覧があります</subtitle>
 		<subtitle language="zhs">此文件夹包含您收藏中专辑的清单。</subtitle>
 		<subtitle language="zht">這個資料夾包含了在您的收藏中一個專輯清單.</subtitle>
 	</headerContent>
@@ -106,25 +100,25 @@
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
 			<title language="es">Título</title>
-			<title language="es-mx">Título</title>
 			<title language="fr">Titre</title>
 			<title language="gr">Τίτλος</title>
-			<title language="heb">כותרת</title>
+			<title language="he">כותרת</title>
 			<title language="hr">Naslov</title>
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
-			<title language="ja">タイトル</title>
-			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
-			<title language="pt-br">Título</title>
+			<title language="pl">Tytuł</title>
+			<title language="pt">Título</title>
 			<title language="ru">Название</title>
 			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="zhs">标题</title>
 			<title language="zht">標題</title>
 		</member>

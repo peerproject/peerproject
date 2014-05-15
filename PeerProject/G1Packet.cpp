@@ -205,7 +205,7 @@ void CG1Packet::CacheHash()
 LPCTSTR CG1Packet::m_pszPackets[ G1_PACKTYPE_MAX ] =	// There are 9 packet types, with values 0 through 8
 {
 	// 0 is unknown, 1 Ping, 2 Pong, and so on
-	_T("Unknown"), _T("Ping"), _T("Pong"), _T("Bye"), _T("QRP"), _T("Vendor"), _T("Push"), _T("Query"), _T("Hit")
+	L"Unknown", L"Ping", L"Pong", L"Bye", L"QRP", L"Vendor", L"Push", L"Query", L"Hit"
 };
 
 // Uses the packet type index in this packet to look up text that describes that type, Returns text like "Ping" or "Pong"
@@ -273,7 +273,7 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 			WORD nPort = 0;
 			pIPPs->Read( (void*)&nAddress, 4 );
 			pIPPs->Read( (void*)&nPort, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Got host %s:%u"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"[G1] Got host %s:%u", (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
 			CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 			if ( pCachedHost ) nCount++;
 		}
@@ -293,10 +293,10 @@ int CG1Packet::GGEPReadCachedHosts(const CGGEPBlock& pGGEP)
 				WORD nPort = 0;
 				pGDNAs->Read( (void*)&nAddress, 4 );
 				pGDNAs->Read( (void*)&nPort, 2 );
-				DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("Got GDNA host %s:%u"), (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
+				DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"Got GDNA host %s:%u", (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&nAddress ) ), nPort ) );
 				CHostCacheHostPtr pCachedHost = HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort );
 				if ( pCachedHost ) nCount++;
-				HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0, _T("GDNA") );
+				HostCache.G1DNA.Add( (IN_ADDR*)&nAddress, nPort, 0, L"GDNA" );
 			}
 		}
 	}
@@ -363,7 +363,7 @@ void CG1Packet::GGEPWriteRandomCache(CGGEPBlock& pGGEP, LPCTSTR pszID)
 		{
 			pItem->Write( (void*)&pHosts.GetAt( i ).sin_addr.s_addr, 4 );
 			pItem->Write( (void*)&pHosts.GetAt( i ).sin_port, 2 );
-			DEBUG_ONLY( theApp.Message( MSG_DEBUG, _T("[G1] Sending host through pong (%s)"), (LPCTSTR)HostToString( &pHosts.GetAt( i ) ) ) );
+			DEBUG_ONLY( theApp.Message( MSG_DEBUG, L"[G1] Sending host through pong (%s)", (LPCTSTR)HostToString( &pHosts.GetAt( i ) ) ) );
 		}
 	}
 }
@@ -411,7 +411,7 @@ bool CG1Packet::ReadHUGE(CPeerProjectFile* pFile)
 	else if ( oBTH.fromUrn< Hashes::base16Encoding >( strURN ) )	// Got BTH base16
 		pFile->m_oBTH = oBTH;
 	else
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, _T("[G1] Got packet with unknown HUGE \"%s\" (%d bytes)"), strURN, len );
+		theApp.Message( MSG_DEBUG | MSG_FACILITY_SEARCH, L"[G1] Got packet with unknown HUGE \"%s\" (%d bytes)", strURN, len );
 
 	return true;
 }
@@ -490,8 +490,8 @@ bool CG1Packet::ReadXML(CSchemaPtr& pSchema, CXMLElement*& pXML)
 
 CXMLElement* CG1Packet::AutoDetectSchema(LPCTSTR pszInfo)
 {
-	if ( _tcsstr( pszInfo, _T(" Kbps") ) != NULL &&
-		 _tcsstr( pszInfo, _T(" kHz ") ) != NULL )
+	if ( _tcsstr( pszInfo, L" Kbps" ) != NULL &&
+		 _tcsstr( pszInfo, L" kHz " ) != NULL )
 	{
 		return AutoDetectAudio( pszInfo );
 	}
@@ -507,21 +507,21 @@ CXMLElement* CG1Packet::AutoDetectAudio(LPCTSTR pszInfo)
 	int nSeconds	= 0;
 	BOOL bVariable	= FALSE;
 
-	if ( _stscanf( pszInfo, _T("%i Kbps %i kHz %i:%i"), &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
+	if ( _stscanf( pszInfo, L"%i Kbps %i kHz %i:%i", &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
 	{
 		bVariable = TRUE;
-		if ( _stscanf( pszInfo, _T("%i Kbps(VBR) %i kHz %i:%i"), &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
+		if ( _stscanf( pszInfo, L"%i Kbps(VBR) %i kHz %i:%i", &nBitrate, &nFrequency, &nMinutes, &nSeconds ) != 4 )
 			return NULL;
 	}
 
-	if ( CXMLElement* pXML = new CXMLElement( NULL, _T("audio") ) )
+	if ( CXMLElement* pXML = new CXMLElement( NULL, L"audio" ) )
 	{
 		CString strValue;
-		strValue.Format( _T("%i"), nMinutes * 60 + nSeconds );
-		pXML->AddAttribute( _T("seconds"), strValue );
+		strValue.Format( L"%i", nMinutes * 60 + nSeconds );
+		pXML->AddAttribute( L"seconds", strValue );
 
-		strValue.Format( bVariable ? _T("%lu~") : _T("%lu"), nBitrate );
-		pXML->AddAttribute( _T("bitrate"), strValue );
+		strValue.Format( bVariable ? L"%lu~" : L"%lu", nBitrate );
+		pXML->AddAttribute( L"bitrate", strValue );
 
 		return pXML;
 	}
@@ -558,7 +558,7 @@ BOOL CG1Packet::OnPacket(const SOCKADDR_IN* pHost)
 #ifdef _DEBUG
 	default:
 		CString str;
-		str.Format( _T("Unknown Gnutella UDP packet from %s"), (LPCTSTR)HostToString( pHost ) );
+		str.Format( L"Unknown Gnutella UDP packet from %s", (LPCTSTR)HostToString( pHost ) );
 		Debug( str );
 #endif	// Debug
 	}
@@ -672,7 +672,7 @@ BOOL CG1Packet::OnPong(const SOCKADDR_IN* pHost)
 	if ( m_nLength < 14 )
 	{
 		// Pong packets should be 14 bytes long, drop this strange one
-		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), _T("pong") );
+		theApp.Message( MSG_ERROR, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), L"pong" );
 		Statistics.Current.Gnutella1.Dropped++;
 		return FALSE;
 	}
@@ -786,7 +786,7 @@ BOOL CG1Packet::OnVendor(const SOCKADDR_IN* pHost)
 
 #ifdef _DEBUG
 	CString str;
-	str.Format( _T("Received vendor packet from %s Function: %u Version: %u."),
+	str.Format( L"Received vendor packet from %s Function: %u Version: %u.",
 		(LPCTSTR)HostToString( pHost ), nFunction, nVersion );
 	Debug( str );
 #else
@@ -821,8 +821,8 @@ BOOL CG1Packet::OnQuery(const SOCKADDR_IN* pHost)
 	{
 		if ( ! pSearch )
 		{
-			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, _T("G1"), (LPCTSTR)HostToString( pHost ) );
-			DEBUG_ONLY( Debug( _T("Malformed Query.") ) );
+			theApp.Message( MSG_WARNING, IDS_PROTOCOL_BAD_QUERY, L"G1", (LPCTSTR)HostToString( pHost ) );
+			DEBUG_ONLY( Debug( L"Malformed Query." ) );
 		}
 		Statistics.Current.Gnutella1.Dropped++;
 		return TRUE;
@@ -858,7 +858,7 @@ BOOL CG1Packet::OnCommonHit(const SOCKADDR_IN* pHost)
 	if ( ! pHits )
 	{
 		theApp.Message( MSG_ERROR, IDS_PROTOCOL_BAD_HIT, (LPCTSTR)HostToString( pHost ) );
-		DEBUG_ONLY( Debug( _T("Malformed Hit") ) );
+		DEBUG_ONLY( Debug( L"Malformed Hit" ) );
 		Statistics.Current.Gnutella1.Dropped++;
 		return TRUE;
 	}
@@ -889,7 +889,7 @@ BOOL CG1Packet::OnPush(const SOCKADDR_IN* pHost)
 {
 	if ( m_nLength < 26 )
 	{
-		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), _T("push") );
+		theApp.Message( MSG_NOTICE, IDS_PROTOCOL_SIZE_PACKET, (LPCTSTR)HostToString( pHost ), L"push" );
 		Statistics.Current.Gnutella1.Dropped++;
 		return FALSE;
 	}

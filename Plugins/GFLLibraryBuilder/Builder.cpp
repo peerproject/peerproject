@@ -1,7 +1,7 @@
 //
 // Builder.cpp : Implementation of CBuilder
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Nikolay Raspopov, 2005.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -19,12 +19,12 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Builder.h"
 
 HRESULT CBuilder::FinalConstruct() throw()
 {
-	return CoCreateFreeThreadedMarshaler (GetControllingUnknown(), &m_pUnkMarshaler.p);
+	return CoCreateFreeThreadedMarshaler( GetControllingUnknown(), &m_pUnkMarshaler.p );
 }
 
 void CBuilder::FinalRelease() throw()
@@ -40,33 +40,33 @@ STDMETHODIMP CBuilder::Process(
 		return E_POINTER;
 
 	CComPtr <ISXMLElements> pISXMLRootElements;
-	HRESULT hr = pXML->get_Elements(&pISXMLRootElements);
-	if (FAILED (hr))
+	HRESULT hr = pXML->get_Elements( &pISXMLRootElements );
+	if ( FAILED(hr) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLRootElement;
-	hr = pISXMLRootElements->Create(CComBSTR("images"), &pXMLRootElement);
-	if (FAILED (hr))
+	hr = pISXMLRootElements->Create( CComBSTR("images"), &pXMLRootElement );
+	if ( FAILED(hr) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLRootAttributes;
-	hr = pXMLRootElement->get_Attributes(&pISXMLRootAttributes);
-	if (FAILED (hr))
+	hr = pXMLRootElement->get_Attributes( &pISXMLRootAttributes );
+	if ( FAILED(hr) )
 		return hr;
-	pISXMLRootAttributes->Add (CComBSTR("xmlns:xsi"),
-		CComBSTR("http://www.w3.org/2001/XMLSchema-instance"));
-	pISXMLRootAttributes->Add (CComBSTR("xsi:noNamespaceSchemaLocation"),
-		CComBSTR("http://www.shareaza.com/schemas/image.xsd"));
+	pISXMLRootAttributes->Add( CComBSTR("xmlns:xsi"),
+		CComBSTR("http://www.w3.org/2001/XMLSchema-instance") );
+	pISXMLRootAttributes->Add( CComBSTR("xsi:noNamespaceSchemaLocation"),
+		CComBSTR("http://schemas.peerproject.org/Image.xsd") );
 
 	CComPtr <ISXMLElements> pISXMLElements;
-	hr = pXMLRootElement->get_Elements(&pISXMLElements);
-	if (FAILED (hr))
+	hr = pXMLRootElement->get_Elements( &pISXMLElements );
+	if ( FAILED(hr) )
 		return hr;
 	CComPtr <ISXMLElement> pXMLElement;
-	hr = pISXMLElements->Create(CComBSTR("image"), &pXMLElement);
-	if (FAILED (hr))
+	hr = pISXMLElements->Create( CComBSTR("image"), &pXMLElement );
+	if ( FAILED(hr) )
 		return hr;
 	CComPtr <ISXMLAttributes> pISXMLAttributes;
-	hr = pXMLElement->get_Attributes(&pISXMLAttributes);
-	if (FAILED (hr))
+	hr = pXMLElement->get_Attributes( &pISXMLAttributes );
+	if ( FAILED(hr) )
 		return hr;
 
 	GFL_FILE_INFORMATION inf = { 0 };
@@ -78,41 +78,37 @@ STDMETHODIMP CBuilder::Process(
 	{
 		if ( GetShortPathNameW( sFile, pszPath, MAX_PATH ) )
 			err = gflGetFileInformationW( pszPath, -1, &inf );
-		else
-			err = GFL_ERROR_FILE_OPEN;
+		//else
+		//	err = GFL_ERROR_FILE_OPEN;
+
+		if ( err != GFL_NO_ERROR )
+			return E_FAIL;
 	}
 
-	if ( err == GFL_NO_ERROR )
-	{
-		CString tmp;
+	CString tmp;
 
-		tmp.Format (_T("%lu"), inf.Height);
-		pISXMLAttributes->Add(CComBSTR("height"), CComBSTR(tmp));
+	tmp.Format( L"%lu", inf.Height );
+	pISXMLAttributes->Add( CComBSTR("height"), CComBSTR(tmp) );
 
-		tmp.Format (_T("%lu"), inf.Width);
-		pISXMLAttributes->Add(CComBSTR("width"), CComBSTR(tmp));
+	tmp.Format( L"%lu", inf.Width );
+	pISXMLAttributes->Add( CComBSTR("width"), CComBSTR(tmp) );
 
-		pISXMLAttributes->Add(CComBSTR("description"), CComBSTR(inf.Description));
+	pISXMLAttributes->Add( CComBSTR("description"), CComBSTR(inf.Description) );
 
-		CString colors;
-		const int bits = inf.ComponentsPerPixel * inf.BitsPerComponent;
-		if ( inf.ColorModel == GFL_CM_GREY )
-			colors = _T("Greyscale");
-		else
-		{
-			if (bits <= 4)
-				colors = _T("16");
-			else if (bits <= 8)
-				colors = _T("256");
-			else if (bits <= 16)
-				colors = _T("64K");
-			else
-				colors = _T("16.7M");
-		}
-		pISXMLAttributes->Add(CComBSTR("colors"), CComBSTR(colors));
-	}
+	CString colors;
+	const int bits = inf.ComponentsPerPixel * inf.BitsPerComponent;
+	if ( inf.ColorModel == GFL_CM_GREY )
+		colors = L"Greyscale";
+	else if ( bits <= 4 )
+		colors = L"16";
+	else if ( bits <= 8 )
+		colors = L"256";
+	else if ( bits <= 16)
+		colors = L"64K";
 	else
-		hr = E_FAIL;
+		colors = L"16.7M";
+
+	pISXMLAttributes->Add( CComBSTR("colors"), CComBSTR(colors) );
 
 	return hr;
 }

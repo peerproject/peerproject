@@ -139,8 +139,11 @@ public:
 	virtual BOOL Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
 	virtual BOOL SendQuery(const CQuerySearch* pSearch, CPacket* pPacket, BOOL bLocal); 	// Validate query
 	virtual BOOL ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
+	virtual BOOL ProcessPackets(CBuffer* /*pInput*/) { return TRUE; }	// Process packets from input buffer
 
 protected:
+	virtual BOOL ProcessPackets() { return TRUE; }		// Process packets from internal input buffer
+
 	virtual BOOL OnRun();
 	virtual void OnDropped();
 	virtual BOOL OnRead();

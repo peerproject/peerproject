@@ -94,14 +94,14 @@ void CMainTabBarCtrl::OnSkinChange()
 {
 	if ( m_pItems.GetCount() == 0 )
 	{
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_HOME") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_TRANSFERS") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_NETWORK") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_LIBRARY") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MEDIA") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_IRC") ) );
-		m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_SEARCH") ) );
-	//	m_pItems.AddTail( new TabItem( this, _T("_ID_TAB_MENU") ) );	// ToDo:
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_HOME" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_TRANSFERS" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_NETWORK" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_LIBRARY" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_MEDIA" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_IRC" ) );
+		m_pItems.AddTail( new TabItem( this, L"_ID_TAB_SEARCH" ) );
+	//	m_pItems.AddTail( new TabItem( this, L"_ID_TAB_MENU" ) );	// ToDo:
 	}
 
 	if ( m_dcSkin.m_hDC )
@@ -191,7 +191,7 @@ CSize CMainTabBarCtrl::CalcFixedLayout(BOOL bStretch, BOOL /*bHorz*/)
 	CRect rcBackground;
 	CSize size( 0, Settings.Skin.ToolbarHeight );	// ToDo: Use Unique Size
 
-	if ( m_pSkin != NULL && m_pSkin->GetAnchor( _T("Background"), rcBackground ) )
+	if ( m_pSkin != NULL && m_pSkin->GetAnchor( L"Background", rcBackground ) )
 		size = rcBackground.Size();
 
 	if ( bStretch )
@@ -256,7 +256,7 @@ INT_PTR CMainTabBarCtrl::OnToolHitTest(CPoint point, TOOLINFO* pTI) const
 		}
 		else
 		{
-			strTip = strTip.SpanExcluding( _T(".") );
+			strTip = strTip.SpanExcluding( L"." );
 			pTI->lpszText = _tcsdup( strTip );
 		}
 	}
@@ -474,14 +474,14 @@ void CMainTabBarCtrl::TabItem::OnSkinChange(CSkinWindow* pSkin, CDC* pdcCache, C
 {
 	static LPCTSTR pszState[] =
 	{
-		_T(".Checked"), _T(".Down"), _T(".Hover"), _T(".Up"), _T(".Disabled"), NULL
+		L".Checked", L".Down", L".Hover", L".Up", L".Disabled", NULL
 	};
 
 	m_rc.SetRectEmpty();
 	pSkin->GetAnchor( m_sName, m_rc );
 
 	// Mimic main window toolbar text
-	if ( CCoolBarCtrl* pBar = Skin.GetToolBar( _T("CMainWnd") ) )
+	if ( CCoolBarCtrl* pBar = Skin.GetToolBar( L"CMainWnd" ) )
 	if ( CCoolBarItem* pItem = pBar->GetID( m_nID ) )
 	{
 		m_sTitle = pItem->m_sText;

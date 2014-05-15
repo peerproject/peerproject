@@ -94,15 +94,13 @@ typedef enum BUGTRAP_FLAGS_tag
 	BTF_ATTACHREPORT   = 0x004,
 	/**
 	 * @brief Set this flag to add list of all processes and loaded
-	 * modules to the report. Disable this option to speedup report
-	 * generation.
+	 * modules to the report. Disable this option to speedup report generation.
 	 */
 	BTF_LISTPROCESSES  = 0x008,
 	/**
 	 * @brief By default BugTrap displays simplified dialog on the
-	 * screen allowing user to perform only common actions. Enable
-	 * this flag to immediately display dialog with advanced error
-	 * information.
+	 * screen allowing user to perform only common actions. Enable this flag
+	 * to immediately display dialog with advanced error information.
 	 */
 	BTF_SHOWADVANCEDUI = 0x010,
 	/**
@@ -383,7 +381,23 @@ BUGTRAP_API void APIENTRY BT_SetAppVersion(LPCTSTR pszAppVersion);
  * @note @a hModule can be set to NULL for the main executable.
  */
 BUGTRAP_API BOOL APIENTRY BT_ReadVersionInfo(HMODULE hModule);
+/** @} */
 
+/**
+ * @defgroup ModuleOfInterest Module of interest
+ * Only exceptions that contain the module of interest at the stack trace will
+ * be processed. If no module of interest set, all exceptions will be processed.
+ * @{
+ */
+
+/**
+ * @brief Get module of interest
+ */
+BUGTRAP_API HMODULE APIENTRY BT_GetModule();
+/**
+ * @brief Set module of interest
+ */
+BUGTRAP_API void APIENTRY BT_SetModule(HMODULE hModule);
 /** @} */
 
 /**

@@ -42,7 +42,7 @@ typedef struct
 	DWORD	nSize;
 } ID3V2_HEADER;
 
-#define ID3V2_TAG			"ID3"
+#define ID3V2_TAG	"ID3"
 
 #define ID3V2_UNSYNCHRONISED	0x80
 #define ID3V2_EXTENDEDHEADER	0x40
@@ -130,12 +130,12 @@ typedef struct
 
 typedef struct
 {
-	char	cID[8]; 			// Should equal 'APETAGEX'
-	int 	nVersion;			// Equals CURRENT_APE_TAG_VERSION
-	int 	nSize;				// The complete size of the tag, including this footer
-	int 	nFields;			// The number of fields in the tag
-	int 	nFlags;				// The tag flags (none currently defined)
-	char	cReserved[8];		// Reserved for later use
+	char	cID[8]; 				// Should equal 'APETAGEX'
+	int 	nVersion;				// Equals CURRENT_APE_TAG_VERSION
+	int 	nSize;					// The complete size of the tag, including this footer
+	int 	nFields;				// The number of fields in the tag
+	int 	nFlags;					// The tag flags (none currently defined)
+	char	cReserved[8];			// Reserved for later use
 } APE_TAG_FOOTER;
 
 // LAME version 3.98
@@ -144,10 +144,10 @@ typedef struct
 	DWORD	VbrTag;
 	DWORD	HeaderFlags;
 	DWORD	FrameCount;
-	DWORD	StreamSize; 		// Include Xing/LAME Header
+	DWORD	StreamSize; 			// Include Xing/LAME Header
 	BYTE	BitrateTOC[100];
 	DWORD	EncQuality;
-	CHAR	ClassID[9]; 		// Lame code uses 9 bytes, in comments 20 bytes (?)
+	CHAR	ClassID[9]; 			// Lame code uses 9 bytes, in comments 20 bytes (?)
 	BYTE	VbrMethodRevision;
 	BYTE	LowPass;
 	DWORD	PeakSignalAmplitude;
@@ -169,7 +169,7 @@ typedef struct
 	DWORD		dwMicroSecPerFrame;	// Frame display rate (or 0L)
 	DWORD		dwMaxBytesPerSec;	// Max. transfer rate
 	DWORD		dwPaddingGranularity;	// Pad to multiples of this size; normally 2K.
-	DWORD		dwFlags;		// The ever-present flags
+	DWORD		dwFlags;			// The ever-present flags
 	DWORD		dwTotalFrames;		// # frames in file
 	DWORD		dwInitialFrames;
 	DWORD		dwStreams;
@@ -184,36 +184,36 @@ typedef struct
 #ifdef _ID3_DEFINE_GENRES
 LPCTSTR CLibraryBuilderInternals::pszID3Genre[] =
 {
-	_T("Blues"), _T("Classic Rock"), _T("Country"), _T("Dance"), _T("Disco"),
-	_T("Funk"), _T("Grunge"), _T("Hip-Hop"), _T("Jazz"), _T("Metal"), _T("New Age"),
-	_T("Oldies"), _T("Other"), _T("Pop"), _T("R&B"), _T("Rap"), _T("Reggae"),
-	_T("Rock"), _T("Techno"), _T("Industrial"), _T("Alternative"), _T("Ska"),
-	_T("Death Metal"), _T("Pranks"), _T("Soundtrack"), _T("Euro-Techno"), _T("Ambient"),
-	_T("Trip-Hop"), _T("Vocal"), _T("Jazz+Funk"), _T("Fusion"), _T("Trance"),
-	_T("Classical"), _T("Instrumental"), _T("Acid"), _T("House"), _T("Game"),
-	_T("Sound Clip"), _T("Gospel"), _T("Noise"), _T("AlternRock"), _T("Bass"),
-	_T("Soul"), _T("Punk"), _T("Space"), _T("Meditative"), _T("Instrumental Pop"),
-	_T("Instrumental Rock"), _T("Ethnic"), _T("Gothic"), _T("Darkwave"),
-	_T("Techno-Industrial"), _T("Electronic"), _T("Pop-Folk"), _T("Eurodance"),
-	_T("Dream"), _T("Southern Rock"), _T("Comedy"), _T("Cult"), _T("Gangsta"), _T("Top 40"),
-	_T("Christian Rap"), _T("Pop/Funk"), _T("Jungle"), _T("Native American"), _T("Cabaret"),
-	_T("New Wave"), _T("Psychadelic"), _T("Rave"), _T("Showtunes"), _T("Trailer"),
-	_T("Lo-Fi"), _T("Tribal"), _T("Acid Punk"), _T("Acid Jazz"), _T("Polka"), _T("Retro"),
-	_T("Musical"), _T("Rock & Roll"), _T("Hard Rock"), _T("Folk"), _T("Folk/Rock"),
-	_T("National Folk"), _T("Swing"), _T("Easy Listening"), _T("Bebob"), _T("Latin"), _T("Revival"),
-	_T("Celtic"), _T("Bluegrass"), _T("Avantgarde"), _T("Gothic Rock"),
-	_T("Progressive Rock"), _T("Psychedelic Rock"), _T("Symphonic Rock"),
-	_T("Slow Rock"), _T("Big Band"), _T("Chorus"), _T("Easy Listening"),
-	_T("Acoustic"), _T("Humour"), _T("Speech"), _T("Chanson"), _T("Opera"),
-	_T("Chamber Music"), _T("Sonata"), _T("Symphony"), _T("Booty Bass"),
-	_T("Primus"), _T("Porn Groove"), _T("Satire"), _T("Slow Jam"), _T("Club"),
-	_T("Tango"), _T("Samba"), _T("Folklore"), _T("Ballad"), _T("Power Ballad"),
-	_T("Rhythmic Soul"), _T("Freestyle"), _T("Duet"), _T("Punk Rock"), _T("Drum Solo"),
-	_T("A capella"), _T("Euro-House"), _T("Dance Hall"), _T("Goa"), _T("Drum & Bass"),
-	_T("Club-House"), _T("Hardcore"), _T("Terror"), _T("Indie"), _T("BritPop"), _T("Negerpunk"),
-	_T("Polsk Punk"), _T("Beat"), _T("Christian Gangsta"), _T("Heavy Metal"), _T("Black Metal"),
-	_T("Crossover"), _T("Contemporary C"), _T("Christian Rock"), _T("Merengue"),
-	_T("Salsa"), _T("Thrash Metal"), _T("Anime"), _T("JPop"), _T("SynthPop")
+	L"Blues", L"Classic Rock", L"Country", L"Dance", L"Disco",
+	L"Funk", L"Grunge", L"Hip-Hop", L"Jazz", L"Metal", L"New Age",
+	L"Oldies", L"Other", L"Pop", L"R&B", L"Rap", L"Reggae",
+	L"Rock", L"Techno", L"Industrial", L"Alternative", L"Ska",
+	L"Death Metal", L"Pranks", L"Soundtrack", L"Euro-Techno", L"Ambient",
+	L"Trip-Hop", L"Vocal", L"Jazz+Funk", L"Fusion", L"Trance",
+	L"Classical", L"Instrumental", L"Acid", L"House", L"Game",
+	L"Sound Clip", L"Gospel", L"Noise", L"AlternRock", L"Bass",
+	L"Soul", L"Punk", L"Space", L"Meditative", L"Instrumental Pop",
+	L"Instrumental Rock", L"Ethnic", L"Gothic", L"Darkwave",
+	L"Techno-Industrial", L"Electronic", L"Pop-Folk", L"Eurodance",
+	L"Dream", L"Southern Rock", L"Comedy", L"Cult", L"Gangsta", L"Top 40",
+	L"Christian Rap", L"Pop/Funk", L"Jungle", L"Native American", L"Cabaret",
+	L"New Wave", L"Psychadelic", L"Rave", L"Showtunes", L"Trailer",
+	L"Lo-Fi", L"Tribal", L"Acid Punk", L"Acid Jazz", L"Polka", L"Retro",
+	L"Musical", L"Rock & Roll", L"Hard Rock", L"Folk", L"Folk/Rock",
+	L"National Folk", L"Swing", L"Easy Listening", L"Bebob", L"Latin", L"Revival",
+	L"Celtic", L"Bluegrass", L"Avantgarde", L"Gothic Rock",
+	L"Progressive Rock", L"Psychedelic Rock", L"Symphonic Rock",
+	L"Slow Rock", L"Big Band", L"Chorus", L"Easy Listening",
+	L"Acoustic", L"Humour", L"Speech", L"Chanson", L"Opera",
+	L"Chamber Music", L"Sonata", L"Symphony", L"Booty Bass",
+	L"Primus", L"Porn Groove", L"Satire", L"Slow Jam", L"Club",
+	L"Tango", L"Samba", L"Folklore", L"Ballad", L"Power Ballad",
+	L"Rhythmic Soul", L"Freestyle", L"Duet", L"Punk Rock", L"Drum Solo",
+	L"A capella", L"Euro-House", L"Dance Hall", L"Goa", L"Drum & Bass",
+	L"Club-House", L"Hardcore", L"Terror", L"Indie", L"BritPop", L"Negerpunk",
+	L"Polsk Punk", L"Beat", L"Christian Gangsta", L"Heavy Metal", L"Black Metal",
+	L"Crossover", L"Contemporary C", L"Christian Rock", L"Merengue",
+	L"Salsa", L"Thrash Metal", L"Anime", L"JPop", L"SynthPop", L"DubStep"
 };
 #endif
 

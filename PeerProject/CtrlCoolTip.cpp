@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -155,7 +155,7 @@ void CCoolTipCtrl::ShowImpl(bool bChanged)
 	oMonitor.cbSize = sizeof( MONITORINFO );
 	GetMonitorInfo( hMonitor, &oMonitor );
 
-	if ( rc.right >= oMonitor.rcWork.right)
+	if ( rc.right >= oMonitor.rcWork.right )
 		rc.OffsetRect( oMonitor.rcWork.right - rc.right - 4, 0 );
 
 	if ( rc.bottom >= oMonitor.rcWork.bottom )

@@ -1,7 +1,7 @@
 //
 // VendorCache.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -59,7 +59,7 @@ CVendor* CVendorCache::LookupByName(LPCTSTR pszName) const
 		return NULL;
 
 	CString strName( pszName );
-	int n = strName.FindOneOf( _T("/ \t\r\n\\") );
+	int n = strName.FindOneOf( L"/ \t\r\n\\" );
 	if ( n > 0 )
 		strName = strName.Left( n );
 	strName.MakeLower();
@@ -92,7 +92,7 @@ void CVendorCache::Clear()
 
 BOOL CVendorCache::Load()
 {
-	CString strPath = Settings.General.Path + _T("\\Data\\Vendors.xml");
+	CString strPath = Settings.General.Path + L"\\Data\\Vendors.xml";
 	CXMLElement* pXML = CXMLElement::FromFile( strPath, TRUE );
 	BOOL bSuccess = FALSE;
 
@@ -101,10 +101,10 @@ BOOL CVendorCache::Load()
 		bSuccess = LoadFrom( pXML );
 		delete pXML;
 		if ( ! bSuccess )
-			theApp.Message( MSG_ERROR, _T("Invalid Vendors.xml file") );
+			theApp.Message( MSG_ERROR, L"Invalid Vendors.xml file" );
 	}
 	else
-		theApp.Message( MSG_ERROR, _T("Missed Vendors.xml file") );
+		theApp.Message( MSG_ERROR, L"Missed Vendors.xml file" );
 
 	return bSuccess;
 }
@@ -114,14 +114,14 @@ BOOL CVendorCache::Load()
 
 BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 {
-	if ( ! pXML->IsNamed( _T("vendorCache") ) ) return FALSE;
+	if ( ! pXML->IsNamed( L"vendorCache" ) ) return FALSE;
 
 	CVendor* pFoo;
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pKey = pXML->GetNextElement( pos );
 
-		if ( pKey->IsNamed( _T("vendor") ) )
+		if ( pKey->IsNamed( L"vendor" ) )
 		{
 			CVendor* pVendor = new CVendor();
 
@@ -129,7 +129,7 @@ BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 			{
 				if ( m_pCodeMap.Lookup( pVendor->m_sCode, pFoo ) )
 				{
-					theApp.Message( MSG_ERROR, _T("Duplicate Vendors.xml code for \"%s\""),
+					theApp.Message( MSG_ERROR, L"Duplicate Vendors.xml code for \"%s\"",
 						(LPCTSTR)pVendor->m_sCode );
 					delete pVendor;
 				}
@@ -141,7 +141,7 @@ BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 			}
 			else
 			{
-				theApp.Message( MSG_ERROR, _T("Invalid Vendors.xml entry") );
+				theApp.Message( MSG_ERROR, L"Invalid Vendors.xml entry" );
 				delete pVendor;
 			}
 		}
@@ -165,6 +165,7 @@ bool CVendorCache::IsExtended(LPCTSTR pszCode) const
 	// Unknown vendor code
 	return false;
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CVendor construciton
@@ -199,32 +200,32 @@ CVendor::~CVendor()
 
 BOOL CVendor::LoadFrom(CXMLElement* pXML)
 {
-	m_sCode = pXML->GetAttributeValue( _T("code") );
+	m_sCode = pXML->GetAttributeValue( L"code" );
 	if ( m_sCode.GetLength() != 4 ) return FALSE;
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pKey = pXML->GetNextElement( pos );
 
-		if ( pKey->IsNamed( _T("title") ) )
+		if ( pKey->IsNamed( L"title" ) )
 		{
 			if ( ! m_sName.IsEmpty() ) return FALSE;
 			m_sName = pKey->GetValue();
 		}
-		else if ( pKey->IsNamed( _T("link") ) )
+		else if ( pKey->IsNamed( L"link" ) )
 		{
 			if ( ! m_sLink.IsEmpty() ) return FALSE;
 			m_sLink = pKey->GetValue();
 		}
-		else if ( pKey->IsNamed( _T("capability") ) )
+		else if ( pKey->IsNamed( L"capability" ) )
 		{
-			const CString strCap = pKey->GetAttributeValue( _T("name") ).MakeLower();
+			const CString strCap = pKey->GetAttributeValue( L"name" ).MakeLower();
 
-			if ( strCap == _T("chatflag") )
+			if ( strCap == L"chatflag" )
 				m_bChatFlag = true;
-			else if ( strCap == _T("htmlhostbrowse") || strCap == _T("browseflag") )
+			else if ( strCap == L"htmlhostbrowse" || strCap == L"browseflag" )
 				m_bBrowseFlag = true;
-			else if ( strCap == _T("extended") )
+			else if ( strCap == L"extended" )
 				m_bExtended = true;
 			// ToDo: Other flags? g2,g1,ed2k,dc,bt,etc.
 		}

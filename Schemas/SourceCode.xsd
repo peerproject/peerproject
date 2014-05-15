@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Source Code XML Framework; v1.1; Jonathan C. Nilson -->
-
-<schema targetNamespace="http://www.shareaza.com/schemas/sourceCode.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/SourceCode.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Doc"/>
@@ -20,6 +18,7 @@
 			<attribute name="keywords" type="string"/>
 			<attribute name="abstract" type="string"/>
 			<attribute name="copyright" type="string"/>
+			<attribute name="date" type="string"/>
 			<attribute name="version" type="string"/>
 			<attribute name="revision" type="string"/>
 			<attribute name="language">
@@ -31,6 +30,7 @@
 					<enumeration value="ASP.NET"/>
 					<enumeration value="ASP.NET Webservices"/>
 					<enumeration value="Assembly (x86)"/>
+					<enumeration value="Assembly (x64)"/>
 					<enumeration value="Assembly (SPARC)"/>
 					<enumeration value="AWK"/>
 					<enumeration value="Batch Processing"/>
@@ -39,10 +39,11 @@
 					<enumeration value="C"/>
 					<enumeration value="C++"/>
 					<enumeration value="C++ Assembly"/>
+					<enumeration value="C#"/>
 					<enumeration value="CFML"/>
 					<enumeration value="Clean"/>
-					<enumeration value="ClipX RLIB RHELP"/>
 					<enumeration value="COBOL"/>
+					<enumeration value="CSS"/>
 					<enumeration value="D"/>
 					<enumeration value="Delphi"/>
 					<enumeration value="Dialect"/>
@@ -51,16 +52,16 @@
 					<enumeration value="Ferite"/>
 					<enumeration value="FORTRAN"/>
 					<enumeration value="FoxPro"/>
-					<enumeration value="Geoworks UI Compiler"/>
+					<enumeration value="Go"/>
 					<enumeration value="HTML"/>
 					<enumeration value="Informix 4GL"/>
 					<enumeration value="Ingres Embedded SQL/C"/>
 					<enumeration value="J Interpretor Script"/>
 					<enumeration value="Java"/>
+					<enumeration value="Javascript"/>
 					<enumeration value="J++"/>
 					<enumeration value="J#"/>
 					<enumeration value="Oracle"/>
-					<enumeration value="Ox Object-Oriented Matrix"/>
 					<enumeration value="Paradox"/>
 					<enumeration value="Pascal"/>
 					<enumeration value="Perl"/>
@@ -75,9 +76,7 @@
 					<enumeration value="Shell Script"/>
 					<enumeration value="Source Safe"/>
 					<enumeration value="Sphinx C--"/>
-					<enumeration value="Swat Compiled Tood Command Language"/>
 					<enumeration value="Tads"/>
-					<enumeration value="Tamarack ArtiScan Driver"/>
 					<enumeration value="Tea Template"/>
 					<enumeration value="Triangle Digital Services"/>
 					<enumeration value="True BASIC"/>
@@ -93,6 +92,7 @@
 					<enumeration value="VoiceXML"/>
 					<enumeration value="Website Content"/>
 					<enumeration value="XML"/>
+					<enumeration value="YAML"/>
 					<enumeration value="YaBasic"/>
 					<enumeration value="Zortech C++"/>
 				</simpleType>
@@ -100,12 +100,14 @@
 			<attribute name="languageVersion" type="string"/>
 			<attribute name="license" type="string"/>
 			<attribute name="OS" type="string"/>
-			<attribute name="link" type="uriReference"/>
 			<attribute name="comments">
 				<simpleType base="string">
 					<maxInclusive value="100"/>
 				</simpleType>
 			</attribute>
+			<attribute name="link" type="uriReference"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

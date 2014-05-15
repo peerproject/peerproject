@@ -97,18 +97,18 @@ BOOL CTorrentFilesPage::OnInitDialog()
 	CRect rc;
 	m_wndFiles.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
-	m_wndFiles.InsertColumn( COL_NAME,	_T("Filename"),	LVCFMT_LEFT,	rc.right - 66 - 54, -1 );
-	m_wndFiles.InsertColumn( COL_SIZE,	_T("Size"), 	LVCFMT_RIGHT,	66, 0 );
-	m_wndFiles.InsertColumn( COL_STATUS, _T("Status"),	LVCFMT_RIGHT,	54, 0 );
-	m_wndFiles.InsertColumn( COL_INDEX,	_T("Index"),	LVCFMT_CENTER,	0, 0 );		// Workaround for internal use
-//	m_wndFiles.InsertColumn( COL_PRIORITY, _T("Priority"), LVCFMT_RIGHT, 52, 0 );	// Obsolete
+	m_wndFiles.InsertColumn( COL_NAME,	L"Filename",	LVCFMT_LEFT,	rc.right - 66 - 54, -1 );
+	m_wndFiles.InsertColumn( COL_SIZE,	L"Size", 	LVCFMT_RIGHT,	66, 0 );
+	m_wndFiles.InsertColumn( COL_STATUS, L"Status",	LVCFMT_RIGHT,	54, 0 );
+	m_wndFiles.InsertColumn( COL_INDEX,	L"Index",	LVCFMT_CENTER,	0, 0 );		// Workaround for internal use
+//	m_wndFiles.InsertColumn( COL_PRIORITY, L"Priority", LVCFMT_RIGHT, 52, 0 );	// Obsolete
 
 	m_wndFiles.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_HEADERDRAGDROP|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );
 	ShellIcons.AttachTo( &m_wndFiles, 16 );	// m_wndFiles.SetImageList()
 
-	Skin.Translate( _T("CTorrentFileList"), m_wndFiles.GetHeaderCtrl() );
+	Skin.Translate( L"CTorrentFileList", m_wndFiles.GetHeaderCtrl() );
 
-	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( _T("CListCtrl") ) ) )		// || m_wndFiles.SetBkImage( Images.m_bmSystemWindow.m_hObject )	"System.Windows"
+	if ( m_wndFiles.SetBkImage( Skin.GetWatermark( L"CListCtrl" ) ) )		// || m_wndFiles.SetBkImage( Images.m_bmSystemWindow.m_hObject )	"System.Windows"
 		m_wndFiles.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_CHECKBOXES );	// No LVS_EX_DOUBLEBUFFER
 	else
 	{
@@ -164,7 +164,7 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 		strText = strText.Mid( strText.Find( '\\' ) + 1 );
 
 		// Unwanted files
-		if ( strText[0] == _T('_') && StartsWith( strText, _T("_____padding_file_"), 18 ) )
+		if ( strText[0] == L'_' && StartsWith( strText, L"_____padding_file_", 18 ) )
 		{
 			if ( Settings.BitTorrent.SkipPaddingFiles )
 			{
@@ -175,7 +175,7 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 				continue;
 			}
 
-			strText = strText.Left( 20 ) + _T(" ...");	// Otherwise hide BitComet note
+			strText = strText.Left( 20 ) + L" ...";	// Otherwise hide BitComet note
 		}
 
 		LV_ITEM pItem	= {};
@@ -187,7 +187,7 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 		pItem.iItem		= m_wndFiles.InsertItem( &pItem );
 		m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, Settings.SmartVolume( pFragFile->GetLength( i ) ) );
 
-		strText.Format( _T("%i"), i );
+		strText.Format( L"%i", i );
 		m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, strText );
 		m_wndFiles.SetItemState( pItem.iItem,
 			UINT( ( pFragFile->GetPriority( i ) == CFragmentedFile::prUnwanted ? 1 : 2 ) << 12 ), LVIS_STATEIMAGEMASK );
@@ -200,17 +200,17 @@ void CTorrentFilesPage::OnShowWindow(BOOL bShow, UINT /*nStatus*/)
 	if ( nPadding )
 	{
 		if ( nPadding == 1 )
-			strText = _T("_____padding_file_0_...");
+			strText = L"_____padding_file_0_...";
 		else
-			strText.Format( _T("_____padding_file_...  (x%u)"), nPadding );
+			strText.Format( L"_____padding_file_...  (x%u)", nPadding );
 		LV_ITEM pItem	= {};
 		pItem.mask		= LVIF_TEXT|LVIF_IMAGE|LVIF_PARAM;
 		pItem.lParam	= NULL;
 		pItem.pszText	= (LPTSTR)(LPCTSTR)strText;
-		pItem.iImage	= ShellIcons.Get( _T(""), 16 );
+		pItem.iImage	= ShellIcons.Get( L"", 16 );
 		pItem.iItem		= nCount - nPadding;
 		pItem.iItem		= m_wndFiles.InsertItem( &pItem );
-		m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, _T("-1") );
+		m_wndFiles.SetItemText( pItem.iItem, COL_INDEX, L"-1" );
 		m_wndFiles.SetItemText( pItem.iItem, COL_SIZE, Settings.SmartVolume( nPaddingSize ) );
 		m_wndFiles.SetItemState( pItem.iItem, UINT( ( bPaddingCheck ? 2 : 1 ) << 12 ), LVIS_STATEIMAGEMASK );
 	}
@@ -263,7 +263,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 				strName = pFragFile->GetName( i );
 				strName = strName.Mid( strName.ReverseFind( '\\' ) + 1 );
 
-				if ( strName.GetAt( 0 ) == _T('_') && strName.Left( 18 ) == _T("_____padding_file_") )
+				if ( strName.GetAt( 0 ) == L'_' && strName.Left( 18 ) == L"_____padding_file_" )
 					pFragFile->SetPriority( i, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prUnwanted );
 			}
 		}
@@ -405,7 +405,7 @@ void CTorrentFilesPage::Update()
 			continue;
 		}
 
-		strCompleted.Format( _T("%.2f%%"), pFragFile->GetProgress( nIndex ) );
+		strCompleted.Format( L"%.2f%%", pFragFile->GetProgress( nIndex ) );
 		m_wndFiles.SetItemText( nItem, COL_STATUS, strCompleted );
 	}
 
@@ -420,7 +420,7 @@ void CTorrentFilesPage::Update()
 		{
 			strText = pFragFile->GetName( i );
 			strText = strText.Mid( strText.Find( '\\' ) + 1 );
-			if ( strText.GetAt( 0 ) != _T('_') || _tcscmp( strText.Left( 18 ), _T("_____padding_file_") ) != 0 )
+			if ( strText.GetAt( 0 ) != L'_' || _tcscmp( strText.Left( 18 ), L"_____padding_file_" ) != 0 )
 				continue;
 
 			fPaddingStatus += pFragFile->GetProgress( i );
@@ -428,7 +428,7 @@ void CTorrentFilesPage::Update()
 		}
 
 		if ( ! nPaddingCount ) return;
-		strCompleted.Format( _T("%.2f%%"), fPaddingStatus / nPaddingCount );
+		strCompleted.Format( L"%.2f%%", fPaddingStatus / nPaddingCount );
 		m_wndFiles.SetItemText( nPaddingItem, COL_STATUS, strCompleted );
 	}
 }

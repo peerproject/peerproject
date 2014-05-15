@@ -160,7 +160,7 @@ void CChatSession::MakeActive(BOOL bAddUsers)
 
 		StatusMessage( cmtInfo, IDS_CHAT_PRIVATE_ONLINE, (LPCTSTR)m_sNick );
 
-		PlaySound( _T("Sound_IncomingChat"), NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
+		PlaySound( L"Sound_IncomingChat", NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
 
 		if ( bAddUsers )
 		{
@@ -398,20 +398,20 @@ BOOL CChatSession::ReadHandshake()
 	if ( ! Read( strLine ) || strLine.IsEmpty() )
 		return TRUE;
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> CHAT HANDSHAKE: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> CHAT HANDSHAKE: %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
-	if ( ::StartsWith( strLine, _PT("CHAT CONNECT/") ) && m_nState == cssRequest1 )
+	if ( ::StartsWith( strLine, _P( L"CHAT CONNECT/" ) ) && m_nState == cssRequest1 )
 	{
-		m_bOld = ( strLine.Find( _T("/0.1") ) > 0 ) ? TRI_TRUE : TRI_FALSE;
+		m_bOld = ( strLine.Find( L"/0.1" ) > 0 ) ? TRI_TRUE : TRI_FALSE;
 
 		m_nState = cssHeaders1;
 		return TRUE;
 	}
-	else if ( ::StartsWith( strLine, _PT("CHAT/") ) )
+	else if ( ::StartsWith( strLine, _P( L"CHAT/" ) ) )
 	{
-		m_bOld = ( strLine.Find( _T("/0.1") ) > 0 ) ? TRI_TRUE : TRI_FALSE;
+		m_bOld = ( strLine.Find( L"/0.1" ) > 0 ) ? TRI_TRUE : TRI_FALSE;
 
-		if ( _tcsistr( strLine, _T("200 OK") ) )
+		if ( _tcsistr( strLine, L"200 OK" ) )
 		{
 			if ( m_nState == cssRequest2 )
 			{
@@ -443,7 +443,7 @@ BOOL CChatSession::OnHeaderLine(CString& strHeader, CString& strValue)
 	if ( ! CConnection::OnHeaderLine( strHeader, strValue ) )
 		return FALSE;
 
-	if ( strHeader.CompareNoCase( _T("X-Nickname") ) == 0 )
+	if ( strHeader.CompareNoCase( L"X-Nickname" ) == 0 )
 		m_sNick = strValue;
 
 	return TRUE;
@@ -519,7 +519,7 @@ BOOL CChatSession::OnEstablished()
 	{
 		m_nState = cssActive;
 		NotifyMessage( cmtProfile, m_sNick );
-		StatusMessage( cmtInfo, IDS_CHAT_HANDSHAKE_G1, ( m_bOld == TRI_TRUE ) ? _T("0.1") : _T("0.2") );
+		StatusMessage( cmtInfo, IDS_CHAT_HANDSHAKE_G1, ( m_bOld == TRI_TRUE ) ? L"0.1" : L"0.2" );
 		//if ( m_pWndPrivate ) m_pWndPrivate->PostMessage( WM_CHAT_PROFILE_RECEIVED );	// OnProfileReceived()
 		//StatusMessage( 0, 0 );
 		//PostOpenWindow();
@@ -608,7 +608,7 @@ BOOL CChatSession::OnChatMessage(CDCPacket* pPacket)
 	if ( *pPacket->m_pBuffer == '<' )
 	{
 		CString strMsg( UTF8Decode( (LPCSTR)&pPacket->m_pBuffer[ 1 ], pPacket->m_nLength - 1 - 1 ) );
-		int nPos = strMsg.Find( _T('>') );
+		int nPos = strMsg.Find( L'>' );
 		OnChatMessage( strMsg.Left( nPos ), strMsg.Mid( nPos + 2 ) );
 	}
 	else if ( pPacket->Compare( _P("$HubTopic ") ) )
@@ -657,7 +657,7 @@ BOOL CChatSession::ReadED2K()
 				bSuccess = OnCaptchaResult( pPacket );
 				break;
 			default:
-				DEBUG_ONLY( pPacket->Debug( _T("Unknown ED2K Chat packet from ") + m_sAddress ) );
+				DEBUG_ONLY( pPacket->Debug( L"Unknown ED2K Chat packet from " + m_sAddress ) );
 			}
 		}
 		catch ( CException* pException )
@@ -812,11 +812,11 @@ BOOL CChatSession::OnCaptchaRequest(CEDPacket* pPacket)
 
 	// Load bitmap
 	CImageFile imgCaptcha;
-	if ( imgCaptcha.LoadFromMemory( _T(".bmp"), (LPCVOID)( pPacket->m_pBuffer + pPacket->m_nPosition ), pPacket->GetRemaining() ) &&
+	if ( imgCaptcha.LoadFromMemory( L".bmp", (LPCVOID)( pPacket->m_pBuffer + pPacket->m_nPosition ), pPacket->GetRemaining() ) &&
 		 imgCaptcha.EnsureRGB() )
 	{
 		NotifyMessage( cmtStatus, m_sNick, LoadString( IDS_CHAT_CAPTCHA_REQUEST ), imgCaptcha.CreateBitmap() );
-	//	m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)0, (LPARAM)new CString( _T("Confirm CAPTCHA:") ) );
+	//	m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)0, (LPARAM)new CString( L"Confirm CAPTCHA:" ) );
 	//	m_pWndPrivate->PostMessage( WM_CHAT_BITMAP_MESSAGE, 0, (LPARAM)imgCaptcha.CreateBitmap() );
 	}
 
@@ -834,8 +834,8 @@ BOOL CChatSession::OnCaptchaResult(CEDPacket* pPacket)
 	else
 		NotifyMessage( cmtError, m_sNick, LoadString( IDS_CHAT_CAPTCHA_DENIED ) );
 
-	//	Was m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)0, (LPARAM)new CString( _T("CAPTCHA accepted.") ) );
-	//	Was m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)1, (LPARAM)new CString( _T("CAPTCHA refused.") ) );
+	//	Was m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)0, (LPARAM)new CString( L"CAPTCHA accepted." ) );
+	//	Was m_pWndPrivate->PostMessage( WM_CHAT_STATUS_MESSAGE, (WPARAM)1, (LPARAM)new CString( L"CAPTCHA refused." ) );
 
 	return TRUE;
 }
@@ -861,11 +861,11 @@ void CChatSession::OnChatMessage(const CString& sFrom, const CString& sMessage)
 {
 	if ( m_bOld == TRI_TRUE )	// G1
 	{
-		if ( ::StartsWith( sMessage, _PT("\001ACTION ") ) )
+		if ( ::StartsWith( sMessage, _P( L"\001ACTION " ) ) )
 			NotifyMessage( cmtAction, sFrom, sMessage.Mid( 8 ) );
-		else if ( ::StartsWith( sMessage, _PT("* ") ) )
+		else if ( ::StartsWith( sMessage, _P( L"* " ) ) )
 			NotifyMessage( cmtAction, sFrom, sMessage.Mid( 2 ) );
-		else if ( ::StartsWith( sMessage, _PT("/me ") ) )
+		else if ( ::StartsWith( sMessage, _P( L"/me " ) ) )
 			NotifyMessage( cmtAction, sFrom, sMessage.Mid( 4 ) );
 		else
 			NotifyMessage( cmtMessage, sFrom, sMessage );
@@ -873,14 +873,14 @@ void CChatSession::OnChatMessage(const CString& sFrom, const CString& sMessage)
 		return;
 	}
 
-	if ( ::StartsWith( sMessage, _PT("MESSAGE ") ) )
+	if ( ::StartsWith( sMessage, _P( L"MESSAGE " ) ) )
 	{
-		if ( ::StartsWith( sMessage, _PT("MESSAGE \001ACTION ") ) )
+		if ( ::StartsWith( sMessage, _P( L"MESSAGE \001ACTION " ) ) )
 			NotifyMessage( cmtAction, sFrom, sMessage.Mid( 16 ) );
 		else
 			NotifyMessage( cmtMessage, sFrom, sMessage.Mid( 8 ) );
 	}
-	else if ( ::StartsWith( sMessage, _PT("NICK ") ) )
+	else if ( ::StartsWith( sMessage, _P( L"NICK " ) ) )
 	{
 		// Note new nick is sMessage.Mid( 5 )
 	}
@@ -984,7 +984,7 @@ BOOL CChatSession::ReadG2()
 			default:
 				{
 					CString str;
-					str.Format( _T("Unknown G2 Chat packet from %s"), HostToString( &m_pHost ) );
+					str.Format( L"Unknown G2 Chat packet from %s", HostToString( &m_pHost ) );
 					pPacket->Debug( str );
 				}
 #endif	// Debug
@@ -1043,7 +1043,7 @@ BOOL CChatSession::OnProfileDelivery(CG2Packet* pPacket)
 
 				if ( m_pProfile == NULL )
 				{
-					//theApp.Message( MSG_ERROR, _T("Error in CChatSession::OnProfileDelivery()") );
+					//theApp.Message( MSG_ERROR, L"Error in CChatSession::OnProfileDelivery()" );
 					delete pXML;
 				}
 				else if ( ! m_pProfile->FromXML( pXML ) || ! m_pProfile->IsValid() )
@@ -1109,9 +1109,9 @@ BOOL CChatSession::OnChatRequest(CG2Packet* pPacket)
 		{
 			CString strTime;
 			if ( nIdle > 86400 )
-				strTime.Format( _T("%u:%.2u:%.2u:%.2u"), nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
+				strTime.Format( L"%u:%.2u:%.2u:%.2u", nIdle / 86400, ( nIdle / 3600 ) % 24, ( nIdle / 60 ) % 60, nIdle % 60 );
 			else
-				strTime.Format( _T("%u:%.2u:%.2u"), nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
+				strTime.Format( L"%u:%.2u:%.2u", nIdle / 3600, ( nIdle / 60 ) % 60, nIdle % 60 );
 
 			pAnswer->WritePacket( G2_PACKET_CHAT_AWAY, pAnswer->GetStringLen( strTime ) );
 			pAnswer->WriteString( strTime, FALSE );
@@ -1233,7 +1233,7 @@ BOOL CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 	//{
 	//	CString strMessage;
 	//	CString strNick = MyProfile.GetNick();
-	//	if ( strNick.IsEmpty() ) strNick = CLIENT_NAME _T(" User");
+	//	if ( strNick.IsEmpty() ) strNick = CLIENT_NAME L" User";
 	//	strMessage.Format( LoadString( IDS_CHAT_PRIVATE_AWAY ), strNick, strText );
 	//}
 
@@ -1281,7 +1281,7 @@ BOOL CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 						pPacket->WriteString( static_cast< CDCNeighbour* >( pClient )->m_sNick, FALSE );
 						pPacket->WriteByte( '>' );
 						pPacket->WriteByte( ' ' );
-						if ( bAction ) pPacket->WriteString( _T("/me "), FALSE );
+						if ( bAction ) pPacket->WriteString( L"/me ", FALSE );
 						pPacket->WriteString( strText, FALSE );
 						pPacket->WriteByte( '|' );
 
@@ -1306,16 +1306,16 @@ BOOL CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 	if ( m_bOld == TRI_TRUE )
 	{
 		if ( bAction )
-			Write( _T("* ") + strText + _T("\r\n"), CP_UTF8 );
+			Write( L"* " + strText + L"\r\n", CP_UTF8 );
 		else
-			Write( strText + _T("\r\n"), CP_UTF8 );
+			Write( strText + L"\r\n", CP_UTF8 );
 	}
 	else if ( m_nProtocol == PROTOCOL_G1 )
 	{
 		if ( bAction )
-			Write( _T("MESSAGE \001ACTION ") + strText + _T("\r\n") );
+			Write( L"MESSAGE \001ACTION " + strText + L"\r\n" );
 		else
-			Write( _T("MESSAGE ") + strText + _T("\r\n") );
+			Write( L"MESSAGE " + strText + L"\r\n" );
 	}
 	else if ( m_nProtocol == PROTOCOL_G2 )
 	{
@@ -1357,7 +1357,7 @@ void CChatSession::StatusMessage(MessageType bType, UINT nID, ...)
 
 	va_start( pArgs, nID );
 
-	if ( strFormat.Find( _T("%1") ) >= 0 )
+	if ( strFormat.Find( L"%1" ) >= 0 )
 	{
 		LPTSTR lpszTemp = NULL;
 		if ( ::FormatMessage( FORMAT_MESSAGE_FROM_STRING | FORMAT_MESSAGE_ALLOCATE_BUFFER,
@@ -1537,7 +1537,7 @@ void CChatSession::OnOpenWindow()
 	//StatusMessage( cmtInfo, IDS_CHAT_PRIVATE_ONLINE, (LPCTSTR)m_sNick );
 	//StatusMessage( 0, 0 );
 	//
-	//PlaySound( _T("Sound_IncomingChat"), NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
+	//PlaySound( L"Sound_IncomingChat", NULL, SND_APPLICATION|SND_ALIAS|SND_ASYNC );
 	//m_nState = cssActive;
 	//
 	// Hack to open it

@@ -233,7 +233,7 @@ CSize CWndTabBar::CalcFixedLayout(BOOL /*bStretch*/, BOOL /*bHorz*/)
 
 void CWndTabBar::OnSkinChange()
 {
-	SetWatermark( Skin.GetWatermark( _T("CWndTabBar") ) );
+	SetWatermark( Skin.GetWatermark( L"CWndTabBar" ) );
 	SetMaximumWidth( Settings.General.GUIMode == GUI_WINDOWED ? 140 : 200 );
 	m_nCloseImage = CoolInterface.ImageForID( ID_CHILD_CLOSE );
 	// ToDo: m_pImages.SetBkColor if not skinned
@@ -268,9 +268,9 @@ void CWndTabBar::OnUpdateCmdUI(CFrameWnd* pTarget, BOOL /*bDisableIfNoHndler*/)
 
 		if ( pChild->m_bPanelMode )
 		{
-			if ( strCaption.Find( _T("Search : ") ) == 0 )
+			if ( strCaption.Find( L"Search : " ) == 0 )
 				strCaption = strCaption.Mid( 9 );
-			if ( strCaption.Find( _T("Browse Host : ") ) == 0 )
+			if ( strCaption.Find( L"Browse Host : " ) == 0 )
 				strCaption = strCaption.Mid( 14 );
 		}
 
@@ -941,12 +941,12 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 
 	if ( pDC->GetTextExtent( strText ).cx > rc.Width() )
 	{
-		while ( pDC->GetTextExtent( strText + _T('\x2026') ).cx > rc.Width() && ! strText.IsEmpty() )
+		while ( pDC->GetTextExtent( strText + L'\x2026' ).cx > rc.Width() && ! strText.IsEmpty() )
 		{
 			strText = strText.Left( strText.GetLength() - 1 );
 		}
 
-		if ( ! strText.IsEmpty() ) strText += _T('\x2026');
+		if ( ! strText.IsEmpty() ) strText += L'\x2026';
 	}
 
 	rc.left -= 20;

@@ -1,7 +1,7 @@
 //
 // CtrlBrowseTree.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -46,11 +46,11 @@ BEGIN_MESSAGE_MAP(CBrowseTreeCtrl, CWnd)
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
 	ON_WM_VSCROLL()
+	ON_WM_KEYDOWN()
 	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_LBUTTONUP()
 	ON_WM_RBUTTONDOWN()
-	ON_WM_KEYDOWN()
 	ON_WM_MOUSEMOVE()
 	ON_WM_MOUSEWHEEL()
 	ON_MESSAGE(WM_UPDATE, OnUpdate)
@@ -84,7 +84,7 @@ CBrowseTreeCtrl::~CBrowseTreeCtrl()
 BOOL CBrowseTreeCtrl::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::Create( NULL, _T("CBrowseTreeCtrl"),
+	return CWnd::Create( NULL, L"CBrowseTreeCtrl",
 		WS_CHILD|WS_TABSTOP|WS_VSCROLL, rect, pParentWnd, IDC_BROWSE_TREE, NULL );
 }
 
@@ -438,7 +438,7 @@ void CBrowseTreeCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	if ( ! nFlags && point.x < 32 )
 	{
 		CRect rcRefresh( 1, point.y - 48, 32, point.y + 48 );
-		RedrawWindow(rcRefresh);
+		RedrawWindow( rcRefresh );
 	}
 }
 
@@ -894,6 +894,7 @@ LRESULT CBrowseTreeCtrl::OnUpdate(WPARAM, LPARAM)
 	return 0;
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CBrowseTreeItem construction
 
@@ -1162,7 +1163,7 @@ void CBrowseTreeItem::AddXML(CXMLElement* pXML)
 
 	if ( ( m_pSchema = SchemaCache.Get( strURI ) ) != NULL )
 	{
-		m_bBold		= CheckURI( strURI, CSchema::uriFavouritesFolder );
+		m_bBold		= CheckURI( strURI, CSchema::uriFavoritesFolder );
 		m_nIcon16	= m_pSchema->m_nIcon16;
 
 		if ( CXMLElement* pBody = pXML->GetFirstElement() )
@@ -1170,7 +1171,7 @@ void CBrowseTreeItem::AddXML(CXMLElement* pXML)
 	}
 
 	if ( m_sText.IsEmpty() )
-		m_sText = _T("Unnamed");
+		m_sText = L"Unnamed";
 
 	if ( pXML != NULL ) delete pXML;
 }

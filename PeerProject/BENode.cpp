@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -114,8 +114,14 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 		break;
 	}
 
-	auto_ptr< CBENode > pNew( new CBENode );
-	CBENode* pNew_ = pNew.get();
+//	auto_ptr< CBENode > pNew( new CBENode );
+//	CBENode* pNew_ = pNew.get();
+
+	CAutoPtr< CBENode > pNew( new CBENode );
+	if ( ! pNew )
+		return NULL;	// Out of memory
+
+	CBENode* pNew_ = pNew;
 
 	size_t nValue = static_cast< size_t >( m_nValue );
 
@@ -123,19 +129,23 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 	{
 		// Overflow check
 		ASSERT( nValue + 1 <= SIZE_T_MAX );
-		auto_array< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+	//	auto_array< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+		CAutoVectorPtr< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+		if ( ! pList )
+			return NULL;	// Out of memory
 
 		if ( m_pValue )
 		{
 			// Overflow check
 			ASSERT( nValue * sizeof( CBENode* ) <= SIZE_T_MAX );
-			memcpy( pList.get(), m_pValue, nValue * sizeof( CBENode* ) );
+			memcpy( pList, m_pValue, nValue * sizeof( CBENode* ) );
 
 			delete [] (CBENode**)m_pValue;
 		}
 
-		pList[ nValue ] = pNew.release();
-		m_pValue = pList.release();
+		pList[ nValue ] = pNew.Detach();
+
+		m_pValue = pList.Detach();
 		++m_nValue;
 	}
 	else
@@ -144,25 +154,30 @@ CBENode* CBENode::Add(LPCBYTE pKey, size_t nKey)
 
 		// Overflow check
 		ASSERT( nValueDoubled + 2 <= SIZE_T_MAX );
-		auto_array< CBENode* > pList( new CBENode*[ nValueDoubled + 2 ] );
+		CAutoVectorPtr< CBENode* > pList( new CBENode*[ nValueDoubled + 2 ] );
+		if ( ! pList )
+			return NULL;	// Out of memory
 
 		if ( m_pValue )
 		{
 			// Overflow check
 			ASSERT( nValueDoubled * sizeof( CBENode* ) <= SIZE_T_MAX );
-			memcpy( pList.get(), m_pValue, nValueDoubled * sizeof( CBENode* ) );
+			memcpy( pList, m_pValue, nValueDoubled * sizeof( CBENode* ) );
 
 			delete [] (CBENode**)m_pValue;
 		}
 
-		auto_array< BYTE > pxKey( new BYTE[ nKey + 1 ] );
-		memcpy( pxKey.get(), pKey, nKey );
+		CAutoVectorPtr< BYTE > pxKey( new BYTE[ nKey + 1 ] );
+		if ( ! pxKey )
+			return NULL;	// Out of memory
+
+		memcpy( pxKey, pKey, nKey );
 		pxKey[ nKey ] = 0;
 
-		pList[ nValueDoubled ] = pNew.release();
-		pList[ nValueDoubled + 1 ] = (CBENode*)pxKey.release();
+		pList[ nValueDoubled ] = pNew.Detach();
+		pList[ nValueDoubled + 1 ] = (CBENode*)pxKey.Detach();
 
-		m_pValue = pList.release();
+		m_pValue = pList.Detach();
 		++m_nValue;
 	}
 
@@ -334,11 +349,11 @@ const CString CBENode::Encode() const
 	switch ( m_nType )
 	{
 	case beNull:
-		strOutput = _T("(null)");
+		strOutput = L"(null)";
 		break;
 
 	case beString:
-		strOutput = _T('\"');
+		strOutput = L'\"';
 		{
 			const DWORD nLen = (DWORD)min( m_nValue, 100ll );
 			for ( DWORD n = 0 ; n < nLen ; n++ )
@@ -346,39 +361,39 @@ const CString CBENode::Encode() const
 				strOutput += ( ( ( (LPSTR)m_pValue )[ n ] < ' ' ) ? '.' : ( (LPSTR)m_pValue )[ n ] );
 			}
 		}
-		strOutput += _T('\"');
-		strOutput.AppendFormat( _T("[%I64i]"), m_nValue );
+		strOutput += L'\"';
+		strOutput.AppendFormat( L"[%I64i]", m_nValue );
 		break;
 
 	case beInt:
-		strOutput.Format( _T("%I64u"), m_nValue );
+		strOutput.Format( L"%I64u", m_nValue );
 		break;
 
 	case beList:
-		strOutput = _T("{ ");
+		strOutput = L"{ ";
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( DWORD n = 0 ; n < (DWORD)m_nValue ; n++, pNode++ )
 			{
-				if ( n ) strOutput += _T(", ");
+				if ( n ) strOutput += L", ";
 				strOutput += (*pNode)->Encode();
 			}
 		}
-		strOutput += _T(" }");
+		strOutput += L" }";
 		break;
 
 	case beDict:
-		strOutput = _T("{ ");
+		strOutput = L"{ ";
 		{
 			CBENode** pNode = (CBENode**)m_pValue;
 			for ( __int64 n = 0 ; n < m_nValue ; n++, pNode += 2 )
 			{
-				if ( n ) strOutput += _T(", ");
-				strOutput.AppendFormat( _T("%hs="), (LPCSTR)pNode[ 1 ] );
+				if ( n ) strOutput += L", ";
+				strOutput.AppendFormat( L"%hs=", (LPCSTR)pNode[ 1 ] );
 				strOutput += (*pNode)->Encode();
 			}
 		}
-		strOutput += _T(" }");
+		strOutput += L" }";
 		break;
 
 	//default:
@@ -405,8 +420,8 @@ CBENode* CBENode::Decode(LPCBYTE pBuffer, DWORD nLength, DWORD *pnReaden)
 
 	try
 	{
-		auto_ptr< CBENode > pNode( new CBENode() );
-		if ( ! pNode.get() )
+		CAutoPtr< CBENode > pNode( new CBENode() );
+		if ( ! pNode )
 			return NULL;	// Out of memory
 
 		LPCBYTE pInput = pBuffer;
@@ -422,7 +437,7 @@ CBENode* CBENode::Decode(LPCBYTE pBuffer, DWORD nLength, DWORD *pnReaden)
 		if ( pnReaden )
 			*pnReaden = nLength - nInput;
 
-		return pNode.release();
+		return pNode.Detach();
 	}
 	catch ( CException* pException )
 	{

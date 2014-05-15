@@ -42,10 +42,9 @@
 #include <shlobj.h>
 #include <winioctl.h>
 #include <wincrypt.h>
-
-
 #include <wchar.h>
 #include <wctype.h>
+
 
 #endif // _WIN_ALL
 
@@ -57,9 +56,9 @@
 //  #include <dir.h>
 //#endif
 #ifdef _MSC_VER
-  #if _MSC_VER<1500
-    #define for if (0) ; else for
-  #endif
+//#if _MSC_VER<1500
+//  #define for if (0) ; else for
+//#endif
   #include <direct.h>
   #include <intrin.h>
 
@@ -88,8 +87,7 @@
 #define DefLogName     L"rar.log"
 
 
-#define PATHDIVIDER  "\\"
-#define PATHDIVIDERW L"\\"
+#define SPATHDIVIDER L"\\"
 #define CPATHDIVIDER '\\'
 #define MASKALL      L"*"
 
@@ -119,7 +117,7 @@
 // Code Removed
 //#endif
 
-  typedef const char* MSGID;
+  typedef const wchar* MSGID;
 
 #ifndef SSE_ALIGNMENT // No SSE use and no special data alignment is required.
   #define SSE_ALIGNMENT 1
@@ -157,15 +155,9 @@
   #endif
 #endif
 
-#if !defined(BIG_ENDIAN) && defined(_WIN_ALL)
+#if !defined(BIG_ENDIAN) && defined(_WIN_ALL) || defined(__i386__) || defined(__x86_64__)
 // Allow not aligned integer access, increases speed in some operations.
-#define ALLOW_NOT_ALIGNED_INT
+#define ALLOW_MISALIGNED
 #endif
-
-//#if defined(__sparc) || defined(sparc) || defined(__sparcv9)
-//// Prohibit not aligned access to data structures in text compression
-//// algorithm, increases memory requirements.
-//#define STRICT_ALIGNMENT_REQUIRED
-//#endif
 
 #endif // _RAR_OS_

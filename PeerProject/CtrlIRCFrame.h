@@ -118,7 +118,7 @@ protected:
 	class CIRCMessage
 	{
 	public:
-		CIRCMessage(LPCTSTR szMessage = _T(""), LPCTSTR szTargetName = _T(""), int nColor = 0)
+		CIRCMessage(LPCTSTR szMessage = L"", LPCTSTR szTargetName = L"", int nColor = 0)
 			: sMessage		( szMessage )
 			, sTargetName	( szTargetName )
 			, nColorID		( nColor )
@@ -296,7 +296,7 @@ protected:
 	void			ParseString(const CString& strMessage, CIRCNewMessage& oNewMessage);
 	CString			TrimString(CString strMessage) const;
 	CString			GetStringAfterParsedItem(int nItem) const;
-//	CString			GetTargetName(CString strReceiverName, int nRecieverType, CString strSenderName, int nSenderType) const;
+//	CString			GetTargetName(CString strReceiverName, int nReceiverType, CString strSenderName, int nSenderType) const;
 	CString			GetTabText(int nTabIndex = -1) const;
 	int				GetTabIndex(const CString& strTabName) const;
 	void			HighlightTab(int nTab, BOOL bHighlight = TRUE);

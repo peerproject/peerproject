@@ -1,7 +1,7 @@
 //
 // DownloadGroup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -40,11 +40,11 @@ static char THIS_FILE[] = __FILE__;
 // CDownloadGroup construction
 
 CDownloadGroup::CDownloadGroup(const LPCTSTR szName, const BOOL bTemporary)
-	: m_sName			( szName ? szName : _T("") )
+	: m_sName			( szName ? szName : L"" )
 	, m_nImage			( SHI_FOLDER_OPEN )
 	, m_bTemporary		( bTemporary ? TRI_FALSE : TRI_UNKNOWN )
 	, m_bRemoteSelected	( TRUE )
-//	, m_bTorrent		( FALSE )	// Obsolete, detect Schema instead
+//	, m_bTorrent		( FALSE )	// Obsolete, use detected Schema
 {
 }
 
@@ -141,9 +141,9 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 	{
 		CString strFilter = m_pFilters.GetNext( pos );
 
-		if ( strFilter.GetAt( 0 ) == _T('.') )
+		if ( strFilter.GetAt( 0 ) == L'.' )
 		{
-			int nPos( pDownload->m_sName.ReverseFind( _T('.') ) );
+			int nPos( pDownload->m_sName.ReverseFind( L'.' ) );
 			if ( nPos != -1 && ! strFilter.CompareNoCase( pDownload->m_sName.Mid( nPos ) ) )
 			{
 				// Filter by extension
@@ -157,7 +157,7 @@ BOOL CDownloadGroup::Link(CDownload* pDownload)
 			Add( pDownload );
 			return TRUE;
 		}
-		else if ( ! strTrackers.IsEmpty() && strFilter.Find( _T('.') ) > 2 && strTrackers.Find( strFilter.MakeLower() ) >= 0 )
+		else if ( ! strTrackers.IsEmpty() && strFilter.Find( L'.' ) > 2 && strTrackers.Find( strFilter.MakeLower() ) >= 0 )
 		{
 			// Filter by tracker
 			Add( pDownload );
@@ -225,7 +225,7 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 					pOldSchema->GetNextFilter( pos, strFilter, bResult );
 					if ( bResult )
 					{
-						strFilter.Insert( 0, _T('.') );
+						strFilter.Insert( 0, L'.' );
 						RemoveFilter( strFilter );
 					}
 				}
@@ -239,7 +239,7 @@ void CDownloadGroup::SetSchema(LPCTSTR pszURI, BOOL bRemoveOldFilters)
 	{
 		m_nImage = pSchema->m_nIcon16;
 
-		if ( ! m_sName.GetLength() || m_sName == _T("DEFAULT") )	// Initial translation, avoid forced rename later
+		if ( ! m_sName.GetLength() || m_sName == L"DEFAULT" )	// Initial translation, avoid forced rename later
 		{
 			if ( ! pSchema->m_sHeaderTitle.IsEmpty() )
 				m_sName = pSchema->m_sHeaderTitle;
@@ -269,7 +269,7 @@ void CDownloadGroup::SetDefaultFilters()
 			pSchema->GetNextFilter( pos, strFilter, bResult );
 			if ( bResult )
 			{
-				strFilter.Insert( 0, _T('.') );
+				strFilter.Insert( 0, L'.' );
 				AddFilter( strFilter );
 			}
 		}
@@ -329,7 +329,7 @@ void CDownloadGroup::Serialize(CArchive& ar, int nVersion)
 
 			for ( strFilters += '|' ; strFilters.GetLength() ; )
 			{
-				CString strFilter = strFilters.SpanExcluding( _T(" |") );
+				CString strFilter = strFilters.SpanExcluding( L" |" );
 				strFilters = strFilters.Mid( strFilter.GetLength() + 1 );
 				strFilter.Trim();
 				if ( ! strFilter.IsEmpty() )

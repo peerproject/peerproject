@@ -1,7 +1,7 @@
 //
 // UPnPFinder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -61,7 +61,7 @@ bool CUPnPFinder::Init()
 	return m_bInited;
 }
 
-FinderPointer CUPnPFinder::CreateFinderInstance() throw()
+CUPnPFinder::FinderPointer CUPnPFinder::CreateFinderInstance() throw()
 {
 	FinderPointer pNewDeviceFinder;
 	if ( FAILED( pNewDeviceFinder.CoCreateInstance( CLSID_UPnPDeviceFinder ) ) )
@@ -73,68 +73,14 @@ FinderPointer CUPnPFinder::CreateFinderInstance() throw()
 
 CUPnPFinder::~CUPnPFinder()
 {
+	StopAsyncFind();
+
 	m_pDevices.clear();
 	m_pServices.clear();
 }
 
-// Obsolete for reference & deletion (Moved to Network)
 // Helper function to check if UPnP Device Host service is healthy
-// Although SSPD service is dependent on this service but sometimes it may lock up.
-// This will result in application lockup when we call any methods of IUPnPDeviceFinder.
-//bool CUPnPFinder::AreServicesHealthy()
-//{
-//	if ( ! Init() )
-//		return false;
-//
-//	// Open a handle to the Service Control Manager database
-//	SC_HANDLE schSCManager = OpenSCManager(
-//		NULL,				// Local machine
-//		NULL,				// ServicesActive database
-//		GENERIC_READ );		// For enumeration and status lookup
-//
-//	if ( schSCManager == NULL )
-//		return false;
-//
-//	SC_HANDLE schService = OpenService( schSCManager, _T("upnphost"), GENERIC_READ );
-//	if ( schService == NULL )
-//	{
-//		CloseServiceHandle( schSCManager );
-//		return false;
-//	}
-//
-//	bool bResult = false;
-//	SERVICE_STATUS_PROCESS ssStatus;
-//	DWORD nBytesNeeded;
-//
-//	if ( QueryServiceStatusEx( schService, SC_STATUS_PROCESS_INFO,
-//		(LPBYTE)&ssStatus, sizeof(SERVICE_STATUS_PROCESS), &nBytesNeeded ) )
-//	{
-//		if ( ssStatus.dwCurrentState == SERVICE_RUNNING )
-//			bResult = true;
-//	}
-//	CloseServiceHandle( schService );
-//
-//	if ( ! bResult )
-//	{
-//		schService = OpenService( schSCManager, _T("upnphost"), SERVICE_START );
-//		if ( schService )
-//		{
-//			// Power users have only right to start service, thus try to start it here
-//			if ( StartService( schService, 0, NULL ) )
-//				bResult = true;
-//			CloseServiceHandle( schService );
-//		}
-//	}
-//	CloseServiceHandle( schSCManager );
-//
-//	if ( ! bResult )
-//	{
-//		Settings.Connection.EnableUPnP = false;
-//		theApp.Message( MSG_ERROR, L"UPnP Device Host service is not running, skipping UPnP setup." );
-//	}
-//
-//	return bResult;
-//}
+// Note IsServiceHealthy() moved to Network
 
 // Helper function for processing the AsyncFind search
 void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
@@ -144,7 +90,7 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 	// We have to start the AsyncFind.
 	if ( ! m_pDeviceFinderCallback || ! m_pDeviceFinder )
 	{
-		theApp.Message( MSG_ERROR, L"UPnP is not available." );
+		Network.OnMapFailed();
 		return;
 	}
 
@@ -160,7 +106,7 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 
 	if ( FAILED( hr ) )
 	{
-		theApp.Message( MSG_ERROR, L"UPnP AsyncFind is not available." );
+		Network.OnMapFailed();
 		return;
 	}
 
@@ -185,11 +131,14 @@ void CUPnPFinder::ProcessAsyncFind(BSTR bsSearchType) throw()
 		__except( EXCEPTION_EXECUTE_HANDLER )
 		{
 		}
-
-		//theApp.Message( MSG_ERROR, L"StartAsyncFind failed in UPnP finder." );
-
 		m_bAsyncFindRunning = false;
+		Network.OnMapFailed();
 	}
+}
+
+void CUPnPFinder::StartDiscovery()
+{
+	StartDiscovery( false );
 }
 
 // Helper function for stopping the async find if proceeding
@@ -199,7 +148,15 @@ void CUPnPFinder::StopAsyncFind()
 	// ToDo: Locked up in WinME, cancelling was required (Update?)
 
 	if ( m_bInited && IsAsyncFindRunning() )
-		m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
+	{
+		__try
+		{
+			m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+	}
 
 	if ( m_bSecondTry )
 		m_bAsyncFindRunning = false;
@@ -215,13 +172,13 @@ void CUPnPFinder::StartDiscovery(bool bSecondTry)
 		return;
 
 	//if ( ! bSecondTry )
-	//	theApp.Message( MSG_INFO, L"Trying to setup port forwarding with UPnP...");
+	//	theApp.Message( MSG_INFO, L"Trying to setup port forwarding with UPnP..." );
 
 	// On tests, in some cases the search for WANConnectionDevice had no results and only a search for InternetGatewayDevice
 	// showed up the UPnP root Device which contained the WANConnectionDevice as a child.  Not sure if there are cases where
 	// a search for InternetGatewayDevice only would have similar bad effects, but to be sure we do "normal" search first, then fallback
-	static const CString strDeviceType1( L"urn:schemas-upnp-org:device:WANConnectionDevice:1");
-	static const CString strDeviceType2( L"urn:schemas-upnp-org:device:InternetGatewayDevice:1");
+	static const CString strDeviceType1( L"urn:schemas-upnp-org:device:WANConnectionDevice:1" );
+	static const CString strDeviceType2( L"urn:schemas-upnp-org:device:InternetGatewayDevice:1" );
 
 	StopAsyncFind();		// If AsyncFind is in progress, stop it
 	m_bSecondTry = bSecondTry;
@@ -299,8 +256,8 @@ void CUPnPFinder::AddDevice(DevicePointer device, bool bAddChilds, int nLevel)
 				if ( ! pChildDevice )
 					return (void)UPnPMessage( E_NOINTERFACE );
 
-				if ( SUCCEEDED(pChildDevice->get_FriendlyName( &bsFriendlyName )) &&
-					 SUCCEEDED(pChildDevice->get_UniqueDeviceName( &bsUniqueName )) )
+				if ( SUCCEEDED( pChildDevice->get_FriendlyName( &bsFriendlyName ) ) &&
+					 SUCCEEDED( pChildDevice->get_UniqueDeviceName( &bsUniqueName ) ) )
 					AddDevice( pChildDevice, true, nLevel + 1 );
 			}
 
@@ -551,6 +508,26 @@ void CUPnPFinder::DeletePorts()
 	std::for_each( m_pServices.begin(), m_pServices.end(), boost::bind( &CUPnPFinder::DeleteExistingPortMappings, this, _1 ) );
 }
 
+bool CUPnPFinder::IsAsyncFindRunning()
+{
+	if ( m_pDeviceFinder && m_bAsyncFindRunning )
+	{
+		if ( GetTickCount() > m_tLastEvent + Settings.Connection.UPnPTimeout )
+		{
+			__try
+			{
+				m_pDeviceFinder->CancelAsyncFind( m_nAsyncFindHandle );
+			}
+			__except( EXCEPTION_EXECUTE_HANDLER )
+			{
+			}
+			m_bAsyncFindRunning = false;
+			Network.OnMapFailed();
+		}
+	}
+	return m_bAsyncFindRunning;
+}
+
 // Finds a local IP address routable from UPnP device
 CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 {
@@ -598,13 +575,15 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 		if ( ipAddr->table[ nIf ].dwIndex == nInterfaceIndex )
 		{
 			strLocalIP = inet_ntoa( *(IN_ADDR*)&ipAddr->table[ nIf ].dwAddr );
-			Network.OnNewExternalIPAddress( *(IN_ADDR*)&ip );
 			break;
 		}
 	}
 
 	if ( ! strLocalIP.IsEmpty() && ! strExternalIP.IsEmpty() )
+	{
 		theApp.Message( MSG_INFO, L"UPnP route: %s->%s", strLocalIP, strExternalIP );
+		Network.AcquireLocalAddress( strExternalIP );
+	}
 
 	return strLocalIP;
 }
@@ -635,7 +614,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 	do
 	{
 		HRESULT hrDel = E_FAIL;
-		strInArgs.Format( _T("|VT_UI2=%hu|"), nEntry );
+		strInArgs.Format( L"|VT_UI2=%hu|", nEntry );
 		hr = InvokeAction( pService,
 			 L"GetGenericPortMappingEntry", strInArgs, strActionResult );
 
@@ -661,7 +640,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 				 _tcsistr( strActionResult, L"|VT_BSTR=PeerProject UDP|" ) != NULL )
 			{
 				CStringArray oTokens;
-				Split( strActionResult, _T('|'), oTokens );
+				Split( strActionResult, L'|', oTokens );
 
 				if ( oTokens.GetCount() != 8 )
 					break;
@@ -671,9 +650,9 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 				strProtocol	= '|' + oTokens[ 2 ] + '|';
 
 				// Verify types
-				if ( _tcsistr( strHost, L"VT_BSTR" ) == NULL
-						|| _tcsistr( strPort, L"VT_UI2" ) == NULL
-						|| _tcsistr( strProtocol, L"VT_BSTR" ) == NULL )
+				if ( _tcsistr( strHost, L"VT_BSTR" ) == NULL ||
+					 _tcsistr( strPort, L"VT_UI2" ) == NULL ||
+					 _tcsistr( strProtocol, L"VT_BSTR" ) == NULL )
 					break;
 
 				if ( _tcsstr( oTokens[ 4 ], m_sLocalIP ) != NULL ||
@@ -772,7 +751,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 
 	m_tLastEvent = GetTickCount();
 	CString strInArgs;
-	strInArgs.SetString( pszInArgString ? pszInArgString : _T("") );
+	strInArgs.SetString( pszInArgString ? pszInArgString : L"" );
 
 	HRESULT hr = S_OK;
 
@@ -802,7 +781,7 @@ HRESULT CUPnPFinder::InvokeAction(ServicePointer pService,
 		if ( FAILED( hr ) ) return hr;
 	}
 
-	hr = pService->InvokeAction( action, vaActionArgs, &vaOutArgs, &vaRet);
+	hr = pService->InvokeAction( action, vaActionArgs, &vaOutArgs, &vaRet );
 
 	if ( SUCCEEDED( hr ) )
 	{
@@ -870,9 +849,8 @@ HRESULT CUPnPFinder::CreateSafeArray(const VARTYPE vt, const ULONG nArgs, SAFEAR
 
 // Creates argument variants from the string
 // The string format is "|variant_type1=value1|variant_type2=value2|"
-// The most common types used for UPnP values are:
-//		VT_BSTR, VT_UI2, VT_UI4, VT_BOOL
-// Returns: number of arguments or -1 if invalid string/values.
+// The most common types used for UPnP values are: VT_BSTR, VT_UI2, VT_UI4, VT_BOOL
+// Returns: Number of arguments, or -1 if invalid string/values.
 //
 INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppVars)
 {
@@ -886,7 +864,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 	CString strToken, strType, strValue;
 	BOOL bInvalid = FALSE;
 
-	Split( strArgs, _T('|'), oTokens );
+	Split( strArgs, L'|', oTokens );
 
 	INT_PTR nArgs = oTokens.GetCount();
 	*pppVars = new VARIANT* [ nArgs ]();
@@ -906,35 +884,35 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 		VariantInit( (*pppVars)[ nArg ] );
 
 		// Assign value
-		if ( strType == _T("VT_BSTR") )
+		if ( strType == L"VT_BSTR" )
 		{
 			(*pppVars)[ nArg ]->vt = VT_BSTR;
 			(*pppVars)[ nArg ]->bstrVal = CComBSTR( strValue ).Detach();
 		}
-		else if ( strType == _T("VT_UI2") )
+		else if ( strType == L"VT_UI2" )
 		{
 			USHORT nValue = 0;
-			bInvalid = _stscanf( strValue, _T("%hu"), &nValue ) != 1;
+			bInvalid = _stscanf( strValue, L"%hu", &nValue ) != 1;
 			if ( bInvalid ) break;
 
 			(*pppVars)[ nArg ]->vt = VT_UI2;
 			(*pppVars)[ nArg ]->uiVal = nValue;
 		}
-		else if ( strType == _T("VT_UI4") )
+		else if ( strType == L"VT_UI4" )
 		{
 			ULONG nValue = 0;
-			bInvalid = _stscanf( strValue, _T("%lu"), &nValue ) != 1;
+			bInvalid = _stscanf( strValue, L"%lu", &nValue ) != 1;
 			if ( bInvalid ) break;
 
 			(*pppVars)[ nArg ]->vt = VT_UI4;
 			(*pppVars)[ nArg ]->ulVal = nValue;
 		}
-		else if ( strType == _T("VT_BOOL") )
+		else if ( strType == L"VT_BOOL" )
 		{
 			VARIANT_BOOL va = 1;
-			if ( strValue.CompareNoCase( _T("true") ) == 0 )
+			if ( strValue.CompareNoCase( L"true" ) == 0 )
 				va = VARIANT_TRUE;
-			else if ( strValue.CompareNoCase( _T("false") ) == 0 )
+			else if ( strValue.CompareNoCase( L"false" ) == 0 )
 				va = VARIANT_FALSE;
 			else
 				bInvalid = TRUE;
@@ -960,7 +938,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 
 // Creates a string in format "|variant_type1=value1|variant_type2=value2|"
 // from OUT variant returned by service.
-// Returns: number of arguments or -1 if not applicable.
+// Returns: Number of arguments, or -1 if not applicable.
 //
 INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& strArgs)
 {
@@ -995,8 +973,7 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 					break;
 				}
 
-				hr = VariantChangeType( &vaOutElement, &vaOutElement,
-						VARIANT_ALPHABOOL, VT_BSTR );
+				hr = VariantChangeType( &vaOutElement, &vaOutElement, VARIANT_ALPHABOOL, VT_BSTR );
 				if ( SUCCEEDED( hr ) )
 				{
 					CString str( vaOutElement.bstrVal );
@@ -1004,7 +981,8 @@ INT_PTR	CUPnPFinder::GetStringFromOutArgs(const VARIANT* pvaOutArgs, CString& st
 					strToken += L"|";
 					strResult += strToken;
 				}
-				else bInvalid = true;
+				else
+					bInvalid = true;
 			}
 			else
 				bInvalid = true;
@@ -1116,17 +1094,17 @@ HRESULT CDeviceFinderCallback::SearchComplete(LONG /*nFindData*/)
 //! \arg pus				COM interface pointer of the service;
 //! \arg pszStateVarName	State Variable Name;
 //! \arg varValue			State Variable Value
-HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
-			LPCWSTR pszStateVarName, VARIANT varValue)
+HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService, LPCWSTR pszStateVarName, VARIANT varValue)
 {
 	CComBSTR bsServiceId;
 	m_instance.m_tLastEvent = GetTickCount();
 
 	HRESULT hr = pService->get_Id( &bsServiceId );
 	if ( FAILED( hr ) )
-		return UPnPMessage( hr );
-	if ( FAILED( hr = VariantChangeType( &varValue, &varValue, VARIANT_ALPHABOOL, VT_BSTR ) ) )
-		return UPnPMessage( hr );
+		return CUPnPFinder::UPnPMessage( hr );
+	hr = VariantChangeType( &varValue, &varValue, VARIANT_ALPHABOOL, VT_BSTR );
+	if ( FAILED( hr ) )
+		return CUPnPFinder::UPnPMessage( hr );
 
 	CString strValue( varValue.bstrVal );
 
@@ -1135,11 +1113,7 @@ HRESULT CServiceCallback::StateVariableChanged(IUPnPService* pService,
 	if ( ! m_instance.IsAsyncFindRunning() )
 	{
 		if ( _wcsicmp( pszStateVarName, L"ExternalIPAddress" ) == 0 )
-		{
-			IN_ADDR pAddress;
-			pAddress.s_addr = inet_addr( CT2A( strValue.Trim() ) );
-			Network.OnNewExternalIPAddress( pAddress );
-		}
+			Network.AcquireLocalAddress( strValue.Trim() );
 	//	else if ( _wcsicmp( pszStateVarName, L"ConnectionStatus" ) == 0 )
 	//	{
 	//		Network.m_bUPnPDeviceConnected =
@@ -1166,14 +1140,14 @@ HRESULT CServiceCallback::ServiceInstanceDied(IUPnPService* pService)
 		return hr;
 	}
 
-	return UPnPMessage( hr );
+	return CUPnPFinder::UPnPMessage( hr );
 }
 
 
 ////////////////////////////////////////////////////////////////////////////////
 // Print the appropriate UPnP error text
 
-CString translateUPnPResult(HRESULT hr)
+CString CUPnPFinder::translateUPnPResult(HRESULT hr)
 {
 	if ( hr >= UPNP_E_ACTION_SPECIFIC_BASE && hr <= UPNP_E_ACTION_SPECIFIC_MAX )
 	{
@@ -1213,7 +1187,7 @@ CString translateUPnPResult(HRESULT hr)
 	return CString( messages[ hr ].c_str() );
 }
 
-HRESULT UPnPMessage(HRESULT hr)
+HRESULT CUPnPFinder::UPnPMessage(HRESULT hr)
 {
 	CString strError = translateUPnPResult( hr );
 	if ( ! strError.IsEmpty() )

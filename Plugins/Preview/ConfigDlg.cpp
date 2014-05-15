@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "ConfigDlg.h"
 #include "dllmain.h"
 
@@ -53,13 +53,13 @@ void CConfigDlg::Save()
 	{
 		TCHAR szExt[ MAX_PATH ] = {};
 		ListView_GetItemText( wndList.m_hWnd, i, 0, szExt, _countof( szExt ) );
-		StrTrim( szExt, _T(" /t") );
+		StrTrim( szExt, L" /t" );
 		if ( ! *szExt )
 			continue;
 
 		TCHAR szCommand[ MAX_PATH ] = {};
 		ListView_GetItemText( wndList.m_hWnd, i, 1, szCommand, _countof( szCommand ) );
-		StrTrim( szCommand, _T(" /t") );
+		StrTrim( szCommand, L" /t" );
 		if ( ! *szCommand )
 			continue;
 
@@ -126,9 +126,9 @@ void CConfigDlg::Update(int nIndex)
 	}
 	else
 	{
-		SetDlgItemText( IDC_EXT, _T("") );
+		SetDlgItemText( IDC_EXT, L"" );
 		GetDlgItem( IDC_EXT ).EnableWindow( FALSE );
-		SetDlgItemText( IDC_COMMAND, _T("") );
+		SetDlgItemText( IDC_COMMAND, L"" );
 		GetDlgItem( IDC_COMMAND ).EnableWindow( FALSE );
 	}
 
@@ -137,7 +137,7 @@ void CConfigDlg::Update(int nIndex)
 
 void CConfigDlg::AddNew()
 {
-	Select( Add( _T("ext"), _T("\"foo.exe\" \"%1\" \"%2\"") ) );
+	Select( Add( L"ext", L"\"foo.exe\" \"%1\" \"%2\"" ) );
 	GetDlgItem( IDC_EXT ).SetFocus();
 	GetDlgItem( IDC_EXT ).SendMessage( EM_SETSEL, 0, (LPARAM)-1 );
 }
@@ -188,10 +188,10 @@ LRESULT CConfigDlg::OnInitDialog(UINT uMsg, WPARAM wParam, LPARAM lParam, BOOL& 
 
 	LVCOLUMN col = { LVCF_FMT | LVCF_TEXT | LVCF_WIDTH, LVCFMT_LEFT };
 	col.cx = 70;
-	col.pszText = _T("Extension");
+	col.pszText = L"Extension";
 	ListView_InsertColumn( wndList.m_hWnd, 0, &col );
 	col.cx = rc.right - rc.left - col.cx - GetSystemMetrics( SM_CXVSCROLL ) - 2;
-	col.pszText = _T("Command line");
+	col.pszText = L"Command line";
 	ListView_InsertColumn( wndList.m_hWnd, 1, &col );
 
 	Load();
@@ -237,7 +237,7 @@ LRESULT CConfigDlg::OnBnClickedDel(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hW
 
 		TCHAR szTitle[ 64 ] = {};
 		LoadString( _AtlBaseModule.GetResourceInstance(), IDS_PROJNAME, szTitle, 64 );
-		if ( MessageBox( _T("Delete this item?"), szTitle, MB_YESNO | MB_ICONQUESTION ) == IDYES )
+		if ( MessageBox( L"Delete this item?", szTitle, MB_YESNO | MB_ICONQUESTION ) == IDYES )
 		{
 			Delete( nIndex );
 		}
@@ -274,7 +274,7 @@ LRESULT CConfigDlg::OnBnClickedBrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 			sizeof( OPENFILENAME ),
 			m_hWnd,
 			NULL,
-			_T("Applications (*.exe)\0*.exe\0All Files (*.*)\0*.*\0\0"),
+			L"Applications (*.exe)\0*.exe\0All Files (*.*)\0*.*\0\0",
 			NULL,
 			0,
 			0,
@@ -294,10 +294,10 @@ LRESULT CConfigDlg::OnBnClickedBrowse(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 
 			// Detect well-known previewers
 			LPCTSTR szFilename = &szPath[ ofn.nFileOffset ];
-			if ( lstrcmpi( szFilename, _T("DivFix++.exe") ) == 0 )
-				lstrcat( szCommand, _T(" -i \"%1\" -o \"%2\"") );
+			if ( lstrcmpi( szFilename, L"DivFix++.exe" ) == 0 )
+				lstrcat( szCommand, L" -i \"%1\" -o \"%2\"" );
 			else // Unknown
-				lstrcat( szCommand, _T(" \"%1\" \"%2\"") );
+				lstrcat( szCommand, L" \"%1\" \"%2\"" );
 
 			SetDlgItemText( IDC_COMMAND, szCommand );
 			ListView_SetItemText( wndList.m_hWnd, m_nActive, 1, szCommand );
@@ -328,7 +328,7 @@ LRESULT CConfigDlg::OnEnChangeExt(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWn
 
 		TCHAR szExt[ MAX_PATH ] = {};
 		GetDlgItemText( IDC_EXT, szExt, _countof( szExt ) );
-		StrTrim( szExt, _T(". /t") );
+		StrTrim( szExt, L". /t" );
 
 		ListView_SetItemText( wndList.m_hWnd, m_nActive, 0, szExt );
 	}
@@ -345,7 +345,7 @@ LRESULT CConfigDlg::OnEnChangeCommand(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 
 		TCHAR szCommand[ MAX_PATH ] = {};
 		GetDlgItemText( IDC_COMMAND, szCommand, _countof( szCommand ) );
-		StrTrim( szCommand, _T(" /t") );
+		StrTrim( szCommand, L" /t" );
 
 		ListView_SetItemText( wndList.m_hWnd, m_nActive, 1, szCommand );
 	}
@@ -356,8 +356,8 @@ LRESULT CConfigDlg::OnEnChangeCommand(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /
 
 LRESULT CConfigDlg::OnBnClickedWeb(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& bHandled)
 {
-	ShellExecute( GetActiveWindow(), _T("open"),
-		_T("http://shareaza.sourceforge.net/help/?preview"), NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetActiveWindow(), L"open",
+		L"http://peerproject.org/wiki/plugins", NULL, NULL, SW_SHOWNORMAL );
 
 	bHandled = TRUE;
 	return 0;

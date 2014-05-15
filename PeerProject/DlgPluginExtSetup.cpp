@@ -1,7 +1,7 @@
 //
 // DlgPluginExtSetup.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -55,15 +55,14 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 	CDialog::OnInitDialog();
 
 	CRect rc;
-
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL ) + 1;
 
-	m_wndList.InsertColumn( 0, _T("Extension"), LVCFMT_LEFT, rc.right, 0 );
+	m_wndList.InsertColumn( 0, L"Extension", LVCFMT_LEFT, rc.right, 0 );
 	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES|LVS_EX_LABELTIP );
 
 	CStringArray oTokens;
-	Split( m_sExtensions, _T('|'), oTokens );
+	Split( m_sExtensions, L'|', oTokens );
 
 	m_bRunning = FALSE;
 
@@ -75,7 +74,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 		CString strToken = oTokens.GetAt( nToken );
 		if ( strToken.IsEmpty() ) continue;		// Shouldn't happen
 
-		BOOL bChecked = ( strToken.Left( 1 ) != _T("-") );
+		BOOL bChecked = ( strToken[ 0 ] != L'-' );
 		int nItem = m_wndList.InsertItem( LVIF_TEXT, m_wndList.GetItemCount(),
 			! bChecked ? strToken.Mid( 1 ) : strToken, 0, 0, 0, 0 );
 
@@ -85,6 +84,7 @@ BOOL CPluginExtSetupDlg::OnInitDialog()
 			nChecked++;
 		}
 	}
+
 	if ( nChecked == nTotal ) m_bParentState = TRI_TRUE;
 	else if ( nChecked == 0 ) m_bParentState = TRI_FALSE;
 	else m_bParentState = TRI_UNKNOWN;
@@ -103,11 +103,10 @@ void CPluginExtSetupDlg::OnChangingAssociations(NMHDR *pNMHDR, LRESULT *pResult)
 	LPNMLISTVIEW pNMLV = reinterpret_cast<LPNMLISTVIEW>(pNMHDR);
 	*pResult = 0;
 
-	if ( ( pNMLV->uOldState & LVIS_STATEIMAGEMASK ) == 0 &&
+	if ( m_bRunning &&
+		 ( pNMLV->uOldState & LVIS_STATEIMAGEMASK ) == 0 &&
 		 ( pNMLV->uNewState & LVIS_STATEIMAGEMASK ) != 0 )
-	{
-		if ( m_bRunning ) *pResult = 1;
-	}
+		*pResult = 1;
 }
 
 void CPluginExtSetupDlg::OnOK()
@@ -128,14 +127,14 @@ void CPluginExtSetupDlg::OnOK()
 			strExt = m_wndList.GetItemText( nItem, 0 );
 		}
 		else
-			strExt = _T("-") + m_wndList.GetItemText( nItem, 0 );
+			strExt = L"-" + m_wndList.GetItemText( nItem, 0 );
 
 		// Invert the order since the extension map becomes inversed
-		strCurrExt.Insert( 0, _T("|") );
+		strCurrExt.Insert( 0, L"|" );
 		strCurrExt.Insert( 0, strExt );
 	}
 	if ( ! strCurrExt.IsEmpty() )
-		strCurrExt.Insert( 0, _T("|") );
+		strCurrExt.Insert( 0, L"|" );
 
 	if ( nChecked == nTotal ) bCurrState = TRI_TRUE;
 	else if ( nChecked == 0 ) bCurrState = TRI_FALSE;

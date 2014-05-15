@@ -307,7 +307,7 @@ bool CDownloadWithFile::Rename(const CString& strName)
 			CString strFragmentName = m_pFile->GetName( nIndex ), strLeftover;
 			if ( ! strFragmentName.IsEmpty() )
 			{
-				int nPos = strFragmentName.Find( _T('\\') );
+				int nPos = strFragmentName.Find( L'\\' );
 				if ( nPos != -1 )
 				{
 					strLeftover = strFragmentName.Mid( nPos );
@@ -317,7 +317,7 @@ bool CDownloadWithFile::Rename(const CString& strName)
 				if ( strFragmentName.CompareNoCase( m_sName ) == 0 )
 					strFragmentName = strNewName + strLeftover;
 				else
-					strFragmentName = strNewName + _T("\\") + strFragmentName + strLeftover;
+					strFragmentName = strNewName + L"\\" + strFragmentName + strLeftover;
 
 				m_pFile->SetName( nIndex, strFragmentName );
 			}
@@ -343,7 +343,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		ClearSources();
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ), GetDisplayName(), pszDestination );
-		theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"), strMessage, GetErrorString( ERROR_FILE_NOT_FOUND ) );
+		theApp.Message( MSG_ERROR | MSG_TRAY, L"%s %s", strMessage, GetErrorString( ERROR_FILE_NOT_FOUND ) );
 		return ERROR_FILE_NOT_FOUND;
 	}
 
@@ -357,8 +357,8 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 	if ( nCount > 1 )
 	{
 		strNewFolder = m_sName;
-		strNewFolder.Trim( _T(" .*<>:?|/\\\"") );
-		if ( strNewFolder.FindOneOf( _T("*<>:?|/\\\"") ) > 0 )
+		strNewFolder.Trim( L" .*<>:?|/\\\"" );
+		if ( strNewFolder.FindOneOf( L"*<>:?|/\\\"" ) > 0 )
 			strNewFolder.Empty();
 	}
 
@@ -405,7 +405,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 
 			if ( bDuplicate )	// Process presumed identical file ?
 			{
-				theApp.Message( MSG_INFO, _T("Overwriting Duplicate File:  %s"), (LPCTSTR)strName );
+				theApp.Message( MSG_INFO, L"Overwriting Duplicate File:  %s", (LPCTSTR)strName );
 			}
 			else // Smart Rename
 			{
@@ -422,7 +422,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 					if ( ! PathFileExists( strRoot + strName ) )
 					{
 						m_pFile->SetName( nIndex, strName );
-						theApp.Message( MSG_INFO, _T("New File Renamed:  %s"), (LPCTSTR)strName );
+						theApp.Message( MSG_INFO, L"New File Renamed:  %s", (LPCTSTR)strName );
 						break;
 					}
 				}
@@ -436,7 +436,7 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		{
 			CString strMessage;
 			strMessage.Format( LoadString( IDS_DOWNLOAD_CANT_MOVE ), GetDisplayName(), pszDestination );
-			theApp.Message( MSG_ERROR | MSG_TRAY, _T("%s %s"), strMessage, GetErrorString( dwError ) );
+			theApp.Message( MSG_ERROR | MSG_TRAY, L"%s %s", strMessage, GetErrorString( dwError ) );
 			return dwError;
 		}
 
@@ -564,7 +564,7 @@ CString CDownloadWithFile::GetDisplayName() const
 	else if ( m_oMD5 )
 		strName = m_oMD5.toShortUrn();
 	else
-		strName = _T("Unknown File");
+		strName = L"Unknown File";
 
 	return strName;
 }
@@ -759,16 +759,16 @@ bool CDownloadWithFile::GetAvailableRanges(CString& strRanges) const
 		return false;
 
 	CString strRange;
-	strRanges = _T("bytes ");
+	strRanges = L"bytes ";
 	Fragments::List::const_iterator pItr = oAvailable.begin();
 	const Fragments::List::const_iterator pEnd = oAvailable.end();
 	for ( ; pItr != pEnd && strRanges.GetLength() < HTTP_HEADER_MAX_LINE - 256 ; ++pItr )
 	{
-		strRange.Format( _T("%I64i-%I64i,"), pItr->begin(), pItr->end() - 1 );
+		strRange.Format( L"%I64i-%I64i,", pItr->begin(), pItr->end() - 1 );
 		strRanges += strRange;
 	}
 
-	strRanges.TrimRight( _T(',') );
+	strRanges.TrimRight( L',' );
 
 	return true;
 }
@@ -899,7 +899,7 @@ BOOL CDownloadWithFile::MakeComplete()
 //
 //	if ( CheckURI( strURI, CSchema::uriAudio ) )
 //	{
-//		if ( _tcsistr( m_sPath, _T(".mp3") ) != NULL )
+//		if ( _tcsistr( m_sPath, L".mp3" ) != NULL )
 //			bSuccess |= AppendMetadataID3v1( hFile, pXML );
 //	}
 //
@@ -927,19 +927,19 @@ BOOL CDownloadWithFile::MakeComplete()
 //	ZeroMemory( &pID3, sizeof( pID3 ) );
 //	std::memcpy( pID3.szTag, ID3V1_TAG, 3 );
 //
-//	str = pXML->GetAttributeValue( _T("title") );
+//	str = pXML->GetAttributeValue( L"title" );
 //	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szSongname, CT2CA( str ), 30 );
-//	str = pXML->GetAttributeValue( _T("artist") );
+//	str = pXML->GetAttributeValue( L"artist" );
 //	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szArtist, CT2CA( str ), 30 );
-//	str = pXML->GetAttributeValue( _T("album") );
+//	str = pXML->GetAttributeValue( L"album" );
 //	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szAlbum, CT2CA( str ), 30 );
-//	str = pXML->GetAttributeValue( _T("year") );
+//	str = pXML->GetAttributeValue( L"year" );
 //	if ( ! str.IsEmpty() )
 //		strncpy( pID3.szYear, CT2CA( str ), 4 );
-//	str = pXML->GetAttributeValue( _T("genre") );
+//	str = pXML->GetAttributeValue( L"genre" );
 //	if ( ! str.IsEmpty() )
 //	{
 //		int nGenre = LibraryBuilder.LookupID3v1Genre( str );
@@ -995,8 +995,8 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 	//		if ( ! strLocalName.IsEmpty() )
 	//		{
 	//			if ( ! m_sPath.IsEmpty() )
-	//				::MoveFile( m_sPath, strLocalName + _T(".sd") );	// Imported .pd?
-	//			m_sPath = strLocalName + _T(".sd");
+	//				::MoveFile( m_sPath, strLocalName + L".sd" );	// Imported .pd?
+	//			m_sPath = strLocalName + L".sd";
 	//		}
 	//	}
 

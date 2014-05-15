@@ -19,7 +19,7 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Resource.h"
 #include "RARBuilder.h"
 
@@ -53,24 +53,24 @@ CModule::~CModule()
 bool CModule::LoadUnrar()
 {
 #ifdef _WIN64
-	LPCTSTR szUnRAR = _T("Unrar64.dll");
+	LPCTSTR szUnRAR = L"Unrar64.dll";
 #else
-	LPCTSTR szUnRAR = _T("Unrar.dll");
+	LPCTSTR szUnRAR = L"Unrar.dll";
 #endif
 	m_hUnrar = LoadLibrary( szUnRAR );
 	if ( ! m_hUnrar )
 	{
 		TCHAR szPath[ MAX_PATH ] = {};
 		GetModuleFileName( _AtlBaseModule.GetModuleInstance(), szPath, MAX_PATH );
-		LPTSTR c = _tcsrchr( szPath, _T('\\') );
+		LPTSTR c = _tcsrchr( szPath, L'\\' );
 		if ( ! c )
 			return false;
 		lstrcpy( c + 1, szUnRAR );
 		m_hUnrar = LoadLibrary( szPath );
 		if ( ! m_hUnrar )
 		{
-			*c = _T('\0');
-			c = _tcsrchr( szPath, _T('\\') );
+			*c = L'\0';
+			c = _tcsrchr( szPath, L'\\' );
 			if ( ! c )
 				return false;
 			lstrcpy( c + 1, szUnRAR );
@@ -128,22 +128,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }

@@ -72,20 +72,20 @@ CXMLElement* CLibraryFolders::CreateXML(LPCTSTR szRoot, BOOL bSharedOnly, XmlTyp
 	{
 	case xmlDC:
 		// Note case-sensitive http://adc.sourceforge.net/ADC.html#_file_list
-		pRoot = new CXMLElement( NULL, _T("FileListing") );
+		pRoot = new CXMLElement( NULL, L"FileListing" );
 		if ( pRoot )
 		{
-			pRoot->AddAttribute( _T("Version"), 1 );
-			pRoot->AddAttribute( _T("Base"), szRoot );
-			pRoot->AddAttribute( _T("Generator"), Settings.SmartAgent() );
-		//	pRoot->AddAttribute( _T("CID"), _T("") );
+			pRoot->AddAttribute( L"Version", 1 );
+			pRoot->AddAttribute( L"Base", szRoot );
+			pRoot->AddAttribute( L"Generator", Settings.SmartAgent() );
+		//	pRoot->AddAttribute( L"CID", L"" );
 		}
 		break;
 
 	default:
-		pRoot = new CXMLElement( NULL, _T("folders") );
+		pRoot = new CXMLElement( NULL, L"folders" );
 		if ( pRoot )
-			pRoot->AddAttribute( _T("xmlns"), CSchema::uriFolder );
+			pRoot->AddAttribute( L"xmlns", CSchema::uriFolder );
 	}
 
 	if ( ! pRoot )
@@ -93,7 +93,7 @@ CXMLElement* CLibraryFolders::CreateXML(LPCTSTR szRoot, BOOL bSharedOnly, XmlTyp
 
 	CSingleLock oLock( &Library.m_pSection, TRUE );
 
-	if ( _tcsicmp( szRoot, _T("/") ) == 0 )
+	if ( _tcsicmp( szRoot, L"/" ) == 0 )
 	{
 		// All folders
 		for ( POSITION pos = LibraryFolders.GetFolderIterator() ; pos ; )
@@ -166,7 +166,7 @@ CLibraryFolder* CLibraryFolders::GetFolderByName(LPCTSTR pszName) const
 	strName.MakeLower();		// Was ToLower()
 
 	CString strNextName;
-	const int nPos = strName.FindOneOf( _T("\\/") );
+	const int nPos = strName.FindOneOf( L"\\/" );
 	if ( nPos != -1 )
 	{
 		strNextName = strName.Mid( nPos + 1 );
@@ -254,7 +254,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		strLastPath = oList.GetItemText( 0, 0 );
 
 	// Let user select a path to share
-	CString strPath( BrowseForFolder( _T("Select folder to share:"), strLastPath ) );
+	CString strPath( BrowseForFolder( L"Select folder to share:", strLastPath ) );
 	if ( strPath.IsEmpty() )
 		return false;
 
@@ -265,7 +265,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 	// Check if path is valid
 	if ( ! IsShareable( strPathLC ) )
 	{
-		CHelpDlg::Show( _T("ShareHelp.BadShare") );
+		CHelpDlg::Show( L"ShareHelp.BadShare" );
 		return false;
 	}
 
@@ -289,7 +289,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		else if ( strPathLC.GetLength() < strOldLC.GetLength() )
 		{
 			bSubFolder = true;
-			if ( strOldLC.Left( strPathLC.GetLength() + 1 ) != strPathLC + _T('\\') )
+			if ( strOldLC.Left( strPathLC.GetLength() + 1 ) != strPathLC + L'\\' )
 				continue;
 		}
 		else
@@ -379,7 +379,7 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 		if ( nPathLength > nLength )
 		{
 			if ( strPathLow.Left( nLength ) == strOldLow &&
-				 strPathLow.GetAt( nLength ) == _T('\\') )
+				 strPathLow.GetAt( nLength ) == L'\\' )
 				return pFolder;
 		}
 		else if ( strPathLow == strOldLow )
@@ -413,7 +413,7 @@ CLibraryFolder* CLibraryFolders::IsSubFolderShared(const CString& strPath) const
 		if ( nLength < strOldLow.GetLength() )
 		{
 			if ( strOldLow.Left( nLength ) == strPathLow &&
-				 strOldLow.GetAt( nLength ) == _T('\\') )
+				 strOldLow.GetAt( nLength ) == L'\\' )
 				return pFolder;
 		}
 	}
@@ -454,9 +454,9 @@ bool CLibraryFolders::IsShareable(const CString& strPath)
 		 strPathLow == strWindowsLow ||
 		 strPathLow == strProgramsLow ||
 		 strPathLow == strGeneralPathLow ||
-		 strPathLow == strGeneralPathLow + _T("\\data") ||
+		 strPathLow == strGeneralPathLow + L"\\data" ||
 		 strPathLow == strUserPathLow ||
-		 strPathLow == strUserPathLow + _T("\\data") ||
+		 strPathLow == strUserPathLow + L"\\data" ||
 		 strPathLow == strIncompletePathLow );
 }
 
@@ -599,21 +599,30 @@ CAlbumFolder* CLibraryFolders::CreateAlbumTree()
 		/*CAlbumFolder* pVideoMusic		=*/ pVideoRoot->AddFolder( CSchema::uriVideoMusicCollection );
 	}
 
-	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriFavouritesFolder ) == NULL )
-	{
-		/*CAlbumFolder* pFavourites		=*/ m_pAlbumRoot->AddFolder( CSchema::uriFavouritesFolder );
-	}
-
-	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriCollectionsFolder ) == NULL )
-	{
-		/*CAlbumFolder* pCollections	=*/ m_pAlbumRoot->AddFolder( CSchema::uriCollectionsFolder );
-	//	/*CAlbumFolder* pCollections	=*/ pCollections->AddFolder( CSchema::uriBitTorrent );	// ToDo: Add .torrents
-	}
-
 	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriDocumentRoot ) == NULL )
 	{
 		CAlbumFolder* pDocumentRoot		= m_pAlbumRoot->AddFolder( CSchema::uriDocumentRoot );
 		/*CAlbumFolder* pDocumentAll	=*/ pDocumentRoot->AddFolder( CSchema::uriDocumentAll );
+	}
+
+	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriUnknownFolder ) == NULL )
+	{
+		/*CAlbumFolder* pUnknownFolder	=*/ m_pAlbumRoot->AddFolder( CSchema::uriUnknownFolder );
+	}
+
+	if ( Settings.BitTorrent.Enabled && m_pAlbumRoot->GetFolderByURI( CSchema::uriBitTorrentFolder ) == NULL )
+	{
+		/*CAlbumFolder* pTorrentFolder	=*/ m_pAlbumRoot->AddFolder( CSchema::uriBitTorrentFolder );
+	}
+
+	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriFavoritesFolder ) == NULL )
+	{
+		/*CAlbumFolder* pFavorites		=*/ m_pAlbumRoot->AddFolder( CSchema::uriFavoritesFolder );
+	}
+
+	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriCollectionsFolder ) == NULL )
+	{
+		/*CAlbumFolder* pCollections	=*/ m_pAlbumRoot->AddFolder( CSchema::uriCollectionsFolder );	// Include .torrent
 	}
 
 	if ( m_pAlbumRoot->GetFolderByURI( CSchema::uriGhostFolder ) == NULL )

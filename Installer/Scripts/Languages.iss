@@ -18,7 +18,7 @@ Name: "es_mx"; MessagesFile: "Installer\Languages\Spanish-Mexican.isl"; LicenseF
 Name: "fi"; MessagesFile: "Installer\Languages\Finnish.isl"; LicenseFile: "Installer/License/Finnish.rtf"
 Name: "fr"; MessagesFile: "Installer\Languages\French.isl"; LicenseFile: "Installer/License/French.rtf"
 Name: "gr"; MessagesFile: "Installer\Languages\Greek.isl"; LicenseFile: "Installer/License/Greek.rtf"
-Name: "heb"; MessagesFile: "Installer\Languages\Hebrew.isl"; LicenseFile: "Installer/License/Hebrew.rtf"
+Name: "he"; MessagesFile: "Installer\Languages\Hebrew.isl"; LicenseFile: "Installer/License/Hebrew.rtf"
 Name: "hu"; MessagesFile: "Installer\Languages\Hungarian.isl"; LicenseFile: "Installer/License/Hungarian.rtf"
 Name: "it"; MessagesFile: "Installer\Languages\Italian.isl"; LicenseFile: "Installer/License/Italian.rtf"
 Name: "lt"; MessagesFile: "Installer\Languages\Lithuanian.isl"; LicenseFile: "Installer/License/Lithuanian.rtf"
@@ -33,114 +33,108 @@ Name: "sq"; MessagesFile: "Installer\Languages\Albanian.isl"; LicenseFile: "Inst
 Name: "sr"; MessagesFile: "Installer\Languages\Serbian.isl"; LicenseFile: "Installer/License/Serbian.rtf"
 Name: "sv"; MessagesFile: "Installer\Languages\Swedish.isl"; LicenseFile: "Installer/License/Swedish.rtf"
 Name: "tr"; MessagesFile: "Installer\Languages\Turkish.isl"; LicenseFile: "Installer/License/Turkish.rtf"
-Name: "zhs"; MessagesFile: "Installer\Languages\Chinese-Simple.isl"; LicenseFile: "Installer/License/Chinese-Simple.rtf"
-Name: "zht"; MessagesFile: "Installer\Languages\Chinese-Traditional.isl"; LicenseFile: "Installer/License/Chinese-Traditional.rtf"
 Name: "ja"; MessagesFile: "Installer\Languages\Japanese.isl"; LicenseFile: "Installer/License/Japanese.rtf"
 Name: "ko"; MessagesFile: "Installer\Languages\Korean.isl"; LicenseFile: "Installer/License/Korean.rtf"
+Name: "zhs"; MessagesFile: "Installer\Languages\Chinese-Simple.isl"; LicenseFile: "Installer/License/Chinese-Simple.rtf"
+Name: "zht"; MessagesFile: "Installer\Languages\Chinese-Traditional.isl"; LicenseFile: "Installer/License/Chinese-Traditional.rtf"
 
 [Files]
 ; Install all languages if selected
-Source: "Languages\default-*.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: language; Excludes: "default-en.xml"
-Source: "Languages\default-*.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: language
+Source: "Languages\*.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: language; Excludes: "en.xml"
+Source: "Languages\*.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: language; Excludes: "en.ico"
 
 ; Install just localized language otherwise
 ; Brittish-English
-Source: "Languages\default-alt.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: not language
-Source: "Languages\default-alt.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: not language
+Source: "Languages\alt.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: not language
+Source: "Languages\alt.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk; Tasks: not language
 ; Arabic
-Source: "Languages\default-ar.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: not language
-Source: "Languages\default-ar.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: not language
+Source: "Languages\ar.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: not language
+Source: "Languages\ar.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar; Tasks: not language
 ; Catalan
-Source: "Languages\default-ca.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: not language
-Source: "Languages\default-ca.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: not language
+Source: "Languages\ca.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: not language
+Source: "Languages\ca.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca; Tasks: not language
 ; Czech
-Source: "Languages\default-cz.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: not language
-Source: "Languages\default-cz.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: not language
+Source: "Languages\cz.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: not language
+Source: "Languages\cz.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz; Tasks: not language
 ; German
-Source: "Languages\default-de.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: not language
-Source: "Languages\default-de.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: not language
+Source: "Languages\de.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: not language
+Source: "Languages\de.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de; Tasks: not language
 ; Estonian
-Source: "Languages\default-ee.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: not language
-Source: "Languages\default-ee.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: not language
-; Spanish std
-Source: "Languages\default-es.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es; Tasks: not language
-Source: "Languages\default-es.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es; Tasks: not language
-; Spanish Mexican
-Source: "Languages\default-es-mx.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: not language
-Source: "Languages\default-es-mx.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx; Tasks: not language
+Source: "Languages\ee.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: not language
+Source: "Languages\ee.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee; Tasks: not language
+; Spanish
+Source: "Languages\es.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es es_mx; Tasks: not language
+Source: "Languages\es.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es es_mx; Tasks: not language
 ; French
-Source: "Languages\default-fr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: not language
-Source: "Languages\default-fr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: not language
+Source: "Languages\fr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: not language
+Source: "Languages\fr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr; Tasks: not language
 ; Finnish
-Source: "Languages\default-fi.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: not language
-Source: "Languages\default-fi.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: not language
+Source: "Languages\fi.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: not language
+Source: "Languages\fi.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi; Tasks: not language
 ; Greek
-Source: "Languages\default-gr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: not language
-Source: "Languages\default-gr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: not language
+Source: "Languages\gr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: not language
+Source: "Languages\gr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr; Tasks: not language
 ; Hebrew
-Source: "Languages\default-heb.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb; Tasks: not language
-Source: "Languages\default-heb.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb; Tasks: not language
+Source: "Languages\he.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: he; Tasks: not language
+Source: "Languages\he.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: he; Tasks: not language
 ; Hungarian
-Source: "Languages\default-hu.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: not language
-Source: "Languages\default-hu.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: not language
+Source: "Languages\hu.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: not language
+Source: "Languages\hu.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu; Tasks: not language
 ; Italian
-Source: "Languages\default-it.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: not language
-Source: "Languages\default-it.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: not language
+Source: "Languages\it.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: not language
+Source: "Languages\it.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it; Tasks: not language
 ; Lithuanian
-Source: "Languages\default-lt.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: not language
-Source: "Languages\default-lt.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: not language
+Source: "Languages\lt.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: not language
+Source: "Languages\lt.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt; Tasks: not language
 ; Dutch
-Source: "Languages\default-nl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: not language
-Source: "Languages\default-nl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: not language
+Source: "Languages\nl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: not language
+Source: "Languages\nl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl; Tasks: not language
 ; Norwegian
-Source: "Languages\default-no.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: not language
-Source: "Languages\default-no.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: not language
+Source: "Languages\no.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: not language
+Source: "Languages\no.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no; Tasks: not language
 ; Polish
-Source: "Languages\default-pl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: not language
-Source: "Languages\default-pl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: not language
-; Portuguese std
-Source: "Languages\default-pt-br.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: not language
-Source: "Languages\default-pt-br.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt; Tasks: not language
-; Portuguese Braz
-Source: "Languages\default-pt-br.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: not language
-Source: "Languages\default-pt-br.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br; Tasks: not language
+Source: "Languages\pl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: not language
+Source: "Languages\pl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl; Tasks: not language
+; Portuguese
+Source: "Languages\pt.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt pt_br; Tasks: not language
+Source: "Languages\pt.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt pt_br; Tasks: not language
 ; Russian
-Source: "Languages\default-ru.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: not language
-Source: "Languages\default-ru.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: not language
+Source: "Languages\ru.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: not language
+Source: "Languages\ru.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru; Tasks: not language
 ; Slovenian
-Source: "Languages\default-sl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: not language
-Source: "Languages\default-sl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: not language
+Source: "Languages\sl.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: not language
+Source: "Languages\sl.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl; Tasks: not language
 ; Albanian
-Source: "Languages\default-sq.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: not language
-Source: "Languages\default-sq.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: not language
+Source: "Languages\sq.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: not language
+Source: "Languages\sq.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq; Tasks: not language
 ; Serbian
-Source: "Languages\default-sr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: not language
-Source: "Languages\default-sr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: not language
+Source: "Languages\sr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: not language
+Source: "Languages\sr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr; Tasks: not language
 ; Swedish
-Source: "Languages\default-sv.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: not language
-Source: "Languages\default-sv.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: not language
+Source: "Languages\sv.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: not language
+Source: "Languages\sv.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv; Tasks: not language
 ; Turkish
-Source: "Languages\default-tr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: not language
-Source: "Languages\default-tr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: not language
+Source: "Languages\tr.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: not language
+Source: "Languages\tr.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr; Tasks: not language
 ; Afrikaans
-Source: "Languages\default-za.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: not language
-Source: "Languages\default-za.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: not language
+Source: "Languages\af.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: not language
+Source: "Languages\af.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af; Tasks: not language
 ; Japanese
-Source: "Languages\default-ja.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
-Source: "Languages\default-ja.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
+Source: "Languages\ja.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
+Source: "Languages\ja.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
 ; Korean
-Source: "Languages\default-ko.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
-Source: "Languages\default-ko.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja; Tasks: not language
-; Chinese Simp
-Source: "Languages\default-zhs.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: not language
-Source: "Languages\default-zhs.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: not language
-; Chinese Trad
-Source: "Languages\default-zht.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
-Source: "Languages\default-zht.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
+Source: "Languages\ko.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ko; Tasks: not language
+Source: "Languages\ko.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ko; Tasks: not language
+; Chinese Simp.
+Source: "Languages\zhs.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: not language
+Source: "Languages\zhs.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs; Tasks: not language
+; Chinese Trad.
+Source: "Languages\zht.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
+Source: "Languages\zht.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
 
 
 ; Common remote files
-Source: "Remote\Common\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
+Source: "Remote\Resources\*"; DestDir: "{app}\Remote\Resources"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
 Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"
 
 ; Install localized remote otherwise
@@ -150,10 +144,8 @@ Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritere
 Source: "Remote\cz\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: cz
 ; German
 Source: "Remote\de\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: de
-; Spanish std
-Source: "Remote\es\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: es
-; Spanish Mexican
-Source: "Remote\es\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: es_mx
+; Spanish
+Source: "Remote\es\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: es es_mx
 ; French
 Source: "Remote\fr\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: fr
 ; Greek
@@ -168,36 +160,20 @@ Source: "Remote\lt\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritere
 Source: "Remote\nl\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: nl
 ; Norwegian
 Source: "Remote\no\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: no
-; Portuguese std
-Source: "Remote\pt-br\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: pt
-; Portuguese Braz
-Source: "Remote\pt-br\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: pt_br
+; Portuguese
+Source: "Remote\pt\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: pt pt_br
 ; Russian
 Source: "Remote\ru\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ru
 ; Swedish
 Source: "Remote\sv\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sv
 ; Albanian
 Source: "Remote\sq\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sq
-; Serbian
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sr
-; Turkish
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: tr
-; Slovenian
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sl
-; Catalan
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ca
-; Polish
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: pl
-; Hebrew
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: heb
-; Korean
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ko
+; Serbian, Slovenian, Polish, Turkish, Hebrew, Catalan, Korean
+;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sr sl pl tr ca he ko
 ; Japanese
 Source: "Remote\ja\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ja
-; Chinese Simp
-Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zhs
-; Chinese Trad
-Source: "Remote\chs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zht
+; Chinese Simp/Trad
+Source: "Remote\zhs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zhs zht
 
 
 ; Common License file
@@ -228,109 +204,79 @@ Source: "Installer\License\French.rtf"; DestDir: "{app}\Uninstall"; DestName: "A
 Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es
 ; Spanish Mexican
 Source: "Installer\License\Spanish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx
+; Catalan
+Source: "Installer\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
 ; Russian
 Source: "Installer\License\Russian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru
 ; Greek
 Source: "Installer\License\Greek.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr
 ; Hungarian
 Source: "Installer\License\Hungarian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu
+; Estonian
+Source: "Installer\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee
+; Slovenian
+Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl
+; Albanian
+Source: "Installer\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq
+; Serbian
+Source: "Installer\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr
 ; Swedish
 Source: "Installer\License\Swedish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv
 ; Finnish
 Source: "Installer\License\Finnish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi
 ; Hebrew
-Source: "Installer\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb
+Source: "Installer\License\Hebrew.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: he
 ; Polish
 Source: "Installer\License\Polish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl
 ; Czech
 Source: "Installer\License\Czech.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz
-; Serbian
-Source: "Installer\License\Serbian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr
 ; Turkish
 Source: "Installer\License\Turkish.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr
-; Japanese
-Source: "Installer\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja
 ; Arabic
 Source: "Installer\License\Arabic.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar
-; Estonian
-Source: "Installer\License\Estonian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee
+; Japanese
+Source: "Installer\License\Japanese.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja
+; Korean
+Source: "Installer\License\Korean.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ko
 ; Chinese Simp
 Source: "Installer\License\Chinese-Simple.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs
 ; Chinese Trad
 Source: "Installer\License\Chinese-Traditional.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht
-; Slovenian
-Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl
-; Catalan
-Source: "Installer\License\Catalan.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
-; Catalan
-Source: "Installer\License\Albanian.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq
-
 
 ; Install default filter
 Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
 ; Install localized filter
-; Brittish-English
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: en_uk
 ; Dutch
 Source: "Installer\Filter\Dutch.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: nl
-; Lithuanian
-Source: "Installer\Filter\Lithuanian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt
 ; German
 Source: "Installer\Filter\German.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: de
-; Italian
-Source: "Installer\Filter\Italian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it
-; Norwegian
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: no
-; Afrikaans
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: af
-; Portuguese std
-Source: "Installer\Filter\Portuguese-br.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt
-; Portuguese Braz
-Source: "Installer\Filter\Portuguese-br.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt_br
 ; French
 Source: "Installer\Filter\French.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fr
-; Spanish std
-Source: "Installer\Filter\Spanish-Mexican.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es
-; Spanish Mexican
-Source: "Installer\Filter\Spanish-Mexican.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es_mx
+; Portuguese Std/Braz
+Source: "Installer\Filter\Portuguese.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pt pt_br
+; Spanish Std/Mexican
+Source: "Installer\Filter\Spanish.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: es es_mx
+; Catalan
+Source: "Installer\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
+; Italian
+Source: "Installer\Filter\Italian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: it
+; Lithuanian
+Source: "Installer\Filter\Lithuanian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: lt
 ; Russian
 Source: "Installer\Filter\Russian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ru
 ; Greek
 Source: "Installer\Filter\Greek.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: gr
-; Hungarian
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: hu
+; Hebrew
+Source: "Installer\Filter\Hebrew.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: he
 ; Swedish
 Source: "Installer\Filter\Swedish.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sv
-; Finnish
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: fi
-; Hebrew
-Source: "Installer\Filter\Hebrew.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: heb
-; Polish
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: pl
-; Czech
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: cz
-; Serbian
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sr
-; Arabic
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar
-; Estonian
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ee
-; Slovenian
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sl
 ; Albanian
 Source: "Installer\Filter\Albanian.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: sq
-; Turkish
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: tr
-; Japanese
-Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ja
-; Catalan
-Source: "Installer\Filter\Catalan.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ca
-; Chinese Simp
-Source: "Installer\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs
-; Chinese Trad
-Source: "Installer\Filter\Chinese-Simpl.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht
-
+; Chinese Simp/Trad
+Source: "Installer\Filter\Chinese.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zhs zht
+; Arabic Afrikaans Finnish Hungarian Polish Czech Serbian Norwegian Estonian Slovenian Turkish Japanese
+Source: "Installer\Filter\AdultFilter.dat"; DestDir: "{app}\Data"; DestName: "AdultFilter.dat"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: ar af fi hu pl cz sr no ee sl tr ja
 
 [Messages]
 ; This section overrides existing phrases specified in Inno's Default.isl file
@@ -721,35 +667,35 @@ gr.page_safetywarning_subtitle=¸קופו Ýםב נסüדסבללב נסןףפבףßבע דיב ין‎ע ודךבפוףפח
 gr.CreateDesktopIcon=ֵלצÜםיףו פן &ויךןםßהין ףפחם וניצÜםויב וסדבףßבע
 gr.CreateQuickLaunchIcon=ֵלצÜםיףו Ýםב ו&יךןםßהין ֳסÞדןסחע ֵךךßםחףחע
 ; Hebrew
-heb.components_plugins=תוספים
-heb.components_skins=מעטפות
-heb.tasks_languages=שפות
-heb.tasks_allusers=כל המשתמשים
-heb.tasks_selectusers=התקן את %1 עבור
-heb.tasks_currentuser=%1 רק
-heb.tasks_multisetup=אפשר תמיכה למשתמשים מרובים
-;heb.tasks_upnp=Enable Plug'n'Play port-forwarding
-heb.tasks_firewall=הוסף כלל לחומת האש לאיפשור שרזה
-;heb.tasks_webhook=לאפשר שילוב דפדפן אינטרנט
-heb.tasks_resetdiscoveryhostcache=איפוס מקורות רשת  (גילוי/מארחים)
-heb.tasks_deleteoldsetup=מחק התקנות ישנות
-heb.run_skinexe=מריץ התקנת מעטפות...
-heb.reg_incomingchat=הודעת צ'אט נכנסת
-heb.reg_apptitle=שיתוף הקבצים האולטימטיבי של שרזה
-heb.icons_license=AGPL רשיון
-heb.icons_uninstall=הסר התקנה
-heb.icons_downloads=הורדות
-heb.icons_basicmode=מצב רגיל
-heb.icons_tabbedmode=מצב טאבים
-heb.icons_windowedmode=מצב חלונות
-heb.dialog_shutdown=?כרגע %1 פועל האם את רוצה לסגור את %1 כך שההתקנה תוכל להמשך
-heb.dialog_firewall=ההתקנה נכשלה להוסיף את שרזה אל חומת האש%nאנא הוסף את שרזה לרשימת החריגים בחומת האש באופן ידני
-heb.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
-heb.page_safetywarning_text=כשאת/ה משתמש באינטרנט עלייך תמיד לוודא שמותקן אצלך אנטי-וירוס מעודכן להגנה מפני וירוסים/תולעים/רוגלות, לרשימה של אנטי-וירוסים וטיפים בנושא אבטחה פנה לקישור הבא:
-heb.page_safetywarning_title=התראת וירוס
-heb.page_safetywarning_subtitle=?האם יש לך תוכנת אנטי-וירוס מותקנת
-heb.CreateDesktopIcon= הצג סמל על ש&ולחן עבודה
-heb.CreateQuickLaunchIcon=הצג סמל על ה&פעלה מהירה
+he.components_plugins=תוספים
+he.components_skins=מעטפות
+he.tasks_languages=שפות
+he.tasks_allusers=כל המשתמשים
+he.tasks_selectusers=התקן את %1 עבור
+he.tasks_currentuser=%1 רק
+he.tasks_multisetup=אפשר תמיכה למשתמשים מרובים
+;he.tasks_upnp=Enable Plug'n'Play port-forwarding
+he.tasks_firewall=הוסף כלל לחומת האש לאיפשור שרזה
+;he.tasks_webhook=לאפשר שילוב דפדפן אינטרנט
+he.tasks_resetdiscoveryhostcache=איפוס מקורות רשת  (גילוי/מארחים)
+he.tasks_deleteoldsetup=מחק התקנות ישנות
+he.run_skinexe=מריץ התקנת מעטפות...
+he.reg_incomingchat=הודעת צ'אט נכנסת
+he.reg_apptitle=שיתוף הקבצים האולטימטיבי של שרזה
+he.icons_license=AGPL רשיון
+he.icons_uninstall=הסר התקנה
+he.icons_downloads=הורדות
+he.icons_basicmode=מצב רגיל
+he.icons_tabbedmode=מצב טאבים
+he.icons_windowedmode=מצב חלונות
+he.dialog_shutdown=?כרגע %1 פועל האם את רוצה לסגור את %1 כך שההתקנה תוכל להמשך
+he.dialog_firewall=ההתקנה נכשלה להוסיף את שרזה אל חומת האש%nאנא הוסף את שרזה לרשימת החריגים בחומת האש באופן ידני
+he.dialog_malwaredetected=Malware has been detected on your system at %1, please remove it with a virus/malware scanner before installing PeerProject. Do you want to exit now?
+he.page_safetywarning_text=כשאת/ה משתמש באינטרנט עלייך תמיד לוודא שמותקן אצלך אנטי-וירוס מעודכן להגנה מפני וירוסים/תולעים/רוגלות, לרשימה של אנטי-וירוסים וטיפים בנושא אבטחה פנה לקישור הבא:
+he.page_safetywarning_title=התראת וירוס
+he.page_safetywarning_subtitle=?האם יש לך תוכנת אנטי-וירוס מותקנת
+he.CreateDesktopIcon= הצג סמל על ש&ולחן עבודה
+he.CreateQuickLaunchIcon=הצג סמל על ה&פעלה מהירה
 ; Hungarian
 hu.components_plugins=Pluginek
 hu.components_skins=Kinיzetek

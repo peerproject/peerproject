@@ -1,7 +1,7 @@
 //
 // CtrlLibraryMetaPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -350,7 +350,7 @@ void CLibraryMetaPanel::OnPaint()
 		dc.SelectObject( &CoolInterface.m_fntUnder );
 		dc.SetTextColor( Colors.m_crTextLink );
 		str = m_sFolder;
-		long nTextLength = dc.GetTextExtent( str + _T('\x2026') ).cx;
+		long nTextLength = dc.GetTextExtent( str + L'\x2026' ).cx;
 		const long nLimit = rcWork.Width() - 125 - 68 - 10;
 		if ( nTextLength > nLimit && nLimit > 0 )
 		{
@@ -358,9 +358,9 @@ void CLibraryMetaPanel::OnPaint()
 			{
 				if ( str.IsEmpty() ) break;
 				str = str.Left( str.GetLength() - 1 );
-				nTextLength = dc.GetTextExtent( str + _T('\x2026') ).cx;
+				nTextLength = dc.GetTextExtent( str + L'\x2026' ).cx;
 			}
-			str += _T('\x2026');
+			str += L'\x2026';
 		}
 		else if ( nLimit <= 0 )
 			str.Empty();

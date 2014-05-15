@@ -1,7 +1,7 @@
 //
 // WndSystem.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -78,7 +78,7 @@ int CSystemWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	CRect rc;
 	m_wndText.Create( WS_VISIBLE, rc, this, 100 );
 
-	LoadState( _T("CSystemWnd"), FALSE );
+	LoadState( L"CSystemWnd", FALSE );
 
 	SetTimer( 1, 250, NULL );
 
@@ -89,7 +89,7 @@ void CSystemWnd::OnDestroy()
 {
 	KillTimer( 1 );
 
-	SaveState( _T("CSystemWnd") );
+	SaveState( L"CSystemWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -153,7 +153,7 @@ void CSystemWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CSystemWnd"), point );
+	Skin.TrackPopupMenu( L"CSystemWnd", point );
 }
 
 BOOL CSystemWnd::PreTranslateMessage(MSG* pMsg)
@@ -266,5 +266,5 @@ void CSystemWnd::OnSystemTest()
 	if ( CrawlSession.m_bActive )
 		CrawlSession.Bootstrap();
 	else
-		theApp.Message( MSG_NOTICE, _T("CCrawlSession: %i hubs, %i leaves"), CrawlSession.GetHubCount(), CrawlSession.GetLeafCount() );
+		theApp.Message( MSG_NOTICE, L"CCrawlSession: %i hubs, %i leaves", CrawlSession.GetHubCount(), CrawlSession.GetLeafCount() );
 }

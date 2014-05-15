@@ -146,7 +146,7 @@ void CHomeWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CHomeWnd"), point );
+	Skin.TrackPopupMenu( L"CHomeWnd", point );
 }
 
 // Context menu command handlers for CtrlHomePanel:

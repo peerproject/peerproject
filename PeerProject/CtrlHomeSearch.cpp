@@ -80,7 +80,7 @@ BOOL CHomeSearchCtrl::PreTranslateMessage(MSG* pMsg)
 BOOL CHomeSearchCtrl::Create(CWnd* pParentWnd, UINT nID)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CHomeSearchCtrl"),
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CHomeSearchCtrl",
 		WS_CHILD|WS_CLIPCHILDREN, rect, pParentWnd, nID );
 }
 
@@ -126,7 +126,7 @@ void CHomeSearchCtrl::OnSkinChange(COLORREF crWindow, COLORREF crText)
 	m_wndSearch.SetCoolIcon( ID_SEARCH_SEARCH, FALSE );
 
 	LoadString( strCaption, IDS_SEARCH_PANEL_ADVANCED );
-	strCaption += _T('\x2026'); 								// "Advanced..."
+	strCaption += L'\x2026'; 								// "Advanced..."
 	m_wndAdvanced.SetWindowText( strCaption );
 	m_wndAdvanced.SetCoolIcon( ID_SEARCH_DETAILS, FALSE );
 
@@ -143,11 +143,11 @@ void CHomeSearchCtrl::FillHistory()
 	for ( int i = 0 ; ; i++ )
 	{
 		CString strEntry;
-		strEntry.Format( _T("Search.%.2i"), i + 1 );
-		CString strValue( theApp.GetProfileString( _T("Search"), strEntry ) );
+		strEntry.Format( L"Search.%.2i", i + 1 );
+		CString strValue( theApp.GetProfileString( L"Search", strEntry ) );
 		if ( strValue.IsEmpty() )
 			break;
-		int lf = strValue.Find( _T('\n') );
+		int lf = strValue.Find( L'\n' );
 		int nIndex = m_wndText.InsertString( i,
 			( lf != -1 ) ? strValue.Left( lf ) : strValue );
 		CSchemaPtr pSchema = ( lf != -1 ) ? SchemaCache.Get( strValue.Mid( lf + 1 ) ) : NULL;
@@ -232,7 +232,7 @@ void CHomeSearchCtrl::OnCloseUpText()
 
 	if ( nSel == m_wndText.GetCount() - 1 )
 	{
-		m_wndText.SetWindowText( _T("") );
+		m_wndText.SetWindowText( L"" );
 
 		// Delete all
 		Settings.ClearSearches();
@@ -264,7 +264,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 	// Check if user pasted download link to search input box
 	if ( theApp.OpenURL( strText, TRUE ) )
 	{
-		m_wndText.SetWindowText( _T("") );
+		m_wndText.SetWindowText( L"" );
 		return;
 	}
 
@@ -286,7 +286,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 	else if ( AdultFilter.IsSearchFiltered( pSearch->m_sSearch ) && bAutostart )
 	{
 		// Adult search blocked, open help window
-		CHelpDlg::Show( _T("SearchHelp.AdultSearch") );
+		CHelpDlg::Show( L"SearchHelp.AdultSearch" );
 	}
 	else
 	{
@@ -296,11 +296,11 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 			CStringList oList;
 			for ( int i = 0 ; ; i++ )
 			{
-				strEntry.Format( _T("Search.%.2i"), i + 1 );
-				CString strValue( theApp.GetProfileString( _T("Search"), strEntry ) );
+				strEntry.Format( L"Search.%.2i", i + 1 );
+				CString strValue( theApp.GetProfileString( L"Search", strEntry ) );
 				if ( strValue.IsEmpty() )
 					break;
-				int lf = strValue.Find( _T('\n') );
+				int lf = strValue.Find( L'\n' );
 				if ( strText.CompareNoCase( ( lf != -1 ) ? strValue.Left( lf ) : strValue ) )
 					oList.AddTail( strValue );
 			}
@@ -310,14 +310,14 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 				oList.RemoveTail();
 
 			// New one (at top)
-			oList.AddHead( strURI.IsEmpty() ? strText : ( strText + _T('\n') + strURI ) );
+			oList.AddHead( strURI.IsEmpty() ? strText : ( strText + L'\n' + strURI ) );
 
 			// Save list
 			POSITION pos = oList.GetHeadPosition();
 			for ( int i = 0 ; pos ; ++i )
 			{
-				strEntry.Format( _T("Search.%.2i"), i + 1 );
-				theApp.WriteProfileString( _T("Search"), strEntry, oList.GetNext( pos ) );
+				strEntry.Format( L"Search.%.2i", i + 1 );
+				theApp.WriteProfileString( L"Search", strEntry, oList.GetNext( pos ) );
 			}
 
 			FillHistory();
@@ -326,7 +326,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 		new CSearchWnd( pSearch );
 	}
 
-	m_wndText.SetWindowText( _T("") );
+	m_wndText.SetWindowText( L"" );
 }
 
 void CHomeSearchCtrl::OnSearchStart()

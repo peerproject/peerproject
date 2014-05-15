@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.limewire.com/schemas/video.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Video.xsd" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Video"/>
@@ -24,7 +23,6 @@
 					<enumeration value="Anime Film"/>
 					<enumeration value="Anime Music Video"/>
 					<enumeration value="Music Video"/>
-					<enumeration value="Commercial"/>
 					<enumeration value="Movie Trailer"/>
 					<enumeration value="Video Game Trailer"/>
 					<enumeration value="Video Game Clip"/>
@@ -32,8 +30,12 @@
 					<enumeration value="Video Clip"/>
 					<enumeration value="VHS Movie"/>
 					<enumeration value="DVD Movie"/>
+					<enumeration value="Bluray Movie"/>
+					<enumeration value="Web Movie"/>
 					<enumeration value="Adult Film"/>
 					<enumeration value="Adult Film Clip"/>
+					<enumeration value="Live Stream"/>
+					<enumeration value="Commercial"/>
 				</simpleType>
 			</attribute>
 			<attribute name="series" type="string"/>
@@ -80,8 +82,8 @@
 					<enumeration value="French"/>
 					<enumeration value="German"/>
 					<enumeration value="Italian"/>
-					<enumeration value="Korean"/>
 					<enumeration value="Japanese"/>
+					<enumeration value="Korean"/>
 					<enumeration value="Mandarin"/>
 					<enumeration value="Russian"/>
 					<enumeration value="Spanish"/>
@@ -92,6 +94,7 @@
 					<enumeration value="Cam"/>
 					<enumeration value="DVD Screener"/>
 					<enumeration value="VHS Screener"/>
+					<enumeration value="Bluray"/>
 					<enumeration value="DVD"/>
 					<enumeration value="VHS"/>
 					<enumeration value="TV Rip"/>
@@ -102,6 +105,7 @@
 					<enumeration value="DivX Re-Encode"/>
 					<enumeration value="SVCD Re-Encode"/>
 					<enumeration value="VCD Re-Encode"/>
+					<enumeration value="Live Stream"/>
 				</simpleType>
 			</attribute>
 			<attribute name="director" type="string"/>
@@ -115,7 +119,7 @@
 			<attribute name="codec" type="string"/>
 			<attribute name="year" type="year"/>
 			<attribute name="artist" type="string"/>
-			<attribute name="frameRate" type="decimal"/>
+			<attribute name="framerate" type="decimal"/>
 			<attribute name="copyright" type="string"/>
 			<attribute name="subtitles">
 				<simpleType base="string">
@@ -124,8 +128,8 @@
 					<enumeration value="French"/>
 					<enumeration value="German"/>
 					<enumeration value="Italian"/>
-					<enumeration value="Korean"/>
 					<enumeration value="Japanese"/>
+					<enumeration value="Korean"/>
 					<enumeration value="Mandarin"/>
 					<enumeration value="Russian"/>
 					<enumeration value="Spanish"/>
@@ -142,7 +146,6 @@
 					<enumeration value="Adult"/>
 					<enumeration value="TV-Y"/>
 					<enumeration value="TV-Y7"/>
-					<enumeration value="TV-Y7-FV"/>
 					<enumeration value="TV-G"/>
 					<enumeration value="TV-PG"/>
 					<enumeration value="TV-14"/>
@@ -174,6 +177,8 @@
 			<attribute name="keywords" type="string"/>
 			<attribute name="link" type="uriReference"/>
 			<attribute name="DRM" type="boolean"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

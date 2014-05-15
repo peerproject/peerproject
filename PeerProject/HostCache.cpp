@@ -74,7 +74,7 @@ void CHostCache::Clear()
 
 BOOL CHostCache::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("HostCache.dat");
+	const CString strFile = Settings.General.DataPath + L"HostCache.dat";
 
 	BOOL bSuccess = FALSE;
 
@@ -123,20 +123,20 @@ BOOL CHostCache::Load()
 	if ( bSuccess )
 		return TRUE;
 
-	theApp.Message( MSG_ERROR, _T("Failed to load host cache: %s"), strFile );
+	theApp.Message( MSG_ERROR, L"Failed to load host cache: %s", strFile );
 	return FALSE;
 }
 
 BOOL CHostCache::Save()
 {
-	const CString strFile = Settings.General.DataPath + _T("HostCache.dat");
-	const CString strTemp = Settings.General.DataPath + _T("HostCache.tmp");
+	const CString strFile = Settings.General.DataPath + L"HostCache.dat";
+	const CString strTemp = Settings.General.DataPath + L"HostCache.tmp";
 
 	CFile pFile;
 	if ( ! pFile.Open( strTemp, CFile::modeWrite | CFile::modeCreate | CFile::shareExclusive | CFile::osSequentialScan ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save host cache: %s", strTemp );
 		return FALSE;
 	}
 
@@ -156,7 +156,7 @@ BOOL CHostCache::Save()
 			pFile.Abort();
 			pException->Delete();
 			DeleteFile( strTemp );
-			theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
+			theApp.Message( MSG_ERROR, L"Failed to save host cache: %s", strTemp );
 			return FALSE;
 		}
 		pFile.Close();
@@ -166,14 +166,14 @@ BOOL CHostCache::Save()
 		pFile.Abort();
 		pException->Delete();
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strTemp );
+		theApp.Message( MSG_ERROR, L"Failed to save host cache: %s", strTemp );
 		return FALSE;
 	}
 
 	if ( ! MoveFileEx( strTemp, strFile, MOVEFILE_COPY_ALLOWED | MOVEFILE_REPLACE_EXISTING ) )
 	{
 		DeleteFile( strTemp );
-		theApp.Message( MSG_ERROR, _T("Failed to save host cache: %s"), strFile );
+		theApp.Message( MSG_ERROR, L"Failed to save host cache: %s", strFile );
 		return FALSE;
 	}
 
@@ -369,8 +369,8 @@ CHostCacheHostPtr CHostCacheList::Add(LPCTSTR pszHost, WORD nPort, DWORD tSeen, 
 	CString strHost( pszHost );
 	strHost.Trim();
 
-	int nPos = strHost.ReverseFind( _T(' ') );
-	if ( nPos < 1 ) nPos = strHost.ReverseFind( _T('\t') );
+	int nPos = strHost.ReverseFind( L' ' );
+	if ( nPos < 1 ) nPos = strHost.ReverseFind( L'\t' );
 	if ( nPos > 0 )
 	{
 		CString strTime = strHost.Mid( nPos + 1 );
@@ -437,7 +437,7 @@ CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD
 
 			pHost->m_pAddress = *pAddress;
 			if ( szAddress ) pHost->m_sAddress = szAddress;
-			pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( _T(":") );
+			pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( L":" );
 
 			pHost->Update( nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
 
@@ -451,7 +451,7 @@ CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD
 	else
 	{
 		if ( szAddress ) pHost->m_sAddress = szAddress;
-		pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( _T(":") );
+		pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( L":" );
 
 		Update( pHost, nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
 	}
@@ -834,27 +834,27 @@ int CHostCache::Import(LPCTSTR pszFile, BOOL bFreshOnly)
 
 	int nImported = 0;
 
-	if ( _tcsicmp( szExt, _T(".met") ) == 0 )
+	if ( _tcsicmp( szExt, L".met" ) == 0 )
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing MET file: %s"), pszFile );
+		theApp.Message( MSG_NOTICE, L"Importing MET file: %s", pszFile );
 
 		nImported = ImportMET( &pFile );
 	}
-	else if ( _tcsicmp( szExt, _T(".bz2") ) == 0 )		// hublist.xml.bz2
+	else if ( _tcsicmp( szExt, L".bz2" ) == 0 )		// hublist.xml.bz2
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing HubList file: %s"), pszFile );
+		theApp.Message( MSG_NOTICE, L"Importing HubList file: %s", pszFile );
 
 		nImported = ImportHubList( &pFile );
 	}
-	else if ( _tcsicmp( szExt, _T(".dat") ) == 0 )
+	else if ( _tcsicmp( szExt, L".dat" ) == 0 )
 	{
-		theApp.Message( MSG_NOTICE, _T("Importing Nodes file: %s"), pszFile );
+		theApp.Message( MSG_NOTICE, L"Importing Nodes file: %s", pszFile );
 
 		nImported = ImportNodes( &pFile );
 	}
-//	else if ( _tcsicmp( szExt, _T(".xml") ) == 0 || _tcsicmp( szExt, _T(".dat") ) == 0 ) 	// ToDo: G2/Gnutella import/export
+//	else if ( _tcsicmp( szExt, L".xml" ) == 0 || _tcsicmp( szExt, L".dat" ) == 0 ) 	// ToDo: G2/Gnutella import/export
 //	{
-//		theApp.Message( MSG_NOTICE, _T("Importing cache file: %s"), pszFile );
+//		theApp.Message( MSG_NOTICE, L"Importing cache file: %s", pszFile );
 //
 //		nImported = ImportCache( &pFile );
 //	}
@@ -887,43 +887,43 @@ int CHostCache::ImportHubList(CFile* pFile)
 	CString strEncoding;
 	auto_ptr< CXMLElement > pHublist ( CXMLElement::FromString(
 		pBuffer.ReadString( pBuffer.m_nLength ), TRUE, &strEncoding ) );
-	if ( strEncoding.CompareNoCase( _T("utf-8") ) == 0 )	// Reload as UTF-8
+	if ( strEncoding.CompareNoCase( L"utf-8" ) == 0 )	// Reload as UTF-8
 		pHublist.reset( CXMLElement::FromString(
 			pBuffer.ReadString( pBuffer.m_nLength, CP_UTF8 ), TRUE ) );
 	if ( ! pHublist.get() )
 		return FALSE;	// XML decoding error
 
-	if ( ! pHublist->IsNamed( _T("Hublist") ) )
+	if ( ! pHublist->IsNamed( L"Hublist" ) )
 		return FALSE;	// Invalid XML file format
 
 	CXMLElement* pHubs = pHublist->GetFirstElement();
-	if ( ! pHubs || ! pHubs->IsNamed( _T("Hubs") ) )
+	if ( ! pHubs || ! pHubs->IsNamed( L"Hubs" ) )
 		return FALSE;	// Invalid XML file format
 
 	int nHubs = 0;
 	for ( POSITION pos = pHubs->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pHub = pHubs->GetNextElement( pos );
-		if ( pHub->IsNamed( _T("Hub") ) )
+		if ( pHub->IsNamed( L"Hub" ) )
 		{
-			CString strAddress = pHub->GetAttributeValue( _T("Address") );
-			if ( _tcsnicmp( strAddress, _T("dchub://"), 8 ) == 0 )
+			CString strAddress = pHub->GetAttributeValue( L"Address" );
+			if ( _tcsnicmp( strAddress, L"dchub://", 8 ) == 0 )
 				strAddress = strAddress.Mid( 8 );
-			else if ( _tcsnicmp( strAddress, _T("adc://"), 6 ) == 0 )
+			else if ( _tcsnicmp( strAddress, L"adc://", 6 ) == 0 )
 				continue;	// Skip ADC-hubs
-			else if ( _tcsnicmp( strAddress, _T("adcs://"), 7 ) == 0 )
+			else if ( _tcsnicmp( strAddress, L"adcs://", 7 ) == 0 )
 				continue;	// Skip ADCS-hubs
 
-			const int nUsers		= _tstoi( pHub->GetAttributeValue( _T("Users") ) );
-			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( _T("Maxusers") ) );
+			const int nUsers		= _tstoi( pHub->GetAttributeValue( L"Users" ) );
+			const int nMaxusers	= _tstoi( pHub->GetAttributeValue( L"Maxusers" ) );
 
 			CQuickLock oLock( DC.m_pSection );
 			CHostCacheHostPtr pServer = DC.Add( NULL, protocolPorts[ PROTOCOL_DC ], 0,
 				protocolNames[ PROTOCOL_DC ], 0, nUsers, nMaxusers, strAddress );
 			if ( pServer )
 			{
-				pServer->m_sName = pHub->GetAttributeValue( _T("Name") );
-				pServer->m_sDescription = pHub->GetAttributeValue( _T("Description") );
+				pServer->m_sName = pHub->GetAttributeValue( L"Name" );
+				pServer->m_sDescription = pHub->GetAttributeValue( L"Description" );
 				nHubs++;
 			}
 		}
@@ -1071,14 +1071,14 @@ bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 	{
 		const LPCTSTR sServerMetPaths[ 8 ] =
 		{
-			{ _T("\\eMule\\config\\server.met") },
-			{ _T("\\eMule\\server.met") },
-			{ _T("\\Neo Mule\\config\\server.met") },
-			{ _T("\\Neo Mule\\server.met") },
-			{ _T("\\hebMule\\config\\server.met") },
-			{ _T("\\hebMule\\server.met") },
-			{ _T("\\aMule\\config\\server.met") },
-			{ _T("\\aMule\\server.met") }
+			{ L"\\eMule\\config\\server.met" },
+			{ L"\\eMule\\server.met" },
+			{ L"\\Neo Mule\\config\\server.met" },
+			{ L"\\Neo Mule\\server.met" },
+			{ L"\\hebMule\\config\\server.met" },
+			{ L"\\hebMule\\server.met" },
+			{ L"\\aMule\\config\\server.met" },
+			{ L"\\aMule\\server.met" }
 		};
 
 		CString strRootPaths[ 3 ];
@@ -1107,7 +1107,7 @@ bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 
 int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 {
-	const CString strFile = Settings.General.Path + _T("\\Data\\DefaultServers.dat");
+	const CString strFile = Settings.General.Path + L"\\Data\\DefaultServers.dat";
 	int nServers = 0;
 
 	// Ignore old files (300 days)
@@ -1118,7 +1118,7 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 	if ( ! pFile.Open( strFile, CFile::modeRead | CFile::shareDenyWrite | CFile::osSequentialScan ) )
 		return 0;
 
-	theApp.Message( MSG_NOTICE, _T("Loading default server list") );
+	theApp.Message( MSG_NOTICE, L"Loading default server list" );
 
 	// Format: PE 255.255.255.255:1024	# NameForConvenience
 
@@ -1128,22 +1128,22 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 		if ( ! pFile.ReadString( strLine ) )
 			break;	// End of file
 
-		strLine.Trim( _T(" \t\r\n") );
+		strLine.Trim( L" \t\r\n" );
 		if ( strLine.GetLength() < 10 ) continue;		// Blank or invalid line
 
 		// Trim at whitespace break (Remove any trailing comments)
-		int nTest = strLine.Find( _T("\t"), 10 );
+		int nTest = strLine.Find( L"\t", 10 );
 		if ( nTest > 0 ) strLine = strLine.Left( nTest );
-		nTest = strLine.Find( _T(" "), 10 );
+		nTest = strLine.Find( L" ", 10 );
 		if ( nTest > 0 ) strLine = strLine.Left( nTest );
 
 		//TCHAR cType = strLine.GetAt( 0 );
 		LPCTSTR szServer = strLine;
-		if ( *szServer == _T('#') ) continue;			// Comment line
-		//if ( *szServer == _T('X') ) continue;			// ToDo: Handle bad IPs?
+		if ( *szServer == L'#' ) continue;			// Comment line
+		//if ( *szServer == L'X' ) continue;			// ToDo: Handle bad IPs?
 
 		BOOL bPriority = FALSE;
-		if ( *szServer == _T('P') || *szServer == _T('*') )
+		if ( *szServer == L'P' || *szServer == L'*' )
 		{
 			bPriority = TRUE;
 			++szServer;
@@ -1152,25 +1152,25 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 		CHostCacheList* pCache = NULL;
 		switch ( *szServer )
 		{
-		case _T('1'):
-		case _T('L'):
+		case L'1':
+		case L'L':
 			pCache = &Gnutella1;
 			break;
-		case _T('2'):
-		case _T('G'):
+		case L'2':
+		case L'G':
 			pCache = &Gnutella2;
 			break;
-		case _T(' '):	// Legacy
-		case _T('E'):
+		case L' ':	// Legacy
+		case L'E':
 			pCache = &eDonkey;
 			break;
-		case _T('D'):
+		case L'D':
 			pCache = &DC;
 			break;
-		case _T('B'):
+		case L'B':
 			pCache = &BitTorrent;
 			break;
-		case _T('K'):
+		case L'K':
 			pCache = &Kademlia;
 			break;
 		}
@@ -1183,13 +1183,13 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 
 		++szServer;
 
-		if ( *szServer == _T('P') || *szServer == _T('*') )
+		if ( *szServer == L'P' || *szServer == L'*' )
 		{
 			bPriority = TRUE;
 			++szServer;
 		}
 
-		for ( ; *szServer == _T(' ') || *szServer == _T('\t') ; ++szServer );
+		for ( ; *szServer == L' ' || *szServer == L'\t' ; ++szServer );
 
 		CQuickLock oLock( pCache->m_pSection );
 		if ( CHostCacheHostPtr pServer = pCache->Add( szServer ) )
@@ -1199,7 +1199,7 @@ int CHostCache::LoadDefaultServers(PROTOCOLID nProtocol)
 		}
 
 	//	int nIP[5];
-	//	nTest =_stscanf( strServer, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] );
+	//	nTest =_stscanf( strServer, L"%i.%i.%i.%i:%i", &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] );
 	//	if ( nTest < 4 || nIP[0] > 255 || nIP[1] > 255 || nIP[2] > 255 || nIP[3] > 255 )
 	//		continue;	// Invalid
 	//
@@ -1533,14 +1533,14 @@ CString CHostCacheHost::ToString(bool bLong) const
 		time_t tSeen = m_tSeen;
 		tm time = {};
 		if ( gmtime_s( &time, &tSeen ) == 0 )
-			str.Format( _T("%s:%i %.4i-%.2i-%.2iT%.2i:%.2iZ"),
+			str.Format( L"%s:%i %.4i-%.2i-%.2iT%.2i:%.2iZ",
 				(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort,
 				time.tm_year + 1900, time.tm_mon + 1, time.tm_mday,
 				time.tm_hour, time.tm_min );	// 2002-04-30T08:30Z
 	}
 	else
 	{
-		str.Format( _T("%s:%i"),
+		str.Format( L"%s:%i",
 			(LPCTSTR)CString( inet_ntoa( m_pAddress ) ), m_nPort );
 	}
 

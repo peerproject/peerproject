@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2014
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008, 2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -18,6 +18,7 @@
 // along with PeerProject; if not, write to Free Software Foundation, Inc.
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
+// Note: Mirrors ..\PeerProject\BENode.cpp file
 
 #include "StdAfx.h"
 #include "TorrentWizard.h"
@@ -32,17 +33,29 @@
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
-#endif
+#endif	// Debug
 
+static bool Decode(UINT nCodePage, LPCSTR szFrom, CString& strTo)
+{
+	const int nLength = MultiByteToWideChar( nCodePage, MB_ERR_INVALID_CHARS, szFrom, -1, NULL, 0 );
+	if ( nLength < 1 ) return false;
+
+	MultiByteToWideChar( nCodePage, 0, szFrom, -1, strTo.GetBuffer( nLength ), nLength );
+	strTo.ReleaseBuffer();
+
+	return true;
+}
+
+UINT CBENode::m_nDefaultCP = CP_ACP;
 
 //////////////////////////////////////////////////////////////////////
 // CBENode construction/destruction
 
 CBENode::CBENode()
+	: m_nType		( beNull )
+	, m_pValue		( NULL )
+	, m_nValue		( 0 )
 {
-	m_nType  = beNull;
-	m_pValue = NULL;
-	m_nValue = 0;
 }
 
 CBENode::~CBENode()
@@ -107,8 +120,14 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 		break;
 	}
 
-	auto_ptr< CBENode > pNew( new CBENode );
-	CBENode* pNew_ = pNew.get();
+//	auto_ptr< CBENode > pNew( new CBENode );
+//	CBENode* pNew_ = pNew.get();
+
+	CAutoPtr< CBENode > pNew( new CBENode );
+	if ( ! pNew )
+		return NULL;	// Out of memory
+
+	CBENode* pNew_ = pNew;
 
 	// Overflow check
 	ASSERT ( m_nValue <= SIZE_T_MAX );
@@ -118,44 +137,55 @@ CBENode* CBENode::Add(const LPBYTE pKey, size_t nKey)
 	{
 		// Overflow check
 		ASSERT( nValue + 1 <= SIZE_T_MAX );
-		auto_array< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+	//	auto_array< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+		CAutoVectorPtr< CBENode* > pList( new CBENode*[ nValue + 1 ] );
+		if ( ! pList )
+			return NULL;	// Out of memory
 
 		if ( m_pValue )
 		{
 			// Overflow check
 			ASSERT( nValue * sizeof( CBENode* ) <= SIZE_T_MAX );
-			memcpy( pList.get(), m_pValue, nValue * sizeof( CBENode* ) );
+			memcpy( pList, m_pValue, nValue * sizeof( CBENode* ) );
 
 			delete [] (CBENode**)m_pValue;
 		}
 
-		pList[ nValue ] = pNew.release();
-		m_pValue = pList.release();
+		pList[ nValue ] = pNew.Detach();
+
+		m_pValue = pList.Detach();
 		++m_nValue;
 	}
 	else
 	{
+		const size_t nValueDoubled = nValue * 2;
+
 		// Overflow check
-		ASSERT( nValue * 2 + 2 <= SIZE_T_MAX );
-		auto_array< CBENode* > pList( new CBENode*[ nValue * 2 + 2 ] );
+		ASSERT( nValueDoubled + 2 <= SIZE_T_MAX );
+		CAutoVectorPtr< CBENode* > pList( new CBENode*[ nValueDoubled + 2 ] );
+		if ( ! pList )
+			return NULL;	// Out of memory
 
 		if ( m_pValue )
 		{
 			// Overflow check
-			ASSERT( 2 * nValue * sizeof( CBENode* ) <= SIZE_T_MAX );
-			memcpy( pList.get(), m_pValue, 2 * nValue * sizeof( CBENode* ) );
+			ASSERT( nValueDoubled * sizeof( CBENode* ) <= SIZE_T_MAX );
+			memcpy( pList, m_pValue, nValueDoubled * sizeof( CBENode* ) );
 
 			delete [] (CBENode**)m_pValue;
 		}
 
-		auto_array< BYTE > pxKey( new BYTE[ nKey + 1 ] );
-		memcpy( pxKey.get(), pKey, nKey );
+		CAutoVectorPtr< BYTE > pxKey( new BYTE[ nKey + 1 ] );
+		if ( ! pxKey )
+			return NULL;	// Out of memory
+
+		memcpy( pxKey, pKey, nKey );
 		pxKey[ nKey ] = 0;
 
-		pList[ nValue * 2 ]		= pNew.release();
-		pList[ nValue * 2 + 1 ]	= (CBENode*)pxKey.release();
+		pList[ nValueDoubled ] = pNew.Detach();
+		pList[ nValueDoubled + 1 ] = (CBENode*)pxKey.Detach();
 
-		m_pValue = pList.release();
+		m_pValue = pList.Detach();
 		++m_nValue;
 	}
 
@@ -281,4 +311,20 @@ void CBENode::Encode(CBuffer* pBuffer) const
 	{
 		ASSERT( FALSE );
 	}
+}
+
+CString CBENode::GetString() const
+{
+	if ( m_nType != beString )
+		return CString();
+
+	LPCSTR szValue = (LPCSTR)m_pValue;
+
+	// Decode from UTF-8
+	CString str;
+	if ( ::Decode( CP_UTF8, szValue, str ) )
+		return str;
+
+	// Use as is
+	return CString( szValue );
 }

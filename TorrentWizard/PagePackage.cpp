@@ -1,7 +1,7 @@
 //
 // PagePackage.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -32,14 +32,12 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNCREATE(CPackagePage, CWizardPage)
 
 BEGIN_MESSAGE_MAP(CPackagePage, CWizardPage)
-	//{{AFX_MSG_MAP(CPackagePage)
 	ON_NOTIFY(LVN_ITEMCHANGED, IDC_FILE_LIST, OnItemChangedFileList)
 	ON_BN_CLICKED(IDC_ADD_FOLDER, OnAddFolder)
 	ON_BN_CLICKED(IDC_ADD_FILE, OnAddFile)
 	ON_BN_CLICKED(IDC_REMOVE_FILE, OnRemoveFile)
 	ON_WM_XBUTTONDOWN()
 	ON_WM_DROPFILES()
-	//}}AFX_MSG_MAP
 END_MESSAGE_MAP()
 
 
@@ -49,11 +47,9 @@ END_MESSAGE_MAP()
 CPackagePage::CPackagePage() : CWizardPage(CPackagePage::IDD)
 	, m_hImageList	( NULL )
 	, m_nTotalSize	( 0 )
-	, m_sTotalSize	( _T("") )
-	, m_sFileCount	( _T("Files in this Torrent package:") )
+	, m_sTotalSize	( L"" )
+	, m_sFileCount	( L"Files in this Torrent package:" )
 {
-	//{{AFX_DATA_INIT(CPackagePage)
-	//}}AFX_DATA_INIT
 }
 
 //CPackagePage::~CPackagePage()
@@ -63,12 +59,11 @@ CPackagePage::CPackagePage() : CWizardPage(CPackagePage::IDD)
 void CPackagePage::DoDataExchange(CDataExchange* pDX)
 {
 	CWizardPage::DoDataExchange(pDX);
-	//{{AFX_DATA_MAP(CPackagePage)
+
 	DDX_Control(pDX, IDC_REMOVE_FILE, m_wndRemove);
 	DDX_Control(pDX, IDC_FILE_LIST, m_wndList);
 	DDX_Text(pDX, IDC_FILECOUNT, m_sFileCount);
 	DDX_Text(pDX, IDC_TOTAL_SIZE, m_sTotalSize);
-	//}}AFX_DATA_MAP
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -82,9 +77,9 @@ BOOL CPackagePage::OnInitDialog()
 	m_wndList.GetClientRect( &rc );
 	rc.right -= GetSystemMetrics( SM_CXVSCROLL );
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_LABELTIP|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
-	m_wndList.InsertColumn( 0, _T("Filename"), LVCFMT_LEFT, rc.right - 64, -1 );
-	m_wndList.InsertColumn( 1, _T("Size"), LVCFMT_RIGHT, 64, 0 );
-	m_wndList.InsertColumn( 2, _T("Bytes"), LVCFMT_RIGHT, 0, 0 );
+	m_wndList.InsertColumn( 0, L"Filename", LVCFMT_LEFT, rc.right - 64, -1 );
+	m_wndList.InsertColumn( 1, L"Size", LVCFMT_RIGHT, 64, 0 );
+	m_wndList.InsertColumn( 2, L"Bytes", LVCFMT_RIGHT, 0, 0 );
 
 	this->DragAcceptFiles(TRUE);
 
@@ -107,9 +102,9 @@ BOOL CPackagePage::OnSetActive()
 
 		while ( ! oDirs.IsEmpty() )
 		{
-			CString strFolder = oDirs.RemoveHead() + _T("\\");
+			CString strFolder = oDirs.RemoveHead() + L"\\";
 			CFileFind finder;
-			BOOL bWorking = finder.FindFile( strFolder + _T("*.*") );
+			BOOL bWorking = finder.FindFile( strFolder + L"*.*" );
 			while ( bWorking )
 			{
 				bWorking = finder.FindNextFile();
@@ -161,7 +156,7 @@ void CPackagePage::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*point*/
 
 void CPackagePage::OnItemChangedFileList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
-//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;	// For reference
+//	NM_LISTVIEW* pNMListView = (NM_LISTVIEW*)pNMHDR;
 
 	m_wndRemove.EnableWindow( m_wndList.GetSelectedCount() > 0 );
 
@@ -197,7 +192,7 @@ void CPackagePage::OnAddFolder()
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
-	pBI.lpszTitle		= _T("Add a folder:");
+	pBI.lpszTitle		= L"Add a folder:";
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
 
 	pPath = SHBrowseForFolder( &pBI );
@@ -216,7 +211,7 @@ void CPackagePage::OnAddFile()
 {
 	CFileDialog dlg( TRUE, NULL, NULL,
 		OFN_HIDEREADONLY|OFN_ALLOWMULTISELECT|OFN_ENABLESIZING,
-		_T("All Files|*.*||"), this );
+		L"All Files|*.*||", this );
 
 	const DWORD nFilesSize( 81920 );
 	LPTSTR szFiles = new TCHAR [ nFilesSize ];
@@ -262,13 +257,13 @@ void CPackagePage::OnRemoveFile()
 			if ( m_wndList.GetItemCount() )
 			{
 				m_nTotalSize -= _wtoi( strSize );
-				m_sFileCount.Format( _T("%i Files in this Torrent package:"), m_wndList.GetItemCount() );
-				m_sTotalSize.Format( _T("%s"), SmartSize( m_nTotalSize ) );
+				m_sFileCount.Format( L"%i Files in this Torrent package:", m_wndList.GetItemCount() );
+				m_sTotalSize.Format( L"%s", SmartSize( m_nTotalSize ) );
 			}
 			else
 			{
-				m_sFileCount = _T("Files in this Torrent package:");
-				m_sTotalSize = _T("");
+				m_sFileCount = L"Files in this Torrent package:";
+				m_sTotalSize = L"";
 				m_nTotalSize = 0;
 			}
 
@@ -299,7 +294,7 @@ BOOL CPackagePage::PreTranslateMessage(MSG* pMsg)
 void CPackagePage::AddFile(LPCTSTR pszFile)
 {
 	LPCTSTR szFilepath = ( _tcsclen( pszFile ) < MAX_PATH ) ?
-		pszFile : (LPCTSTR)( CString( _T("\\\\?\\") ) + pszFile );
+		pszFile : (LPCTSTR)( CString( L"\\\\?\\" ) + pszFile );
 
 	HANDLE hFile = CreateFile( szFilepath, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, 0, NULL );
 
@@ -319,7 +314,7 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 	if( m_wndList.FindItem( &lvInfo, -1 ) != -1 )
 	{
 		//CString strMessage;
-		//strMessage.Format( _T("Duplicate filename denied:  %s"), pszFile );
+		//strMessage.Format( L"Duplicate filename denied:  %s", pszFile );
 		//AfxMessageBox( strMessage, MB_ICONEXCLAMATION );
 		CloseHandle( hFile );
 		return;
@@ -348,14 +343,14 @@ void CPackagePage::AddFile(LPCTSTR pszFile)
 		pszFile, 0, 0, pInfo.iIcon, NULL );
 
 	CString strBytes;
-	strBytes.Format( _T("%i"), nSize );
+	strBytes.Format( L"%i", nSize );
 
 	m_wndList.SetItemText( nItem, 1, SmartSize( nSize ) );
 	m_wndList.SetItemText( nItem, 2, strBytes );
 
 	m_nTotalSize += nSize;
-	m_sTotalSize.Format( _T("%s"), SmartSize( m_nTotalSize ) );
-	m_sFileCount.Format( _T("%i Files in this Torrent package:"), m_wndList.GetItemCount() );
+	m_sTotalSize.Format( L"%s", SmartSize( m_nTotalSize ) );
+	m_sFileCount.Format( L"%i Files in this Torrent package:", m_wndList.GetItemCount() );
 
 	UpdateData( FALSE );
 	UpdateWindow();
@@ -367,7 +362,7 @@ void CPackagePage::AddFolder(LPCTSTR pszPath, int nRecursive)
 	CString strPath;
 	HANDLE hSearch;
 
-	strPath.Format( _T("%s\\*.*"), pszPath );
+	strPath.Format( L"%s\\*.*", pszPath );
 
 	hSearch = FindFirstFile( strPath, &pFind );
 
@@ -375,11 +370,11 @@ void CPackagePage::AddFolder(LPCTSTR pszPath, int nRecursive)
 	{
 		do
 		{
-			if ( pFind.cFileName[0] == '.' ||
+			if ( pFind.cFileName[0] == L'.' ||
 				 pFind.dwFileAttributes & FILE_ATTRIBUTE_HIDDEN )
 				 continue;
 
-			strPath.Format( _T("%s\\%s"), pszPath, pFind.cFileName );
+			strPath.Format( L"%s\\%s", pszPath, pFind.cFileName );
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{

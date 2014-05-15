@@ -1,7 +1,7 @@
 //
 // LiveList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -513,32 +513,32 @@ bool CLiveList::Less(const CLiveItemPtr& _Left, const CLiveItemPtr& _Right, int 
 // Parse IP addresses like "xxx.xxx.xxx.xxx\0" and "xxx.xxx.xxx.xxx/"
 // (IP stored in host byte order)
 
-inline BOOL atoip (LPCTSTR c, DWORD& addr)
+inline BOOL atoip(LPCTSTR c, DWORD& addr)
 {
 	DWORD digit = 0;
 	DWORD num = 0;
 	addr = 0;
 	for ( ; ; c++ )
 	{
-		if ( *c >= _T('0') && *c <= _T('9') )
+		if ( *c >= L'0' && *c <= L'9' )
 		{
-			num = num * 10 + ( *c - _T('0') );
+			num = num * 10 + ( *c - L'0' );
 			if ( num > 255 )
 				break;				// Octet too big
 		}
-		else if ( *c == _T('.') || *c == _T('\0') || *c == _T('/') )
+		else if ( *c == L'.' || *c == L'\0' || *c == L'/' )
 		{
 			addr = ( addr << 8 ) | num;
 			num = 0;
 			digit++;
 			if ( digit == 4 )
 			{
-				if ( *c == _T('.') )
+				if ( *c == L'.' )
 					break;			// Too long
 
 				return TRUE;		// IP found
 			}
-			if ( *c == _T('\0') || *c == _T('/') )
+			if ( *c == L'\0' || *c == L'/' )
 				break;				// Too short
 		}
 		else
@@ -577,24 +577,24 @@ int CLiveList::SortProc(LPCTSTR sB, LPCTSTR sA, BOOL bNumeric)
 		double nA = 0, nB = 0;
 
 			if ( *sA == '(' || *sA == 'Q' )
-				_stscanf( sA+1, _T("%lf"), &nA );
+				_stscanf( sA+1, L"%lf", &nA );
 			else
-				_stscanf( sA, _T("%lf (%lf)"), &nA, &nA );
+				_stscanf( sA, L"%lf (%lf)", &nA, &nA );
 
 			if ( *sB == '(' || *sB == 'Q' )
-				_stscanf( sB+1, _T("%lf"), &nB );
+				_stscanf( sB+1, L"%lf", &nB );
 			else
-				_stscanf( sB, _T("%lf (%lf)"), &nB, &nB );
+				_stscanf( sB, L"%lf (%lf)", &nB, &nB );
 
-			if ( _tcsstr( sA, _T(" K") ) ) nA *= 1024;
-			if ( _tcsstr( sA, _T(" M") ) ) nA *= 1024*1024;
-			if ( _tcsstr( sA, _T(" G") ) ) nA *= 1024*1024*1024;
-			if ( _tcsstr( sA, _T(" T") ) ) nA *= 1099511627776.0f;
+			if ( _tcsstr( sA, L" K" ) ) nA *= 1024;
+			if ( _tcsstr( sA, L" M" ) ) nA *= 1024*1024;
+			if ( _tcsstr( sA, L" G" ) ) nA *= 1024*1024*1024;
+			if ( _tcsstr( sA, L" T" ) ) nA *= 1099511627776.0f;
 
-			if ( _tcsstr( sB, _T(" K") ) ) nB *= 1024;
-			if ( _tcsstr( sB, _T(" M") ) ) nB *= 1024*1024;
-			if ( _tcsstr( sB, _T(" G") ) ) nB *= 1024*1024*1024;
-			if ( _tcsstr( sB, _T(" T") ) ) nB *= 1099511627776.0f;
+			if ( _tcsstr( sB, L" K" ) ) nB *= 1024;
+			if ( _tcsstr( sB, L" M" ) ) nB *= 1024*1024;
+			if ( _tcsstr( sB, L" G" ) ) nB *= 1024*1024*1024;
+			if ( _tcsstr( sB, L" T" ) ) nB *= 1099511627776.0f;
 
 		if ( nB < nA )
 			return -1;
@@ -612,7 +612,7 @@ BOOL CLiveList::IsNumber(LPCTSTR pszString)
 	if ( ! *pszString ) return FALSE;
 
 	// ToDo: Is this the best way to do this?
-	if ( *pszString == '(' && _tcsstr( pszString, _T(" source") ) != NULL ) return TRUE;
+	if ( *pszString == '(' && _tcsstr( pszString, L" source" ) != NULL ) return TRUE;
 	if ( *pszString == 'Q' && _istdigit( pszString[1] ) ) return TRUE;
 
 	BOOL bSpace = FALSE;
@@ -743,7 +743,7 @@ HBITMAP CLiveList::CreateDragImage(CListCtrl* pList, const CPoint& ptMouse, CPoi
 	bmAll.DeleteObject();
 	dcAll.DeleteDC();
 
-	return (HBITMAP) bmDrag.Detach ();
+	return (HBITMAP) bmDrag.Detach();
 }
 
 CImageList* CLiveList::CreateDragImage(CListCtrl* pList, const CPoint& ptMouse)
@@ -751,10 +751,11 @@ CImageList* CLiveList::CreateDragImage(CListCtrl* pList, const CPoint& ptMouse)
 	ASSERT_VALID( pList );
 
 	CPoint ptOffset( 0, 0 );
-	CBitmap bmDrag;
-	bmDrag.Attach( CreateDragImage( pList, ptMouse, ptOffset) );
 	BITMAP bmpInfo;
+	CBitmap bmDrag;
+	bmDrag.Attach( CreateDragImage( pList, ptMouse, ptOffset ) );
 	bmDrag.GetBitmap( &bmpInfo );
+
 	CImageList* pAll = new CImageList();
 	pAll->Create( bmpInfo.bmWidth, bmpInfo.bmHeight, ILC_COLOR32|ILC_MASK, 1, 1 ) ||
 	pAll->Create( bmpInfo.bmWidth, bmpInfo.bmHeight, ILC_COLOR24|ILC_MASK, 1, 1 ) ||
@@ -1020,5 +1021,5 @@ void CLiveListCtrl::OnLvnOdCacheHint(NMHDR * /*pNMHDR*/, LRESULT *pResult)
 //void CLiveListCtrl::OnSkinChange()
 //{
 //	SetBkColor( Colors.m_crWindow );
-//	SetBkImage( Skin.GetWatermark( _T("CLiveList") ) );
+//	SetBkImage( Skin.GetWatermark( L"CLiveList" ) );
 //}

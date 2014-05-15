@@ -1,7 +1,7 @@
 //
 // UploadQueue.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -87,46 +87,46 @@ CString CUploadQueue::GetCriteriaString() const
 	{
 		if ( m_nProtocols & (1<<PROTOCOL_HTTP) )
 		{
-			if ( ! str.IsEmpty() ) str += _T(", ");
-			str += _T("HTTP");
+			if ( ! str.IsEmpty() ) str += L", ";
+			str += L"HTTP";
 		}
 		if ( m_nProtocols & (1<<PROTOCOL_ED2K) )
 		{
-			if ( ! str.IsEmpty() ) str += _T(", ");
-			str += _T("ED2K");
+			if ( ! str.IsEmpty() ) str += L", ";
+			str += L"ED2K";
 		}
 		if ( m_nProtocols & (1<<PROTOCOL_DC) )
 		{
-			if ( ! str.IsEmpty() ) str += _T(", ");
-			str += _T("DC++");
+			if ( ! str.IsEmpty() ) str += L", ";
+			str += L"DC++";
 		}
 		if ( m_nProtocols & (1<<PROTOCOL_BT) )
 		{
-			if ( ! str.IsEmpty() ) str += _T(", ");
-			str += _T("BT");
+			if ( ! str.IsEmpty() ) str += L", ";
+			str += L"BT";
 		}
 	}
 
 	if ( m_nMinSize > 0 )
 	{
-		if ( ! str.IsEmpty() ) str += _T(", ");
-		str = str + _T(">=") + Settings.SmartVolume( m_nMinSize );
+		if ( ! str.IsEmpty() ) str += L", ";
+		str = str + L">=" + Settings.SmartVolume( m_nMinSize );
 	}
 
 	if ( m_nMaxSize < ~0ull )
 	{
-		if ( ! str.IsEmpty() ) str += _T(", ");
-		str = str + _T("<=") + Settings.SmartVolume( m_nMaxSize );
+		if ( ! str.IsEmpty() ) str += L", ";
+		str = str + L"<=" + Settings.SmartVolume( m_nMaxSize );
 	}
 
 	if ( m_nFileStateFlag == ulqPartial )
 	{
-		if ( ! str.IsEmpty() ) str += _T(", ");
+		if ( ! str.IsEmpty() ) str += L", ";
 		str += LoadString(IDS_UPLOAD_QUEUE_PARTIAL );
 	}
 	else if ( m_nFileStateFlag == ulqLibrary )
 	{
-		if ( ! str.IsEmpty() ) str += _T(", ");
+		if ( ! str.IsEmpty() ) str += L", ";
 		str += LoadString( IDS_UPLOAD_QUEUE_LIBRARY );
 	}
 
@@ -308,7 +308,7 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 		if ( bPeek ) return TRUE;
 		StartImpl( pUpload );
 		SpreadBandwidth();
-		theApp.Message( MSG_DEBUG, _T("Starting upload to %s because the minimum has not been reached."),
+		theApp.Message( MSG_DEBUG, L"Starting upload to %s because the minimum has not been reached.",
 			(LPCTSTR)pUpload->m_sAddress );
 		return TRUE;
 	}
@@ -318,7 +318,7 @@ BOOL CUploadQueue::Start(CUploadTransfer* pUpload, BOOL bPeek)
 		if ( bPeek ) return TRUE;
 		StartImpl( pUpload );
 		pUpload->SetSpeedLimit( nAvailable );
-		theApp.Message( MSG_DEBUG, _T("Starting upload to %s because there is %s available."),
+		theApp.Message( MSG_DEBUG, L"Starting upload to %s because there is %s available.",
 			pUpload->m_sAddress, Settings.SmartSpeed( nAvailable ) );
 		return TRUE;
 	}

@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -155,7 +155,7 @@ void CSearchDetailPanel::SetFile(CMatchFile* pFile)
 	{
 		CImageFile pImage;
 
-		if ( pImage.LoadFromMemory( _T(".jpg"), (LPCVOID)pFile->m_pPreview, pFile->m_nPreview, FALSE, TRUE ) )
+		if ( pImage.LoadFromMemory( L".jpg", (LPCVOID)pFile->m_pPreview, pFile->m_nPreview, FALSE, TRUE ) )
 		{
 			pLock.Unlock();
 			OnPreviewLoaded( m_oSHA1, &pImage );
@@ -333,7 +333,7 @@ void CSearchDetailPanel::OnPaint()
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 	{
 		CString strSize;
-		strSize.Format( _T("%s   (%I64i bytes)"), m_sSize, m_pFile->m_nSize );
+		strSize.Format( L"%s   (%I64i bytes)", m_sSize, m_pFile->m_nSize );
 		CSize sz = dc.GetTextExtent( strSize );
 		int nOffset = sz.cx + 2;
 		DrawText( &dc, rcWork.right - nOffset, rcWork.top, strSize );
@@ -341,7 +341,7 @@ void CSearchDetailPanel::OnPaint()
 		LoadString( str, IDS_TIP_SIZE );
 		sz = dc.GetTextExtent( str );
 		nOffset += sz.cx + 18;
-		DrawText( &dc, rcWork.right - nOffset, rcWork.top, str + _T(":    ") );
+		DrawText( &dc, rcWork.right - nOffset, rcWork.top, str + L":    " );
 	}
 
 	dc.SelectObject( &CoolInterface.m_fntNormal );
@@ -456,7 +456,7 @@ Review::Review(const Hashes::Guid& oGUID, IN_ADDR* pAddress, LPCTSTR pszNick, in
 	m_nRating = nRating;
 
 	if ( pszNick != NULL && *pszNick != 0 )
-		m_sNick.Format( _T("%s (%s)"), pszNick, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+		m_sNick.Format( L"%s (%s)", pszNick, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 	else
 		m_sNick = inet_ntoa( *pAddress );
 
@@ -636,7 +636,7 @@ void CSearchDetailPanel::OnRun()
 		{
 			CImageFile pImage;
 
-			if ( pImage.LoadFromMemory( _T(".jpg"), (LPCVOID)pBuffer, nBuffer, FALSE, TRUE ) )
+			if ( pImage.LoadFromMemory( L".jpg", (LPCVOID)pBuffer, nBuffer, FALSE, TRUE ) )
 			{
 				OnPreviewLoaded( oSHA1, &pImage );
 				CachePreviewImage( oSHA1, pBuffer, nBuffer );
@@ -659,12 +659,12 @@ BOOL CSearchDetailPanel::ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* 
 {
 	m_pRequest.Clear();
 	m_pRequest.SetURL( strURL );
-	m_pRequest.AddHeader( _T("Accept"), _T("image/jpeg") );
+	m_pRequest.AddHeader( L"Accept", L"image/jpeg" );
 	m_pRequest.LimitContentLength( Settings.Search.MaxPreviewLength );
 
 	if ( ! m_pRequest.Execute( FALSE ) )
 	{
-		theApp.Message( MSG_DEBUG, _T("Preview failed: unable to execute request.") );
+		theApp.Message( MSG_DEBUG, L"Preview failed: unable to execute request." );
 		return FALSE;
 	}
 
@@ -672,12 +672,12 @@ BOOL CSearchDetailPanel::ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* 
 
 	if ( m_pRequest.GetStatusSuccess() == FALSE )
 	{
-		theApp.Message( MSG_DEBUG, _T("Preview failed: HTTP status code %i"),
+		theApp.Message( MSG_DEBUG, L"Preview failed: HTTP status code %i",
 			m_pRequest.GetStatusCode() );
 		return FALSE;
 	}
 
-	CString strURN = m_pRequest.GetHeader( _T("X-Previewed-URN") );
+	CString strURN = m_pRequest.GetHeader( L"X-Previewed-URN" );
 
 	if ( ! strURN.IsEmpty() )
 	{
@@ -685,16 +685,16 @@ BOOL CSearchDetailPanel::ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* 
 
 		if ( oSHA1.fromUrn( strURN ) && validAndUnequal( oSHA1, m_oSHA1 ) )
 		{
-			theApp.Message( MSG_DEBUG, _T("Preview failed: wrong URN.") );
+			theApp.Message( MSG_DEBUG, L"Preview failed: wrong URN." );
 			return FALSE;
 		}
 	}
 
-	CString strMIME = m_pRequest.GetHeader( _T("Content-Type") );
+	CString strMIME = m_pRequest.GetHeader( L"Content-Type" );
 
-	if ( strMIME.CompareNoCase( _T("image/jpeg") ) != 0 )
+	if ( strMIME.CompareNoCase( L"image/jpeg" ) != 0 )
 	{
-		theApp.Message( MSG_DEBUG, _T("Preview failed: unacceptable content type.") );
+		theApp.Message( MSG_DEBUG, L"Preview failed: unacceptable content type." );
 		return FALSE;
 	}
 

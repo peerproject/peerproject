@@ -556,6 +556,19 @@ bool CDownloads::CheckActive(CDownload* pDownload, int nScope) const
 	return false;
 }
 
+CDownload* CDownloads::FindByPDName(const CString& sPDName) const
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	for ( POSITION pos = GetIterator() ; pos ; )
+	{
+		CDownload* pDownload = GetNext( pos );
+		if ( sPDName.CompareNoCase( PathFindFileName( pDownload->m_sPath ) ) == 0 )
+			return pDownload;
+	}
+	return NULL;
+}
+
 CDownload* CDownloads::FindByPath(const CString& sPath) const
 {
 	ASSUME_LOCK( Transfers.m_pSection );
@@ -699,7 +712,7 @@ CDownload* CDownloads::FindByMD5(const Hashes::Md5Hash& oMD5, BOOL bSharedOnly) 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
 		CDownload* pDownload = GetNext( pos );
-		if ( validAndEqual( pDownload->m_oMD5, oMD5) )
+		if ( validAndEqual( pDownload->m_oMD5, oMD5 ) )
 		{
 			if ( ! bSharedOnly || ( pDownload->IsShared() ) )
 				return pDownload;
@@ -771,7 +784,7 @@ BOOL CDownloads::Move(CDownload* pDownload, int nDelta)
 		posOther = m_pList.GetHeadPosition();
 	else if ( nDelta > 1 )
 		posOther = m_pList.GetTailPosition();
-	if ( posOther == NULL) return FALSE;
+	if ( posOther == NULL ) return FALSE;
 
 	if ( nDelta <= 0 )
 		m_pList.InsertBefore( posOther, pDownload );
@@ -795,7 +808,7 @@ BOOL CDownloads::Swap(CDownload* p1, CDownload*p2)
 	if ( pos2 == NULL ) return FALSE;
 
 	m_pList.InsertAfter(pos2, p1 );
-	m_pList.RemoveAt( pos2);
+	m_pList.RemoveAt( pos2 );
 	m_pList.InsertAfter(pos1, p2 );
 	m_pList.RemoveAt( pos1 );
 	return TRUE;
@@ -1227,12 +1240,12 @@ void CDownloads::OnRename(LPCTSTR pszSource, LPCTSTR /*pszTarget*/)
 
 void CDownloads::PreLoad()
 {
-	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
+	const CString strRoot = Settings.Downloads.IncompletePath + L"\\";
 
 //	LoadFromCompoundFiles();											// Legacy Shareaza multifile torrents
 
 	WIN32_FIND_DATA pFind = {};
-	HANDLE hSearch = FindFirstFile( strRoot + _T("*.?d"), &pFind );		// .pd files + .sd Shareaza imports
+	HANDLE hSearch = FindFirstFile( strRoot + L"*.?d", &pFind );		// .pd files + .sd Shareaza imports
 	if ( hSearch == INVALID_HANDLE_VALUE ) return;
 	CString str;
 	UINT nCount = 0;
@@ -1241,38 +1254,11 @@ void CDownloads::PreLoad()
 
 	do
 	{
-		CString strPath( strRoot );
-		strPath.Append( pFind.cFileName );
-
-		CDownload* pDownload = new CDownload();
-		if ( pDownload->Load( strPath ) )
+		if ( Load( strRoot + pFind.cFileName ) )
 		{
-			if ( pDownload->IsSeeding() )
-			{
-				if ( ! Settings.BitTorrent.AutoSeed )
-				{
-					m_pDelete.AddTail( SafePath( strPath ) );
-					m_pDelete.AddTail( SafePath( strPath + _T(".sav") ) );
-					m_pDelete.AddTail( SafePath( strPath + _T(".png") ) );
-					theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
-					delete pDownload;
-					continue;
-				}
-				pDownload->m_bComplete = true;
-				pDownload->m_bVerify = TRI_TRUE;
-			}
-			str.Format( _T("Downloads (%u)"), ++nCount );
+			str.Format( L"Downloads (%u)", ++nCount );
 			theApp.SplashUpdate( str );
-			m_pList.AddTail( pDownload );
-		}
-		else
-		{
-			// Remove orphaned .pd/.sd files at startup
-			m_pDelete.AddTail( SafePath( strPath ) );
-			m_pDelete.AddTail( SafePath( strPath + _T(".sav") ) );
-			m_pDelete.AddTail( SafePath( strPath + _T(".png") ) );
-			theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
-			delete pDownload;
+
 		}
 	}
 	while ( FindNextFile( hSearch, &pFind ) );
@@ -1298,6 +1284,38 @@ void CDownloads::Load()
 	Transfers.StartThread();
 }
 
+CDownload* CDownloads::Load(const CString& strPath)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	CAutoPtr< CDownload > pDownload ( new CDownload() );
+	if ( ! pDownload->Load( strPath ) )
+	{
+		// Remove orphaned .pd/.sd files at startup
+		m_pDelete.AddTail( SafePath( strPath ) );
+		m_pDelete.AddTail( SafePath( strPath + L".sav" ) );
+		m_pDelete.AddTail( SafePath( strPath + L".png" ) );
+		theApp.Message( MSG_ERROR, IDS_DOWNLOAD_REMOVE, ( pDownload->m_sName.IsEmpty() ? strPath : pDownload->m_sName ) );
+	}
+
+	if ( pDownload->IsSeeding() )
+	{
+		if ( ! Settings.BitTorrent.AutoSeed )
+		{
+			m_pDelete.AddTail( SafePath( strPath ) );
+			m_pDelete.AddTail( SafePath( strPath + L".sav" ) );
+			m_pDelete.AddTail( SafePath( strPath + L".png" ) );
+			theApp.Message( MSG_NOTICE, IDS_DOWNLOAD_REMOVE, pDownload->m_sName );
+			return NULL;
+		}
+		pDownload->m_bComplete = true;
+		pDownload->m_bVerify = TRI_TRUE;
+	}
+
+	m_pList.AddTail( pDownload );
+	return pDownload.Detach();
+}
+
 void CDownloads::Save(BOOL bForce)
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
@@ -1317,8 +1335,8 @@ void CDownloads::Save(BOOL bForce)
 
 void CDownloads::PurgeFiles()
 {
-	const CString strRoot = Settings.Downloads.IncompletePath + _T("\\");
-	const CString strPath = strRoot + _T("Preview *.*");		// Text defined in DlgFilePreview
+	const CString strRoot = Settings.Downloads.IncompletePath + L"\\";
+	const CString strPath = strRoot + L"Preview *.*";		// Text defined in DlgFilePreview
 
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
@@ -1326,7 +1344,7 @@ void CDownloads::PurgeFiles()
 
 	do
 	{
-		if ( _tcsnicmp( pFind.cFileName, _PT("Preview ") ) == 0 )
+		if ( _tcsnicmp( pFind.cFileName, _P( L"Preview " ) ) == 0 )
 			m_pDelete.AddTail( SafePath( strRoot + pFind.cFileName ) );
 		//	DeleteFileEx( SafePath( strRoot + pFind.cFileName ), FALSE, FALSE, TRUE );
 	}
@@ -1345,7 +1363,7 @@ void CDownloads::PurgeFiles()
 	}
 
 	if ( nCount )
-		theApp.Message( MSG_INFO, _T("Deleted %u %s"), nCount, (LPCTSTR)LoadString( IDS_FILES ) );
+		theApp.Message( MSG_INFO, L"Deleted %u %s", nCount, (LPCTSTR)LoadString( IDS_FILES ) );
 }
 
 
@@ -1354,18 +1372,18 @@ void CDownloads::PurgeFiles()
 
 //void CDownloads::LoadFromCompoundFiles()
 //{
-//	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.dat") ) )
+//	if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + L"\\Shareaza Downloads.dat" ) )
 //		; // Good
-//	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.bak") ) )
+//	else if ( LoadFromCompoundFile( Settings.Downloads.IncompletePath + L"\\Shareaza Downloads.bak" ) )
 //		; // Good
 //	else
 //		LoadFromTimePair();
 //
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza Downloads.bak"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza1.dat"), FALSE, TRUE, TRUE );
-//	DeleteFileEx( Settings.Downloads.IncompletePath + _T("\\Shareaza2.dat"), FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + L"\\Shareaza Downloads.dat", FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + L"\\Shareaza Downloads.bak", FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + L"\\Shareaza.dat", FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + L"\\Shareaza1.dat", FALSE, TRUE, TRUE );
+//	DeleteFileEx( Settings.Downloads.IncompletePath + L"\\Shareaza2.dat", FALSE, TRUE, TRUE );
 //}
 
 //BOOL CDownloads::LoadFromCompoundFile(LPCTSTR pszFile)
@@ -1392,9 +1410,9 @@ void CDownloads::PurgeFiles()
 //{
 //	FILETIME pFileTime1 = { 0, 0 }, pFileTime2 = { 0, 0 };
 //	CFile pFile1, pFile2;
-//	const CString strFile = Settings.Downloads.IncompletePath + _T("\\");
-//	BOOL bFile1	= pFile1.Open( strFile + _T("Shareaza1.dat"), CFile::modeRead );
-//	BOOL bFile2	= pFile2.Open( strFile + _T("Shareaza2.dat"), CFile::modeRead );
+//	const CString strFile = Settings.Downloads.IncompletePath + L"\\";
+//	BOOL bFile1	= pFile1.Open( strFile + L"Shareaza1.dat", CFile::modeRead );
+//	BOOL bFile2	= pFile2.Open( strFile + L"Shareaza2.dat", CFile::modeRead );
 //
 //	if ( bFile1 || bFile2 )
 //	{
@@ -1403,7 +1421,7 @@ void CDownloads::PurgeFiles()
 //	}
 //	else
 //	{
-//		if ( ! pFile1.Open( strFile + _T("Shareaza.dat"), CFile::modeRead ) ) return FALSE;
+//		if ( ! pFile1.Open( strFile + L"Shareaza.dat", CFile::modeRead ) ) return FALSE;
 //		pFileTime1.dwHighDateTime++;
 //	}
 //

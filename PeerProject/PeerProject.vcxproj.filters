@@ -78,6 +78,9 @@
     <ClCompile Include="AlbumFolder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AntiVirus.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,7 +90,7 @@
     <ClCompile Include="BENode.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BitprintDownloader.cpp">
+    <ClCompile Include="BitprintsDownloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="BTClient.cpp">
@@ -172,6 +175,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="DiscoveryServices.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DisplayData.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Download.cpp">
@@ -376,6 +382,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MetaList.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniUPnP.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Neighbour.cpp">
@@ -583,6 +592,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="UPnPFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UPnPNAT.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VendorCache.cpp">
@@ -816,7 +828,7 @@
     <ClCompile Include="DlgAbout.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="DlgBitprintDownload.cpp">
+    <ClCompile Include="DlgBitprintsDownload.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="DlgCloseMode.cpp">
@@ -889,6 +901,9 @@
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="DlgHelp.cpp">
+      <Filter>Source Files\Dialogs</Filter>
+    </ClCompile>
+    <ClCompile Include="DlgHex.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
     <ClCompile Include="DlgHitColumns.cpp">
@@ -1083,9 +1098,6 @@
     <ClCompile Include="WizardWelcomePage.cpp">
       <Filter>Source Files\Wizard</Filter>
     </ClCompile>
-    <ClCompile Include="..\Services\MainlineDHT\dht.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Hashes\HashDescriptors.cpp">
       <Filter>Source Files\Hash algorithms\Policies</Filter>
     </ClCompile>
@@ -1125,7 +1137,7 @@
     <ClCompile Include="PageProfileContact.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
-    <ClCompile Include="PageProfileFavourites.cpp">
+    <ClCompile Include="PageProfileFavorites.cpp">
       <Filter>Source Files\Pages</Filter>
     </ClCompile>
     <ClCompile Include="PageProfileFiles.cpp">
@@ -1583,6 +1595,9 @@
     <ClInclude Include="AlbumFolder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AntiVirus.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Application.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -1592,7 +1607,7 @@
     <ClInclude Include="BENode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BitprintDownloader.h">
+    <ClInclude Include="BitprintsDownloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="BTClient.h">
@@ -1677,6 +1692,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DiscoveryServices.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DisplayData.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Download.h">
@@ -1889,6 +1907,9 @@
     <ClInclude Include="MetaList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClCompile Include="MiniUPnP.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClInclude Include="MinMax.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -2111,7 +2132,13 @@
     <ClInclude Include="UploadTransferHTTP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UPnP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="UPnPFinder.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UPnPNAT.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VendorCache.h">
@@ -2429,7 +2456,7 @@
     <ClInclude Include="DlgAbout.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
-    <ClInclude Include="DlgBitprintDownload.h">
+    <ClInclude Include="DlgBitprintsDownload.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgCloseMode.h">
@@ -2502,6 +2529,9 @@
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgHelp.h">
+      <Filter>Header Files\Dialogs</Filter>
+    </ClInclude>
+    <ClInclude Include="DlgHex.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgHitColumns.h">
@@ -2642,7 +2672,7 @@
     <ClInclude Include="PageProfileContact.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
-    <ClInclude Include="PageProfileFavourites.h">
+    <ClInclude Include="PageProfileFavorites.h">
       <Filter>Header Files\Pages</Filter>
     </ClInclude>
     <ClInclude Include="PageProfileFiles.h">
@@ -2771,20 +2801,23 @@
     <ClInclude Include="Hashes\ValidationPolicies.hpp">
       <Filter>Header Files\Hash Algorithms\Policies</Filter>
     </ClInclude>
-    <ClInclude Include="..\Services\Augment\Augment.hpp">
+    <ClInclude Include="Augment\Augment.hpp">
       <Filter>Header Files\Augment</Filter>
     </ClInclude>
-    <ClInclude Include="..\Services\Augment\auto_array.hpp">
+    <ClInclude Include="Augment\auto_array.hpp">
       <Filter>Header Files\Augment</Filter>
     </ClInclude>
-    <ClInclude Include="..\Services\Augment\auto_ptr.hpp">
+    <ClInclude Include="Augment\auto_ptr.hpp">
       <Filter>Header Files\Augment</Filter>
     </ClInclude>
-    <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp">
+    <ClInclude Include="Augment\IUnknownImplementation.hpp">
       <Filter>Header Files\Augment</Filter>
     </ClInclude>
-    <ClInclude Include="..\Services\MainlineDHT\dht.h">
+    <ClInclude Include="BitTorrentDHT\dht.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BitTorrentDHT\dht.c">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -273,7 +273,7 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		//			nTotal += nBuffer;
 		//
 		//			CString strText;
-		//			strText.Format( _T("%s %s %s"),
+		//			strText.Format( L"%s %s %s",
 		//				(LPCTSTR)Settings.SmartVolume( nTotal, KiloBytes ),
 		//				(LPCTSTR)LoadString( IDS_GENERAL_OF ),
 		//				(LPCTSTR)Settings.SmartVolume( m_pTorrent.m_nSize, KiloBytes ) );
@@ -450,10 +450,10 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 								strName = strName.Mid( strName.ReverseFind( '\\' ) + 1 );
 
 								if ( strName[0] == '_' && Settings.BitTorrent.SkipPaddingFiles &&
-										  StartsWith( strName, _T("_____padding_file_"), 18 ) )
+										  StartsWith( strName, L"_____padding_file_", 18 ) )
 									pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );
-								else if ( Settings.BitTorrent.SkipTrackerFiles && strName.Right( 4 ) == _T(".txt") &&
-										( StartsWith( strName, _T("Torrent downloaded from "), 24 ) || StartsWith( strName, _T("Torrent_downloaded_from_"), 24 ) ) )
+								else if ( Settings.BitTorrent.SkipTrackerFiles && strName.Right( 4 ) == L".txt" &&
+										( StartsWith( strName, L"Torrent downloaded from ", 24 ) || StartsWith( strName, L"Torrent_downloaded_from_", 24 ) ) )
 									pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );
 							}
 						}
@@ -514,13 +514,13 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 
 BOOL CDownloadWithTorrent::GenerateTorrentDownloadID()
 {
-	theApp.Message( MSG_DEBUG, _T("Creating BitTorrent Peer ID") );
+	theApp.Message( MSG_DEBUG, L"Creating BitTorrent Peer ID" );
 
 	// Check ID is not in use
 	ASSERT( ! m_pPeerID );
 	if ( m_pPeerID )
 	{
-		theApp.Message( MSG_ERROR, _T("Attempted to re-create an in-use Peer ID") );
+		theApp.Message( MSG_ERROR, L"Attempted to re-create an in-use Peer ID" );
 		return FALSE;
 	}
 
@@ -609,7 +609,7 @@ void CDownloadWithTorrent::SendStopped()
 		return;		// There is no tracker
 
 	// Log the 'stop' event
-	theApp.Message( MSG_DEBUG, _T("[BT] Sending final tracker announce for %s"), m_pTorrent.m_sName );
+	theApp.Message( MSG_DEBUG, L"[BT] Sending final tracker announce for %s", m_pTorrent.m_sName );
 
 	// Update download to indicate it has been stopped
 	m_bTorrentStarted = m_bTorrentRequested = FALSE;
@@ -658,7 +658,7 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 		// Lock on this tracker if we were searching for one
 		if ( m_pTorrent.GetTrackerMode() == CBTInfo::tMultiFinding )
 		{
-			theApp.Message( MSG_DEBUG, _T("[BT] Locked onto tracker %s"), m_pTorrent.GetTrackerAddress() );
+			theApp.Message( MSG_DEBUG, L"[BT] Locked onto tracker %s", m_pTorrent.GetTrackerAddress() );
 			m_pTorrent.SetTrackerMode( CBTInfo::tMultiFound );
 		}
 	}
@@ -672,7 +672,7 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 		m_tTorrentTracker = tNow + GetRetryTime();
 		m_pTorrent.SetTrackerRetry( m_tTorrentTracker );
 
-		theApp.Message( MSG_INFO, _T("%s"), pszReason );
+		theApp.Message( MSG_INFO, L"%s", pszReason );
 
 		if ( m_pTorrent.IsMultiTracker() )
 		{
@@ -686,7 +686,7 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 			CString strFormat, strErrorMessage;
 			LoadString( strFormat, IDS_BT_TRACKER_MULTI );
 			strErrorMessage.Format( strFormat, m_pTorrent.GetTrackerIndex() + 1, m_pTorrent.GetTrackerCount() );
-			m_sTorrentTrackerError = m_sTorrentTrackerError + _T(" | ") + strErrorMessage;
+			m_sTorrentTrackerError = m_sTorrentTrackerError + L" | " + strErrorMessage;
 		}
 	}
 }
@@ -826,7 +826,7 @@ void CDownloadWithTorrent::ChokeTorrent(DWORD tNow)
 			 (DWORD)m_pTorrentUploads.GetCount() != GetBTSourceCount() &&
 			CanStartTransfers( tNow ) )
 		{
-			theApp.Message( MSG_DEBUG, _T("Attempting to push-start a BitTorrent upload for %s"), m_pTorrent.m_sName );
+			theApp.Message( MSG_DEBUG, L"Attempting to push-start a BitTorrent upload for %s", m_pTorrent.m_sName );
 			StartNewTransfer( tNow );
 		}
 	}

@@ -4,7 +4,7 @@
 	Version="9.00"
 	Name="RatDVDReader"
 	ProjectGUID="{86944913-9269-4B41-AA2F-C2A37E68C50E}"
-	RootNamespace="RatDVDReader_9"
+	RootNamespace="RatDVDReader"
 	Keyword="AtlProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -476,7 +476,7 @@
 				>
 			</File>
 			<File
-				RelativePath="stdafx.cpp"
+				RelativePath="StdAfx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -529,13 +529,13 @@
 				>
 			</File>
 			<File
-				RelativePath="stdafx.h"
+				RelativePath="StdAfx.h"
 				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;resx"
 			>
 			<File
 				RelativePath="RatDVD.ico"

@@ -62,14 +62,14 @@ CScheduler::~CScheduler()
 
 BOOL CScheduler::Load()
 {
-	const CString strFile = Settings.General.DataPath + _T("Scheduler.dat");
+	const CString strFile = Settings.General.DataPath + L"Scheduler.dat";
 
 	CQuickLock oLock( Scheduler.m_pSection );
 
 	CFile pFile;
 	if ( ! pFile.Open( strFile, CFile::modeRead ) )
 	{
-		theApp.Message( MSG_ERROR, _T("Failed to open Scheduler.dat") );
+		theApp.Message( MSG_ERROR, L"Failed to open Scheduler.dat" );
 		return FALSE;
 	}
 
@@ -91,7 +91,7 @@ BOOL CScheduler::Load()
 
 BOOL CScheduler::Save()
 {
-	const CString strFile = Settings.General.DataPath + _T("Scheduler.dat");
+	const CString strFile = Settings.General.DataPath + L"Scheduler.dat";
 
 	CQuickLock oLock( Scheduler.m_pSection );
 
@@ -244,34 +244,34 @@ void CScheduleTask::Serialize(CArchive& ar, int nVersion)
 // CSchedulerTask XML
 
 // Task type XML keywords:
-#define BANDWIDTH_FULL_TEXT			_T("Bandwidth:Full")
-#define BANDWIDTH_LIMITED_TEXT		_T("Bandwidth:Limited")
-#define BANDWIDTH_STOP_TEXT 		_T("Bandwidth:Stop")
-#define SYSTEM_EXIT_TEXT			_T("System:Exit")
-#define SYSTEM_SHUTDOWN_TEXT		_T("System:Shutdown")
-#define SYSTEM_DISCONNECT_TEXT		_T("System:Disconnect")
-#define SYSTEM_NOTICE_TEXT			_T("System:Notice")
+#define BANDWIDTH_FULL_TEXT			L"Bandwidth:Full"
+#define BANDWIDTH_LIMITED_TEXT		L"Bandwidth:Limited"
+#define BANDWIDTH_STOP_TEXT 		L"Bandwidth:Stop"
+#define SYSTEM_EXIT_TEXT			L"System:Exit"
+#define SYSTEM_SHUTDOWN_TEXT		L"System:Shutdown"
+#define SYSTEM_DISCONNECT_TEXT		L"System:Disconnect"
+#define SYSTEM_NOTICE_TEXT			L"System:Notice"
 // Legacy Shareaza imports:
-#define BANDWIDTH_FULL_TEXT_ALT 	_T("Bandwidth - Full Speed")
-#define BANDWIDTH_LIMITED_TEXT_ALT	_T("Bandwidth - Reduced Speed")
-#define BANDWIDTH_STOP_TEXT_ALT 	_T("Bandwidth - Stop")
-#define SYSTEM_EXIT_TEXT_ALT		_T("System - Exit Shareaza")
-#define SYSTEM_SHUTDOWN_TEXT_ALT	_T("System - Shutdown")
-#define SYSTEM_DISCONNECT_TEXT_ALT	_T("System - Dial-Up Disconnect")
+#define BANDWIDTH_FULL_TEXT_ALT 	L"Bandwidth - Full Speed"
+#define BANDWIDTH_LIMITED_TEXT_ALT	L"Bandwidth - Reduced Speed"
+#define BANDWIDTH_STOP_TEXT_ALT 	L"Bandwidth - Stop"
+#define SYSTEM_EXIT_TEXT_ALT		L"System - Exit Shareaza"
+#define SYSTEM_SHUTDOWN_TEXT_ALT	L"System - Shutdown"
+#define SYSTEM_DISCONNECT_TEXT_ALT	L"System - Dial-Up Disconnect"
 
 CXMLElement* CScheduleTask::ToXML()
 {
-	CXMLElement* pXML = new CXMLElement( NULL, _T("task") );
+	CXMLElement* pXML = new CXMLElement( NULL, L"task" );
 	CString strValue;
 
 	wchar_t szGUID[39];
 	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
-	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
+	pXML->AddAttribute( L"guid", (CString)&szGUID[1] );
 
-	strValue.Format( _T("%I64i"), m_tScheduleDateTime.GetTime() );
-	pXML->AddAttribute( _T("time"), strValue );
+	strValue.Format( L"%I64i", m_tScheduleDateTime.GetTime() );
+	pXML->AddAttribute( L"time", strValue );
 
-	strValue.Format( _T("%i|%i|%i|%i|%i|%i|%i"),
+	strValue.Format( L"%i|%i|%i|%i|%i|%i|%i",
 		(m_nDays & MONDAY) != 0,
 		(m_nDays & TUESDAY) != 0,
 		(m_nDays & WEDNESDAY) != 0,
@@ -280,46 +280,46 @@ CXMLElement* CScheduleTask::ToXML()
 		(m_nDays & SATURDAY) != 0,
 		(m_nDays & SUNDAY) != 0 );
 
-	pXML->AddAttribute( _T("days"), strValue );
+	pXML->AddAttribute( L"days", strValue );
 
 	switch ( m_nAction )
 	{
 	case BANDWIDTH_FULL:
-		pXML->AddAttribute( _T("action"), BANDWIDTH_FULL_TEXT );
+		pXML->AddAttribute( L"action", BANDWIDTH_FULL_TEXT );
 		break;
 	case BANDWIDTH_LIMITED:
-		pXML->AddAttribute( _T("action"), BANDWIDTH_LIMITED_TEXT );
+		pXML->AddAttribute( L"action", BANDWIDTH_LIMITED_TEXT );
 		break;
 	case BANDWIDTH_STOP:
-		pXML->AddAttribute( _T("action"), BANDWIDTH_STOP_TEXT );
+		pXML->AddAttribute( L"action", BANDWIDTH_STOP_TEXT );
 		break;
 	case SYSTEM_EXIT:
-		pXML->AddAttribute( _T("action"), SYSTEM_EXIT_TEXT );
+		pXML->AddAttribute( L"action", SYSTEM_EXIT_TEXT );
 		break;
 	case SYSTEM_SHUTDOWN:
-		pXML->AddAttribute( _T("action"), SYSTEM_SHUTDOWN_TEXT );
+		pXML->AddAttribute( L"action", SYSTEM_SHUTDOWN_TEXT );
 		break;
 	case SYSTEM_DISCONNECT:
-		pXML->AddAttribute( _T("action"), SYSTEM_DISCONNECT_TEXT );
+		pXML->AddAttribute( L"action", SYSTEM_DISCONNECT_TEXT );
 		break;
 	case SYSTEM_NOTICE:
-		pXML->AddAttribute( _T("action"), SYSTEM_NOTICE_TEXT );
+		pXML->AddAttribute( L"action", SYSTEM_NOTICE_TEXT );
 		break;
 	}
 
-	pXML->AddAttribute( _T("active"), m_bActive ? _T("Yes") : _T("No") );
-	pXML->AddAttribute( _T("executed"), m_bExecuted ? _T("Yes") : _T("No") );
-	pXML->AddAttribute( _T("specificdays"), m_bSpecificDays ? _T("Yes") : _T("No") );
-	pXML->AddAttribute( _T("limitednet"), m_bLimitedNetworks ? _T("Yes") : _T("No") );
+	pXML->AddAttribute( L"active", m_bActive ? L"Yes" : L"No" );
+	pXML->AddAttribute( L"executed", m_bExecuted ? L"Yes" : L"No" );
+	pXML->AddAttribute( L"specificdays", m_bSpecificDays ? L"Yes" : L"No" );
+	pXML->AddAttribute( L"limitednet", m_bLimitedNetworks ? L"Yes" : L"No" );
 
-	strValue.Format( _T("%i"), m_nLimitDown );
-	pXML->AddAttribute( _T("limitdown"), strValue );
+	strValue.Format( L"%i", m_nLimitDown );
+	pXML->AddAttribute( L"limitdown", strValue );
 
-	strValue.Format( _T("%i"), m_nLimitUp );
-	pXML->AddAttribute( _T("limitup"), strValue );
+	strValue.Format( L"%i", m_nLimitUp );
+	pXML->AddAttribute( L"limitup", strValue );
 
 	if ( ! m_sDescription.IsEmpty() )
-		pXML->AddAttribute( _T("comment"), m_sDescription );
+		pXML->AddAttribute( L"comment", m_sDescription );
 
 	return pXML;
 }
@@ -327,7 +327,7 @@ CXMLElement* CScheduleTask::ToXML()
 BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 {
 	BOOL bLegacy = FALSE;
-	CString strValue = pXML->GetAttributeValue( _T("action") );
+	CString strValue = pXML->GetAttributeValue( L"action" );
 
 	if ( strValue == BANDWIDTH_FULL_TEXT )
 		m_nAction = BANDWIDTH_FULL;
@@ -363,56 +363,56 @@ BOOL CScheduleTask::FromXML(CXMLElement* pXML)
 		bLegacy = TRUE;
 	}
 
-	m_sDescription = pXML->GetAttributeValue( bLegacy ? _T("description") : _T("comment") );
+	m_sDescription = pXML->GetAttributeValue( bLegacy ? L"description" : L"comment" );
 
-	strValue = pXML->GetAttributeValue( _T("time") );
+	strValue = pXML->GetAttributeValue( L"time" );
 	__time64_t tTemp;
-	if ( _stscanf( strValue, _T("%I64i"), &tTemp ) == EOF )
+	if ( _stscanf( strValue, L"%I64i", &tTemp ) == EOF )
 		return FALSE;
 	if ( tTemp > 0 )
 		m_tScheduleDateTime = tTemp;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("active") );
-	if ( strValue == _T("Yes") )
+	strValue = pXML->GetAttributeValue( L"active" );
+	if ( strValue == L"Yes" )
 		m_bActive = TRUE;
-	else if ( strValue == _T("No") )
+	else if ( strValue == L"No" )
 		m_bActive = FALSE;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("specificdays") );
-	if ( strValue == _T("Yes") )
+	strValue = pXML->GetAttributeValue( L"specificdays" );
+	if ( strValue == L"Yes" )
 		m_bSpecificDays = TRUE;
-	else if ( strValue == _T("No") )
+	else if ( strValue == L"No" )
 		m_bSpecificDays = FALSE;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("executed") );
-	if ( strValue == _T("Yes") )
+	strValue = pXML->GetAttributeValue( L"executed" );
+	if ( strValue == L"Yes" )
 		m_bExecuted = TRUE;
-	else if ( strValue == _T("No") )
+	else if ( strValue == L"No" )
 		m_bExecuted = FALSE;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("limitednet") );
-	if ( strValue == _T("Yes") )
+	strValue = pXML->GetAttributeValue( L"limitednet" );
+	if ( strValue == L"Yes" )
 		m_bLimitedNetworks = TRUE;
-	else if ( strValue == _T("No") )
+	else if ( strValue == L"No" )
 		m_bLimitedNetworks = FALSE;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("limitdown") );
-	if ( _stscanf( strValue, _T("%i"), &m_nLimitDown) == EOF ) return FALSE;
+	strValue = pXML->GetAttributeValue( L"limitdown" );
+	if ( _stscanf( strValue, L"%i", &m_nLimitDown) == EOF ) return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("limitup") );
-	if ( _stscanf( strValue, _T("%i"), &m_nLimitUp) == EOF ) return FALSE;
+	strValue = pXML->GetAttributeValue( L"limitup" );
+	if ( _stscanf( strValue, L"%i", &m_nLimitUp) == EOF ) return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("days") );
+	strValue = pXML->GetAttributeValue( L"days" );
 
 	// _wtoi returns 0 on failure so bad data won't crash the application
 	m_nDays = 0;
@@ -506,7 +506,7 @@ void CScheduler::CheckSchedule()
 
 	// Enable this to test GetHoursTo()
 	//int nHoursToDisconnect = Scheduler.GetHoursTo(BANDWIDTH_STOP|SYSTEM_DISCONNECT|SYSTEM_EXIT|SYSTEM_SHUTDOWN );
-	//theApp.Message( MSG_DEBUG, _T("Calculated time to disconnect is %i hours."), nHoursToDisconnect );
+	//theApp.Message( MSG_DEBUG, L"Calculated time to disconnect is %i hours.", nHoursToDisconnect );
 
 	CQuickLock oLock(m_pSection);
 	for ( POSITION pos = GetIterator() ; pos ; )
@@ -571,7 +571,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 	switch ( pSchTask->m_nAction )
 	{
 	case BANDWIDTH_FULL:				// Set the bandwidth to full speed
-		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Full") );
+		theApp.Message( MSG_NOTICE, L"Scheduler| Bandwidth: Full" );
 		Settings.Live.BandwidthScaleIn	= 101;
 		Settings.Live.BandwidthScaleOut	= 101;
 		Settings.Bandwidth.Downloads	= 0;
@@ -586,10 +586,10 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		break;
 
 	case BANDWIDTH_LIMITED:				// Set the bandwidth to limited speeds
-		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Limited") );
+		theApp.Message( MSG_NOTICE, L"Scheduler| Bandwidth: Limited" );
 		Settings.Live.BandwidthScaleIn	= pSchTask->m_nLimitDown;
 		Settings.Live.BandwidthScaleOut	= pSchTask->m_nLimitUp;
-		Settings.Bandwidth.Downloads	= ( Settings.Connection.InSpeed * 1024) / 8;
+		Settings.Bandwidth.Downloads	= ( Settings.Connection.InSpeed * 1024 ) / 8;
 		Settings.Bandwidth.Uploads		= ( ( ( Settings.Connection.OutSpeed * ( 100 - Settings.Uploads.FreeBandwidthFactor ) ) / 100 ) / 8 ) * 1024;
 		Settings.Gnutella2.Enabled		= true;
 		Settings.Gnutella1.Enabled		= pSchTask->m_bLimitedNetworks ? false : Settings.Gnutella1.EnableAlways;
@@ -601,7 +601,7 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		break;
 
 	case BANDWIDTH_STOP:				// Set the bandwidth to 0 and disconnect all networks
-		theApp.Message( MSG_NOTICE, _T("Scheduler| Bandwidth: Stop") );
+		theApp.Message( MSG_NOTICE, L"Scheduler| Bandwidth: Stop" );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
 		Settings.Gnutella2.Enabled		= false;
@@ -614,31 +614,31 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 		break;
 
 	case SYSTEM_EXIT:					// Exit PeerProject
-		theApp.Message( MSG_DEBUG, _T("Scheduler| System: Exit PeerProject") );
+		theApp.Message( MSG_DEBUG, L"Scheduler| System: Exit PeerProject" );
 		if ( ! PostMainWndMessage( WM_CLOSE ) )
-			theApp.Message( MSG_ERROR, _T("Scheduler failed to send CLOSE message") );
+			theApp.Message( MSG_ERROR, L"Scheduler failed to send CLOSE message" );
 		break;
 
 	case SYSTEM_SHUTDOWN:				// Shut down the computer
-		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Shut Down Computer") );
+		theApp.Message( MSG_NOTICE, L"Scheduler| System: Shut Down Computer" );
 
 		if ( ! SetShutdownRights() )	// If we dont have shutdown rights
 		{
-			theApp.Message( MSG_DEBUG, _T("Insufficient rights to shut down the system") );
+			theApp.Message( MSG_DEBUG, L"Insufficient rights to shut down the system" );
 			return;
 		}
 		if ( ShutDownComputer() )
 		{
 			// Close PeerProject if shutdown successfully started
 			if ( ! PostMainWndMessage( WM_CLOSE ) )
-				theApp.Message( MSG_ERROR, _T("Scheduler failed to send CLOSE message") );
+				theApp.Message( MSG_ERROR, L"Scheduler failed to send CLOSE message" );
 			else
-				theApp.Message( MSG_DEBUG, _T("System shutdown failed.") );
+				theApp.Message( MSG_DEBUG, L"System shutdown failed." );
 		}
 		break;
 
 	case SYSTEM_DISCONNECT:				// Dial-Up Connection
-		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Disconnect Dial-Up") );
+		theApp.Message( MSG_NOTICE, L"Scheduler| System: Disconnect Dial-Up" );
 		Settings.Live.BandwidthScaleIn	= 0;
 		Settings.Live.BandwidthScaleOut	= 0;
 		Settings.Gnutella2.Enabled		= false;
@@ -653,19 +653,19 @@ void CScheduler::ExecuteScheduledTask(CScheduleTask *pSchTask)
 
 	case SYSTEM_NOTICE:					// Reminder Notes
 		LoadString( IDS_SCHEDULER_REMINDER_NOTICE );
-		theApp.Message( MSG_NOTICE, _T("Scheduler| System: Reminder Notice | ") + pSchTask->m_sDescription );
+		theApp.Message( MSG_NOTICE, L"Scheduler| System: Reminder Notice | " + pSchTask->m_sDescription );
 		theApp.Message( MSG_TRAY|MSG_NOTICE, LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) );
 
 		PostMainWndMessage( WM_COMMAND, ID_TRAY_OPEN );
 
 		pSchTask->m_bActive = false;	// Repeat MsgBox workaround
-		MsgBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + _T("\n\n") + pSchTask->m_sDescription, MB_OK );
+		MsgBox( LoadString( IDS_SCHEDULER_REMINDER_NOTICE ) + L"\n\n" + pSchTask->m_sDescription, MB_OK );
 		pSchTask->m_bActive = true;
 		break;
 
 	default: // Error
 		pSchTask->m_bExecuted = false;
-		theApp.Message( MSG_ERROR, _T("Scheduler| Invalid task scheduled") );
+		theApp.Message( MSG_ERROR, L"Scheduler| Invalid task scheduled" );
 	}
 }
 
@@ -729,7 +729,7 @@ bool CScheduler::ShutDownComputer()
 
 	// Try 2000/XP way first
 	ShutdownSuccess = InitiateSystemShutdownEx( NULL,
-		_T("PeerProject Scheduled Shutdown\n\nA system shutdown was scheduled using PeerProject. The system will now shut down."),
+		L"PeerProject Scheduled Shutdown\n\nA system shutdown was scheduled using PeerProject. The system will now shut down.",
 		30, Settings.Scheduler.ForceShutdown, FALSE, SHTDN_REASON_FLAG_USER_DEFINED );
 
 	// Fall back to 9x way if this does not work
@@ -864,12 +864,12 @@ LONGLONG CScheduler::GetHoursTo(unsigned int nTaskCombination)
 //////////////////////////////////////////////////////////////////////
 // CScheduler XML
 
-LPCTSTR CScheduler::xmlns = _T("http://schemas.peerproject.org/Scheduler.xsd");
+LPCTSTR CScheduler::xmlns = L"http://schemas.peerproject.org/Scheduler.xsd";
 
 CXMLElement* CScheduler::ToXML(BOOL bTasks)
 {
-	CXMLElement* pXML = new CXMLElement( NULL, _T("scheduler") );
-	pXML->AddAttribute( _T("xmlns"), CScheduler::xmlns );
+	CXMLElement* pXML = new CXMLElement( NULL, L"scheduler" );
+	pXML->AddAttribute( L"xmlns", CScheduler::xmlns );
 
 	if ( bTasks )
 	{
@@ -884,7 +884,7 @@ CXMLElement* CScheduler::ToXML(BOOL bTasks)
 
 BOOL CScheduler::FromXML(CXMLElement* pXML)
 {
-	if ( ! pXML->IsNamed( _T("scheduler") ) )
+	if ( ! pXML->IsNamed( L"scheduler" ) )
 		return FALSE;
 
 	int nCount = 0;
@@ -893,11 +893,11 @@ BOOL CScheduler::FromXML(CXMLElement* pXML)
 	{
 		CXMLElement* pElement = pXML->GetNextElement( pos );
 
-		if ( pElement->IsNamed( _T("task") ) )
+		if ( pElement->IsNamed( L"task" ) )
 		{
 			CQuickLock oLock( m_pSection );
 			CScheduleTask* pSchTask	= NULL;
-			CString strGUID = pElement->GetAttributeValue( _T("guid") );
+			CString strGUID = pElement->GetAttributeValue( L"guid" );
 			BOOL bExisting = FALSE;
 			GUID pGUID;
 

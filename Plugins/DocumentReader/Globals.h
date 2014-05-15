@@ -1,7 +1,7 @@
 //
 // Globals.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -22,30 +22,29 @@
 
 #pragma once
 
-#pragma warning(disable: 4100) // unreferenced formal parameter (in OLE this is common)
-#pragma warning(disable: 4103) // pragma pack
-#pragma warning(disable: 4127) // constant expression
-#pragma warning(disable: 4146) // unary minus operator applied to unsigned type, result still unsigned
-#pragma warning(disable: 4201) // nameless unions are part of C++
-#pragma warning(disable: 4310) // cast truncates constant value
-#pragma warning(disable: 4505) // unreferenced local function has been removed
-#pragma warning(disable: 4710) // function couldn't be inlined
-#pragma warning(disable: 4786) // identifier was truncated in the debug information
+#pragma warning(disable: 4100)	// unreferenced formal parameter (in OLE this is common)
+#pragma warning(disable: 4103)	// pragma pack
+#pragma warning(disable: 4127)	// constant expression
+#pragma warning(disable: 4146)	// unary minus operator applied to unsigned type, result still unsigned
+#pragma warning(disable: 4201)	// nameless unions are part of C++
+#pragma warning(disable: 4310)	// cast truncates constant value
+#pragma warning(disable: 4505)	// unreferenced local function has been removed
+#pragma warning(disable: 4710)	// function couldn't be inlined
+#pragma warning(disable: 4786)	// identifier was truncated in the debug information
 
 ////////////////////////////////////////////////////////////////////
 // Module Globals and Accessors...
 //
-extern HINSTANCE           v_hModule;
-extern ULONG               v_cLocks;
-extern CRITICAL_SECTION    v_csSynch;
-extern HANDLE              v_hPrivateHeap;
-extern BOOL                v_fRunningOnNT;
+extern HINSTANCE		v_hModule;
+extern ULONG			v_cLocks;
+extern CRITICAL_SECTION	v_csSynch;
+extern HANDLE			v_hPrivateHeap;
 
-#define DllModuleHandle()  ((HMODULE)v_hModule)
-#define DllAddRef()  InterlockedIncrement((LPLONG)&v_cLocks)
-#define DllRelease() InterlockedDecrement((LPLONG)&v_cLocks)
-#define EnterCritical() EnterCriticalSection(&v_csSynch)
-#define LeaveCritical() LeaveCriticalSection(&v_csSynch)
+#define DllModuleHandle() ((HMODULE)v_hModule)
+#define DllAddRef()		InterlockedIncrement((LPLONG)&v_cLocks)
+#define DllRelease()	InterlockedDecrement((LPLONG)&v_cLocks)
+#define EnterCritical()	EnterCriticalSection(&v_csSynch)
+#define LeaveCritical()	LeaveCriticalSection(&v_csSynch)
 
 ////////////////////////////////////////////////////////////////////
 // StgOpenStorageEx (for Windows 2000/XP NTFS Non-OLE Files)
@@ -56,24 +55,24 @@ extern PFN_STGOPENSTGEX v_pfnStgOpenStorageEx;
 ////////////////////////////////////////////////////////////////////////
 // Fixed Win32 Errors as HRESULTs
 //
-#define E_WIN32_ACCESSVIOLATION   0x800701E7   //HRESULT_FROM_WIN32(ERROR_INVALID_ADDRESS)
-#define E_WIN32_BUFFERTOOSMALL    0x8007007A   //HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)
+#define E_WIN32_ACCESSVIOLATION	0x800701E7		// HRESULT_FROM_WIN32(ERROR_INVALID_ADDRESS)
+#define E_WIN32_BUFFERTOOSMALL	0x8007007A		// HRESULT_FROM_WIN32(ERROR_INSUFFICIENT_BUFFER)
 
 ////////////////////////////////////////////////////////////////////
 // Custom Errors
 //
-#define E_ERR_BASE              0x80041100
-#define E_DOCUMENTNOTOPEN       0x80041101   // "You must open a document to perform the action requested."
-#define E_DOCUMENTOPENED        0x80041102   // "You must close the current document before opening a new one in the same object."
-#define E_DOCUMENTLOCKED        0x80041103   // "The document is in use by another program and cannot be opened for read-write access."
-#define E_NODOCUMENTPROPS       0x80041104   // "The document is not an OLE file, and does not support extended document properties."
-#define E_DOCUMENTREADONLY      0x80041105   // "The command is not available because document was opened in read-only mode."
-#define E_MUSTHAVESTORAGE       0x80041106   // "The command is available for OLE Structured Storage files only."
-#define E_INVALIDOBJECT         0x80041107   // "The object is not connected to the document (it was removed or the document was closed)."
-#define E_INVALIDPROPSET        0x80041108   // "Cannot access property because the set it belongs to does not exist."
-#define E_INVALIDINDEX          0x80041109   // "The property requested does not exist in the collection."
-#define E_ITEMEXISTS            0x8004110A   // "An item by that already exists in the collection."
-#define E_ERR_MAX               0x8004110B
+#define E_ERR_BASE				0x80041100
+#define E_DOCUMENTNOTOPEN		0x80041101		// "You must open a document to perform the action requested."
+#define E_DOCUMENTOPENED		0x80041102		// "You must close the current document before opening a new one in the same object."
+#define E_DOCUMENTLOCKED		0x80041103		// "The document is in use by another program and cannot be opened for read-write access."
+#define E_NODOCUMENTPROPS		0x80041104		// "The document is not an OLE file, and does not support extended document properties."
+#define E_DOCUMENTREADONLY		0x80041105		// "The command is not available because document was opened in read-only mode."
+#define E_MUSTHAVESTORAGE		0x80041106		// "The command is available for OLE Structured Storage files only."
+#define E_INVALIDOBJECT			0x80041107		// "The object is not connected to the document (it was removed or the document was closed)."
+#define E_INVALIDPROPSET		0x80041108		// "Cannot access property because the set it belongs to does not exist."
+#define E_INVALIDINDEX			0x80041109		// "The property requested does not exist in the collection."
+#define E_ITEMEXISTS			0x8004110A		// "An item by that already exists in the collection."
+#define E_ERR_MAX				0x8004110B
 
 ////////////////////////////////////////////////////////////////////
 // Core PropertySet Functions (Central Part for Read/Write of Properties)
@@ -123,6 +122,7 @@ public:
 	CDocProperty();
 	~CDocProperty(void);
 
+public:
 	// CustomProperty Implementation
 	HRESULT get_Name(BSTR *pbstrName);
 	HRESULT get_Type(dsoFilePropertyType *dsoType);
@@ -147,15 +147,15 @@ public:
 	static CDocProperty* CreateObject(BSTR bstrName, PROPID propid, VARIANT* pvData, BOOL fNewItem, CDocProperty* pPreviousItem);
 
 private:
-	BSTR		 m_bstrName;            // Property Name
-    PROPID       m_ulPropID;            // Property ID
-	VARIANT		 m_vValue;              // Property Value
-    BOOL         m_fModified;           // Do we need to update item?
-    BOOL         m_fExternal;           // Does object have external ref count?
-	BOOL         m_fDeadObj;            // Is object still valid?
-    BOOL         m_fNewItem;            // Is item added to list after load?
-    BOOL         m_fRemovedItem;        // Is item marked for delete?
-    CDocProperty* m_pNextItem;			// Items are linked in single link list (stores previous item)
+	BSTR		 m_bstrName;			// Property Name
+	PROPID       m_ulPropID;			// Property ID
+	VARIANT		 m_vValue;				// Property Value
+	BOOL         m_fModified;			// Do we need to update item?
+	BOOL         m_fExternal;			// Does object have external ref count?
+	BOOL         m_fDeadObj;			// Is object still valid?
+	BOOL         m_fNewItem;			// Is item added to list after load?
+	BOOL         m_fRemovedItem;		// Is item marked for delete?
+	CDocProperty* m_pNextItem;			// Items are linked in single link list (stores previous item)
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -167,7 +167,7 @@ STDAPI_(void)   MemFree(LPVOID ptr);
 // Override new/delete to use our task allocator
 // (removing CRT dependency will improve code performance and size)...
 void * _cdecl operator new(size_t size);
-void  _cdecl operator delete(void *ptr);
+void   _cdecl operator delete(void *ptr);
 
 ////////////////////////////////////////////////////////////////////////
 // String Manipulation Functions
@@ -175,8 +175,9 @@ void  _cdecl operator delete(void *ptr);
 STDAPI ConvertToUnicodeEx(LPCSTR pszMbcsString, DWORD cbMbcsLen, LPWSTR pwszUnicode, DWORD cbUniLen, WORD wCodePage);
 STDAPI ConvertToMBCSEx(LPCWSTR pwszUnicodeString, DWORD cbUniLen, LPSTR pszMbcsString, DWORD cbMbcsLen, WORD wCodePage);
 STDAPI_(LPWSTR) ConvertToCoTaskMemStr(BSTR bstrString);
-STDAPI_(LPSTR)  ConvertToMBCS(LPCWSTR pwszUnicodeString, WORD wCodePage);
-STDAPI_(BSTR)   ConvertToBSTR(LPCSTR pszAnsiString, WORD wCodePage);
+STDAPI_(LPSTR)  ConvertToMBCS(LPCWSTR pszString, WORD wCodePage);
+STDAPI_(BSTR)   ConvertToBSTR(LPCWSTR pszString, WORD wCodePage);
+STDAPI_(BSTR)   ConvertAToBSTR(LPCSTR pszAnsiString, WORD wCodePage);
 STDAPI_(UINT)   CompareStrings(LPCWSTR pwsz1, LPCWSTR pwsz2);
 
 ////////////////////////////////////////////////////////////////////////

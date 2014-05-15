@@ -1,7 +1,7 @@
 //
 // PageSettingsIRC.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2005-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -113,9 +113,9 @@ BOOL CIRCSettingsPage::OnInitDialog()
 		m_sNick = Settings.IRC.Nick;
 
 	// ToDo: Save last few servers
-	if ( Settings.IRC.ServerName != _T("irc.p2pchat.net") )
+	if ( Settings.IRC.ServerName != L"irc.p2pchat.net" )
 		m_wndServerName.AddString( Settings.IRC.ServerName );
-	m_wndServerName.AddString( _T("irc.p2pchat.net") );
+	m_wndServerName.AddString( L"irc.p2pchat.net" );
 
 	m_sAlternate = Settings.IRC.Alternate;
 	m_sRealName = Settings.IRC.RealName;
@@ -145,7 +145,7 @@ void CIRCSettingsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStr
 	{
 		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
 			uStyle |= DFCS_PUSHED;
-		DrawFrameControl( lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, DFC_BUTTON, uStyle);
+		DrawFrameControl( lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, DFC_BUTTON, uStyle );
 
 		COLORREF MsgColor = RGB(100,100,100);
 		const int nID = lpDrawItemStruct->CtlID;
@@ -169,7 +169,7 @@ void CIRCSettingsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStr
 		SetTextColor( lpDrawItemStruct->hDC, MsgColor );
 		SetBkMode( lpDrawItemStruct->hDC, OPAQUE );
 		SetBkColor( lpDrawItemStruct->hDC, MsgColor );
-		DrawText( lpDrawItemStruct->hDC, _T("W"), 1,
+		DrawText( lpDrawItemStruct->hDC, L"W", 1,
 			&lpDrawItemStruct->rcItem, DT_SINGLELINE|DT_VCENTER|DT_CENTER|DT_NOCLIP );
 	}
 }
@@ -187,8 +187,7 @@ void CIRCSettingsPage::OnClickIrcColorBg()
 
 void CIRCSettingsPage::OnClickIrcColorText()
 {
-	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXT ],
-		CC_FULLOPEN | CC_SOLIDCOLOR | CC_RGBINIT );
+	CColorDialog colorDlg( Settings.IRC.Colors[ ID_COLOR_TEXT ],  CC_FULLOPEN | CC_SOLIDCOLOR | CC_RGBINIT );
 	if ( colorDlg.DoModal() != IDOK ) return;
 	Settings.IRC.Colors[ ID_COLOR_TEXT ] = colorDlg.GetColor();
 	ReleaseCapture();

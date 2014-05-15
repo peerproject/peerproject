@@ -1,7 +1,7 @@
 //
 // PageSettingsSkins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -92,14 +92,14 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 	AddIcon( IDI_SKIN, m_gdiImageList );
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.InsertColumn( COL_NAME,	_T("Name"), LVCFMT_LEFT, 220, 0 );
-	m_wndList.InsertColumn( COL_AUTHOR,	_T("Author"), LVCFMT_LEFT, 120, 1 );
-	m_wndList.InsertColumn( COL_VERSION, _T("Version"), LVCFMT_LEFT, 42, 2 );
-	m_wndList.InsertColumn( COL_PATH,	_T("Path"), LVCFMT_LEFT, 0, 3 );
-	m_wndList.InsertColumn( COL_URL,	_T("URL"), LVCFMT_LEFT, 0, 4 );
-	m_wndList.InsertColumn( COL_EMAIL,	_T("Email"), LVCFMT_LEFT, 0, 5 );
-	m_wndList.InsertColumn( COL_INFO,	_T("Description"), LVCFMT_LEFT, 0, 6 );
-	m_wndList.InsertColumn( COL_DEPEND,	_T("Dependencies"), LVCFMT_LEFT, 0, 7 );
+	m_wndList.InsertColumn( COL_NAME,	L"Name", LVCFMT_LEFT, 220, 0 );
+	m_wndList.InsertColumn( COL_AUTHOR,	L"Author", LVCFMT_LEFT, 120, 1 );
+	m_wndList.InsertColumn( COL_VERSION, L"Version", LVCFMT_LEFT, 42, 2 );
+	m_wndList.InsertColumn( COL_PATH,	L"Path", LVCFMT_LEFT, 0, 3 );
+	m_wndList.InsertColumn( COL_URL,	L"URL", LVCFMT_LEFT, 0, 4 );
+	m_wndList.InsertColumn( COL_EMAIL,	L"Email", LVCFMT_LEFT, 0, 5 );
+	m_wndList.InsertColumn( COL_INFO,	L"Description", LVCFMT_LEFT, 0, 6 );
+	m_wndList.InsertColumn( COL_DEPEND,	L"Dependencies", LVCFMT_LEFT, 0, 7 );
 	m_wndList.SetExtendedStyle( LVS_EX_CHECKBOXES|LVS_EX_FULLROWSELECT|LVS_EX_LABELTIP );
 
 	if ( Settings.General.LanguageRTL )
@@ -107,8 +107,8 @@ BOOL CSkinsSettingsPage::OnInitDialog()
 			WS_EX_LTRREADING|WS_EX_LEFT|WS_EX_RIGHTSCROLLBAR, 0 );
 
 	m_nSelected = -1;
-	m_wndName.SetWindowText( _T("") );
-	m_wndAuthor.SetWindowText( _T("") );
+	m_wndName.SetWindowText( L"" );
+	m_wndAuthor.SetWindowText( L"" );
 	m_wndDelete.EnableWindow( FALSE );
 
 	CWaitCursor pCursor;
@@ -124,8 +124,8 @@ void CSkinsSettingsPage::EnumerateSkins(LPCTSTR pszPath)
 	HANDLE hSearch;
 
 	CString strPath;
-	strPath.Format( _T("%s\\Skins\\%s*.*"),
-		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : _T("") );
+	strPath.Format( L"%s\\Skins\\%s*.*",
+		(LPCTSTR)Settings.General.Path, pszPath ? pszPath : L"" );
 
 	hSearch = FindFirstFile( strPath, &pFind );
 
@@ -137,14 +137,14 @@ void CSkinsSettingsPage::EnumerateSkins(LPCTSTR pszPath)
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{
-				strPath.Format( _T("%s%s\\"),
-					pszPath ? pszPath : _T(""), pFind.cFileName );
+				strPath.Format( L"%s%s\\",
+					pszPath ? pszPath : L"", pFind.cFileName );
 
 				EnumerateSkins( strPath );
 			}
-			else if (	_tcsistr( pFind.cFileName, _T(".xml") ) != NULL &&
-						_tcsicmp( pFind.cFileName, _T("Definitions.xml") ) &&
-						_tcsnicmp( pFind.cFileName, _T("Default-"), 8 ) )
+			else if (	_tcsistr( pFind.cFileName, L".xml" ) != NULL &&
+						_tcsicmp( pFind.cFileName, L"Definitions.xml" ) &&
+						_tcsnicmp( pFind.cFileName, L"Default-", 8 ) )
 			{
 				AddSkin( pszPath, pFind.cFileName );
 			}
@@ -160,7 +160,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	CString strXML;
 	CFile pFile;
 
-	strXML = Settings.General.Path + _T("\\Skins\\");
+	strXML = Settings.General.Path + L"\\Skins\\";
 	if ( pszPath ) strXML += pszPath;
 	strXML += pszName;
 
@@ -214,15 +214,15 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	CXMLElement* pXML = NULL;
 
-	int nManifest = strXML.Find( _T("<manifest") );
+	int nManifest = strXML.Find( L"<manifest" );
 
 	if ( nManifest > 0 )
 	{
-		CString strManifest = strXML.Mid( nManifest ).SpanExcluding( _T(">") ) + '>';
+		CString strManifest = strXML.Mid( nManifest ).SpanExcluding( L">" ) + '>';
 
 		if ( CXMLElement* pManifest = CXMLElement::FromString( strManifest ) )
 		{
-			pXML = new CXMLElement( NULL, _T("skin") );
+			pXML = new CXMLElement( NULL, L"skin" );
 			pXML->AddElement( pManifest );
 		}
 	}
@@ -235,40 +235,40 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 
 	strXML.Empty();
 
-	CXMLElement* pManifest = pXML->GetElementByName( _T("manifest") );
+	CXMLElement* pManifest = pXML->GetElementByName( L"manifest" );
 
 	// Hide Non-Skins
-	if ( ! pXML->IsNamed( _T("skin") ) || pManifest == NULL ||
-		 ! pManifest->GetAttributeValue( _T("type") ).CompareNoCase( _T("language") ) )
+	if ( ! pXML->IsNamed( L"skin" ) || pManifest == NULL ||
+		 ! pManifest->GetAttributeValue( L"type" ).CompareNoCase( L"language" ) )
 	{
 		delete pXML;
 		return FALSE;
 	}
 
 	// Hide Wrong-Language Skins
-	if ( pManifest->GetAttributeValue( _T("language") ).GetLength() &&
-		 pManifest->GetAttributeValue( _T("language") ).CompareNoCase( Settings.General.Language.Left(2) ) )
+	if ( pManifest->GetAttributeValue( L"language" ).GetLength() &&
+		 pManifest->GetAttributeValue( L"language" ).CompareNoCase( Settings.General.Language.Left(2) ) )
 	{
 		delete pXML;
 		return FALSE;
 	}
 
-	CString	strType		= pManifest->GetAttributeValue( _T("type"), _T("Unknown") );
-	CString	strName		= pManifest->GetAttributeValue( _T("name"), pszName );
-	CString strAuthor	= pManifest->GetAttributeValue( _T("author"), _T("Unknown") );
-	CString strVersion	= pManifest->GetAttributeValue( _T("version"), _T("Unknown") );
-	CString strIcon		= pManifest->GetAttributeValue( _T("icon") );
-	CString strURL		= pManifest->GetAttributeValue( _T("link") );
-	CString strEmail	= pManifest->GetAttributeValue( _T("email") );
-	CString strDesc		= pManifest->GetAttributeValue( _T("description") );
-	CString strDepend	= pManifest->GetAttributeValue( _T("dependencies") );
-//	CString strPlatform	= pManifest->GetAttributeValue( _T("platform") );
-//	CString strLicense	= pManifest->GetAttributeValue( _T("license") );
+	CString	strType		= pManifest->GetAttributeValue( L"type", L"Unknown" );
+	CString	strName		= pManifest->GetAttributeValue( L"name", pszName );
+	CString strAuthor	= pManifest->GetAttributeValue( L"author", L"Unknown" );
+	CString strVersion	= pManifest->GetAttributeValue( L"version", L"Unknown" );
+	CString strIcon		= pManifest->GetAttributeValue( L"icon" );
+	CString strURL		= pManifest->GetAttributeValue( L"link" );
+	CString strEmail	= pManifest->GetAttributeValue( L"email" );
+	CString strDesc		= pManifest->GetAttributeValue( L"description" );
+	CString strDepend	= pManifest->GetAttributeValue( L"dependencies" );
+//	CString strPlatform	= pManifest->GetAttributeValue( L"platform" );
+//	CString strLicense	= pManifest->GetAttributeValue( L"license" );
 
 	if ( Settings.General.LanguageRTL )
 	{
-		strName = _T("\x202A") + strName;
-		strAuthor = _T("\x202A") + strAuthor;
+		strName = L"\x202A" + strName;
+		strAuthor = L"\x202A" + strAuthor;
 	}
 
 	delete pXML;
@@ -276,24 +276,24 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	if ( ! strIcon.IsEmpty() )
 	{
 		if ( pszPath != NULL )
-			strIcon = Settings.General.Path + _T("\\Skins\\") + pszPath + strIcon;
+			strIcon = Settings.General.Path + L"\\Skins\\" + pszPath + strIcon;
 		else
-			strIcon = Settings.General.Path + _T("\\Skins\\") + strIcon;
+			strIcon = Settings.General.Path + L"\\Skins\\" + strIcon;
 	}
 	else
 	{
 		if ( pszPath != NULL )
-			strIcon = Settings.General.Path + _T("\\Skins\\") + pszPath + strIcon + pszName;
+			strIcon = Settings.General.Path + L"\\Skins\\" + pszPath + strIcon + pszName;
 		else
-			strIcon = Settings.General.Path + _T("\\Skins\\") + strIcon + pszName;
+			strIcon = Settings.General.Path + L"\\Skins\\" + strIcon + pszName;
 
-		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + _T("ico");
+		strIcon = strIcon.Left( strIcon.GetLength() - 3 ) + L"ico";
 	}
 
-	if ( StartsWith( strURL, _PT("http://") ) )
+	if ( StartsWith( strURL, _P( L"http://" ) ) )
 		; // Do nothing
-	else if ( StartsWith( strURL, _PT("www.") ) )
-		strURL = _T("http://") + strURL;
+	else if ( StartsWith( strURL, _P( L"www." ) ) )
+		strURL = L"http://" + strURL;
 	else
 		strURL.Empty();
 
@@ -320,12 +320,12 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	pItem.Set( COL_INFO, strDesc );
 	pItem.Set( COL_DEPEND, strDepend );
 
-	strName.Format( _T("%s%s"), pszPath ? pszPath : _T(""), pszName );
+	strName.Format( L"%s%s", pszPath ? pszPath : L"", pszName );
 	pItem.Set( COL_PATH, strName );
 
 	int nItem = pItem.Add( &m_wndList, -1, COL_LAST );
 
-	if ( theApp.GetProfileInt( _T("Skins"), strName, FALSE ) )
+	if ( theApp.GetProfileInt( L"Skins", strName, FALSE ) )
 		m_wndList.SetItemState( nItem, 2 << 12, LVIS_STATEIMAGEMASK );
 	else
 		m_wndList.SetItemState( nItem, 1 << 12, LVIS_STATEIMAGEMASK );
@@ -341,7 +341,7 @@ void CSkinsSettingsPage::CheckDependencies(CString sPaths)
 	CStringArray oPaths;
 	INT_PTR nTotal = 1;
 
-	if ( sPaths.Find( _T(','), 4 ) < 4 )
+	if ( sPaths.Find( L',', 4 ) < 4 )
 	{
 		strPath = sPaths;
 		strPath.Trim();
@@ -349,16 +349,16 @@ void CSkinsSettingsPage::CheckDependencies(CString sPaths)
 	else
 	{
 		CStringArray oTokens;
-		Split( sPaths, _T(','), oTokens );
+		Split( sPaths, L',', oTokens );
 
 		nTotal = oTokens.GetCount();
 		for ( INT_PTR nToken = 0 ; nToken < nTotal ; nToken++ )
 		{
 			CString strToken = oTokens.GetAt( nToken );
-			strToken.Trim( _T(" \t\r\n,") );
+			strToken.Trim( L" \t\r\n," );
 			if ( strToken.GetLength() < 5 )
 				continue;
-			if ( strToken.Right( 4 ) == _T(".xml") || strToken.Right( 4 ) == _T(".XML") )
+			if ( strToken.Right( 4 ) == L".xml" || strToken.Right( 4 ) == L".XML" )
 				oPaths.Add( strToken );
 		}
 
@@ -372,7 +372,7 @@ void CSkinsSettingsPage::CheckDependencies(CString sPaths)
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName = m_wndList.GetItemText( nItem, COL_PATH );
-		strName = strName.Mid( strName.ReverseFind( _T('\\') ) + 1 );
+		strName = strName.Mid( strName.ReverseFind( L'\\' ) + 1 );
 
 		if ( nTotal == 1 )
 		{
@@ -405,9 +405,9 @@ void CSkinsSettingsPage::OnItemChangedSkins(NMHDR* pNMHDR, LRESULT* pResult)
 	}
 	else
 	{
-		m_wndName.SetWindowText( _T("") );
-		m_wndAuthor.SetWindowText( _T("") );
-		m_wndDesc.SetWindowText( _T("") );
+		m_wndName.SetWindowText( L"" );
+		m_wndAuthor.SetWindowText( L"" );
+		m_wndDesc.SetWindowText( L"" );
 		m_wndDelete.EnableWindow( FALSE );
 	}
 
@@ -415,7 +415,7 @@ void CSkinsSettingsPage::OnItemChangedSkins(NMHDR* pNMHDR, LRESULT* pResult)
 	const BOOL bChecked = (BOOL)( ( ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
 	if ( ! bChecked || bChecked < 0 ) return;	// Non-checkbox notifications
 
-	const BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK) >> 12 ) - 1 );
+	const BOOL bPrevState = (BOOL)( ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK ) >> 12 ) - 1 );
 	if ( bPrevState < 0 ) return;				// No previous state at startup
 
 	if ( bChecked == bPrevState ) return;		// No change
@@ -495,7 +495,7 @@ void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 		CString strURL = m_wndList.GetItemText( m_nSelected, COL_URL );
 
 		if ( ! strURL.IsEmpty() )
-			ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+			ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 
 		return;
 	}
@@ -506,7 +506,7 @@ void CSkinsSettingsPage::OnLButtonUp(UINT /*nFlags*/, CPoint point)
 		CString strEmail = m_wndList.GetItemText( m_nSelected, COL_EMAIL );
 
 		if ( ! strEmail.IsEmpty() )
-			ShellExecute( GetSafeHwnd(), _T("open"), _T("mailto:") + strEmail, NULL, NULL, SW_SHOWNORMAL );
+			ShellExecute( GetSafeHwnd(), L"open", L"mailto:" + strEmail, NULL, NULL, SW_SHOWNORMAL );
 
 		return;
 	}
@@ -528,22 +528,22 @@ void CSkinsSettingsPage::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 void CSkinsSettingsPage::OnSkinsBrowse()
 {
-	CFileDialog dlg( TRUE, _T("psk"), _T("*.psk"), OFN_FILEMUSTEXIST,
-		_T("Skin Packages|*.psk;*.sks|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( TRUE, L"psk", L"*.psk", OFN_FILEMUSTEXIST,
+		L"Skin Packages|*.psk;*.sks|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
 	CString strFile = dlg.GetPathName();
 
-	ShellExecute( GetSafeHwnd(), _T("open"), strFile, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open", strFile, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CSkinsSettingsPage::OnSkinsWeb()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("Skins?Version=") + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"Skins?Version=" + theApp.m_sVersion, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CSkinsSettingsPage::OnOK()
@@ -556,10 +556,10 @@ void CSkinsSettingsPage::OnOK()
 
 		BOOL bOn = m_wndList.GetItemState( nItem, LVIS_STATEIMAGEMASK ) == ( 2 << 12 );
 
-		if ( theApp.GetProfileInt( _T("Skins"), strSkin, FALSE ) != (UINT)bOn )
+		if ( theApp.GetProfileInt( L"Skins", strSkin, FALSE ) != (UINT)bOn )
 			bChanged = TRUE;
 
-		theApp.WriteProfileInt( _T("Skins"), strSkin, bOn );
+		theApp.WriteProfileInt( L"Skins", strSkin, bOn );
 	}
 
 	if ( bChanged )
@@ -582,16 +582,16 @@ void CSkinsSettingsPage::OnSkinsDelete()
 
 	if ( MsgBox( strPrompt, MB_ICONQUESTION|MB_OKCANCEL|MB_DEFBUTTON2 ) != IDOK ) return;
 
-	theApp.WriteProfileString( _T("Skins"), strBase, NULL );
+	theApp.WriteProfileString( L"Skins", strBase, NULL );
 
 	CString strPath;
-	strPath.Format( _T("%s\\Skins\\%s"),
+	strPath.Format( L"%s\\Skins\\%s",
 		(LPCTSTR)Settings.General.Path, (LPCTSTR)strBase );
 
 	DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 
 	int nSlash = strPath.ReverseFind( '\\' );
-	strPath = strPath.Left( nSlash ) + _T("\\*.xml");
+	strPath = strPath.Left( nSlash ) + L"\\*.xml";
 
 	WIN32_FIND_DATA pFind;
 	HANDLE hSearch = FindFirstFile( strPath, &pFind );
@@ -602,7 +602,7 @@ void CSkinsSettingsPage::OnSkinsDelete()
 	}
 	else
 	{
-		strPath = strPath.Left( strPath.GetLength() - 3 ) + _T("*");
+		strPath = strPath.Left( strPath.GetLength() - 3 ) + L"*";
 		hSearch = FindFirstFile( strPath, &pFind );
 
 		if ( hSearch != INVALID_HANDLE_VALUE )
@@ -624,9 +624,9 @@ void CSkinsSettingsPage::OnSkinsDelete()
 	}
 
 	m_wndList.DeleteItem( m_nSelected );
-	m_wndName.SetWindowText( _T("") );
-	m_wndAuthor.SetWindowText( _T("") );
-	m_wndDesc.SetWindowText( _T("") );
+	m_wndName.SetWindowText( L"" );
+	m_wndAuthor.SetWindowText( L"" );
+	m_wndDesc.SetWindowText( L"" );
 	m_wndDelete.EnableWindow( FALSE );
 	m_nSelected = -1;
 }

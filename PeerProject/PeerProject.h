@@ -191,6 +191,7 @@ public:
 	BOOL			OpenTorrent(LPCTSTR lpszFileName);				// Open .torrent file
 	BOOL			OpenCollection(LPCTSTR lpszFileName);			// Open Shareaza/eMule/DC++ file  (.co, .collection, .emulecollection, .files.xml.bz2)
 	BOOL			OpenImport(LPCTSTR lpszFileName);				// Open eMule/DC++ servers file   (.met, .dat, hublist.xml.bz2)
+	BOOL			OpenDownload(LPCTSTR lpszFileName);				// Open PeerProject Download data file (.pd/.sd)
 	BOOL			OpenURL(LPCTSTR lpszFileName, BOOL bSilent = FALSE);	// Open url
 	BOOL			OpenPath(LPCTSTR lpszFileName);					// Open/Share folder
 	BOOL			DisplayFile(LPCTSTR lpszFileName);				// Show file in Library
@@ -283,7 +284,7 @@ LRESULT CALLBACK KbdHook(int nCode, WPARAM wParam, LPARAM lParam);
 LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam);
 
 // Attempt lock/relock with release and debug after a few seconds
-BOOL	SafeLock(CSingleLock& pLock, LPCTSTR pszDebug = _T(""), LPCTSTR pszUnused = _T("") );
+BOOL	SafeLock(CSingleLock& pLock, LPCTSTR pszDebug = L"", LPCTSTR pszUnused = L"" );
 #define SafeLock(lock) SafeLock( lock, LPCTSTR( _T(__FUNCTION__) ) )
 
 // Generate safe file name for file system (bPath == true - allow path i.e. "\" symbol)
@@ -383,10 +384,10 @@ enum
 	DB_LAST
 };
 
-const LPCTSTR RT_BMP  = _T("BMP");
-const LPCTSTR RT_PNG  = _T("PNG");
-const LPCTSTR RT_JPEG = _T("JPEG");
-const LPCTSTR RT_GZIP = _T("GZIP");
+const LPCTSTR RT_BMP  = L"BMP";
+const LPCTSTR RT_PNG  = L"PNG";
+const LPCTSTR RT_JPEG = L"JPEG";
+const LPCTSTR RT_GZIP = L"GZIP";
 
 // theApp.m_nWinVer (Add as needed)
 #define WIN_2K					500				// 5.0
@@ -480,9 +481,9 @@ const LPCTSTR RT_GZIP = _T("GZIP");
 
 
 // Locations
-#define WEB_SITE				_T("http://PeerProject.org/")
-#define UPDATE_URL				_T("http://peerproject.sourceforge.net/update")
-#define REGISTRY_KEY			_T("Software\\PeerProject\\PeerProject")
+#define WEB_SITE				L"http://PeerProject.org/"
+#define UPDATE_URL				L"http://peerproject.sourceforge.net/update"
+#define REGISTRY_KEY			L"Software\\PeerProject\\PeerProject"
 
 
 // Saved-State Serialization:

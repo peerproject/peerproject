@@ -77,7 +77,7 @@ STDMETHODIMP CZIPBuilder::Process(
 	pISXMLRootAttributes->Add( CComBSTR( L"xmlns:xsi" ),
 		CComBSTR( L"http://www.w3.org/2001/XMLSchema-instance" ) );
 	pISXMLRootAttributes->Add( CComBSTR( L"xsi:noNamespaceSchemaLocation" ),
-		CComBSTR( L"http://www.shareaza.com/schemas/archive.xsd" ) );
+		CComBSTR( L"http://schemas.peerproject.org/Archive.xsd" ) );
 
 	CComPtr <ISXMLElements> pISXMLElements;
 	hr = pXMLRootElement->get_Elements(&pISXMLElements);
@@ -114,11 +114,11 @@ STDMETHODIMP CZIPBuilder::Process(
 		if ( nResult < 0 )
 			return E_UNEXPECTED;	// Bad format. Call CLibraryBuilder::SubmitCorrupted()
 
-		szCmtBuf[ MAX_SIZE_COMMENTS - 1 ] = _T('\0');
+		szCmtBuf[ MAX_SIZE_COMMENTS - 1 ] = L'\0';
 		strComment = szCmtBuf;
-		strComment.Replace( _T('\r'), _T(' ') );
-		strComment.Replace( _T('\n'), _T(' ') );
-		strComment.Replace( _T("  "), _T(" ") );
+		strComment.Replace( L'\r', L' ' );
+		strComment.Replace( L'\n', L' ' );
+		strComment.Replace( L"  ", L" " );
 	}
 
 	for ( UINT nFile = 0; nFile < pDir.number_entry; nFile++ )
@@ -139,12 +139,12 @@ STDMETHODIMP CZIPBuilder::Process(
 		bool bFolder = false;
 
 		CString strName( szFile );
-		int n = strName.ReverseFind( _T('/') );
+		int n = strName.ReverseFind( L'/' );
 		if ( n == strName.GetLength() - 1 )
 		{
 			bFolder = true;
 			strName = strName.Left( n );
-			n = strName.ReverseFind( _T('/') );
+			n = strName.ReverseFind( L'/' );
 		}
 		if ( n >= 0 )
 			strName = strName.Mid( n + 1 );
@@ -157,7 +157,7 @@ STDMETHODIMP CZIPBuilder::Process(
 			if ( strFolders.GetLength() + strName.GetLength() <= MAX_SIZE_FOLDERS - 5 )
 			{
 				if ( strFolders.GetLength() )
-					strFolders += _T(", ");
+					strFolders += L", ";
 				strFolders += strName;
 			}
 			else
@@ -170,7 +170,7 @@ STDMETHODIMP CZIPBuilder::Process(
 			if ( strFiles.GetLength() + strName.GetLength() <= MAX_SIZE_FILES - 5 )
 			{
 				if ( ! strFiles.IsEmpty() )
-					strFiles += _T(", ");
+					strFiles += L", ";
 				strFiles += strName;
 			}
 			else
@@ -183,14 +183,14 @@ STDMETHODIMP CZIPBuilder::Process(
 	if ( ! strFiles.IsEmpty() )
 	{
 		if ( bMoreFiles )
-			strFiles += _T(", ...");
+			strFiles += L", ...";
 		pISXMLAttributes->Add( CComBSTR( L"files" ), CComBSTR( strFiles ) );
 	}
 
 	if ( ! strFolders.IsEmpty() )
 	{
 		if ( bMoreFolders )
-			strFolders += _T(", ...");
+			strFolders += L", ...";
 		pISXMLAttributes->Add( CComBSTR( L"folders" ), CComBSTR( strFolders ) );
 	}
 
@@ -202,50 +202,48 @@ STDMETHODIMP CZIPBuilder::Process(
 
 	if ( nUnpackedSize )
 	{
-		CString strTmp;
-		strTmp.Format( _T("%I64u"), nUnpackedSize );
-		pISXMLAttributes->Add( CComBSTR( L"unpackedsize" ), CComBSTR( strTmp ) );
+		CString strFormat;
+		strFormat.Format( L"%I64u", nUnpackedSize );
+		pISXMLAttributes->Add( CComBSTR( L"unpackedsize" ), CComBSTR( strFormat ) );
 	}
 
 	if ( nFileCount > 0 )
 	{
-		CString strFileCount;
-		strFileCount.Format( _T("%i"), nFileCount );
-		pISXMLAttributes->Add( CComBSTR( L"filecount" ), CComBSTR( strFileCount ) );
+		CString strFormat;
+		strFormat.Format( L"%i", nFileCount );
+		pISXMLAttributes->Add( CComBSTR( L"filecount" ), CComBSTR( strFormat ) );
 	}
 	else
 	{
-		CString strFileCount;
-		strFileCount.Format( _T("%I32u"), pDir.number_entry );
-		pISXMLAttributes->Add( CComBSTR( L"filecount" ), CComBSTR( strFileCount ) );
+		CString strFormat;
+		strFormat.Format( L"%I32u", pDir.number_entry );
+		pISXMLAttributes->Add( CComBSTR( L"filecount" ), CComBSTR( strFormat ) );
 	}
 
 	// Special case .CBZ - Common filename metadata
+	CString strName( sFile );
+	strName = strName.Mid( strName.ReverseFind( L'/' ) );
+	if ( strName.GetLength() > 8 && strName.Right( 4 ) == L".cbz" )
 	{
-		CString strName( sFile );
-		strName = strName.Mid( strName.ReverseFind( _T('/') ) );
-		if ( strName.Right( 4 ) == _T(".cbz") )
-		{
-			strName.MakeLower();
-			if ( strName.Find( _T("minutemen") ) > 0 )
-				pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"Minutemen" ) );
-			else if ( strName.Find( _T("dcp") ) > 0 )
-				pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"DCP" ) );
-			else if ( strName.Find( _T("cps") ) > 0 )
-				pISXMLAttributes->Add( CComBSTR( L"releasegroup" ), CComBSTR( L"CPS" ) );
-		}
-		if ( strName.Find( _T("20") ) > 0 || strName.Find( _T("19") ) > 0 )
+		//pISXMLAttributes->Add( CComBSTR( L"cbz" ), CComBSTR( L"cbz" ) );	// Other metadata?
+		int nFind = strName.Find( L"20" );
+		if ( nFind < 0 ) nFind = strName.Find( L"19" );
+		if ( nFind >= 0 )
 		{
 			CString strYear;
 			for ( int i = 2022; i > 1940; i-- )
 			{
-				strYear.Format( _T("%i"), i );
-				int nFound = strName.Find( strYear );
-				if ( nFound > 0 )
+				strYear.Format( L"%i", i );
+				int nFound = strName.Find( strYear, nFind );
+				if ( nFound >= 0 )
 				{
-					// ToDo: Verify nFound +4/-1 are not numbers
-					pISXMLAttributes->Add( CComBSTR( L"year" ), CComBSTR( strYear ) );
-					break;
+					// Verify number is not substring
+					if ( ( ! nFound || strName[ nFound - 1 ] > L'9' || strName[ nFound - 1 ] < L'0' ) &&
+						 ( strName[ nFound + 4 ] > L'9' || strName[ nFound + 4 ] < L'0' ) )
+					{
+						pISXMLAttributes->Add( CComBSTR( L"year" ), CComBSTR( strYear ) );
+						break;
+					}
 				}
 			}
 		}

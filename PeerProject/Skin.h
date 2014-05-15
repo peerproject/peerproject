@@ -113,7 +113,7 @@ protected:
 // Dialogs
 public:
 	BOOL		Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID = 0, CToolTipCtrl* pWndTooltips = NULL);
-	BOOL		Dialogscan(CDialog* pDialog, CString sName = _T(""));
+	BOOL		Dialogscan(CDialog* pDialog, CString sName = L"");
 	CString		GetDialogCookie(CDialog* pDialog, CToolTipCtrl* pWndTooltips = NULL);
 	CString		GetDialogCaption(LPCTSTR pszName);
 protected:
@@ -156,7 +156,7 @@ protected:
 
 // Other
 public:
-	UINT		LookupCommandID(CXMLElement* pXML, LPCTSTR pszName = _T("id")) const;
+	UINT		LookupCommandID(CXMLElement* pXML, LPCTSTR pszName = L"id") const;
 	CString 	GetImagePath(UINT nImageID) const;
 protected:
 	CMap< UINT, const UINT&, CString, const CString& > m_pImages;

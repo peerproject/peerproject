@@ -2,30 +2,30 @@ M http://webcache.peerproject.org/
 M http://cache.w3-hidden.cc/
 M http://gwebcache.ns1.net/
 M http://gweb.dwbo.nl/
+M http://tenafly5k.com/gwc/skulls.php
 # http://fascination77.free.fr/cachechu/
-# http://www.5s7.com/g12cache/skulls.php
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
-2 http://silvers.zyns.com/gwc/dkac.php
-2 http://brov.mine.nu/Beacon/gwc.php
-2 http://gwc2.wodi.org/skulls.php
-2 http://gwc.dyndns.info:28960/gwc.php
+2 http://g2.uk.dyslexicfish.net:33558/
+2 http://cache.peernix.com/gwc.php
 2 http://htmlhell.com/
 2 http://cache.ce3c.be/
 # http://cache.pongwar.com/
-# http://dogma.cloud.bishopston.net:33559/
-# http://karma.cloud.bishopston.net:33559/
-# http://midian.jayl.de/g2/bazooka.php
-2 http://cache2.bazookanetworks.com/g2/bazooka.php
 # http://cache2.leite.us/cachechu
 2 http://cache3.leite.us/
 2 http://cache5.leite.us/
+2 http://cache2.bazookanetworks.com/g2/bazooka.php
+# http://midian.jayl.de/g2/bazooka.php
+# http://gwc.dyndns.info:28960/gwc.php
+# http://brov.mine.nu/Beacon/gwc.php
+# http://gwc2.wodi.org/skulls.php
+# http://silvers.zyns.com/gwc/dkac.php
+# http://dogma.cloud.bishopston.net:33559/
+# http://karma.cloud.bishopston.net:33559/
 
-1 http://www.omhub.ru/mibew/view/
-1 http://gwc.iblinx.com:2108/gwc/cgi-bin/fc
+1 http://g1.uk.dyslexicfish.net:33558/
 # http://gwctest.zapto.org:1337/
-# http://beacon.numberzero.org/gwc.php
 # http://gwc.ak-electron.eu:12050/
 # http://gwc.dietpac.com:8080/
 # http://gwc.glucolene.com:8080/
@@ -61,7 +61,7 @@ X http://fischaleck.net/cache/mcache.php
 # http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 
 #
-# Last updated May 2013
+# Last updated May 2014
 #
 # Keep at least four gwebcache links and one link to a .met/hublist file
 # or they'll keep getting added every time they're removed
@@ -75,5 +75,5 @@ X http://fischaleck.net/cache/mcache.php
 # Delete this file and PeerProject will use internal defaults.
 #
 # Live Status at http://gwebcaches.pongwar.com
-# Test: http://gofoxy.net/gwc/cgi-bin/fc?get=1&net=gnutella2&client=TEST1.0
-# Latest version at http://PeerProject.svn.sourceforge.net/viewvc/*checkout*/PeerProject/trunk/Data/DefaultServices.dat
+# Test: http://webcache.peerproject.org/?get=1&net=gnutella2&client=TEST1.0
+# Latest version at http://sourceforge.net/p/peerproject/code/HEAD/tree/trunk/Data/DefaultServices.dat

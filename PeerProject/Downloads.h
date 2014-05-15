@@ -83,6 +83,7 @@ public:
 	BOOL		Reorder(CDownload* pDownload, CDownload* pBefore);
 	QWORD		GetAmountDownloadedFrom(IN_ADDR* pAddress);
 
+	CDownload*	FindByPDName(const CString& sPDName) const;
 	CDownload*	FindByPath(const CString& sPath) const;
 	CDownload*	FindByURN(LPCTSTR pszURN, BOOL bSharedOnly = FALSE) const;
 	CDownload*	FindBySHA1(const Hashes::Sha1Hash& oSHA1, BOOL bSharedOnly = FALSE) const;
@@ -94,9 +95,10 @@ public:
 	DWORD		GetFreeSID();
 
 	void		PreLoad();
-	void		Load();
+	void		Load();							// Load all available .pd-files from Incomplete folder
+	CDownload*	Load(const CString& strPath);	// Load specified .pd-file
 	void		Save(BOOL bForce = TRUE);
-	void		PurgeFiles();	// Was PurgePreviews
+	void		PurgeFiles();					// Was PurgePreviews
 	void		OnRun();
 	BOOL		OnPush(const Hashes::Guid& oGUID, CConnection* pConnection);
 	bool		OnQueryHits(const CQueryHit* pHits);

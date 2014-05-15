@@ -1,10 +1,9 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
 <vendorCache xmlns="http://schemas.peerproject.org/VendorCache.xsd">
 
 	<vendor code="PEER">
 		<title>PeerProject</title>
-		<link>http://PeerProject.org/</link>
+		<link>http://peerproject.org/</link>
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="extended"/>
@@ -111,7 +110,7 @@
 
 	<vendor code="BEAR">
 		<title>BearShare</title>
-		<link>http://www.bearshare.com/</link>
+	<!--	<link>http://www.bearshare.com/</link> -->
 		<capability name="htmlHostBrowse"/>
 		<capability name="chatFlag"/>
 		<capability name="g1"/>
@@ -160,7 +159,7 @@
 
 	<vendor code="GDNA">
 		<title>GnucDNA</title>
-		<link>http://www.gnucleus.com/GnucDNA/</link>
+		<link>http://gnucleus.org/GnucDNA/</link>
 		<capability name="g1"/>
 		<capability name="g2"/>
 	</vendor>
@@ -194,7 +193,7 @@
 -->
 	<vendor code="GNUC">
 		<title>Gnucleus</title>
-		<link>http://www.gnucleus.com/Gnucleus/</link>
+		<link>http://gnucleus.org/Gnucleus/</link>
 		<capability name="g1"/>
 		<capability name="g2"/>
 	</vendor>
@@ -248,7 +247,7 @@
 
 	<vendor code="MESH">
 		<title>iMesh</title>
-		<link>http://www.imesh.com/</link>
+	<!--	<link>http://www.imesh.com/</link> -->
 	</vendor>
 
 	<vendor code="MLDK">
@@ -262,22 +261,22 @@
 
 	<vendor code="MMMM">
 		<title>Morpheus</title>
-		<link>http://www.morpheus.com/</link>
+	<!--	<link>http://www.morpheus.com/</link> -->
 	</vendor>
 
 	<vendor code="MRPH">
 		<title>Morpheus</title>
-		<link>http://www.morpheus.com/</link>
+	<!--	<link>http://www.morpheus.com/</link> -->
 	</vendor>
 
 	<vendor code="MNAP">
 		<title>MyNapster</title>
-	<!--	<link>http://www.mynapster.com/</link>	-->
+	<!--	<link>http://www.mynapster.com/</link> -->
 	</vendor>
 
 	<vendor code="MOOD">
 		<title>MoodAmp</title>
-	<!--	<link>http://www.moodamp.com/</link>	-->
+	<!--	<link>http://www.moodamp.com/</link> -->
 	</vendor>
 
 	<vendor code="MUTE">
@@ -299,7 +298,7 @@
 <!--
 	<vendor code="OCFG">
 		<title>OpenCola</title>
-		<link>http://www.opencola.org/</link>
+	<!--	<link>http://www.opencola.org/</link> -->
 	</vendor>
 -->
 	<vendor code="OPRA">
@@ -370,17 +369,17 @@
 
 	<vendor code="SWFT">
 		<title>SwiftPeer</title>
-		<link>http://www.swiftsoftwaregroup.com/</link>
+	<!--	<link>http://www.swiftsoftwaregroup.com/</link> -->
 	</vendor>
 
 	<vendor code="TOAD">
 		<title>ToadNode</title>
-	<!--	<link>http://www.toadnode.com/</link>	-->
+	<!--	<link>http://www.toadnode.com/</link> -->
 	</vendor>
 
 	<vendor code="XOLO">
 		<title>Xolox</title>
-	<!--	<link>http://www.xolox.nl/</link>	-->
+	<!--	<link>http://www.xolox.nl/</link> -->
 	</vendor>
 
 	<vendor code="XTLA">

@@ -1,7 +1,7 @@
 //
 // WndNeighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -44,6 +44,10 @@
 #include "WindowManager.h"
 #include "WndSystem.h"
 #include "DlgSettingsManager.h"
+
+#ifdef _DEBUG
+#include "DlgHex.h"
+#endif
 
 
 #ifdef _DEBUG
@@ -153,18 +157,18 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
 
-	m_wndList.InsertColumn( COL_ADDRESS, _T("Address"),	LVCFMT_LEFT,	110 );
-	m_wndList.InsertColumn( COL_PORT,	 _T("Port"), 	LVCFMT_CENTER,	 42 );
-	m_wndList.InsertColumn( COL_TIME,	 _T("Time"),	LVCFMT_CENTER,	 56 );
-	m_wndList.InsertColumn( COL_TRAFFIC, _T("Traffic"), LVCFMT_CENTER,	 84 );
-	m_wndList.InsertColumn( COL_TOTAL,	 _T("Total"),	LVCFMT_CENTER,	 96 );
-	m_wndList.InsertColumn( COL_PACKETS, _T("Packets"),	LVCFMT_CENTER,	 70 );
-	m_wndList.InsertColumn( COL_FLOW,	 _T("Flow"), 	LVCFMT_CENTER,	  0 );
-	m_wndList.InsertColumn( COL_LEAVES,	 _T("Leaves"),	LVCFMT_CENTER,	 52 );
-	m_wndList.InsertColumn( COL_MODE,	 _T("Mode"), 	LVCFMT_CENTER,	 84 );
-	m_wndList.InsertColumn( COL_CLIENT,	 _T("Client"),	LVCFMT_LEFT,	110 );
-	m_wndList.InsertColumn( COL_NAME,	 _T("Name"), 	LVCFMT_LEFT,	100 );
-	m_wndList.InsertColumn( COL_COUNTRY, _T("Country"),	LVCFMT_LEFT,	 54 );
+	m_wndList.InsertColumn( COL_ADDRESS, L"Address",	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_PORT,	 L"Port", 	LVCFMT_CENTER,	 42 );
+	m_wndList.InsertColumn( COL_TIME,	 L"Time",	LVCFMT_CENTER,	 56 );
+	m_wndList.InsertColumn( COL_TRAFFIC, L"Traffic", LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_TOTAL,	 L"Total",	LVCFMT_CENTER,	 96 );
+	m_wndList.InsertColumn( COL_PACKETS, L"Packets",	LVCFMT_CENTER,	 70 );
+	m_wndList.InsertColumn( COL_FLOW,	 L"Flow", 	LVCFMT_CENTER,	  0 );
+	m_wndList.InsertColumn( COL_LEAVES,	 L"Leaves",	LVCFMT_CENTER,	 52 );
+	m_wndList.InsertColumn( COL_MODE,	 L"Mode", 	LVCFMT_CENTER,	 84 );
+	m_wndList.InsertColumn( COL_CLIENT,	 L"Client",	LVCFMT_LEFT,	110 );
+	m_wndList.InsertColumn( COL_NAME,	 L"Name", 	LVCFMT_LEFT,	100 );
+	m_wndList.InsertColumn( COL_COUNTRY, L"Country",	LVCFMT_LEFT,	 54 );
 
 	//CLiveList::Sort( &m_wndList, COL_MODE );	// Does not work
 
@@ -204,7 +208,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	CoolInterface.LoadFlagsTo( m_gdiImageList );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	LoadState( _T("CNeighboursWnd"), FALSE );
+	LoadState( L"CNeighboursWnd", FALSE );
 
 	PostMessage( WM_TIMER, 1 );
 
@@ -213,8 +217,8 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CNeighboursWnd::OnDestroy()
 {
-	Settings.SaveList( _T("CNeighboursWnd"), &m_wndList );
-	SaveState( _T("CNeighboursWnd") );
+	Settings.SaveList( L"CNeighboursWnd", &m_wndList );
+	SaveState( L"CNeighboursWnd" );
 	CPanelWnd::OnDestroy();
 }
 
@@ -242,8 +246,8 @@ void CNeighboursWnd::Update()
 		CNeighbour* pNeighbour = Neighbours.GetNext( pos );
 		CLiveItem* pItem = pLiveList.Add( pNeighbour );
 
-		pItem->Set( COL_ADDRESS, _T(" ") + pNeighbour->m_sAddress );
-		pItem->Format( COL_PORT, _T("%hu"), htons( pNeighbour->m_pHost.sin_port ) );
+		pItem->Set( COL_ADDRESS, L" " + pNeighbour->m_sAddress );
+		pItem->Format( COL_PORT, L"%hu", htons( pNeighbour->m_pHost.sin_port ) );
 
 		const DWORD nTime = ( tLastUpdate - pNeighbour->m_tConnected ) / 1000;
 
@@ -265,9 +269,9 @@ void CNeighboursWnd::Update()
 			break;
 		case nrsConnected:
 			if ( nTime > 86400 )
-				str.Format( _T("%u:%.2u:%.2u:%.2u"), nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
+				str.Format( L"%u:%.2u:%.2u:%.2u", nTime / 86400, ( nTime / 3600 ) % 24, ( nTime / 60 ) % 60, nTime % 60 );
 			else
-				str.Format( _T("%u:%.2u:%.2u"), nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
+				str.Format( L"%u:%.2u:%.2u", nTime / 3600, ( nTime / 60 ) % 60, nTime % 60 );
 			break;
 		case nrsNull:
 		default:
@@ -279,14 +283,14 @@ void CNeighboursWnd::Update()
 
 		pNeighbour->Measure();
 
-		pItem->Format( COL_TRAFFIC, _T("%s - %s"),
+		pItem->Format( COL_TRAFFIC, L"%s - %s",
 			Settings.SmartSpeed( pNeighbour->m_mInput.nMeasure ),
 			Settings.SmartSpeed( pNeighbour->m_mOutput.nMeasure ) );
-		pItem->Format( COL_TOTAL, _T("%s - %s"),
+		pItem->Format( COL_TOTAL, L"%s - %s",
 			Settings.SmartVolume( pNeighbour->m_mInput.nTotal ),
 			Settings.SmartVolume( pNeighbour->m_mOutput.nTotal ) );
-		pItem->Format( COL_PACKETS, _T("%u - %u"), pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
-		pItem->Format( COL_FLOW, _T("%u (%u)"), pNeighbour->m_nOutbound, pNeighbour->m_nLostCount );
+		pItem->Format( COL_PACKETS, L"%u - %u", pNeighbour->m_nInputCount, pNeighbour->m_nOutputCount );
+		pItem->Format( COL_FLOW, L"%u (%u)", pNeighbour->m_nOutbound, pNeighbour->m_nLostCount );
 
 		pItem->Set( COL_CLIENT, pNeighbour->m_sUserAgent );
 
@@ -297,9 +301,9 @@ void CNeighboursWnd::Update()
 			if ( pNeighbour->GetUserCount() )
 			{
 				if ( pNeighbour->GetUserLimit() )
-					pItem->Format( COL_LEAVES, _T("%u/%u"), pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
+					pItem->Format( COL_LEAVES, L"%u/%u", pNeighbour->GetUserCount(), pNeighbour->GetUserLimit() );
 				else
-					pItem->Format( COL_LEAVES, _T("%u"), pNeighbour->GetUserCount() );
+					pItem->Format( COL_LEAVES, L"%u", pNeighbour->GetUserCount() );
 			}
 
 			if ( pNeighbour->m_nProtocol == PROTOCOL_G1 )
@@ -320,7 +324,7 @@ void CNeighboursWnd::Update()
 				}
 				pItem->Set( COL_MODE, str );
 
-				pItem->Set( COL_LEAVES, _T("-") );		// Note leaves/peers count is only returned to crawler header
+				pItem->Set( COL_LEAVES, L"-" );		// Note leaves/peers count is only returned to crawler header
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_G2 )
 			{
@@ -348,13 +352,13 @@ void CNeighboursWnd::Update()
 					IDS_NEIGHBOUR_ED2K_LOWID : IDS_NEIGHBOUR_ED2K_HIGHID : IDS_NEIGHBOUR_ED2K_SERVER );
 				pItem->Set( COL_CLIENT, str );
 
-				pItem->Set( COL_MODE, _T("eDonkey2000") );
+				pItem->Set( COL_MODE, L"eDonkey2000" );
 			}
 			else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 			{
 				//CDCNeighbour* pDC = static_cast< CDCNeighbour* >( pNeighbour );
 
-				pItem->Set( COL_MODE, _T("NMDC Hub") );		// ToDo: Support ADC mode hubs (adc://)
+				pItem->Set( COL_MODE, L"NMDC Hub" );		// ToDo: Support ADC mode hubs (adc://)
 			}
 		}
 
@@ -423,7 +427,7 @@ void CNeighboursWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CNeighboursWnd"), point );
+	Skin.TrackPopupMenu( L"CNeighboursWnd", point );
 }
 
 void CNeighboursWnd::OnUpdateNeighboursDisconnect(CCmdUI* pCmdUI)
@@ -458,17 +462,17 @@ void CNeighboursWnd::OnNeighboursCopy()
 
 	if ( pNeighbour->m_nProtocol == PROTOCOL_G2 || pNeighbour->m_nProtocol == PROTOCOL_G1 )
 	{
-		strURL.Format( _T("gnutella:host:%s:%u"),
+		strURL.Format( L"gnutella:host:%s:%u",
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 	else if ( pNeighbour->m_nProtocol == PROTOCOL_ED2K )
 	{
-		strURL.Format( _T("ed2k://|server|%s|%u|/"),
+		strURL.Format( L"ed2k://|server|%s|%u|/",
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 	else if ( pNeighbour->m_nProtocol == PROTOCOL_DC )
 	{
-		strURL.Format( _T("dchub://%s:%u/"),
+		strURL.Format( L"dchub://%s:%u/",
 			(LPCTSTR)pNeighbour->m_sAddress, htons( pNeighbour->m_pHost.sin_port ) );
 	}
 
@@ -610,7 +614,7 @@ void CNeighboursWnd::OnNeighboursViewOutgoing()
 
 void CNeighboursWnd::OnNeighboursSettings()
 {
-	CSettingsManagerDlg::Run( _T("CNetworksSettingsPage") );
+	CSettingsManagerDlg::Run( L"CNetworksSettingsPage" );
 }
 
 void CNeighboursWnd::OpenPacketWnd(BOOL bIncoming, BOOL bOutgoing)
@@ -646,8 +650,8 @@ void CNeighboursWnd::OnSkinChange()
 	CPanelWnd::OnSkinChange();
 
 	// Columns, Toolbar, Font
-	Settings.LoadList( _T("CNeighboursWnd"), &m_wndList );
-	Skin.CreateToolBar( _T("CNeighboursWnd"), &m_wndToolBar );
+	Settings.LoadList( L"CNeighboursWnd", &m_wndList );
+	Skin.CreateToolBar( L"CNeighboursWnd", &m_wndToolBar );
 	m_wndList.SetFont( &theApp.m_gdiFont );
 
 	CoolInterface.LoadIconsTo( m_gdiImageList, protocolIDs );
@@ -655,7 +659,7 @@ void CNeighboursWnd::OnSkinChange()
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	if ( m_wndList.SetBkImage( Skin.GetWatermark( _T("CNeighboursWnd") ) ) || m_wndList.SetBkImage( Skin.GetWatermark( _T("System.Windows") ) ) )	// Images.m_bmSystemWindow.m_hObject
+	if ( m_wndList.SetBkImage( Skin.GetWatermark( L"CNeighboursWnd" ) ) || m_wndList.SetBkImage( Skin.GetWatermark( L"System.Windows" ) ) )	// Images.m_bmSystemWindow.m_hObject
 		m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );	// No LVS_EX_DOUBLEBUFFER	-LVS_EX_TRANSPARENTBKGND ?
 	else
 		m_wndList.SetBkColor( Colors.m_crWindow );
@@ -758,6 +762,33 @@ BOOL CNeighboursWnd::PreTranslateMessage(MSG* pMsg)
 			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 && GetSelectedCount() == 1 )
 				OnNeighboursCopy();
 			return TRUE;
+#ifdef _DEBUG
+		case 'H':
+			if ( ( GetAsyncKeyState( VK_CONTROL ) & 0x8000 ) != 0 )
+			{
+				CSingleLock pLock( &Network.m_pSection, TRUE );
+				if ( CNeighbour* pNeighbour = GetItem( m_wndList.GetNextItem( -1, LVNI_SELECTED ) ) )
+				{
+					pLock.Unlock();
+
+					CHexDlg dlg;
+					if ( dlg.DoModal() == IDOK )
+					{
+						pLock.Lock();
+
+						BOOL bResult = pNeighbour->ProcessPackets( dlg.GetData() );
+
+						pLock.Unlock();
+
+						if ( bResult )
+							MsgBox( L"Packet was successfully processed." );
+						else
+							MsgBox( L"Packet was rejected." );
+					}
+				}
+			}
+			return TRUE;
+#endif
 		}
 	}
 

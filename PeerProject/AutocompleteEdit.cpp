@@ -1,7 +1,7 @@
 //
 // AutocompleteEdit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -57,7 +57,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 		strEntry.Format( pThis->m_root, pThis->m_iter + 1 );
 		CString strValue( AfxGetApp()->GetProfileString( pThis->m_sect, strEntry ) );
 		if ( strValue.IsEmpty() ) break;
-		int lf = strValue.Find( _T('\n') );
+		int lf = strValue.Find( L'\n' );
 		if ( lf != -1 )
 			strValue = strValue.Left( lf );
 		size_t len = ( strValue.GetLength() + 1 ) * sizeof( WCHAR );
@@ -164,7 +164,7 @@ BOOL CRegEnum::AttachTo(HWND hWnd, LPCTSTR szSection, LPCTSTR szRoot)
 
 void CRegEnum::AddString(const CString& rString) const
 {
-	const CString strKeyString = rString.SpanExcluding( _T("\n") );
+	const CString strKeyString = rString.SpanExcluding( L"\n" );
 	if ( strKeyString.IsEmpty() ) return;
 
 	// Load list
@@ -177,7 +177,7 @@ void CRegEnum::AddString(const CString& rString) const
 		CString strValue( AfxGetApp()->GetProfileString( m_sect, strEntry ) );
 		if ( strValue.IsEmpty() ) break;
 
-		CString strShortValue = strValue.SpanExcluding( _T("\n") );
+		CString strShortValue = strValue.SpanExcluding( L"\n" );
 		if ( strKeyString.CompareNoCase( strShortValue ) )		// != 0 ?
 			oList.AddTail( strValue );
 	}

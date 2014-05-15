@@ -1,7 +1,7 @@
 //
 // CtrlLibraryHeaderPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,7 +66,7 @@ CLibraryHeaderPanel::~CLibraryHeaderPanel()
 BOOL CLibraryHeaderPanel::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
-	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, _T("CLibraryHeaderPanel"), WS_CHILD,
+	return CWnd::CreateEx( WS_EX_CONTROLPARENT, NULL, L"CLibraryHeaderPanel", WS_CHILD,
 		rect, pParentWnd, ID_LIBRARY_HEADER, NULL );
 }
 
@@ -90,10 +90,10 @@ int CLibraryHeaderPanel::Update()
 		CString str;
 
 		LibraryMaps.GetStatistics( &nTotalFiles, &nTotalVolume );
-		str.Format( _T("%lu"), nTotalFiles );
-		m_sSubtitle.Replace( _T("{totalFiles}"), str );
+		str.Format( L"%lu", nTotalFiles );
+		m_sSubtitle.Replace( L"{totalFiles}", str );
 		str = Settings.SmartVolume( nTotalVolume, KiloBytes );
-		m_sSubtitle.Replace( _T("{totalVolume}"), str );
+		m_sSubtitle.Replace( L"{totalVolume}", str );
 	}
 
 	pFolder->m_pSchema->ResolveTokens( m_sTitle, pFolder->m_pXML );
@@ -136,7 +136,7 @@ void CLibraryHeaderPanel::OnSkinChange()
 {
 	if ( m_bmWatermark.m_hObject != NULL ) m_bmWatermark.DeleteObject();
 
-	if ( HBITMAP hMark = Skin.GetWatermark( _T("CLibraryHeaderPanel") ) )
+	if ( HBITMAP hMark = Skin.GetWatermark( L"CLibraryHeaderPanel" ) )
 		m_bmWatermark.Attach( hMark );
 	else if ( Colors.m_crBannerBack == RGB_DEFAULT_CASE )
 		m_bmWatermark.LoadBitmap( IDB_BANNER_MARK );

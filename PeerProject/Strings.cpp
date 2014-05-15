@@ -152,7 +152,7 @@ TCHAR CLowerCaseTable::operator()(TCHAR cLookup) const
 	if ( cLookup <= 127 )
 	{
 		// A..Z -> a..z
-		if ( cLookup >= _T('A') && cLookup <= _T('Z') )
+		if ( cLookup >= L'A' && cLookup <= L'Z' )
 			return (TCHAR)( cLookup + 32 );
 
 		return cLookup;
@@ -180,47 +180,47 @@ CString& CLowerCaseTable::operator()(CString& strSource) const
 CString& CLowerCaseTable::Clean(CString& strSource) const
 {
 	register const int nLength = strSource.GetLength();
-	register const int nExt = strSource.ReverseFind( _T('.') );
+	register const int nExt = strSource.ReverseFind( L'.' );
 	register LPTSTR str = strSource.GetBuffer();
 	for ( int i = 0 ; i < nLength ; ++i, ++str )
 	{
 		register TCHAR l = *str;
 		switch ( l )
 		{
-		case _T('_'):
-		case _T('+'):
-			*str = _T(' ');
+		case L'_':
+		case L'+':
+			*str = L' ';
 			break;
 
-		case _T('.'):
+		case L'.':
 			if ( i < nExt )
-				*str = _T(' ');
+				*str = L' ';
 			break;
 
-		case _T('['):
-		case _T('{'):
-			*str = _T('(');
+		case L'[':
+		case L'{':
+			*str = L'(';
 			break;
 
-		case _T(']'):
-		case _T('}'):
-			*str = _T(')');
+		case L']':
+		case L'}':
+			*str = L')';
 			break;
 
-		case _T(' '):
-		case _T('('):
-		case _T(')'):
-		case _T('0'):
-		case _T('1'):
-		case _T('2'):
-		case _T('3'):
-		case _T('4'):
-		case _T('5'):
-		case _T('6'):
-		case _T('7'):
-		case _T('8'):
-		case _T('9'):
-		case _T('-'):
+		case L' ':
+		case L'(':
+		case L')':
+		case L'0':
+		case L'1':
+		case L'2':
+		case L'3':
+		case L'4':
+		case L'5':
+		case L'6':
+		case L'7':
+		case L'8':
+		case L'9':
+		case L'-':
 			break;
 
 		default:
@@ -298,8 +298,8 @@ CStringW UTF8Decode(__in_bcount(nInput) LPCSTR psInput, __in int nInput)
 CString URLEncode(LPCTSTR pszInputT)
 {
 	// Setup two strings, one with all the hexidecimal digits, the other with all the characters to find and encode
-	static LPCTSTR pszHex	= _T("0123456789ABCDEF");		// A string with all the hexidecimal digits
-	static LPCSTR pszUnsafe	= "<>\"#%{}|\\^~[]+?&@=:,$";	// A string with all the characters unsafe for a URL
+	static LPCTSTR pszHex	= L"0123456789ABCDEF";		// A string with all the hexidecimal digits
+	static LPCSTR pszUnsafe	= "<>#%{}|/\\\"^~,[]+?&@=:$";	// A string with all the characters unsafe for a URL
 
 	// The output string starts blank
 	CString strOutput;
@@ -344,7 +344,7 @@ CString URLEncode(LPCTSTR pszInputT)
 		if ( *pszInput <= 32 || *pszInput > 127 || strchr( pszUnsafe, *pszInput ) != NULL )
 		{
 			// Write a three letter code for it like %20 in the output text
-			*pszOutput++ = _T('%');
+			*pszOutput++ = L'%';
 			*pszOutput++ = pszHex[ ( *pszInput >> 4 ) & 0x0F ];
 			*pszOutput++ = pszHex[ *pszInput & 0x0F ];
 		}
@@ -407,7 +407,7 @@ CString URLDecodeANSI(const TCHAR* __restrict pszInput)
 			// Copy characters like "20" into szHex, making sure neither are null
 			if ( ( szHex[0] = pszInput[1] ) != 0 &&
 				 ( szHex[1] = pszInput[2] ) != 0 &&
-				 _stscanf_s( szHex, _T("%x"), &nHex ) == 1 &&
+				 _stscanf_s( szHex, L"%x", &nHex ) == 1 &&
 				 nHex > 0 )
 			{
 				*pszOutput++ = (CHAR)nHex;
@@ -427,7 +427,7 @@ CString URLDecodeANSI(const TCHAR* __restrict pszInput)
 		{
 			if ( pszInput[ 1 ] == '#' )
 			{
-				if ( _stscanf_s( pszInput + 2, _T("%lu;"), &nHex ) == 1 && nHex > 0 )
+				if ( _stscanf_s( pszInput + 2, L"%lu;", &nHex ) == 1 && nHex > 0 )
 				{
 					*pszOutput++ = (CHAR)nHex;
 					while ( *pszInput && *pszInput != ';' )
@@ -439,32 +439,32 @@ CString URLDecodeANSI(const TCHAR* __restrict pszInput)
 					*pszOutput++ = '#';
 				}
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("quot;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"quot;", 5 ) == 0 )
 			{
 				*pszOutput++ = '\"';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("apos;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"apos;", 5 ) == 0 )
 			{
 				*pszOutput++ = '\'';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("lt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"lt;", 3 ) == 0 )
 			{
 				*pszOutput++ = '<';
 				pszInput += 3;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("gt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"gt;", 3 ) == 0 )
 			{
 				*pszOutput++ = '>';
 				pszInput += 3;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("nbsp;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"nbsp;", 5 ) == 0 )
 			{
 				*pszOutput++ = ' ';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("amp;"), 4 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"amp;", 4 ) == 0 )
 			{
 				*pszOutput++ = '&';
 				pszInput += 4;
@@ -504,7 +504,7 @@ CString URLDecodeUnicode(const TCHAR* __restrict pszInput)
 		{
 			if ( ( szHex[0] = pszInput[1] ) != 0 &&
 				( szHex[1] = pszInput[2] ) != 0 &&
-				_stscanf_s( szHex, _T("%x"), &nHex ) == 1 &&
+				_stscanf_s( szHex, L"%x", &nHex ) == 1 &&
 				nHex > 0 )
 			{
 				*pszOutput++ = (TCHAR)nHex;
@@ -524,7 +524,7 @@ CString URLDecodeUnicode(const TCHAR* __restrict pszInput)
 		{
 			if ( pszInput[ 1 ] == '#' )
 			{
-				if ( _stscanf_s( pszInput + 2, _T("%lu;"), &nHex ) == 1 && nHex > 0 )
+				if ( _stscanf_s( pszInput + 2, L"%lu;", &nHex ) == 1 && nHex > 0 )
 				{
 					*pszOutput++ = (CHAR)nHex;
 					while ( *pszInput && *pszInput != ';' )
@@ -536,32 +536,32 @@ CString URLDecodeUnicode(const TCHAR* __restrict pszInput)
 					*pszOutput++ = '#';
 				}
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("quot;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"quot;", 5 ) == 0 )
 			{
 				*pszOutput++ = '\"';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("apos;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"apos;", 5 ) == 0 )
 			{
 				*pszOutput++ = '\'';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("lt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"lt;", 3 ) == 0 )
 			{
 				*pszOutput++ = '<';
 				pszInput += 3;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("gt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"gt;", 3 ) == 0 )
 			{
 				*pszOutput++ = '>';
 				pszInput += 3;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("nbsp;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"nbsp;", 5 ) == 0 )
 			{
 				*pszOutput++ = ' ';
 				pszInput += 5;
 			}
-			else if ( _tcsnicmp( pszInput + 1, _T("amp;"), 4 ) == 0 )
+			else if ( _tcsnicmp( pszInput + 1, L"amp;", 4 ) == 0 )
 			{
 				*pszOutput++ = '&';
 				pszInput += 4;
@@ -704,7 +704,7 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 {
-	if ( strInput[0] != *pszText && //*pszText < _T('A') ||
+	if ( strInput[0] != *pszText && //*pszText < L'A' ||
 	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char
 		return FALSE;
 
@@ -715,19 +715,20 @@ BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 }
 
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen)
 {
-	if ( nLen == 0 )
-		nLen = _tcslen( pszText );
+	if ( nLen < 1 )
+		nLen = (int)_tcslen( pszText );
 
-	if ( (size_t)strInput.GetLength() < nLen )
+	if ( strInput.GetLength() < nLen )
 		return FALSE;
 
-	LPCTSTR pszTest = (LPCTSTR)strInput.Right( (int)nLen );
+	const CString str = strInput.Right( nLen );
+	LPCTSTR pszTest = str;
 
-	if ( *pszTest != *pszText && *pszText < _T('A') ||
-	   ( *pszTest & ~0x20 ) != *pszText && *pszTest != ( *pszText & ~0x20 ) )			// Fast case-insensitive first char
-		return FALSE;
+	if ( *pszTest != *pszText && ( *pszText < L'A' ||
+	   ( ( *pszTest & ~0x20 ) != *pszText && *pszTest != ( *pszText & ~0x20 ) ) ) )
+		return FALSE;		// Fast case-insensitive first char
 
 	return _tcsnicmp( pszTest, pszText, nLen ) == 0;
 }
@@ -846,7 +847,7 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 	if ( strPhrase.IsEmpty() )
 		return CString();
 
-	CString str( _T(" ") );
+	CString str( L" " );
 	LPCTSTR pszPtr = strPhrase;
 	ScriptType boundary[ 2 ] = { sNone, sNone };
 	int nPos = 0;
@@ -870,7 +871,7 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 			boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sRegular );
 		// For now, disable Numeric Detection in order not to split strings like "PeerProject2" to "PeerProject 2"
 		//if ( _istdigit( *pszPtr ) )
-		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric);
+		//	boundary[ 1 ] = (ScriptType)( boundary[ 1 ] | sNumeric );
 
 		if ( ( boundary[ 1 ] & ( sHiragana | sKatakana ) ) == ( sHiragana | sKatakana ) &&
 			 ( boundary[ 0 ] & ( sHiragana | sKatakana ) ) )
@@ -879,11 +880,11 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 		}
 
 		bool bCharacter = ( boundary[ 1 ] & sRegular ) ||
-			bExpression && ( *pszPtr == _T('-') || *pszPtr == _T('"') );
+			bExpression && ( *pszPtr == L'-' || *pszPtr == L'"' );
 
-		if ( !( boundary[ 0 ] & sRegular ) && *pszPtr == _T('-') )
+		if ( !( boundary[ 0 ] & sRegular ) && *pszPtr == L'-' )
 			bNegative = TRUE;
-		else if ( *pszPtr == _T(' ') )
+		else if ( *pszPtr == L' ' )
 			bNegative = FALSE;
 
 		int nDistance = ! bCharacter ? 1 : 0;
@@ -895,10 +896,10 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 				int len = str.GetLength();
 				ASSERT( len );
 				TCHAR last1 = str.GetAt( len - 1 );
-				TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : _T('\0');
-				TCHAR last3 = ( len > 2 ) ? str.GetAt( len - 3 ) : _T('\0');
+				TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : L'\0';
+				TCHAR last3 = ( len > 2 ) ? str.GetAt( len - 3 ) : L'\0';
 				if ( boundary[ 0 ] &&
-					( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) &&
+					( last2 == L' ' || last2 == L'-' || last2 == L'"' ) &&
 					! _istdigit( ( nPos < 3 ) ? last1 : last3 ) )
 				{
 					// Join two phrases if the previous was a single characters word.
@@ -906,17 +907,17 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 					// but because Shareaza 2.2 and above (hence PeerProject) are not really following GDF
 					// about word length limit for ASIAN chars, merging is necessary to be done.
 				}
-				else if ( last1 != _T(' ') && bCharacter )
+				else if ( last1 != L' ' && bCharacter )
 				{
-					if ( ( last1 == _T('-') || last1 == _T('"') || *pszPtr == _T('"') ) &&
+					if ( ( last1 == L'-' || last1 == L'"' || *pszPtr == L'"' ) &&
 						( ! bNegative || ! ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str += _T(' ');
+						str += L' ';
 				}
 				ASSERT( strPhrase.GetLength() > nPos - 1 );
-				if ( strPhrase.GetAt( nPos - 1 ) == _T('-') && nPos > 1 )
+				if ( strPhrase.GetAt( nPos - 1 ) == L'-' && nPos > 1 )
 				{
 					ASSERT( strPhrase.GetLength() > nPos - 2 );
-					if ( *pszPtr != _T(' ') && strPhrase.GetAt( nPos - 2 ) != _T(' ') )
+					if ( *pszPtr != L' ' && strPhrase.GetAt( nPos - 2 ) != L' ' )
 					{
 						nPrevWord += nDistance + 1;
 						continue;
@@ -931,11 +932,11 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
 					if ( boundary[ 1 ] == sNone && !bCharacter || *pszPtr == ' ' || !bExpression ||
 						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
-						str += _T(' ');
+						str += L' ';
 					else if ( !bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
 						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
 						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
-						str += _T(' ');
+						str += L' ';
 				}
 			}
 			nPrevWord = nPos + nDistance;
@@ -945,19 +946,19 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 	int len = str.GetLength();
 	ASSERT( len );
 	TCHAR last1 = str.GetAt( len - 1 );
-	TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : _T('\0');
+	TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : L'\0';
 	if ( boundary[ 0 ] && boundary[ 1 ] &&
-		( last2 == _T(' ') || last2 == _T('-') || last2 == _T('"') ) )
+		( last2 == L' ' || last2 == L'-' || last2 == L'"' ) )
 	{
 		// Join two phrases if the previous was a single characters word.
 		// idea of joining single characters breaks GDF compatibility completely,
 		// but because Shareaza 2.2 and above (hence PeerProject) are not really following GDF
 		// about word length limit for ASIAN chars, merging is necessary to be done.
 	}
-	else if ( boundary[ 1 ] && last1 != _T(' ') )
+	else if ( boundary[ 1 ] && last1 != L' ' )
 	{
-		if ( ( last1 == _T('-') || last1 == _T('"') ) && ! bNegative )
-			str += _T(' ');
+		if ( ( last1 == L'-' || last1 == L'"' ) && ! bNegative )
+			str += L' ';
 	}
 	str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
 
@@ -1039,7 +1040,7 @@ void BuildWordTable(LPCTSTR pszWord, WordTable& oWords, WordTable& oNegWords)
 LPCTSTR SkipSlashes(LPCTSTR pszURL, int nAdd)
 {
 	for ( ; nAdd && *pszURL ; --nAdd, ++pszURL );
-	while ( *pszURL == _T('/') ) pszURL++;
+	while ( *pszURL == L'/' ) pszURL++;
 	return pszURL;
 }
 
@@ -1065,35 +1066,35 @@ CString Escape(const CString& strValue)
 	{
 		switch ( *pszValue )
 		{
-		case _T('\"'):
-			_tcscpy( pszXML, _T("&quot;") );
+		case L'\"':
+			_tcscpy( pszXML, L"&quot;" );
 			 pszXML += 6;
 			bChanged = true;
 			break;
-		case _T('\''):
-			_tcscpy( pszXML, _T("&apos;") );
+		case L'\'':
+			_tcscpy( pszXML, L"&apos;" );
 			 pszXML += 6;
 			bChanged = true;
 			break;
-		case _T('<'):
-			_tcscpy( pszXML, _T("&lt;") );
+		case L'<':
+			_tcscpy( pszXML, L"&lt;" );
 			pszXML += 4;
 			bChanged = true;
 			break;
-		case _T('>'):
-			_tcscpy( pszXML, _T("&gt;") );
+		case L'>':
+			_tcscpy( pszXML, L"&gt;" );
 			pszXML += 4;
 			bChanged = true;
 			break;
-		case _T('&'):
-			_tcscpy( pszXML, _T("&amp;") );
+		case L'&':
+			_tcscpy( pszXML, L"&amp;" );
 			pszXML += 5;
 			bChanged = true;
 			break;
 		default:
 			if ( *pszValue < 32 || *pszValue > 127 )
 			{
-				pszXML += _stprintf_s( pszXML, 9, _T("&#%lu;"), *pszValue );
+				pszXML += _stprintf_s( pszXML, 9, L"&#%lu;", *pszValue );
 				bChanged = true;
 				break;
 			}
@@ -1147,7 +1148,7 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 				if ( pszXML >= pszNull || ! *pszXML || ! _istdigit( *pszXML ) ) break;
 
 				int nChar;
-				if ( _stscanf( pszXML, _T("%lu;"), &nChar ) == 1 )
+				if ( _stscanf_s( pszXML, L"%lu;", &nChar ) == 1 )
 				{
 					*pszOut++ = (TCHAR)nChar;
 					while ( *pszXML && *pszXML != ';' ) pszXML++;
@@ -1155,32 +1156,32 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 					pszXML++;
 				}
 			}
-			else if ( _tcsnicmp( pszXML, _T("quot;"), 5 ) == 0 )	// Most common
+			else if ( _tcsnicmp( pszXML, L"quot;", 5 ) == 0 )	// Most common
 			{
 				*pszOut++ = '\"';
 				pszXML += 5;
 			}
-			else if ( _tcsnicmp( pszXML, _T("apos;"), 5 ) == 0 )
+			else if ( _tcsnicmp( pszXML, L"apos;", 5 ) == 0 )
 			{
 				*pszOut++ = '\'';
 				pszXML += 5;
 			}
-			else if ( _tcsnicmp( pszXML, _T("lt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszXML, L"lt;", 3 ) == 0 )
 			{
 				*pszOut++ = '<';
 				pszXML += 3;
 			}
-			else if ( _tcsnicmp( pszXML, _T("gt;"), 3 ) == 0 )
+			else if ( _tcsnicmp( pszXML, L"gt;", 3 ) == 0 )
 			{
 				*pszOut++ = '>';
 				pszXML += 3;
 			}
-			else if ( _tcsnicmp( pszXML, _T("nbsp;"), 5 ) == 0 )	// Not XML spec, but common from HTML
+			else if ( _tcsnicmp( pszXML, L"nbsp;", 5 ) == 0 )	// Not XML spec, but common from HTML
 			{
 				*pszOut++ = ' ';
 				pszXML += 5;
 			}
-			else if ( _tcsnicmp( pszXML, _T("amp;"), 4 ) == 0 )
+			else if ( _tcsnicmp( pszXML, L"amp;", 4 ) == 0 )
 			{
 				*pszOut++ = '&';
 				pszXML += 4;
@@ -1205,18 +1206,18 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 
 BOOL IsValidExtension(LPCTSTR pszName)
 {
-//	const int nDot = sName.ReverseFind( _T('.') );
-//	return ( nDot > 0 && nDot > sName.GetLength() - 10 && sName.FindOneOf( _T(" -)]") ) < nDot );
+//	const int nDot = sName.ReverseFind( L'.' );
+//	return ( nDot > 0 && nDot > sName.GetLength() - 10 && sName.FindOneOf( L" -)]" ) < nDot );
 
 	BOOL bNum = TRUE;
 	const UINT nLen = (UINT)_tcslen( pszName );
 	for ( UINT nTest = 0 ; nTest < 12 && nTest <= nLen ; nTest++ )
 	{
 		TCHAR cChar = *(pszName + ( nLen - nTest ));
-		if ( bNum && cChar == _T('\0') ) continue;
-		if ( cChar == _T('.') ) return ! bNum;
-		if ( cChar < _T('0') || cChar == _T(']') ) break;
-		bNum = bNum && cChar <= _T('9');		//_istdigit( cChar );
+		if ( bNum && cChar == L'\0' ) continue;
+		if ( cChar == L'.' ) return ! bNum;
+		if ( cChar < L'0' || cChar == L']' ) break;
+		bNum = bNum && cChar <= L'9';		//_istdigit( cChar );
 	}
 
 	return FALSE;
@@ -1229,8 +1230,8 @@ BOOL IsValidExtension(LPCTSTR pszName)
 //		return FALSE;
 //
 //	//int nIP[5] = { 0 };
-//	//if ( _stscanf( sInput, _T("%i.%i.%i.%i:%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] ) == 5 ||
-//	//	   _stscanf( sInput, _T("%i.%i.%i.%i"), &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
+//	//if ( _stscanf( sInput, L"%i.%i.%i.%i:%i", &nIP[0], &nIP[1], &nIP[2], &nIP[3], &nIP[4] ) == 5 ||
+//	//	   _stscanf( sInput, L"%i.%i.%i.%i", &nIP[0], &nIP[1], &nIP[2], &nIP[3] ) == 4 )
 //	//	return nIP[0] < 256 && nIP[1] < 256 && nIP[2] < 256 && nIP[3] < 256 && nIP[4] < 65000;
 //	//return FALSE;
 //
@@ -1251,14 +1252,14 @@ BOOL IsValidExtension(LPCTSTR pszName)
 //				return FALSE;
 //			continue;
 //		}
-//		if ( Ch == _T('.') )
+//		if ( Ch == L'.' )
 //		{
 //			if ( d++ > 3 || strIP.IsEmpty() )
 //				return FALSE;
 //			strIP.Empty();
 //			continue;
 //		}
-//		if ( Ch == _T(':') )
+//		if ( Ch == L':' )
 //		{
 //			if ( d != 3 || strIP.IsEmpty() )
 //				return FALSE;
@@ -1315,14 +1316,14 @@ DWORD IPStringToDWORD(LPCTSTR pszIP, BOOL bReverse)
 CString HostToString(const SOCKADDR_IN* pHost)
 {
 	CString strHost;
-	strHost.Format( _T("%s:%hu"), (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
+	strHost.Format( L"%s:%hu", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
 	return strHost;
 }
 
 LPCTSTR SafePath(const CString& sPath)
 {
-	return ( sPath.GetLength() < MAX_PATH - 4 || sPath[2] == _T('?') ) ?
-		(LPCTSTR)sPath : CString( _T("\\\\?\\") ) + sPath;
+	return ( sPath.GetLength() < MAX_PATH - 4 || sPath[2] == L'?' ) ?
+		(LPCTSTR)sPath : CString( L"\\\\?\\" ) + sPath;
 }
 
 BOOL MakeSafePath(CString& sPath)
@@ -1330,8 +1331,8 @@ BOOL MakeSafePath(CString& sPath)
 	if ( sPath.GetLength() < MAX_PATH - 4 )
 		return FALSE;
 
-	ASSERT( StartsWith( sPath, _PT("\\\\?\\") ) );
-	if ( sPath[2] != _T('?') )
-		sPath = CString( _T("\\\\?\\") ) + sPath;
+	ASSERT( StartsWith( sPath, _P( L"\\\\?\\" ) ) );
+	if ( sPath[2] != L'?' )
+		sPath = CString( L"\\\\?\\" ) + sPath;
 	return TRUE;
 }

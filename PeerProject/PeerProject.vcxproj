@@ -297,10 +297,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AlbumFolder.cpp" />
+    <ClCompile Include="AntiVirus.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="AutocompleteEdit.cpp" />
     <ClCompile Include="BENode.cpp" />
-    <ClCompile Include="BitprintDownloader.cpp" />
+    <ClCompile Include="BitprintsDownloader.cpp" />
     <ClCompile Include="BTClient.cpp" />
     <ClCompile Include="BTClients.cpp" />
     <ClCompile Include="BTInfo.cpp" />
@@ -329,6 +330,7 @@
     <ClCompile Include="DCNeighbour.cpp" />
     <ClCompile Include="DDEServer.cpp" />
     <ClCompile Include="DiscoveryServices.cpp" />
+    <ClCompile Include="DisplayData.cpp" />
     <ClCompile Include="Download.cpp" />
     <ClCompile Include="DownloadBase.cpp" />
     <ClCompile Include="DownloadGroup.cpp" />
@@ -397,6 +399,7 @@
     <ClCompile Include="MatchListView.cpp" />
     <ClCompile Include="MatchObjects.cpp" />
     <ClCompile Include="MetaList.cpp" />
+    <ClCompile Include="MiniUPnP.cpp" />
     <ClCompile Include="Neighbour.cpp" />
     <ClCompile Include="Neighbours.cpp" />
     <ClCompile Include="NeighboursBase.cpp" />
@@ -496,6 +499,7 @@
     <ClCompile Include="UploadTransferED2K.cpp" />
     <ClCompile Include="UploadTransferHTTP.cpp" />
     <ClCompile Include="UPnPFinder.cpp" />
+    <ClCompile Include="UPnPNAT.cpp" />
     <ClCompile Include="VendorCache.cpp" />
     <ClCompile Include="VersionChecker.cpp" />
     <ClCompile Include="WindowManager.cpp" />
@@ -892,7 +896,7 @@
     <ClCompile Include="CtrlWizard.cpp" />
     <ClCompile Include="CtrlWndTabBar.cpp" />
     <ClCompile Include="DlgAbout.cpp" />
-    <ClCompile Include="DlgBitprintDownload.cpp" />
+    <ClCompile Include="DlgBitprintsDownload.cpp" />
     <ClCompile Include="DlgCloseMode.cpp" />
     <ClCompile Include="DlgCollectionExport.cpp" />
     <ClCompile Include="DlgConnectTo.cpp" />
@@ -917,6 +921,9 @@
     <ClCompile Include="DlgGraphItem.cpp" />
     <ClCompile Include="DlgGraphList.cpp" />
     <ClCompile Include="DlgHelp.cpp" />
+    <ClCompile Include="DlgHex.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="DlgHitColumns.cpp" />
     <ClCompile Include="DlgIrcInput.cpp" />
     <ClCompile Include="DlgLanguage.cpp" />
@@ -981,7 +988,7 @@
     <ClCompile Include="WizardSharePage.cpp" />
     <ClCompile Include="WizardSheet.cpp" />
     <ClCompile Include="WizardWelcomePage.cpp" />
-    <ClInclude Include="..\Services\MainlineDHT\dht.c" />
+    <ClInclude Include="BitTorrentDHT\dht.c" />
     <ClCompile Include="Hashes\HashDescriptors.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\StdAfx.h</PrecompiledHeaderFile>
@@ -1013,7 +1020,7 @@
     <ClCompile Include="PageProfileBio.cpp" />
     <ClCompile Include="PageProfileCertificate.cpp" />
     <ClCompile Include="PageProfileContact.cpp" />
-    <ClCompile Include="PageProfileFavourites.cpp" />
+    <ClCompile Include="PageProfileFavorites.cpp" />
     <ClCompile Include="PageProfileFiles.cpp" />
     <ClCompile Include="PageProfileIdentity.cpp" />
     <ClCompile Include="PageProfileProfile.cpp" />
@@ -1252,10 +1259,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AlbumFolder.h" />
+    <ClInclude Include="AntiVirus.h" />
     <ClInclude Include="Application.h" />
     <ClInclude Include="AutocompleteEdit.h" />
     <ClInclude Include="BENode.h" />
-    <ClInclude Include="BitprintDownloader.h" />
+    <ClInclude Include="BitprintsDownloader.h" />
     <ClInclude Include="BTClient.h" />
     <ClInclude Include="BTClients.h" />
     <ClInclude Include="BTInfo.h" />
@@ -1284,6 +1292,7 @@
     <ClInclude Include="DCNeighbour.h" />
     <ClInclude Include="DDEServer.h" />
     <ClInclude Include="DiscoveryServices.h" />
+    <ClInclude Include="DisplayData.h" />
     <ClInclude Include="Download.h" />
     <ClInclude Include="DownloadBase.h" />
     <ClInclude Include="DownloadGroup.h" />
@@ -1354,6 +1363,7 @@
     <ClInclude Include="MatchListView.h" />
     <ClInclude Include="MatchObjects.h" />
     <ClInclude Include="MetaList.h" />
+    <ClInclude Include="MiniUPnP.h" />
     <ClInclude Include="MinMax.hpp" />
     <ClInclude Include="Neighbour.h" />
     <ClInclude Include="Neighbours.h" />
@@ -1428,7 +1438,9 @@
     <ClInclude Include="UploadTransferDC.h" />
     <ClInclude Include="UploadTransferED2K.h" />
     <ClInclude Include="UploadTransferHTTP.h" />
+    <ClInclude Include="UPnP.h" />
     <ClInclude Include="UPnPFinder.h" />
+    <ClInclude Include="UPnPNAT.h" />
     <ClInclude Include="VendorCache.h" />
     <ClInclude Include="VersionChecker.h" />
     <ClInclude Include="WindowManager.h" />
@@ -1534,7 +1546,7 @@
     <ClInclude Include="WndTraffic.h" />
     <ClInclude Include="WndUploads.h" />
     <ClInclude Include="DlgAbout.h" />
-    <ClInclude Include="DlgBitprintDownload.h" />
+    <ClInclude Include="DlgBitprintsDownload.h" />
     <ClInclude Include="DlgCloseMode.h" />
     <ClInclude Include="DlgCollectionExport.h" />
     <ClInclude Include="DlgConnectTo.h" />
@@ -1559,6 +1571,9 @@
     <ClInclude Include="DlgGraphItem.h" />
     <ClInclude Include="DlgGraphList.h" />
     <ClInclude Include="DlgHelp.h" />
+    <ClInclude Include="DlgHex.h">
+      <ExcludedFromBuild Condition="'$(Configuration)'=='Release'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="DlgHitColumns.h" />
     <ClInclude Include="DlgIrcInput.h" />
     <ClInclude Include="DlgLanguage.h" />
@@ -1605,7 +1620,7 @@
     <ClInclude Include="PageProfileBio.h" />
     <ClInclude Include="PageProfileCertificate.h" />
     <ClInclude Include="PageProfileContact.h" />
-    <ClInclude Include="PageProfileFavourites.h" />
+    <ClInclude Include="PageProfileFavorites.h" />
     <ClInclude Include="PageProfileFiles.h" />
     <ClInclude Include="PageProfileIdentity.h" />
     <ClInclude Include="PageProfileProfile.h" />
@@ -1648,11 +1663,11 @@
     <ClInclude Include="Hashes\HashStringConversion.hpp" />
     <ClInclude Include="Hashes\StoragePolicies.hpp" />
     <ClInclude Include="Hashes\ValidationPolicies.hpp" />
-    <ClInclude Include="..\Services\Augment\Augment.hpp" />
-    <ClInclude Include="..\Services\Augment\auto_array.hpp" />
-    <ClInclude Include="..\Services\Augment\auto_ptr.hpp" />
-    <ClInclude Include="..\Services\Augment\IUnknownImplementation.hpp" />
-    <ClInclude Include="..\Services\MainlineDHT\dht.h" />
+    <ClInclude Include="Augment\Augment.hpp" />
+    <ClInclude Include="Augment\auto_array.hpp" />
+    <ClInclude Include="Augment\auto_ptr.hpp" />
+    <ClInclude Include="Augment\IUnknownImplementation.hpp" />
+    <ClInclude Include="BitTorrent\dht.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\HashLib\HashLib.vcxproj">
@@ -1673,6 +1688,10 @@
     </ProjectReference>
     <ProjectReference Include="..\Services\BugTrap\BugTrap.vcxproj">
       <Project>{e8cf1ada-264a-4127-86c2-fd7057d3792c}</Project>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+    </ProjectReference>
+    <ProjectReference Include="..\Services\MiniUPnP\MiniUPnPc.vcxproj">
+      <Project>{D6C8A99E-E770-4D48-BE97-AA3CF262EE8B}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
   </ItemGroup>

@@ -69,6 +69,7 @@ WizardSmallImageFile=Installer\Res\CornerLogo.bmp
 ShowComponentSizes=no
 ChangesAssociations=yes
 ChangesEnvironment=yes
+CloseApplications=no
 OutputManifestFile=Manifest ({#ConfigurationName} {#PlatformName}).txt
 MinVersion=0,5.0
 #if PlatformName == "x64"
@@ -139,6 +140,9 @@ Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestD
 ; GeoIP
 Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ;Source: "Data\GeoIP.dat"; DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+; MiniUPnP
+Source: "Services\MiniUPnP\{#ConfigurationName} {#PlatformName}\MiniUPnPc.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
 ; Plugins
 Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
@@ -218,7 +222,7 @@ Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwriterea
 Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
 
 ; Languages
-;Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,default-en.*"
+;Source: "Languages\*"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Tasks: "language"; Excludes: ".svn,*.bak,en.*"
 
 ; Templates
 Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
@@ -240,8 +244,8 @@ Source: "{userappdata}\PeerProject\Skins\*"; DestDir: "{app}\Skins"; Flags: igno
 Source: "{userappdata}\PeerProject\Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist recursesubdirs; AfterInstall: DeleteFolder('{userappdata}\PeerProject\Templates')
 
 ; Switch user data between locations
-Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library1.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
-Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library2.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
+Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
+Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library.bak"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\DownloadGroups.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\TigerTree.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Security.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
@@ -249,8 +253,8 @@ Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProjec
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Searches.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Schedule.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Profile.xml"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
-Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library1.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
-Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library2.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
+Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
+Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library.bak"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\DownloadGroups.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\TigerTree.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Security.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
@@ -259,8 +263,8 @@ Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\Pe
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Schedule.dat"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Profile.xml"; DestDir: "{userappdata}\PeerProject\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: multiuser
 
-Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library1.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
-Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library2.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
+Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
+Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Library.bak"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\DownloadGroups.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\TigerTree.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Security.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
@@ -268,8 +272,8 @@ Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\Pe
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Searches.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Schedule.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,Path|{reg:HKCU\Software\PeerProject\PeerProject,Path|{app}}}\Data\Profile.xml"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
-Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library1.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
-Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library2.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
+Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
+Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Library.bak"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\DownloadGroups.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\TigerTree.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
 Source: "{ini:{param:SETTINGS|},Locations,UserPath|{reg:HKCU\Software\PeerProject\PeerProject,UserPath|{userappdata}\PeerProject}}\Data\Security.dat"; DestDir: "{app}\Data"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist; Tasks: not multiuser
@@ -386,12 +390,15 @@ Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueName: 
 
 Root: HKCR; Subkey: "SOFTWARE\Classes\.psk"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
+Root: HKCR; Subkey: "SOFTWARE\Classes\.pd"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "SOFTWARE\Classes\.sd"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
 Root: HKCR; Subkey: "SOFTWARE\Classes\.co"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "SOFTWARE\Classes\.collection"; Flags: dontcreatekey uninsdeletekey
 ;Root: HKCR; Subkey: ".torrent"; ValueType: string; ValueName: ""; ValueData: "BitTorrent"; Flags: dontcreatekey uninsdeletevalue
 Root: HKCR; Subkey: "BitTorrent"; ValueType: string; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
 Root: HKCR; Subkey: "PeerProject.Application"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "PeerProject.Collection"; Flags: dontcreatekey uninsdeletekey
+Root: HKCR; Subkey: "PeerProject.PartialData"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "PeerProject.DataSource"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "PeerProject.DocReader"; Flags: dontcreatekey uninsdeletekey
 Root: HKCR; Subkey: "PeerProject.DocReader.1"; Flags: dontcreatekey uninsdeletekey
@@ -404,6 +411,8 @@ Root: HKCR; Subkey: "PeerProject.XML"; Flags: dontcreatekey uninsdeletekey
 
 Root: HKCU; Subkey: "SOFTWARE\Classes\.psk"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\.sks"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
+Root: HKCU; Subkey: "SOFTWARE\Classes\.pd"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "SOFTWARE\Classes\.sd"; Flags: dontcreatekey uninsdeletekey; Check: WeOwnTorrentAssoc
 Root: HKCU; Subkey: "SOFTWARE\Classes\.co"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\.collection"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "SOFTWARE\Classes\.emulecollection"; Flags: dontcreatekey uninsdeletekey
@@ -428,7 +437,8 @@ Root: HKCU; Subkey: "SOFTWARE\Classes\Applications\SkinInstaller.exe"; Flags: do
 
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.psk"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.sks"; Flags: dontcreatekey uninsdeletekey
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.torrent"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.pd"; Flags: dontcreatekey uninsdeletekey
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Explorer\FileExts\.torrent"; Flags: dontcreatekey uninsdeletevalue
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\App Management\ARPCache\PeerProject_is1"; Flags: dontcreatekey uninsdeletekey
 Root: HKCU; Subkey: "Software\Microsoft\Windows\ShellNoRoam\MUICache"; ValueName:"{app}\PeerProject.exe"; Flags: dontcreatekey uninsdeletevalue
 
@@ -889,7 +899,7 @@ End;
 
 Function IsLanguageRTL(LangCode: String): String;
 Begin
-  if ( (LangCode = 'heb') or (LangCode = 'ar') ) then
+  if ( (LangCode = 'he') or (LangCode = 'ar') ) then
     Result := '1'
   else
     Result := '0';
@@ -900,13 +910,11 @@ Begin
   StringChangeEx(LangCode, '_', '-', True);
 
   if ( LangCode = 'en-uk' ) then
-    Result := 'Languages\default-alt.xml'
-  else if ( LangCode = 'pt' ) then
-    Result := 'Languages\default-pt-br.xml'
-  else if ( LangCode = 'af' ) then
-    Result := 'Languages\default-za.xml'
+    Result := 'Languages\alt.xml'
+  else if ( LangCode = 'pt-br' ) then
+    Result := 'Languages\pt.xml'
   else
-    Result := 'Languages\default-' + LangCode + '.xml';
+    Result := 'Languages\' + LangCode + '.xml';
 End;
 
 Function ResetLanguages: boolean;

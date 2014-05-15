@@ -71,7 +71,11 @@ public:
 	BOOL SendPing(const Hashes::Guid& oGUID = Hashes::Guid());
 	void OnNewPong(const CPongItem* pPong);
 
+	virtual BOOL ProcessPackets(CBuffer* pInput);	// Process packets from specified buffer
+
 protected:
+	virtual BOOL ProcessPackets();					// Process packets from internal input buffer
+
 	// Send and receive packets
 	virtual BOOL OnRead();		// Read in data from the socket, decompress it, and call ProcessPackets
 	virtual BOOL OnWrite();		// Sends all the packets from the outbound packet buffer to the remote computer
@@ -79,7 +83,6 @@ protected:
 
 protected:
 	// Read and respond to packets from the remote computer
-	BOOL ProcessPackets();				// Cuts up the received data into packets, and calls OnPacket for each one
 	BOOL OnPacket(CG1Packet* pPacket);	// Sorts the packet and calls one of the methods below
 
 	// Ping and pong packets

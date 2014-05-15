@@ -78,7 +78,7 @@ void CSchemaCombo::Load(LPCTSTR pszSelectURI, int nType, int nAvailability, BOOL
 
 	if ( bReset && m_sNoSchemaText.GetLength() )
 	{
-		SetItemData( AddString( _T(" ") ), 0 );
+		SetItemData( AddString( L" " ), 0 );
 		SetCurSel( 0 );
 	}
 
@@ -110,7 +110,7 @@ void CSchemaCombo::Load(LPCTSTR pszSelectURI, int nType, int nAvailability, BOOL
 	}
 
 	if ( bReset && nAvailability < CSchema::saMax )
-		SetItemData( AddString( _T("ZZZ") ), 0 );
+		SetItemData( AddString( L"ZZZ" ), 0 );
 }
 
 void CSchemaCombo::Select(LPCTSTR pszURI)
@@ -261,7 +261,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 				if ( nRight >= 0 )
 				{
 					int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );	// !!! (ToDo:?)
-					strURI = strURI.Left( nLeft ) + _T("/\x2026") + strURI.Mid( nRight );
+					strURI = strURI.Left( nLeft ) + L"/\x2026" + strURI.Mid( nRight );
 				}
 			}
 		}

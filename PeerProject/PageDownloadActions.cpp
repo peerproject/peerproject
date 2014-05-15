@@ -157,8 +157,8 @@ void CDownloadActionsPage::OnErase()
 	QWORD nFrom = 0, nTo = 0;
 
 	if ( ! UpdateData() ||
-		 _stscanf( m_sEraseFrom, _T("%I64i"), &nFrom ) != 1 ||
-		 _stscanf( m_sEraseTo, _T("%I64i"), &nTo ) != 1 ||
+		 _stscanf( m_sEraseFrom, L"%I64i", &nFrom ) != 1 ||
+		 _stscanf( m_sEraseTo, L"%I64i", &nTo ) != 1 ||
 		 nTo < nFrom )
 	{
 		MsgBox( IDS_DOWNLOAD_EDIT_BAD_RANGE, MB_ICONEXCLAMATION );
@@ -338,7 +338,7 @@ void CDownloadActionsPage::OnMergeAndVerify()
 	{
 		szFile += _tcslen( szFile ) + 1;
 		if ( *szFile )	// Folder + files
-			oFiles.AddTail( strFolder + _T("\\") + szFile );
+			oFiles.AddTail( strFolder + L"\\" + szFile );
 		else	// Single file
 			oFiles.AddTail( strFolder );
 	}

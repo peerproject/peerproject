@@ -1,7 +1,7 @@
 //
 // DlgConnectTo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -36,7 +36,7 @@ typedef struct {
 	PROTOCOLID	nProtocol;
 } CONNECT_HOST_DATA;
 
-const LPCTSTR CONNECT_SECTION = _T("ConnectTo");
+const LPCTSTR CONNECT_SECTION = L"ConnectTo";
 
 IMPLEMENT_DYNAMIC(CConnectToDlg, CSkinDialog)
 
@@ -82,7 +82,7 @@ BOOL CConnectToDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CConnectToDlg"),
+	SkinMe( L"CConnectToDlg",
 		( ( m_nType == Connect ) ? ID_NETWORK_CONNECT_TO :
 		( ( m_nType == Browse ) ? ID_NETWORK_BROWSE_TO :
 		/*( m_nType == Chat ) ?*/ ID_NETWORK_CHAT_TO ) ) );
@@ -93,20 +93,16 @@ BOOL CConnectToDlg::OnInitDialog()
 	CoolInterface.LoadIconsTo( m_gdiProtocols, protocolIDs );
 
 	m_wndProtocol.ResetContent();
-	m_wndProtocol.SetItemData(
-		m_wndProtocol.AddString( protocolNames[ PROTOCOL_G2 ] ), PROTOCOL_G2 );
-	m_wndProtocol.SetItemData(
-		m_wndProtocol.AddString( protocolNames[ PROTOCOL_G1 ] ), PROTOCOL_G1 );
-	m_wndProtocol.SetItemData(
-		m_wndProtocol.AddString( protocolNames[ PROTOCOL_ED2K ] ), PROTOCOL_ED2K );
-	m_wndProtocol.SetItemData(
-		m_wndProtocol.AddString( protocolNames[ PROTOCOL_DC ] ), PROTOCOL_DC );
+	m_wndProtocol.SetItemData( m_wndProtocol.AddString( protocolNames[ PROTOCOL_G2 ] ), PROTOCOL_G2 );
+	m_wndProtocol.SetItemData( m_wndProtocol.AddString( protocolNames[ PROTOCOL_G1 ] ), PROTOCOL_G1 );
+	m_wndProtocol.SetItemData( m_wndProtocol.AddString( protocolNames[ PROTOCOL_ED2K ] ), PROTOCOL_ED2K );
+	m_wndProtocol.SetItemData( m_wndProtocol.AddString( protocolNames[ PROTOCOL_DC ] ), PROTOCOL_DC );
 
 	//m_wndAdvanced.ShowWindow( ( m_nType == Connect ) ? SW_SHOW : SW_HIDE );
 	m_wndUltrapeer.ShowWindow( ( m_nType == Connect ) ? SW_SHOW : SW_HIDE );
 	m_wndUltrapeer.EnableWindow( FALSE );
 
-	int nItem, nCount = theApp.GetProfileInt( CONNECT_SECTION, _T("Count"), 0 );
+	int nItem, nCount = theApp.GetProfileInt( CONNECT_SECTION, L"Count", 0 );
 
 	for ( nItem = 0 ; nItem < nCount ; nItem++ )
 	{
@@ -114,15 +110,15 @@ BOOL CConnectToDlg::OnInitDialog()
 		if ( pData )
 		{
 			CString strItem;
-			strItem.Format( _T("%.3i.Host"), nItem + 1 );
-			pData->sHost = theApp.GetProfileString( CONNECT_SECTION, strItem, _T("") );
-			pData->sHost.Trim( _T(" \t\r\n:\"") );
+			strItem.Format( L"%.3i.Host", nItem + 1 );
+			pData->sHost = theApp.GetProfileString( CONNECT_SECTION, strItem, L"" );
+			pData->sHost.Trim( L" \t\r\n:\"" );
 			ToLower( pData->sHost );
 
-			strItem.Format( _T("%.3i.Protocol"), nItem + 1 );
+			strItem.Format( L"%.3i.Protocol", nItem + 1 );
 			pData->nProtocol = (PROTOCOLID)theApp.GetProfileInt( CONNECT_SECTION, strItem, PROTOCOL_G2 );
 
-			strItem.Format( _T("%.3i.Port"), nItem + 1 );
+			strItem.Format( L"%.3i.Port", nItem + 1 );
 			pData->nPort = theApp.GetProfileInt( CONNECT_SECTION, strItem, protocolPorts[ pData->nProtocol ] );
 
 			// Validation
@@ -146,7 +142,7 @@ BOOL CConnectToDlg::OnInitDialog()
 		}
 	}
 	nCount = m_wndHost.GetCount();
-	nItem = theApp.GetProfileInt( CONNECT_SECTION, _T("Last.Index"), 0 );
+	nItem = theApp.GetProfileInt( CONNECT_SECTION, L"Last.Index", 0 );
 	if ( nItem >= nCount ) nItem = 0;
 	LoadItem( nItem );
 
@@ -159,7 +155,7 @@ BOOL CConnectToDlg::OnInitDialog()
 
 void CConnectToDlg::LoadItem(int nItem)
 {
-	ASSERT( nItem != CB_ERR);
+	ASSERT( nItem != CB_ERR );
 
 	if ( m_wndHost.GetCurSel() != nItem )
 		m_wndHost.SetCurSel( nItem );
@@ -206,7 +202,6 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 
 	CRect rcItem( &lpDrawItemStruct->rcItem );
 	CPoint pt( rcItem.left + 1, rcItem.top + 1 );
-	CString str;
 	CDC dc;
 
 	dc.Attach( lpDrawItemStruct->hDC );
@@ -225,6 +220,7 @@ void CConnectToDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct
 	m_gdiProtocols.Draw( &dc, lpDrawItemStruct->itemData, pt,
 		( lpDrawItemStruct->itemState & ODS_SELECTED ) ? ILD_SELECTED : ILD_NORMAL );
 
+	CString str;
 	m_wndProtocol.GetLBText( lpDrawItemStruct->itemID, str );
 
 	rcItem.left += 22;
@@ -250,8 +246,8 @@ BOOL CConnectToDlg::UpdateItems()
 	if ( ! UpdateData() )
 		return FALSE;
 
-	m_sHost.Trim( _T(" \t\r\n:\"\'\\") ).MakeLower();
-	const int n = m_sHost.Find( _T(':') );
+	m_sHost.Trim( L" \t\r\n:\"\'\\" ).MakeLower();
+	const int n = m_sHost.Find( L':' );
 	if ( n != -1 )
 	{
 		m_nPort = _tstoi( m_sHost.Mid( n + 1 ) );
@@ -320,11 +316,11 @@ void CConnectToDlg::SaveItems()
 {
 	const int nCount = m_wndHost.GetCount();
 	ASSERT( nCount != CB_ERR );
-	theApp.WriteProfileInt( CONNECT_SECTION, _T("Count"), nCount );
+	theApp.WriteProfileInt( CONNECT_SECTION, L"Count", nCount );
 
 	int nItem = m_wndHost.GetCurSel();
 	ASSERT( nItem != CB_ERR );
-	theApp.WriteProfileInt( CONNECT_SECTION, _T("Last.Index"), nItem );
+	theApp.WriteProfileInt( CONNECT_SECTION, L"Last.Index", nItem );
 
 	for ( nItem = 0 ; nItem < nCount ; nItem++ )
 	{
@@ -332,11 +328,11 @@ void CConnectToDlg::SaveItems()
 		ASSERT( pData != NULL && reinterpret_cast< INT_PTR >( pData ) != -1 );
 
 		CString strItem;
-		strItem.Format( _T("%.3i.Host"), nItem + 1 );
+		strItem.Format( L"%.3i.Host", nItem + 1 );
 		theApp.WriteProfileString( CONNECT_SECTION, strItem, pData->sHost );
-		strItem.Format( _T("%.3i.Port"), nItem + 1 );
+		strItem.Format( L"%.3i.Port", nItem + 1 );
 		theApp.WriteProfileInt( CONNECT_SECTION, strItem, pData->nPort );
-		strItem.Format( _T("%.3i.Protocol"), nItem + 1 );
+		strItem.Format( L"%.3i.Protocol", nItem + 1 );
 		theApp.WriteProfileInt( CONNECT_SECTION, strItem, pData->nProtocol );
 	}
 }

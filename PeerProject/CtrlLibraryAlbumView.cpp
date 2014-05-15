@@ -1,7 +1,7 @@
 //
 // CtrlLibraryAlbumView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -84,7 +84,7 @@ BOOL CLibraryAlbumView::Create(CWnd* pParentWnd)
 {
 	CRect rect( 0, 0, 0, 0 );
 	SelClear( FALSE );
-	return CWnd::CreateEx( 0, NULL, _T("CLibraryAlbumView"), WS_CHILD | WS_VSCROLL |
+	return CWnd::CreateEx( 0, NULL, L"CLibraryAlbumView", WS_CHILD | WS_VSCROLL |
 		WS_TABSTOP | WS_GROUP, rect, pParentWnd, IDC_LIBRARY_VIEW );
 }
 
@@ -1025,18 +1025,18 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 
 	if ( pFile->m_pMetadata && pFile->IsSchemaURI( CSchema::uriAudio ) )	// Music file
 	{
-		CString str = pFile->m_pMetadata->GetAttributeValue( _T("track") );
+		CString str = pFile->m_pMetadata->GetAttributeValue( L"track" );
 		LPCTSTR psz = str;
 
 		while ( *psz == '0' ) psz++;
-		if ( *psz ) _stscanf( psz, _T("%i"), &m_nTrack );
+		if ( *psz ) _stscanf( psz, L"%i", &m_nTrack );
 
-		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("seconds") ), _T("%i"), &m_nLength );
-		_stscanf( pFile->m_pMetadata->GetAttributeValue( _T("bitrate") ), _T("%i"), &m_nBitrate );
+		_stscanf( pFile->m_pMetadata->GetAttributeValue( L"seconds" ), L"%i", &m_nLength );
+		_stscanf( pFile->m_pMetadata->GetAttributeValue( L"bitrate" ), L"%i", &m_nBitrate );
 
-		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( _T("title") );
-		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( _T("artist") );
-		m_sAlbum	= pFile->m_pMetadata->GetAttributeValue( _T("album") );
+		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( L"title" );
+		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( L"artist" );
+		m_sAlbum	= pFile->m_pMetadata->GetAttributeValue( L"album" );
 		m_sAlbum.Trim();
 
 		if ( m_sArtist.IsEmpty() || m_sTitle.IsEmpty() )
@@ -1064,60 +1064,60 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	}
 	else if ( pFile->m_pMetadata ) // Non-music file
 	{
-		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( _T("artist") );
+		m_sArtist	= pFile->m_pMetadata->GetAttributeValue( L"artist" );
 		if ( m_sArtist.IsEmpty() )
 		{
-			m_sArtist = pFile->m_pMetadata->GetAttributeValue( _T("author") );
+			m_sArtist = pFile->m_pMetadata->GetAttributeValue( L"author" );
 			if ( m_sArtist.IsEmpty() )
-				m_sArtist = pFile->m_pMetadata->GetAttributeValue( _T("releasegroup") );
+				m_sArtist = pFile->m_pMetadata->GetAttributeValue( L"releasegroup" );
 		}
-		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( _T("title") );
+		m_sTitle	= pFile->m_pMetadata->GetAttributeValue( L"title" );
 		if ( m_sTitle.IsEmpty() )
 		{
 			m_sTitle = pFile->m_sName;
 			m_sTitle = m_sTitle.Left( m_sTitle.ReverseFind( '.' ) );
 			m_sTitle.Replace( '_', ' ' );
 			if ( ! m_sArtist.IsEmpty() )
-				m_sTitle.Replace( m_sArtist, _T("") );
+				m_sTitle.Replace( m_sArtist, L"" );
 		}
-		m_sLength	= pFile->m_pMetadata->GetAttributeValue( _T("minutes") );  // Video
+		m_sLength	= pFile->m_pMetadata->GetAttributeValue( L"minutes" );  // Video
 		if ( ! m_sLength.IsEmpty() )
 		{
 			int nSplit = m_sLength.Find( '.' );
 			float fSeconds = 0.000;
 
 			if ( nSplit >= 0 && nSplit < m_sLength.GetLength() )
-				swscanf_s( m_sLength.Mid( nSplit ), _T("%f"), &fSeconds );
+				swscanf_s( m_sLength.Mid( nSplit ), L"%f", &fSeconds );
 
-			m_sLength.Format( _T("%s:%02i"), m_sLength.Left( nSplit ), (int)(fSeconds * 60) );
+			m_sLength.Format( L"%s:%02i", m_sLength.Left( nSplit ), (int)(fSeconds * 60) );
 		}
 		else
 		{
-			CString strSize = pFile->m_pMetadata->GetAttributeValue( _T("width") );  // Image
+			CString strSize = pFile->m_pMetadata->GetAttributeValue( L"width" );  // Image
 			if ( ! strSize.IsEmpty() )
 			{
-				m_sLength.Format( _T("%s x %s"), strSize, pFile->m_pMetadata->GetAttributeValue( _T("height") ) );
+				m_sLength.Format( L"%s x %s", strSize, pFile->m_pMetadata->GetAttributeValue( L"height" ) );
 			}
 			else
 			{
-				if ( m_sTitle.Left( 6 ) == _T("eBook ") || m_sTitle.Left( 6 ) == _T("ebook ") )
+				if ( m_sTitle.Left( 6 ) == L"eBook " || m_sTitle.Left( 6 ) == L"ebook " )
 					m_sTitle = m_sTitle.Mid( ( m_sTitle.GetAt( 6 ) == '-' ) ? 7 : 6 );
 
-				strSize = pFile->m_pMetadata->GetAttributeValue( _T("pages") );  // Document
+				strSize = pFile->m_pMetadata->GetAttributeValue( L"pages" );  // Document
 				if ( ! strSize.IsEmpty() )
 				{
-					m_sLength = strSize + _T("p");
+					m_sLength = strSize + L"p";
 				}
 				else
 				{
-					strSize = pFile->m_pMetadata->GetAttributeValue( _T("filecount") );  // Archive
+					strSize = pFile->m_pMetadata->GetAttributeValue( L"filecount" );  // Archive
 					if ( ! strSize.IsEmpty() )
 					{
-						m_sLength.Format( _T("%s"), strSize );
+						m_sLength.Format( L"%s", strSize );
 					}
 					else
 					{
-						strSize = pFile->m_pMetadata->GetAttributeValue( _T("files") );  // Archive legacy
+						strSize = pFile->m_pMetadata->GetAttributeValue( L"files" );  // Archive legacy
 						if ( ! strSize.IsEmpty() )
 						{
 							int nCount = 1;
@@ -1129,7 +1129,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 									nIndex += 4;
 								}
 							}
-							m_sLength.Format( _T("%i"), nCount );
+							m_sLength.Format( L"%i", nCount );
 						}
 					}
 				}
@@ -1141,13 +1141,13 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 	m_sArtist.Trim();
 
 	if ( m_nTrack > 0 )
-		m_sTrack.Format( _T("%i"), m_nTrack );
+		m_sTrack.Format( L"%i", m_nTrack );
 
 	if ( m_nBitrate > 0 )
-		m_sBitrate.Format( _T("%ik"), m_nBitrate );
+		m_sBitrate.Format( L"%ik", m_nBitrate );
 
 	if ( m_nLength > 0 )
-		m_sLength.Format( _T("%i:%.2i"), m_nLength / 60, m_nLength % 60 );
+		m_sLength.Format( L"%i:%.2i", m_nLength / 60, m_nLength % 60 );
 
 	return TRUE;
 }
@@ -1266,7 +1266,7 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 
 	//COLORREF crOld = pDC->GetPixel( rcText.left, rcText.top );
 	BOOL bSelectmark = pDC->GetBkColor() == Colors.m_crHighlight && Images.m_bmSelected.m_hObject != NULL;
-	if ( bSelectmark)
+	if ( bSelectmark )
 	{
 		CoolInterface.DrawWatermark( pDC, &rcText, &Images.m_bmSelected, FALSE ); 	// No overdraw
 		pDC->SetBkMode( TRANSPARENT );
@@ -1289,7 +1289,7 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 					if ( szText.cx + 8 <= rcText.Width() ) break;
 				}
 
-				CString str = pstr->Left( nText ) + _T('\x2026');
+				CString str = pstr->Left( nText ) + L'\x2026';
 
 				pDC->ExtTextOut( bCenter ? ( ( rcText.left + rcText.right ) / 2 - szText.cx / 2 ) : ( rcText.left + 4 ),
 					( rcText.top + rcText.bottom ) / 2 - szText.cy / 2 - 1,
@@ -1304,11 +1304,11 @@ void CLibraryAlbumTrack::PaintText(CDC* pDC, const CRect& rcTrack, int nFrom, in
 		}
 		else
 		{
-			CSize szText = pDC->GetTextExtent( _T("?") );
+			CSize szText = pDC->GetTextExtent( L"?" );
 
 			pDC->ExtTextOut( ( rcText.left + 4 ),
 				( rcText.top + rcText.bottom ) / 2 - szText.cy / 2 - 1,
-				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, _T("?"), 1, NULL );
+				ETO_CLIPPED|( bSelectmark ? 0 : ETO_OPAQUE ), &rcText, L"?", 1, NULL );
 		}
 	}
 	else

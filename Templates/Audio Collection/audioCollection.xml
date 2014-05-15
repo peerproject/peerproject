@@ -18,7 +18,7 @@
 	<image path="bar_off.gif"/>
 </images>
 <wizardText>
-	<text language="pt-br">
+	<text language="pt">
 		<item id="1" type="textbox" value="Título da coleção"/>
 		<item id="2" type="textbox" value="Ao abrir arquivo" default="Abrir Arquivo"/>
 		<item id="3" type="textbox" value="Enquanto baixando" default="Baixando"/>
@@ -28,15 +28,6 @@
 		<item id="8" type="colorpicker" value="Colorir fileiras pares" default="#E9EDEF"/>
 	</text>
 	<text language="es">
-		<item id="1" type="textbox" value="Título de la colección"/>
-		<item id="2" type="textbox" value="Acción de apertura del archivo" default="Abrir archivo"/>
-		<item id="3" type="textbox" value="Mientras se descarga" default="Descarga"/>
-		<item id="4" type="textbox" value="Descarga acción" default="Descargar ahora"/>
-		<item id="6" type="textbox" value="Descripción de los recursos Web "/>
-		<item id="7" type="colorpicker" value="Color para filas incluso" default="#FFFFFF"/>
-		<item id="8" type="colorpicker" value="Color para filas impares" default="#E9EDEF"/>
-	</text>
-	<text language="es-mx">
 		<item id="1" type="textbox" value="Título de la colección"/>
 		<item id="2" type="textbox" value="Acción de apertura del archivo" default="Abrir archivo"/>
 		<item id="3" type="textbox" value="Mientras se descarga" default="Descarga"/>

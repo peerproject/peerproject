@@ -1,7 +1,7 @@
 //
 // BTClients.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -81,7 +81,7 @@ BOOL CBTClients::OnAccept(CConnection* pConnection)
 		}
 	}
 
-	theApp.Message( MSG_ERROR, _T("Rejecting BitTorrent connection from %s, network core overloaded."), (LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_BT ]
+	theApp.Message( MSG_ERROR, L"Rejecting BitTorrent connection from %s, network core overloaded.", (LPCTSTR)pConnection->m_sAddress );		// protocolNames[ PROTOCOL_BT ]
 	return FALSE;
 }
 

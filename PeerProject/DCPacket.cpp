@@ -47,9 +47,9 @@ CString CDCPacket::GetType() const
 	if ( m_nLength )
 	{
 		if ( *m_pBuffer == '<' )
-			return _T("Chat");
+			return L"Chat";
 		if ( *m_pBuffer == '|' )
-			return _T("Ping");
+			return L"Ping";
 		if ( *m_pBuffer == '$' )
 		{
 			const BYTE* p = m_pBuffer;
@@ -79,7 +79,7 @@ CString CDCPacket::ToHex() const
 	if ( ! n )
 		return CString();
 
-	LPCTSTR pszHex = _T("0123456789ABCDEF");
+	LPCTSTR pszHex = L"0123456789ABCDEF";
 
 	// Make a string and open it to write the characters in it directly, for speed
 	CString strDump;
@@ -202,7 +202,7 @@ BOOL CDCPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 #ifdef _DEBUG
 	CString str;
-	str.Format( _T("Unknown DC packet from %s:%u."),
+	str.Format( L"Unknown DC packet from %s:%u.",
 		(LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ),
 		htons( pHost->sin_port ) );
 	Debug( str );

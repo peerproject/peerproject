@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "RatDVDPlugin.h"
 
 
@@ -49,16 +49,17 @@ extern "C" BOOL WINAPI DllMain(HINSTANCE hInstance, DWORD dwReason, LPVOID lpRes
 	switch ( dwReason )
 	{
 	case DLL_PROCESS_ATTACH:
-		ODS(_T("DllMain - Attach\n"));
+		ODS(L"DllMain - Attach\n");
 
-		v_hModule = hInstance; v_cLocks = 0;
-		v_hPrivateHeap = HeapCreate(0, 0x1000, 0);
+		v_cLocks = 0;
+		v_hModule = hInstance;
+		v_hPrivateHeap = HeapCreate( 0, 0x1000, 0 );
 		InitializeCriticalSection( &v_csSynch );
 		DisableThreadLibraryCalls( hInstance );
 		break;
 
 	case DLL_PROCESS_DETACH:
-		ODS(_T("DllMain - Detach\n"));
+		ODS(L"DllMain - Detach\n");
 
 		if ( v_hPrivateHeap ) HeapDestroy( v_hPrivateHeap );
 		DeleteCriticalSection( &v_csSynch );
@@ -78,7 +79,7 @@ STDAPI DllRegisterServer(void)
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't register...
-	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule ) )
 		return E_UNEXPECTED;
 
 	// Registers object, typelib and all interfaces in typelib
@@ -90,7 +91,7 @@ STDAPI DllUnregisterServer(void)
 	LPWSTR  pwszModule;
 
 	// If we can't find the path to the DLL, we can't unregister...
-	if ( ! FGetModuleFileName( v_hModule, &pwszModule) )
+	if ( ! FGetModuleFileName( v_hModule, &pwszModule ) )
 		return E_UNEXPECTED;
 
 	return _AtlModule.DllUnregisterServer();
@@ -98,35 +99,29 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }
 
 HRESULT CRatDVDReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID /*riid*/, LPVOID* ppv)
 {
-	ODS(_T("CRatDVDReaderModule::DllGetClassObject\n"));
+	ODS(L"CRatDVDReaderModule::DllGetClassObject\n");
 
 	HRESULT hr;
 
 	CRatDVDClassFactory* pcf;
 
-	CHECK_NULL_RETURN(ppv, E_POINTER);
+	CHECK_NULL_RETURN( ppv, E_POINTER );
 	*ppv = NULL;
 
 	// The only components we can create
@@ -138,8 +133,8 @@ HRESULT CRatDVDReaderModule::DllGetClassObject(REFCLSID rclsid, REFIID /*riid*/,
 	CHECK_NULL_RETURN( pcf, E_OUTOFMEMORY );
 
 	// Get requested interface.
-	if ( SUCCEEDED( hr = pcf->QueryInterface(rclsid, ppv) ) )
-		pcf->LockServer(TRUE);
+	if ( SUCCEEDED( hr = pcf->QueryInterface( rclsid, ppv ) ) )
+		pcf->LockServer( TRUE );
 	else
 		*ppv = NULL; delete pcf;
 

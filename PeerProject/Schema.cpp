@@ -71,7 +71,7 @@ BOOL CSchema::FilterType(LPCTSTR pszFile) const
 
 CString CSchema::GetFilterSet() const
 {
-	CString strFilters = _T("|");
+	CString strFilters = L"|";
 	for ( POSITION pos = m_pTypeFilters.GetStartPosition() ; pos ; )
 	{
 		CString strType;
@@ -80,7 +80,7 @@ CString CSchema::GetFilterSet() const
 		if ( bResult )
 		{
 			strFilters += strType;
-			strFilters += _T('|');
+			strFilters += L'|';
 		}
 	}
 	return strFilters;
@@ -132,7 +132,7 @@ CString CSchema::GetFirstMemberName() const
 		return pMember->m_sName;
 	}
 
-	CString str( _T("title") );
+	CString str( L"title" );
 	return str;
 }
 
@@ -151,14 +151,14 @@ void CSchema::Clear()
 		delete m_pContains.GetNext( pos );
 	}
 
-	for ( POSITION pos = m_pBitprintMap.GetHeadPosition() ; pos ; )
+	for ( POSITION pos = m_pBitprintsMap.GetHeadPosition() ; pos ; )
 	{
-		delete m_pBitprintMap.GetNext( pos );
+		delete m_pBitprintsMap.GetNext( pos );
 	}
 
 	m_pMembers.RemoveAll();
 	m_pContains.RemoveAll();
-	m_pBitprintMap.RemoveAll();
+	m_pBitprintsMap.RemoveAll();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -170,18 +170,18 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 	PathRemoveExtension( strFile.GetBuffer() );
 	strFile.ReleaseBuffer();
 
-	if ( ! LoadSchema( strFile + _T(".xsd") ) ) return FALSE;
+	if ( ! LoadSchema( strFile + L".xsd" ) ) return FALSE;
 
-	m_sIcon = strFile + _T(".ico");
+	m_sIcon = strFile + L".ico";
 
-	LoadDescriptor( strFile + _T(".xml") );
+	LoadDescriptor( strFile + L".xml" );
 
 	// LoadIcon() causes bad registry reads (?)
 	// CCoolInterface::IsNewWindows() caused several reapeat ones.(?)
 	if ( theApp.m_bIsWin2000 || ! LoadIcon() )
 	{
 		m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 4 );
-		m_sIcon += _T(".Safe.ico");
+		m_sIcon += L".Safe.ico";
 		LoadIcon();
 	}
 
@@ -206,23 +206,23 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 
 	BOOL bResult = FALSE;
 
-	m_sURI = pRoot->GetAttributeValue( _T("targetNamespace"), _T("") );
+	m_sURI = pRoot->GetAttributeValue( L"targetNamespace", L"" );
 
-	CXMLElement* pPlural = pRoot->GetElementByName( _T("element") );
+	CXMLElement* pPlural = pRoot->GetElementByName( L"element" );
 
 	if ( pPlural && ! m_sURI.IsEmpty() )
 	{
-		m_sPlural = pPlural->GetAttributeValue( _T("name") );
+		m_sPlural = pPlural->GetAttributeValue( L"name" );
 
 		CXMLElement* pComplexType = pPlural->GetFirstElement();
 
-		if ( pComplexType && pComplexType->IsNamed( _T("complexType") ) && ! m_sPlural.IsEmpty() )
+		if ( pComplexType && pComplexType->IsNamed( L"complexType" ) && ! m_sPlural.IsEmpty() )
 		{
 			CXMLElement* pElement = pComplexType->GetFirstElement();
 
-			if ( pElement && pElement->IsNamed( _T("element") ) )
+			if ( pElement && pElement->IsNamed( L"element" ) )
 			{
-				m_sSingular = pElement->GetAttributeValue( _T("name") );
+				m_sSingular = pElement->GetAttributeValue( L"name" );
 
 				if ( pElement->GetElementCount() )
 				{
@@ -230,7 +230,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 				}
 				else
 				{
-					CString strType = pElement->GetAttributeValue( _T("type") );
+					CString strType = pElement->GetAttributeValue( L"type" );
 					bResult = LoadPrimary( pRoot, GetType( pRoot, strType ) );
 				}
 
@@ -240,20 +240,20 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 		}
 	}
 
-	if ( CXMLElement* pMapping = pRoot->GetElementByName( _T("mapping") ) )
+	if ( CXMLElement* pMapping = pRoot->GetElementByName( L"mapping" ) )
 	{
 		for ( POSITION pos = pMapping->GetElementIterator() ; pos ; )
 		{
 			CXMLElement* pNetwork = pMapping->GetNextElement( pos );
 			if ( pNetwork )
 			{
-				BOOL bFound = pNetwork->IsNamed( _T("network") );
+				BOOL bFound = pNetwork->IsNamed( L"network" );
 
-				CString strName = pNetwork->GetAttributeValue( _T("name") );
-				if ( ! bFound || strName != _T("ed2k") )
+				CString strName = pNetwork->GetAttributeValue( L"name" );
+				if ( ! bFound || strName != L"ed2k" )
 					continue;
 
-				m_sDonkeyType = pNetwork->GetAttributeValue( _T("value") );
+				m_sDonkeyType = pNetwork->GetAttributeValue( L"value" );
 				break;
 			}
 		}
@@ -261,12 +261,12 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 
 	// ToDo: External documents
 	//CString strImported;
-	//if ( CXMLElement* pImported = pRoot->GetElementByName( _T("import") ) )
-	//	strImported = pImported->GetAttributeValue( _T("schemaLocation") );
-	//else if ( CXMLElement* pIncluded = pRoot->GetElementByName( _T("include") ) )
-	//	strImported = pIncluded->GetAttributeValue( _T("schemaDescriptor") );
+	//if ( CXMLElement* pImported = pRoot->GetElementByName( L"import" ) )
+	//	strImported = pImported->GetAttributeValue( L"schemaLocation" );
+	//else if ( CXMLElement* pIncluded = pRoot->GetElementByName( L"include" ) )
+	//	strImported = pIncluded->GetAttributeValue( L"schemaDescriptor" );
 	//
-	//if ( strImported.GetLength() > 5 && strImported.Find( _T(".xsd") ) > 1 )
+	//if ( strImported.GetLength() > 5 && strImported.Find( L".xsd" ) > 1 )
 	//{
 	//	CString strFile( pszFile );
 	//	strFile = strFile.Left( strFile.ReverseFind( '\\' ) + 1 ) + strImported;
@@ -282,16 +282,16 @@ BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
 {
 	if ( ! pRoot || ! pType ) return FALSE;
 
-	if ( ! pType->IsNamed( _T("complexType") ) &&
-		 ! pType->IsNamed( _T("all") ) ) return FALSE;
+	if ( ! pType->IsNamed( L"complexType" ) &&
+		 ! pType->IsNamed( L"all" ) ) return FALSE;
 
 	for ( POSITION pos = pType->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pElement	= pType->GetNextElement( pos );
 		CString strElement		= pElement->GetName();
 
-		if ( strElement.CompareNoCase( _T("attribute") ) == 0 ||
-			 strElement.CompareNoCase( _T("element") ) == 0 )
+		if ( strElement.CompareNoCase( L"attribute" ) == 0 ||
+			 strElement.CompareNoCase( L"element" ) == 0 )
 		{
 			CSchemaMember* pMember = new CSchemaMember( this );
 
@@ -305,7 +305,7 @@ BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
 				return FALSE;
 			}
 		}
-		else if ( strElement.CompareNoCase( _T("all") ) == 0 )
+		else if ( strElement.CompareNoCase( L"all" ) == 0 )
 		{
 			if ( ! LoadPrimary( pRoot, pElement ) ) return FALSE;
 		}
@@ -324,10 +324,10 @@ CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName) const
 
 		CString strElement = pElement->GetName();
 
-		if ( strElement.CompareNoCase( _T("simpleType") ) == 0 ||
-			 strElement.CompareNoCase( _T("complexType") ) == 0 )
+		if ( strElement.CompareNoCase( L"simpleType" ) == 0 ||
+			 strElement.CompareNoCase( L"complexType" ) == 0 )
 		{
-			if ( pElement->GetAttributeValue( _T("name"), _T("?") ).CompareNoCase( pszName ) == 0 )
+			if ( pElement->GetAttributeValue( L"name", L"?" ).CompareNoCase( pszName ) == 0 )
 				return pElement;
 		}
 	}
@@ -343,8 +343,8 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 	CXMLElement* pRoot = CXMLElement::FromFile( pszFile );
 	if ( NULL == pRoot ) return FALSE;
 
-	if ( ! CheckURI( pRoot->GetAttributeValue( _T("location") ) ) ||
-		 ! pRoot->IsNamed( _T("schemaDescriptor") ) )
+	if ( ! CheckURI( pRoot->GetAttributeValue( L"location" ) ) ||
+		 ! pRoot->IsNamed( L"schemaDescriptor" ) )
 	{
 		delete pRoot;
 		return FALSE;
@@ -354,67 +354,67 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 	{
 		CXMLElement* pElement = pRoot->GetNextElement( pos );
 
-		if ( pElement->IsNamed( _T("object") ) )
+		if ( pElement->IsNamed( L"object" ) )
 		{
-			CString strType = pElement->GetAttributeValue( _T("type") );
+			CString strType = pElement->GetAttributeValue( L"type" );
 			ToLower( strType );
 
-			if ( strType == _T("file") )
+			if ( strType == L"file" )
 				m_nType = stFile;
-			else if ( strType == _T("folder") || strType == _T("album") )
+			else if ( strType == L"folder" || strType == L"album" )
 				m_nType = stFolder;
 
-			strType = pElement->GetAttributeValue( _T("availability") );
+			strType = pElement->GetAttributeValue( L"availability" );
 			ToLower( strType );
 
-			if ( strType == _T("system") )
+			if ( strType == L"system" )
 				m_nAvailability = saSystem;
-			else if ( strType == _T("advanced") )
+			else if ( strType == L"advanced" )
 				m_nAvailability = saAdvanced;
 			else // "default"
 				m_nAvailability = saDefault;
 
-			if ( pElement->GetAttribute( _T("private") ) )
+			if ( pElement->GetAttribute( L"private" ) )
 				m_bPrivate = TRUE;
 		}
-		else if ( pElement->IsNamed( _T("titles") ) )
+		else if ( pElement->IsNamed( L"titles" ) )
 		{
 			LoadDescriptorTitles( pElement );
 		}
-		else if ( pElement->IsNamed( _T("members") ) )
+		else if ( pElement->IsNamed( L"members" ) )
 		{
 			LoadDescriptorMembers( pElement );
 		}
-		else if ( pElement->IsNamed( _T("extends") ) )
+		else if ( pElement->IsNamed( L"extends" ) )
 		{
 			LoadDescriptorExtends( pElement );
 		}
-		else if ( pElement->IsNamed( _T("contains") ) )
+		else if ( pElement->IsNamed( L"contains" ) )
 		{
 			LoadDescriptorContains( pElement );
 		}
-		else if ( pElement->IsNamed( _T("headerContent") ) )
+		else if ( pElement->IsNamed( L"headerContent" ) )
 		{
 			LoadDescriptorHeaderContent( pElement );
 		}
-		else if ( pElement->IsNamed( _T("viewContent") ) )
+		else if ( pElement->IsNamed( L"viewContent" ) )
 		{
 			LoadDescriptorViewContent( pElement );
 		}
-		else if ( pElement->IsNamed( _T("typeFilter") ) )
+		else if ( pElement->IsNamed( L"typeFilter" ) )
 		{
 			LoadDescriptorTypeFilter( pElement );
 		}
-		else if ( pElement->IsNamed( _T("BitprintImport") ) )
+		else if ( pElement->IsNamed( L"BitprintsImport" ) )
 		{
-			LoadDescriptorBitprintImport( pElement );
+			LoadDescriptorBitprintsImport( pElement );
 		}
-		else if ( pElement->IsNamed( _T("images") ) )
+		else if ( pElement->IsNamed( L"images" ) )
 		{
 			LoadDescriptorIcons( pElement );
 		}
-		// ToDo: Add this to schemas for ed2k
-		//else if ( pElement->IsNamed( _T("donkeyType") ) )
+		// ToDo: Add this to schemas for ed2k?
+		//else if ( pElement->IsNamed( L"donkeyType" ) )
 		//{
 		//	LoadDescriptorDonkeyType( pElement );
 		//}
@@ -431,10 +431,9 @@ void CSchema::LoadDescriptorTitles(CXMLElement* pElement)
 	{
 		CXMLElement* pTitle = pElement->GetNextElement( pos );
 
-		if ( pTitle->IsNamed( _T("title") ) )
+		if ( pTitle->IsNamed( L"title" ) )
 		{
-			if ( pTitle->GetAttributeValue( _T("language") ).
-					CompareNoCase( Settings.General.Language ) == 0 )
+			if ( pTitle->GetAttributeValue( L"language" ).CompareNoCase( Settings.General.Language ) == 0 )
 			{
 				m_sTitle = pTitle->GetValue();
 				break;
@@ -453,11 +452,11 @@ void CSchema::LoadDescriptorIcons(CXMLElement* pElement)
 	{
 		CXMLElement* pIcon = pElement->GetNextElement( pos );
 
-		if ( pIcon->IsNamed( _T("icon") ) )
+		if ( pIcon->IsNamed( L"icon" ) )
 		{
 			int nSlash = m_sIcon.ReverseFind( '\\' );
 			if ( nSlash >= 0 ) m_sIcon = m_sIcon.Left( nSlash + 1 );
-			m_sIcon += pIcon->GetAttributeValue( _T("path") );
+			m_sIcon += pIcon->GetAttributeValue( L"path" );
 		}
 	}
 }
@@ -470,9 +469,9 @@ void CSchema::LoadDescriptorMembers(CXMLElement* pElement)
 	{
 		CXMLElement* pDisplay = pElement->GetNextElement( pos );
 
-		if ( pDisplay->IsNamed( _T("member") ) )
+		if ( pDisplay->IsNamed( L"member" ) )
 		{
-			CString strMember = pDisplay->GetAttributeValue( _T("name") );
+			CString strMember = pDisplay->GetAttributeValue( L"name" );
 
 			if ( CSchemaMember* pMember = GetMember( strMember ) )
 			{
@@ -496,9 +495,9 @@ void CSchema::LoadDescriptorExtends(CXMLElement* pElement)
 	{
 		CXMLElement* pExtend = pElement->GetNextElement( pos );
 
-		if ( pExtend->IsNamed( _T("schema") ) )
+		if ( pExtend->IsNamed( L"schema" ) )
 		{
-			CString strURI = pExtend->GetAttributeValue( _T("location") );
+			CString strURI = pExtend->GetAttributeValue( L"location" );
 			if ( ! strURI.IsEmpty() )
 				m_pExtends.AddTail( strURI );
 		}
@@ -511,7 +510,7 @@ void CSchema::LoadDescriptorContains(CXMLElement* pElement)
 	{
 		CXMLElement* pExtend = pElement->GetNextElement( pos );
 
-		if ( pExtend->IsNamed( _T("object") ) )
+		if ( pExtend->IsNamed( L"object" ) )
 		{
 			CSchemaChild* pChild = new CSchemaChild( this );
 
@@ -529,11 +528,11 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 	{
 		CXMLElement* pType = pElement->GetNextElement( pos );
 
-		if ( pType->GetName().CompareNoCase( _T("type") ) == 0 )
+		if ( pType->GetName().CompareNoCase( L"type" ) == 0 )
 		{
-			CString strType = pType->GetAttributeValue( _T("extension"), _T("") );
+			CString strType = pType->GetAttributeValue( L"extension", L"" );
 			if ( strType.IsEmpty() )
-				strType = pType->GetAttributeValue( _T("keyword"), _T("") );
+				strType = pType->GetAttributeValue( L"keyword", L"" );
 
 			BOOL bResult = TRUE;
 			m_pTypeFilters.SetAt( strType.MakeLower(), bResult );
@@ -541,19 +540,19 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorBitprintImport(CXMLElement* pElement)
+void CSchema::LoadDescriptorBitprintsImport(CXMLElement* pElement)
 {
-	m_sBitprintTest = pElement->GetAttributeValue( _T("testExists"), NULL );
+	m_sBitprintsTest = pElement->GetAttributeValue( L"testExists", NULL );
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pBitprint = pElement->GetNextElement( pos );
+		CXMLElement* pBitprints = pElement->GetNextElement( pos );
 
-		if ( pBitprint->GetName().CompareNoCase( _T("mapping") ) == 0 )
+		if ( pBitprints->GetName().CompareNoCase( L"mapping" ) == 0 )
 		{
-			CSchemaBitprint* pMap = new CSchemaBitprint();
-			pMap->Load( pBitprint );
-			m_pBitprintMap.AddTail( pMap );
+			CSchemaBitprints* pMap = new CSchemaBitprints();
+			pMap->Load( pBitprints );
+			m_pBitprintsMap.AddTail( pMap );
 		}
 	}
 }
@@ -564,15 +563,15 @@ void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
 	{
 		CXMLElement* pXML = pElement->GetNextElement( pos );
 
-		BOOL bLanguage = pXML->GetAttributeValue( _T("language") ).
+		BOOL bLanguage = pXML->GetAttributeValue( L"language" ).
 			CompareNoCase( Settings.General.Language ) == 0;
 
-		if ( pXML->IsNamed( _T("title") ) )
+		if ( pXML->IsNamed( L"title" ) )
 		{
 			if ( bLanguage || m_sHeaderTitle.IsEmpty() )
 				m_sHeaderTitle = pXML->GetValue().Trim();
 		}
-		else if ( pXML->IsNamed( _T("subtitle") ) )
+		else if ( pXML->IsNamed( L"subtitle" ) )
 		{
 			if ( bLanguage || m_sHeaderSubtitle.IsEmpty() )
 				m_sHeaderSubtitle = pXML->GetValue().Trim();
@@ -582,21 +581,21 @@ void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
 
 void CSchema::LoadDescriptorViewContent(CXMLElement* pElement)
 {
-	m_sLibraryView = pElement->GetAttributeValue( _T("preferredView") );
+	m_sLibraryView = pElement->GetAttributeValue( L"preferredView" );
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML = pElement->GetNextElement( pos );
 
-		BOOL bLanguage = pXML->GetAttributeValue( _T("language") ).
+		BOOL bLanguage = pXML->GetAttributeValue( L"language" ).
 			CompareNoCase( Settings.General.Language ) == 0;
 
-		if ( pXML->IsNamed( _T("tileLine1") ) )
+		if ( pXML->IsNamed( L"tileLine1" ) )
 		{
 			if ( bLanguage || m_sTileLine1.IsEmpty() )
 				m_sTileLine1 = pXML->GetValue().Trim();
 		}
-		else if ( pXML->IsNamed( _T("tileLine2") ) )
+		else if ( pXML->IsNamed( L"tileLine2" ) )
 		{
 			if ( bLanguage || m_sTileLine2.IsEmpty() )
 				m_sTileLine2 = pXML->GetValue().Trim();
@@ -668,7 +667,7 @@ CXMLElement* CSchema::Instantiate(BOOL bNamespace) const
 {
 	CXMLElement* pElement = new CXMLElement( NULL, m_sPlural );
 	pElement->AddAttribute( CXMLAttribute::schemaName, m_sURI );
-	if ( bNamespace ) pElement->AddAttribute( _T("xmlns:xsi"), CXMLAttribute::xmlnsInstance );
+	if ( bNamespace ) pElement->AddAttribute( L"xmlns:xsi", CXMLAttribute::xmlnsInstance );
 	return pElement;
 }
 
@@ -772,7 +771,7 @@ CString CSchema::GetIndexedWords(CXMLElement* pXML) const
 				if ( str.IsEmpty() )
 					str += strMember;
 				else
-					str += _T(' ') + strMember;
+					str += L' ' + strMember;
 			}
 		}
 	}
@@ -827,16 +826,16 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 }
 
 //////////////////////////////////////////////////////////////////////
-// CSchemaBitprint Bitprint Map
+// CSchemaBitprints Bitprints Map
 
-BOOL CSchemaBitprint::Load(CXMLElement* pXML)
+BOOL CSchemaBitprints::Load(CXMLElement* pXML)
 {
-	m_sFrom	= pXML->GetAttributeValue( _T("from"), NULL );
-	m_sTo	= pXML->GetAttributeValue( _T("to"), NULL );
+	m_sFrom	= pXML->GetAttributeValue( L"from", NULL );
+	m_sTo	= pXML->GetAttributeValue( L"to", NULL );
 
-	CString strFactor = pXML->GetAttributeValue( _T("factor"), NULL );
+	CString strFactor = pXML->GetAttributeValue( L"factor", NULL );
 
-	if ( strFactor.IsEmpty() || _stscanf( strFactor, _T("%lf"), &m_nFactor ) != 1 )
+	if ( strFactor.IsEmpty() || _stscanf( strFactor, L"%lf", &m_nFactor ) != 1 )
 		m_nFactor = 0;
 
 	return ! m_sFrom.IsEmpty() && ! m_sTo.IsEmpty();
@@ -845,66 +844,69 @@ BOOL CSchemaBitprint::Load(CXMLElement* pXML)
 //////////////////////////////////////////////////////////////////////
 // CSchema Common Schema URIs
 
-// ToDo: Safely convert any unshared to http://schemas.peerproject.org/ namespace ?
+LPCTSTR CSchema::uriApplication 			= L"http://schemas.peerproject.org/Application.xsd";				// http://www.shareaza.com/schemas/application.xsd
+LPCTSTR CSchema::uriArchive					= L"http://schemas.peerproject.org/Archive.xsd";					// http://www.shareaza.com/schemas/archive.xsd
+LPCTSTR CSchema::uriAudio					= L"http://schemas.peerproject.org/Audio.xsd";					// http://www.limewire.com/schemas/audio.xsd
+LPCTSTR CSchema::uriBook					= L"http://schemas.peerproject.org/Book.xsd";					// http://www.limewire.com/schemas/book.xsd
+LPCTSTR CSchema::uriImage					= L"http://schemas.peerproject.org/Image.xsd";					// http://www.shareaza.com/schemas/image.xsd
+LPCTSTR CSchema::uriVideo					= L"http://schemas.peerproject.org/Video.xsd";					// http://www.limewire.com/schemas/video.xsd
+LPCTSTR CSchema::uriROM 					= L"http://schemas.peerproject.org/ROM.xsd";						// http://www.shareaza.com/schemas/rom.xsd
+LPCTSTR CSchema::uriDocument				= L"http://schemas.peerproject.org/Document.xsd";				// http://www.shareaza.com/schemas/wordProcessing.xsd
+LPCTSTR CSchema::uriSpreadsheet				= L"http://schemas.peerproject.org/Spreadsheet.xsd";				// http://www.shareaza.com/schemas/spreadsheet.xsd
+LPCTSTR CSchema::uriPresentation			= L"http://schemas.peerproject.org/Presentation.xsd";			// http://www.shareaza.com/schemas/presentation.xsd
+LPCTSTR CSchema::uriCollection				= L"http://schemas.peerproject.org/Collection.xsd";				// http://www.shareaza.com/schemas/collection.xsd
 
-LPCTSTR CSchema::uriApplication 			= _T("http://www.shareaza.com/schemas/application.xsd");
-LPCTSTR CSchema::uriAudio					= _T("http://www.limewire.com/schemas/audio.xsd");
-LPCTSTR CSchema::uriArchive					= _T("http://www.shareaza.com/schemas/archive.xsd");
-LPCTSTR CSchema::uriBook					= _T("http://www.limewire.com/schemas/book.xsd");
-LPCTSTR CSchema::uriImage					= _T("http://www.shareaza.com/schemas/image.xsd");
-LPCTSTR CSchema::uriVideo					= _T("http://www.limewire.com/schemas/video.xsd");
-LPCTSTR CSchema::uriROM 					= _T("http://www.shareaza.com/schemas/rom.xsd");
-LPCTSTR CSchema::uriDocument				= _T("http://www.shareaza.com/schemas/wordProcessing.xsd");
-LPCTSTR CSchema::uriSpreadsheet				= _T("http://www.shareaza.com/schemas/spreadsheet.xsd");
-LPCTSTR CSchema::uriPresentation			= _T("http://www.shareaza.com/schemas/presentation.xsd");
-LPCTSTR CSchema::uriCollection				= _T("http://www.shareaza.com/schemas/collection.xsd");
+LPCTSTR CSchema::uriLibrary					= L"http://schemas.peerproject.org/LibraryRoot.xsd";				// http://www.shareaza.com/schemas/libraryRoot.xsd
 
-LPCTSTR CSchema::uriLibrary					= _T("http://www.shareaza.com/schemas/libraryRoot.xsd");
+LPCTSTR CSchema::uriFolder					= L"http://schemas.peerproject.org/Folder.xsd";					// http://www.shareaza.com/schemas/folder.xsd
+LPCTSTR CSchema::uriCollectionsFolder		= L"http://schemas.peerproject.org/CollectionsFolder.xsd";		// http://www.shareaza.com/schemas/collectionsFolder.xsd
+LPCTSTR CSchema::uriFavoritesFolder			= L"http://schemas.peerproject.org/FavoritesFolder.xsd";			// http://www.shareaza.com/schemas/favouritesFolder.xsd
+LPCTSTR CSchema::uriSearchFolder			= L"http://schemas.peerproject.org/SearchFolder.xsd";			// http://www.shareaza.com/schemas/searchFolder.xsd
 
-LPCTSTR CSchema::uriFolder					= _T("http://www.shareaza.com/schemas/folder.xsd");
-LPCTSTR CSchema::uriCollectionsFolder		= _T("http://www.shareaza.com/schemas/collectionsFolder.xsd");
-LPCTSTR CSchema::uriFavouritesFolder		= _T("http://www.shareaza.com/schemas/favouritesFolder.xsd");
-LPCTSTR CSchema::uriSearchFolder			= _T("http://www.shareaza.com/schemas/searchFolder.xsd");
-LPCTSTR CSchema::uriAllFiles				= _T("http://www.shareaza.com/schemas/allFiles.xsd");
+LPCTSTR CSchema::uriAllFiles				= L"http://schemas.peerproject.org/AllFiles.xsd";				// http://www.shareaza.com/schemas/allFiles.xsd
 
-LPCTSTR CSchema::uriApplicationRoot			= _T("http://www.shareaza.com/schemas/applicationRoot.xsd");
-LPCTSTR CSchema::uriApplicationAll			= _T("http://www.shareaza.com/schemas/applicationAll.xsd");
+LPCTSTR CSchema::uriApplicationRoot			= L"http://schemas.peerproject.org/ApplicationRoot.xsd";			// http://www.shareaza.com/schemas/applicationRoot.xsd
+LPCTSTR CSchema::uriApplicationAll			= L"http://schemas.peerproject.org/ApplicationAll.xsd";			// http://www.shareaza.com/schemas/applicationAll.xsd
 
-LPCTSTR CSchema::uriArchiveRoot 			= _T("http://www.shareaza.com/schemas/archiveRoot.xsd");
-LPCTSTR CSchema::uriArchiveAll				= _T("http://www.shareaza.com/schemas/archiveAll.xsd");
+LPCTSTR CSchema::uriArchiveRoot 			= L"http://schemas.peerproject.org/ArchiveRoot.xsd";				// http://www.shareaza.com/schemas/archiveRoot.xsd
+LPCTSTR CSchema::uriArchiveAll				= L"http://schemas.peerproject.org/ArchiveAll.xsd";				// http://www.shareaza.com/schemas/archiveAll.xsd
 
-LPCTSTR CSchema::uriBookRoot				= _T("http://www.shareaza.com/schemas/bookRoot.xsd");
-LPCTSTR CSchema::uriBookAll					= _T("http://www.shareaza.com/schemas/bookAll.xsd");
+LPCTSTR CSchema::uriBookRoot				= L"http://schemas.peerproject.org/BookRoot.xsd";				// http://www.shareaza.com/schemas/bookRoot.xsd
+LPCTSTR CSchema::uriBookAll					= L"http://schemas.peerproject.org/BookAll.xsd";					// http://www.shareaza.com/schemas/bookAll.xsd
 
-LPCTSTR CSchema::uriImageRoot				= _T("http://www.shareaza.com/schemas/imageRoot.xsd");
-LPCTSTR CSchema::uriImageAll				= _T("http://www.shareaza.com/schemas/imageAll.xsd");
-LPCTSTR CSchema::uriImageAlbum				= _T("http://www.shareaza.com/schemas/imageAlbum.xsd");
+LPCTSTR CSchema::uriImageRoot				= L"http://schemas.peerproject.org/ImageRoot.xsd";				// http://www.shareaza.com/schemas/imageRoot.xsd
+LPCTSTR CSchema::uriImageAll				= L"http://schemas.peerproject.org/ImageAll.xsd";				// http://www.shareaza.com/schemas/imageAll.xsd
+LPCTSTR CSchema::uriImageAlbum				= L"http://schemas.peerproject.org/ImageAlbum.xsd";				// http://www.shareaza.com/schemas/imageAlbum.xsd
 
-LPCTSTR CSchema::uriMusicRoot				= _T("http://www.shareaza.com/schemas/musicRoot.xsd");
-LPCTSTR CSchema::uriMusicAll				= _T("http://www.shareaza.com/schemas/musicAll.xsd");
-LPCTSTR CSchema::uriMusicAlbum				= _T("http://www.shareaza.com/schemas/musicAlbum.xsd");
-LPCTSTR CSchema::uriMusicArtist				= _T("http://www.shareaza.com/schemas/musicArtist.xsd");
-LPCTSTR CSchema::uriMusicGenre				= _T("http://www.shareaza.com/schemas/musicGenre.xsd");
-LPCTSTR CSchema::uriMusicAlbumCollection	= _T("http://www.shareaza.com/schemas/musicAlbumCollection.xsd");
-LPCTSTR CSchema::uriMusicArtistCollection	= _T("http://www.shareaza.com/schemas/musicArtistCollection.xsd");
-LPCTSTR CSchema::uriMusicGenreCollection	= _T("http://www.shareaza.com/schemas/musicGenreCollection.xsd");
+LPCTSTR CSchema::uriMusicRoot				= L"http://schemas.peerproject.org/MusicRoot.xsd";				// http://www.shareaza.com/schemas/musicRoot.xsd
+LPCTSTR CSchema::uriMusicAll				= L"http://schemas.peerproject.org/MusicAll.xsd";				// http://www.shareaza.com/schemas/musicAll.xsd
+LPCTSTR CSchema::uriMusicAlbum				= L"http://schemas.peerproject.org/MusicAlbum.xsd";				// http://www.shareaza.com/schemas/musicAlbum.xsd
+LPCTSTR CSchema::uriMusicArtist				= L"http://schemas.peerproject.org/MusicArtist.xsd";				// http://www.shareaza.com/schemas/musicArtist.xsd
+LPCTSTR CSchema::uriMusicGenre				= L"http://schemas.peerproject.org/MusicGenre.xsd";				// http://www.shareaza.com/schemas/musicGenre.xsd
+LPCTSTR CSchema::uriMusicAlbumCollection	= L"http://schemas.peerproject.org/MusicAlbumCollection.xsd";	// http://www.shareaza.com/schemas/musicAlbumCollection.xsd
+LPCTSTR CSchema::uriMusicArtistCollection	= L"http://schemas.peerproject.org/MusicArtistCollection.xsd";	// http://www.shareaza.com/schemas/musicArtistCollection.xsd
+LPCTSTR CSchema::uriMusicGenreCollection	= L"http://schemas.peerproject.org/MusicGenreCollection.xsd";	// http://www.shareaza.com/schemas/musicGenreCollection.xsd
 
-LPCTSTR CSchema::uriVideoRoot				= _T("http://www.shareaza.com/schemas/videoRoot.xsd");
-LPCTSTR CSchema::uriVideoAll				= _T("http://www.shareaza.com/schemas/videoAll.xsd");
-LPCTSTR CSchema::uriVideoFilm				= _T("http://www.shareaza.com/schemas/videoFilm.xsd");
-LPCTSTR CSchema::uriVideoSeries				= _T("http://www.shareaza.com/schemas/videoSeries.xsd");
-LPCTSTR CSchema::uriVideoFilmCollection		= _T("http://www.shareaza.com/schemas/videoFilmCollection.xsd");
-LPCTSTR CSchema::uriVideoSeriesCollection	= _T("http://www.shareaza.com/schemas/videoSeriesCollection.xsd");
-LPCTSTR CSchema::uriVideoMusicCollection	= _T("http://www.shareaza.com/schemas/videoMusicCollection.xsd");
+LPCTSTR CSchema::uriVideoRoot				= L"http://schemas.peerproject.org/VideoRoot.xsd";				// http://www.shareaza.com/schemas/videoRoot.xsd
+LPCTSTR CSchema::uriVideoAll				= L"http://schemas.peerproject.org/VideoAll.xsd";				// http://www.shareaza.com/schemas/videoAll.xsd
+LPCTSTR CSchema::uriVideoFilm				= L"http://schemas.peerproject.org/VideoFilm.xsd";				// http://www.shareaza.com/schemas/videoFilm.xsd
+LPCTSTR CSchema::uriVideoSeries				= L"http://schemas.peerproject.org/VideoSeries.xsd";				// http://www.shareaza.com/schemas/videoSeries.xsd
+LPCTSTR CSchema::uriVideoFilmCollection		= L"http://schemas.peerproject.org/VideoFilmCollection.xsd";		// http://www.shareaza.com/schemas/videoFilmCollection.xsd
+LPCTSTR CSchema::uriVideoSeriesCollection	= L"http://schemas.peerproject.org/VideoSeriesCollection.xsd";	// http://www.shareaza.com/schemas/videoSeriesCollection.xsd
+LPCTSTR CSchema::uriVideoMusicCollection	= L"http://schemas.peerproject.org/VideoMusicCollection.xsd";	// http://www.shareaza.com/schemas/videoMusicCollection.xsd
 
-LPCTSTR CSchema::uriDocumentRoot			= _T("http://www.shareaza.com/schemas/documentRoot.xsd");
-LPCTSTR CSchema::uriDocumentAll				= _T("http://www.shareaza.com/schemas/documentAll.xsd");
+LPCTSTR CSchema::uriDocumentRoot			= L"http://schemas.peerproject.org/DocumentRoot.xsd";			// http://www.shareaza.com/schemas/documentRoot.xsd
+LPCTSTR CSchema::uriDocumentAll				= L"http://schemas.peerproject.org/DocumentAll.xsd";				// http://www.shareaza.com/schemas/documentAll.xsd
 
-LPCTSTR CSchema::uriGhostFolder				= _T("http://schemas.peerproject.org/GhostFolder.xsd");	// http://www.shareaza.com/schemas/ghostFolder.xsd ?
+LPCTSTR CSchema::uriUnknown					= L"http://schemas.peerproject.org/Unknown.xsd";
+LPCTSTR CSchema::uriUnknownFolder			= L"http://schemas.peerproject.org/UnknownFolder.xsd";
 
-LPCTSTR CSchema::uriBitTorrent				= _T("http://www.shareaza.com/schemas/bittorrent.xsd");
+LPCTSTR CSchema::uriGhostFolder				= L"http://schemas.peerproject.org/GhostFolder.xsd";				// http://www.shareaza.com/schemas/ghostFolder.xsd
 
-//LPCTSTR CSchema::uriComments				= _T("http://www.shareaza.com/schemas/comments.xsd");	// http://schemas.peerproject.org/Comments.xsd ?
+LPCTSTR CSchema::uriBitTorrent				= L"http://schemas.peerproject.org/BitTorrent.xsd";				// http://www.shareaza.com/schemas/bittorrent.xsd
+LPCTSTR CSchema::uriBitTorrentFolder		= L"http://schemas.peerproject.org/BitTorrentFolder.xsd";
 
-//LPCTSTR CSchema::uriSkin					= _T("http://schemas.peerproject.org/Skin.xsd");
-//LPCTSTR CSchema::uriPackage				= _T("http://schemas.peerproject.org/Package.xsd");
+//LPCTSTR CSchema::uriComments				= L"http://schemas.peerproject.org/Comments.xsd";				// http://www.shareaza.com/schemas/comments.xsd
+
+//LPCTSTR CSchema::uriSkin					= L"http://schemas.peerproject.org/Skin.xsd";
+//LPCTSTR CSchema::uriPackage				= L"http://schemas.peerproject.org/Package.xsd";

@@ -21,7 +21,7 @@
 #include "Buffer.h"
 #include "PeerProjectFile.h"
 
-#define BAD_TRACKER_TOKEN _T('•')	// *udp:// for display only
+#define BAD_TRACKER_TOKEN L'•'	// *udp:// for display only
 
 class CBuffer;
 class CBENode;

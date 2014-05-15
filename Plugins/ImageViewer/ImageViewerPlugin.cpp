@@ -88,7 +88,7 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::Configure()
 	// Simply load a string from the string table and display it in a MessageBox
 	TCHAR szMessage[1024];
 	LoadString( _AtlBaseModule.GetResourceInstance(), IDS_ABOUT, szMessage, 1024 );
-	MessageBox( GetActiveWindow(), szMessage, _T("Image Viewer Plugin"), MB_ICONINFORMATION );
+	MessageBox( GetActiveWindow(), szMessage, L"Image Viewer Plugin", MB_ICONINFORMATION );
 
 	return S_OK;
 }
@@ -136,30 +136,30 @@ HRESULT STDMETHODCALLTYPE CImageViewerPlugin::OnExecute(BSTR sFilePath)
 	//
 	// SO, we check some common video file types here, and return S_FALSE if we get a match.
 
-	if ( lstrcmpi( pszFileType, _T(".avi") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".asf") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".divx") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".mkv") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".mpg") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".mpeg") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".mp4") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".mov") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".wmv") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".ogm") ) == 0 ) return S_FALSE;
-	if ( lstrcmpi( pszFileType, _T(".flv") ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".avi" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".asf" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".divx" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".mkv" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".mpg" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".mpeg" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".mp4" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".mov" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".wmv" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".ogm" ) == 0 ) return S_FALSE;
+	if ( lstrcmpi( pszFileType, L".flv" ) == 0 ) return S_FALSE;
 
 	// Assuming now that it is not a video file.  The next (and primary) step is to
 	// check if there is an ImageService plugin available for this file type.
 	// This is done by checking a registry key:
 
-	if ( lstrcmpi( pszFileType, _T(".partial") ) != 0 )
+	if ( lstrcmpi( pszFileType, L".partial" ) != 0 )
 	{
 		DWORD dwCount = 128;
 		TCHAR szValue[128];
 		CRegKey pReg;
 
 		if ( pReg.Open( HKEY_CURRENT_USER,
-			_T("SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService") ) != ERROR_SUCCESS )
+			L"SOFTWARE\\PeerProject\\PeerProject\\Plugins\\ImageService" ) != ERROR_SUCCESS )
 			return S_FALSE;
 
 		if ( pReg.QueryValue( pszFileType, NULL, szValue, &dwCount ) != ERROR_SUCCESS )

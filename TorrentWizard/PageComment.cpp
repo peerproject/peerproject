@@ -67,9 +67,9 @@ BOOL CCommentPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	m_sComment = theApp.GetProfileString( _T("Comments"), _T("Comment") );
-//	m_sSource = theApp.GetProfileString( _T("Comments"), _T("Source") );
-	m_bPrivate = theApp.GetProfileInt( _T("Comments"), _T("Private"), FALSE );
+	m_sComment = theApp.GetProfileString( L"Comments", L"Comment" );
+//	m_sSource = theApp.GetProfileString( L"Comments", L"Source" );
+	m_bPrivate = theApp.GetProfileInt( L"Comments", L"Private", FALSE );
 
 	UpdateData( FALSE );
 
@@ -119,7 +119,7 @@ void CCommentPage::SaveComments()
 {
 	UpdateData();
 
-	theApp.WriteProfileString( _T("Comments"), _T("Comment"), m_sComment );
-//	theApp.WriteProfileString( _T("Comments"), _T("Source"), m_sSource );
-	theApp.WriteProfileInt( _T("Comments"), _T("Private"), m_bPrivate );
+	theApp.WriteProfileString( L"Comments", L"Comment", m_sComment );
+//	theApp.WriteProfileString( L"Comments", L"Source", m_sSource );
+	theApp.WriteProfileInt( L"Comments", L"Private", m_bPrivate );
 }

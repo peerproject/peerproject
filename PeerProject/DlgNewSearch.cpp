@@ -1,7 +1,7 @@
 //
 // DlgNewSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -75,7 +75,7 @@ BOOL CNewSearchDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CNewSearchDlg"), IDR_SEARCHFRAME );
+	SkinMe( L"CNewSearchDlg", IDR_SEARCHFRAME );
 
 	SelectCaption( this, m_bLocal ? 2 : ( m_bAgain ? 1 : 0 ) );
 
@@ -94,7 +94,7 @@ BOOL CNewSearchDlg::OnInitDialog()
 	if ( m_pSearch->m_pXML )
 		m_wndSchema.UpdateData( m_pSearch->m_pXML->GetFirstElement(), FALSE );
 
-	Settings.LoadWindow( _T("NewSearch"), this );
+	Settings.LoadWindow( L"NewSearch", this );
 
 	OnCloseUpSchemas();
 
@@ -201,7 +201,7 @@ void CNewSearchDlg::OnChangeSearch()
 
 void CNewSearchDlg::OnOK()
 {
-	Settings.SaveWindow( _T("NewSearch"), this );
+	Settings.SaveWindow( L"NewSearch", this );
 
 	m_wndSearch.GetWindowText( m_pSearch->m_sSearch );
 

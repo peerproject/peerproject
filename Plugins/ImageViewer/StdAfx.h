@@ -1,21 +1,27 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
-// Original author Michael Stokes released portions into the public domain.
-// You are free to redistribute and modify this page without any restrictions.
+// Source file for standard system include files,
+// or project files that are used frequently but changed infrequently
 //
 
 #pragma once
 
 #pragma warning( disable : 4127 )	// conditional expression is constant
 
+#if !defined(_UNICODE) || !defined(UNICODE)
+	#error Unicode Required
+#endif
+
+// TargetVer.h: (WINVER)
+#define NTDDI_VERSION	0x05010200	// NTDDI_WINXPSP2
+#define _WIN32_WINNT	0x0501		// XP
+
+#define VC_EXTRALEAN
 #define STRICT
-#define WINVER 0x0500
-#define _WIN32_WINNT 0x0500
-#define _WIN32_WINDOWS 0x0500
-#define _WIN32_IE 0x0500
+
 #define _WIN32_DCOM
+#define _CRT_SECURE_NO_DEPRECATE
 #define _ATL_APARTMENT_THREADED
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
 #define _ATL_CSTRING_NO_CRT
@@ -24,9 +30,9 @@
 #include "Resource.h"
 
 #include <atlbase.h>
-#include <atlcom.h>
 #include <atlwin.h>
-#include <atlstr.h>
+#include <atlcom.h>
 #include <atlcoll.h>
+#include <atlstr.h>
 
 using namespace ATL;

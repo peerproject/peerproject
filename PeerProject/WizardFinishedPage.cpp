@@ -63,7 +63,7 @@ BOOL CWizardFinishedPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardFinishedPage"), this );
+	Skin.Apply( L"CWizardFinishedPage", this );
 
 	m_bAutoConnect = Settings.Connection.AutoConnect;
 	m_bStartup = ( Settings.Live.FirstRun ? FALSE : Settings.CheckStartup() );

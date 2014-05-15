@@ -52,7 +52,7 @@ BOOL CSelectDialog::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CSelectDialog"), IDR_MAINFRAME );
+	SkinMe( L"CSelectDialog", IDR_MAINFRAME );
 
 	int select = 0;
 	for ( POSITION pos = m_List.GetHeadPosition(); pos; )

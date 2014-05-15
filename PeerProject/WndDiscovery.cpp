@@ -134,19 +134,19 @@ int CDiscoveryWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	AddIcon( IDI_FIREWALLED, m_gdiImageList );		// 5
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.InsertColumn( COL_ADDRESS,	_T("Address"),	LVCFMT_LEFT,	260, -1 );
-	m_wndList.InsertColumn( COL_TYPE,		_T("Type"), 	LVCFMT_CENTER,	86, 0 );
-	m_wndList.InsertColumn( COL_TIME,		_T("Last Access"), LVCFMT_CENTER, 130, 1 );
-	m_wndList.InsertColumn( COL_HOSTS,		_T("Hosts"),	LVCFMT_CENTER,	50, 2 );
-	m_wndList.InsertColumn( COL_HOSTS_TOTAL, _T("Total Hosts"), LVCFMT_CENTER, 70, 3 );
-	m_wndList.InsertColumn( COL_URLS,		_T("URLs"), 	LVCFMT_CENTER,	50, 4 );
-	m_wndList.InsertColumn( COL_URLS_TOTAL, _T("Total URLs"), LVCFMT_CENTER, 70, 5 );
-	m_wndList.InsertColumn( COL_ACCESSES,	_T("Accesses"),	LVCFMT_CENTER,	70, 6 );
-	m_wndList.InsertColumn( COL_UPDATES,	_T("Updates"),	LVCFMT_CENTER,	55, 7 );
-	m_wndList.InsertColumn( COL_FAILURES,	_T("Failures"),	LVCFMT_CENTER,	55, 8 );
-	m_wndList.InsertColumn( COL_PONG,		_T("Pong"), 	LVCFMT_CENTER,	150, 9 );
+	m_wndList.InsertColumn( COL_ADDRESS,	L"Address",	LVCFMT_LEFT,	260, -1 );
+	m_wndList.InsertColumn( COL_TYPE,		L"Type", 	LVCFMT_CENTER,	86, 0 );
+	m_wndList.InsertColumn( COL_TIME,		L"Last Access", LVCFMT_CENTER, 130, 1 );
+	m_wndList.InsertColumn( COL_HOSTS,		L"Hosts",	LVCFMT_CENTER,	50, 2 );
+	m_wndList.InsertColumn( COL_HOSTS_TOTAL, L"Total Hosts", LVCFMT_CENTER, 70, 3 );
+	m_wndList.InsertColumn( COL_URLS,		L"URLs", 	LVCFMT_CENTER,	50, 4 );
+	m_wndList.InsertColumn( COL_URLS_TOTAL, L"Total URLs", LVCFMT_CENTER, 70, 5 );
+	m_wndList.InsertColumn( COL_ACCESSES,	L"Accesses",	LVCFMT_CENTER,	70, 6 );
+	m_wndList.InsertColumn( COL_UPDATES,	L"Updates",	LVCFMT_CENTER,	55, 7 );
+	m_wndList.InsertColumn( COL_FAILURES,	L"Failures",	LVCFMT_CENTER,	55, 8 );
+	m_wndList.InsertColumn( COL_PONG,		L"Pong", 	LVCFMT_CENTER,	150, 9 );
 
-	LoadState( _T("CDiscoveryWnd"), TRUE );
+	LoadState( L"CDiscoveryWnd", TRUE );
 
 //	CWaitCursor pCursor;
 //	Update();
@@ -158,8 +158,8 @@ void CDiscoveryWnd::OnDestroy()
 {
 	DiscoveryServices.Save();
 
-	Settings.SaveList( _T("CDiscoveryWnd"), &m_wndList );
-	SaveState( _T("CDiscoveryWnd") );
+	Settings.SaveList( L"CDiscoveryWnd", &m_wndList );
+	SaveState( L"CDiscoveryWnd" );
 
 	CPanelWnd::OnDestroy();
 }
@@ -184,7 +184,7 @@ void CDiscoveryWnd::Update()
 		case CDiscoveryService::dsGnutella:
 			if ( ! m_bShowGnutella ) continue;
 			pItem = m_wndList.Add( pService );
-			pItem->Set( COL_TYPE, _T("Bootstrap") );
+			pItem->Set( COL_TYPE, L"Bootstrap" );
 			pItem->SetImage( 0 );			// IDR_HOSTCACHEFRAME
 			break;
 		case CDiscoveryService::dsWebCache:
@@ -193,11 +193,11 @@ void CDiscoveryWnd::Update()
 			if ( pService->m_bGnutella2 && ! pService->m_sPong.IsEmpty() )
 				pItem->Set( COL_PONG, pService->m_sPong );
 			if ( pService->m_bGnutella2 && ! pService->m_bGnutella1 )
-				pItem->Set( COL_TYPE, _T("GWebCache2") );
+				pItem->Set( COL_TYPE, L"GWebCache2" );
 			else if ( pService->m_bGnutella1 && ! pService->m_bGnutella2 )
-				pItem->Set( COL_TYPE, _T("GWebCache1") );
+				pItem->Set( COL_TYPE, L"GWebCache1" );
 			else
-				pItem->Set( COL_TYPE, _T("GWebCache ") );
+				pItem->Set( COL_TYPE, L"GWebCache " );
 			if ( pService->m_bGnutella2 && pService->m_bGnutella1 )
 				pItem->SetImage( 1 );		// IDR_DISCOVERYFRAME Full-colored
 			else if ( pService->m_bGnutella2 )
@@ -211,13 +211,13 @@ void CDiscoveryWnd::Update()
 		case CDiscoveryService::dsServerList:
 			if ( ! m_bShowServerList ) continue;
 			pItem = m_wndList.Add( pService );
-			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? _T("Hublist") : _T("Server.met") );
+			pItem->Set( COL_TYPE, pService->m_nProtocolID == PROTOCOL_DC ? L"Hublist" : L"Server.met" );
 			pItem->SetImage( 4 );			// IDI_WEB_URL
 			break;
 		case CDiscoveryService::dsBlocked:
 			if ( ! m_bShowBlocked ) continue;
 			pItem = m_wndList.Add( pService );
-			pItem->Set( COL_TYPE, _T("Blocked") );	// ToDo: Translate?
+			pItem->Set( COL_TYPE, L"Blocked" );	// ToDo: Translate?
 			pItem->SetImage( 5 );			// IDI_FIREWALLED
 			break;
 		default:
@@ -229,26 +229,26 @@ void CDiscoveryWnd::Update()
 		if ( pService->m_tAccessed )
 		{
 			CTime pTime( (time_t)pService->m_tAccessed );
-			pItem->Set( COL_TIME, pTime.Format( _T("%Y-%m-%d %H:%M:%S") ) );
+			pItem->Set( COL_TIME, pTime.Format( L"%Y-%m-%d %H:%M:%S" ) );
 		}
 		else if ( pService->m_nType != CDiscoveryService::dsBlocked )
 		{
-			pItem->Set( COL_TIME, _T(" - ") );
+			pItem->Set( COL_TIME, L" - " );
 		}
 
 		if ( pService->m_nType == CDiscoveryService::dsBlocked )
 			continue;
 
-		pItem->Format( COL_ACCESSES, _T("%u"), pService->m_nAccesses );
-		pItem->Format( COL_FAILURES, _T("%u"), pService->m_nFailures );
+		pItem->Format( COL_ACCESSES, L"%u", pService->m_nAccesses );
+		pItem->Format( COL_FAILURES, L"%u", pService->m_nFailures );
 
 		if ( pService->m_tAccessed )
 		{
-			pItem->Format( COL_HOSTS,		_T("%u"), pService->m_nHosts );
-			pItem->Format( COL_HOSTS_TOTAL,	_T("%u"), pService->m_nTotalHosts );
-			pItem->Format( COL_URLS,		_T("%u"), pService->m_nURLs );
-			pItem->Format( COL_URLS_TOTAL,	_T("%u"), pService->m_nTotalURLs );
-			pItem->Format( COL_UPDATES, 	_T("%u"), pService->m_nUpdates );
+			pItem->Format( COL_HOSTS,		L"%u", pService->m_nHosts );
+			pItem->Format( COL_HOSTS_TOTAL,	L"%u", pService->m_nTotalHosts );
+			pItem->Format( COL_URLS,		L"%u", pService->m_nURLs );
+			pItem->Format( COL_URLS_TOTAL,	L"%u", pService->m_nTotalURLs );
+			pItem->Format( COL_UPDATES, 	L"%u", pService->m_nUpdates );
 		}
 	}
 
@@ -274,10 +274,10 @@ void CDiscoveryWnd::OnSkinChange()
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
 
-	Skin.CreateToolBar( _T("CDiscoveryWnd"), &m_wndToolBar );
+	Skin.CreateToolBar( L"CDiscoveryWnd", &m_wndToolBar );
 
 	// Columns
-	Settings.LoadList( _T("CDiscoveryWnd"), &m_wndList, 3 );
+	Settings.LoadList( L"CDiscoveryWnd", &m_wndList, 3 );
 
 	// Fonts & Colors
 	m_wndList.SetFont( &theApp.m_gdiFont );
@@ -323,7 +323,7 @@ void CDiscoveryWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	if ( point.x == -1 && point.y == -1 )	// Keyboard fix
 		ClientToScreen( &point );
 
-	Skin.TrackPopupMenu( _T("CDiscoveryWnd"), point, ID_DISCOVERY_EDIT );
+	Skin.TrackPopupMenu( L"CDiscoveryWnd", point, ID_DISCOVERY_EDIT );
 }
 
 void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
@@ -409,7 +409,7 @@ void CDiscoveryWnd::OnDiscoveryBrowse()
 	pLock.Unlock();
 
 	if ( ! strURL.IsEmpty() )
-		ShellExecute( GetSafeHwnd(), _T("open"), strURL, NULL, NULL, SW_SHOWNORMAL );
+		ShellExecute( GetSafeHwnd(), L"open", strURL, NULL, NULL, SW_SHOWNORMAL );
 }
 
 void CDiscoveryWnd::OnUpdateDiscoveryRemove(CCmdUI* pCmdUI)

@@ -28,8 +28,8 @@ static char THIS_FILE[] = __FILE__;
 
 // CIrcInputDlg dialog
 
-CIrcInputDlg::CIrcInputDlg( CWnd* pParent /*=NULL*/, int nCaptionIndex, BOOL bKickOnly ) :
-	CSkinDialog( CIrcInputDlg::IDD, pParent )
+CIrcInputDlg::CIrcInputDlg( CWnd* pParent /*=NULL*/, int nCaptionIndex, BOOL bKickOnly )
+	: CSkinDialog( CIrcInputDlg::IDD, pParent )
 {
 	m_nCaptionIndex = nCaptionIndex;
 	if ( m_nCaptionIndex )
@@ -64,7 +64,7 @@ BOOL CIrcInputDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CIrcInputDlg"), m_nCaptionIndex == 0 ? ID_IRC_ADD :
+	SkinMe( L"CIrcInputDlg", m_nCaptionIndex == 0 ? ID_IRC_ADD :
 		( m_bKickOnly ? ID_IRC_KICKWHY : ID_IRC_BANKICKWHY ) );
 	SelectCaption( this, m_nCaptionIndex );
 	SelectCaption( &m_wndPrompt, m_nCaptionIndex );

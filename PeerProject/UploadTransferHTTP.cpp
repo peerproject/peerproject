@@ -134,9 +134,9 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 	if ( ! Read( strLine ) ) return TRUE;
 	if ( strLine.GetLength() > HTTP_HEADER_MAX_LINE )
-		strLine = _T("#LINE_TOO_LONG#");
+		strLine = L"#LINE_TOO_LONG#";
 
-	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, _T("%s >> UPLOAD REQUEST: %s"), (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
+	theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"%s >> UPLOAD REQUEST: %s", (LPCTSTR)m_sAddress, (LPCTSTR)strLine );
 
 	if ( m_nState == upsQueued && m_pQueue != NULL )
 	{
@@ -149,10 +149,10 @@ BOOL CUploadTransferHTTP::ReadRequest()
 		}
 	}
 
-	const int nChar = strLine.Find( _T(" HTTP/") );
+	const int nChar = strLine.Find( L" HTTP/" );
 
 	if ( strLine.GetLength() < 14 || nChar < 5 ||
-		 ( strLine.Left( 4 ) != _T("GET ") && strLine.Left( 5 ) != _T("HEAD ") ) )
+		 ( strLine.Left( 4 ) != L"GET " && strLine.Left( 5 ) != L"HEAD " ) )
 	{
 		Close( IDS_UPLOAD_NOHTTP );
 		return FALSE;
@@ -160,7 +160,7 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 	ClearRequest();
 
-	m_bHead			= ( strLine.Left( 5 ) == _T("HEAD ") );
+	m_bHead			= ( strLine.Left( 5 ) == L"HEAD " );
 	m_bConnectHdr	= FALSE;
 	m_bKeepAlive	= TRUE;
 	m_bDeflate		= FALSE;
@@ -179,19 +179,19 @@ BOOL CUploadTransferHTTP::ReadRequest()
 
 	CString strRequest = strLine.Mid( m_bHead ? 5 : 4, nChar - ( m_bHead ? 5 : 4 ) );
 
-	if ( strRequest.GetLength() > 5 && strRequest.Right( 1 ) == _T("/") )
+	if ( strRequest.GetLength() > 5 && strRequest.Right( 1 ) == L"/" )
 		strRequest = strRequest.Left( strRequest.GetLength() - 1 );
 
 	strRequest = URLDecode( strRequest );
 
 	if ( strRequest != m_sRequest )
 	{
-		if ( m_sRequest.Find( _T("/gnutella/tigertree/") ) < 0 &&
-			 strRequest.Find( _T("/gnutella/tigertree/") ) < 0 &&
-			 m_sRequest.Find( _T("/gnutella/thex/") ) < 0 &&
-			 strRequest.Find( _T("/gnutella/thex/") ) < 0 &&
-			 m_sRequest.Find( _T("/gnutella/metadata/") ) < 0 &&
-			 strRequest.Find( _T("/gnutella/metadata/") ) < 0 )
+		if ( m_sRequest.Find( L"/gnutella/tigertree/" ) < 0 &&
+			 strRequest.Find( L"/gnutella/tigertree/" ) < 0 &&
+			 m_sRequest.Find( L"/gnutella/thex/" ) < 0 &&
+			 strRequest.Find( L"/gnutella/thex/" ) < 0 &&
+			 m_sRequest.Find( L"/gnutella/metadata/" ) < 0 &&
+			 strRequest.Find( L"/gnutella/metadata/" ) < 0 )
 		{
 			UploadQueues.Dequeue( this );
 		}
@@ -247,36 +247,36 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	switch ( Text[ strCase ] )
 	{
 	case 'c':		// "Connection"
-		if ( strValue.CompareNoCase( _T("Keep-Alive") ) == 0 )
+		if ( strValue.CompareNoCase( L"Keep-Alive" ) == 0 )
 			m_bKeepAlive = TRUE;
-		else if ( strValue.CompareNoCase( _T("close") ) == 0 )
+		else if ( strValue.CompareNoCase( L"close" ) == 0 )
 			m_bKeepAlive = FALSE;
 		m_bConnectHdr = TRUE;
 		break;
 	case 'a':		// "Accept"
-		if ( _tcsistr( strValue, _T("application/x-gnutella-packets") ) )
+		if ( _tcsistr( strValue, L"application/x-gnutella-packets" ) )
 			m_bHostBrowse = 1;
-		if ( _tcsistr( strValue, _T("application/x-gnutella2") ) ||
-			 _tcsistr( strValue, _T("application/x-shareaza") )  ||
-			 _tcsistr( strValue, _T("application/x-peerproject") ) )
+		if ( _tcsistr( strValue, L"application/x-gnutella2" ) ||
+			 _tcsistr( strValue, L"application/x-shareaza" )  ||
+			 _tcsistr( strValue, L"application/x-peerproject" ) )
 			m_bHostBrowse = 2;
 		break;
 	case 'e':		// "Accept-Encoding"
-		if ( _tcsistr( strValue, _T("deflate") ) )
+		if ( _tcsistr( strValue, L"deflate" ) )
 			m_bDeflate = TRUE;
-		if ( Settings.Uploads.AllowBackwards && _tcsistr( strValue, _T("backwards") ) )
+		if ( Settings.Uploads.AllowBackwards && _tcsistr( strValue, L"backwards" ) )
 			m_bBackwards = TRUE;
 		break;
 	case 'r':		// "Range"
 		{
 			QWORD nFrom = 0, nTo = 0;
-			if ( _stscanf( strValue, _T("bytes=%I64i-%I64i"), &nFrom, &nTo ) == 2 )
+			if ( _stscanf( strValue, L"bytes=%I64i-%I64i", &nFrom, &nTo ) == 2 )
 			{
 				m_nOffset	= nFrom;
 				m_nLength	= nTo + 1 - nFrom;
 				m_bRange	= TRUE;
 			}
-			else if ( _stscanf( strValue, _T("bytes=%I64i-"), &nFrom ) == 1 )
+			else if ( _stscanf( strValue, L"bytes=%I64i-", &nFrom ) == 1 )
 			{
 				m_nOffset	= nFrom;
 				m_nLength	= SIZE_UNKNOWN;
@@ -299,7 +299,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 
 			if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 			{
-				if ( Settings.Library.SourceMesh && strValue.Find( _T("://") ) < 0 )
+				if ( Settings.Library.SourceMesh && strValue.Find( L"://" ) < 0 )
 					pDownload->AddSourceURLs( strValue, TRUE, TRUE );
 			}
 		}
@@ -308,16 +308,16 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'q':		// "X-Queue"
 		m_bQueueMe = TRUE;
 		m_nGnutella |= 1;
-	//	if ( strValue == _T("1.0") )
+	//	if ( strValue == L"1.0" )
 	//		m_bNotPeerProject = TRUE;	// PeerProject/Shareaza doesn't send this value ?
 		break;
 	case 'n':		// "X-Nick" "X-Name" "X-UserName"
 		m_sRemoteNick = URLDecode( strValue );
 		break;
 	case 'f':		// "X-Features"
-		if ( _tcsistr( strValue, _T("g2/") ) != NULL ||
-			 _tcsistr( strValue, _T("gnet2/") ) != NULL ||
-			 _tcsistr( strValue, _T("gnutella2/") ) != NULL )
+		if ( _tcsistr( strValue, L"g2/" ) != NULL ||
+			 _tcsistr( strValue, L"gnet2/" ) != NULL ||
+			 _tcsistr( strValue, L"gnutella2/" ) != NULL )
 			m_nGnutella |= 2;
 		else if ( m_nGnutella == 0 )
 			m_nGnutella = 1;
@@ -328,7 +328,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		m_nGnutella |= 1;
 		break;
 	default:		// Unknown Header
-		theApp.Message( MSG_DEBUG, _T("Unknown G1/G2 Header:  %s"), (LPCTSTR)strCase );
+		theApp.Message( MSG_DEBUG, L"Unknown G1/G2 Header:  %s", (LPCTSTR)strCase );
 		break;
 	}
 
@@ -351,8 +351,8 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	if ( Security.IsClientBanned( m_sUserAgent ) )
 	{
 		SendResponse( IDR_HTML_BROWSER );
-		theApp.Message( MSG_ERROR, _T("Client %s has prohibited user agent \"%s\", banning"), (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
-		Security.Ban( &m_pHost.sin_addr, ban5Mins, FALSE, CString( _T("Blocked user agent: ") ) + m_sUserAgent );
+		theApp.Message( MSG_ERROR, L"Client %s has prohibited user agent \"%s\", banning", (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
+		Security.Ban( &m_pHost.sin_addr, ban5Mins, FALSE, CString( L"Blocked user agent: " ) + m_sUserAgent );
 		Remove( FALSE );
 		return FALSE;
 	}
@@ -366,22 +366,22 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		if ( m_bNotPeerProject )
 		{
 			SendResponse( IDR_HTML_FILENOTFOUND );
-			theApp.Message( MSG_ERROR, _T("Client %s has a spoofed user agent, banning"), (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, L"Client %s has a spoofed user agent, banning", (LPCTSTR)m_sAddress );
 
 			Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
 			Remove( FALSE );
 			return FALSE;
 		}
 	}
-	else if ( _tcsistr( m_sUserAgent, _T("limewire") ) != NULL ||	// LimeWire/FrostWire
-			  _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
+	else if ( _tcsistr( m_sUserAgent, L"limewire" ) != NULL ||	// LimeWire/FrostWire
+			  _tcsistr( m_sUserAgent, L"phex" ) != NULL )
 	{
 		// Assume Gnutella1 ONLY capability for certain user-agents
 		m_nGnutella = 1;
 	}
-	else if ( _tcsistr( m_sUserAgent, _T("trustyfiles") ) != NULL ||
-			  _tcsistr( m_sUserAgent, _T("gnucdna") ) != NULL ||
-			  _tcsistr( m_sUserAgent, _T("adagio") ) != NULL )
+	else if ( _tcsistr( m_sUserAgent, L"trustyfiles" ) != NULL ||
+			  _tcsistr( m_sUserAgent, L"gnucdna" ) != NULL ||
+			  _tcsistr( m_sUserAgent, L"adagio" ) != NULL )
 	{
 		// Assume Gnutella2 capability for certain user-agents
 		m_nGnutella |= 3;
@@ -389,7 +389,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	//else if ( m_nGnutella & 2 )
 	//{
 	//	// Check for clients spoofing a G2 header
-	//	if ( _tcsistr( m_sUserAgent, _T("phex") ) != NULL )
+	//	if ( _tcsistr( m_sUserAgent, L"phex" ) != NULL )
 	//	{
 	//		// This is actually a G1-only client sending a fake header,
 	//		// so they can download from (but not upload to) clients connected to G2.
@@ -399,7 +399,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	//		{
 	//			// Terminate the connection and do not try to download from them.
 	//			SendResponse( IDR_HTML_FILENOTFOUND );
-	//			theApp.Message( MSG_ERROR, _T("Client %s has a fake G2 header, banning"), (LPCTSTR)m_sAddress );
+	//			theApp.Message( MSG_ERROR, L"Client %s has a fake G2 header, banning", (LPCTSTR)m_sAddress );
 	//
 	//			Security.Ban( &m_pHost.sin_addr, banWeek, FALSE );
 	//			Remove( FALSE );
@@ -414,7 +414,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 		CString strLength;
-		strLength.Format( _T("Content-Length: %u\r\n"), pResponse.m_nLength );
+		strLength.Format( L"Content-Length: %u\r\n", pResponse.m_nLength );
 		Write( strLength );
 		if ( ! strHeader.IsEmpty() )
 			Write( strHeader );
@@ -424,18 +424,18 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		return TRUE;
 	}
-	else if ( m_sRequest == _T("/") || m_sRequest == _T("/gnutella/browse/v1") )
+	else if ( m_sRequest == L"/" || m_sRequest == L"/gnutella/browse/v1" )
 	{
 		// Requests for "/" or the browse path are handled the same way
 
-		if ( m_nAccept == 0 && m_sRequest == _T("/") )
+		if ( m_nAccept == 0 && m_sRequest == L"/" )
 		{
 			SendResponse( IDR_HTML_ABOUT );
 			theApp.Message( MSG_INFO, IDS_UPLOAD_ABOUT, (LPCTSTR)m_sAddress, (LPCTSTR)m_sUserAgent );
 		}
 		else if ( ( ! Settings.Community.ServeFiles ) &&
-				    ( m_nAccept == 0 || m_nAccept == 1 ||
-				    ( m_nAccept == 2 && ! Settings.Community.ServeProfile ) ) ||
+					( m_nAccept == 0 || m_nAccept == 1 ||
+					( m_nAccept == 2 && ! Settings.Community.ServeProfile ) ) ||
 				  ( ! RequestHostBrowse() ) )
 		{
 			SendResponse( IDR_HTML_ABOUT );
@@ -444,7 +444,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 
 		return TRUE;
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/remote") ) )
+	else if ( ::StartsWith( m_sRequest, _P( L"/remote" ) ) )
 	{
 		// A web client can start requesting remote pages on the same keep-alive connection after previously requesting other system objects
 
@@ -456,14 +456,14 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			return FALSE;
 		}
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/preview/v1?urn:") ) && Settings.Uploads.SharePreviews )
+	else if ( ::StartsWith( m_sRequest, _P( L"/gnutella/preview/v1?urn:" ) ) && Settings.Uploads.SharePreviews )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 21;
 
 		CSingleLock pLock( &Library.m_pSection );
 		if ( ! SafeLock( pLock ) )
 		{
-			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
@@ -471,7 +471,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		if ( CLibraryFile* pShared = LibraryMaps.LookupFileByURN( pszURN, TRUE, TRUE ) )
 			return RequestPreview( pShared, pLock );
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/metadata/v1?urn:") ) && Settings.Uploads.ShareMetadata )
+	else if ( ::StartsWith( m_sRequest, _P( L"/gnutella/metadata/v1?urn:" ) ) && Settings.Uploads.ShareMetadata )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 22;
 
@@ -479,7 +479,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			CSingleLock pLock( &Library.m_pSection );
 			if ( ! SafeLock( pLock ) )
 			{
-				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
 			}
@@ -510,12 +510,12 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	}
 	else if ( Security.IsAgentBlocked( m_sUserAgent ) )
 	{
-		if ( m_sName.IsEmpty() ) m_sName = _T("file");
+		if ( m_sName.IsEmpty() ) m_sName = L"file";
 		SendResponse( IDR_HTML_BROWSER );
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_BROWSER, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 		// Anti-hammer protection if client doesn't understand 403 (Don't bother re-sending HTML every 5 seconds)
 		Security.Complain( &m_pHost.sin_addr );
-		if ( m_sUserAgent.Find( _T("Mozilla") ) >= 0 ) return TRUE;
+		if ( m_sUserAgent.Find( L"Mozilla" ) >= 0 ) return TRUE;
 		Remove( FALSE );
 		return FALSE;
 	}
@@ -523,7 +523,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		// Network isn't active- Check if we should send 404 or 403
 
-		if ( ::StartsWith( m_sRequest, _PT("/uri-res/N2R?urn:") ) )
+		if ( ::StartsWith( m_sRequest, _P( L"/uri-res/N2R?urn:" ) ) )
 		{
 			LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
 
@@ -562,7 +562,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		Remove( FALSE );
 		return FALSE;
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/tigertree/v3?urn:") ) && Settings.Uploads.ShareTiger )
+	else if ( ::StartsWith( m_sRequest, _P( L"/gnutella/tigertree/v3?urn:" ) ) && Settings.Uploads.ShareTiger )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 23;
 
@@ -570,7 +570,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			CSingleLock pLock( &Library.m_pSection );
 			if ( ! SafeLock( pLock ) )
 			{
-				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
 			}
@@ -592,21 +592,21 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			}
 		}
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/gnutella/thex/v1?urn:") ) && Settings.Uploads.ShareTiger )
+	else if ( ::StartsWith( m_sRequest, _P( L"/gnutella/thex/v1?urn:" ) ) && Settings.Uploads.ShareTiger )
 	{
 		LPCTSTR pszURN	= (LPCTSTR)m_sRequest + 18;
 		DWORD nDepth	= 0;
 
-		if ( LPCTSTR pszDepth = _tcsistr( m_sRequest, _T("depth=") ) )
-			_stscanf( pszDepth + 6, _T("%i"), &nDepth );
+		if ( LPCTSTR pszDepth = _tcsistr( m_sRequest, L"depth=" ) )
+			_stscanf( pszDepth + 6, L"%i", &nDepth );
 
-		BOOL bHashset = ( _tcsistr( m_sRequest, _T("ed2k=1") ) != NULL );
+		BOOL bHashset = ( _tcsistr( m_sRequest, L"ed2k=1" ) != NULL );
 
 		{
 			CSingleLock pLock( &Library.m_pSection );
 			if ( ! SafeLock( pLock ) )
 			{
-				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
 			}
@@ -632,7 +632,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			}
 		}
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/uri-res/N2R?urn:") ) )
+	else if ( ::StartsWith( m_sRequest, _P( L"/uri-res/N2R?urn:" ) ) )
 	{
 		LPCTSTR pszURN = (LPCTSTR)m_sRequest + 13;
 
@@ -640,7 +640,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 			CSingleLock pLock( &Library.m_pSection );
 			if ( ! SafeLock( pLock ) )
 			{
-				theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+				theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 				SendResponse( IDR_HTML_BUSY );
 				return TRUE;
 			}
@@ -653,19 +653,19 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		if ( pDownload != NULL && pDownload->IsShared() && pDownload->IsStarted() )
 			return RequestPartialFile( pDownload );
 	}
-	else if ( ::StartsWith( m_sRequest, _PT("/get/") ) )
+	else if ( ::StartsWith( m_sRequest, _P( L"/get/" ) ) )
 	{
 		DWORD nIndex = 0;
 		CString strFile = m_sRequest.Mid( 5 );
 		int nChar = strFile.Find( '/' );
-		bool bByIndex = ( _stscanf( strFile, _T("%lu/"), &nIndex ) == 1 &&
+		bool bByIndex = ( _stscanf( strFile, L"%lu/", &nIndex ) == 1 &&
 			nChar > 0 && nChar < strFile.GetLength() - 1 );
 		strFile = strFile.Mid( nChar + 1 );
 
 		CSingleLock pLock( &Library.m_pSection );
 		if ( ! SafeLock( pLock ) )
 		{
-			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
@@ -689,7 +689,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		CSingleLock pLock( &Library.m_pSection );
 		if ( ! SafeLock( pLock ) )
 		{
-			theApp.Message( MSG_ERROR, _T("Refusing request from %s, Library is busy."), (LPCTSTR)m_sAddress );
+			theApp.Message( MSG_ERROR, L"Refusing request from %s, Library is busy.", (LPCTSTR)m_sAddress );
 			SendResponse( IDR_HTML_BUSY );
 			return TRUE;
 		}
@@ -902,7 +902,7 @@ BOOL CUploadTransferHTTP::QueueRequest()
 				( m_bFilePartial ? CUploadQueue::ulqPartial: CUploadQueue::ulqLibrary ), m_sFileTags ) )
 			{
 				// This is probably a partial that has completed
-				theApp.Message( MSG_DEBUG, _T("File queue error- Partial may have recently completed") );
+				theApp.Message( MSG_DEBUG, L"File queue error- Partial may have recently completed" );
 
 				// Might as well allow the upload... so don't do anything.
 				//ASSERT( FALSE );
@@ -961,9 +961,9 @@ BOOL CUploadTransferHTTP::QueueRequest()
 		if ( UploadQueues.Check( m_pQueue ) )
 		{
 			strName = m_pQueue->m_sName;
-			strName.Replace( _T("\""), _T("'") );
+			strName.Replace( L"\"", L"'" );
 
-			strHeader.Format( _T("X-Queue: position=%i,length=%u,limit=%u,pollMin=%lu,pollMax=%lu,id=\"%s\"\r\n"),
+			strHeader.Format( L"X-Queue: position=%i,length=%u,limit=%u,pollMin=%lu,pollMax=%lu,id=\"%s\"\r\n",
 				nPosition,
 				m_pQueue->GetQueuedCount(),
 				m_pQueue->GetTransferCount( TRUE ),
@@ -1003,13 +1003,13 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 
 	if ( ! strLine.IsEmpty() )
 	{
-		strLine = _T("Server: ") + strLine + _T("\r\n");
+		strLine = L"Server: " + strLine + L"\r\n";
 		Write( strLine );
 	}
 
 	if ( ! m_bInitiated )
 	{
-		strLine.Format( _T("Remote-IP: %s\r\n"), (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
+		strLine.Format( L"Remote-IP: %s\r\n", (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ) );
 		Write( strLine );
 	}
 
@@ -1025,14 +1025,14 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 	if ( m_nRequests <= 1 )
 	{
 		if ( m_bInitiated ) SendMyAddress();
-		strLine.Format( _T("X-PerHost: %lu\r\n"), Settings.Uploads.MaxPerHost );
+		strLine.Format( L"X-PerHost: %lu\r\n", Settings.Uploads.MaxPerHost );
 		Write( strLine );
 
 		strLine = MyProfile.GetNick().Left( 255 );
 
 		if ( ! strLine.IsEmpty() )
 		{
-			strLine = _T("X-Nick: ") + URLEncode( strLine ) + _T("\r\n");
+			strLine = L"X-Nick: " + URLEncode( strLine ) + L"\r\n";
 			Write( strLine );
 		}
 	}
@@ -1083,7 +1083,7 @@ void CUploadTransferHTTP::SendFileHeaders()
 	if ( m_bTigerTree && Settings.Uploads.ShareTiger )
 	{
 		CString strTigerURL;
-		strTigerURL.Format( _T("X-Thex-URI: /gnutella/thex/v1?%s&depth=%u&ed2k=%u;%s\r\n"),
+		strTigerURL.Format( L"X-Thex-URI: /gnutella/thex/v1?%s&depth=%u&ed2k=%u;%s\r\n",
 			m_oTiger.toUrn(), Settings.Library.TigerHeight, ( m_bHashset ? 1 : 0 ), m_oTiger.toString() );
 		Write( strTigerURL );
 	}
@@ -1104,7 +1104,7 @@ void CUploadTransferHTTP::SendFileHeaders()
 
 	if ( ! m_sLocations.IsEmpty() )
 	{
-		if ( m_sLocations.Find( _T("://") ) < 0 )	// m_nGnutella < 2
+		if ( m_sLocations.Find( L"://" ) < 0 )	// m_nGnutella < 2
 			Write( _P("X-Alt: ") );
 		else
 			Write( _P("Alt-Location: ") );
@@ -1158,16 +1158,16 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 	SendDefaultHeaders();
 	SendFileHeaders();
 
-	Write( _T("Content-Type: ") + ShellIcons.GetMIME( PathFindExtension( m_sName ) ) + _T("\r\n") );
+	Write( L"Content-Type: " + ShellIcons.GetMIME( PathFindExtension( m_sName ) ) + L"\r\n" );
 	// ToDo: Write( _P("Content-Type: application/x-binary\r\n") ) if unknown?
 
 	CString strResponse;
-	strResponse.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
+	strResponse.Format( L"Content-Length: %I64u\r\n", m_nLength );
 	Write( strResponse );
 
 	if ( m_nLength != m_nSize )
 	{
-		strResponse.Format( _T("Content-Range: bytes=%I64u-%I64u/%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1, m_nSize );
+		strResponse.Format( L"Content-Range: bytes=%I64u-%I64u/%I64u\r\n", m_nOffset, m_nOffset + m_nLength - 1, m_nSize );
 		Write( strResponse );
 	}
 
@@ -1192,7 +1192,7 @@ BOOL CUploadTransferHTTP::OpenFileSendHeaders()
 		{
 			theApp.Message( MSG_NOTICE, IDS_UPLOAD_FILE, (LPCTSTR)m_sName, (LPCTSTR)m_sAddress );
 
-			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );		// Fails occasionally. (Multifile torrents?)  ToDo: Fixed?
+			ASSERT( ! m_pBaseFile->m_sPath.IsEmpty() );		// Note: Failed occasionally for multifile torrents, ToDo: Fixed?
 			PostMainWndMessage( WM_NOWUPLOADING, 0, (LPARAM)new CString( m_pBaseFile->m_sPath ) );
 		}
 
@@ -1359,7 +1359,7 @@ BOOL CUploadTransferHTTP::RequestMetadata(CXMLElement* pMetadata)
 	Write( _P("Content-Type: text/xml\r\n") );
 
 	CString strHeader;
-	strHeader.Format( _T("Content-Length: %d\r\n"), strXML.GetLength() );
+	strHeader.Format( L"Content-Length: %d\r\n", strXML.GetLength() );
 	Write( strHeader );
 	Write( _P("\r\n") );
 
@@ -1420,12 +1420,12 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 		SendDefaultHeaders();
 
 		Write( _P("Content-Type: application/tigertree-breadthfirst\r\n") );
-		strHeader.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
+		strHeader.Format( L"Content-Length: %I64u\r\n", m_nLength );
 		Write( strHeader );
 
 		if ( m_nLength != nSerialTree )
 		{
-			strHeader.Format( _T("Content-Range: %I64u-%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
+			strHeader.Format( L"Content-Range: %I64u-%I64u\r\n", m_nOffset, m_nOffset + m_nLength - 1 );
 			Write( strHeader );
 		}
 
@@ -1440,7 +1440,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeRaw(CTigerTree* pTigerTree, BOOL bDele
 	}
 	else
 	{
-		m_sRanges.Format( _T("0-%I64u"), (QWORD)nSerialTree - 1 );
+		m_sRanges.Format( L"0-%I64u", (QWORD)nSerialTree - 1 );
 		ClearHashes();
 		m_sLocations.Empty();
 
@@ -1485,18 +1485,18 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 	Network.CreateID( oGUID );
 	GUID pUUID;
 	std::memcpy( &pUUID, &oGUID[ 0 ], sizeof( pUUID ) );
-	strUUID.Format( _T("uuid:%.8x-%.4x-%.4x-%.2x%.2x-%.2x%.2x%.2x%.2x%.2x%.2x"),
+	strUUID.Format( L"uuid:%.8x-%.4x-%.4x-%.2x%.2x-%.2x%.2x%.2x%.2x%.2x%.2x",
 		pUUID.Data1, pUUID.Data2, pUUID.Data3,
 		pUUID.Data4[0], pUUID.Data4[1], pUUID.Data4[2], pUUID.Data4[3],
 		pUUID.Data4[4], pUUID.Data4[5], pUUID.Data4[6], pUUID.Data4[7] );
 
-	strXML.Format(	_T("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n")
-					_T("<!DOCTYPE hashtree SYSTEM \"http://open-content.net/spec/thex/thex.dtd\">\r\n")
-					_T("<hashtree>\r\n")
-					_T("\t<file size=\"%I64u\" segmentsize=\"1024\"/>\r\n")
-					_T("\t<digest algorithm=\"http://open-content.net/spec/digest/tiger\" outputsize=\"24\"/>\r\n")
-					_T("\t<serializedtree depth=\"%i\" type=\"http://open-content.net/spec/thex/breadthfirst\" uri=\"%s\"/>\r\n")
-					_T("</hashtree>"),
+	strXML.Format(	L"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n"
+					L"<!DOCTYPE hashtree SYSTEM \"http://open-content.net/spec/thex/thex.dtd\">\r\n"
+					L"<hashtree>\r\n"
+					L"\t<file size=\"%I64u\" segmentsize=\"1024\"/>\r\n"
+					L"\t<digest algorithm=\"http://open-content.net/spec/digest/tiger\" outputsize=\"24\"/>\r\n"
+					L"\t<serializedtree depth=\"%i\" type=\"http://open-content.net/spec/thex/breadthfirst\" uri=\"%s\"/>\r\n"
+					L"</hashtree>",
 					m_nSize, nDepth, (LPCTSTR)strUUID );
 
 	CStringA strXMLUTF8 = UTF8Encode( strXML );
@@ -1548,12 +1548,12 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 		SendDefaultHeaders();
 
 		Write( _P("Content-Type: application/dime\r\n") );
-		strHeader.Format( _T("Content-Length: %I64u\r\n"), m_nLength );
+		strHeader.Format( L"Content-Length: %I64u\r\n", m_nLength );
 		Write( strHeader );
 
 		if ( m_nLength != pDIME.m_nLength )
 		{
-			strHeader.Format( _T("Content-Range: %I64u-%I64u\r\n"), m_nOffset, m_nOffset + m_nLength - 1 );
+			strHeader.Format( L"Content-Range: %I64u-%I64u\r\n", m_nOffset, m_nOffset + m_nLength - 1 );
 			Write( strHeader );
 		}
 
@@ -1568,7 +1568,7 @@ BOOL CUploadTransferHTTP::RequestTigerTreeDIME(CTigerTree* pTigerTree, int nDept
 	}
 	else
 	{
-		m_sRanges.Format( _T("0-%I64u"), (QWORD)pDIME.m_nLength - 1 );
+		m_sRanges.Format( L"0-%I64u", (QWORD)pDIME.m_nLength - 1 );
 		ClearHashes();
 		m_sLocations.Empty();
 
@@ -1622,13 +1622,13 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 
 	int nQuality = Settings.Uploads.PreviewQuality;
 
-	if ( LPCTSTR pszQuality = _tcsistr( m_sRequest, _T("&quality=") ) )
+	if ( LPCTSTR pszQuality = _tcsistr( m_sRequest, L"&quality=" ) )
 	{
-		_stscanf( pszQuality + 9, _T("%i"), &nQuality );
+		_stscanf( pszQuality + 9, L"%i", &nQuality );
 		nQuality = max( 1, min( 100, nQuality ) );
 	}
 
-	if ( ! pImage.SaveToMemory( _T(".jpg"), nQuality, &pBuffer, &nLength ) )
+	if ( ! pImage.SaveToMemory( L".jpg", nQuality, &pBuffer, &nLength ) )
 	{
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_PREVIEW_EMPTY, (LPCTSTR)m_sAddress, (LPCTSTR)m_sName );
 		SendResponse( IDR_HTML_FILENOTFOUND );
@@ -1641,17 +1641,17 @@ BOOL CUploadTransferHTTP::RequestPreview(CLibraryFile* pFile, CSingleLock& oLibr
 	CString strHeader;
 
 	if ( m_oSHA1 )
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oSHA1.toUrn() );
+		strHeader.Format( L"X-Previewed-URN: %s\r\n", (LPCTSTR)m_oSHA1.toUrn() );
 	else if ( m_oTiger )
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oTiger.toUrn() );
+		strHeader.Format( L"X-Previewed-URN: %s\r\n", (LPCTSTR)m_oTiger.toUrn() );
 	else if ( m_oED2K )
-		strHeader.Format( _T("X-Previewed-URN: %s\r\n"), (LPCTSTR)m_oED2K.toUrn() );
+		strHeader.Format( L"X-Previewed-URN: %s\r\n", (LPCTSTR)m_oED2K.toUrn() );
 
 	Write( strHeader );
 
 	Write( _P("Content-Type: image/jpeg\r\n") );
 
-	strHeader.Format( _T("Content-Length: %lu\r\n\r\n"), nLength );
+	strHeader.Format( L"Content-Length: %lu\r\n\r\n", nLength );
 	Write( strHeader );
 
 	LogOutgoing();
@@ -1678,7 +1678,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 	if ( m_nAccept == 0 )
 	{
 		// Create library file list
-		CAutoPtr< CXMLElement > pXML( LibraryFolders.CreateXML( _T("/"), TRUE, xmlDefault ) );
+		CAutoPtr< CXMLElement > pXML( LibraryFolders.CreateXML( L"/", TRUE, xmlDefault ) );
 		if ( ! pXML )
 			return FALSE;	// Out of memory
 
@@ -1744,7 +1744,7 @@ BOOL CUploadTransferHTTP::RequestHostBrowse()
 		Write( _P("Content-Encoding: deflate\r\n") );
 
 	CString strLength;
-	strLength.Format( _T("Content-Length: %lu\r\n\r\n"), pBuffer.m_nLength );
+	strLength.Format( L"Content-Length: %lu\r\n\r\n", pBuffer.m_nLength );
 	Write( strLength );
 
 	LogOutgoing();
@@ -1768,9 +1768,9 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 	// Process About.htm/etc.
 	CString strBody( ::LoadHTML( GetModuleHandle( NULL ), nResourceID ) ), strResponse;
 
-	int nBreak = strBody.Find( _T("\r\n") ) + 2;
+	int nBreak = strBody.Find( L"\r\n" ) + 2;
 	if ( nBreak < 2 )
-		nBreak = strBody.Find( _T("\n") ) + 1;
+		nBreak = strBody.Find( L"\n" ) + 1;
 
 	strResponse	= strBody.Left( nBreak );
 	strBody		= strBody.Mid( nBreak );
@@ -1778,29 +1778,29 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 	// Process custom keywords:
 	for ( ;; )
 	{
-		const int nStart = strBody.Find( _T("<%") );
+		const int nStart = strBody.Find( L"<%" );
 		if ( nStart < 0 ) break;
 
-		const int nEnd = strBody.Find( _T("%>") );
+		const int nEnd = strBody.Find( L"%>" );
 		if ( nEnd < nStart ) break;
 
 		CString strReplace = strBody.Mid( nStart + 2, nEnd - nStart - 2 );
 		strReplace.Trim();
 
-		if ( strReplace.CompareNoCase( _T("Version") ) == 0 )
+		if ( strReplace.CompareNoCase( L"Version" ) == 0 )
 			strReplace = theApp.m_sVersion;
-		else if ( strReplace.CompareNoCase( _T("Name") ) == 0 )
+		else if ( strReplace.CompareNoCase( L"Name" ) == 0 )
 			strReplace = m_sName;
-		else if ( strReplace.CompareNoCase( _T("SHA1") ) == 0 )
+		else if ( strReplace.CompareNoCase( L"SHA1" ) == 0 )
 			strReplace = m_oSHA1.toString();
-		else if ( strReplace.CompareNoCase( _T("URN") ) == 0 )
+		else if ( strReplace.CompareNoCase( L"URN" ) == 0 )
 			strReplace = m_oSHA1.toUrn();
-		else if ( strReplace.Find( _T("Neighbours") ) == 0 )
+		else if ( strReplace.Find( L"Neighbours" ) == 0 )
 			GetNeighbourList( strReplace );
-		else if ( strReplace.CompareNoCase( _T("ListenIP") ) == 0 )
+		else if ( strReplace.CompareNoCase( L"ListenIP" ) == 0 )
 		{
 			if ( Network.IsListening() )
-				strReplace.Format( _T("%s:%i"), (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
+				strReplace.Format( L"%s:%i", (LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ), htons( Network.m_pHost.sin_port ) );
 			else
 				strReplace.Empty();
 		}
@@ -1808,7 +1808,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 		strBody = strBody.Left( nStart ) + strReplace + strBody.Mid( nEnd + 2 );
 	}
 
-	Write( _T("HTTP/1.1 ") + strResponse );
+	Write( L"HTTP/1.1 " + strResponse );
 
 	SendDefaultHeaders();
 
@@ -1822,7 +1822,7 @@ void CUploadTransferHTTP::SendResponse(UINT nResourceID, BOOL bFileHeaders)
 
 	CStringA strBodyUTF8 = UTF8Encode( strBody );
 
-	strResponse.Format( _T("Content-Length: %d\r\n\r\n"), strBodyUTF8.GetLength() );
+	strResponse.Format( L"Content-Length: %d\r\n\r\n", strBodyUTF8.GetLength() );
 	Write( strResponse );
 
 	LogOutgoing();
@@ -1837,10 +1837,10 @@ void CUploadTransferHTTP::GetNeighbourList(CString& strOutput)
 {
 	static LPCTSTR pszModes[4][3] =
 	{
-		{ _T("Handshake"), _T("Handshake"), _T("Handshake") },
-		{ _T("G1 Peer"), _T("G1 Ultrapeer"), _T("G1 Leaf") },
-		{ _T("G2 Peer"), _T("G2 Hub"), _T("G2 Leaf") },
-		{ _T("eDonkey2000"), _T("eDonkey2000"), _T("eDonkey2000") }
+		{ L"Handshake", L"Handshake", L"Handshake" },
+		{ L"G1 Peer", L"G1 Ultrapeer", L"G1 Leaf" },
+		{ L"G2 Peer", L"G2 Hub", L"G2 Leaf" },
+		{ L"eDonkey2000", L"eDonkey2000", L"eDonkey2000" }
 	};
 
 	// Strip off the leading "Neighbours" keyword (length 10) and use the rest as a format string

@@ -1,7 +1,7 @@
 //
 // PageProfileContact.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -69,44 +69,44 @@ BOOL CContactProfilePage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	if ( CXMLElement* pContacts = MyProfile.GetXML( _T("contacts") ) )
+	if ( CXMLElement* pContacts = MyProfile.GetXML( L"contacts" ) )
 	{
 		for ( POSITION pos1 = pContacts->GetElementIterator() ; pos1 ; )
 		{
 			CXMLElement* pGroup = pContacts->GetNextElement( pos1 );
 
-			if ( pGroup->IsNamed( _T("group") ) )
+			if ( pGroup->IsNamed( L"group" ) )
 			{
-				CString strGroup = pGroup->GetAttributeValue( _T("class") );
+				CString strGroup = pGroup->GetAttributeValue( L"class" );
 
-				if ( CXMLElement* pAddress = pGroup->GetElementByName( _T("address") ) )
+				if ( CXMLElement* pAddress = pGroup->GetElementByName( L"address" ) )
 				{
-					CString strAddress = pAddress->GetAttributeValue( _T("content") );
+					CString strAddress = pAddress->GetAttributeValue( L"content" );
 
-					if ( strGroup.CompareNoCase( _T("email") ) == 0 )
+					if ( strGroup.CompareNoCase( L"email" ) == 0 )
 						m_sEmail = strAddress;
-					else if ( strGroup.CompareNoCase( _T("msn") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"msn" ) == 0 )
 						m_sMSN = strAddress;
-					else if ( strGroup.CompareNoCase( _T("yahoo") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"yahoo" ) == 0 )
 						m_sYahoo = strAddress;
-					else if ( strGroup.CompareNoCase( _T("icq") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"icq" ) == 0 )
 						m_sICQ = strAddress;
-					else if ( strGroup.CompareNoCase( _T("aol") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"aol" ) == 0 )
 						m_sAOL = strAddress;
-					else if ( strGroup.CompareNoCase( _T("google") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"google" ) == 0 )
 						m_sJabber = strAddress;
-					else if ( strGroup.CompareNoCase( _T("jabber") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"jabber" ) == 0 )
 						m_sJabber = strAddress;
-					else if ( strGroup.CompareNoCase( _T("twitter") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"twitter" ) == 0 )
 						m_sTwitter = strAddress;
-					else if ( strGroup.CompareNoCase( _T("facebook") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"facebook" ) == 0 )
 						m_sFacebook = strAddress;
-					else if ( strGroup.CompareNoCase( _T("peerproject.org") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"peerproject.org" ) == 0 )
 						m_sPeerProjectOrg = strAddress;
-					else if ( strGroup.CompareNoCase( _T("peerproject") ) == 0 )
+					else if ( strGroup.CompareNoCase( L"peerproject" ) == 0 )
 						m_sPeerProjectOrg = strAddress;
 					else
-						MsgBox( _T("\nUnrecognized contact:  ") + strGroup );	// Should never happen
+						MsgBox( L"\nUnrecognized contact:  " + strGroup );	// Should never happen
 				}
 			}
 		}
@@ -169,38 +169,38 @@ void CContactProfilePage::OnOK()
 	if ( m_sEmail.Find( '@' ) < 0 || m_sEmail.Find( '.' ) < 0 )
 		m_sEmail.Empty();
 
-	AddAddress( _T("Email"), _T("Primary"), m_sEmail );
-	AddAddress( _T("MSN"), _T("Primary"), m_sMSN );
-	AddAddress( _T("Yahoo"), _T("Primary"), m_sYahoo );
-	AddAddress( _T("ICQ"), _T("Primary"), m_sICQ );
-	AddAddress( _T("AOL"), _T("Primary"), m_sAOL );
-	AddAddress( _T("Jabber"), _T("Primary"), m_sJabber );
-	AddAddress( _T("Twitter"), _T("Primary"), m_sTwitter );
-	AddAddress( _T("Facebook"), _T("Primary"), m_sFacebook );
-	AddAddress( _T("PeerProject.org"), _T("Primary"), m_sPeerProjectOrg );
+	AddAddress( L"Email", L"Primary", m_sEmail );
+	AddAddress( L"MSN", L"Primary", m_sMSN );
+	AddAddress( L"Yahoo", L"Primary", m_sYahoo );
+	AddAddress( L"ICQ", L"Primary", m_sICQ );
+	AddAddress( L"AOL", L"Primary", m_sAOL );
+	AddAddress( L"Jabber", L"Primary", m_sJabber );
+	AddAddress( L"Twitter", L"Primary", m_sTwitter );
+	AddAddress( L"Facebook", L"Primary", m_sFacebook );
+	AddAddress( L"PeerProject.org", L"Primary", m_sPeerProjectOrg );
 }
 
 void CContactProfilePage::AddAddress(LPCTSTR pszClass, LPCTSTR pszName, LPCTSTR pszAddress)
 {
-	if ( CXMLElement* pContacts = MyProfile.GetXML( _T("contacts"), TRUE ) )
+	if ( CXMLElement* pContacts = MyProfile.GetXML( L"contacts", TRUE ) )
 	{
 		for ( POSITION pos1 = pContacts->GetElementIterator() ; pos1 ; )
 		{
 			CXMLElement* pGroup = pContacts->GetNextElement( pos1 );
 
-			if ( pGroup->IsNamed( _T("group") ) &&
-				 pGroup->GetAttributeValue( _T("class") ).CompareNoCase( pszClass ) == 0 )
+			if ( pGroup->IsNamed( L"group" ) &&
+				 pGroup->GetAttributeValue( L"class" ).CompareNoCase( pszClass ) == 0 )
 			{
 				for ( POSITION pos2 = pGroup->GetElementIterator() ; pos2 ; )
 				{
 					CXMLElement* pAddress = pGroup->GetNextElement( pos2 );
 
-					if ( pAddress->IsNamed( _T("address") ) &&
-						 pAddress->GetAttributeValue( _T("name") ).CompareNoCase( pszName ) == 0 )
+					if ( pAddress->IsNamed( L"address" ) &&
+						 pAddress->GetAttributeValue( L"name" ).CompareNoCase( pszName ) == 0 )
 					{
 						if ( pszAddress && *pszAddress )
 						{
-							pAddress->AddAttribute( _T("content"), pszAddress );
+							pAddress->AddAttribute( L"content", pszAddress );
 							return;
 						}
 						else
@@ -213,9 +213,9 @@ void CContactProfilePage::AddAddress(LPCTSTR pszClass, LPCTSTR pszName, LPCTSTR 
 
 				if ( pszAddress && *pszAddress )
 				{
-					CXMLElement* pAddress = pGroup->AddElement( _T("address") );
-					pAddress->AddAttribute( _T("name"), pszName );
-					pAddress->AddAttribute( _T("content"), pszAddress );
+					CXMLElement* pAddress = pGroup->AddElement( L"address" );
+					pAddress->AddAttribute( L"name", pszName );
+					pAddress->AddAttribute( L"content", pszAddress );
 				}
 				else if ( pGroup->GetElementCount() == 0 )
 				{
@@ -227,12 +227,12 @@ void CContactProfilePage::AddAddress(LPCTSTR pszClass, LPCTSTR pszName, LPCTSTR 
 
 		if ( pszAddress && *pszAddress )
 		{
-			CXMLElement* pGroup = pContacts->AddElement( _T("group") );
-			pGroup->AddAttribute( _T("class"), pszClass );
+			CXMLElement* pGroup = pContacts->AddElement( L"group" );
+			pGroup->AddAttribute( L"class", pszClass );
 
-			CXMLElement* pAddress = pGroup->AddElement( _T("address") );
-			pAddress->AddAttribute( _T("name"), pszName );
-			pAddress->AddAttribute( _T("content"), pszAddress );
+			CXMLElement* pAddress = pGroup->AddElement( L"address" );
+			pAddress->AddAttribute( L"name", pszName );
+			pAddress->AddAttribute( L"content", pszAddress );
 		}
 		else if ( pContacts->GetElementCount() == 0 )
 		{

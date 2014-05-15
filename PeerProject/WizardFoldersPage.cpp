@@ -1,7 +1,7 @@
 //
 // WizardFoldersPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2011-2012
+// This file is part of PeerProject (peerproject.org) © 2011-2014
 //
 // PeerProject is free software. You may redistribute and/or modify it
 // under the terms of the GNU Affero General Public License
@@ -73,7 +73,7 @@ BOOL CWizardFoldersPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	Skin.Apply( _T("CWizardFoldersPage"), this );
+	Skin.Apply( L"CWizardFoldersPage", this );
 
 	m_wndDownloadsBrowse.SetIcon( IDI_BROWSE );
 	m_wndIncompleteBrowse.SetIcon( IDI_BROWSE );
@@ -119,7 +119,7 @@ BOOL CWizardFoldersPage::OnSetActive()
 
 void CWizardFoldersPage::OnDownloadsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for downloads:"), m_sDownloadsPath ) );
+	CString strPath( BrowseForFolder( L"Select folder for downloads:", m_sDownloadsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -139,13 +139,13 @@ void CWizardFoldersPage::OnDownloadsBrowse()
 
 	UpdateData( TRUE );
 	m_sDownloadsPath = strPath;
-	m_sTorrentsPath  = strPath + _T("\\Torrents");
+	m_sTorrentsPath  = strPath + L"\\Torrents";
 	UpdateData( FALSE );
 }
 
 void CWizardFoldersPage::OnIncompleteBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for incomplete files:"), m_sIncompletePath ) );
+	CString strPath( BrowseForFolder( L"Select folder for incomplete files:", m_sIncompletePath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -177,7 +177,7 @@ void CWizardFoldersPage::OnIncompleteBrowse()
 
 void CWizardFoldersPage::OnTorrentsBrowse()
 {
-	CString strPath( BrowseForFolder( _T("Select folder for torrents:"), m_sTorrentsPath ) );
+	CString strPath( BrowseForFolder( L"Select folder for torrents:", m_sTorrentsPath ) );
 	if ( strPath.IsEmpty() )
 		return;
 
@@ -223,14 +223,14 @@ void CWizardFoldersPage::DoDonkeyImport()
 
 	LPCTSTR pszFolders[] =
 	{
-		_T("c:\\Program Files\\eMule\\temp"),
-		_T("c:\\Program Files\\aMule\\temp"),
-		_T("c:\\Program Files\\Neo Mule\\temp"),
-		//_T("c:\\Program Files\\eDonkey2000\\temp"),
+		L"c:\\Program Files\\eMule\\temp",
+		L"c:\\Program Files\\aMule\\temp",
+		L"c:\\Program Files\\Neo Mule\\temp",
+		//L"c:\\Program Files\\eDonkey2000\\temp",
 #ifdef WIN64
-		_T("c:\\Program Files (x86)\\eMule\\temp"),
-		_T("c:\\Program Files (x86)\\aMule\\temp"),
-		_T("c:\\Program Files (x86)\\Neo Mule\\temp"),
+		L"c:\\Program Files (x86)\\eMule\\temp",
+		L"c:\\Program Files (x86)\\aMule\\temp",
+		L"c:\\Program Files (x86)\\Neo Mule\\temp",
 #endif
 		NULL
 	};

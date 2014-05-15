@@ -271,10 +271,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="WebHook.def" />
     <None Include="3000.html" />
     <None Include="Object.rgs" />
     <None Include="WebHook.rgs" />
+    <None Include="WebHook.def" />
   </ItemGroup>
   <ItemGroup>
     <Midl Include="WebHook.idl" />
@@ -283,7 +283,6 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="TargetVer.h" />
     <ClInclude Include="WebHook_i.h" />
   </ItemGroup>
   <ItemGroup>

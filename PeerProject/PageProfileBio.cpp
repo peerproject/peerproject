@@ -1,7 +1,7 @@
 //
 // PageProfileBio.cpp : implementation file
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -58,7 +58,7 @@ BOOL CBioProfilePage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes") ) )
+	if ( CXMLElement* pNotes = MyProfile.GetXML( L"notes" ) )
 		m_wndText.SetWindowText( pNotes->GetValue() );
 
 	UpdateData( FALSE );
@@ -68,7 +68,7 @@ BOOL CBioProfilePage::OnInitDialog()
 
 void CBioProfilePage::OnOK()
 {
-	if ( CXMLElement* pNotes = MyProfile.GetXML( _T("notes"), TRUE ) )
+	if ( CXMLElement* pNotes = MyProfile.GetXML( L"notes", TRUE ) )
 	{
 		CString str;
 		m_wndText.GetWindowText( str );

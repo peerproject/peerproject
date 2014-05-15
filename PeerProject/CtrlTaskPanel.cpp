@@ -1,7 +1,7 @@
 //
 // CtrlTaskPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -63,9 +63,9 @@ END_MESSAGE_MAP()
 
 CTaskPanel::CTaskPanel()
 	: m_pStretch	( NULL )
+	, m_bLayout		( FALSE )
 //	, m_nMargin 	( 12 )
 //	, m_nCurve		( 2 )
-	, m_bLayout		( FALSE )
 {
 }
 
@@ -157,7 +157,7 @@ void CTaskPanel::SetFooter(LPCTSTR szWatermark)
 	if ( m_bmFooter.m_hObject != NULL ) m_bmFooter.DeleteObject();
 
 	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
-	if ( hBitmap != NULL)
+	if ( hBitmap != NULL )
 		m_bmFooter.Attach( hBitmap );
 	else if ( Colors.m_crTaskPanelBack == RGB( 122, 160, 230 ) )	// Not RGB_DEFAULT_CASE
 		m_bmFooter.LoadBitmap( IDB_TASKPANEL_FOOTER );
@@ -192,8 +192,8 @@ BOOL CTaskPanel::OnEraseBkgnd(CDC* /*pDC*/)
 void CTaskPanel::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rc;
 
+	CRect rc;
 	GetClientRect( &rc );
 
 	if ( m_bLayout ) Layout( rc );
@@ -331,8 +331,8 @@ BOOL CTaskBox::Create(CTaskPanel* pPanel, int nHeight, LPCTSTR pszCaption, UINT 
 		CoolInterface.SetIcon( nIDIcon, Settings.General.LanguageRTL, FALSE, this );
 
 	CString strKey;
-	strKey.Format( _T("%s.Open"), (LPCTSTR)CString( GetRuntimeClass()->m_lpszClassName ) );
-	m_bOpen = theApp.GetProfileInt( _T("Interface"), strKey, TRUE );
+	strKey.Format( L"%s.Open", (LPCTSTR)CString( GetRuntimeClass()->m_lpszClassName ) );
+	m_bOpen = theApp.GetProfileInt( L"Interface", strKey, TRUE );
 
 	return TRUE;
 }
@@ -396,7 +396,7 @@ void CTaskBox::SetCaptionmark(LPCTSTR szWatermark)
 	HBITMAP hBitmap = Skin.GetWatermark( szWatermark );
 
 	if ( hBitmap == NULL )
-		hBitmap = Skin.GetWatermark( _T("CTaskBox.Caption") );
+		hBitmap = Skin.GetWatermark( L"CTaskBox.Caption" );
 
 	if ( hBitmap != NULL )
 		m_bmCaptionmark.Attach( hBitmap );
@@ -425,8 +425,8 @@ void CTaskBox::Expand(BOOL bOpen)
 	}
 
 	CString strKey;
-	strKey.Format( _T("%s.Open"), (LPCTSTR)CString( GetRuntimeClass()->m_lpszClassName ) );
-	theApp.WriteProfileInt( _T("Interface"), strKey, m_bOpen );
+	strKey.Format( L"%s.Open", (LPCTSTR)CString( GetRuntimeClass()->m_lpszClassName ) );
+	theApp.WriteProfileInt( L"Interface", strKey, m_bOpen );
 
 	InvalidateNonclient();
 }

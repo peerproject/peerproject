@@ -1,7 +1,7 @@
 //
 // QueryHashTable.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -359,24 +359,24 @@ bool CQueryHashTable::PatchTo(const CQueryHashTable* pTarget,
 	BYTE nBits = 4;
 
 	if ( pNeighbour->m_nProtocol == PROTOCOL_G2 ||
-		 pNeighbour->m_sUserAgent.Find( _T("Shareaza") ) == 0 ||
-		 pNeighbour->m_sUserAgent.Find( _T("PeerProject") ) == 0 )	// ToDo: Is this still correct ?
+		 pNeighbour->m_sUserAgent.Find( L"Shareaza" ) == 0 ||
+		 pNeighbour->m_sUserAgent.Find( L"PeerProject" ) == 0 )	// ToDo: Is this still correct ?
 		nBits = 1;
 
 	// Obsolete Shareaza 1.x fix?
-	//else if ( pNeighbour->m_sUserAgent.Find( _T("Shareaza") ) == 0 )
+	//else if ( pNeighbour->m_sUserAgent.Find( L"Shareaza" ) == 0 )
 	//{
 	//	LPCTSTR pszAgent = pNeighbour->m_sUserAgent;
 	//
-	//	if ( _tcsstr( pszAgent, _T(" 1.3") ) ||
-	//		 _tcsstr( pszAgent, _T(" 1.2") ) ||
-	//		 _tcsstr( pszAgent, _T(" 1.1") ) ||
-	//		 _tcsstr( pszAgent, _T(" 1.0") ) )
+	//	if ( _tcsstr( pszAgent, L" 1.3" ) ||
+	//		 _tcsstr( pszAgent, L" 1.2" ) ||
+	//		 _tcsstr( pszAgent, L" 1.1" ) ||
+	//		 _tcsstr( pszAgent, L" 1.0" ) )
 	//		return PatchToOldShareaza( pTarget, pNeighbour );
 	//
-	//	if ( _tcsstr( pszAgent, _T(" 1.4") ) == NULL &&
-	//		 _tcsstr( pszAgent, _T(" 1.5") ) == NULL &&
-	//		 _tcsstr( pszAgent, _T(" 1.6.0") ) == NULL )
+	//	if ( _tcsstr( pszAgent, L" 1.4" ) == NULL &&
+	//		 _tcsstr( pszAgent, L" 1.5" ) == NULL &&
+	//		 _tcsstr( pszAgent, L" 1.6.0" ) == NULL )
 	//		nBits = 1;
 	//}
 

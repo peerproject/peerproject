@@ -1,7 +1,7 @@
 //
 // LibraryList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -145,6 +145,7 @@ CLibraryListItem& CLibraryListItem::operator = (const CLibraryListItem& val)
 	return *this;
 }
 
+
 //////////////////////////////////////////////////////////////////////
 // CLibraryList
 
@@ -199,7 +200,7 @@ IMPLEMENT_DISPATCH(CLibraryList, GenericView)
 STDMETHODIMP CLibraryList::XGenericView::get_Name(BSTR FAR* psName)
 {
 	METHOD_PROLOGUE( CLibraryList, GenericView )
-	*psName = CComBSTR( _T("CLibraryFileView") ).Detach();
+	*psName = CComBSTR( L"CLibraryFileView" ).Detach();
 	return S_OK;
 }
 

@@ -1,7 +1,7 @@
 //
 // PageOutput.cpp
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008,2012-2014
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -78,18 +78,18 @@ BOOL COutputPage::OnInitDialog()
 {
 	CWizardPage::OnInitDialog();
 
-	int nCount		= theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
-	m_bAutoPieces	= theApp.GetProfileInt( _T("Folders"), _T("AutoPieceSize"), TRUE );
-	m_nPieceIndex	= theApp.GetProfileInt( _T("Folders"), _T("PieceSize"), 0 );
-	m_bSHA1 		= theApp.GetProfileInt( _T("Folders"), _T("SHA1"), TRUE );
-	m_bED2K 		= theApp.GetProfileInt( _T("Folders"), _T("ED2K"), TRUE );
-	m_bMD5			= theApp.GetProfileInt( _T("Folders"), _T("MD5"), TRUE );
+	int nCount		= theApp.GetProfileInt( L"Folders", L"Count", 0 );
+	m_bAutoPieces	= theApp.GetProfileInt( L"Folders", L"AutoPieceSize", TRUE );
+	m_nPieceIndex	= theApp.GetProfileInt( L"Folders", L"PieceSize", 0 );
+	m_bSHA1 		= theApp.GetProfileInt( L"Folders", L"SHA1", TRUE );
+	m_bED2K 		= theApp.GetProfileInt( L"Folders", L"ED2K", TRUE );
+	m_bMD5			= theApp.GetProfileInt( L"Folders", L"MD5", TRUE );
 
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
 		CString strName;
-		strName.Format( _T("%.3i.Path"), nItem + 1 );
-		CString strURL = theApp.GetProfileString( _T("Folders"), strName );
+		strName.Format( L"%.3i.Path", nItem + 1 );
+		CString strURL = theApp.GetProfileString( L"Folders", strName );
 		if ( ! strURL.IsEmpty() )
 			m_wndFolders.AddString( strURL );
 	}
@@ -122,7 +122,7 @@ BOOL COutputPage::OnSetActive()
 		if ( LPCTSTR pszSlash = _tcsrchr( strFile, '\\' ) )
 		{
 			m_sName = pszSlash + 1;
-			m_sName += _T(".torrent");
+			m_sName += L".torrent";
 
 			if ( m_sFolder.IsEmpty() )
 				m_sFolder = strFile.Left( (int)( pszSlash - strFile ) );
@@ -152,22 +152,22 @@ BOOL COutputPage::OnSetActive()
 		}
 
 		// Use parent folder name as torrent name
-		int nSlash = sName.ReverseFind( _T('\\') );
+		int nSlash = sName.ReverseFind( L'\\' );
 		if ( nSlash != -1 )
 		{
 			sName = sName.Left( nSlash );
-			nSlash = sName.ReverseFind( _T('\\') );
+			nSlash = sName.ReverseFind( L'\\' );
 			if ( nSlash != -1 )
-				m_sName = sName.Mid( nSlash + 1 ) + _T(".torrent");
+				m_sName = sName.Mid( nSlash + 1 ) + L".torrent";
 		}
 
 		if ( m_sFolder.IsEmpty() )
-			m_sFolder = theApp.GetProfileString( _T("Folders"), _T("Last") );
+			m_sFolder = theApp.GetProfileString( L"Folders", L"Last" );
 
 		if ( ! m_sFolder.IsEmpty() && m_sName.IsEmpty() )
 		{
 			m_sName = PathFindFileName( m_sFolder );
-			m_sName += _T(".torrent");
+			m_sName += L".torrent";
 		}
 	}
 
@@ -194,7 +194,7 @@ void COutputPage::OnBrowseFolder()
 	ZeroMemory( &pBI, sizeof(pBI) );
 	pBI.hwndOwner		= GetSafeHwnd();
 	pBI.pszDisplayName	= szPath;
-	pBI.lpszTitle		= _T("Select folder:");
+	pBI.lpszTitle		= L"Select folder:";
 	pBI.ulFlags			= BIF_RETURNONLYFSDIRS | BIF_NEWDIALOGSTYLE;
 
 	pPath = SHBrowseForFolder( &pBI );
@@ -212,12 +212,12 @@ void COutputPage::OnBrowseFolder()
 
 void COutputPage::OnClearFolders()
 {
-	theApp.WriteProfileInt( _T("Folders"), _T("Count"), 0 );
-	theApp.WriteProfileInt( _T("Folders"), _T("AutoPieceSize"), m_bAutoPieces );
-	theApp.WriteProfileInt( _T("Folders"), _T("SHA1"), m_bSHA1 );
-	theApp.WriteProfileInt( _T("Folders"), _T("ED2K"), m_bED2K );
-	theApp.WriteProfileInt( _T("Folders"), _T("MD5"), m_bMD5 );
-	theApp.WriteProfileInt( _T("Folders"), _T("PieceSize"), m_nPieceIndex );
+	theApp.WriteProfileInt( L"Folders", L"Count", 0 );
+	theApp.WriteProfileInt( L"Folders", L"AutoPieceSize", m_bAutoPieces );
+	theApp.WriteProfileInt( L"Folders", L"SHA1", m_bSHA1 );
+	theApp.WriteProfileInt( L"Folders", L"ED2K", m_bED2K );
+	theApp.WriteProfileInt( L"Folders", L"MD5", m_bMD5 );
+	theApp.WriteProfileInt( L"Folders", L"PieceSize", m_nPieceIndex );
 	m_sFolder.Empty();
 	UpdateData( FALSE );
 	m_wndFolders.ResetContent();
@@ -241,7 +241,7 @@ LRESULT COutputPage::OnWizardNext()
 	}
 
 	const CString strFolder = ( m_sFolder.GetLength() < MAX_PATH ) ?
-		m_sFolder : ( CString( _T("\\\\?\\") ) + m_sFolder );
+		m_sFolder : ( CString( L"\\\\?\\" ) + m_sFolder );
 
 	if ( GetFileAttributes( strFolder ) == 0xFFFFFFFF )
 	{
@@ -270,13 +270,13 @@ LRESULT COutputPage::OnWizardNext()
 		return -1;
 	}
 
-	if ( _tcsicmp( PathFindExtension( m_sName ), _T(".torrent") ) != 0 )
+	if ( _tcsicmp( PathFindExtension( m_sName ), L".torrent" ) != 0 )
 	{
 		UINT nResp = AfxMessageBox( IDS_OUTPUT_EXTENSION, MB_ICONQUESTION|MB_YESNOCANCEL );
 
 		if ( nResp == IDYES )
 		{
-			m_sName += _T(".torrent");
+			m_sName += L".torrent";
 			UpdateData( FALSE );
 		}
 		else if ( nResp != IDNO )
@@ -286,9 +286,9 @@ LRESULT COutputPage::OnWizardNext()
 		}
 	}
 
-	CString strPath = m_sFolder + '\\' + m_sName;
+	CString strPath = m_sFolder + L'\\' + m_sName;
 	if ( strPath.GetLength() > MAX_PATH )
-		strPath = CString( _T("\\\\?\\") ) + strPath;
+		strPath = CString( L"\\\\?\\" ) + strPath;
 
 	if ( GetFileAttributes( strPath ) != INVALID_FILE_ATTRIBUTES )
 	{
@@ -307,18 +307,18 @@ LRESULT COutputPage::OnWizardNext()
 		m_wndFolders.AddString( m_sFolder );
 
 		CString strName;
-		int nCount = theApp.GetProfileInt( _T("Folders"), _T("Count"), 0 );
-		strName.Format( _T("%.3i.Path"), ++nCount );
-		theApp.WriteProfileInt( _T("Folders"), _T("Count"), nCount );
-		theApp.WriteProfileString( _T("Folders"), strName, m_sFolder );
+		int nCount = theApp.GetProfileInt( L"Folders", L"Count", 0 );
+		strName.Format( L"%.3i.Path", ++nCount );
+		theApp.WriteProfileInt( L"Folders", L"Count", nCount );
+		theApp.WriteProfileString( L"Folders", strName, m_sFolder );
 	}
 
-	theApp.WriteProfileString( _T("Folders"), _T("Last"), m_sFolder );
-	theApp.WriteProfileInt( _T("Folders"), _T("AutoPieceSize"), m_bAutoPieces );
-	theApp.WriteProfileInt( _T("Folders"), _T("SHA1"), m_bSHA1 );
-	theApp.WriteProfileInt( _T("Folders"), _T("ED2K"), m_bED2K );
-	theApp.WriteProfileInt( _T("Folders"), _T("MD5"), m_bMD5 );
-	theApp.WriteProfileInt( _T("Folders"), _T("PieceSize"), m_nPieceIndex );
+	theApp.WriteProfileString( L"Folders", L"Last", m_sFolder );
+	theApp.WriteProfileInt( L"Folders", L"AutoPieceSize", m_bAutoPieces );
+	theApp.WriteProfileInt( L"Folders", L"SHA1", m_bSHA1 );
+	theApp.WriteProfileInt( L"Folders", L"ED2K", m_bED2K );
+	theApp.WriteProfileInt( L"Folders", L"MD5", m_bMD5 );
+	theApp.WriteProfileInt( L"Folders", L"PieceSize", m_nPieceIndex );
 
 	return IDD_FINISHED_PAGE;
 }

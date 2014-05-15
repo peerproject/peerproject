@@ -26,7 +26,7 @@ class CPluginWnd : public CPanelWnd
 	DECLARE_DYNCREATE(CPluginWnd)
 
 public:
-	CPluginWnd(LPCTSTR pszName = _T(""), IPluginWindowOwner* pOwner = NULL);
+	CPluginWnd(LPCTSTR pszName = L"", IPluginWindowOwner* pOwner = NULL);
 	virtual ~CPluginWnd();
 
 public:

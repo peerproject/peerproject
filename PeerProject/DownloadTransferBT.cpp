@@ -53,7 +53,7 @@ CDownloadTransferBT::CDownloadTransferBT(CDownloadSource* pSource, CBTClient* pC
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	m_nState			= pClient ? dtsConnecting : dtsNull;
-	m_sUserAgent		= _T("BitTorrent");
+	m_sUserAgent		= L"BitTorrent";
 }
 
 CDownloadTransferBT::~CDownloadTransferBT()
@@ -74,7 +74,7 @@ BOOL CDownloadTransferBT::Initiate()
 	ASSERT( m_pClient == NULL );
 	ASSERT( m_nState == dtsNull );
 
-	theApp.Message( MSG_DEBUG, _T("Connecting to BitTorrent host %s..."), (LPCTSTR)CString( inet_ntoa( m_pSource->m_pAddress ) ) );
+	theApp.Message( MSG_DEBUG, L"Connecting to BitTorrent host %s...", (LPCTSTR)CString( inet_ntoa( m_pSource->m_pAddress ) ) );
 
 	m_pClient = new CBTClient();
 	if ( ! m_pClient->Connect( this ) )
@@ -238,7 +238,7 @@ BOOL CDownloadTransferBT::OnConnected()
 	{
 		// This source is only here to push start torrent uploads. (We don't want to download)
 		m_bInterested = FALSE;
-		theApp.Message( MSG_INFO, _T("Initiated push start for upload to %s"), (LPCTSTR)m_sAddress );
+		theApp.Message( MSG_INFO, L"Initiated push start for upload to %s", (LPCTSTR)m_sAddress );
 	}
 	else
 	{
@@ -377,7 +377,7 @@ void CDownloadTransferBT::ShowInterest()
 		const QWORD nBlockSize = m_pDownload->m_pTorrent.m_nBlockSize;
 		if ( ! nBlockSize )
 		{
-			theApp.Message( MSG_DEBUG, _T("Torrent block size missing.") );
+			theApp.Message( MSG_DEBUG, L"Torrent block size missing." );
 			return;
 		}
 
@@ -428,7 +428,7 @@ BOOL CDownloadTransferBT::OnChoked(CBTPacket* /*pPacket*/)
 	m_bChoked = TRUE;
 	SetState( dtsTorrent );
 
-	theApp.Message( MSG_DEBUG, _T("Download from %s was choked."), (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_DEBUG, L"Download from %s was choked.", (LPCTSTR)m_sAddress );
 
 	//for ( Fragments::Queue::const_iterator pFragment = m_oRequested.begin() ;
 	//	pFragment != m_oRequested.end() ; ++pFragment )
@@ -452,7 +452,7 @@ BOOL CDownloadTransferBT::OnUnchoked(CBTPacket* /*pPacket*/)
 	SetState( dtsTorrent );
 	m_oRequested.clear();
 
-	theApp.Message( MSG_DEBUG, _T("Download from %s was Unchoked."), (LPCTSTR)m_sAddress );
+	theApp.Message( MSG_DEBUG, L"Download from %s was Unchoked.", (LPCTSTR)m_sAddress );
 
 	return SendFragmentRequests();
 }
@@ -575,7 +575,7 @@ bool CDownloadTransferBT::SendFragmentRequests()
 		{
 			// Then activate endgame
 			m_pDownload->m_bTorrentEndgame = true;
-			theApp.Message( MSG_DEBUG, _T("Torrent EndGame mode activated for %s"), m_pDownload->m_sName );
+			theApp.Message( MSG_DEBUG, L"Torrent EndGame mode activated for %s", m_pDownload->m_sName );
 		}
 	}
 
@@ -670,7 +670,7 @@ BOOL CDownloadTransferBT::OnPiece(CBTPacket* pPacket)
 
 	BOOL bSuccess = m_pDownload->SubmitData( nOffset, pPacket->m_pBuffer + pPacket->m_nPosition, nLength );
 	if ( ! bSuccess )
-		TRACE( _T("[BT] Failed to submit data %I64u-%I64u to \"%s\".\n"), nOffset, nOffset + nLength, m_pDownload->m_sPath );
+		TRACE( L"[BT] Failed to submit data %I64u-%I64u to \"%s\".\n", nOffset, nOffset + nLength, m_pDownload->m_sPath );
 
 	// Note: SendRequests and ShowInterest are combined...  (Both use high CPU GetWantedFragmentsList)
 	// SendRequests is also going to tell if we are interested or not
@@ -716,7 +716,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 			SOCKADDR_IN saPeer = {};
 			if ( ! Network.Resolve( pIP->GetString(), (int)pPort->GetInt(), &saPeer ) ) continue;
 
-			theApp.Message( MSG_DEBUG, _T("CDownloadTransferBT::OnSourceResponse(): %s: %s:%i"),
+			theApp.Message( MSG_DEBUG, L"CDownloadTransferBT::OnSourceResponse(): %s: %s:%i",
 				(LPCTSTR)m_sAddress, (LPCTSTR)CString( inet_ntoa( saPeer.sin_addr ) ), htons( saPeer.sin_port ) );
 
 			const CBENode* pID = pPeer->GetNode( BT_DICT_PEER_ID );			// "peer id"

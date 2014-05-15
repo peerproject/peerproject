@@ -183,7 +183,7 @@ BOOL CSettingsSheet::SetActivePage(CSettingsPage* pPage)
 	m_pPage->GetWindowText( strCaption );
 	strCaption.Trim();
 	if ( ! strCaption.IsEmpty() )
-		SetWindowText( m_sCaption + _T(" - ") + strCaption );
+		SetWindowText( m_sCaption + L" - " + strCaption );
 	else
 		SetWindowText( m_sCaption );
 
@@ -269,11 +269,11 @@ BOOL CSettingsSheet::OnInitDialog()
 		// Note: If needed, use TVS_NOHSCROLL instead to add vertical scrollbar to Settings TreeView
 	m_wndTree.SetIndent( 16 );
 
-	m_wndOK.Create( _T("OK"), WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
+	m_wndOK.Create( L"OK", WS_CHILD|WS_TABSTOP|WS_VISIBLE|BS_DEFPUSHBUTTON, rect, this, IDOK );
 	m_wndOK.SetFont( &theApp.m_gdiFont );
-	m_wndCancel.Create( _T("Cancel"), WS_CHILD|WS_TABSTOP|WS_VISIBLE, rect, this, IDCANCEL );
+	m_wndCancel.Create( L"Cancel", WS_CHILD|WS_TABSTOP|WS_VISIBLE, rect, this, IDCANCEL );
 	m_wndCancel.SetFont( &theApp.m_gdiFont );
-	m_wndApply.Create( _T("Apply"), WS_CHILD|WS_TABSTOP|WS_VISIBLE, rect, this, IDRETRY );
+	m_wndApply.Create( L"Apply", WS_CHILD|WS_TABSTOP|WS_VISIBLE, rect, this, IDRETRY );
 	m_wndApply.SetFont( &theApp.m_gdiFont );
 
 	if ( m_pFirst == NULL ) m_pFirst = GetPage( INT_PTR(0) );

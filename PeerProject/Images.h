@@ -122,6 +122,7 @@ public:
 
 	void		Load();
 	void		DeleteObjects();
+	void		BlendAlpha(CBitmap* bmImage, COLORREF crBlend = RGB(255,255,255));
 	BOOL		PreBlend(HBITMAP hButton);
 	BOOL		DrawButtonState(CDC* pDC, const CRect* rc, const int nResource);
 	BOOL		DrawButtonMap(CDC* pDC, const CRect* rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);

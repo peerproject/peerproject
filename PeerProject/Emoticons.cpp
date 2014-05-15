@@ -1,7 +1,7 @@
 //
 // Emoticons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -172,7 +172,7 @@ BOOL CEmoticons::Load()
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR24|ILC_MASK, 1, 8 ) ||
 		m_pImage.Create( EMOTICON_SIZE, EMOTICON_SIZE, ILC_COLOR16|ILC_MASK, 1, 8 );
 
-	if ( ! LoadXML( Settings.General.Path + _T("\\Data\\Emoticons.xml") ) )		// Settings.General.DataPath ?
+	if ( ! LoadXML( Settings.General.Path + L"\\Data\\Emoticons.xml" ) )		// Settings.General.DataPath ?
 		return FALSE;
 
 	BuildTokens();
@@ -327,10 +327,10 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 	if ( pXML == NULL ) return FALSE;
 
 	strPath = pszFile;
-	int nSlash = strPath.ReverseFind( '\\' );
+	int nSlash = strPath.ReverseFind( L'\\' );
 	if ( nSlash >= 0 ) strPath = strPath.Left( nSlash + 1 );
 
-	CXMLElement* pBitmap = pXML->GetElementByName( _T("bitmap") );
+	CXMLElement* pBitmap = pXML->GetElementByName( L"bitmap" );
 
 	if ( pBitmap == NULL )
 	{
@@ -338,9 +338,9 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 		return FALSE;
 	}
 
-	strValue = pBitmap->GetAttributeValue( _T("file") );
+	strValue = pBitmap->GetAttributeValue( L"file" );
 
-	nSlash = strValue.ReverseFind( '/' );
+	nSlash = strValue.ReverseFind( L'/' );
 	if ( nSlash >= 0 ) strValue = strValue.Mid( nSlash + 1 );
 	strValue = strPath + strValue;
 
@@ -359,22 +359,22 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pEmoticon = pXML->GetNextElement( pos );
-		if ( ! pEmoticon->IsNamed( _T("emoticon") ) ) continue;
+		if ( ! pEmoticon->IsNamed( L"emoticon" ) ) continue;
 
-		CXMLElement* pSource = pEmoticon->GetElementByName( _T("source") );
-		CString strText = pEmoticon->GetAttributeValue( _T("text") );
+		CXMLElement* pSource = pEmoticon->GetElementByName( L"source" );
+		CString strText = pEmoticon->GetAttributeValue( L"text" );
 		CRect rc( 0, 0, 0, 0 );
 
-		strValue = pSource->GetAttributeValue( _T("left"), _T("0") );
-		_stscanf( strValue, _T("%i"), &rc.left );
-		strValue = pSource->GetAttributeValue( _T("top"), _T("0") );
-		_stscanf( strValue, _T("%i"), &rc.top );
-		strValue = pSource->GetAttributeValue( _T("right"), _T("0") );
-		_stscanf( strValue, _T("%i"), &rc.right );
-		strValue = pSource->GetAttributeValue( _T("bottom"), _T("0") );
-		_stscanf( strValue, _T("%i"), &rc.bottom );
+		strValue = pSource->GetAttributeValue( L"left", L"0" );
+		_stscanf( strValue, L"%i", &rc.left );
+		strValue = pSource->GetAttributeValue( L"top", L"0" );
+		_stscanf( strValue, L"%i", &rc.top );
+		strValue = pSource->GetAttributeValue( L"right", L"0" );
+		_stscanf( strValue, L"%i", &rc.right );
+		strValue = pSource->GetAttributeValue( L"bottom", L"0" );
+		_stscanf( strValue, L"%i", &rc.bottom );
 
-		BOOL bButton = pEmoticon->GetAttributeValue( _T("button") ).CompareNoCase( _T("yes") ) == 0;
+		BOOL bButton = pEmoticon->GetAttributeValue( L"button" ).CompareNoCase( L"yes" ) == 0;
 
 		AddEmoticon( strText, &pImage, &rc, crBack, bButton );
 	}
@@ -389,7 +389,7 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 
 void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNewlines, COLORREF cr)
 {
-	static LPCTSTR pszURLs[] = { _T("\r"), _T("\n"), _T("http://"), _T("https://"), _T("ftp://"), _T("mailto:"), _T("aim:"), _T("www."), _T("magnet:?"), _T("ed2k://"), _T("dchub://"), _T("gnutella:"), _T("gnutella1:"), _T("gnutella2:"), _T("g2://"), _T("gnet:"), _T("peer:"), _T("peerproject:"), _T("shareaza:"), _T("raza:"), _T("gwc:"), _T("uhc:"), _T("ukhl:"), _T("mp2p:"), _T("sig2dat:"), NULL };
+	static LPCTSTR pszURLs[] = { L"\r", L"\n", L"http://", L"https://", L"ftp://", L"mailto:", L"aim:", L"www.", L"magnet:?", L"ed2k://", L"dchub://", L"gnutella:", L"gnutella1:", L"gnutella2:", L"g2://", L"gnet:", L"peer:", L"peerproject:", L"shareaza:", L"raza:", L"gwc:", L"uhc:", L"ukhl:", L"mp2p:", L"sig2dat:", NULL };
 	BOOL bBold = FALSE, bItalic = FALSE, bUnderline = FALSE;
 	CString str;
 
@@ -437,7 +437,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 
 		if ( pszEmoticon == pszBody )
 		{
-			str.Format( _T("%i"), nEmoticon );
+			str.Format( L"%i", nEmoticon );
 			pDocument->Add( retEmoticon, str );
 			pszBody += _tcslen( GetText( nEmoticon ) );
 			continue;
@@ -445,7 +445,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 		else if ( pszBody[0] == '\r' || pszBody[0] == '\n' )
 		{
 			if ( bNewlines )
-				pDocument->Add( retNewline, _T("4") );
+				pDocument->Add( retNewline, L"4" );
 
 			pszBody ++;
 			continue;
@@ -455,7 +455,7 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 			for ( ; *pszToken ; pszToken++ )
 			{
 				if ( ! _istalnum( *pszToken ) &&
-					_tcschr( _T(":@/?=&%._-+;~#"), *pszToken ) == NULL )
+					_tcschr( L":@/?=&%._-+;~#", *pszToken ) == NULL )
 				{
 					break;
 				}
@@ -466,8 +466,8 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 			str = pszBody;
 			*(LPTSTR)pszToken = cSave;
 
-			if ( _tcsnicmp( str, _T("www."), 4 ) == 0 )
-				str = _T("http://") + str;
+			if ( _tcsnicmp( str, L"www.", 4 ) == 0 )
+				str = L"http://" + str;
 
 			pDocument->Add( retLink, str, str,
 				( bBold ? retfBold : 0 ) |
@@ -476,42 +476,42 @@ void CEmoticons::FormatText(CRichDocument* pDocument, LPCTSTR pszBody, BOOL bNew
 
 			pszBody = pszToken;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[b]"), 3 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[b]", 3 ) == 0 )
 		{
 			bBold = TRUE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[/b]"), 4 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[/b]", 4 ) == 0 )
 		{
 			bBold = FALSE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[i]"), 3 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[i]", 3 ) == 0 )
 		{
 			bItalic = TRUE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[/i]"), 4 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[/i]", 4 ) == 0 )
 		{
 			bItalic = FALSE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[u]"), 3 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[u]", 3 ) == 0 )
 		{
 			bUnderline = TRUE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[/u]"), 4 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[/u]", 4 ) == 0 )
 		{
 			bUnderline = FALSE;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[/c]"), 4 ) == 0 )
+		else if ( _tcsnicmp( pszBody, L"[/c]", 4 ) == 0 )
 		{
 			cr = 0;
 		}
-		else if ( _tcsnicmp( pszBody, _T("[c:#"), 4 ) == 0 && _tcslen( pszBody ) >= 4 + 6 + 1 )
+		else if ( _tcsnicmp( pszBody, L"[c:#", 4 ) == 0 && _tcslen( pszBody ) >= 4 + 6 + 1 )
 		{
 			_tcsncpy_s( str.GetBuffer( 7 ), 7, pszBody + 4, 6 );
 			str.ReleaseBuffer( 6 );
 			int nRed = 0, nGreen = 0, nBlue = 0;
-			_stscanf( str.Mid( 0, 2 ), _T("%x"), &nRed );
-			_stscanf( str.Mid( 2, 2 ), _T("%x"), &nGreen );
-			_stscanf( str.Mid( 4, 2 ), _T("%x"), &nBlue );
+			_stscanf( str.Mid( 0, 2 ), L"%x", &nRed );
+			_stscanf( str.Mid( 2, 2 ), L"%x", &nGreen );
+			_stscanf( str.Mid( 4, 2 ), L"%x", &nBlue );
 			cr = RGB( nRed, nGreen, nBlue );
 		}
 

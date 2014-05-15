@@ -22,11 +22,11 @@
 // 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA  (www.fsf.org)
 //
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Resource.h"
 #include "GFLLibraryBuilder.h"
 
-#define REG_LIBRARYBUILDER_KEY _T("Software\\PeerProject\\PeerProject\\Plugins\\LibraryBuilder")
+#define REG_LIBRARYBUILDER_KEY L"Software\\PeerProject\\PeerProject\\Plugins\\LibraryBuilder"
 
 class CGFLLibraryBuilderModule : public CAtlDllModuleT< CGFLLibraryBuilderModule >
 {
@@ -50,18 +50,18 @@ inline void FillExtMap()
 	{
 		GFL_FORMAT_INFORMATION info;
 		GFL_ERROR err = gflGetFormatInformationByIndex(i, &info);
-		if (err == GFL_NO_ERROR && (info.Status & GFL_READ))
+		if ( err == GFL_NO_ERROR && (info.Status & GFL_READ) )
 		{
 			CString name (info.Name);
 			CString desc (info.Description);
 			ATLTRACE( "%3d. %7s %32s :", i, info.Name, info.Description );
-			for (GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j)
+			for ( GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j )
 			{
 				CString ext (info.Extension [j]);
 				ext.MakeLower();
 				ATLTRACE( " .%s", ext );
-				if (!_ExtMap.Lookup(ext, tmp))
-					_ExtMap.SetAt(ext, name);
+				if ( !_ExtMap.Lookup( ext, tmp ) )
+					_ExtMap.SetAt( ext, name );
 			}
 			ATLTRACE( "\n" );
 		}
@@ -131,7 +131,7 @@ STDAPI DllCanUnloadNow(void)
 
 STDAPI DllGetClassObject(REFCLSID rclsid, REFIID riid, LPVOID* ppv)
 {
-	return _AtlModule.DllGetClassObject(rclsid, riid, ppv);
+	return _AtlModule.DllGetClassObject( rclsid, riid, ppv );
 }
 
 STDAPI DllRegisterServer(void)
@@ -143,13 +143,13 @@ STDAPI DllRegisterServer(void)
 	POSITION pos = _ExtMap.GetStartPosition();
 	while ( pos )
 	{
-		_ExtMap.GetNextAssoc(pos, ext, tmp);
-		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
-		ext.Insert(0, _T('.'));
+		_ExtMap.GetNextAssoc( pos, ext, tmp );
+		if ( ext == L"pdf" || ext == L"ps" || ext == L"eps" || ext == L"vst" ) continue;
+		ext.Insert( 0, L'.' );
 		ATLTRACE( "Add %s\n", CT2A(ext) );
-		SHSetValue(HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext, REG_SZ,
-			_T("{C937FE9E-FC47-49F8-A115-1925D95E1FE5}"),
-			38 * sizeof(TCHAR));
+		SHSetValue( HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext, REG_SZ,
+			L"{C937FE9E-FC47-49F8-A115-1925D95E1FE5}",
+			38 * sizeof(TCHAR) );
 	}
 
 	return hr;
@@ -164,11 +164,11 @@ STDAPI DllUnregisterServer(void)
 	POSITION pos = _ExtMap.GetStartPosition();
 	while ( pos )
 	{
-		_ExtMap.GetNextAssoc(pos, ext, tmp);
-		if ( ext == _T("pdf") || ext == _T("ps") || ext == _T("eps") || ext == _T("vst") ) continue;
-		ext.Insert(0, _T('.'));
+		_ExtMap.GetNextAssoc( pos, ext, tmp );
+		if ( ext == L"pdf" || ext == L"ps" || ext == L"eps" || ext == L"vst" ) continue;
+		ext.Insert( 0, L'.' );
 		ATLTRACE( "Remove %s\n", CT2A(ext) );
-		SHDeleteValue(HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext);
+		SHDeleteValue( HKEY_CURRENT_USER, REG_LIBRARYBUILDER_KEY, ext );
 	}
 
 	return hr;
@@ -176,22 +176,16 @@ STDAPI DllUnregisterServer(void)
 
 STDAPI DllInstall(BOOL bInstall, LPCWSTR pszCmdLine)
 {
-	HRESULT hr = E_FAIL;
 	static const wchar_t szUserSwitch[] = L"user";
 
-	if ( pszCmdLine && _wcsnicmp(pszCmdLine, szUserSwitch, _countof(szUserSwitch)) == 0 )
-		AtlSetPerUserRegistration(true);	// VS2008+
+	if ( pszCmdLine && _wcsnicmp( pszCmdLine, szUserSwitch, _countof(szUserSwitch) ) == 0 )
+		AtlSetPerUserRegistration( true );	// VS2008+
 
-	if ( bInstall )
-	{
-		hr = DllRegisterServer();
-		if ( FAILED(hr) )
-			DllUnregisterServer();
-	}
-	else
-	{
-		hr = DllUnregisterServer();
-	}
+	HRESULT hr = bInstall ?
+		DllRegisterServer() :
+		DllUnregisterServer();
+	if ( bInstall && FAILED( hr ) )
+		DllUnregisterServer();
 
 	return hr;
 }

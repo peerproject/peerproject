@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-<schema targetNamespace="http://www.shareaza.com/schemas/image.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
+<schema targetNamespace="http://schemas.peerproject.org/Image.xsd" version="1.0" xmlns="http://www.w3.org/2001/XMLSchema">
 
 	<mapping>
 		<network name="ed2k" value="Image"/>
 	</mapping>
-
 	<element name="images">
 		<complexType>
 			<element name="image" type="imageType" minOccurs="1" maxOccurs="unbounded"/>
 		</complexType>
 	</element>
-
 	<complexType name="imageType">
 		<all>
 			<attribute name="title" type="string"/>
@@ -62,6 +59,8 @@
 			<attribute name="releasegroupLink" type="uriReference"/>
 			<attribute name="keywords" type="string"/>
 			<attribute name="link" type="uriReference"/>
+			<attribute name="peertag" type="boolean"/>
+			<attribute name="peerinfo" type="string"/>
 		</all>
 	</complexType>
 

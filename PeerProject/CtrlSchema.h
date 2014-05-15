@@ -18,8 +18,8 @@
 
 #pragma once
 
-#define NO_VALUE		_T("(~ns~)")
-#define MULTI_VALUE		_T("(~mt~)")
+#define NO_VALUE		L"(~ns~)"
+#define MULTI_VALUE		L"(~mt~)"
 
 #include "Schema.h"
 

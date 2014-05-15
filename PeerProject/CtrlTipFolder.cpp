@@ -1,7 +1,7 @@
 //
 // CtrlTipFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -65,7 +65,7 @@ BOOL CFolderTipCtrl::OnPrepare()
 	m_sName = m_pLibraryFolder->m_sName;
 	m_sPath = m_pLibraryFolder->m_sPath;
 
-	m_sFiles.Format( _T("%lu"), m_pLibraryFolder->m_nFiles );
+	m_sFiles.Format( L"%lu", m_pLibraryFolder->m_nFiles );
 	m_sVolume = Settings.SmartVolume( m_pLibraryFolder->m_nVolume );
 
 	QWORD nTotal;
@@ -73,7 +73,7 @@ BOOL CFolderTipCtrl::OnPrepare()
 
 	if ( nTotal )
 	{
-		m_sPercentage.Format( _T("%.2f%% %s"),
+		m_sPercentage.Format( L"%.2f%% %s",
 			100.0 * ( m_pLibraryFolder->m_nVolume >> 10 ) / nTotal,
 			(LPCTSTR)LoadString( IDS_TIP_LIBRARY_PERCENT ) );
 	}

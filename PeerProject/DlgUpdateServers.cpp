@@ -1,7 +1,7 @@
 //
 // DlgUpdateServers.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -62,7 +62,7 @@ BOOL CUpdateServersDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CUpdateServersDlg"), IDR_MAINFRAME );
+	SkinMe( L"CUpdateServersDlg", IDR_MAINFRAME );
 
 	// Define dlg.m_URL = Settings.DC.HubListURL etc. before dlg.DoModal()
 	if ( m_sURL.GetLength() < 12 )
@@ -81,9 +81,9 @@ BOOL CUpdateServersDlg::IsValidURL()
 {
 	return
 		m_sURL.GetLength() > 12 &&
-		StartsWith( m_sURL, _T("http://"), 7 ) &&
-	//	m_sURL.Find( _T('/'), 7 ) > 12 &&
-		m_sURL.Find( _T('.'), 7 ) > 8;
+		StartsWith( m_sURL, L"http://", 7 ) &&
+	//	m_sURL.Find( L'/', 7 ) > 12 &&
+		m_sURL.Find( L'.', 7 ) > 8;
 }
 
 void CUpdateServersDlg::OnChangeURL()
@@ -136,9 +136,9 @@ void CUpdateServersDlg::OnTimer(UINT_PTR nIDEvent)
 		if ( m_pRequest.GetStatusSuccess() )
 		{
 			const CString strExt = CString( PathFindExtension( m_sURL ) ).MakeLower();
-			if ( strExt == L".met" || m_sURL.Find( _T("//server"), 8 ) > 8 )		// || strExt == L".php"
+			if ( strExt == L".met" || m_sURL.Find( L"//server", 8 ) > 8 )		// || strExt == L".php"
 				Settings.eDonkey.ServerListURL = m_sURL;
-			else if ( strExt == L".bz2" || m_sURL.Find( _T("hublist"), 8 ) > 8 )
+			else if ( strExt == L".bz2" || m_sURL.Find( L"hublist", 8 ) > 8 )
 				Settings.DC.HubListURL = m_sURL;
 		//	else if ( strExt == L".xml" )
 		//		Settings.Gnutella.CacheURL = m_sURL;

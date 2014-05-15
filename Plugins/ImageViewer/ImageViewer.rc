@@ -13,7 +13,7 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// English (U.S.) resources
+// English (United States) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
 #ifdef _WIN32
@@ -74,7 +74,7 @@ BEGIN
             VALUE "FileDescription", "PeerProject Image Viewer Plugin"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "ImageViewer"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2012"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
             VALUE "OriginalFilename", "ImageViewer.dll"
             VALUE "ProductName", "PeerProject"
             VALUE "ProductVersion", "1.0.0.0"
@@ -115,7 +115,7 @@ IDI_IMAGE			ICON			"Image.ico"
 // Bitmap
 //
 
-IDB_COMMANDS		BITMAP			"Commands.bmp"
+IDB_COMMANDS		PNG				"CommandImages.png"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -132,10 +132,10 @@ IDR_SKIN			HTML			"Skin.xml"
 STRINGTABLE
 BEGIN
     IDS_PROJNAME	"ImageViewer"
-    IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008-2012\n(Portions © Michael Stokes, 2002) "
+    IDS_ABOUT		"PeerProject Image Viewer Plugin\n© PeerProject Development Team, 2008-2014\n(Portions © Michael Stokes, 2002) "
 END
 
-#endif    // English (U.S.) resources
+#endif    // English resources
 /////////////////////////////////////////////////////////////////////////////
 
 

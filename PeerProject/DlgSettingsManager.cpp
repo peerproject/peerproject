@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -94,7 +94,7 @@ void CSettingsManagerDlg::OnSkinChange(BOOL bSet)
 		return;
 	}
 
-	m_pThis->SkinMe( _T("CSettingSheet"), IDR_MAINFRAME );
+	m_pThis->SkinMe( L"CSettingSheet", IDR_MAINFRAME );
 
 	for ( INT_PTR i = 0 ; i < m_pThis->GetPageCount() ; ++i )
 	{
@@ -109,7 +109,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 {
 	const BOOL bAdvanced = Settings.General.GUIMode != GUI_BASIC;
 
-	CAutoPtr< CRichSettingsPage >		gGeneral( new CRichSettingsPage( _T("CGeneralSettingsGroup") ) );
+	CAutoPtr< CRichSettingsPage >		gGeneral( new CRichSettingsPage( L"CGeneralSettingsGroup" ) );
 	CAutoPtr< CGeneralSettingsPage >	pGeneral( new CGeneralSettingsPage );
 	CAutoPtr< CLibrarySettingsPage >	pLibrary( new CLibrarySettingsPage );
 	CAutoPtr< CMediaSettingsPage >		pMedia( new CMediaSettingsPage );
@@ -117,7 +117,7 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CAutoPtr< CCommunitySettingsPage >	pCommunity( new CCommunitySettingsPage );
 	CAutoPtr< CRemoteSettingsPage >		pRemote( new CRemoteSettingsPage );
 	CAutoPtr< CWebSettingsPage >		pWeb( new CWebSettingsPage );
-	CAutoPtr< CRichSettingsPage >		gInternet( new CRichSettingsPage( _T("CInternetSettingsGroup") ) );
+	CAutoPtr< CRichSettingsPage >		gInternet( new CRichSettingsPage( L"CInternetSettingsGroup" ) );
 	CAutoPtr< CConnectionSettingsPage >	pConnection( new CConnectionSettingsPage );
 	CAutoPtr< CDownloadsSettingsPage >	pDownloads( new CDownloadsSettingsPage );
 	CAutoPtr< CUploadsSettingsPage >	pUploads( new CUploadsSettingsPage );
@@ -208,7 +208,7 @@ BOOL CSettingsManagerDlg::OnInitDialog()
 
 //	m_bmHeader.LoadBitmap( IDB_BANNER );	// Obsolete
 
-	SkinMe( _T("CSettingSheet"), IDR_MAINFRAME, TRUE );
+	SkinMe( L"CSettingSheet", IDR_MAINFRAME, TRUE );
 
 	return TRUE;
 }

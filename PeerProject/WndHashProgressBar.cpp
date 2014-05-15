@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -82,7 +82,7 @@ void CHashProgressBar::Run()
 		{
 			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW, AfxRegisterWndClass( CS_SAVEBITS |
 				( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
-				_T("PeerProject Hashing..."), WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
+				L"PeerProject Hashing...", WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
 		}
 		catch ( CResourceException* pEx )
 		{
@@ -152,7 +152,7 @@ void CHashProgressBar::OnDestroy()
 
 void CHashProgressBar::OnSkinChange()
 {
-	HBITMAP hBitmap = Skin.GetWatermark( _T("CHashProgressBar") );
+	HBITMAP hBitmap = Skin.GetWatermark( L"CHashProgressBar" );
 	if ( m_bmImage.m_hObject ) m_bmImage.DeleteObject();
 	if ( hBitmap != NULL ) m_bmImage.Attach( hBitmap );
 }
@@ -192,7 +192,7 @@ void CHashProgressBar::OnPaint()
 	// Text
 	CFont* pOld = dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	CString strText = _T("x");
+	CString strText = L"x";
 	CRect rcX( rcClient.right - 20, rcClient.top + 1,
 		rcClient.right - 5, rcClient.top + 20 );
 	dc.SetTextColor( Colors.m_crTipText );

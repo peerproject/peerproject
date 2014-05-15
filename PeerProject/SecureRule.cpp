@@ -1,7 +1,7 @@
 //
 // SecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2012
+// This file is part of PeerProject (peerproject.org) © 2012-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -178,25 +178,25 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 		if ( strFilter.Find( L':' ) > 0 )
 		{
 			QWORD nLower, nUpper, nSize = pFile->m_nSize;
-			_stscanf( (LPCTSTR)strFilter, _T("%I64i:%I64i"), &nLower, &nUpper );
+			_stscanf( (LPCTSTR)strFilter, L"%I64i:%I64i", &nLower, &nUpper );
 			return nSize >= nLower && nSize <= nUpper;
 		}
 		if ( strFilter.Find( L'-' ) > 0 )
 		{
 			QWORD nLower, nUpper, nSize = pFile->m_nSize;
-			_stscanf( (LPCTSTR)strFilter, _T("%I64i-%I64i"), &nLower, &nUpper );
+			_stscanf( (LPCTSTR)strFilter, L"%I64i-%I64i", &nLower, &nUpper );
 			return nSize >= nLower && nSize <= nUpper;
 		}
 
 		CString strCompare;
-		strCompare.Format( _T("size:%s:%I64i"), pszExt, pFile->m_nSize );
+		strCompare.Format( L"size:%s:%I64i", pszExt, pFile->m_nSize );
 		return strCompare == (CString)m_pContent;
 	}
 
 	if ( m_nType == srContentHash )
 	{
 		LPCTSTR pszHash = m_pContent;
-		if ( m_nContentLength < 30 || _tcsnicmp( pszHash, _T("urn:"), 4 ) != 0 )
+		if ( m_nContentLength < 30 || _tcsnicmp( pszHash, L"urn:", 4 ) != 0 )
 			return FALSE;
 
 		return
@@ -480,34 +480,34 @@ void CSecureRule::Serialize(CArchive& ar, int /*nVersion*/)
 
 CXMLElement* CSecureRule::ToXML()
 {
-	CXMLElement* pXML = new CXMLElement( NULL, _T("rule") );
+	CXMLElement* pXML = new CXMLElement( NULL, L"rule" );
 	CString strValue;
 
 	// Note: Insertion order is maintained in XML with a workaround for indeterminate CMap
 
 	wchar_t szGUID[39];
 	szGUID[ StringFromGUID2( *(GUID*)&m_pGUID, szGUID, 39 ) - 2 ] = 0;
-	pXML->AddAttribute( _T("guid"), (CString)&szGUID[1] );
+	pXML->AddAttribute( L"guid", (CString)&szGUID[1] );
 
 	if ( m_nType == srAddress )
 	{
-		pXML->AddAttribute( _T("type"), _T("address") );
+		pXML->AddAttribute( L"type", L"address" );
 
-		strValue.Format( _T("%lu.%lu.%lu.%lu"),
+		strValue.Format( L"%lu.%lu.%lu.%lu",
 			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
-		pXML->AddAttribute( _T("address"), strValue );
+		pXML->AddAttribute( L"address", strValue );
 
 		if ( *(DWORD*)m_nMask != 0xFFFFFFFF )
 		{
-			strValue.Format( _T("%lu.%lu.%lu.%lu"),
+			strValue.Format( L"%lu.%lu.%lu.%lu",
 				m_nMask[0], m_nMask[1], m_nMask[2], m_nMask[3] );
-			pXML->AddAttribute( _T("mask"), strValue );
+			pXML->AddAttribute( L"mask", strValue );
 		}
 	}
 	else if ( m_nType == srExternal )
 	{
-		pXML->AddAttribute( _T("type"), _T("list") );
-		pXML->AddAttribute( _T("path"), GetContentWords() );
+		pXML->AddAttribute( L"type", L"list" );
+		pXML->AddAttribute( L"path", GetContentWords() );
 	}
 	else
 	{
@@ -536,44 +536,44 @@ CXMLElement* CSecureRule::ToXML()
 			strValue = L"null";
 		}
 
-		pXML->AddAttribute( _T("type"), _T("content") );
-		pXML->AddAttribute( _T("content"), GetContentWords() );
-		pXML->AddAttribute( _T("match"), strValue );
+		pXML->AddAttribute( L"type", L"content" );
+		pXML->AddAttribute( L"content", GetContentWords() );
+		pXML->AddAttribute( L"match", strValue );
 	}
 
 	if ( m_nExpire > srSession )
 	{
-		strValue.Format( _T("%lu"), m_nExpire );
-		pXML->AddAttribute( _T("expire"), strValue );
+		strValue.Format( L"%lu", m_nExpire );
+		pXML->AddAttribute( L"expire", strValue );
 	}
 	else if ( m_nExpire == srSession )
 	{
-		pXML->AddAttribute( _T("expire"), _T("session") );
+		pXML->AddAttribute( L"expire", L"session" );
 	}
 
-	pXML->AddAttribute( _T("action"),
-		( m_nAction == srDeny ? _T("deny") : m_nAction == srAccept ? _T("accept") : _T("null") ) ); 	// srNull?
+	pXML->AddAttribute( L"action",
+		( m_nAction == srDeny ? L"deny" : m_nAction == srAccept ? L"accept" : L"null" ) ); 	// srNull?
 
 	if ( ! m_sComment.IsEmpty() )
-		pXML->AddAttribute( _T("comment"), m_sComment );
+		pXML->AddAttribute( L"comment", m_sComment );
 
 	return pXML;
 }
 
 BOOL CSecureRule::FromXML(CXMLElement* pXML)
 {
-	m_sComment = pXML->GetAttributeValue( _T("comment") );
+	m_sComment = pXML->GetAttributeValue( L"comment" );
 
-	CString strValue, strType = pXML->GetAttributeValue( _T("type") );
+	CString strValue, strType = pXML->GetAttributeValue( L"type" );
 
-	if ( strType.CompareNoCase( _T("address") ) == 0 )
+	if ( strType.CompareNoCase( L"address" ) == 0 )
 	{
 		int x[4];
 
 		m_nType = srAddress;
 
-		strValue = pXML->GetAttributeValue( _T("address") );
-		if ( _stscanf( strValue, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		strValue = pXML->GetAttributeValue( L"address" );
+		if ( _stscanf( strValue, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nIP[0] = (BYTE)x[0];
 			m_nIP[1] = (BYTE)x[1];
@@ -581,8 +581,8 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 			m_nIP[3] = (BYTE)x[3];
 		}
 
-		strValue = pXML->GetAttributeValue( _T("mask") );
-		if ( _stscanf( strValue, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		strValue = pXML->GetAttributeValue( L"mask" );
+		if ( _stscanf( strValue, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nMask[0] = (BYTE)x[0];
 			m_nMask[1] = (BYTE)x[1];
@@ -590,29 +590,29 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 			m_nMask[3] = (BYTE)x[3];
 		}
 	}
-	else if ( strType.CompareNoCase( _T("content") ) == 0 )
+	else if ( strType.CompareNoCase( L"content" ) == 0 )
 	{
-		strValue = pXML->GetAttributeValue( _T("match") ).MakeLower();
-		if ( strValue == _T("all") )
+		strValue = pXML->GetAttributeValue( L"match" ).MakeLower();
+		if ( strValue == L"all" )
 			m_nType = srContentAll;
-		else if ( strValue == _T("regexp") )
+		else if ( strValue == L"regexp" )
 			m_nType = srContentRegExp;
-		else if ( strValue == _T("hash") )
+		else if ( strValue == L"hash" )
 			m_nType = srContentHash;
-		else if ( strValue == _T("size") )
+		else if ( strValue == L"size" )
 			m_nType = srSizeType;
-		else if ( strValue == _T("list") || strValue == _T("external") )
+		else if ( strValue == L"list" || strValue == L"external" )
 			m_nType = srExternal;
-		else	// _T("any")
+		else	// L"any"
 			m_nType = srContentAny;
 
-		SetContentWords( pXML->GetAttributeValue( _T("content") ) );
+		SetContentWords( pXML->GetAttributeValue( L"content" ) );
 		if ( m_pContent == NULL ) return FALSE;
 	}
-	else if ( strType.CompareNoCase( _T("list") ) == 0 || strType.CompareNoCase( _T("external") ) == 0 )
+	else if ( strType.CompareNoCase( L"list" ) == 0 || strType.CompareNoCase( L"external" ) == 0 )
 	{
 		m_nType = srExternal;
-		SetContentWords( pXML->GetAttributeValue( _T("path") ) );
+		SetContentWords( pXML->GetAttributeValue( L"path" ) );
 		if ( m_pContent == NULL ) return FALSE;
 	}
 	else
@@ -620,25 +620,25 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 		return FALSE;
 	}
 
-	strValue = pXML->GetAttributeValue( _T("action") );
+	strValue = pXML->GetAttributeValue( L"action" );
 
-	if ( strValue.CompareNoCase( _T("deny") ) == 0 || strValue.IsEmpty() )
+	if ( strValue.CompareNoCase( L"deny" ) == 0 || strValue.IsEmpty() )
 		m_nAction = srDeny;
-	else if ( strValue.CompareNoCase( _T("accept") ) == 0 )
+	else if ( strValue.CompareNoCase( L"accept" ) == 0 )
 		m_nAction = srAccept;
-	else if ( strValue.CompareNoCase( _T("null") ) == 0 || strValue.CompareNoCase( _T("none") ) == 0 )
+	else if ( strValue.CompareNoCase( L"null" ) == 0 || strValue.CompareNoCase( L"none" ) == 0 )
 		m_nAction = srNull;
 	else
 		return FALSE;
 
-	strValue = pXML->GetAttributeValue( _T("expire") );
+	strValue = pXML->GetAttributeValue( L"expire" );
 
-	if ( strValue.CompareNoCase( _T("indefinite") ) == 0 || strValue.CompareNoCase( _T("none") ) == 0 )
+	if ( strValue.CompareNoCase( L"indefinite" ) == 0 || strValue.CompareNoCase( L"none" ) == 0 )
 		m_nExpire = srIndefinite;
-	else if ( strValue.CompareNoCase( _T("session") ) == 0 )
+	else if ( strValue.CompareNoCase( L"session" ) == 0 )
 		m_nExpire = srSession;
 	else
-		_stscanf( strValue, _T("%lu"), &m_nExpire );
+		_stscanf( strValue, L"%lu", &m_nExpire );
 
 	MaskFix();
 
@@ -657,7 +657,7 @@ CString CSecureRule::ToGnucleusString() const
 
 	if ( *(DWORD*)m_nMask == 0xFFFFFFFF )
 	{
-		strRule.Format( _T("%lu.%lu.%lu.%lu"),
+		strRule.Format( L"%lu.%lu.%lu.%lu",
 			m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
 	}
 	else
@@ -670,7 +670,7 @@ CString CSecureRule::ToGnucleusString() const
 			nTo[ nByte ]	= m_nIP[ nByte ] | ( ~m_nMask[ nByte ] );
 		}
 
-		strRule.Format( _T("%lu.%lu.%lu.%lu-%lu.%lu.%lu.%lu"),
+		strRule.Format( L"%lu.%lu.%lu.%lu-%lu.%lu.%lu.%lu",
 			nFrom[0], nFrom[1], nFrom[2], nFrom[3],
 			nTo[0], nTo[1], nTo[2], nTo[3] );
 	}
@@ -692,7 +692,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	CString strAddress = str.Left( nPos );
 	str = str.Mid( nPos + 1 );
 
-	if ( _stscanf( strAddress, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) != 4 )
+	if ( _stscanf( strAddress, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) != 4 )
 		return FALSE;
 
 	m_nIP[0] = (BYTE)x[0]; m_nIP[1] = (BYTE)x[1];
@@ -704,7 +704,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	{
 		strAddress = strAddress.Mid( nPos + 1 );
 
-		if ( _stscanf( strAddress, _T("%lu.%lu.%lu.%lu"), &x[0], &x[1], &x[2], &x[3] ) != 4 )
+		if ( _stscanf( strAddress, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) != 4 )
 			return FALSE;
 
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
@@ -721,7 +721,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	m_nType		= srAddress;
 	m_nAction	= srDeny;
 	m_nExpire	= srIndefinite;
-	m_sComment	= str.SpanExcluding( _T(":") );
+	m_sComment	= str.SpanExcluding( L":" );
 
 	MaskFix();
 
@@ -806,10 +806,10 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 	if ( m_nType == CSecureRule::srAddress )
 	{
 		if ( *(DWORD*)m_nMask == 0xFFFFFFFF )
-			pItem->Format( COL_SECURITY_CONTENT, _T("%u.%u.%u.%u"),
+			pItem->Format( COL_SECURITY_CONTENT, L"%u.%u.%u.%u",
 				m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3] );
 		else
-			pItem->Format( COL_SECURITY_CONTENT, _T("%u.%u.%u.%u/%u.%u.%u.%u"),
+			pItem->Format( COL_SECURITY_CONTENT, L"%u.%u.%u.%u/%u.%u.%u.%u",
 				m_nIP[0], m_nIP[1], m_nIP[2], m_nIP[3],
 				m_nMask[0], m_nMask[1], m_nMask[2], m_nMask[3] );
 	}
@@ -834,7 +834,7 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 	switch ( m_nType )
 	{
 	case CSecureRule::srAddress:
-		pItem->Set( COL_SECURITY_TYPE, _T("IP") );
+		pItem->Set( COL_SECURITY_TYPE, L"IP" );
 		break;
 	case CSecureRule::srContentAny:
 		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_ANY ) );
@@ -843,7 +843,7 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_ALL ) );
 		break;
 	case CSecureRule::srContentRegExp:
-		pItem->Set( COL_SECURITY_TYPE, _T("RegExp") );
+		pItem->Set( COL_SECURITY_TYPE, L"RegExp" );
 		break;
 	case CSecureRule::srContentHash:
 		pItem->Set( COL_SECURITY_TYPE, LoadString( IDS_SECURITY_HASH ) );
@@ -867,11 +867,11 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 	else if ( m_nExpire >= tNow )
 	{
 		const DWORD nTime = ( m_nExpire - tNow );
-		pItem->Format( COL_SECURITY_EXPIRES, _T("%ud %uh %um"), nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
-		//pItem->Format( COL_EXPIRES, _T("%i:%.2i:%.2i"), nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
+		pItem->Format( COL_SECURITY_EXPIRES, L"%ud %uh %um", nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
+		//pItem->Format( COL_EXPIRES, L"%i:%.2i:%.2i", nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 	}
 
-	pItem->Format( COL_SECURITY_HITS, _T("%u (%u)"), m_nToday, m_nEver );
-	pItem->Format( COL_SECURITY_NUM, _T("%i"), nCount );
+	pItem->Format( COL_SECURITY_HITS, L"%u (%u)", m_nToday, m_nEver );
+	pItem->Format( COL_SECURITY_NUM, L"%i", nCount );
 	pItem->Set( COL_SECURITY_COMMENT, m_sComment );
 }

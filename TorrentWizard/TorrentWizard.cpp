@@ -56,7 +56,7 @@ CTorrentWizardApp::CTorrentWizardApp()
 void CTorrentWizardApp::OnHelp()
 {
 //	CWinApp::OnHelp();
-	ShellExecute( NULL, NULL, _T("http://peerproject.org/wiki/torrentwizard/"),
+	ShellExecute( NULL, NULL, L"http://peerproject.org/wiki/torrentwizard/",
 	//	+ static_cast< CWizardPage* >( m_pSheet->GetActivePage() )->GetWindowText(),
 		NULL, NULL, SW_SHOWNORMAL );
 }
@@ -69,26 +69,26 @@ BOOL CTorrentWizardApp::InitInstance()
 	CCommandLineInfoEx cmdInfo;
 	ParseCommandLine(cmdInfo);
 
-	cmdInfo.GetOption( _T("sourcefile"), m_sCommandLineSourceFile );
-	cmdInfo.GetOption( _T("destination"), m_sCommandLineDestination );
-	cmdInfo.GetOption( _T("tracker"), m_sCommandLineTracker );
-	cmdInfo.GetOption( _T("comment"), m_sCommandLineComment );
+	cmdInfo.GetOption( L"sourcefile", m_sCommandLineSourceFile );
+	cmdInfo.GetOption( L"destination", m_sCommandLineDestination );
+	cmdInfo.GetOption( L"tracker", m_sCommandLineTracker );
+	cmdInfo.GetOption( L"comment", m_sCommandLineComment );
 
 	if ( ! m_sCommandLineSourceFile.IsEmpty() &&
 		 ! m_sCommandLineDestination.IsEmpty() &&
 		 ! m_sCommandLineTracker.IsEmpty() )
 	{
 		if ( m_sCommandLineComment.IsEmpty() )
-			m_sCommandLineComment = _T("http://peerproject.org/");
+			m_sCommandLineComment = L"http://peerproject.org/";
 	}
 	else
 	{
 		// Test prior app instance for non-commandline
-		HANDLE pMutex = CreateMutex( NULL, FALSE, _T("Global\\TorrentWizard") );
+		HANDLE pMutex = CreateMutex( NULL, FALSE, L"Global\\TorrentWizard" );
 		if ( GetLastError() == ERROR_ALREADY_EXISTS )
 		{
 			// Show first instance
-			//if ( CWnd* pWnd = CWnd::FindWindow( _T("TorrentWizard"), NULL ) )
+			//if ( CWnd* pWnd = CWnd::FindWindow( L"TorrentWizard", NULL ) )
 			//{
 			//	pWnd->SendMessage( WM_SYSCOMMAND, SC_RESTORE );
 			//	pWnd->ShowWindow( SW_SHOWNORMAL );
@@ -108,7 +108,7 @@ BOOL CTorrentWizardApp::InitInstance()
 		// else Continue...
 	}
 
-	SetRegistryKey( _T("PeerProject") );
+	SetRegistryKey( L"PeerProject" );
 
 	InitEnvironment();
 	InitResources();
@@ -163,7 +163,7 @@ void CTorrentWizardApp::InitEnvironment()
 		{
 			VS_FIXEDFILEINFO* pTable;
 
-			if ( VerQueryValue( pBuffer, _T("\\"), (VOID**)&pTable, (UINT*)&dwSize ) )
+			if ( VerQueryValue( pBuffer, L"\\", (VOID**)&pTable, (UINT*)&dwSize ) )
 			{
 				m_nVersion[0] = (WORD)( pTable->dwFileVersionMS >> 16 );
 				m_nVersion[1] = (WORD)( pTable->dwFileVersionMS & 0xFFFF );
@@ -175,7 +175,7 @@ void CTorrentWizardApp::InitEnvironment()
 		delete [] pBuffer;
 	}
 
-	m_sVersion.Format( _T("%i.%i.%i"),
+	m_sVersion.Format( L"%i.%i.%i",
 		m_nVersion[0], m_nVersion[1], m_nVersion[2] );
 
 	// Obsolete:
@@ -194,7 +194,7 @@ void CTorrentWizardApp::InitResources()
 	OSVERSIONINFO pVersion;
 	pVersion.dwOSVersionInfoSize = sizeof(OSVERSIONINFO);
 	GetVersionEx( &pVersion );
-	LPCTSTR pszFont = pVersion.dwMajorVersion > 5 ? _T("Segoe UI") : _T("Tahoma");
+	LPCTSTR pszFont = pVersion.dwMajorVersion > 5 ? L"Segoe UI" : L"Tahoma";
 
 	HDC hDC = GetDC( NULL );
 	const int nSize = -MulDiv( 11, GetDeviceCaps( hDC, LOGPIXELSY ), 96 );	// DPI-aware
@@ -224,25 +224,25 @@ void CTorrentWizardApp::InitResources()
 
 CString SmartSize(QWORD nVolume)
 {
-	LPCTSTR pszUnit = _T("B");
+	LPCTSTR pszUnit = L"B";
 	CString strVolume;
 
 	if ( nVolume < 1024 )
 	{
-		strVolume.Format( _T("%lu %s"), (DWORD)nVolume, pszUnit );
+		strVolume.Format( L"%lu %s", (DWORD)nVolume, pszUnit );
 		return strVolume;
 	}
 
 	nVolume /= 1024;
 
 	if ( nVolume < 1024 )
-		strVolume.Format( _T("%lu K%s"), (DWORD)nVolume, pszUnit );
+		strVolume.Format( L"%lu K%s", (DWORD)nVolume, pszUnit );
 	else if ( nVolume < 1024*1024 )
-		strVolume.Format( _T("%.2lf M%s"), (double)(__int64)nVolume / 1024, pszUnit );
+		strVolume.Format( L"%.2lf M%s", (double)(__int64)nVolume / 1024, pszUnit );
 	else if ( nVolume < 1024*1024*1024 )
-		strVolume.Format( _T("%.3lf G%s"), (double)(__int64)nVolume / (1024*1024), pszUnit );
+		strVolume.Format( L"%.3lf G%s", (double)(__int64)nVolume / (1024*1024), pszUnit );
 	else
-		strVolume.Format( _T("%.3lf T%s"), (double)(__int64)nVolume / (1024*1024*1024), pszUnit );
+		strVolume.Format( L"%.3lf T%s", (double)(__int64)nVolume / (1024*1024*1024), pszUnit );
 
 	return strVolume;
 }

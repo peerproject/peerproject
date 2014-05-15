@@ -82,7 +82,7 @@
  <color name="Dialog.Back"				value="12100B"/>  <!--settings windows-->
  <color name="Dialog.Text"				value="DDDCDA"/>
  <color name="Dialog.Panel.Back"			value="12100B"/>  <!--metadata tabs, wizard-->
- <color name="Dialog.Panel.Text"			value="DAD4D0"/>
+ <color name="Dialog.Panel.Text"			value="FAF6F0"/>
  <color name="Dialog.Menu.Back" 			value="12100B"/>  <!--settings menu-->
  <color name="Dialog.Menu.Text" 			value="DAD4D0"/>
  <color name="Banner.Back"				value="282622"/>  <!--library/browse/meta headers-->
@@ -147,8 +147,8 @@
  <color name="System.Transfer.Completed.Selected"	value="60C000"/>
  <color name="System.Transfer.Seeding.Selected" 	value="205080"/>
  <color name="System.Transfer.Failed.Selected" 	value="EA4A60"/>
- <color name="System.Transfer.Ranges" 		value="FFFFFF"/>
- <color name="System.Transfer.Source" 		value="202020"/>
+ <color name="System.Transfer.Ranges" 		value="343030"/>
+ <color name="System.Transfer.Source" 		value="949290"/>
  <color name="System.Library.Shared" 		value="FCFBFA"/>
  <color name="System.Library.Unshared" 		value="A4A2A0"/>
  <color name="System.Library.Unscanned" 		value="C4C2C0"/>
@@ -255,8 +255,8 @@
  <image target="CMediaList"				path="Playlist.png"/>
  <image target="CMediaList.Header"			path="PlaylistHeader.png"/>
  <!--image target="CMediaFrame.StatusBar"		path="Playlist.png"--> <!--flicker?-->
- <image target="CHomeViewCtrl.Header"		path="HomeHeader.png"/> <!--hometab logo-->
- <image target="CHomeViewCtrl.HeaderRepeat"		path="HomeHeaderRepeat.png"/> <!--hometab repeat-->
+ <!--image target="CHomeViewCtrl.Header"		path="HomeHeader.png"--> <!--hometab logo-->
+ <!--image target="CHomeViewCtrl.HeaderRepeat"		path="HomeHeaderRepeat.png"--> <!--hometab repeat-->
  <!--image target="LargeLogo"				path="###.png"--> <!--mediaplayer-->
 
  <!--"CWndTabBar.Active"-->
@@ -996,57 +996,6 @@
 </anchors>
 </windowskin>
 
-<!-- Spanish-Mexican -->
-
-<windowskin>
-<image type="image" language="es-mx" path="RibbonTabsBlank.png"/>
-<image type="watermark" path="RibbonTabsBkg.png"/>
-<target window="CMainTabBarCtrl"/>
-<target window="CMainTabBarCtrl.Basic"/>
-<target window="CMainTabBarCtrl.Tabbed"/>
-<target window="CMainTabBarCtrl.Windowed"/>
-<parts>
- <part name="_ID_TAB_HOME.Up" rect="60,0,66,28"/>
- <part name="_ID_TAB_HOME.Checked" rect="60,28,66,28"/>
- <part name="_ID_TAB_HOME.Hover" rect="60,56,66,28"/>
- <part name="_ID_TAB_HOME.Down" rect="60,84,66,28"/>
- <part name="_ID_TAB_TRANSFERS.Up" rect="370,0,100,28"/>
- <part name="_ID_TAB_TRANSFERS.Checked" rect="370,28,100,28"/>
- <part name="_ID_TAB_TRANSFERS.Hover" rect="370,56,100,28"/>
- <part name="_ID_TAB_TRANSFERS.Down" rect="370,84,100,28"/>
- <part name="_ID_TAB_NETWORK.Up" rect="0,0,60,28"/>
- <part name="_ID_TAB_NETWORK.Checked" rect="0,28,60,28"/>
- <part name="_ID_TAB_NETWORK.Hover" rect="0,56,60,28"/>
- <part name="_ID_TAB_NETWORK.Down" rect="0,84,60,28"/>
- <part name="_ID_TAB_LIBRARY.Up" rect="200,0,80,28"/>
- <part name="_ID_TAB_LIBRARY.Checked" rect="200,28,80,28"/>
- <part name="_ID_TAB_LIBRARY.Hover" rect="200,56,80,28"/>
- <part name="_ID_TAB_LIBRARY.Down" rect="200,84,80,28"/>
- <part name="_ID_TAB_MEDIA.Up" rect="280,0,90,28"/>
- <part name="_ID_TAB_MEDIA.Checked" rect="280,28,90,28"/>
- <part name="_ID_TAB_MEDIA.Hover" rect="280,56,90,28"/>
- <part name="_ID_TAB_MEDIA.Down" rect="280,84,90,28"/>
- <part name="_ID_TAB_IRC.Up" rect="0,0,60,28"/>
- <part name="_ID_TAB_IRC.Checked" rect="0,28,60,28"/>
- <part name="_ID_TAB_IRC.Hover" rect="0,56,60,28"/>
- <part name="_ID_TAB_IRC.Down" rect="0,84,60,28"/>
- <part name="_ID_TAB_SEARCH.Up" rect="60,0,66,28"/>
- <part name="_ID_TAB_SEARCH.Checked" rect="60,28,66,28"/>
- <part name="_ID_TAB_SEARCH.Hover" rect="60,56,66,28"/>
- <part name="_ID_TAB_SEARCH.Down" rect="60,84,66,28"/>
-</parts>
-<anchors>
- <anchor name="Background" rect="0,0,534,30"/>
- <anchor name="_ID_TAB_HOME" rect="6,1,66,28"/>
- <anchor name="_ID_TAB_TRANSFERS" rect="72,1,100,28"/>
- <anchor name="_ID_TAB_NETWORK" rect="172,1,60,28"/>
- <anchor name="_ID_TAB_LIBRARY" rect="232,1,80,28"/>
- <anchor name="_ID_TAB_MEDIA" rect="312,1,90,28"/>
- <anchor name="_ID_TAB_IRC" rect="402,1,60,28"/>
- <anchor name="_ID_TAB_SEARCH" rect="462,1,66,28"/>
-</anchors>
-</windowskin>
-
 <!-- Finnish -->
 
 <windowskin>
@@ -1560,7 +1509,7 @@
 <!-- Portuguese -->
 
 <windowskin>
-<image type="image" language="pt-br" path="RibbonTabsBlank.png"/>
+<image type="image" language="pt" path="RibbonTabsBlank.png"/>
 <image type="watermark" path="RibbonTabsBkg.png"/>
 <target window="CMainTabBarCtrl"/>
 <target window="CMainTabBarCtrl.Basic"/>

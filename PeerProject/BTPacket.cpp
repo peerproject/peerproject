@@ -45,8 +45,8 @@ CDHT DHT;	// Services/MainlineDHT
 extern "C"
 {
 	#pragma warning(push,2)
-	#include "../Services/MainlineDHT/dht.h"
-	#include "../Services/MainlineDHT/dht.c"
+	#include "BitTorrentDHT/dht.h"
+	#include "BitTorrentDHT/dht.c"
 	#pragma warning(pop)
 
 	// Callback functions:
@@ -67,9 +67,9 @@ extern "C"
 	void dht_hash(void *hash_return, int hash_size, const void *v1, int len1, const void *v2, int len2, const void *v3, int len3)
 	{
 		CMD5 md5;
-		md5.Add( v1, len1);
-		md5.Add( v2, len2);
-		md5.Add( v3, len3);
+		md5.Add( v1, len1 );
+		md5.Add( v2, len2 );
+		md5.Add( v3, len3 );
 		md5.Finish();
 		CMD5::Digest pDataMD5;
 		md5.GetHash( (unsigned char*)&pDataMD5[ 0 ] );
@@ -565,56 +565,56 @@ CString CBTPacket::GetType() const
 	switch ( m_nType )
 	{
 	case BT_PACKET_CHOKE:
-		return CString( _T("Choke") );
+		return CString( L"Choke" );
 	case BT_PACKET_UNCHOKE:
-		return CString( _T("Unchoke") );
+		return CString( L"Unchoke" );
 	case BT_PACKET_INTERESTED:
-		return CString( _T("Interested") );
+		return CString( L"Interested" );
 	case BT_PACKET_NOT_INTERESTED:
-		return CString( _T("NotInterested") );
+		return CString( L"NotInterested" );
 	case BT_PACKET_HAVE:
-		return CString( _T("Have") );
+		return CString( L"Have" );
 	case BT_PACKET_BITFIELD:
-		return CString( _T("Bitfield") );
+		return CString( L"Bitfield" );
 	case BT_PACKET_REQUEST:
-		return CString( _T("Request") );
+		return CString( L"Request" );
 	case BT_PACKET_PIECE:
-		return CString( _T("Piece") );
+		return CString( L"Piece" );
 	case BT_PACKET_CANCEL:
-		return CString( _T("Cancel") );
+		return CString( L"Cancel" );
 	case BT_PACKET_DHT_PORT:
-		return CString( _T("DHT port") );
+		return CString( L"DHT port" );
 	case BT_PACKET_HANDSHAKE:
-		return CString( _T("ExtHandshake") );
+		return CString( L"ExtHandshake" );
 	case BT_PACKET_SOURCE_REQUEST:
-		return CString( _T("SrcRequest") );
+		return CString( L"SrcRequest" );
 	case BT_PACKET_SOURCE_RESPONSE:
-		return CString( _T("SrcResponse") );
+		return CString( L"SrcResponse" );
 	case BT_PACKET_KEEPALIVE:
-		return CString( _T("Keep-Alive") );
+		return CString( L"Keep-Alive" );
 	case BT_PACKET_EXTENSION:
 		switch ( m_nExtension )
 		{
 		case BT_EXTENSION_HANDSHAKE:
-			return CString( _T("Handshake") );
+			return CString( L"Handshake" );
 		case BT_EXTENSION_NOP:
-			return CString( _T("DHT") );
+			return CString( L"DHT" );
 	//	case BT_EXTENSION_UT_METADATA:
-	//		return CString( _T("UT Metadata") );
+	//		return CString( L"UT Metadata" );
 	//	case BT_EXTENSION_UT_PEX:
-	//		return CString( _T("UT PEX") );
+	//		return CString( L"UT PEX" );
 	//	case BT_EXTENSION_LT_TEX:
-	//		return CString( _T("LT TEX") );
+	//		return CString( L"LT TEX" );
 		}
 		{
 			CString strType;
-			strType.Format( _T("Extension %d"), m_nExtension );
+			strType.Format( L"Extension %d", m_nExtension );
 			return strType;
 		}
 	}
 
 	CString strType;
-	strType.Format( _T("%d"), m_nType );
+	strType.Format( L"%d", m_nType );
 	return strType;
 }
 
@@ -630,10 +630,10 @@ CString CBTPacket::ToASCII() const
 	switch ( m_nType )
 	{
 	case BT_PACKET_DHT_PORT:
-		strText.Format( _T("port: %u"), ntohs( *(WORD*)m_pBuffer ) );
+		strText.Format( L"port: %u", ntohs( *(WORD*)m_pBuffer ) );
 		break;
 	case BT_PACKET_BITFIELD:
-		strText.Format( _T("length: %u bytes"), m_nLength );
+		strText.Format( L"length: %u bytes", m_nLength );
 		break;
 	default:
 		strText = HasEncodedData() ? m_pNode->Encode() : CPacket::ToASCII();
@@ -737,7 +737,7 @@ BOOL CBTPacket::OnPacket(const SOCKADDR_IN* pHost)
 //		}
 //
 //		const CBENode* pPeers = pResponse->GetNode( BT_DICT_VALUES );		// "values"
-//		if ( pPeers && pPeers->IsType( CBENode::beList) )
+//		if ( pPeers && pPeers->IsType( CBENode::beList ) )
 //			;	// ToDo: Handle "values" ?
 //
 //		const CBENode* pNodes = pResponse->GetNode( BT_DICT_NODES );		// "nodes"

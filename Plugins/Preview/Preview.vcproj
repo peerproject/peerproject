@@ -461,7 +461,7 @@
 				>
 			</File>
 			<File
-				RelativePath="stdafx.cpp"
+				RelativePath="StdAfx.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -519,17 +519,13 @@
 				>
 			</File>
 			<File
-				RelativePath="stdafx.h"
-				>
-			</File>
-			<File
-				RelativePath="TargetVer.h"
+				RelativePath="StdAfx.h"
 				>
 			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;png;wav;resx"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File

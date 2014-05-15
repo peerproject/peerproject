@@ -1,7 +1,7 @@
 //
 // PageProfileIdentity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,11 +41,6 @@ IMPLEMENT_DYNCREATE(CIdentityProfilePage, CSettingsPage)
 
 CIdentityProfilePage::CIdentityProfilePage()
 	: CSettingsPage( CIdentityProfilePage::IDD )
-//	, m_sNick	( _T("") )
-//	, m_sFirst	( _T("") )
-//	, m_sLast	( _T("") )
-//	, m_sAge	( _T("") )
-//	, m_sGender	( _T("") )
 	, m_bBrowseUser	( FALSE )
 {
 }
@@ -73,33 +68,33 @@ BOOL CIdentityProfilePage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	if ( CXMLElement* pIdentity = MyProfile.GetXML( _T("identity") ) )
+	if ( CXMLElement* pIdentity = MyProfile.GetXML( L"identity" ) )
 	{
-		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle") ) )
-			m_sNick  = pHandle->GetAttributeValue( _T("primary") );
+		if ( CXMLElement* pHandle = pIdentity->GetElementByName( L"handle" ) )
+			m_sNick  = pHandle->GetAttributeValue( L"primary" );
 
-		if ( CXMLElement* pName = pIdentity->GetElementByName( _T("name") ) )
+		if ( CXMLElement* pName = pIdentity->GetElementByName( L"name" ) )
 		{
-			m_sFirst = pName->GetAttributeValue( _T("first") );
-			m_sLast  = pName->GetAttributeValue( _T("last") );
+			m_sFirst = pName->GetAttributeValue( L"first" );
+			m_sLast  = pName->GetAttributeValue( L"last" );
 		}
 	}
 
-	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals") ) )
+	if ( CXMLElement* pVitals = MyProfile.GetXML( L"vitals" ) )
 	{
-		m_sAge = pVitals->GetAttributeValue( _T("age") );
+		m_sAge = pVitals->GetAttributeValue( L"age" );
 
 		CString strGenderMale, strGenderFemale;
 		GetGenderTranslations( strGenderMale, strGenderFemale );
 
-		m_sGender = pVitals->GetAttributeValue( _T("gender") );
+		m_sGender = pVitals->GetAttributeValue( L"gender" );
 
 		if ( ! m_sGender.IsEmpty() )
 		{
 			CComboBox* pGender = (CComboBox*) GetDlgItem( IDC_PROFILE_GENDER );
-			if ( m_sGender.CompareNoCase( _T("male") ) == 0 )
+			if ( m_sGender.CompareNoCase( L"male" ) == 0 )
 				pGender->SelectString( -1, (LPCTSTR)strGenderMale );
-			else if ( m_sGender.CompareNoCase( _T("female") ) == 0 )
+			else if ( m_sGender.CompareNoCase( L"female" ) == 0 )
 				pGender->SelectString( -1, (LPCTSTR)strGenderFemale );
 			else
 				m_sGender.Empty();
@@ -107,8 +102,8 @@ BOOL CIdentityProfilePage::OnInitDialog()
 
 		int nAge = 0;
 
-		if ( _stscanf( m_sAge, _T("%i"), &nAge ) == 1 && nAge > 0 )
-			m_sAge.Format( _T("%i"), nAge );
+		if ( _stscanf( m_sAge, L"%i", &nAge ) == 1 && nAge > 0 )
+			m_sAge.Format( L"%i", nAge );
 		else
 			m_sAge.Empty();
 	}
@@ -116,7 +111,7 @@ BOOL CIdentityProfilePage::OnInitDialog()
 	CString str;
 	for ( int nAge = 10 ; nAge < 91 ; nAge++ )
 	{
-		str.Format( _T("%i"), nAge );
+		str.Format( L"%i", nAge );
 		m_wndAge.AddString( str );
 	}
 
@@ -133,19 +128,19 @@ void CIdentityProfilePage::OnOK()
 
 	Settings.Community.ServeProfile = m_bBrowseUser != FALSE;
 
-	if ( CXMLElement* pIdentity = MyProfile.GetXML( _T("identity"), TRUE ) )
+	if ( CXMLElement* pIdentity = MyProfile.GetXML( L"identity", TRUE ) )
 	{
-		if ( CXMLElement* pHandle = pIdentity->GetElementByName( _T("handle"), TRUE ) )
+		if ( CXMLElement* pHandle = pIdentity->GetElementByName( L"handle", TRUE ) )
 		{
-			pHandle->AddAttribute( _T("primary"), m_sNick );
+			pHandle->AddAttribute( L"primary", m_sNick );
 			if ( m_sNick.IsEmpty() )
 				pHandle->Delete();
 		}
 
-		if ( CXMLElement* pName = pIdentity->GetElementByName( _T("name"), TRUE ) )
+		if ( CXMLElement* pName = pIdentity->GetElementByName( L"name", TRUE ) )
 		{
-			pName->AddAttribute( _T("first"), m_sFirst );
-			pName->AddAttribute( _T("last"), m_sLast );
+			pName->AddAttribute( L"first", m_sFirst );
+			pName->AddAttribute( L"last", m_sLast );
 			if ( m_sFirst.IsEmpty() && m_sLast.IsEmpty() )
 				pName->Delete();
 		}
@@ -154,29 +149,29 @@ void CIdentityProfilePage::OnOK()
 			pIdentity->Delete();
 	}
 
-	if ( CXMLElement* pVitals = MyProfile.GetXML( _T("vitals"), TRUE ) )
+	if ( CXMLElement* pVitals = MyProfile.GetXML( L"vitals", TRUE ) )
 	{
 		int nAge = 0;
 
-		if ( _stscanf( m_sAge, _T("%i"), &nAge ) == 1 && nAge > 0 )
-			m_sAge.Format( _T("%i"), nAge );
+		if ( _stscanf( m_sAge, L"%i", &nAge ) == 1 && nAge > 0 )
+			m_sAge.Format( L"%i", nAge );
 		else
 			m_sAge.Empty();
 
 		CString strGenderMale, strGenderFemale;
 		GetGenderTranslations( strGenderMale, strGenderFemale );
 
-		if ( m_sGender.CompareNoCase( strGenderMale ) == 0 || m_sGender.CompareNoCase( _T("male") ) == 0 )
-			pVitals->AddAttribute( _T("gender"), _T("Male") );
-		else if ( m_sGender.CompareNoCase( strGenderFemale ) == 0 || m_sGender.CompareNoCase( _T("female") ) == 0 )
-			pVitals->AddAttribute( _T("gender"), _T("Female") );
+		if ( m_sGender.CompareNoCase( strGenderMale ) == 0 || m_sGender.CompareNoCase( L"male" ) == 0 )
+			pVitals->AddAttribute( L"gender", L"Male" );
+		else if ( m_sGender.CompareNoCase( strGenderFemale ) == 0 || m_sGender.CompareNoCase( L"female" ) == 0 )
+			pVitals->AddAttribute( L"gender", L"Female" );
 		else
-			pVitals->DeleteAttribute( _T("gender") );
+			pVitals->DeleteAttribute( L"gender" );
 
 		if ( ! m_sAge.IsEmpty() )
-			pVitals->AddAttribute( _T("age"), m_sAge );
+			pVitals->AddAttribute( L"age", m_sAge );
 		else
-			pVitals->DeleteAttribute( _T("age") );
+			pVitals->DeleteAttribute( L"age" );
 
 		if ( pVitals->GetElementCount() == 0 &&
 			 pVitals->GetAttributeCount() == 0 )
@@ -191,28 +186,28 @@ void CIdentityProfilePage::GetGenderTranslations(CString& pMale, CString& pFemal
 
 	BOOL bCollected = FALSE;
 
-	CXMLElement* pXML = Skin.GetDocument( _T("CBrowseHostProfile.1") );
+	CXMLElement* pXML = Skin.GetDocument( L"CBrowseHostProfile.1" );
 
 	for ( POSITION posGroup = pXML->GetElementIterator() ; posGroup && ! bCollected ; )
 	{
 		CXMLElement* pGroups = pXML->GetNextElement( posGroup );
 
-		if ( pGroups->IsNamed( _T("group") ) && pGroups->GetAttributeValue( _T("id") ) == "3" )
+		if ( pGroups->IsNamed( L"group" ) && pGroups->GetAttributeValue( L"id" ) == "3" )
 		{
 			for ( POSITION posText = pGroups->GetElementIterator() ; posText && ! bCollected ; )
 			{
 				CXMLElement* pText = pGroups->GetNextElement( posText );
 
-				if ( pText->IsNamed( _T("text") ) )
+				if ( pText->IsNamed( L"text" ) )
 				{
 					CString strTemp;
-					strTemp = pText->GetAttributeValue( _T("id") );
-					if ( strTemp.CompareNoCase( _T("gendermale") ) == 0 )
+					strTemp = pText->GetAttributeValue( L"id" );
+					if ( strTemp.CompareNoCase( L"gendermale" ) == 0 )
 					{
 						pMale = pText->GetValue();
 						bCollected = pFemale.IsEmpty() ? FALSE : TRUE;
 					}
-					else if ( strTemp.CompareNoCase( _T("genderfemale") ) == 0 )
+					else if ( strTemp.CompareNoCase( L"genderfemale" ) == 0 )
 					{
 						pFemale = pText->GetValue();
 						bCollected = pMale.IsEmpty() ? FALSE : TRUE;

@@ -256,7 +256,7 @@ void CGGEPBlock::Write(CPacket* pPacket)
 CGGEPItem::CGGEPItem(LPCTSTR pszID)
 	: m_pNext		( NULL )
 	, m_pBuffer 	( NULL )
-	, m_sID			( pszID ? pszID : _T("") )
+	, m_sID			( pszID ? pszID : L"" )
 	, m_nLength 	( 0 )
 	, m_nPosition	( 0 )
 {

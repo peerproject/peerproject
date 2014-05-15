@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -42,8 +42,6 @@ END_MESSAGE_MAP()
 
 CSecureRuleDlg::CSecureRuleDlg(CWnd* pParent, CSecureRule* pRule)
 	: CSkinDialog(CSecureRuleDlg::IDD, pParent)
-//	, m_sComment	( _T("") )
-//	, m_sContent	( _T("") )
 	, m_nExpireD	( 0 )
 	, m_nExpireH	( 0 )
 	, m_nExpireM	( 0 )
@@ -100,7 +98,7 @@ BOOL CSecureRuleDlg::OnInitDialog()
 {
 	CSkinDialog::OnInitDialog();
 
-	SkinMe( _T("CSecureRuleDlg"), IDR_SECURITYFRAME );
+	SkinMe( L"CSecureRuleDlg", IDR_SECURITYFRAME );
 
 	if ( m_ToolTip.Create(this) )
 	{
@@ -129,16 +127,16 @@ BOOL CSecureRuleDlg::OnInitDialog()
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
 		{
 			CString strItem;
-			strItem.Format( _T("%lu"), m_pRule->m_nMask[ nByte ] );
+			strItem.Format( L"%lu", m_pRule->m_nMask[ nByte ] );
 			pwMask[ nByte ]->SetWindowText( strItem );
 
 			if ( m_pRule->m_nMask[ nByte ] == 0 )
 			{
-				pwIP[ nByte ]->SetWindowText( _T("*") );
+				pwIP[ nByte ]->SetWindowText( L"*" );
 			}
 			else
 			{
-				strItem.Format( _T("%lu"), m_pRule->m_nIP[ nByte ] );
+				strItem.Format( L"%lu", m_pRule->m_nIP[ nByte ] );
 				pwIP[ nByte ]->SetWindowText( strItem );
 			}
 		}
@@ -178,7 +176,7 @@ BOOL CSecureRuleDlg::OnInitDialog()
 	if ( m_pRule->m_nType == CSecureRule::srExternal && m_sComment.GetLength() > 2 )
 	{
 		// Strip load count
-		const int nToken = m_sComment.ReverseFind( _T('•') );
+		const int nToken = m_sComment.ReverseFind( L'•' );
 		if ( nToken == 0 )
 			m_sComment.Empty();
 		else if ( nToken > 3 )
@@ -257,7 +255,7 @@ void CSecureRuleDlg::OnSelChangeRuleExpire()
 void CSecureRuleDlg::OnBrowse()
 {
 	CFileDialog dlg( TRUE, NULL, Settings.General.DataPath, OFN_HIDEREADONLY|OFN_FILEMUSTEXIST,
-		_T("Text Files|*.txt;*.dat;*.p2p|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+		L"Text Files|*.txt;*.dat;*.p2p|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() != IDOK ) return;
 
@@ -281,8 +279,8 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 				if ( pMsg->wParam == '*' )
 				{
 					if ( pFocus != pwIP[ nByte ] ) return TRUE;
-					pwIP[ nByte ]->SetWindowText( _T("*") );
-					pwMask[ nByte ]->SetWindowText( _T("0") );
+					pwIP[ nByte ]->SetWindowText( L"*" );
+					pwMask[ nByte ]->SetWindowText( L"0" );
 					pwIP[ nByte ]->SetSel( 0, 1 );
 					pwMask[ nByte ]->SetSel( 0, 1 );
 					return TRUE;
@@ -292,7 +290,7 @@ BOOL CSecureRuleDlg::PreTranslateMessage(MSG* pMsg)
 				pFocus->GetWindowText( str );
 				if ( _tstoi( str ) > 255 )
 				{
-					pFocus->SetWindowText( _T("255") );
+					pFocus->SetWindowText( L"255" );
 					if ( pMsg->wParam != '.' )
 						return TRUE;
 				}
@@ -363,16 +361,16 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 		}
 
 		CloseClipboard();
-		str.Trim( _T(" \t\r\n") );
+		str.Trim( L" \t\r\n" );
 
-		if ( str.GetLength() > 16 && str.Find( _T("/255.") ) < 6 )
+		if ( str.GetLength() > 16 && str.Find( L"/255." ) < 6 )
 			return TRUE;	// Assume bad string, but should handle ip+mask too
 	}
 
 	// Handle copy/pasted IP
-	if ( str.GetLength() > 8 && str.Find( _T('.') ) > 1 )
+	if ( str.GetLength() > 8 && str.Find( L'.' ) > 1 )
 	{
-		CString strIP[4] = { _T(""), _T(""), _T(""), _T("") };
+		CString strIP[4] = { L"", L"", L"", L"" };
 		for ( int i = 0, c = 0 ; c < 4 && i < str.GetLength() ; i++ )
 		{
 			TCHAR Ch = str.GetAt( i );
@@ -383,7 +381,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 					break;
 				continue;
 			}
-			if ( Ch == _T('.') && ! strIP[c].IsEmpty() )
+			if ( Ch == L'.' && ! strIP[c].IsEmpty() )
 			{
 				c++;
 				continue;
@@ -403,15 +401,15 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 			}
 			else
 			{
-				m_wndMask1.SetWindowText( _T("255") );
+				m_wndMask1.SetWindowText( L"255" );
 				m_wndMask2.SetWindowText( strIP[1] );
 				m_wndMask3.SetWindowText( strIP[2] );
 				m_wndMask4.SetWindowText( strIP[3] );
 
-				if (  strIP[0] != _T("255") || strIP[1] != _T("255") || ( ! strIP[3].IsEmpty() &&
-					( strIP[2] != _T("255") && strIP[3] != _T("0") ) ||
-					( strIP[3] != _T("255") && strIP[3] != _T("254") && strIP[3] != _T("252") && strIP[3] != _T("248") && strIP[3] != _T("240") && strIP[3] != _T("224") && strIP[3] != _T("192") && strIP[3] != _T("128") && strIP[3] != _T("0") ) ||
-					( strIP[2] != _T("254") && strIP[2] != _T("252") && strIP[2] != _T("248") && strIP[2] != _T("240") && strIP[2] != _T("224") && strIP[2] != _T("192") && strIP[2] != _T("128") && strIP[2] != _T("0") ) ) )
+				if (  strIP[0] != L"255" || strIP[1] != L"255" || ( ! strIP[3].IsEmpty() &&
+					( strIP[2] != L"255" && strIP[3] != L"0" ) ||
+					( strIP[3] != L"255" && strIP[3] != L"254" && strIP[3] != L"252" && strIP[3] != L"248" && strIP[3] != L"240" && strIP[3] != L"224" && strIP[3] != L"192" && strIP[3] != L"128" && strIP[3] != L"0" ) ||
+					( strIP[2] != L"254" && strIP[2] != L"252" && strIP[2] != L"248" && strIP[2] != L"240" && strIP[2] != L"224" && strIP[2] != L"192" && strIP[2] != L"128" && strIP[2] != L"0" ) ) )
 					MsgBox( IDS_SECURITY_NETMASK );
 			}
 			return TRUE;
@@ -427,7 +425,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 	}
 
 	if ( str.GetLength() == 3 && _tstoi( str ) > 255 )
-		str = _T("255");
+		str = L"255";
 	pFocus->SetWindowText( str );
 
 	return TRUE;
@@ -449,11 +447,11 @@ void CSecureRuleDlg::OnOK()
 			DWORD nValue = 0;
 
 			pwIP[ nByte ]->GetWindowText( strItem );
-			if ( _stscanf( strItem, _T("%lu"), &nValue ) != 1 ) nValue = 0;
+			if ( _stscanf( strItem, L"%lu", &nValue ) != 1 ) nValue = 0;
 			m_pRule->m_nIP[ nByte ] = (BYTE)min( 255ul, nValue );
 
 			pwMask[ nByte ]->GetWindowText( strItem );
-			if ( _stscanf( strItem, _T("%lu"), &nValue ) != 1 ) nValue = 0;
+			if ( _stscanf( strItem, L"%lu", &nValue ) != 1 ) nValue = 0;
 			switch ( nValue )
 			{
 			case 255:
@@ -469,7 +467,7 @@ void CSecureRuleDlg::OnOK()
 				break;
 			default:
 				m_pRule->m_nMask[ nByte ] = 255;
-				pwMask[ nByte ]->SetWindowText( _T("255") );
+				pwMask[ nByte ]->SetWindowText( L"255" );
 				bWarning = TRUE;
 			}
 		}
@@ -478,11 +476,11 @@ void CSecureRuleDlg::OnOK()
 	}
 	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )	// sr... (by dropdown index)
 	{
-		if ( StartsWith( m_sContent, _T("size:"), 5 ) || StartsWith( m_sContent, _T("type:"), 5 ) )
+		if ( StartsWith( m_sContent, L"size:", 5 ) || StartsWith( m_sContent, L"type:", 5 ) )
 			m_pRule->m_nType = CSecureRule::srSizeType;
-		else if ( StartsWith( m_sContent, _T("urn:"), 4 ) && m_sContent.GetLength() > 20 )
+		else if ( StartsWith( m_sContent, L"urn:", 4 ) && m_sContent.GetLength() > 20 )
 			m_pRule->m_nType = CSecureRule::srContentHash;
-		else if ( m_sContent.FindOneOf( _T("/:<>|\"") ) >= 0 )
+		else if ( m_sContent.FindOneOf( L"/:<>|\"" ) >= 0 )
 			MsgBox( IDS_BT_ENCODING );	// ToDo: Better response (return)
 		else
 			m_pRule->m_nType = (CSecureRule::RuleType)(m_nMatch + 1);	// Note: Change if enum does not match radio button order
@@ -494,7 +492,7 @@ void CSecureRuleDlg::OnOK()
 		if ( m_sPath.GetLength() < 8 )
 			return;
 
-		if ( m_sPath.ReverseFind( _T(':') ) != 1 &&
+		if ( m_sPath.ReverseFind( L':' ) != 1 &&
 			! PathFileExists( Settings.General.DataPath + m_sPath ) )
 		{
 			MsgBox( IDS_GENERAL_TRYAGAIN );
@@ -520,10 +518,8 @@ void CSecureRuleDlg::OnOK()
 	m_pRule->m_nExpire	= m_nExpire;
 
 	if ( m_nExpire == 2 )
-	{
 		m_pRule->m_nExpire = static_cast< DWORD >( time( NULL ) ) +
 			m_nExpireD * 86400 + m_nExpireH * 3600 + m_nExpireM * 60;
-	}
 
 	Security.Add( m_pRule );
 	m_pRule = NULL;

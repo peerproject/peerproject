@@ -1,9 +1,5 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
-
-<!-- ROM Image XML Framework; v1.3; Jonathan C. Nilson -->
-<!-- See ReadMe.txt for translation credits -->
-
-<schemaDescriptor location="http://www.shareaza.com/schemas/rom.xsd" xmlns="http://www.shareaza.com/schemas/SchemaDescriptor.xsd">
+<schemaDescriptor location="http://schemas.peerproject.org/Rom.xsd" xmlns="http://schemas.peerproject.org/SchemaDescriptor.xsd">
 
 	<object type="file" availability="advanced"/>
 	<titles>
@@ -14,24 +10,23 @@
 		<title language="de">ROM-Image</title>
 		<title language="ee">ROM Pilt</title>
 		<title language="es">ROM Image</title>
-		<title language="es-mx">ROM Image</title>
 		<title language="fr">Image ROM</title>
 		<title language="gr">Εικόνα ROM</title>
-		<title language="heb">תמונת ROM</title>
+		<title language="he">תמונת ROM</title>
 		<title language="hr">ROM Image</title>
 		<title language="hu">Image fájl</title>
 		<title language="it">Immagine della ROM</title>
-		<title language="ja">ROM イメージ</title>
 		<title language="lt">ROM atvaizdis</title>
 		<title language="nl">ROM Afbeelding</title>
 		<title language="no">ROM image</title>
-		<title language="pt-br">Imagem de ROM</title>
+		<title language="pt">Imagem de ROM</title>
 		<title language="ru">Образ ROM</title>
 		<title language="sl">ROM slika</title>
 		<title language="sq">Imazh ROM</title>
 		<title language="sr">ROM Image</title>
 		<title language="sv">ROM-avbild</title>
 		<title language="tr">ROM Görüntü</title>
+		<title language="ja">ROM イメージ</title>
 		<title language="zhs">ROM 镜像</title>
 		<title language="zht">ROM 影像</title>
 	</titles>
@@ -45,25 +40,25 @@
 			<title language="de">Titel</title>
 			<title language="ee">Pealkiri</title>
 			<title language="es">Título</title>
-			<title language="es-mx">Título</title>
 			<title language="fr">Titre</title>
 			<title language="gr">Τίτλος</title>
-			<title language="heb">כותרת</title>
+			<title language="he">כותרת</title>
 			<title language="hr">Naslov</title>
 			<title language="hu">Cím</title>
 			<title language="it">Titolo</title>
-			<title language="ja">タイトル</title>
-			<title language="ko">제목</title>
 			<title language="lt">Pavadinimas</title>
 			<title language="nl">Titel</title>
 			<title language="no">Tittel</title>
-			<title language="pt-br">Título</title>
+			<title language="pl">Tytuł</title>
+			<title language="pt">Título</title>
 			<title language="ru">Название</title>
 			<title language="sl">Naslov</title>
 			<title language="sq">Titulli</title>
 			<title language="sr">Naslov</title>
 			<title language="sv">Titel</title>
 			<title language="tr">Başlık</title>
+			<title language="ja">タイトル</title>
+			<title language="ko">제목</title>
 			<title language="zhs">标题</title>
 			<title language="zht">標題</title>
 		</member>
@@ -76,24 +71,23 @@
 			<title language="de">Firma</title>
 			<title language="ee">Firma</title>
 			<title language="es">Compañia</title>
-			<title language="es-mx">Compañia</title>
 			<title language="fr">Compagnie</title>
 			<title language="gr">Εταιρία</title>
-			<title language="heb">חברה</title>
+			<title language="he">חברה</title>
 			<title language="hr">Proizvođač</title>
 			<title language="hu">Cég</title>
 			<title language="it">Società</title>
-			<title language="ja">会社名</title>
 			<title language="lt">Kompanija</title>
 			<title language="nl">Bedrijf</title>
 			<title language="no">Firma</title>
-			<title language="pt-br">Companhia</title>
+			<title language="pt">Companhia</title>
 			<title language="ru">Компания</title>
 			<title language="sl">Tvrdka</title>
 			<title language="sq">Kompania</title>
 			<title language="sr">Proizvođač</title>
 			<title language="sv">Företag</title>
 			<title language="tr">Şirket</title>
+			<title language="ja">会社名</title>
 			<title language="zhs">公司</title>
 			<title language="zht">公司</title>
 		</member>
@@ -106,24 +100,23 @@
 			<title language="de">System</title>
 			<title language="ee">Süsteem</title>
 			<title language="es">Sistema</title>
-			<title language="es-mx">Sistema</title>
 			<title language="fr">Système</title>
 			<title language="gr">Σύστημα</title>
-			<title language="heb">מערכת</title>
+			<title language="he">מערכת</title>
 			<title language="hr">Sistem</title>
 			<title language="hu">Rendszer</title>
 			<title language="it">Sistema</title>
-			<title language="ja">システム</title>
 			<title language="lt">Sistema</title>
 			<title language="nl">Systeem</title>
 			<title language="no">System</title>
-			<title language="pt-br">Sistema</title>
+			<title language="pt">Sistema</title>
 			<title language="ru">Система</title>
 			<title language="sl">Sistem</title>
 			<title language="sq">Sistemi</title>
 			<title language="sr">Sistem</title>
 			<title language="sv">System</title>
 			<title language="tr">Sistem</title>
+			<title language="ja">システム</title>
 			<title language="zhs">系统</title>
 			<title language="zht">系統</title>
 		</member>
@@ -135,24 +128,23 @@
 			<title language="de">Jahr</title>
 			<title language="ee">Aasta</title>
 			<title language="es">Año</title>
-			<title language="es-mx">Año</title>
 			<title language="fr">Année</title>
 			<title language="gr">Έτος</title>
-			<title language="heb">שנה</title>
+			<title language="he">שנה</title>
 			<title language="hr">Godina</title>
 			<title language="hu">Év</title>
 			<title language="it">Anno</title>
-			<title language="ja">年</title>
 			<title language="lt">Metai</title>
 			<title language="nl">Jaar</title>
 			<title language="no">År</title>
-			<title language="pt-br">Ano</title>
+			<title language="pt">Ano</title>
 			<title language="ru">Год</title>
 			<title language="sl">Leto</title>
 			<title language="sq">Viti</title>
 			<title language="sr">Godina</title>
 			<title language="sv">År</title>
 			<title language="tr">Yıl</title>
+			<title language="ja">年</title>
 			<title language="zhs">年份</title>
 			<title language="zht">年份</title>
 		</member>
@@ -164,24 +156,23 @@
 			<title language="de">Typ</title>
 			<title language="ee">Tüüp</title>
 			<title language="es">Arte</title>
-			<title language="es-mx">Arte</title>
 			<title language="fr">Type</title>
 			<title language="gr">Τύπος</title>
-			<title language="heb">סוג</title>
+			<title language="he">סוג</title>
 			<title language="hr">Vrsta</title>
 			<title language="hu">Típus</title>
 			<title language="it">Tipo</title>
-			<title language="ja">種類</title>
 			<title language="lt">Tipas</title>
 			<title language="nl">Type</title>
 			<title language="no">Type</title>
-			<title language="pt-br">Tipo</title>
+			<title language="pt">Tipo</title>
 			<title language="ru">Тип</title>
 			<title language="sl">Tip</title>
 			<title language="sq">Lloji</title>
 			<title language="sr">Vrsta</title>
 			<title language="sv">Typ</title>
 			<title language="tr">Tip</title>
+			<title language="ja">種類</title>
 			<title language="zhs">类型</title>
 			<title language="zht">類型</title>
 		</member>
@@ -194,24 +185,23 @@
 			<title language="de">Sprache</title>
 			<title language="ee">Keel</title>
 			<title language="es">Lenguaje</title>
-			<title language="es-mx">Lenguaje</title>
 			<title language="fr">Langue</title>
 			<title language="gr">Γλώσσα</title>
-			<title language="heb">שפה</title>
+			<title language="he">שפה</title>
 			<title language="hr">Jezik</title>
 			<title language="hu">Nyelv</title>
 			<title language="it">Lingua</title>
-			<title language="ja">言語</title>
 			<title language="lt">Kalba</title>
 			<title language="nl">Taal</title>
 			<title language="no">Språk</title>
-			<title language="pt-br">Idioma</title>
+			<title language="pt">Idioma</title>
 			<title language="ru">Язык</title>
 			<title language="sl">Jezik</title>
 			<title language="sq">Gjuhë</title>
 			<title language="sr">Jezik</title>
 			<title language="sv">Språk</title>
 			<title language="tr">Dil</title>
+			<title language="ja">言語</title>
 			<title language="zhs">语言</title>
 			<title language="zht">語言</title>
 		</member>
@@ -223,24 +213,23 @@
 			<title language="de">FSK</title>
 			<title language="ee">Hinnang</title>
 			<title language="es">Rating</title>
-			<title language="es-mx">Rating</title>
 			<title language="fr">Estimation</title>
 			<title language="gr">Βαθμολόγηση</title>
-			<title language="heb">דירוג</title>
+			<title language="he">דירוג</title>
 			<title language="hr">Ocjena</title>
 			<title language="hu">Osztályzat</title>
 			<title language="it">Valutazione</title>
-			<title language="ja">年齢指定</title>
 			<title language="lt">Vertinimas</title>
 			<title language="nl">Beoordeling</title>
 			<title language="no">Vurdering</title>
-			<title language="pt-br">Classificação</title>
+			<title language="pt">Classificação</title>
 			<title language="ru">Райтинг</title>
 			<title language="sl">Ocena</title>
 			<title language="sq">Vlerësimi</title>
 			<title language="sr">Ocena</title>
 			<title language="sv">Betyg</title>
 			<title language="tr">Değerlendirme</title>
+			<title language="ja">年齢指定</title>
 			<title language="zhs">分级</title>
 			<title language="zht">評價</title>
 		</member>
@@ -252,24 +241,23 @@
 			<title language="de">Preis</title>
 			<title language="ee">Hind</title>
 			<title language="es">Precio</title>
-			<title language="es-mx">Precio</title>
 			<title language="fr">Prix</title>
 			<title language="gr">Τιμή</title>
-			<title language="heb">מחיר</title>
+			<title language="he">מחיר</title>
 			<title language="hr">Cijena</title>
 			<title language="hu">Ár</title>
 			<title language="it">Prezzo</title>
-			<title language="ja">価格</title>
 			<title language="lt">Kaina</title>
 			<title language="nl">Prijs</title>
 			<title language="no">Pris</title>
-			<title language="pt-br">Preço</title>
+			<title language="pt">Preço</title>
 			<title language="ru">Цена</title>
 			<title language="sl">Cena</title>
 			<title language="sq">Çmimi</title>
 			<title language="sr">Cena</title>
 			<title language="sv">Pris</title>
 			<title language="tr">Fiyat</title>
+			<title language="ja">価格</title>
 			<title language="zhs">价格</title>
 			<title language="zht">價格</title>
 		</member>
@@ -281,24 +269,23 @@
 			<title language="de">Link</title>
 			<title language="ee">Link</title>
 			<title language="es">Link</title>
-			<title language="es-mx">Link</title>
 			<title language="fr">Lien</title>
 			<title language="gr">Σύνδεσμος</title>
-			<title language="heb">קישור</title>
+			<title language="he">קישור</title>
 			<title language="hr">Link</title>
 			<title language="hu">Link</title>
 			<title language="it">Link</title>
-			<title language="ja">リンク</title>
 			<title language="lt">Nuoroda</title>
 			<title language="nl">Link</title>
 			<title language="no">Link</title>
-			<title language="pt-br">Link</title>
+			<title language="pt">Link</title>
 			<title language="ru">Ссылка</title>
 			<title language="sl">Povezava</title>
 			<title language="sq">Linku</title>
 			<title language="sr">Link</title>
 			<title language="sv">Länk</title>
 			<title language="tr">Bağlantı</title>
+			<title language="ja">リンク</title>
 			<title language="zhs">链接</title>
 			<title language="zht">連結</title>
 		</member>
@@ -310,26 +297,42 @@
 			<title language="de">Kommentar</title>
 			<title language="ee">Arvamused</title>
 			<title language="es">Comentarios</title>
-			<title language="es-mx">Comentarios</title>
 			<title language="fr">Commentaires</title>
 			<title language="gr">Σχόλια</title>
-			<title language="heb">הערות</title>
+			<title language="he">הערות</title>
 			<title language="hr">Komentari</title>
 			<title language="hu">Megjegyzés</title>
 			<title language="it">Commenti</title>
-			<title language="ja">コメント</title>
 			<title language="lt">Komentarai</title>
 			<title language="nl">Opmerkingen</title>
 			<title language="no">Kommentar</title>
-			<title language="pt-br">Comentários</title>
+			<title language="pt">Comentários</title>
 			<title language="ru">Коментарии</title>
 			<title language="sl">Komentarji</title>
 			<title language="sq">Komente</title>
 			<title language="sr">Komentari</title>
 			<title language="sv">Kommentarer</title>
 			<title language="tr">Yorumlar</title>
+			<title language="ja">コメント</title>
 			<title language="zhs">注释</title>
 			<title language="zht">注釋</title>
+		</member>
+		<member name="peertag">
+			<display prompt="true"/>
+			<title language="en">PeerTag</title>
+		</member>
+		<member name="peerinfo">
+			<title language="en">PeerTag Info</title>
+			<title language="fr">PeerTag Infos</title>
+			<title language="he">PeerTag מידע</title>
+			<title language="ru">PeerTag Инфо</title>
+			<title language="sl">PeerTag Podatki</title>
+			<title language="sr">PeerTag Инфо</title>
+			<title language="tr">PeerTag Bilgi</title>
+			<title language="ko">PeerTag 정보</title>
+			<title language="ja">PeerTag インフォ</title>
+			<title language="zhs">PeerTag 信息</title>
+			<title language="zht">PeerTag 信息</title>
 		</member>
 	</members>
 	<typeFilter>

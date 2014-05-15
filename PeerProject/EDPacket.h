@@ -337,15 +337,15 @@ inline void CEDPacket::CEDPacketPool::FreePoolImpl(CPacket* pPacket)
 inline CString GetED2KServerTCPFlags(DWORD nTCPFlags)
 {
 	CString strServerFlags;
-	strServerFlags.Format( _T( "0x%08x ->%s%s%s%s%s%s%s%s" ), nTCPFlags,
-		( ( nTCPFlags & ED2K_SERVER_TCP_DEFLATE )			? _T(" Deflate") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS )			? _T(" NewTags") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_UNICODE )			? _T(" Unicode") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_GETSOURCES2 )		? _T(" GetSources2") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_RELATEDSEARCH )		? _T(" RelatedSearch") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_TYPETAGINTEGER )	? _T(" TypeTagInteger") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_64BITSIZE )			? _T(" LargeFiles") : _T("") ),
-		( ( nTCPFlags & ED2K_SERVER_TCP_TCPOBFUSCATION )	? _T(" TcpObfscation") : _T("") ) );
+	strServerFlags.Format( L"0x%08x ->%s%s%s%s%s%s%s%s", nTCPFlags,
+		( ( nTCPFlags & ED2K_SERVER_TCP_DEFLATE )			? L" Deflate" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_SMALLTAGS )			? L" NewTags" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_UNICODE )			? L" Unicode" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_GETSOURCES2 )		? L" GetSources2" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_RELATEDSEARCH )		? L" RelatedSearch" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_TYPETAGINTEGER )	? L" TypeTagInteger" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_64BITSIZE )			? L" LargeFiles" : L"" ),
+		( ( nTCPFlags & ED2K_SERVER_TCP_TCPOBFUSCATION )	? L" TcpObfscation" : L"" ) );
 	return strServerFlags;
 }
 
@@ -362,15 +362,15 @@ inline CString GetED2KServerTCPFlags(DWORD nTCPFlags)
 inline CString GetED2KServerUDPFlags(DWORD nUDPFlags)
 {
 	CString strServerFlags;
-	strServerFlags.Format( _T( "0x%08x -> %s%s%s%s%s%s%s%s" ), nUDPFlags,
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES )		? _T(" GetSources1") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES )			? _T(" GetFiles") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS )			? _T(" NewTags") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE )			? _T(" Unicode") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 )		? _T(" GetSources2") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE )			? _T(" LargeFiles") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION )	? _T(" UdpObfscation") : _T("") ),
-		( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION )	? _T(" TcpObfscation") : _T("") ) );
+	strServerFlags.Format( L"0x%08x -> %s%s%s%s%s%s%s%s", nUDPFlags,
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES )		? L" GetSources1" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETFILES )			? L" GetFiles" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_NEWTAGS )			? L" NewTags" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UNICODE )			? L" Unicode" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_GETSOURCES2 )		? L" GetSources2" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_64BITSIZE )			? L" LargeFiles" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_UDPOBFUSCATION )	? L" UdpObfscation" : L"" ),
+		( ( nUDPFlags & ED2K_SERVER_UDP_TCPOBFUSCATION )	? L" TcpObfscation" : L"" ) );
 	return strServerFlags;
 }
 

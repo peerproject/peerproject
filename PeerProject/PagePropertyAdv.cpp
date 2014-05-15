@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -82,7 +82,7 @@ void CPropertyPageAdv::OnPaint()
 
 		TCHAR szClass[16];
 		GetClassName( pWnd->GetSafeHwnd(), szClass, 16 );
-		if ( _tcsicmp( szClass, _T("STATIC") ) ) continue;
+		if ( _tcsicmp( szClass, L"STATIC" ) ) continue;
 
 		CRect rc;
 		CString str;
@@ -211,7 +211,7 @@ BEGIN_MESSAGE_MAP(CPropertySheetAdv, CPropertySheet)
 END_MESSAGE_MAP()
 
 CPropertySheetAdv::CPropertySheetAdv()
-	: CPropertySheet( _T("") )
+	: CPropertySheet( L"" )
 	, m_pSkin	( NULL )
 {
 	m_psh.dwFlags &= ~PSP_HASHELP;
@@ -221,9 +221,9 @@ BOOL CPropertySheetAdv::OnInitDialog()
 {
 	BOOL bResult = CPropertySheet::OnInitDialog();
 
-	m_pSkin = Skin.GetWindowSkin( _T("CTorrentSheet") );
+	m_pSkin = Skin.GetWindowSkin( L"CTorrentSheet" );
 	if ( m_pSkin == NULL ) m_pSkin = Skin.GetWindowSkin( this );
-	if ( m_pSkin == NULL ) m_pSkin = Skin.GetWindowSkin( _T("CDialog") );
+	if ( m_pSkin == NULL ) m_pSkin = Skin.GetWindowSkin( L"CDialog" );
 
 	if ( m_pSkin )
 	{
@@ -256,6 +256,8 @@ void CPropertySheetAdv::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR
 
 LRESULT CPropertySheetAdv::OnNcHitTest(CPoint point)
 {
+	if ( Skin.m_bSkinChanging ) return NULL;	// Crashfix?
+
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
 
@@ -264,6 +266,8 @@ LRESULT CPropertySheetAdv::OnNcHitTest(CPoint point)
 
 BOOL CPropertySheetAdv::OnNcActivate(BOOL bActive)
 {
+	if ( Skin.m_bSkinChanging ) return FALSE;	// Crashfix?
+
 	if ( m_pSkin )
 	{
 		BOOL bVisible = IsWindowVisible();

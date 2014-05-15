@@ -613,6 +613,10 @@
 				>
 			</File>
 			<File
+				RelativePath="ui.cpp"
+				>
+			</File>
+			<File
 				RelativePath="unicode.cpp"
 				>
 			</File>
@@ -816,6 +820,10 @@
 			</File>
 			<File
 				RelativePath="timefn.hpp"
+				>
+			</File>
+			<File
+				RelativePath="ui.hpp"
 				>
 			</File>
 			<File

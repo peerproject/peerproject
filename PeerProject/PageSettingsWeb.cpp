@@ -133,7 +133,7 @@ void CWebSettingsPage::OnExtAdd()
 	if ( m_wndExtensions.FindString( -1, strType ) >= 0 ) return;
 
 	m_wndExtensions.AddString( strType );
-	m_wndExtensions.SetWindowText( _T("") );
+	m_wndExtensions.SetWindowText( L"" );
 }
 
 void CWebSettingsPage::OnExtRemove()

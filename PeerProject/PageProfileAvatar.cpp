@@ -1,7 +1,7 @@
 //
 // PageProfileAvatar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,10 +66,10 @@ BOOL CAvatarProfilePage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	if ( CXMLElement* pAvatar = MyProfile.GetXML( _T("avatar") ) )
-		m_sAvatar = pAvatar->GetAttributeValue( _T("path") );
+	if ( CXMLElement* pAvatar = MyProfile.GetXML( L"avatar" ) )
+		m_sAvatar = pAvatar->GetAttributeValue( L"path" );
 	else
-		m_sAvatar = Settings.General.Path + _T("\\Data\\DefaultAvatar.png");	// Settings.General.DataPath ?
+		m_sAvatar = Settings.General.Path + L"\\Data\\DefaultAvatar.png";	// Settings.General.DataPath ?
 
 	PrepareImage();
 
@@ -78,8 +78,8 @@ BOOL CAvatarProfilePage::OnInitDialog()
 
 void CAvatarProfilePage::OnOK()
 {
-	if ( CXMLElement* pAvatar = MyProfile.GetXML( _T("avatar"), TRUE ) )
-		pAvatar->AddAttribute( _T("path"), m_sAvatar );
+	if ( CXMLElement* pAvatar = MyProfile.GetXML( L"avatar", TRUE ) )
+		pAvatar->AddAttribute( L"path", m_sAvatar );
 
 	CSettingsPage::OnOK();
 }
@@ -112,8 +112,8 @@ void CAvatarProfilePage::OnPaint()
 
 void CAvatarProfilePage::OnAvatarBrowse()
 {
-	CFileDialog dlg( TRUE, _T("png"), m_sAvatar, OFN_HIDEREADONLY,
-		_T("Image Files|*.jpg;*.jpeg;*.png;*.bmp|") + LoadString( IDS_FILES_ALL ) + _T("|*.*||"), this );
+	CFileDialog dlg( TRUE, L"png", m_sAvatar, OFN_HIDEREADONLY,
+		L"Image Files|*.jpg;*.jpeg;*.png;*.bmp|" + LoadString( IDS_FILES_ALL ) + L"|*.*||", this );
 
 	if ( dlg.DoModal() == IDOK )
 	{

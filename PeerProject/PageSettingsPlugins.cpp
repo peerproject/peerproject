@@ -1,7 +1,7 @@
 //
 // PageSettingsPlugins.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -77,9 +77,9 @@ BOOL CPluginsSettingsPage::OnInitDialog()
 	AddIcon( IDI_EXECUTABLE, m_gdiImageList );
 
 	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
-	m_wndList.InsertColumn( 0, _T("Name"), LVCFMT_LEFT, 382, 0 );
-	m_wndList.InsertColumn( 1, _T("CLSID"), LVCFMT_LEFT, 0, 1 );
-	m_wndList.InsertColumn( 2, _T("Extensions"), LVCFMT_LEFT, 0, 2 );
+	m_wndList.InsertColumn( 0, L"Name", LVCFMT_LEFT, 382, 0 );
+	m_wndList.InsertColumn( 1, L"CLSID", LVCFMT_LEFT, 0, 1 );
+	m_wndList.InsertColumn( 2, L"Extensions", LVCFMT_LEFT, 0, 2 );
 
 	m_wndList.SetExtendedStyle( LVS_EX_FULLROWSELECT|LVS_EX_CHECKBOXES );
 
@@ -87,7 +87,7 @@ BOOL CPluginsSettingsPage::OnInitDialog()
 	//pGroup.cbSize		= sizeof( pGroup );
 	//pGroup.mask		= LVGF_ALIGN|LVGF_GROUPID|LVGF_HEADER;
 	//pGroup.uAlign		= LVGA_HEADER_LEFT;
-	//pGroup.pszHeader	= _T("General Plugins");
+	//pGroup.pszHeader	= L"General Plugins";
 	//pGroup.cchHeader	= _tcslen( pGroup.pszHeader );
 	//m_wndList.InsertGroup( 0, &pGroup );
 
@@ -124,11 +124,11 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 		m_wndName.SetWindowText( m_wndList.GetItemText( nItem, 0 ).Trim() );
 		m_wndDesc.SetWindowText( GetPluginComments( m_wndList.GetItemText( nItem, 1 ) ) );
 		m_wndSetup.EnableWindow( pPlugin != NULL && pPlugin->m_pPlugin != NULL ||
-			( ! str.IsEmpty() && str != _T("-") ) );
+			( ! str.IsEmpty() && str != L"-" ) );
 	}
 	else
 	{
-		m_wndName.SetWindowText( _T("...") );
+		m_wndName.SetWindowText( L"..." );
 		m_wndSetup.EnableWindow( FALSE );
 	}
 
@@ -139,7 +139,7 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 		 ( ( pNMListView->uNewState >> 12 ) & LVIS_SELECTED ) != 0 )
 	{
 		CString strExt = m_wndList.GetItemText( nItem, 2 );
-		strExt.Replace( _T("-"), _T("") );
+		strExt.Replace( L"-", L"" );
 		m_wndList.SetItemText( nItem, 2, strExt );
 	}
 	else if ( ( ( pNMListView->uOldState >> 12 ) & LVIS_SELECTED ) != 0 &&
@@ -147,9 +147,9 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 	{
 		CString strExt = m_wndList.GetItemText( nItem, 2 );
 		if ( ! strExt.IsEmpty() )
-			strExt.Replace( _T("-"), _T("") );
+			strExt.Replace( L"-", L"" );
 		else
-			strExt = _T("-");
+			strExt = L"-";
 
 		for ( int nDot = 0 ; nDot != -1 ; )
 		{
@@ -207,8 +207,8 @@ void CPluginsSettingsPage::OnPluginsWeb()
 {
 	const CString strWebSite( WEB_SITE );
 
-	ShellExecute( GetSafeHwnd(), _T("open"),
-		strWebSite + _T("?id=addon&Version=") + theApp.m_sVersion,
+	ShellExecute( GetSafeHwnd(), L"open",
+		strWebSite + L"?id=addon&Version=" + theApp.m_sVersion,
 		NULL, NULL, SW_SHOWNORMAL );
 }
 
@@ -226,7 +226,7 @@ void CPluginsSettingsPage::OnOK()
 			m_wndList.GetItemState( nItem, LVIS_STATEIMAGEMASK ) >> 12 );
 
 		if ( bEnabled != TRI_UNKNOWN && IsWindowVisible() )
-			theApp.WriteProfileString( _T("Plugins"), strCLSID, m_wndList.GetItemText( nItem, 2 ) );
+			theApp.WriteProfileString( L"Plugins", strCLSID, m_wndList.GetItemText( nItem, 2 ) );
 
 		if ( pPlugin != NULL && ( bEnabled == TRI_TRUE ) != ( pPlugin->m_pPlugin != NULL ) )
 		{
@@ -265,12 +265,12 @@ void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int n
 			if ( pszExtension && _tcslen( pszExtension ) )
 			{
 				strCurrAssoc = m_wndList.GetItemText( nItem, 2 );
-				strAssocAdd.Format( _T("|%s|"), pszExtension );
+				strAssocAdd.Format( L"|%s|", pszExtension );
 
 				if ( strCurrAssoc.Find( strAssocAdd ) == -1 )
 				{
 					strCurrAssoc.Append( strAssocAdd );
-					strCurrAssoc.Replace( _T("||"), _T("|") );
+					strCurrAssoc.Replace( L"||", L"|" );
 					m_wndList.SetItemText( nItem, 2, strCurrAssoc );
 				}
 			}
@@ -286,11 +286,11 @@ void CPluginsSettingsPage::InsertPlugin(LPCTSTR pszCLSID, LPCTSTR pszName, int n
 
 	if ( pszExtension && _tcslen( pszExtension ) )
 	{
-		strAssocAdd.Format( _T("|%s|"), pszExtension );
+		strAssocAdd.Format( L"|%s|", pszExtension );
 		m_wndList.SetItemText( nItem, 2, strAssocAdd );
 	}
 	else
-		m_wndList.SetItemText( nItem, 2, bEnabled < TRI_TRUE ? _T("-") : _T("") );
+		m_wndList.SetItemText( nItem, 2, bEnabled < TRI_TRUE ? L"-" : L"" );
 
 	if ( bEnabled != TRI_UNKNOWN )
 		m_wndList.SetItemState( nItem, bEnabled << 12, LVIS_STATEIMAGEMASK );
@@ -320,7 +320,7 @@ void CPluginsSettingsPage::EnumerateMiscPlugins()
 	HKEY hPlugins = NULL;
 
 	if ( ERROR_SUCCESS != RegOpenKeyEx( HKEY_CURRENT_USER,
-		 REGISTRY_KEY _T("\\Plugins"), 0, KEY_READ, &hPlugins ) )
+		 REGISTRY_KEY L"\\Plugins", 0, KEY_READ, &hPlugins ) )
 		return;
 
 	for ( DWORD nIndex = 0 ; ; nIndex++ )
@@ -332,7 +332,7 @@ void CPluginsSettingsPage::EnumerateMiscPlugins()
 		if ( ERROR_SUCCESS != RegEnumKeyEx( hPlugins, nIndex, szName, &nName,
 			NULL, NULL, NULL, NULL ) ) break;
 
-		if ( _tcsicmp( szName, _T("General") ) != 0 )
+		if ( _tcsicmp( szName, L"General" ) != 0 )
 		{
 			if ( ERROR_SUCCESS == RegOpenKeyEx( hPlugins, szName, 0, KEY_READ, &hCategory ) )
 			{
@@ -348,7 +348,7 @@ void CPluginsSettingsPage::EnumerateMiscPlugins()
 void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 {
 	CMap< CString, const CString&, CString, CString& >	pCLSIDs;
-	CString strPath = REGISTRY_KEY _T("\\Plugins");
+	CString strPath = REGISTRY_KEY L"\\Plugins";
 
 	for ( DWORD nIndex = 0 ; ; nIndex++ )
 	{
@@ -387,23 +387,23 @@ void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 						}
 						else if ( nType == REG_DWORD )	// Upgrade from REG_DWORD to REG_SZ
 						{
-							BOOL bEnabled = theApp.GetProfileInt( _T("Plugins"), szValue, TRUE );
-							strExts = bEnabled ? _T("") : _T("-");
+							BOOL bEnabled = theApp.GetProfileInt( L"Plugins", szValue, TRUE );
+							strExts = bEnabled ? L"" : L"-";
 						}
 						RegCloseKey( hUserPlugins );
 					}
 				}
 
 				// Disabled extensions have '-' sign before their names
-				strEnabledExt.Format( _T("|%s|"), szName );
-				strDisabledExt.Format( _T("|-%s|"), szName );
+				strEnabledExt.Format( L"|%s|", szName );
+				strDisabledExt.Format( L"|-%s|", szName );
 				if ( strExts.Find( strEnabledExt ) == -1 )
 				{
 					if ( strExts.Find( strDisabledExt ) == -1 )
 					{
 						// Missing extension under user options; append to the list
 						// Leave "-" if upgrading: it will be removed eventually when user applies settings
-						strCurrExt = ( strExts.Left( 1 ) == '-' ) ? strDisabledExt : strEnabledExt;
+						strCurrExt = ( strExts[ 0 ] == L'-' ) ? strDisabledExt : strEnabledExt;
 						strExts.Append( strCurrExt );
 					}
 					else
@@ -412,10 +412,10 @@ void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 				else strCurrExt = strEnabledExt;
 			}
 
-			strExts.Replace( _T("||"), _T("|") );
+			strExts.Replace( L"||", L"|" );
 			pCLSIDs.SetAt( szValue, strExts );
-			if ( ! strExts.IsEmpty() ) theApp.WriteProfileString( _T("Plugins"), szValue, strExts );
-			strCurrExt.Replace( _T("|"), _T("") );
+			if ( ! strExts.IsEmpty() ) theApp.WriteProfileString( L"Plugins", szValue, strExts );
+			strCurrExt.Replace( L"|", L"" );
 			AddMiscPlugin( pszType, szValue, strCurrExt );
 		}
 	}
@@ -427,7 +427,7 @@ void CPluginsSettingsPage::AddMiscPlugin(LPCTSTR /*pszType*/, LPCTSTR pszCLSID, 
 	CString strClass;
 	CLSID pCLSID;
 
-	strClass.Format( _T("CLSID\\%s"), pszCLSID );
+	strClass.Format( L"CLSID\\%s", pszCLSID );
 
 	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CLASSES_ROOT, strClass, 0, KEY_READ, &hClass ) )
 	{
@@ -456,7 +456,7 @@ CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 	CString strPath;
 	HKEY hClassServer = NULL;
 
-	strPath.Format( _T("CLSID\\%s\\InProcServer32"), pszCLSID );
+	strPath.Format( L"CLSID\\%s\\InProcServer32", pszCLSID );
 
 	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CLASSES_ROOT, strPath, 0, KEY_READ, &hClassServer ) )
 	{
@@ -493,9 +493,9 @@ CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 
 	CString strKey, strValue;
 
-	strKey = _T("\\StringFileInfo\\");
+	strKey = L"\\StringFileInfo\\";
 	strKey.Append( pLanguage );
-	strKey.Append( _T("\\Comments") );
+	strKey.Append( L"\\Comments" );
 
 	BYTE* pValue = NULL;
 	nSize = 0;

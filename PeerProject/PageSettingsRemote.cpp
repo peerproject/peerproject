@@ -1,7 +1,7 @@
 //
 // PageSettingsRemote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -77,7 +77,7 @@ BOOL CRemoteSettingsPage::OnInitDialog()
 	m_sUsername	= m_sOldUsername	= Settings.Remote.Username;
 	m_sOldPassword					= Settings.Remote.Password;
 
-	if ( ! m_sOldPassword.IsEmpty() ) m_sPassword = _T("      ");
+	if ( ! m_sOldPassword.IsEmpty() ) m_sPassword = L"      ";
 
 	UpdateData( FALSE );
 
@@ -92,7 +92,7 @@ void CRemoteSettingsPage::OnNewPassword()
 	{
 		Settings.Remote.Password = m_sOldPassword;
 	}
-	else if ( m_sPassword == _T("      ") )	// Password hasn't been edited
+	else if ( m_sPassword == L"      " )	// Password hasn't been edited
 	{
 		Settings.Remote.Password = m_sOldPassword;
 	}
@@ -126,14 +126,14 @@ void CRemoteSettingsPage::OnBnClickedRemoteEnable()
 	{
 		if ( Network.IsListening() )
 		{
-			strURL.Format( _T("http://%s:%i/remote"),
+			strURL.Format( L"http://%s:%i/remote",
 				(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 				(int)ntohs( Network.m_pHost.sin_port ) );
 			m_wndURL.EnableWindow( TRUE );
 		}
 		else if ( Handshakes.IsValid() && Network.m_pHost.sin_port != 0 )
 		{
-			strURL.Format( _T("http://localhost:%i/remote"),
+			strURL.Format( L"http://localhost:%i/remote",
 				(int)ntohs( Network.m_pHost.sin_port ) );
 			m_wndURL.EnableWindow( TRUE );
 		}
