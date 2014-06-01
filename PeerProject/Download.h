@@ -100,14 +100,15 @@ private:
 //	void		SerializeOld(CArchive& ar, int nVersion);	// Legacy DOWNLOAD_SER_VERSION < 11 (2002), for reference only
 
 public:
-	virtual float GetProgress() const;	// Statistics
-	virtual dtask GetTaskType() const;	// Return currently running task
-	virtual bool IsTasking() const;		// Check if a task is already running
-	virtual bool IsTrying() const;		// Is the download currently trying to download?
+	virtual void  Resize(QWORD nNewSize);	// Set new download size
+	virtual float GetProgress() const;		// Statistics
+	virtual dtask GetTaskType() const;		// Return currently running task
+	virtual bool IsTasking() const;			// Check if a task is already running
+	virtual bool IsTrying() const;			// Is the download currently trying to download?
 	virtual bool IsPaused(bool bRealState = false) const;
 	virtual bool IsCompleted() const;
 	virtual bool IsMoving() const;
-	virtual void OnMoved();				// File was moved to the Library
+	virtual void OnMoved();					// File was moved to the Library
 	virtual BOOL OnVerify(const CLibraryFile* pFile, TRISTATE bVerified);	// File was hashed and verified in the Library
 	virtual void Serialize(CArchive& ar, int nVersion); 	// DOWNLOAD_SER_VERSION
 

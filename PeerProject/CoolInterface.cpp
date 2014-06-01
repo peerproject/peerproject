@@ -113,10 +113,15 @@ void CCoolInterface::NameCommand(UINT nID, LPCTSTR pszName)
 
 UINT CCoolInterface::NameToID(LPCTSTR pszName) const
 {
+	if ( ! pszName || ! *pszName )
+		return 0;
+
 	//CQuickLock oLock( m_pSection );
 
 	UINT nID = 0;
-	if ( m_pNameMap.Lookup( pszName, nID ) ) return nID;
+	if ( m_pNameMap.Lookup( pszName, nID ) )
+		return nID;
+
 	return _tcstoul( pszName, NULL, 10 );
 }
 

@@ -44,16 +44,37 @@ BEGIN_MESSAGE_MAP(CExistingFileDlg, CSkinDialog)
 	ON_BN_CLICKED(IDC_ACTION_2, OnAction2)
 END_MESSAGE_MAP()
 
+
 //CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectURL* pURL)
 //{
 //	// Check files inside torrent
 //	if ( pURL->m_pTorrent )
 //	{
-//		for ( POSITION pos = pURL->m_pTorrent->m_pFiles.GetHeadPosition() ; pos ; )
+//		INT_PTR nCount = pURL->m_pTorrent->m_pFiles.GetCount();
+//		if ( nCount > 0 )
 //		{
-//			CBTInfo::CBTFile* pBTFile = pURL->m_pTorrent->m_pFiles.GetNext( pos );
+//			BOOL bDownload = FALSE;
+//			const CBTInfo::CBTFile* pFound = NULL;
+//			for ( POSITION pos = pURL->m_pTorrent->m_pFiles.GetHeadPosition() ; pos ; )
+//			{
+//				const CBTInfo::CBTFile* pBTFile = pURL->m_pTorrent->m_pFiles.GetNext( pos );
 //
-//			return CheckExisting( static_cast< const CPeerProjectFile* >( pBTFile ), bInteracive );
+//				switch ( CExistingFileDlg::Action action = CheckExisting( static_cast< const CPeerProjectFile* >( pBTFile ) ) )
+//				{
+//				case ShowInLibrary:
+//					pFound = pBTFile;
+//					break;
+//				case Download:
+//					bDownload = TRUE;
+//					break;
+//				default:
+//					return Cancel;
+//				}
+//			}
+//			if ( pFound && bInteracive )
+//				return CheckExisting( static_cast< const CPeerProjectFile* >( pFound ) );
+//
+//			return bDownload ? Download : ShowInLibrary;
 //		}
 //	}
 //
@@ -65,7 +86,7 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 {
 	CSingleLock pLibraryLock( &Library.m_pSection );
 	if ( ! SafeLock( pLibraryLock ) )
-		return Download;
+		return Cancel;
 
 	CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( pFile );
 	if ( pLibFile == NULL )

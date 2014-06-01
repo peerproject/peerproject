@@ -17,6 +17,7 @@
 //
 
 #include "StdAfx.h"
+#include "Settings.h"
 #include "PeerProject.h"
 #include "DlgDownloadSheet.h"
 #include "PageDownloadEdit.h"
@@ -287,6 +288,7 @@ BOOL CDownloadEditPage::OnApply()
 		bCriticalChange = true;
 	}
 
+	BOOL bNewBTH = FALSE;
 	if ( pDownload->m_oBTH.isValid() != oBTH.isValid()
 		|| validAndUnequal( pDownload->m_oBTH, oBTH ) )
 	{
@@ -301,6 +303,7 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->CloseTransfers();
 		pDownload->ClearVerification();
 		bCriticalChange = true;
+		bNewBTH = TRUE;
 	}
 
 	pDownload->m_bSHA1Trusted = m_bSHA1Trusted != FALSE;
@@ -316,6 +319,13 @@ BOOL CDownloadEditPage::OnApply()
 		pDownload->ClearFailedSources();
 		pDownload->ClearVerification();
 		bNeedUpdate = true;
+	}
+
+	if ( bNewBTH && Settings.BitTorrent.EnablePromote && ! pDownload->m_oBTH && pDownload->IsTorrent() )
+	{
+		// Mutate torrent download to regular download
+		pDownload->m_pTorrent.Clear();
+		pDownload->SetTorrent();
 	}
 
 	if ( bNeedUpdate )

@@ -299,9 +299,9 @@ BOOL CLibraryTreeView::Select(CLibraryTreeItem* pItem, TRISTATE bSelect, BOOL bI
 		}
 
 		if ( m_bVirtual )
-			m_pFocusObject[ 1 ] = pItem ? pItem->m_pVirtual : NULL;
+			m_pFocusObject[ 1 ] = pItem->m_pVirtual;
 		else
-			m_pFocusObject[ 0 ] = pItem ? pItem->m_pPhysical : NULL;
+			m_pFocusObject[ 0 ] = pItem->m_pPhysical;
 
 		m_nSelected++;
 

@@ -131,7 +131,7 @@ void CTorrentSeedDlg::OnDownload()
 
 	if ( CDownload* pDownload = Downloads.Add( oURL ) )
 	{
-		pDownload->PrepareFile();
+		pDownload->OpenDownload();				// Was PrepareFile()
 
 		// Automatically merge download with local files on start-up
 		if ( Settings.BitTorrent.AutoMerge )	// && pDownload->m_pTorrent.GetCount() > 1

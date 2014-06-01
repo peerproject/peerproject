@@ -918,7 +918,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス">
+		<menu id="ID_WEBSERVICES_LIST" text="ウェブサービス">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Bitprints Ticketを表示"/>
 			<item id="ID_SEARCH_URI" text="URIをコピー..."/>
 		</menu>
@@ -939,8 +939,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="同じアーティストの曲"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="検索対象 M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="ウェブサービス">
+		<menu id="ID_WEBSERVICES_LIST" text="ウェブサービス">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Bitprints Ticketを表示"/>
 		</menu>
 		<separator/>
@@ -984,7 +987,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス">
+		<menu id="ID_WEBSERVICES_LIST" text="ウェブサービス">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Bitprints Ticketを表示"/>
 		</menu>
 		<separator/>
@@ -1009,7 +1012,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同じアルバムの曲"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同じシリーズのエピソード"/>
 		</menu>
-		<menu text="ウェブサービス">
+		<menu id="ID_WEBSERVICES_LIST" text="ウェブサービス">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Bitprints Ticketを表示"/>
 		</menu>
 		<separator/>

@@ -50,8 +50,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 
 	LPOLESTR* pelt = rgelt;
 	ULONG nActual = 0;
-	HRESULT hr = S_OK;
-	while ( SUCCEEDED( hr ) && nActual < celt )
+	while ( nActual < celt )
 	{
 		CString strEntry;
 		strEntry.Format( pThis->m_root, pThis->m_iter + 1 );
@@ -71,9 +70,7 @@ STDMETHODIMP CRegEnum::XEnumString::Next(
 	}
 	if ( pceltFetched )
 		*pceltFetched = nActual;
-	if ( SUCCEEDED( hr ) && nActual < celt )
-		hr = S_FALSE;
-	return hr;
+	return ( nActual < celt ) ? S_FALSE : S_OK;
 }
 
 STDMETHODIMP CRegEnum::XEnumString::Skip(

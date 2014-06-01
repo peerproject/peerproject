@@ -146,6 +146,8 @@ void CSettings::Load()
 	Add( L"Interface", L"TipSearch", &Interface.TipSearch, true );
 	Add( L"Interface", L"TipShadow", &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
 	Add( L"Interface", L"Snarl", &Interface.Snarl, true );	// Use notifications (getsnarl.info)
+	Add( L"Interface", L"SearchWindowsLimit", &Interface.SearchWindowsLimit, 10, 1, 0, 50, L" windows" );
+	Add( L"Interface", L"BrowseWindowsLimit", &Interface.BrowseWindowsLimit, 12, 1, 0, 50, L" windows" );
 
 	Add( L"Skin", L"DropMenu", &Skin.DropMenu, false );
 	Add( L"Skin", L"DropMenuLabel", &Skin.DropMenuLabel, 0, 1, 0, 100, L" char" );
@@ -203,12 +205,14 @@ void CSettings::Load()
 	Add( L"Library", L"ScanAVI", &Library.ScanAVI, true );
 	Add( L"Library", L"ScanCHM", &Library.ScanCHM, true );
 	Add( L"Library", L"ScanEXE", &Library.ScanEXE, true );
+	Add( L"Library", L"ScanFLV", &Library.ScanFLV, true );
 	Add( L"Library", L"ScanImage", &Library.ScanImage, true );
 	Add( L"Library", L"ScanMP3", &Library.ScanMP3, true );
 	Add( L"Library", L"ScanMPEG", &Library.ScanMPEG, true );
 	Add( L"Library", L"ScanMSI", &Library.ScanMSI, true );
 	Add( L"Library", L"ScanOGG", &Library.ScanOGG, true );
 	Add( L"Library", L"ScanPDF", &Library.ScanPDF, true );
+	Add( L"Library", L"ScanProperties", &Library.ScanProperties, true );
 //	Add( L"Library", L"ShowCoverArt", &Library.ShowCoverArt, true );
 	Add( L"Library", L"ShowPanel", &Library.ShowPanel, true );
 	Add( L"Library", L"ShowVirtual", &Library.ShowVirtual, true );
@@ -503,6 +507,7 @@ void CSettings::Load()
 	Add( L"BitTorrent", L"DownloadConnections", &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
 	Add( L"BitTorrent", L"DownloadTorrents", &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
 	Add( L"BitTorrent", L"EnableDHT", &BitTorrent.EnableDHT, true );
+	Add( L"BitTorrent", L"EnablePromote", &BitTorrent.EnablePromote, true );
 	Add( L"BitTorrent", L"EnableAlways", &BitTorrent.EnableAlways, true );
 	Add( L"BitTorrent", L"Enabled", &BitTorrent.Enabled, true );
 	Add( L"BitTorrent", L"Endgame", &BitTorrent.Endgame, true );

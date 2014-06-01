@@ -982,7 +982,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική από το ίδιο _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
+		<menu id="ID_WEBSERVICES_LIST" text="_Υπηρεσίες Ιστού">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Προβολή _Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Αντι_γραφή URI..."/>
 		</menu>
@@ -1003,8 +1003,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Μουσική από τον ίδιο _Καλλιτέχνη"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική από το ίδιο _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Αναζήτηση M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
+		<menu id="ID_WEBSERVICES_LIST" text="_Υπηρεσίες Ιστού">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Προβολή _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1048,7 +1051,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική από το ίδιο _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
+		<menu id="ID_WEBSERVICES_LIST" text="_Υπηρεσίες Ιστού">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Προβολή _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1073,7 +1076,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Μουσική από το ίδιο _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Επεισόδια από την ίδια Σειρά"/>
 		</menu>
-		<menu text="_Υπηρεσίες Ιστού">
+		<menu id="ID_WEBSERVICES_LIST" text="_Υπηρεσίες Ιστού">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Προβολή _Bitprints listing"/>
 		</menu>
 		<separator/>

@@ -1006,7 +1006,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו א_לבום"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה _סדרה"/>
 		</menu>
-		<menu text="‪שירותי רשת">
+		<menu id="ID_WEBSERVICES_LIST" text="‪שירותי רשת">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="‪Bitprints הראה כרטיס"/>
 			<item id="ID_SEARCH_URI" text="‪...URI העתק"/>
 		</menu>
@@ -1020,15 +1020,18 @@ gap i newline
 		<item id="ID_SEARCH_CHAT" text="‪_שוחח עם המשתמש"/>
 		<item id="ID_SECURITY_BAN" text="‪_חסום משתמש"/>
 		<separator/>
-		<menu text="‪_חיפוש של">
+		<menu text="_חיפוש של">
 			<item id="ID_SEARCH_FOR_THIS" text="‪קובץ זה"/>
 			<item id="ID_SEARCH_FOR_SIMILAR" text="‪קבצים דומים"/>
 			<separator/>
 			<item id="ID_SEARCH_FOR_ARTIST" text="‪מוזיקה של אותו אמן"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="חיפוש M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="‪שירותי רשת">
+		<menu id="ID_WEBSERVICES_LIST" text="‪שירותי רשת">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="‪Bitprints הראה כרטיס"/>
 		</menu>
 		<separator/>
@@ -1072,7 +1075,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
-		<menu text="‪שירותי רשת">
+		<menu id="ID_WEBSERVICES_LIST" text="‪שירותי רשת">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="‪Bitprints הראה כרטיס"/>
 		</menu>
 		<separator/>
@@ -1097,7 +1100,7 @@ gap i newline
 			<item id="ID_SEARCH_FOR_ALBUM" text="‪מוזיקה באותו אלבום"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="‪פרקים באותה סדרה"/>
 		</menu>
-		<menu text="‪שירותי רשת">
+		<menu id="ID_WEBSERVICES_LIST" text="‪שירותי רשת">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="‪Bitprints הראה כרטיס"/>
 		</menu>
 		<separator/>

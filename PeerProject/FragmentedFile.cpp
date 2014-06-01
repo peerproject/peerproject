@@ -190,15 +190,15 @@ BOOL CFragmentedFile::Open(LPCTSTR pszFile, QWORD nOffset, QWORD nLength, BOOL b
 	if ( GetFileAttributes( SafePath( strPath ) ) == INVALID_FILE_ATTRIBUTES )
 	{
 		const CString strFileName = PathFindFileName( strPath );
-		if ( GetFileAttributes( SafePath( Settings.Downloads.IncompletePath + L"\\" + strFileName ) ) == INVALID_FILE_ATTRIBUTES )
+		if ( GetFileAttributes( SafePath( Settings.Downloads.IncompletePath + L"\\" + strFileName ) ) != INVALID_FILE_ATTRIBUTES )
+		{
+			strPath = Settings.Downloads.IncompletePath + L"\\" + strFileName;
+		}
+		else if ( m_pDownload )
 		{
 			const CString strPDPath = m_pDownload->m_sPath.Left( m_pDownload->m_sPath.ReverseFind( L'\\' ) );
 			if ( GetFileAttributes( SafePath( strPDPath + L"\\" + strFileName ) ) != INVALID_FILE_ATTRIBUTES )
 				strPath = strPDPath + L"\\" + strFileName;
-		}
-		else
-		{
-			strPath = Settings.Downloads.IncompletePath + L"\\" + strFileName;
 		}
 	}
 

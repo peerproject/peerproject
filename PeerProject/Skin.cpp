@@ -949,13 +949,18 @@ CMenu* CSkin::CreatePopupMenu(LPCTSTR pszName)
 
 BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 {
+	if ( const UINT nID = LookupCommandID( pRoot, L"id" ) )
+	{
+		VERIFY( SetMenuContextHelpId( hMenu, nID ) );
+	}
+
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
 		CXMLElement* pXML	= pRoot->GetNextElement( pos );
 		CString strText		= pXML->GetAttributeValue( L"text" );
 
-		int nAmp = strText.Find( '_' );
-		if ( nAmp >= 0 ) strText.SetAt( nAmp, '&' );
+		int nAmp = strText.Find( L'_' );
+		if ( nAmp >= 0 ) strText.SetAt( nAmp, L'&' );
 
 		if ( pXML->IsNamed( L"item" ) )
 		{
@@ -963,7 +968,7 @@ BOOL CSkin::CreateMenu(CXMLElement* pRoot, HMENU hMenu)
 			{
 				CString strKeys = pXML->GetAttributeValue( L"shortcut" );
 
-				if ( ! strKeys.IsEmpty() ) strText += '\t' + strKeys;
+				if ( ! strKeys.IsEmpty() ) strText += L'\t' + strKeys;
 
 				VERIFY( AppendMenu( hMenu, MF_STRING, nID, strText ) );
 			}

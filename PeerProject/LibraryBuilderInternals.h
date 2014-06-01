@@ -33,6 +33,7 @@ private:
 public:
 	int			LookupID3v1Genre(const CString& strGenre) const;
 	bool		ExtractMetadata(DWORD nIndex, const CString& strPath, HANDLE hFile);
+	bool		ExtractProperties(DWORD nIndex, const CString& strPath);	// Windows properties
 
 private:
 	// ID3v1 and ID3v2 and MP3
@@ -64,6 +65,13 @@ private:
 	bool		ReadBMP(DWORD nIndex, HANDLE hFile);
 
 	// General Media
+	bool		ReadFLV(DWORD nIndex, HANDLE hFile);
+	bool		ReadFLVVariable(HANDLE hFile, DWORD& nRemaning, VARIANT& varData, CXMLElement* pXML = NULL);
+	bool		ReadFLVDouble(HANDLE hFile, DWORD& nRemaning, double& dValue);
+	bool		ReadFLVBool(HANDLE hFile, DWORD& nRemaning, bool& bValue);
+	bool		ReadFLVString(HANDLE hFile, DWORD& nRemaning, BOOL bLong, CStringA& strValue);
+	bool		ReadFLVEMCA(HANDLE hFile, DWORD& nRemaning, CXMLElement* pXML = NULL);
+
 	bool		ReadASF(DWORD nIndex, HANDLE hFile);
 	bool		ReadAVI(DWORD nIndex, HANDLE hFile);
 	bool		ReadMPEG(DWORD nIndex, HANDLE hFile);

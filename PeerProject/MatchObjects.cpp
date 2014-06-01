@@ -208,10 +208,10 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 		// Empty file names are caught by the next clause and deleted.
 
 		if ( Security.IsDenied( &pNext->m_pAddress ) ||
-			Security.IsDenied( pNext ) ||
-			pNext->m_sName.IsEmpty() ||			// Empty name
-			pNext->m_nSize == 0 ||				// size is 0
-			pNext->m_nSize == SIZE_UNKNOWN )	// size is SIZE_UNKNOWN (0xFFFFFFFFFFFFFFFF)
+			 Security.IsDenied( pNext ) ||
+			 pNext->m_sName.IsEmpty() ||		// Empty name
+			 pNext->m_nSize == 0 ||				// size is 0
+			 pNext->m_nSize == SIZE_UNKNOWN )	// size is SIZE_UNKNOWN (0xFFFFFFFFFFFFFFFF)
 			// NOTE: Because Gnutella without GGEP "LF" extension can only handle up to 4GB-1B size
 			// (can be 2GB-1 depending on sign handling of the value), large files can have SIZE_UNKNOWN value
 			// if no GGEP "LF" was on QueryHit packet. Because of current implementation of list
@@ -245,7 +245,7 @@ void CMatchList::AddHits(const CQueryHit* pHits, const CQuerySearch* pFilter)
 			// Thus, we can filter them if we get two or more
 			// of the same keyword lists from one user.
 
-			if ( BOOL bName = _tcsistr( pFilter->m_sKeywords, pHit->m_sName ) == 0 )
+			if ( _tcsistr( pFilter->m_sKeywords, pHit->m_sName ) == 0 )
 				pHit->m_bExactMatch = TRUE;
 
 			pHit->m_bMatched = pFilter->Match( pHit->m_sName,
@@ -593,7 +593,7 @@ BOOL CMatchList::Select(CMatchFile* pFile, CQueryHit* pHit, BOOL bSelected)
 		else
 			m_pSelectedHits.RemoveAt( m_pSelectedHits.Find( pHit ) );
 	}
-	else
+	else if ( pFile != NULL )
 	{
 		if ( pFile->m_bSelected == bSelected ) return FALSE;
 		pFile->m_bSelected = bSelected;
@@ -1198,7 +1198,7 @@ void CMatchList::Serialize(CArchive& ar, int nVersion)
 	else // Loading
 	{
 		ar >> nVersion;
-		if ( nVersion < 12 )
+		if ( nVersion < 1000 )
 			AfxThrowUserException();
 
 		ar >> m_sFilter;
@@ -1308,6 +1308,7 @@ void CMatchList::SanityCheck()
 			nFile++;
 	}
 }
+
 
 //////////////////////////////////////////////////////////////////////
 // CMatchFile construction
@@ -1858,7 +1859,7 @@ void CMatchFile::Added(CQueryHit* pHit)
 			m_bSuspicious = TRUE;
 	}
 
-	// Get extention
+	// Get extension
 	if ( int nExt = pHit->m_sName.ReverseFind( L'.' ) + 1 )
 	{
 		LPCTSTR pszExt = (LPCTSTR)pHit->m_sName + nExt;
@@ -1882,13 +1883,13 @@ void CMatchFile::Added(CQueryHit* pHit)
 			else if ( m_nSize < 90 * 1024 )
 			{
 				if ( ( _tcsicmp( pszExt, L"exe" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"com" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"scr" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"avi" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"mpg" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"mov" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"wmv" ) == 0 ) ||
-					( _tcsicmp( pszExt, L"wma" ) == 0 ) )
+					 ( _tcsicmp( pszExt, L"com" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"scr" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"avi" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"mpg" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"mov" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"wmv" ) == 0 ) ||
+					 ( _tcsicmp( pszExt, L"wma" ) == 0 ) )
 				{
 					m_bSuspicious = TRUE;
 				}

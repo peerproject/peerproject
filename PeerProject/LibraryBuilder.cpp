@@ -456,6 +456,8 @@ void CLibraryBuilder::OnRun()
 				nAttempts = 0;
 				SetFilePointer( hFile, 0, NULL, FILE_BEGIN );
 
+				ExtractProperties( nIndex, m_sPath );
+
 				try
 				{
 					ExtractMetadata( nIndex, m_sPath, hFile );

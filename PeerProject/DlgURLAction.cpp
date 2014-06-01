@@ -195,7 +195,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		{
 			m_sNameValue = m_pURL->m_sName;
 
-			if ( m_pURL->m_bSize )
+			if ( m_pURL->m_nSize && m_pURL->m_nSize != SIZE_UNKNOWN )
 				m_sNameValue += L" (" + Settings.SmartVolume( m_pURL->m_nSize ) + L")";
 		}
 		else

@@ -164,6 +164,15 @@
 //#endif
 
 //
+// ATL
+//
+
+#include <atlfile.h>		// Thin file classes
+#include <atltime.h>		// Time classes
+#include <atlsafe.h>		// CComSafeArray class
+//#include <atlenc.h>		// Base64Encode, UUEncode etc.
+
+//
 // WIN32
 //
 
@@ -179,9 +188,6 @@
 #include <mmsystem.h>		// Multimedia
 #include <exdispid.h>		// Internet Explorer DISPID_ Messages (ctrlweb)
 #include <winioctl.h>		// Sparse files support
-#include <atlfile.h>		// Thin file classes
-#include <atltime.h>		// Time classes
-//#include <atlenc.h>		// Base64Encode, UUEncode etc.
 
 // If header is not found, install latest Windows SDK from microsoft.com
 // (Vista SDK 6.0 or later -previously XP Platform SDK)
@@ -228,7 +234,6 @@
 //#include <stack>
 //#include <memory>
 
-
 //
 // C++11
 //
@@ -237,7 +242,6 @@
   //#include <forward_list>
   //#if (_MSC_VER >= 1700)	// VS2012 for C++11
 //#endif
-
 
 //
 // TR1 (std::tr1::)
@@ -251,7 +255,6 @@
 //#include <regex>							// In RegExp.cpp
 //#include <type_traits>					// In MinMax.hpp
 //#include <unordered_map>
-
 
 //
 // Boost
@@ -857,6 +860,26 @@ private:
 	CTimeAverage(const CTimeAverage&);
 	CTimeAverage* operator&() const;
 	CTimeAverage& operator=(const CTimeAverage&);
+};
+
+// Simple PROPVARIANT wrapper
+class CComPropVariant : public PROPVARIANT
+{
+public:
+	inline CComPropVariant()
+	{
+		::PropVariantInit( this );
+	}
+
+	inline ~CComPropVariant()
+	{
+		Clear();
+	}
+
+	inline HRESULT Clear()
+	{
+		return ::PropVariantClear( this );
+	}
 };
 
 template< class T >

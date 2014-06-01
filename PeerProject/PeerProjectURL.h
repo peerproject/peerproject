@@ -51,7 +51,6 @@ public:
 	WORD			m_nPort;
 	IN_ADDR			m_pServerAddress;
 	WORD			m_nServerPort;
-	BOOL			m_bSize;
 	CString			m_sLogin;
 	CString			m_sPassword;
 	CAutoPtr< CBTInfo >	m_pTorrent;

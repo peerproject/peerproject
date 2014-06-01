@@ -152,7 +152,7 @@ void CUploadTransferED2K::Close(UINT nError)
 
 	if ( m_nState == upsUploading || m_nState == upsQueued )
 	{
-		if ( m_pBaseFile != NULL && m_pClient->IsOnline() )
+		if ( m_pBaseFile != NULL && m_pClient && m_pClient->IsOnline() )
 			Send( CEDPacket::New( ED2K_C2C_FINISHUPLOAD ) );
 	}
 

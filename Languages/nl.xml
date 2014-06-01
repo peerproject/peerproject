@@ -975,7 +975,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
-		<menu text="_Internetdiensten">
+		<menu id="ID_WEBSERVICES_LIST" text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing bekijken"/>
 			<item id="ID_SEARCH_URI" text="_URI kopiëren..."/>
 		</menu>
@@ -996,8 +996,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Muziek van dezelfde _artiest"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Zoeken M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Internetdiensten">
+		<menu id="ID_WEBSERVICES_LIST" text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing bekijken"/>
 		</menu>
 		<separator/>
@@ -1041,7 +1044,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
-		<menu text="_Internetdiensten">
+		<menu id="ID_WEBSERVICES_LIST" text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing bekijken"/>
 		</menu>
 		<separator/>
@@ -1066,7 +1069,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muziek van hetzelfde al_bum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Afleveringen uit dezelfde _serie"/>
 		</menu>
-		<menu text="_Internetdiensten">
+		<menu id="ID_WEBSERVICES_LIST" text="_Internetdiensten">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing bekijken"/>
 		</menu>
 		<separator/>

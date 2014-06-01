@@ -1011,7 +1011,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
-		<menu text="_Serviços da Rede">
+		<menu id="ID_WEBSERVICES_LIST" text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver o _Ticket do Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
 		</menu>
@@ -1032,8 +1032,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="_Músicas do mesmo Artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Procurar M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Serviços da Rede">
+		<menu id="ID_WEBSERVICES_LIST" text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver o _Ticket do Bitprints"/>
 		</menu>
 		<separator/>
@@ -1077,7 +1080,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
-		<menu text="_Serviços da Rede">
+		<menu id="ID_WEBSERVICES_LIST" text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver o _Ticket do Bitprints"/>
 		</menu>
 		<separator/>
@@ -1102,7 +1105,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Músicas do mesmo _Álbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episódios da mesma Série"/>
 		</menu>
-		<menu text="_Serviços da Rede">
+		<menu id="ID_WEBSERVICES_LIST" text="_Serviços da Rede">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver o _Ticket do Bitprints"/>
 		</menu>
 		<separator/>

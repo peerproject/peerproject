@@ -952,7 +952,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música d'aquest àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
-		<menu text="Serveis _Web">
+		<menu id="ID_WEBSERVICES_LIST" text="Serveis _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Veure tiquet _Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Copia _URI..."/>
 		</menu>
@@ -973,8 +973,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Música d'aquest artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música d'aquest àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Cerca M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Serveis web">
+		<menu id="ID_WEBSERVICES_LIST" text="_Serveis web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Veure informe _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1018,7 +1021,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música d'aquest àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
-		<menu text="Serveis _web">
+		<menu id="ID_WEBSERVICES_LIST" text="Serveis _web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Informe _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1043,7 +1046,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música d'aquest àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis d'aquesta sèrie"/>
 		</menu>
-		<menu text="_Web">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Veure informe de _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1276,7 +1279,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mateix àlbum"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodis de les mateixes sèries"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Informe _Bitprints"/>
 			<item id="ID_LIBRARY_BITPRINTS_DOWNLOAD" text="_Descarrega la metainformació"/>
 			<separator/>

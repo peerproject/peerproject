@@ -109,6 +109,8 @@ public:
 		bool		TipNeighbours;
 		bool		TipMedia;
 		bool		Snarl;					// Use Snarl notifications (getsnarl.info)
+		DWORD		SearchWindowsLimit;		// Maximum number of opened Search windows
+		DWORD		BrowseWindowsLimit;		// Maximum number of opened Browse Host windows
 	} Interface;
 
 	struct sSkin
@@ -196,12 +198,14 @@ public:
 		bool		ScanAVI;				// Enable .avi metadata extraction by internals
 		bool		ScanCHM;				// Enable .chm metadata extraction by internals
 		bool		ScanEXE;				// Enable .exe,.dll metadata extraction by internals
+		bool		ScanFLV;				// Enable .flv metadata extraction by internals
 		bool		ScanImage;				// Enable .jpg,.jpeg,.gif,.png,.bmp metadata extraction by internals
 		bool		ScanMP3;				// Enable .mp3 +.aac,.flac,.mpc metadata extraction by internals
 		bool		ScanMPEG;				// Enable .mpeg,.mpg metadata extraction by internals
 		bool		ScanMSI;				// Enable .msi metadata extraction by internals
 		bool		ScanOGG;				// Enable .ogg metadata extraction by internals
 		bool		ScanPDF;				// Enable .pdf metadata extraction by internals
+		bool		ScanProperties;			// Enable Windows properties metadata extraction by internals
 		bool		SmartSeriesDetection;	// Organize video files in Library by using predefined patterns
 		CString		URLExportFormat;		// Template for URL export
 		CString		LastUsedView;			// Name of last folder view used
@@ -532,6 +536,7 @@ public:
 		DWORD		ConnectThrottle;		// Throttle for DHT request (sec)
 		DWORD		QueryHostDeadline;		// Time to wait for DHT reply (sec)
 		bool		EnableDHT;				// Enable Mainline DHT protocol
+		bool		EnablePromote;			// Enable regular to torrent download promotion
 		bool		Endgame;				// Allow endgame mode when completing torrents. (Download same chunk from multiple sources)
 		bool		AutoSeed;				// Automatically re-seed most recently completed torrent on start-up
 		bool		AutoMerge;				// Automatically merge download with local files on start-up

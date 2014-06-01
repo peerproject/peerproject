@@ -863,6 +863,7 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Naabrid"/>
 			<item id="ID_VIEW_UPLOADS" text="_Üleslaadimised"/>
 			<item id="ID_VIEW_SECURITY" text="_Turvalisus"/>
+			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Võõrustajad"/>
 		</menu>
 	</menu>
@@ -887,6 +888,7 @@
 	<menu name="CHostCacheWnd">
 		<item id="ID_HOSTCACHE_CONNECT" text="_Ühenda Nüüd"/>
 		<item id="ID_HOSTCACHE_DISCONNECT" text="_Katkesta Ühendus"/>
+		<item id="ID_NEIGHBOURS_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_HOSTCACHE_PRIORITY" text="_Oluline Server"/>
 		<separator/>
 		<item id="ID_HOSTCACHE_REMOVE" text="_Eemalda server"/>
@@ -915,7 +917,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
-		<menu text="_Weebiteenused">
+		<menu id="ID_WEBSERVICES_LIST" text="_Weebiteenused">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Vaata _Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Kopeeri _URI..."/>
 		</menu>
@@ -936,8 +938,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Samalt Artistilt"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Otsi M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Weebiteenused">
+		<menu id="ID_WEBSERVICES_LIST" text="_Weebiteenused">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Vaata _Bitprints"/>
 		</menu>
 		<separator/>
@@ -981,7 +986,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
-		<menu text="_Weebiteenused">
+		<menu id="ID_WEBSERVICES_LIST" text="_Weebiteenused">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Vaata _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1006,7 +1011,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Samalt Albumilt"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Sama Seriaali Osasid"/>
 		</menu>
-		<menu text="_Weebiteenused">
+		<menu id="ID_WEBSERVICES_LIST" text="_Weebiteenused">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Vaata _Bitprints"/>
 		</menu>
 		<separator/>

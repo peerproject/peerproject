@@ -417,7 +417,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View Bitprints listing"/>
 			<item id="ID_LIBRARY_BITPRINTS_DOWNLOAD" text="_Download Metadata"/>
 			<separator/>

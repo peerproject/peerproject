@@ -937,7 +937,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
 		</menu>
-		<menu text="_Webbtjänster">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Webbtjänster">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visa _Bitprintsbiljett"/>
 			<item id="ID_SEARCH_URI" text="Kopiera _URI…"/>
 		</menu>
@@ -958,8 +958,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Musik av samma artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Sök M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Webbtjänster">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Webbtjänster">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visa _Bitprintsbiljett"/>
 		</menu>
 		<separator/>
@@ -1003,7 +1006,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
 		</menu>
-		<menu text="_Webbtjänster">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Webbtjänster">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visa _Bitprintsbiljett"/>
 		</menu>
 		<separator/>
@@ -1028,7 +1031,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musik från samma album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Avsnitt från samma serie"/>
 		</menu>
-		<menu text="_Webbtjänster">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Webbtjänster">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visa _Bitprintsbiljett"/>
 		</menu>
 		<separator/>
