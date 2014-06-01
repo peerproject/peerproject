@@ -48,7 +48,6 @@ CPeerProjectURL::CPeerProjectURL(LPCTSTR pszURL)
 	, m_nPort			( 0 )
 	, m_pServerAddress	( )
 	, m_nServerPort		( 0 )
-	, m_bSize			( FALSE )
 {
 	if ( pszURL != NULL ) Parse( pszURL );
 }
@@ -62,7 +61,6 @@ CPeerProjectURL::CPeerProjectURL(CBTInfo* pTorrent)
 	, m_nPort			( 0 )
 	, m_pServerAddress	( )
 	, m_nServerPort		( 0 )
-	, m_bSize			( TRUE )
 {
 }
 
@@ -76,7 +74,6 @@ CPeerProjectURL::CPeerProjectURL(const CPeerProjectURL& pURL)
 	, m_nPort			( pURL.m_nPort )
 	, m_pServerAddress	( pURL.m_pServerAddress )
 	, m_nServerPort		( pURL.m_nServerPort )
-	, m_bSize			( pURL.m_bSize )
 	, m_oBTC			( pURL.m_oBTC )
 	, m_sLogin			( pURL.m_sLogin )
 	, m_sPassword		( pURL.m_sPassword )
@@ -112,7 +109,6 @@ void CPeerProjectURL::Clear()
 	m_nPort					= 0;	// protocolPorts[ PROTOCOL_G2 ]
 	m_pServerAddress.s_addr = 0;
 	m_nServerPort			= 0;
-	m_bSize					= FALSE;
 	m_sLogin.Empty();
 	m_sPassword.Empty();
 	m_oBTC.clear();
@@ -534,8 +530,9 @@ BOOL CPeerProjectURL::ParseED2KFTP(LPCTSTR pszURL, BOOL bResolve)
 
 	if ( ! m_oED2K.fromString( strHash ) ) return FALSE;
 
-	m_bSize = _stscanf( strURL, L"%I64i", &m_nSize ) == 1;
-	if ( ! m_bSize ) return FALSE;
+	QWORD nSize = 0;
+	if ( _stscanf( strURL, L"%I64u", &nSize ) != 1 || ! nSize ) return FALSE;
+	m_nSize = nSize;
 
 	nSlash = m_sAddress.Find( L'@' );
 
@@ -617,8 +614,9 @@ BOOL CPeerProjectURL::ParseDCHub(LPCTSTR pszURL, BOOL bResolve)
 		if ( ! m_oTiger.fromString( strHash ) )
 			return FALSE;
 
-		if ( _stscanf( strURL, L"/%I64i", &m_nSize ) == 1 )
-			m_bSize = TRUE;
+		QWORD nSize = 0;
+		if ( _stscanf( strURL, L"/%I64u", &nSize ) == 1 && nSize )
+			m_nSize = nSize;
 	}
 	else
 	{
@@ -670,8 +668,9 @@ BOOL CPeerProjectURL::ParseDCFile(LPCTSTR pszURL, BOOL bResolve)
 
 	if ( ! m_oTiger.fromString( strHash.Mid( 4 ) ) ) return FALSE;
 
-	m_bSize = _stscanf( strURL, L"%I64i", &m_nSize ) == 1;
-	if ( ! m_bSize ) return FALSE;
+	QWORD nSize = 0;
+	if ( _stscanf( strURL, L"%I64u", &nSize ) != 1 || ! nSize ) return FALSE;
+	m_nSize = nSize;
 
 	SOCKADDR_IN saHost = {};
 	BOOL bResult = Network.Resolve( m_sAddress, protocolPorts[ PROTOCOL_DC ], &saHost, bResolve );
@@ -841,15 +840,13 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 				  strKey == L"sz" ||	// "Size" Non-standard (very old Shareaza)
 				  strKey == L"fs" ) 	// "Filesize" Non-standard (Foxy)
 		{
-			QWORD nSize;
-			if ( ! m_bSize && ( _stscanf( strValue, L"%I64i", &nSize ) == 1 ) && nSize > 0 )
-			{
+			QWORD nSize = 0;
+			if ( m_nSize == SIZE_UNKNOWN && _stscanf( strValue, L"%I64u", &nSize ) == 1 && nSize )
 				m_nSize = nSize;
-				m_bSize = TRUE;
-			}
 		}
 		else if ( strKey == L"bn" )		// "Bittorrent Node" (node address for DHT bootstrapping)
 		{
+			// Nodes are common
 			pTorrent->SetNode( strValue );
 		}
 #ifdef _DEBUG
@@ -1122,7 +1119,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	int nSep;
 
 	// Name
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
@@ -1132,16 +1129,17 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	if ( m_sName.IsEmpty() ) return FALSE;
 
 	// Size
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
 
-	if ( _stscanf( strPart, L"%I64i", &m_nSize ) != 1 ) return FALSE;
-	m_bSize = TRUE;
+	QWORD nSize = 0;
+	if ( _stscanf( strPart, L"%I64u", &nSize ) != 1 || ! nSize ) return FALSE;
+		m_nSize = nSize;
 
 	// Hash
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
@@ -1152,7 +1150,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	m_nAction = uriDownload;
 
 	// AICH hash (h), HTTP source (s) and/or hash set (p)
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return TRUE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
@@ -1161,7 +1159,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		if ( _tcsncmp( strPart, L"h=", 2 ) == 0 )
 		{
 			// AICH hash
-			//theApp.Message(MSG_INFO, L"AICH" );
+			//theApp.Message( MSG_INFO, L"AICH" );
 			strPart = strPart.Mid( 2 );
 		}
 		else if ( _tcsncmp( strPart, L"s=", 2 ) == 0 )
@@ -1265,7 +1263,7 @@ BOOL CPeerProjectURL::ParsePioletFile(LPCTSTR pszURL)
 	CString strURL( pszURL ), strPart;
 	int nSep;
 
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
@@ -1274,13 +1272,14 @@ BOOL CPeerProjectURL::ParsePioletFile(LPCTSTR pszURL)
 	SafeString( m_sName );
 	if ( m_sName.IsEmpty() ) return FALSE;
 
-	nSep = strURL.Find( '|' );
+	nSep = strURL.Find( L'|' );
 	if ( nSep < 0 ) return FALSE;
 	strPart	= strURL.Left( nSep );
 	strURL	= strURL.Mid( nSep + 1 );
 
-	if ( _stscanf( strPart, L"%I64i", &m_nSize ) != 1 ) return FALSE;
-	m_bSize = TRUE;
+	QWORD nSize = 0;
+	if ( _stscanf( strPart, L"%I64u", &nSize ) != 1 || ! nSize ) return FALSE;
+		m_nSize = nSize;
 
 	strPart = strURL.SpanExcluding( L" |/" );
 	m_oSHA1.fromString( strPart );

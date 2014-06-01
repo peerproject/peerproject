@@ -491,9 +491,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		DrawText( pDC, &pt, strFormat, nTextAlign );
 		DrawText( pDC, &pt, strETA, m_nStatWidth );
 		pt.y += TIP_TEXTHEIGHT;
-	}
-	if ( ! pDownload->IsSeeding() )
-	{
+
 		// Volume downloaded. Not for seeding torrents
 		LoadString( strFormat, IDS_MONITOR_VOLUME_DOWNLOADED );
 		DrawText( pDC, &pt, strFormat, nTextAlign );

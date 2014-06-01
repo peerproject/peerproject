@@ -45,7 +45,10 @@ public:
 	void			SetModified();
 	bool			IsModified() const;
 
-	virtual bool	Rename(const CString& strName) = 0;		// Set download new name safely (DownloadWithFile)
+	virtual BOOL	SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength) = 0;
+
+	virtual bool	Rename(const CString& strName) = 0;		// Set new download name safely (DownloadWithFile)
+	virtual void	Resize(QWORD nNewSize) = 0;				// Set new download size
 	virtual dtask	GetTaskType() const = 0;
 	virtual bool	IsTasking() const = 0;		// Check if a task is already running
 	virtual bool	IsTrying() const = 0;

@@ -230,6 +230,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnSHGetKnownFolderPath	( NULL )
 	, m_pfnSHQueryUserNotificationState	( NULL )
 	, m_pfnSHCreateItemFromParsingName  ( NULL )
+	, m_pfnSHGetPropertyStoreFromParsingName ( NULL )
 	, m_pfnSetCurrentProcessExplicitAppUserModelID ( NULL )
 	, m_pfnSHGetImageList		( NULL )
 
@@ -1533,7 +1534,7 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
 	}
 
-	// Get pointers to some functions that require Internet Explorer 6 or greater
+	// Get pointers to some functions that require Internet Explorer 6.01 or greater
 	if ( ( m_hShlWapi = LoadLibrary( L"shlwapi.dll" ) ) != NULL )
 	{
 		(FARPROC&)m_pfnAssocIsDangerous = GetProcAddress( m_hShlWapi, "AssocIsDangerous" );								// XPsp1+	AssocIsDangerous() for CFileExecutor::IsSafeExecute()
@@ -1546,6 +1547,7 @@ void CPeerProjectApp::InitResources()
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
 		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 		(FARPROC&)m_pfnSHCreateItemFromParsingName = GetProcAddress( m_hShell32, "SHCreateItemFromParsingName" );		// Vista+	SHCreateItemFromParsingName() for CLibraryFolders::Maintain() (Win7 Libraries)
+		(FARPROC&)m_pfnSHGetPropertyStoreFromParsingName = GetProcAddress( m_hShell32, "SHGetPropertyStoreFromParsingName" );	// Vista+	SHGetPropertyStoreFromParsingName() for CLibraryBuilderInternals::ExtractProperties()
 		(FARPROC&)m_pfnSetCurrentProcessExplicitAppUserModelID = GetProcAddress( m_hShell32, "SetCurrentProcessExplicitAppUserModelID" );
 		(FARPROC&)m_pfnSHGetImageList = GetProcAddress( m_hShell32, MAKEINTRESOURCEA(727) );							// WinXP+	SHGetImageList() for CShellIcons::Get()
 	}

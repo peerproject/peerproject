@@ -35,27 +35,27 @@ protected:
 	virtual ~CDownloadWithTorrent();
 
 public:
-	CBTInfo		m_pTorrent;
-	bool		m_bTorrentEndgame;
-	BOOL		m_bTorrentRequested;
-	BOOL		m_bTorrentStarted;
-	DWORD		m_tTorrentTracker;
-	DWORD		m_tTorrentSources;
-	QWORD		m_nTorrentUploaded;
-	QWORD		m_nTorrentDownloaded;
-	BOOL		m_bTorrentTrackerError;
-	CString		m_sTorrentTrackerError;
-	CString		m_sKey;
-	Hashes::BtGuid m_pPeerID;
+	CBTInfo			m_pTorrent;
+	bool			m_bTorrentEndgame;
+	BOOL			m_bTorrentRequested;
+	BOOL			m_bTorrentStarted;
+	DWORD			m_tTorrentTracker;
+	DWORD			m_tTorrentSources;
+	QWORD			m_nTorrentUploaded;
+	QWORD			m_nTorrentDownloaded;
+	BOOL			m_bTorrentTrackerError;
+	CString			m_sTorrentTrackerError;
+	CString			m_sKey;
+	Hashes::BtGuid	m_pPeerID;
 protected:
-	BOOL		m_bSeeding;
-	DWORD		m_nTorrentBlock;
-	DWORD		m_nTorrentSuccess;
-	DWORD		m_nTorrentSize;
-	BYTE*		m_pTorrentBlock;
+	BOOL			m_bSeeding;
+	DWORD			m_nTorrentBlock;
+	DWORD			m_nTorrentSuccess;
+	DWORD			m_nTorrentSize;
+	BYTE*			m_pTorrentBlock;
 private:
+	DWORD			m_tTorrentChoke;
 	CList< CUploadTransferBT* >	m_pTorrentUploads;
-	DWORD						m_tTorrentChoke;
 
 public:
 	void			AddUpload(CUploadTransferBT* pUpload);
@@ -74,6 +74,7 @@ public:
 	BOOL			GenerateTorrentDownloadID();			// Generate Peer ID
 	// Apply new .torrent file to download or update from existing one
 	BOOL			SetTorrent(const CBTInfo* pTorrent = NULL);
+	virtual BOOL	SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
 
 protected:
 	bool			RunTorrent(DWORD tNow);

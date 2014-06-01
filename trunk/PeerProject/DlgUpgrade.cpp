@@ -84,12 +84,9 @@ void CUpgradeDlg::OnOK()
 
 	if ( Settings.VersionCheck.UpgradeSize.GetLength() )
 	{
-		QWORD nSize;
-		if ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), L"%I64i", &nSize ) == 1 && nSize > 0 )
-		{
-			pURL.m_bSize = TRUE;
+		QWORD nSize = 0;
+		if ( _stscanf( Settings.VersionCheck.UpgradeSize.GetString(), L"%I64i", &nSize ) == 1 && nSize )
 			pURL.m_nSize = nSize;
-		}
 	}
 
 	Downloads.Add( pURL );

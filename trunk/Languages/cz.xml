@@ -930,7 +930,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Hudbu ze stejném alba"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizody ze stejné série"/>
 		</menu>
-		<menu text="_Webové služby">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webové služby">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Prohlížet _Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Kopírovat _URI..."/>
 		</menu>
@@ -951,8 +951,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Hudbu od stejného umělce"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Hudbu ze stejném alba"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizody ze stejné série"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Vyhledat Monitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Hit Monitor"/>
 		</menu>
-		<menu text="_Webové služby">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webové služby">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Prohlížet _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -996,7 +999,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Hudbu ze stejném alba"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizody ze stejné série"/>
 		</menu>
-		<menu text="_Webové služby">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webové služby">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Prohlížet _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1021,7 +1024,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Hudbu ze stejném alba"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizody ze stejné série"/>
 		</menu>
-		<menu text="_Webové služby">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webové služby">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Prohlížet _Bitprints listing"/>
 		</menu>
 		<separator/>

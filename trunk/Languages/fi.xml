@@ -893,7 +893,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musiikkia samalta Albumilta"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
-		<menu text="_Web Palvelut">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Palvelut">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Näytä _Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Kopioi _URI..."/>
 		</menu>
@@ -914,8 +914,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Musiikkia samalta Artistilta"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musiikkia samalta Albumilta"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Etsi M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Web Palvelut">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Palvelut">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Näytä _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -959,7 +962,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musiikkia samalta Albumilta"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
-		<menu text="_Web Palvelut">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Palvelut">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Näytä _Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -984,7 +987,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musiikkia samalta Albumilta"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Jaksoja samasta Sarjasta"/>
 		</menu>
-		<menu text="_Web Palvelut">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Palvelut">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Näytä _Bitprints listing"/>
 		</menu>
 		<separator/>

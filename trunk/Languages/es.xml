@@ -974,7 +974,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música de este Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de esta Serie"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="Servicios _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver listado _Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Copiar _URI..."/>
 		</menu>
@@ -995,8 +995,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Música de este Artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música de este Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de esta Serie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="M_onitor de Busca"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Monitor de _Hit"/>
 		</menu>
-		<menu text="_Servicios Web">
+		<menu id="ID_WEBSERVICES_LIST" text="_Servicios Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver Informe de _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1040,7 +1043,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música de este Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de esta Serie"/>
 		</menu>
-		<menu text="_Servicios Web">
+		<menu id="ID_WEBSERVICES_LIST" text="_Servicios Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver listado _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1065,7 +1068,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música de este Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de esta Serie"/>
 		</menu>
-		<menu text="_Sevicios Web">
+		<menu id="ID_WEBSERVICES_LIST" text="_Sevicios Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver Informe de _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1303,7 +1306,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Música del mismo Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episodios de la misma serie"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Ver listado _Bitprints"/>
 			<item id="ID_LIBRARY_BITPRINTS_DOWNLOAD" text="_Descargar Metadatos"/>
 			<separator/>

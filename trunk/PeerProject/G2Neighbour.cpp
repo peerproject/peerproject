@@ -120,7 +120,7 @@ BOOL CG2Neighbour::OnWrite()
 {
 	CLockedBuffer pOutputLocked( GetOutput() );
 
-	CBuffer* pOutput = m_pZOutput ? m_pZOutput : pOutputLocked;
+	CBuffer* pOutput = m_pZOutput ? m_pZOutput : (CBuffer*)pOutputLocked;
 
 	while ( pOutput->m_nLength == 0 && m_nOutbound > 0 )
 	{
@@ -274,7 +274,7 @@ BOOL CG2Neighbour::ProcessPackets()
 {
 	CLockedBuffer pInputLocked( GetInput() );
 
-	CBuffer* pInput = m_pZInput ? m_pZInput : pInputLocked;
+	CBuffer* pInput = m_pZInput ? m_pZInput : (CBuffer*)pInputLocked;
 
 	return ProcessPackets( pInput );
 }

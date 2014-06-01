@@ -955,7 +955,7 @@
 		<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
 		<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 	</menu>
-	<menu text="_خدمات الانترنت">
+	<menu id="ID_WEBSERVICES_LIST" text="_خدمات الانترنت">
 		<item id="ID_LIBRARY_BITPRINTS_WEB" text="عرض ب_طافة Bitprints" />
 		<item id="ID_SEARCH_URI" text="نسخ ا_لرابط..." />
 	</menu>
@@ -976,8 +976,11 @@
 		<item id="ID_SEARCH_FOR_ARTIST" text="موسيقى لنفس اسم الفنان" />
 		<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
 		<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="البحث لـ Monitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Hit Monitor"/>
 	</menu>
-	<menu text="_خدمات الانترنت">
+	<menu id="ID_WEBSERVICES_LIST" text="_خدمات الانترنت">
 		<item id="ID_LIBRARY_BITPRINTS_WEB" text="Bitprints عرض ب_طافة" />
 	</menu>
 	<separator />
@@ -1021,7 +1024,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
-		<menu text="_خدمات الانترنت">
+		<menu id="ID_WEBSERVICES_LIST" text="_خدمات الانترنت">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="عرض ب_طافة Bitprints" />
 		</menu>
 		<separator />
@@ -1046,7 +1049,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="موسيقى لنفس الألبوم" />
 			<item id="ID_SEARCH_FOR_SERIES" text="الأحداث في نفس السلسلة" />
 		</menu>
-		<menu text="_خدمات الانترنت">
+		<menu id="ID_WEBSERVICES_LIST" text="_خدمات الانترنت">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="عرض ب_طافة Bitprints" />
 		</menu>
 		<separator />

@@ -667,7 +667,6 @@ BOOL CCollectionFile::File::Download()
 	pURL.m_oBTH 	= m_oBTH;
 	pURL.m_sName	= m_sName;
 	pURL.m_nSize	= m_nSize;
-	pURL.m_bSize	= ( m_nSize != SIZE_UNKNOWN );
 
 	return PostMainWndMessage( WM_URL, (WPARAM)new CPeerProjectURL( pURL ) );
 }

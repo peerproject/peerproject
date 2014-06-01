@@ -899,6 +899,7 @@ BOOL CHostBrowser::OnPacket(CG2Packet* pPacket)
 		pPacket->Debug( str );
 #endif	// Debug
 	}
+
 	return TRUE;
 }
 
@@ -919,9 +920,9 @@ void CHostBrowser::OnProfilePacket(CG2Packet* pPacket)
 			{
 				if ( m_pProfile == NULL )
 					m_pProfile = new CGProfile();
-				if ( ! m_pProfile->FromXML( pXML ) )
+				if ( m_pProfile && ! m_pProfile->FromXML( pXML ) )
 					delete pXML;
-				if ( m_pProfile != NULL && ! m_pProfile->IsValid() )
+				if ( m_pProfile && ! m_pProfile->IsValid() )
 				{
 					delete m_pProfile;
 					m_pProfile = NULL;

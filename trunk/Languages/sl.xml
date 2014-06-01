@@ -898,7 +898,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Glasbi istega albuma"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
-		<menu text="_Spletne storitve">
+		<menu id="ID_WEBSERVICES_LIST" text="_Spletne storitve">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Poglej _Bitprints karto"/>
 			<item id="ID_SEARCH_URI" text="Kopiraj _URI..."/>
 		</menu>
@@ -919,8 +919,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Glasbi istega izvajalca"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Glasbi istega albuma"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Išči M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Spletne storitve">
+		<menu id="ID_WEBSERVICES_LIST" text="_Spletne storitve">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Poglej _Bitprints karto"/>
 		</menu>
 		<separator/>
@@ -964,7 +967,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Glasbi istega albuma"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
-		<menu text="_Spletne storitve">
+		<menu id="ID_WEBSERVICES_LIST" text="_Spletne storitve">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Poglej _Bitprints karto"/>
 		</menu>
 		<separator/>
@@ -989,7 +992,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Glasbi istega albuma"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodah iste serije"/>
 		</menu>
-		<menu text="_Spletne storitve">
+		<menu id="ID_WEBSERVICES_LIST" text="_Spletne storitve">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Poglej _Bitprints karto"/>
 		</menu>
 		<separator/>

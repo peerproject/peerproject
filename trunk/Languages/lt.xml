@@ -984,7 +984,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikos iš to pačio albumo"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodų iš to pačio serialo"/>
 		</menu>
-		<menu text="P_aslaugos internete">
+		<menu id="ID_WEBSERVICES_LIST" text="P_aslaugos internete">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Peržiūrėti _Bitprints etiketę"/>
 			<item id="ID_SEARCH_URI" text="Kopijuoti _nuorodą..."/>
 		</menu>
@@ -1005,8 +1005,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="To pačio atlikėjo muzikos"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikos iš to pačio albumo"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodų iš to pačio serialo"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Ieškoti M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="P_aslaugos internete">
+		<menu id="ID_WEBSERVICES_LIST" text="P_aslaugos internete">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Peržiūrėti _Bitprints etiketę"/>
 		</menu>
 		<separator/>
@@ -1050,7 +1053,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikos iš to pačio albumo"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodų iš to pačio serialo"/>
 		</menu>
-		<menu text="P_aslaugos internete">
+		<menu id="ID_WEBSERVICES_LIST" text="P_aslaugos internete">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Peržiūrėti _Bitprints etiketę"/>
 		</menu>
 		<separator/>
@@ -1075,7 +1078,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikos iš to pačio albumo"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Epizodų iš to pačio serialo"/>
 		</menu>
-		<menu text="P_aslaugos internete">
+		<menu id="ID_WEBSERVICES_LIST" text="P_aslaugos internete">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Peržiūrėti _Bitprints etiketę"/>
 		</menu>
 		<separator/>

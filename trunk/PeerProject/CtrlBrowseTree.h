@@ -127,13 +127,13 @@ public:
 public:
 	CBrowseTreeItem*	Add(LPCTSTR pszName);
 	CBrowseTreeItem*	Add(CBrowseTreeItem* pNewItem);
-	void				Delete();
-	void				Delete(CBrowseTreeItem* pItem);
-	void				Delete(int nItem);
 	void				Clear();
+	void				Delete();
+	void				Delete(int nItem);
+	void				Delete(CBrowseTreeItem* pItem);
 	BOOL				IsVisible() const;
 	int					GetChildCount() const;
-	void				AddXML(CXMLElement* pXML);
+	void				AddXML(const CXMLElement* pXML);
 	void				Paint(CDC& dc, CRect& rc, BOOL bTarget, COLORREF crBack = CLR_NONE) const;
 };
 

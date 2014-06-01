@@ -604,7 +604,7 @@ void CDownloadsWnd::Prepare()
 	const DWORD tNow = GetTickCount();
 	if ( tNow < m_tSel + Settings.Interface.RefreshRateUI ) return;
 
-	m_nSelectedDownloads = 0;
+	m_nSelectedDownloads = m_nSelectedSources = 0;
 	m_bSelAny = m_bSelDownload = m_bSelSource = m_bSelTrying = m_bSelPaused = FALSE;
 	m_bSelNotPausedOrMoving = m_bSelNoPreview = m_bSelNotCompleteAndNoPreview = FALSE;
 	m_bSelCompletedAndNoPreview = m_bSelStartedAndNotMoving = m_bSelCompleted = FALSE;
@@ -697,6 +697,7 @@ void CDownloadsWnd::Prepare()
 
 			if ( pSource->m_bSelected )
 			{
+				m_nSelectedSources++;
 				m_bSelAny = TRUE;
 				m_bSelSource = TRUE;
 				m_bSelSourceExtended = pSource->m_bClientExtended;
@@ -1281,7 +1282,7 @@ void CDownloadsWnd::OnDownloadsAddSource()
 
 			for ( POSITION pos = dlg.m_pURLs.GetHeadPosition() ; pos ; )
 			{
-				pDownload->AddSourceURL( dlg.m_pURLs.GetNext( pos ), FALSE );
+				pDownload->AddSourceHit( (CPeerProjectURL)dlg.m_pURLs.GetNext( pos ) );
 			}
 		}
 	}
@@ -1428,11 +1429,15 @@ void CDownloadsWnd::OnDownloadsBoost()
 void CDownloadsWnd::OnUpdateDownloadsURI(CCmdUI* pCmdUI)
 {
 	Prepare();
-	pCmdUI->Enable( m_bSelHasHash || m_bSelHasName || m_bSelSource && m_nSelectedDownloads < 50 );
+	const bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+	pCmdUI->Enable( m_bSelHasHash || m_bSelHasName || m_bSelSource && m_nSelectedDownloads <= 50 );
+	pCmdUI->SetText( LoadString( ( ( m_nSelectedSources + m_nSelectedDownloads ) == 1 && ! bShift ) ? IDS_LIBRARY_URI_COPY : IDS_LIBRARY_URI_EXPORT ) );
 }
 
 void CDownloadsWnd::OnDownloadsURI()
 {
+	const bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
 	CList< CPeerProjectFile > pList;
 
 	CSingleLock pLock( &Transfers.m_pSection, FALSE );
@@ -1467,14 +1472,21 @@ void CDownloadsWnd::OnDownloadsURI()
 	if ( pList.IsEmpty() )
 		return;
 
-	CURLCopyDlg dlg;
-
-	for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
+	if ( pList.GetCount() == 1 && ! bShift )
 	{
-		dlg.Add( &pList.GetNext( pos ) );
+		CURLCopyDlg dlg;
+		dlg.Add( &pList.GetHead() );
+		dlg.DoModal();
 	}
-
-	dlg.DoModal();
+	else //if ( pList.GetCount() > 0 )
+	{
+		CURLExportDlg dlg;
+		for ( POSITION pos = pList.GetHeadPosition() ; pos ; )
+		{
+			dlg.Add( &pList.GetNext( pos ) );
+		}
+		dlg.DoModal();
+	}
 }
 
 void CDownloadsWnd::OnUpdateDownloadsShare(CCmdUI* pCmdUI)
@@ -1612,6 +1624,8 @@ void CDownloadsWnd::OnUpdateTransfersConnect(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersConnect()
 {
+	CList< CDownloadSource* > pSelectedSources;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
@@ -1629,24 +1643,24 @@ void CDownloadsWnd::OnTransfersConnect()
 			ASSERT( pSource->m_pDownload == pDownload );
 
 			// Only create a new Transfer if there isn't already one
-			if ( pSource->m_bSelected && pSource->IsIdle()
-				&& pSource->m_nProtocol != PROTOCOL_ED2K )
-			{
-				if ( pDownload->IsPaused() )
-					pDownload->Resume();	// Workaround duplicate
+			if ( pSource->m_bSelected && pSource->IsIdle() )
+				pSelectedSources.AddTail( pSource );
+		}
+	}
 
-				pSource->m_pDownload->Resume();
+	for ( POSITION posSource = pSelectedSources.GetHeadPosition() ; posSource ; )
+	{
+		CDownloadSource* pSource = pSelectedSources.GetNext( posSource );
+		pSource->m_pDownload->Resume();
 
-				if ( pSource->m_bPushOnly )
-				{
-					pSource->PushRequest();
-				}
-				else
-				{
-					CDownloadTransfer* pTransfer = pSource->CreateTransfer();
-					if ( pTransfer ) pTransfer->Initiate();
-				}
-			}
+		if ( pSource->m_bPushOnly )
+		{
+			pSource->PushRequest();
+		}
+		else
+		{
+			if ( CDownloadTransfer* pTransfer = pSource->CreateTransfer() )
+				pTransfer->Initiate();
 		}
 	}
 
@@ -1662,6 +1676,8 @@ void CDownloadsWnd::OnUpdateTransfersDisconnect(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersDisconnect()
 {
+	CList< CDownloadSource* > pSelectedSources;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! pLock.Lock( 5000 ) && ! SafeLock( pLock ) ) return;
 
@@ -1674,8 +1690,14 @@ void CDownloadsWnd::OnTransfersDisconnect()
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->m_bSelected && ! pSource->IsIdle() )
-				pSource->Close();
+				pSelectedSources.AddTail( pSource );
 		}
+	}
+
+	for ( POSITION posSource = pSelectedSources.GetHeadPosition() ; posSource ; )
+	{
+		CDownloadSource* pSource = pSelectedSources.GetNext( posSource );
+		pSource->Close();
 	}
 
 	pLock.Unlock();
@@ -1690,6 +1712,8 @@ void CDownloadsWnd::OnUpdateTransfersForget(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnTransfersForget()
 {
+	CList< CDownloadSource* > pSelectedSources;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
@@ -1702,8 +1726,14 @@ void CDownloadsWnd::OnTransfersForget()
 			CDownloadSource* pSource = pDownload->GetNext( posSource );
 
 			if ( pSource->m_bSelected )
-				pSource->Remove( TRUE, TRUE );
+				pSelectedSources.AddTail( pSource );
 		}
+	}
+
+	for ( POSITION posSource = pSelectedSources.GetHeadPosition(); posSource ; )
+	{
+		CDownloadSource* pSource = pSelectedSources.GetNext( posSource );
+		pSource->Remove( TRUE, TRUE );
 	}
 
 	pLock.Unlock();

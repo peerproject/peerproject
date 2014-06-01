@@ -956,7 +956,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
-		<menu text="_Web Servisleri">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints Etiketi Göster"/>
 			<item id="ID_SEARCH_URI" text="Kopyala _URI..."/>
 		</menu>
@@ -977,8 +977,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Aynı Sanatçıdan _Müzikler"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Arama M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Web Servisleri">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints Etiketi Göster"/>
 		</menu>
 		<separator/>
@@ -1022,7 +1025,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
-		<menu text="_Web Servisleri">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints Etiketi Göster"/>
 		</menu>
 		<separator/>
@@ -1047,7 +1050,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Aynı _Albümden Müzikler"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Aynı _Seriden Bölümler"/>
 		</menu>
-		<menu text="_Web Servisleri">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="_Web Servisleri">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints Etiketi Göster"/>
 		</menu>
 		<separator/>

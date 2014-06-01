@@ -940,7 +940,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="网页服务">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="查看 Bitprints 标签"/>
 			<item id="ID_SEARCH_URI" text="复制 URI..."/>
 		</menu>
@@ -961,8 +961,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="同一艺术家的音乐"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="搜索 M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="网页服务">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="网页服务">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="查看 Bitprints 标签"/>
 		</menu>
 		<separator/>
@@ -1006,7 +1009,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="网页服务">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="查看 Bitprints 标签"/>
 		</menu>
 		<separator/>
@@ -1031,7 +1034,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一专辑的音乐"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一系列的情节"/>
 		</menu>
-		<menu text="网页服务">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="网页服务">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="查看 Bitprints 标签"/>
 		</menu>
 		<separator/>

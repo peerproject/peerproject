@@ -1040,7 +1040,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
-		<menu text="Services _Web">
+		<menu id="ID_WEBSERVICES_LIST" text="Services _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Voir le billet _Bitprints"/>
 			<item id="ID_SEARCH_URI" text="_Copier l'URI..."/>
 		</menu>
@@ -1062,10 +1062,10 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 			<separator/>
-			<item id="ID_VIEW_SEARCH_MONITOR" text="Search M_onitor"/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Recherche M_onitor"/>
 			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="Services _Web">
+		<menu id="ID_WEBSERVICES_LIST" text="Services _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Voir le billet _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1110,7 +1110,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
-		<menu text="Services _Web">
+		<menu id="ID_WEBSERVICES_LIST" text="Services _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Voir le billet _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1135,7 +1135,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musique du même _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Épisodes de la même sér_ie"/>
 		</menu>
-		<menu text="Services _Web">
+		<menu id="ID_WEBSERVICES_LIST" text="Services _Web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Voir le billet _Bitprints"/>
 		</menu>
 		<separator/>

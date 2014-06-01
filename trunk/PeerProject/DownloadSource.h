@@ -34,7 +34,7 @@ public:
 	CDownloadSource(const CDownload* pDownload, const CQueryHit* pHit);
 	CDownloadSource(const CDownload* pDownload, DWORD nClientID, WORD nClientPort, DWORD nServerIP, WORD nServerPort, const Hashes::Guid& oGUID);
 	CDownloadSource(const CDownload* pDownload, const Hashes::BtGuid& oGUID, const IN_ADDR* pAddress, WORD nPort);
-	CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOOL bSHA1 = FALSE, BOOL bHashAuth = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0);
+	CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL, BOOL bHashAuth = FALSE, FILETIME* pLastSeen = NULL, int nRedirectionCount = 0);
 	~CDownloadSource();
 
 private:

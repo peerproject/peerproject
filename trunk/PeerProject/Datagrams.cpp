@@ -511,7 +511,7 @@ BOOL CDatagrams::TryWrite()
 			break;
 	}
 
-	if ( m_mOutput.pHistory && nTotal )
+	if ( nTotal )
 	{
 		if ( tNow < m_mOutput.tLastSlot + METER_MINIMUM )
 		{
@@ -599,20 +599,17 @@ BOOL CDatagrams::TryRead()
 	// Clear rest of buffer for security reasons
 	ZeroMemory( m_pReadBuffer + nLength, sizeof( m_pReadBuffer ) - nLength );
 
-	if ( m_mInput.pHistory )
+	const DWORD tNow = GetTickCount();
+	if ( tNow < m_mInput.tLastSlot + METER_MINIMUM )
 	{
-		const DWORD tNow = GetTickCount();
-		if ( tNow < m_mInput.tLastSlot + METER_MINIMUM )
-		{
-			m_mInput.pHistory[ m_mInput.nPosition ] += nLength;
-		}
-		else
-		{
-			m_mInput.nPosition = ( m_mInput.nPosition + 1 ) % METER_LENGTH;
-			m_mInput.pTimes[ m_mInput.nPosition ]	= tNow;
-			m_mInput.pHistory[ m_mInput.nPosition ]	= nLength;
-			m_mInput.tLastSlot = tNow;
-		}
+		m_mInput.pHistory[ m_mInput.nPosition ] += nLength;
+	}
+	else
+	{
+		m_mInput.nPosition = ( m_mInput.nPosition + 1 ) % METER_LENGTH;
+		m_mInput.pTimes[ m_mInput.nPosition ]	= tNow;
+		m_mInput.pHistory[ m_mInput.nPosition ]	= nLength;
+		m_mInput.tLastSlot = tNow;
 	}
 
 	m_mInput.nTotal += nLength;

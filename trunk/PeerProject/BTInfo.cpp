@@ -187,11 +187,30 @@ CString CBTInfo::CBTFile::FindFile() const
 void CBTInfo::Clear()
 {
 	delete [] m_pBlockBTH;
-	m_pBlockBTH = NULL;
+	m_pBlockBTH			= NULL;
+
+	m_nTotalUpload		= 0;
+	m_nTotalDownload	= 0;
 
 	for ( POSITION pos = m_pFiles.GetHeadPosition() ; pos ; )
 		delete m_pFiles.GetNext( pos );
 	m_pFiles.RemoveAll();
+
+	m_nEncoding			= Settings.BitTorrent.TorrentCodePage;
+	m_tCreationDate		= 0;
+	m_sCreatedBy.Empty();
+	m_sComment.Empty();
+	m_bPrivate			= FALSE;
+	m_nStartDownloads	= dtAlways;
+	m_oTrackers.RemoveAll();
+	m_nTrackerIndex		= -1;
+	m_nTrackerMode		= tNull;
+	m_bEncodingError	= false;
+	m_pTestSHA1.Reset();
+	m_nTestByte			= 0;
+	m_pSource.Clear();
+	m_nInfoSize			= 0;
+	m_nInfoStart		= 0;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -203,7 +222,6 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 
 	CPeerProjectFile::operator=( oSource );
 
-	m_sURLs.RemoveAll();
 	for ( POSITION pos = oSource.m_sURLs.GetHeadPosition() ; pos ; )
 		m_sURLs.AddTail( oSource.m_sURLs.GetNext( pos ) );
 
@@ -230,11 +248,9 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 	m_bPrivate			= oSource.m_bPrivate;
 	m_nStartDownloads	= oSource.m_nStartDownloads;
 
-	m_oTrackers.RemoveAll();
 	for ( INT_PTR i = 0 ; i < oSource.m_oTrackers.GetCount() ; ++i )
 		m_oTrackers.Add( oSource.m_oTrackers[ i ] );
 
-	m_oNodes.RemoveAll();
 	for ( POSITION pos = oSource.m_oNodes.GetHeadPosition() ; pos ; )
 		m_oNodes.AddTail( oSource.m_oNodes.GetNext( pos ) );
 
@@ -244,7 +260,6 @@ CBTInfo& CBTInfo::operator=(const CBTInfo& oSource)
 	m_pTestSHA1			= oSource.m_pTestSHA1;
 	m_nTestByte			= oSource.m_nTestByte;
 
-	m_pSource.Clear();
 	m_pSource.Add( oSource.m_pSource.m_pBuffer, oSource.m_pSource.m_nLength );
 	m_nInfoSize			= oSource.m_nInfoSize;
 	m_nInfoStart		= oSource.m_nInfoStart;

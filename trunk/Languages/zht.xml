@@ -943,7 +943,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
-		<menu text="網際網路服務">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="網際網路服務">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="檢視 Bitprints 標籤"/>
 			<item id="ID_SEARCH_URI" text="複製 URI..."/>
 		</menu>
@@ -964,8 +964,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="同一個作家的音樂"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="搜尋 M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="網際網路服務">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="網際網路服務">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="檢視 Bitprints 標籤"/>
 		</menu>
 		<separator/>
@@ -1009,7 +1012,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的 Episodes"/>
 		</menu>
-		<menu text="網際網路">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="網際網路">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="檢視 Bitprints 標籤"/>
 		</menu>
 		<separator/>
@@ -1034,7 +1037,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="同一個專輯的音樂"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="同一個系列的episode"/>
 		</menu>
-		<menu text="網際網路服務">
+		<menu id="ID_LIBRARY_BITPRINTS_WEB" text="網際網路服務">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="檢視 Bitprints 標籤"/>
 		</menu>
 		<separator/>

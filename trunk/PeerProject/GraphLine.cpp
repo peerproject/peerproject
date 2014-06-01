@@ -44,7 +44,7 @@ CLineGraph::CLineGraph()
 	, m_crGrid		( Colors.m_crTrafficWindowGrid )
 	, m_nMinGridVert ( 32 )
 	, m_nSpeed		( 100 )
-	, m_nScale		( MIN_GRID_SIZE_HORZ )
+	, m_nScale		( 1 )	// Was 2, remove?
 	, m_nMaximum	( 0 )
 	, m_nUpdates	( 0 )
 	, m_tLastScale	( 0 )
@@ -95,7 +95,7 @@ void CLineGraph::ClearItems()
 
 void CLineGraph::CreateDefaults()
 {
-	AddItem( new CGraphItem( GRC_TOTAL_BANDWIDTH_IN, 1.0f, RGB( 0, 255, 0 ) ) );
+	AddItem( new CGraphItem( GRC_TOTAL_BANDWIDTH_IN,  1.0f, RGB( 0, 255, 0 ) ) );
 	AddItem( new CGraphItem( GRC_TOTAL_BANDWIDTH_OUT, 1.0f, RGB( 255, 0, 0 ) ) );
 }
 

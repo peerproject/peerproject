@@ -49,6 +49,152 @@ static char THIS_FILE[] = __FILE__;
 #define ReadValueOrFail(hFile, nID, nRead, nValue, nFile) \
 	if ( ! ReadFile( hFile, &nID, 4, &nRead, NULL ) || nRead != 4 || nID != nValue ) return false;
 
+LPCTSTR GetColorsByBits(DWORD nBits)
+{
+	switch ( nBits )
+	{
+	case 1:
+		return L"2";
+	case 2:
+		return L"4";
+	case 4:
+		return L"16";
+	case 8:
+		return L"256";
+	case 16:
+		return L"64K";
+	case 24:
+		return L"16.7M";
+	case 32:
+		return L"16.7M+Alpha";
+	default:
+		return L"";
+	}
+}
+
+bool PropGetValue(IPropertyStore* pStore, const PROPERTYKEY& key, DWORD& val)
+{
+	CComPropVariant prop;
+	if ( pStore && SUCCEEDED( pStore->GetValue( key, &prop ) ) && prop.vt == VT_UI4 )
+	{
+		val = prop.ulVal;
+		return true;
+	}
+	return false;
+}
+
+bool PropGetValue(IPropertyStore* pStore, const PROPERTYKEY& key, LONG& val)
+{
+	CComPropVariant prop;
+	if ( pStore && SUCCEEDED( pStore->GetValue( key, &prop ) ) && prop.vt == VT_I4 )
+	{
+		val = prop.lVal;
+		return true;
+	}
+	return false;
+}
+
+bool PropGetValue(IPropertyStore* pStore, const PROPERTYKEY& key, QWORD& val)
+{
+	CComPropVariant prop;
+	if ( pStore && SUCCEEDED( pStore->GetValue( key, &prop ) ) && prop.vt == VT_UI8 )
+	{
+		val = prop.uhVal.QuadPart;
+		return true;
+	}
+	return false;
+}
+
+bool PropGetValue(IPropertyStore* pStore, const PROPERTYKEY& key, bool& val)
+{
+	CComPropVariant prop;
+	if ( pStore && SUCCEEDED( pStore->GetValue( key, &prop ) ) && prop.vt == VT_BOOL )
+	{
+		val = ( prop.boolVal != VARIANT_FALSE );
+		return true;
+	}
+	return false;
+}
+
+bool PropGetValue(IPropertyStore* pStore, const PROPERTYKEY& key, CString& val)
+{
+	val.Empty();
+
+	CComPropVariant prop;
+	if ( pStore && SUCCEEDED( pStore->GetValue( key, &prop ) ) )
+	{
+		switch ( prop.vt )
+		{
+		case VT_BSTR:
+			val = CW2T( (LPCWSTR)prop.bstrVal );
+			break;
+
+		case VT_LPWSTR:
+			val = CW2T( prop.pwszVal );
+			break;
+
+		case VT_LPSTR:
+			val = CA2T( prop.pszVal );
+			break;
+
+		case VT_ARRAY | VT_BSTR:
+			{
+				CComSafeArray< BSTR > arr;
+				if ( SUCCEEDED( arr.Attach( prop.parray ) ) )
+				{
+					ULONG nCount = arr.GetCount();
+					for ( ULONG i = 0 ; i < nCount ; ++i )
+					{
+						CString str( CW2T( (LPCWSTR)arr.GetAt( i ) ) );
+						str.Trim();
+						if ( str.IsEmpty() ) continue;
+						if ( ! val.IsEmpty() ) val += L", ";
+						val += str;
+					}
+					arr.Detach();
+				}
+			}
+			break;
+
+		case VT_VECTOR | VT_BSTR:
+			for ( ULONG i = 0 ; i < prop.cabstr.cElems ; ++i )
+			{
+				CString str( CW2T( (LPCWSTR)prop.cabstr.pElems[ i ] ) );
+				str.Trim();
+				if ( str.IsEmpty() ) continue;
+				if ( ! val.IsEmpty() ) val += L", ";
+				val += str;
+			}
+			break;
+
+		case VT_VECTOR | VT_LPWSTR:
+			for ( ULONG i = 0 ; i < prop.calpwstr.cElems ; ++i )
+			{
+				CString str( CW2T( prop.calpwstr.pElems[ i ] ) );
+				str.Trim();
+				if ( str.IsEmpty() ) continue;
+				if ( ! val.IsEmpty() ) val += L", ";
+				val += str;
+			}
+			break;
+
+		case VT_VECTOR | VT_LPSTR:
+			for ( ULONG i = 0 ; i < prop.calpstr.cElems ; ++i )
+			{
+				CString str( CA2T( prop.calpstr.pElems[ i ] ) );
+				str.Trim();
+				if ( str.IsEmpty() ) continue;
+				if ( ! val.IsEmpty() ) val += L", ";
+				val += str;
+			}
+			break;
+		}
+	}
+	val.Trim();
+	return ! val.IsEmpty();
+}
+
+
 //////////////////////////////////////////////////////////////////////
 // CLibraryBuilderPlugins construction
 
@@ -86,13 +232,14 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		FileType[ L".png" ]  = 'p';
 		FileType[ L".gif" ]  = 'g';
 		FileType[ L".bmp" ]  = 'b';
-		FileType[ L".pdf" ]  = 'f';
+		FileType[ L".pdf" ]  = 'd';
 		FileType[ L".cbr" ]  = 'r';	// RARBuilder
 		FileType[ L".cbz" ]  = 'r';	// ZipBuilder
 		FileType[ L".chm" ]  = 'h';
-		FileType[ L".exe" ]  = 'e';
 		FileType[ L".dll" ]  = 'e';
+		FileType[ L".exe" ]  = 'e';
 		FileType[ L".msi" ]  = 's';
+		FileType[ L".flv" ]  = 'f';
 		FileType[ L".ogg" ]  = 'o';
 		FileType[ L".ape" ]  = 'a';
 		FileType[ L".apl" ]  = 'a';
@@ -163,7 +310,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		if ( ! Settings.Library.ScanImage )			return false;
 		if ( ReadBMP( nIndex, hFile ) )				return true;
 		break;
-	case 'f':	// .pdf
+	case 'd':	// .pdf
 		if ( ! Settings.Library.ScanPDF )			return false;
 		if ( ReadPDF( nIndex, hFile, strPath ) )	return true;
 		break;
@@ -179,6 +326,10 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		if ( ! Settings.Library.ScanMSI )			return false;
 		if ( ReadMSI( nIndex, strPath ) )			return true;
 		break;
+	case 'f':	// .flv
+		if ( ! Settings.Library.ScanFLV )			return false;
+		if ( ReadFLV( nIndex, hFile ) )				return true;
+		break;
 	case 'o':	// .ogg
 		if ( ! Settings.Library.ScanOGG )			return false;
 		if ( ReadOGG( nIndex, hFile ) )				return true;
@@ -189,7 +340,7 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 		break;
 //	case 'i':	// .wav/.webp
 //		if ( ReadRIFF( nIndex, hFile, strPath ) )	return true;
-		break;
+//		break;
 	case 'c':	// .co/.collection/.emulecollection/.xml.bz2
 		if ( ReadCollection( nIndex, strPath ) )	return true;
 		break;
@@ -209,6 +360,210 @@ bool CLibraryBuilderInternals::ExtractMetadata(DWORD nIndex, const CString& strP
 	}
 
 	LibraryBuilder.SubmitCorrupted( nIndex );
+	return false;
+}
+
+bool CLibraryBuilderInternals::ExtractProperties(DWORD nIndex, const CString& strPath)
+{
+	// Unused by default
+	if ( Settings.Library.ScanProperties || ! theApp.m_pfnSHGetPropertyStoreFromParsingName )
+		return false;
+
+	CComPtr< IPropertyStore > pStore;
+	HRESULT hr = theApp.m_pfnSHGetPropertyStoreFromParsingName( CT2W( strPath ), NULL, GPS_BESTEFFORT, __uuidof( IPropertyStore ), (void**)&pStore );
+	if ( SUCCEEDED( hr ) )
+	{
+		LPCTSTR szSchema = NULL;
+		CAutoPtr< CXMLElement > pXML;
+
+		LONG nType;
+		if ( PropGetValue( pStore, PKEY_PerceivedType, nType ) )
+		{
+			switch ( nType )
+			{
+			case PERCEIVED_TYPE_DOCUMENT:
+				szSchema = CSchema::uriDocument;
+				pXML.Attach( new CXMLElement( NULL, L"wordprocessing" ) );
+				if ( pXML )
+				{
+					LONG nPages;
+					if ( PropGetValue( pStore, PKEY_Document_PageCount, nPages ) && nPages > 0 )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nPages );
+						pXML->AddAttribute( L"pages", strItem );
+					}
+
+					CString strFormat;
+					if ( PropGetValue( pStore, PKEY_ItemTypeText, strFormat ) )
+						pXML->AddAttribute( L"format", strFormat );
+					CString strSubject;
+					if ( PropGetValue( pStore, PKEY_Subject, strSubject ) )
+						pXML->AddAttribute( L"subject", strSubject );
+				}
+				break;
+
+			case PERCEIVED_TYPE_IMAGE:
+				szSchema = CSchema::uriImage;
+				pXML.Attach( new CXMLElement( NULL, L"image" ) );
+				if ( pXML )
+				{
+					DWORD nWidth;
+					if ( PropGetValue( pStore, PKEY_Image_HorizontalSize, nWidth ) && nWidth )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nWidth );
+						pXML->AddAttribute( L"width", strItem );
+					}
+
+					DWORD nHeight;
+					if ( PropGetValue( pStore, PKEY_Image_VerticalSize, nHeight ) && nHeight )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nHeight );
+						pXML->AddAttribute( L"height", strItem );
+					}
+
+					DWORD nBitDepth;
+					if ( PropGetValue( pStore, PKEY_Image_BitDepth, nBitDepth ) && nBitDepth )
+						pXML->AddAttribute( L"colors", GetColorsByBits( nBitDepth ) );
+
+					CString strSubject;
+					if ( PropGetValue( pStore, PKEY_Subject, strSubject ) )
+						pXML->AddAttribute( L"subject", strSubject );
+				}
+				break;
+
+			case PERCEIVED_TYPE_AUDIO:
+				szSchema = CSchema::uriAudio;
+				pXML.Attach( new CXMLElement( NULL, L"audio" ) );
+				if ( pXML )
+				{
+					DWORD nSampleRate;
+					if ( PropGetValue( pStore, PKEY_Audio_SampleRate, nSampleRate ) && nSampleRate )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nSampleRate );
+						pXML->AddAttribute( L"sampleRate", strItem );
+					}
+
+					DWORD nBitrate;
+					if ( PropGetValue( pStore, PKEY_Audio_EncodingBitrate, nBitrate ) && nBitrate )
+					{
+						bool bVariableBitRate = false;
+						PropGetValue( pStore, PKEY_Audio_IsVariableBitRate, bVariableBitRate );
+
+						CString strItem;
+						strItem.Format( L"%lu%s", nBitrate / 1000, ( bVariableBitRate ? L"~" : L"" ) );
+						pXML->AddAttribute( L"bitrate", strItem );
+					}
+
+					QWORD nContentLength;
+					if ( PropGetValue( pStore, PKEY_Media_Duration, nContentLength ) && nContentLength )
+					{
+						DWORD nSeconds = (DWORD)( nContentLength / 10000000ui64 );
+						CString strItem;
+						strItem.Format( L"%lu", nSeconds );
+						pXML->AddAttribute( L"seconds", strItem );
+					}
+
+					DWORD nChannelCount;
+					if ( PropGetValue( pStore, PKEY_Audio_ChannelCount, nChannelCount ) && nChannelCount )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nChannelCount );
+						pXML->AddAttribute( L"channels", strItem );
+					}
+				}
+				break;
+
+			case PERCEIVED_TYPE_VIDEO:
+				szSchema = CSchema::uriVideo;
+				pXML.Attach( new CXMLElement( NULL, L"video" ) );
+				if ( pXML )
+				{
+					DWORD nVideoWidth;
+					if ( PropGetValue( pStore, PKEY_Video_FrameWidth, nVideoWidth ) && nVideoWidth )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nVideoWidth );
+						pXML->AddAttribute( L"width", strItem );
+					}
+
+					DWORD nVideoHeight;
+					if ( PropGetValue( pStore, PKEY_Video_FrameHeight, nVideoHeight ) && nVideoHeight )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", nVideoHeight );
+						pXML->AddAttribute( L"height", strItem );
+					}
+
+					DWORD nFourCC;
+					if ( PropGetValue( pStore, PKEY_Video_FourCC, nFourCC ) )
+					{
+						CString strItem;
+						strItem.Format( L"%c%c%c%c",
+							LOBYTE( LOWORD( nFourCC ) ), HIBYTE( LOWORD( nFourCC ) ),
+							LOBYTE( HIWORD( nFourCC ) ), HIBYTE( HIWORD( nFourCC ) ) );
+						pXML->AddAttribute( L"codec", strItem );
+					}
+
+					DWORD nFrameRate;
+					if ( PropGetValue( pStore, PKEY_Video_FrameRate, nFrameRate ) && nFrameRate )
+					{
+						CString strItem;
+						strItem.Format( L"%.2f", ( (double)nFrameRate / 1000 ) );
+						pXML->AddAttribute( L"frameRate", strItem );
+					}
+
+					QWORD nContentLength;
+					if ( PropGetValue( pStore, PKEY_Media_Duration, nContentLength ) && nContentLength )
+					{
+						DWORD nMilliSeconds = (DWORD)( nContentLength / 10000ui64 );
+						CString strItem;
+						strItem.Format( L"%.3f", ( (double)nMilliSeconds / 60000 ) );
+						pXML->AddAttribute( L"minutes", strItem );
+					}
+
+					CString strDirector;
+					if ( PropGetValue( pStore, PKEY_Video_Director, strDirector ) )
+						pXML->AddAttribute( L"director", strDirector );
+				}
+				break;
+			}
+		}
+
+		if ( pXML )
+		{
+			CString strTitle;
+			if ( PropGetValue( pStore, PKEY_Title, strTitle ) )
+				pXML->AddAttribute( L"title", strTitle );
+				CString strDescription;
+			if ( PropGetValue( pStore, PKEY_Comment, strDescription ) )
+				pXML->AddAttribute( ( nType == PERCEIVED_TYPE_DOCUMENT ) ? L"comments" : L"description", strDescription );
+
+			CString strArtist;
+			if ( PropGetValue( pStore, PKEY_Author, strArtist ) )
+				pXML->AddAttribute( ( nType == PERCEIVED_TYPE_VIDEO || nType == PERCEIVED_TYPE_AUDIO ) ? L"artist" : L"author", strArtist );
+
+			CString strCopyright;
+			if ( PropGetValue( pStore, PKEY_Copyright, strCopyright ) )
+				pXML->AddAttribute( L"copyright", strCopyright );
+
+			bool bDRM;
+			if ( PropGetValue( pStore, PKEY_DRM_IsProtected, bDRM ) && bDRM )
+				pXML->AddAttribute( L"DRM", L"true" );
+
+			CString strKeywords;
+			if ( PropGetValue( pStore, PKEY_Keywords, strKeywords ) )
+				pXML->AddAttribute( L"keywords", strKeywords );
+
+			LibraryBuilder.SubmitMetadata( nIndex, szSchema, pXML.Detach() );
+
+			return true;
+		}
+	}
+
 	return false;
 }
 
@@ -366,7 +721,6 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 	}
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"audio" ) );
-	bool bBugInFrameSize = false;
 
 	// 4-Char ID3 FrameTag: 	(http://en.wikipedia.org/wiki/ID3)
 	SwitchMap( Tag )
@@ -446,13 +800,13 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 
 			nFrameSize = swapEndianess( pFrame->nSize );
 
-			if ( pHeader.nMajorVersion >= 4 && ! bBugInFrameSize )
+			if ( pHeader.nMajorVersion >= 4 )
 			{
 				ID3_DESYNC_SIZE( nFrameSize );
 				if ( nBuffer < nFrameSize )
 					break;
 				// iTunes uses old style of size for v.2.4 when converting.
-				// ToDo: Add code here to find the correct frame size? (Verify recent iTunes bug)
+				// ToDo: Add code here to find the correct frame size? (Verify recent(old) iTunes bug)
 			}
 			if ( pFrame->nFlags2 & ~ID3V2_KNOWNFRAME )
 				szFrameTag[0] = 0;
@@ -1234,7 +1588,7 @@ bool CLibraryBuilderInternals::ReadMSI(DWORD nIndex, LPCTSTR pszPath)
 
 	if ( nError == ERROR_INSTALL_PACKAGE_INVALID )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
-	else if ( nError != ERROR_SUCCESS )
+	if ( nError != ERROR_SUCCESS )
 		return false;
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"application" ) );
@@ -1297,9 +1651,9 @@ bool CLibraryBuilderInternals::ReadJPEG(DWORD nIndex, HANDLE hFile)
 	WORD wMagic	= 0;
 
 	if ( SetFilePointer( hFile, 0, NULL, FILE_BEGIN ) == INVALID_SET_FILE_POINTER )
-			return false;
+		return false;
 	if ( ! ReadFile( hFile, &wMagic, 2, &nRead, NULL ) )
-			return false;
+		return false;
 	if ( nRead != 2 || wMagic != 0xD8FF )
 		return LibraryBuilder.SubmitCorrupted( nIndex );
 
@@ -1458,31 +1812,33 @@ bool CLibraryBuilderInternals::ReadPNG(DWORD nIndex, HANDLE hFile)
 
 	DWORD nLength, nIHDR;
 
-	ReadFile( hFile, &nLength, 4, &nRead, NULL );
+	if ( ! ReadFile( hFile, &nLength, 4, &nRead, NULL ) )
+		return false;
 	nLength = swapEndianess( nLength );
 	if ( nRead != 4 || nLength < 10 )
 		return false;
-	ReadFile( hFile, &nIHDR, 4, &nRead, NULL );
+	if ( ! ReadFile( hFile, &nIHDR, 4, &nRead, NULL ) )
+		return false;
 	if ( nRead != 4 || nIHDR != 'RDHI' )
 		return false;
 
 	DWORD nWidth, nHeight;
 	BYTE  nBits, nColors;
 
-	ReadFile( hFile, &nWidth, 4, &nRead, NULL );
+	if ( ! ReadFile( hFile, &nWidth, 4, &nRead, NULL ) )
+		return false;
 	nWidth = swapEndianess( nWidth );
 	if ( nRead != 4 || nWidth <= 0 || nWidth > 0xFFFF )
 		return false;
-	ReadFile( hFile, &nHeight, 4, &nRead, NULL );
+	if ( ! ReadFile( hFile, &nHeight, 4, &nRead, NULL ) )
+		return false;
 	nHeight = swapEndianess( nHeight );
 	if ( nRead != 4 || nHeight <= 0 || nHeight > 0xFFFF )
 		return false;
 
-	ReadFile( hFile, &nBits, 1, &nRead, NULL );
-	if ( nRead != 1 )
+	if ( ! ReadFile( hFile, &nBits, 1, &nRead, NULL ) || nRead != 1 )
 		return false;
-	ReadFile( hFile, &nColors, 1, &nRead, NULL );
-	if ( nRead != 1 )
+	if ( ! ReadFile( hFile, &nColors, 1, &nRead, NULL ) || nRead != 1 )
 		return false;
 
 	auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"image" ) );
@@ -1492,30 +1848,7 @@ bool CLibraryBuilderInternals::ReadPNG(DWORD nIndex, HANDLE hFile)
 	pXML->AddAttribute( L"width", strItem );
 	strItem.Format( L"%lu", nHeight );
 	pXML->AddAttribute( L"height", strItem );
-
-	//if ( nColors == 2 || nColors == 4 )
-	//	pXML->AddAttribute( L"colors", L"Greyscale" );
-	//else
-	{
-		switch ( nBits )
-		{
-		case 1:
-			pXML->AddAttribute( L"colors", L"2" );
-			break;
-		case 2:
-			pXML->AddAttribute( L"colors", L"4" );
-			break;
-		case 4:
-			pXML->AddAttribute( L"colors", L"16" );
-			break;
-		case 8:
-			pXML->AddAttribute( L"colors", L"256" );
-			break;
-		case 16:
-			pXML->AddAttribute( L"colors", L"64K" );
-			break;
-		}
-	}
+	pXML->AddAttribute( L"colors", GetColorsByBits( nBits ) );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriImage, pXML.release() );
 
@@ -1550,21 +1883,389 @@ bool CLibraryBuilderInternals::ReadBMP(DWORD nIndex, HANDLE hFile)
 	pXML->AddAttribute( L"width", strItem );
 	strItem.Format( L"%d", pBIH.biHeight );
 	pXML->AddAttribute( L"height", strItem );
-
-	switch ( pBIH.biBitCount )
-	{
-	case 4:
-		pXML->AddAttribute( L"colors", L"16" );
-		break;
-	case 8:
-		pXML->AddAttribute( L"colors", L"256" );
-		break;
-	case 24:
-		pXML->AddAttribute( L"colors", L"16.7M" );
-		break;
-	}
+	pXML->AddAttribute( L"colors", GetColorsByBits( pBIH.biBitCount ) );
 
 	LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriImage, pXML.release() );
+
+	return true;
+}
+
+//////////////////////////////////////////////////////////////////////
+// CLibraryBuilderInternals FLV
+
+#pragma pack( push, 1 )
+
+typedef BYTE UI8;
+
+typedef WORD UI16;			// big-endian
+
+typedef struct
+{
+	BYTE b1;
+	BYTE b2;
+	BYTE b3;
+} UI24;						// big-endian
+
+typedef DWORD UI32;			// big-endian
+
+typedef QWORD UI64;			// big-endian
+
+// big-endian -> little-endian
+#define GetUI16(x) (_byteswap_ushort(x))
+#define GetUI24(x) ( ((DWORD)((x).b1) << 16) & 0x00ff0000 | ((DWORD)((x).b2) << 8) & 0x0000ff00 | (DWORD)((x).b3) & 0x000000ff )
+#define GetUI32(x) (_byteswap_ulong(x))
+#define GetUI64(x) (_byteswap_uint64(x))
+
+
+typedef struct
+{
+	UI8 Signature1;			// Signature byte always 'F' (0x46)
+	UI8 Signature2;			// Signature byte always 'L' (0x4C)
+	UI8 Signature3;			// Signature byte always 'V' (0x56)
+	UI8 Version;			// File version (for example, 0x01 for FLV version 1)
+	UI8 TypeFlags;			// [5] Must be 0
+							// [1] Audio tags are present
+							// [1] Must be 0
+							// [1] Video tags are present
+	UI32 DataOffset;		// Offset in bytes from start of file to start of body (that is, size of header)
+} FLV_HEADER;
+
+#define FLV_AUDIO			0x04
+#define FLV_VIDEO			0x01
+
+typedef struct
+{
+	UI8 TagType;			// Type of this tag. Values are: 8 - audio, 9 - video, 18 - script data, all others - reserved
+	UI24 DataSize;			// Length of the data in the Data field
+	UI24 Timestamp;			// Time in milliseconds at which the data in this tag applies. This value is relative to the first tag in the FLV file, which always has a timestamp of 0.
+	UI8 TimestampExtended;	// Extension of the Timestamp field to form a SI32 value. This field represents the upper 8 bits, while the previous Timestamp field represents the lower 24 bits of the time in milliseconds.
+	UI24 StreamID;			// Always 0
+	// AUDIODATA			If TagType == 8
+	// VIDEODATA			If TagType == 9
+	// SCRIPTDATAOBJECT		If TagType == 18
+} FLVTAG_HEADER;
+
+#define FLVTAG_AUDIO		0x08
+#define FLVTAG_VIDEO		0x09
+#define FLVTAG_SCRIPT		0x12
+
+#define FLVDATA_DOUBLE			0	// Number type
+#define FLVDATA_BOOL			1	// Boolean type
+#define FLVDATA_STRING			2	// String type
+#define FLVDATA_OBJECT			3	// Object type
+#define FLVDATA_CLIP			4	// MovieClip type
+#define FLVDATA_NULL			5	// Null type
+#define FLVDATA_UDEFIED			6	// Undefined type
+#define FLVDATA_REFERENCE		7	// Reference type
+#define FLVDATA_EMCA_ARRAY		8	// ECMA array type
+#define FLVDATA_END				9	// End marker
+#define FLVDATA_STRICT_ARRAY	10	// Strict array type
+#define FLVDATA_DATE			11	// Date type
+#define FLVDATA_LONG_STRING		12	// Long string type
+
+#pragma pack( pop )
+
+bool CLibraryBuilderInternals::ReadFLVVariable(HANDLE hFile, DWORD& nRemaning, VARIANT& varData, CXMLElement* pXML)
+{
+	DWORD nRead;
+
+	UI8 Type;
+	if ( nRemaning < sizeof( Type ) )
+		return false;
+	if ( ! ReadFile( hFile, &Type, sizeof( Type ), &nRead, NULL ) || nRead != sizeof( Type ) )
+		return false;
+	nRemaning -= sizeof( Type );
+
+	switch ( Type )
+	{
+	case FLVDATA_DOUBLE:
+		{
+			double dData;
+			if ( ! ReadFLVDouble( hFile, nRemaning, dData ) )
+				return false;
+			varData.vt = VT_R8;
+			varData.dblVal = dData;
+			return true;
+		}
+
+	case FLVDATA_BOOL:
+		{
+			bool bData;
+			if ( ! ReadFLVBool( hFile, nRemaning, bData ) )
+				return false;
+			varData.vt = VT_BOOL;
+			varData.boolVal = bData ? VARIANT_TRUE : VARIANT_FALSE;
+			return true;
+		}
+
+	case FLVDATA_EMCA_ARRAY:
+		return ReadFLVEMCA( hFile, nRemaning, pXML );
+
+	case FLVDATA_STRING:
+		{
+			CStringA strString;
+			if ( ! ReadFLVString( hFile, nRemaning, FALSE, strString ) )
+				return false;
+			varData.vt = VT_BSTR;
+			varData.bstrVal = strString.AllocSysString();
+			return true;
+		}
+
+	case FLVDATA_LONG_STRING:
+		{
+			CStringA strString;
+			if ( ! ReadFLVString( hFile, nRemaning, TRUE, strString ) )
+				return false;
+			varData.vt = VT_BSTR;
+			varData.bstrVal = strString.AllocSysString();
+			return true;
+		}
+
+	default:
+		TRACE( "FLV variable: Unknown type %d\n", Type );
+	}
+
+	// Unknown type
+	return true;
+}
+
+bool CLibraryBuilderInternals::ReadFLVDouble(HANDLE hFile, DWORD& nRemaning, double& dValue)
+{
+	UI64 d;
+	if ( nRemaning < sizeof( d ) )
+		return false;
+
+	DWORD nRead;
+	if ( ! ReadFile( hFile, &d, sizeof( d ), &nRead, NULL ) || nRead != sizeof( d ) )
+		return false;
+	nRemaning -= sizeof( d );
+	*((QWORD*)&dValue) = GetUI64( d );
+
+	return true;
+}
+
+bool CLibraryBuilderInternals::ReadFLVBool(HANDLE hFile, DWORD& nRemaning, bool& bValue)
+{
+	UI8 d;
+	if ( nRemaning < sizeof( d ) )
+		return false;
+
+	DWORD nRead;
+	if ( ! ReadFile( hFile, &d, sizeof( d ), &nRead, NULL ) || nRead != sizeof( d ) )
+		return false;
+	nRemaning -= sizeof( d );
+	bValue = ( d != 0 );
+
+	return true;
+}
+
+bool CLibraryBuilderInternals::ReadFLVString(HANDLE hFile, DWORD& nRemaning, BOOL bLong, CStringA& strValue)
+{
+	DWORD nRead;
+	DWORD nStringSize;
+
+	if ( bLong )
+	{
+		UI32 StringSize;
+		if ( nRemaning < sizeof( StringSize ) )
+			return false;
+		if ( ! ReadFile( hFile, &StringSize, sizeof( StringSize ), &nRead, NULL ) || nRead != sizeof( StringSize ) )
+			return false;
+		nRemaning -= sizeof( StringSize );
+		nStringSize = GetUI32( StringSize );
+	}
+	else
+	{
+		UI16 StringSize;
+		if ( nRemaning < sizeof( StringSize ) )
+			return false;
+		if ( ! ReadFile( hFile, &StringSize, sizeof( StringSize ), &nRead, NULL ) || nRead != sizeof( StringSize ) )
+			return false;
+		nRemaning -= sizeof( StringSize );
+		nStringSize = GetUI16( StringSize );
+	}
+
+	if ( nRemaning < nStringSize )
+		return false;
+	BOOL bResult = ReadFile( hFile, strValue.GetBuffer( nStringSize ), nStringSize, &nRead, NULL );
+	strValue.ReleaseBuffer( nStringSize );
+	if ( ! bResult || nRead != nStringSize )
+		return false;
+	nRemaning -= nStringSize;
+
+	return true;
+}
+
+bool CLibraryBuilderInternals::ReadFLVEMCA(HANDLE hFile, DWORD& nRemaning, CXMLElement* pXML)
+{
+	UI32 Fields;
+	if ( nRemaning < sizeof( Fields ) )
+		return false;
+
+	DWORD nRead;
+	if ( ! ReadFile( hFile, &Fields, sizeof( Fields ), &nRead, NULL ) || nRead != sizeof( Fields ) )
+		return false;
+	nRemaning -= sizeof( Fields );
+	DWORD nFields = GetUI32( Fields );
+
+	TRACE( "FLV found EMCA with %u variable(s).\n", nFields );
+
+	// String-value pairs
+	for ( DWORD i = 0; i < nFields; ++ i )
+	{
+		CStringA strName;
+		if ( ! ReadFLVString( hFile, nRemaning, FALSE, strName ) )
+			return false;
+
+		CComVariant varValue;
+		if ( ! ReadFLVVariable( hFile, nRemaning, varValue ) )
+			return false;
+
+#ifdef _DEBUG
+		CComVariant varDebug;
+		varDebug.ChangeType( VT_BSTR, &varValue );
+		TRACE( "FLV EMCA %2u : %s = \"%s\"\n", i + 1, strName, (LPCSTR)CW2A( (LPCWSTR)varDebug.bstrVal ) );
+#endif
+
+		if ( pXML )
+		{
+			if ( strName.CompareNoCase( "width" ) == 0 )
+			{
+				if ( SUCCEEDED( varValue.ChangeType( VT_UI4 ) ) )
+				{
+					CString strItem;
+					strItem.Format( L"%lu", varValue.ulVal );
+					pXML->AddAttribute( L"width", strItem );
+				}
+			}
+			else if ( strName.CompareNoCase( "height" ) == 0 )
+			{
+				if ( SUCCEEDED( varValue.ChangeType( VT_UI4 ) ) )
+				{
+					CString strItem;
+					strItem.Format( L"%lu", varValue.ulVal );
+					pXML->AddAttribute( L"height", strItem );
+				}
+			}
+			else if ( strName.CompareNoCase( "duration" ) == 0 )
+			{
+				if ( pXML->GetName() == L"video" )
+				{
+					if ( SUCCEEDED( varValue.ChangeType( VT_R8 ) ) )
+					{
+						CString strItem;
+						strItem.Format( L"%.3f", varValue.dblVal / 60 );
+						pXML->AddAttribute( L"minutes", strItem );
+					}
+				}
+				else
+				{
+					if ( SUCCEEDED( varValue.ChangeType( VT_UI4 ) ) )
+					{
+						CString strItem;
+						strItem.Format( L"%lu", varValue.ulVal );
+						pXML->AddAttribute( L"seconds", strItem );
+					}
+				}
+			}
+			else if ( strName.CompareNoCase( "framerate" ) == 0 )
+			{
+				if ( SUCCEEDED( varValue.ChangeType( VT_R8 ) ) )
+				{
+					CString strItem;
+					strItem.Format( L"%.2f", varValue.dblVal );
+					pXML->AddAttribute( L"frameRate", strItem );
+				}
+			}
+		}
+	}
+
+	return true;
+}
+
+bool CLibraryBuilderInternals::ReadFLV(DWORD nIndex, HANDLE hFile)
+{
+	BOOL bMetadata = FALSE;
+	DWORD nRead;
+
+	if ( SetFilePointer( hFile, 0, NULL, FILE_BEGIN ) == INVALID_SET_FILE_POINTER )
+		return false;
+
+	FLV_HEADER header;
+	if ( ! ReadFile( hFile, &header, sizeof( header ), &nRead, NULL ) || nRead != sizeof( header ) )
+		return false;
+	if ( header.Signature1 != 'F' || header.Signature2 != 'L' || header.Signature3 != 'V' || header.DataOffset < sizeof( header ) )
+		return false;
+	TRACE( "FLV version: %d\n", header.Version );
+	DWORD nDataOffset = GetUI32( header.DataOffset );
+	if ( SetFilePointer( hFile, nDataOffset, NULL, FILE_BEGIN ) == INVALID_SET_FILE_POINTER )
+		return false;
+	if ( ( header.TypeFlags & ( FLV_AUDIO | FLV_VIDEO ) ) == 0 )
+	{
+		// Not interested
+		TRACE( "FLV without Video or Audio streams.\n" );
+		return true;
+	}
+	const bool bVideo = ( header.TypeFlags & FLV_VIDEO );
+
+	CAutoPtr< CXMLElement > pXML( new CXMLElement( NULL, bVideo ? L"video" : L"audio" ) );
+	if ( ! pXML )
+		return false;	// Out of memory
+
+	DWORD nLastTagSize = 0;
+	DWORD nTags = 0;
+	for ( ; ! bMetadata ; ++nTags )
+	{
+		UI32 PreviousTagSize;
+		if ( ! ReadFile( hFile, &PreviousTagSize, sizeof( PreviousTagSize ), &nRead, NULL ) || nRead != sizeof( PreviousTagSize ) )
+			return false;
+		DWORD nPreviousTagSize = GetUI32( PreviousTagSize );
+		if ( nPreviousTagSize != nLastTagSize )
+		{
+			TRACE( "FLV wrong last tag size.\n" );
+			return false;
+		}
+
+		FLVTAG_HEADER tag_header;
+		if ( ! ReadFile( hFile, &tag_header, sizeof( tag_header ), &nRead, NULL ) )
+			return false;
+		if ( nRead == 0 )
+			break;	// EOF
+		if ( nRead != sizeof( tag_header ) )
+			return false;
+
+		DWORD nDataSize = GetUI24( tag_header.DataSize );
+		const DWORD nNextTagPosition = SetFilePointer( hFile, 0, NULL, FILE_CURRENT ) + nDataSize;
+		nLastTagSize = nDataSize + sizeof( tag_header );
+
+		if ( tag_header.TagType == FLVTAG_SCRIPT )
+		{
+			TRACE( "FLV found script tag.\n" );
+
+			for ( DWORD nRemaning = nDataSize; nRemaning > 3; )	// Except last SCRIPTDATAOBJECTEND(UI24) == 0x000009
+			{
+				CComVariant var;
+				if ( ! ReadFLVVariable( hFile, nRemaning, var, pXML ) )
+					return false;
+
+				if ( var.vt == VT_BSTR && wcsicmp( var.bstrVal, L"onMetaData" ) == 0 )
+					bMetadata = TRUE;
+				else if ( bMetadata )
+					break;
+			}
+		}
+
+		SetFilePointer( hFile, nNextTagPosition, NULL, FILE_BEGIN );
+	}
+
+	TRACE( "FLV processed tags: %lu. Metadata found: %s.\n", nTags, bMetadata ? "yes" : "no" );
+
+	if ( bMetadata )
+	{
+		pXML->AddAttribute( L"codec", L"FLV" );
+
+		LibraryBuilder.SubmitMetadata( nIndex, bVideo ? CSchema::uriVideo : CSchema::uriAudio, pXML.Detach() );
+	}
 
 	return true;
 }

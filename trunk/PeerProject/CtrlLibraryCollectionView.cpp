@@ -159,8 +159,7 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 
 		if ( m_pCollection->Open( pFile->GetPath() ) )
 		{
-			if ( SUCCEEDED( m_pWebCtrl->Navigate( CString( L"p2p-col://" ) +
-				pFile->m_oSHA1.toString() + L"/" ) ) )
+			if ( m_pWebCtrl && SUCCEEDED( m_pWebCtrl->Navigate( L"p2p-col://" + pFile->m_oSHA1.toString() + L"/" ) ) )
 			{
 				m_oSHA1 = pFile->m_oSHA1;
 				return TRUE;
@@ -173,7 +172,7 @@ BOOL CLibraryCollectionView::ShowCollection(CLibraryFile* pFile)
 	if ( m_pCollection->IsOpen() )
 	{
 		m_pCollection->Close();
-		if ( m_pWebCtrl != NULL )
+		if ( m_pWebCtrl )
 			m_pWebCtrl->Navigate( L"about:blank" );
 	}
 

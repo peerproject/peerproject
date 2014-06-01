@@ -656,17 +656,22 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 {
 	if ( ! this || ! pInput ) return FALSE;
 	if ( this == pInput ) return TRUE;
-	if ( m_sName.CompareNoCase( pInput->m_sName ) != 0 ) return FALSE;
 
-	TRACE( "Merging XML:%sand XML:%s",
-		(LPCSTR)CT2A( ToString( FALSE, TRUE ) ), (LPCSTR)CT2A( pInput->ToString( FALSE, TRUE ) ) );
+	TRACE( "Merging   XML: %s\n", (LPCSTR)CT2A( ToString( FALSE, FALSE ) ) );
+	TRACE( "      and XML: %s\n", (LPCSTR)CT2A( pInput->ToString( FALSE, FALSE ) ) );
+
+	if ( m_sName.CompareNoCase( pInput->m_sName ) != 0 )
+	{
+		TRACE( "Failed to merge XML due different schemes \"%s\" and \"%s\".\n", (LPCSTR)CT2A( m_sName ), (LPCSTR)CT2A( pInput->m_sName ) );
+		return FALSE;
+	}
 
 	BOOL bChanged = FALSE;
 
 	for ( POSITION pos = pInput->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pElement	= pInput->GetNextElement( pos );
-		CXMLElement* pTarget	= GetElementByName( pElement->m_sName );
+		const CXMLElement* pElement = pInput->GetNextElement( pos );
+		CXMLElement* pTarget = GetElementByName( pElement->m_sName );
 
 		if ( pTarget == NULL )
 		{
@@ -681,8 +686,8 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 
 	for ( POSITION pos = pInput->GetAttributeIterator() ; pos ; )
 	{
-		CXMLAttribute* pAttribute	= pInput->GetNextAttribute( pos );
-		CXMLAttribute* pTarget		= GetAttribute( pAttribute->m_sName );
+		CXMLAttribute* pAttribute = pInput->GetNextAttribute( pos );
+		CXMLAttribute* pTarget = GetAttribute( pAttribute->m_sName );
 
 		if ( pTarget == NULL )
 		{
@@ -697,7 +702,7 @@ BOOL CXMLElement::Merge(const CXMLElement* pInput, BOOL bOverwrite)
 	}
 
 	if ( bChanged )
-		TRACE( "resulting XML:%s\n", (LPCSTR)CT2A( ToString( FALSE, TRUE ) ) );
+		TRACE( "resulting XML: %s\n", (LPCSTR)CT2A( ToString( FALSE, FALSE ) ) );
 	else
 		TRACE( "resulting XML unchanged.\n" );
 

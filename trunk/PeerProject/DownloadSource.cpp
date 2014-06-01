@@ -201,7 +201,7 @@ CDownloadSource::CDownloadSource(const CDownload* pDownload,
 // CDownloadSource construction from URL
 
 CDownloadSource::CDownloadSource(const CDownload* pDownload, LPCTSTR pszURL,
-	BOOL /*bSHA1*/, BOOL bHashAuth, FILETIME* pLastSeen, int nRedirectionCount)
+	BOOL bHashAuth, FILETIME* pLastSeen, int nRedirectionCount)
 	: m_oAvailable		( pDownload->m_nSize )
 	, m_oPastFragments	( pDownload->m_nSize )
 {
@@ -664,6 +664,9 @@ DWORD CDownloadSource::CalcFailureDelay(DWORD nRetryAfter) const
 {
 	if ( nRetryAfter )
 		return GetTickCount() + nRetryAfter * 1000;
+
+	if ( m_pDownload->IsPaused() )
+		return Settings.Downloads.ConnectThrottle;
 
 	DWORD nDelayFactor = max( ( m_nBusyCount ? m_nBusyCount - 1 : 0 ), m_nFailures );
 	DWORD nDelay = Settings.Downloads.RetryDelay * ( 1u << nDelayFactor );

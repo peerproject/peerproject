@@ -52,7 +52,6 @@ CDownloadTransferHTTP::CDownloadTransferHTTP(CDownloadSource* pSource)
 	, m_bBusyFault		( FALSE )
 	, m_bRangeFault		( FALSE )
 	, m_bKeepAlive		( FALSE )
-	, m_bHashMatch		( FALSE )
 	, m_bTigerFetch 	( FALSE )
 	, m_bTigerIgnore	( FALSE )
 	, m_bMetaFetch		( FALSE )
@@ -449,7 +448,6 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	m_bBusyFault		= FALSE;
 	m_bRangeFault		= FALSE;
 	m_bKeepAlive		= FALSE;
-	m_bHashMatch		= FALSE;
 	m_bGotRange			= FALSE;
 	m_bGotRanges		= FALSE;
 	m_bQueueFlag		= FALSE;
@@ -900,7 +898,6 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 				//			Settings.Library.TigerHeight,
 				//			( Settings.Downloads.VerifyED2K ? 1 : 0 ) );
 				//	}
-					m_bHashMatch = m_bHashMatch || oSHA1 || oTiger || oED2K || oBTH || oMD5;
 					continue;
 				}
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_HASH, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
@@ -939,7 +936,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 
 	case 'a':		// "X-Gnutella-Alternate-Location" "Alt-Location" "X-Alt"
 		if ( Settings.Library.SourceMesh )
-			m_pDownload->AddSourceURLs( strValue, m_bHashMatch );
+			m_pDownload->AddSourceURLs( strValue );
 		m_pSource->SetGnutella( 1 );
 		break;
 
@@ -1100,8 +1097,8 @@ BOOL CDownloadTransferHTTP::OnHeadersComplete()
 
 	if ( m_bRedirect )
 	{
-		int nRedirectionCount = m_pSource->m_nRedirectionCount;
-		m_pDownload->AddSourceURL( m_sRedirectionURL, m_bHashMatch, NULL, nRedirectionCount + 1 );
+		CPeerProjectURL pURL( m_sRedirectionURL );
+		m_pDownload->AddSourceHit( pURL, TRUE, m_pSource->m_nRedirectionCount + 1 );
 		Close( TRI_FALSE );
 		return FALSE;
 	}

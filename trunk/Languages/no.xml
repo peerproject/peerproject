@@ -806,7 +806,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
-		<menu text="_Web søk">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web søk">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Søk med Bitprints Ticket"/>
 			<item id="ID_SEARCH_URI" text="Kopier URI..."/>
 		</menu>
@@ -827,8 +827,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Musikk fra samme artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Søk Monitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="Hit Monitor"/>
 		</menu>
-		<menu text="_Web søk">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web søk">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Søk med Bitprints Ticket"/>
 		</menu>
 		<separator/>
@@ -872,7 +875,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
-		<menu text="_Web søk">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web søk">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Søk med Bitprints Ticket"/>
 		</menu>
 		<separator/>
@@ -897,7 +900,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musikk fra samme album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode fra samme serie"/>
 		</menu>
-		<menu text="_Nettjenester">
+		<menu id="ID_WEBSERVICES_LIST" text="_Nettjenester">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Søk med Bitprints Ticket"/>
 		</menu>
 		<separator/>

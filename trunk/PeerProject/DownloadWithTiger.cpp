@@ -772,7 +772,7 @@ void CDownloadWithTiger::FinishValidation()
 {
 	Fragments::List oCorrupted( m_nSize );
 
-	if ( m_nVerifyHash == HASH_TIGERTREE )
+	if ( m_nVerifyHash == HASH_TIGERTREE && m_pTigerBlock )
 	{
 		if ( m_pTigerTree.FinishBlockTest( m_nVerifyBlock ) )
 		{
@@ -788,7 +788,7 @@ void CDownloadWithTiger::FinishValidation()
 				min( nOffset + m_nTigerSize, m_nSize ) ) );
 		}
 	}
-	else if ( m_nVerifyHash == HASH_ED2K )
+	else if ( m_nVerifyHash == HASH_ED2K && m_pHashsetBlock )
 	{
 		if ( m_pHashset.FinishBlockTest( m_nVerifyBlock ) )
 		{
@@ -804,7 +804,7 @@ void CDownloadWithTiger::FinishValidation()
 				min( nOffset + ED2K_PART_SIZE, m_nSize ) ) );
 		}
 	}
-	else if ( m_nVerifyHash == HASH_TORRENT )
+	else if ( m_nVerifyHash == HASH_TORRENT && m_pTorrentBlock )
 	{
 		if ( m_pTorrent.FinishBlockTest( m_nVerifyBlock ) )
 		{

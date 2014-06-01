@@ -992,7 +992,7 @@
 		<item id="ID_SEARCH_DOWNLOAD" text="_Download"/>
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Browse User"/>
-		<item id="ID_SECURITY_BAN" text="_Ban User"/>
+		<item id="ID_SECURITY_BAN" text="B_an User"/>
 		<separator/>
 		<menu text="_Search For">
 			<item id="ID_SEARCH_FOR_SIMILAR" text="_Similar Files"/>
@@ -1001,7 +1001,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="Get P2P Link (_URI)"/>
 		</menu>
@@ -1022,13 +1022,17 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="_Music by the same Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Search M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View Bitprints listing"/>
 		</menu>
 		<separator/>
 		<item id="ID_SEARCH_FILTER" text="_Filter Results..."/>
 		<item id="ID_SEARCH_FILTER_REMOVE" text="_Remove Filter"/>
+		<separator/>
 		<item id="ID_SEARCH_CLEAR" text="C_lear Results"/>
 		<separator/>
 		<item id="ID_SEARCH_COLUMNS" text="Edit C_olumns..."/>
@@ -1067,7 +1071,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1092,7 +1096,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Music in the same _Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodes in the same Series"/>
 		</menu>
-		<menu text="_Web Services">
+		<menu id="ID_WEBSERVICES_LIST" text="_Web Services">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="View Bitprints listing"/>
 		</menu>
 		<separator/>

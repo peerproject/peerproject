@@ -971,7 +971,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
-		<menu text="Shërbime _Rrjeti">
+		<menu id="ID_WEBSERVICES_LIST" text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Shiko Biletën _Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Kopjo _URIn..."/>
 		</menu>
@@ -992,8 +992,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Muzikë nga i njëjti Artist"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Kërko M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="Shërbime _Rrjeti">
+		<menu id="ID_WEBSERVICES_LIST" text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Shiko Biletën _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1037,7 +1040,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
-		<menu text="Shërbime _Rrjeti">
+		<menu id="ID_WEBSERVICES_LIST" text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Shiko Biletën _Bitprints"/>
 		</menu>
 		<separator/>
@@ -1062,7 +1065,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Muzikë nga i njëjti Album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Episode nga i njëjti Serial"/>
 		</menu>
-		<menu text="Shërbime _Rrjeti">
+		<menu id="ID_WEBSERVICES_LIST" text="Shërbime _Rrjeti">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Shiko Biletën _Bitprints"/>
 		</menu>
 		<separator/>

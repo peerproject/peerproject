@@ -56,7 +56,6 @@ public:
 	bool			GetAvailableRanges( CString& strRanges ) const;
 	QWORD			InvalidateFileRange(QWORD nOffset, QWORD nLength);
 	QWORD			EraseRange(QWORD nOffset, QWORD nLength);
-	BOOL			SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
 	BOOL			SetSize(QWORD nSize);
 	BOOL			MakeComplete();
 	Fragments::List	GetFullFragmentList() const;	// All fragments which must be downloaded
@@ -75,17 +74,18 @@ public:
 	const CString&	GetFileErrorString() const;
 	void			SetFileError(DWORD nFileError, LPCTSTR szFileError);
 	void			ClearFileError();
-	virtual bool	Rename(const CString& strName);		// Set download new name safely
 	DWORD			MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpProgressRoutine = NULL, CDownloadTask* pTask = NULL);
+	virtual bool	Rename(const CString& strName);		// Set download new name safely
+	virtual BOOL	SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength);
 
 protected:
+	BOOL			Open(const CPeerProjectFile* pFile);
+	BOOL			Open(const CBTInfo& pBTInfo);
 	BOOL			OpenFile();		// Legacy (Crash workaround)
-	BOOL			Open();			// Open files of this download
-	BOOL			Open(const CBTInfo& pBTInfo);	// Magnet Crash?
 	void			CloseFile();	// Close files of this download
 	void			DeleteFile();
 	BOOL			FlushFile();
-	void			AttachFile(auto_ptr< CFragmentedFile >& pFile);
+	void			AttachFile(CFragmentedFile* pFile);
 	BOOL			ReadFile(QWORD nOffset, LPVOID pData, QWORD nLength, QWORD* pnRead = NULL);
 	BOOL			WriteFile(QWORD nOffset, LPCVOID pData, QWORD nLength, QWORD* pnWritten = NULL);
 	void			SerializeFile(CArchive& ar, int nVersion);

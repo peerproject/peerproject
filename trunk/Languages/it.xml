@@ -963,7 +963,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
-		<menu text="Servizi web">
+		<menu id="ID_WEBSERVICES_LIST" text="Servizi web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visualizza la ricerca su Bitprints"/>
 			<item id="ID_SEARCH_URI" text="Copia URI..."/>
 		</menu>
@@ -984,8 +984,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="_Musica dello stesso artista"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Cerca M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="Servizi web">
+		<menu id="ID_WEBSERVICES_LIST" text="Servizi web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visualizza la ricerca su Bitprints"/>
 		</menu>
 		<separator/>
@@ -1029,7 +1032,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
-		<menu text="Servizi web">
+		<menu id="ID_WEBSERVICES_LIST" text="Servizi web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visualizza la ricerca su Bitprints"/>
 		</menu>
 		<separator/>
@@ -1054,7 +1057,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Musica dello stesso _album"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="_Episodi della stessa serie"/>
 		</menu>
-		<menu text="Servizi web">
+		<menu id="ID_WEBSERVICES_LIST" text="Servizi web">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Visualizza la ricerca su Bitprints"/>
 		</menu>
 		<separator/>

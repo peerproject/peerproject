@@ -32,6 +32,7 @@
 
 #include "Library.h"
 #include "SharedFile.h"
+#include "Security.h"
 #include "Schema.h"
 #include "SchemaCache.h"
 #include "PeerProjectURL.h"
@@ -248,6 +249,7 @@ BOOL CDownloadWithSources::AddSource(const CPeerProjectFile* pHit, BOOL bForce)
 
 	BOOL bHash = FALSE;
 	BOOL bUpdated = FALSE;
+	const bool bHasHash = HasHash();
 	const BOOL bHitHasName = ( ! pHit->m_sName.IsEmpty() );
 	const BOOL bHitHasSize = ( pHit->m_nSize && pHit->m_nSize != SIZE_UNKNOWN );
 
@@ -255,7 +257,7 @@ BOOL CDownloadWithSources::AddSource(const CPeerProjectFile* pHit, BOOL bForce)
 	{
 		// We should check Tiger as well as others.
 		// Some hash combinations exist with same SHA1 but different Tiger.
-		// (Shareaza 2.2.0.0 installer file) (CyberBob).
+		// (Shareaza 2.2.0.0 installer file) (CyberBob)
 
 		if ( m_oSHA1 && pHit->m_oSHA1 )
 		{
@@ -296,7 +298,7 @@ BOOL CDownloadWithSources::AddSource(const CPeerProjectFile* pHit, BOOL bForce)
 		}
 	}
 
-	if ( m_nSize != SIZE_UNKNOWN && bHitHasSize && m_nSize != pHit->m_nSize )
+	if ( m_nSize != SIZE_UNKNOWN && bHasHash && bHitHasSize && m_nSize != pHit->m_nSize )
 		return FALSE;
 
 	if ( ! m_oSHA1 && pHit->m_oSHA1 )
@@ -324,14 +326,14 @@ BOOL CDownloadWithSources::AddSource(const CPeerProjectFile* pHit, BOOL bForce)
 		m_oMD5 = pHit->m_oMD5;
 		bUpdated = TRUE;
 	}
-	if ( m_nSize == SIZE_UNKNOWN && bHitHasSize )
-	{
-		m_nSize = pHit->m_nSize;
-		bUpdated = TRUE;
-	}
-	if ( m_sName.IsEmpty() && bHitHasName )
+	if ( ( m_sName.IsEmpty() || ! bHasHash ) && bHitHasName )
 	{
 		Rename( pHit->m_sName );
+		bUpdated = TRUE;
+	}
+	if ( ( m_nSize == SIZE_UNKNOWN || ! bHasHash ) && bHitHasSize )
+	{
+		Resize( pHit->m_nSize );
 		bUpdated = TRUE;
 	}
 
@@ -397,7 +399,7 @@ BOOL CDownloadWithSources::AddSourceHit(const CMatchFile* pMatchFile, BOOL bForc
 	return bRet;
 }
 
-BOOL CDownloadWithSources::AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce)
+BOOL CDownloadWithSources::AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce, int nRedirectionCount /*0*/)
 {
 	CQuickLock oLock( Transfers.m_pSection );
 
@@ -407,9 +409,16 @@ BOOL CDownloadWithSources::AddSourceHit(const CPeerProjectURL& oURL, BOOL bForce
 	if ( oURL.m_pTorrent )
 		((CDownload*)this)->SetTorrent( oURL.m_pTorrent );
 
-	if ( ! oURL.m_sURL.IsEmpty() &&
-		 ! AddSourceURL( oURL.m_sURL ) )
-		return FALSE;
+	for ( CString sURLs = oURL.m_sURL ; sURLs.GetLength() ; )
+	{
+		CString sURL = sURLs.SpanExcluding( L"," );
+		sURLs = sURLs.Mid( sURL.GetLength() + 1 );
+		sURL.Trim();
+		if ( sURL.IsEmpty() )
+			continue;
+		if ( ! AddSourceURL( sURL, NULL, nRedirectionCount, FALSE ) )
+			return FALSE;
+	}
 
 	return TRUE;
 }
@@ -434,7 +443,7 @@ BOOL CDownloadWithSources::AddSourceBT(const Hashes::BtGuid& oGUID, const IN_ADD
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources add a single URL source
 
-BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLastSeen, int nRedirectionCount, BOOL bFailed)
+BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, FILETIME* pLastSeen, int nRedirectionCount, BOOL bFailed)
 {
 	if ( pszURL == NULL || *pszURL == 0 )
 		return FALSE;
@@ -443,7 +452,6 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 		return FALSE;	// No more than 5 redirections
 
 	BOOL bHashAuth = FALSE;
-	BOOL bValidated = FALSE;
 	CPeerProjectURL pURL;
 
 	if ( *pszURL == '@' )
@@ -467,17 +475,16 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 		 pURL.m_nAction != CPeerProjectURL::uriSource )
 		return FALSE;	// Wrong URL type
 
-	if ( bURN )
+	if ( pURL.m_pAddress.s_addr != INADDR_ANY && pURL.m_pAddress.s_addr != INADDR_NONE )
 	{
 		if ( Network.IsFirewalledAddress( &pURL.m_pAddress, TRUE ) ||
 			 Network.IsReserved( &pURL.m_pAddress ) )
-			return FALSE;
+			return FALSE;	// Unreachable URL
 	}
 
 	CQuickLock pLock( Transfers.m_pSection );
 
-	CFailedSource* pBadSource = LookupFailedSource( pszURL );
-	if ( pBadSource )
+	if ( CFailedSource* pBadSource = LookupFailedSource( pszURL ) )
 	{
 		// Add a positive vote, add to downloads if negative votes compose less than 2/3 of total.
 		int nTotal = pBadSource->m_nPositiveVotes + pBadSource->m_nNegativeVotes + 1;
@@ -496,78 +503,16 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, BOOL bURN, FILETIME* pLa
 		return TRUE;
 	}
 
-	// Validate SHA1
-	if ( pURL.m_oSHA1 && m_oSHA1 )
-	{
-		if ( m_oSHA1 != pURL.m_oSHA1 ) return FALSE;
-		bValidated = TRUE;
-	}
-	// Validate Tiger
-	if ( pURL.m_oTiger && m_oTiger )
-	{
-		if ( m_oTiger != pURL.m_oTiger ) return FALSE;
-		bValidated = TRUE;
-	}
-	// Validate ED2K
-	if ( pURL.m_oED2K && m_oED2K )
-	{
-		if ( m_oED2K != pURL.m_oED2K ) return FALSE;
-		bValidated = TRUE;
-	}
-	// Validate MD5
-	if ( pURL.m_oMD5 && m_oMD5 )
-	{
-		if ( m_oMD5 != pURL.m_oMD5 ) return FALSE;
-		bValidated = TRUE;
-	}
-	// Validate BTH
-	if ( pURL.m_oBTH && m_oBTH && ! bValidated )
-	{
-		if ( m_oBTH != pURL.m_oBTH ) return FALSE;
-		bValidated = TRUE;
-	}
-	// Validate size
-	if ( m_nSize != SIZE_UNKNOWN && pURL.m_bSize && pURL.m_nSize != SIZE_UNKNOWN )
-	{
-		if ( m_nSize != pURL.m_nSize ) return FALSE;
-	}
+	if ( AddSource( &pURL, FALSE ) )
+		return FALSE;	// Not match
 
-	// Get SHA1
-	if ( pURL.m_oSHA1 && ! m_oSHA1 )
-		m_oSHA1 = pURL.m_oSHA1;
-
-	// Get Tiger
-	if ( pURL.m_oTiger && ! m_oTiger )
-		m_oTiger = pURL.m_oTiger;
-
-	// Get ED2K
-	if ( pURL.m_oED2K && ! m_oED2K )
-		m_oED2K = pURL.m_oED2K;
-
-	// Get MD5
-	if ( pURL.m_oMD5 && ! m_oMD5 )
-		m_oMD5 = pURL.m_oMD5;
-
-	// Get BTH
-	if ( pURL.m_oBTH && ! m_oBTH )
-		m_oBTH = pURL.m_oBTH;
-
-	// Get size
-	if ( m_nSize == SIZE_UNKNOWN &&	pURL.m_bSize && pURL.m_nSize && pURL.m_nSize != SIZE_UNKNOWN )
-		m_nSize = pURL.m_nSize;
-
-	// Get name
-	if ( m_sName.IsEmpty() && ! pURL.m_sName.IsEmpty() )
-		Rename( pURL.m_sName );
-
-	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ),
-		pszURL, bURN, bHashAuth, pLastSeen, nRedirectionCount ) );
+	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ), pszURL, bHashAuth, pLastSeen, nRedirectionCount ) );
 }
 
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithSources add several URL sources
 
-int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed)
+int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bFailed)
 {
 	int nCount = 0;
 
@@ -580,8 +525,7 @@ int CDownloadWithSources::AddSourceURLs(LPCTSTR pszURLs, BOOL bURN, BOOL bFailed
 		FILETIME tSeen = {};
 		oUrls.GetNextAssoc( pos, strURL, tSeen );
 
-		if ( AddSourceURL( strURL, bURN,
-			( tSeen.dwLowDateTime | tSeen.dwHighDateTime ) ? &tSeen : NULL, 0, bFailed ) )
+		if ( AddSourceURL( strURL, ( tSeen.dwLowDateTime | tSeen.dwHighDateTime ) ? &tSeen : NULL, 0, bFailed ) )
 		{
 			if ( bFailed )
 				theApp.Message( MSG_DEBUG, L"Adding X-NAlt: %s", (LPCTSTR)strURL );
@@ -929,7 +873,7 @@ void CDownloadWithSources::AddFailedSource(LPCTSTR pszUrl, bool bLocal, bool bOf
 		if ( CFailedSource* pBadSource = new CFailedSource( pszUrl, bLocal, bOffline ) )
 		{
 			m_pFailedSources.AddTail( pBadSource );
-			theApp.Message( MSG_DEBUG, L"Bad sources count for \"%s\": %i", m_sName, m_pFailedSources.GetCount() );
+			theApp.Message( MSG_DEBUG, L"Bad sources count for \"%s\": %i. URL: %s", m_sName, m_pFailedSources.GetCount(), pszUrl );
 		}
 	}
 }
@@ -1215,7 +1159,9 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 					_stscanf( strURL, L"%lu", &pSource->m_pAddress.S_un.S_addr );
 			}
 
-			InternalAdd( pSource.Detach() );
+			// Add to the list no more than ~500 sources
+			//if ( nSources < (DWORD_PTR)Settings.Downloads.SourcesWanted )
+				InternalAdd( pSource.Detach() );
 		}
 
 		if ( ar.ReadCount() )
@@ -1235,12 +1181,12 @@ void CDownloadWithSources::MergeMetadata(const CXMLElement* pXML)
 
 	if ( m_pXML )
 	{
-		CXMLAttribute* pAttr1 = m_pXML->GetAttribute( CXMLAttribute::schemaName );
-		CXMLAttribute* pAttr2 = pXML->GetAttribute( CXMLAttribute::schemaName );
-		if ( pAttr1 && pAttr2 && ! pAttr1->GetValue().CompareNoCase( pAttr1->GetValue() ) )
+		const CXMLAttribute* pAttr1 = m_pXML->GetAttribute( CXMLAttribute::schemaName );
+		const CXMLAttribute* pAttr2 = pXML->GetAttribute( CXMLAttribute::schemaName );
+		if ( pAttr1 && pAttr2 && pAttr1->GetValue().CompareNoCase( pAttr2->GetValue() ) == 0 )
 		{
 			CXMLElement* pElement1 = m_pXML->GetFirstElement();
-			CXMLElement* pElement2 = pXML->GetFirstElement();
+			const CXMLElement* pElement2 = pXML->GetFirstElement();
 			if ( pElement1 && pElement2 )
 				pElement1->Merge( pElement2 );
 		}

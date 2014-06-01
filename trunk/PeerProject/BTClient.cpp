@@ -781,7 +781,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 	strUserAgent = Vendors[ CString( pVendor ).Left( 2 ) ];
 
 	if ( strUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
-		strUserAgent.Format( L"BitTorrent (%c%c)", pVendor[ 0 ], pVendor[ 1 ] );
+		strUserAgent.Format( L"BitTorrent (%c%c)", (TCHAR)pVendor[ 0 ], (TCHAR)pVendor[ 1 ] );
 	else if ( nVendor == 6 )
 		strUserAgent.Format( L"%s %i.%i.%i.%i", strUserAgent, ( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ), ( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
 	else //if ( nVendor == 4 )

@@ -375,17 +375,19 @@ void CBaseMatchWnd::OnSearchDownloadNow()
 
 void CBaseMatchWnd::OnUpdateSearchURI(CCmdUI* pCmdUI)
 {
+	const bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
 	const BOOL bSelected = m_pMatches->m_pSelectedFiles.GetCount() ||
 		m_pMatches->m_pSelectedHits.GetCount();
 	pCmdUI->Enable( bSelected );
 
-	CString strMessage;
-	m_pMatches->m_pSelectedFiles.GetCount() > 1 ? LoadString( strMessage, IDS_LIBRARY_URI_EXPORT ) : LoadString( strMessage, IDS_LIBRARY_URI_COPY );
-	pCmdUI->SetText( strMessage );
+	pCmdUI->SetText( LoadString( ( bSelected == 1 && ! bShift ) ? IDS_LIBRARY_URI_COPY : IDS_LIBRARY_URI_EXPORT ) );
 }
 
 void CBaseMatchWnd::OnSearchURI()
 {
+	const bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
+
 	CSingleLock pLock( &m_pMatches->m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
@@ -394,17 +396,19 @@ void CBaseMatchWnd::OnSearchURI()
 
 	if ( nSelected < 1 ) return;
 
-	CURLCopyDlg dlg;
-
-	if ( nSelected == 1 )
+	if ( nSelected == 1 && ! bShift )
 	{
+		CURLCopyDlg dlg;
 		if ( CMatchFile* pFile = m_pMatches->GetSelectedFile() )
 			dlg.Add( pFile );
 		else if ( CQueryHit* pHit = m_pMatches->GetSelectedHit() )
 			dlg.Add( pHit );
+		pLock.Unlock();
+		dlg.DoModal();
 	}
-	else //if ( nSelected > 1 )
+	else //if ( nSelected > 0 )
 	{
+		CURLExportDlg dlg;
 		POSITION pos = m_pMatches->m_pSelectedFiles.GetHeadPosition();
 		while ( pos )
 		{
@@ -418,11 +422,9 @@ void CBaseMatchWnd::OnSearchURI()
 			CQueryHit* pHit = m_pMatches->m_pSelectedHits.GetNext( pos );
 			dlg.Add( pHit );
 		}
+		pLock.Unlock();
+		dlg.DoModal();
 	}
-
-	pLock.Unlock();
-
-	dlg.DoModal();
 }
 
 void CBaseMatchWnd::OnUpdateSearchChat(CCmdUI* pCmdUI)

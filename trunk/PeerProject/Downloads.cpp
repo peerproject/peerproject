@@ -58,8 +58,6 @@ CDownloads::CDownloads()
 	, m_nRunCookie			( 0 )
 	, m_nLimitGeneric		( 0 )
 	, m_nLimitDonkey		( 0 )
-	, m_nTryingCount		( 0 )
-	, m_nBTTryingCount		( 0 )
 	, m_bAllowMoreDownloads	( true )
 	, m_bAllowMoreTransfers	( true )
 	, m_bClosing			( false )
@@ -103,22 +101,6 @@ BOOL CDownloads::Check(CDownload* pDownload) const
 	ASSUME_LOCK( Transfers.m_pSection );
 
 	return m_pList.Find( pDownload ) != NULL;
-}
-
-void CDownloads::StartTrying(bool bIsTorrent)
-{
-	if ( bIsTorrent )
-		++m_nBTTryingCount;
-
-	++m_nTryingCount;
-}
-
-void CDownloads::StopTrying(bool bIsTorrent)
-{
-	if ( bIsTorrent )
-		--m_nBTTryingCount;
-
-	--m_nTryingCount;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -466,7 +448,7 @@ int CDownloads::GetActiveTorrentCount() const
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CDownload* pDownload = GetNext( pos );
+		const CDownload* pDownload = GetNext( pos );
 
 		if ( pDownload->IsTorrent() && pDownload->IsDownloading() &&
 			 ! pDownload->IsSeeding() && ! pDownload->IsCompleted() &&
@@ -479,10 +461,19 @@ int CDownloads::GetActiveTorrentCount() const
 
 DWORD CDownloads::GetTryingCount(bool bTorrentsOnly) const
 {
-	if ( bTorrentsOnly )
-		return m_nBTTryingCount;
+	DWORD nCount = 0;
 
-	return m_nTryingCount;
+	CQuickLock pLock( Transfers.m_pSection );
+
+	for ( POSITION pos = GetIterator() ; pos ; )
+	{
+		const CDownload* pDownload = GetNext( pos );
+
+		if ( pDownload->IsTrying() && ! pDownload->IsPaused() && ! pDownload->IsCompleted() && ( ! bTorrentsOnly || pDownload->IsTorrent() ) )
+			++nCount;
+	}
+
+	return nCount;
 }
 
 DWORD CDownloads::GetConnectingTransferCount() const
@@ -493,7 +484,7 @@ DWORD CDownloads::GetConnectingTransferCount() const
 
 	for ( POSITION pos = GetIterator() ; pos ; )
 	{
-		CDownload* pDownload = GetNext( pos );
+		const CDownload* pDownload = GetNext( pos );
 
 		nCount += pDownload->GetTransferCount( dtsConnecting );
 	}

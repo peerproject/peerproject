@@ -703,7 +703,7 @@ BOOL CDownloadTransferBT::OnSourceResponse(CBTPacket* pPacket)
 
 		if ( pURL->IsType( CBENode::beString ) )
 		{
-			nCount += m_pDownload->AddSourceURL( pURL->GetString(), TRUE );
+			nCount += m_pDownload->AddSourceURL( pURL->GetString() );
 		}
 		else
 		{

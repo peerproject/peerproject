@@ -300,7 +300,7 @@ BOOL CUploadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			if ( CDownload* pDownload = Downloads.FindByURN( pszURN ) )
 			{
 				if ( Settings.Library.SourceMesh && strValue.Find( L"://" ) < 0 )
-					pDownload->AddSourceURLs( strValue, TRUE, TRUE );
+					pDownload->AddSourceURLs( strValue, TRUE );
 			}
 		}
 		m_nGnutella |= 1;
@@ -810,7 +810,7 @@ BOOL CUploadTransferHTTP::RequestPartialFile(CDownload* pDownload)
 
 	if ( ! m_sLocations.IsEmpty() )
 	{
-		pDownload->AddSourceURLs( m_sLocations, TRUE );
+		pDownload->AddSourceURLs( m_sLocations );
 		m_sLocations.Empty();
 	}
 

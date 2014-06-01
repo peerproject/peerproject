@@ -34,7 +34,6 @@ protected:
 	BOOL			m_bBusyFault;
 	BOOL			m_bRangeFault;
 	BOOL			m_bKeepAlive;
-	BOOL			m_bHashMatch;
 	BOOL			m_bTigerFetch;
 	BOOL			m_bTigerIgnore;
 	CString			m_sTigerTree;		// X-TigerTree-Path

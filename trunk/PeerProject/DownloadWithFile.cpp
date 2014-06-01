@@ -53,7 +53,7 @@ CDownloadWithFile::CDownloadWithFile()
 	, m_pFile		( new CFragmentedFile )
 	, m_nFileError	( ERROR_SUCCESS )
 {
-	m_pFile->SetDownload( static_cast< CDownload*>( this ) );
+	if ( m_pFile.get() ) m_pFile->SetDownload( static_cast< CDownload*>( this ) );
 }
 
 CDownloadWithFile::~CDownloadWithFile()
@@ -88,7 +88,7 @@ Fragments::List CDownloadWithFile::GetEmptyFragmentList() const
 
 CFragmentedFile* CDownloadWithFile::GetFile()
 {
-	m_pFile->AddRef();
+	if ( m_pFile.get() ) m_pFile->AddRef();
 	return m_pFile.get();
 }
 
@@ -215,13 +215,13 @@ BOOL CDownloadWithFile::OpenFile()
 	return FALSE;
 }
 
-BOOL CDownloadWithFile::Open()
+BOOL CDownloadWithFile::Open(const CPeerProjectFile* pFile)
 {
 	if ( m_pFile.get() )
 	{
 		ClearFileError();
 
-		if ( m_pFile->Open( this, ! IsCompleted() ) )
+		if ( m_pFile->Open( pFile, ! IsCompleted() ) )
 			return TRUE;
 
 		SetFileError( m_pFile->GetFileError(), m_pFile->GetFileErrorString() );
@@ -266,9 +266,10 @@ void CDownloadWithFile::CloseFile()
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithFile attach the file
 
-void CDownloadWithFile::AttachFile(auto_ptr< CFragmentedFile >& pFile)
+void CDownloadWithFile::AttachFile(CFragmentedFile* pFile)
 {
-	m_pFile = pFile;
+	m_pFile.reset( pFile );
+	if ( m_pFile.get() ) m_pFile->SetDownload( static_cast< CDownload*>( this ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -843,21 +844,9 @@ BOOL CDownloadWithFile::SubmitData(QWORD nOffset, LPBYTE pData, QWORD nLength)
 	SetModified();
 	m_tReceived = GetTickCount();
 
-	// Hack: Only do for BitTorrent.  ToDo: Fix bad inheritance
-	if ( static_cast< CDownload* >( this )->IsTorrent() )
-	{
-		CSingleLock oLock( &Transfers.m_pSection );
-		if ( oLock.Lock( 500 ) )
-		{
-			for ( CDownloadTransfer* pTransfer = GetFirstTransfer() ; pTransfer ; pTransfer = pTransfer->m_pDlNext )
-			{
-				if ( pTransfer->m_nProtocol == PROTOCOL_BT )
-					pTransfer->UnrequestRange( nOffset, nLength );
-			}
-		}
-	}
+	// Note BitTorrent-specific virtual function
 
-	return ( m_pFile.get() && m_pFile->Write( nOffset, pData, nLength ) );
+	return WriteFile( nOffset, pData, nLength, NULL );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -974,13 +963,13 @@ void CDownloadWithFile::Serialize(CArchive& ar, int nVersion)
 			for ( POSITION pos = oInfo.m_pFiles.GetHeadPosition() ; pos ; ++nIndex )
 			{
 				CBTInfo::CBTFile* pBTFile = oInfo.m_pFiles.GetNext( pos );
-				if ( m_pFile->GetName( nIndex ).IsEmpty() )
+				if ( m_pFile.get() && m_pFile->GetName( nIndex ).IsEmpty() )
 					m_pFile->SetName( nIndex, pBTFile->m_sPath );
 			}
 		}
 		else
 		{
-			if ( m_pFile->GetName( nIndex ).IsEmpty() )
+			if ( m_pFile.get() && m_pFile->GetName( nIndex ).IsEmpty() )
 				m_pFile->SetName( nIndex, m_sName );
 		}
 

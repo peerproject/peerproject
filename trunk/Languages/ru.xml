@@ -999,7 +999,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
 		</menu>
-		<menu text="_Сервис">
+		<menu id="ID_WEBSERVICES_LIST" text="_Сервис">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Посмотреть _Bitprints этикетку"/>
 			<item id="ID_SEARCH_URI" text="Копировать _ссылку..."/>
 		</menu>
@@ -1020,8 +1020,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Музыку этого же исполнителя"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии из этого же сериала"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Искать M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Сервис">
+		<menu id="ID_WEBSERVICES_LIST" text="_Сервис">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Посмотреть _Bitprints этикетку"/>
 		</menu>
 		<separator/>
@@ -1065,7 +1068,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии этого же сериала"/>
 		</menu>
-		<menu text="_Сервис">
+		<menu id="ID_WEBSERVICES_LIST" text="_Сервис">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Посмотреть _Bitprints этикетку"/>
 		</menu>
 		<separator/>
@@ -1090,7 +1093,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Музыку из этого же альбома"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Серии этого же сериала"/>
 		</menu>
-		<menu text="_Сервис">
+		<menu id="ID_WEBSERVICES_LIST" text="_Сервис">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="Посмотреть _Bitprints этикетку"/>
 		</menu>
 		<separator/>

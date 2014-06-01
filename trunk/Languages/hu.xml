@@ -957,7 +957,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
 		</menu>
-		<menu text="_Webszolgáltatások">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webszolgáltatások">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing"/>
 			<item id="ID_SEARCH_URI" text="_URI másolása..."/>
 		</menu>
@@ -978,8 +978,11 @@
 			<item id="ID_SEARCH_FOR_ARTIST" text="Ugyanattól az _előadótól"/>
 			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
+			<separator/>
+			<item id="ID_VIEW_SEARCH_MONITOR" text="Keresés M_onitor"/>
+			<item id="ID_VIEW_RESULTS_MONITOR" text="_Hit Monitor"/>
 		</menu>
-		<menu text="_Webszolgáltatások">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webszolgáltatások">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1023,7 +1026,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
 		</menu>
-		<menu text="_Webszolgáltatások">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webszolgáltatások">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing"/>
 		</menu>
 		<separator/>
@@ -1048,7 +1051,7 @@
 			<item id="ID_SEARCH_FOR_ALBUM" text="Ugyanabból az _albumból"/>
 			<item id="ID_SEARCH_FOR_SERIES" text="Ugyanabból a _sorozatból"/>
 		</menu>
-		<menu text="_Webszolgáltatások">
+		<menu id="ID_WEBSERVICES_LIST" text="_Webszolgáltatások">
 			<item id="ID_LIBRARY_BITPRINTS_WEB" text="_Bitprints listing"/>
 		</menu>
 		<separator/>

@@ -543,7 +543,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 {
 	const CString strFile = Settings.General.DataPath + L"Searches.dat";
 	const CString strTemp = Settings.General.DataPath + L"Searches.tmp";
-	int nCount = 0;
+	DWORD nCount = 0;
 
 	if ( ! Settings.Interface.SaveOpenWindows )
 	{
@@ -564,15 +564,31 @@ BOOL CWindowManager::SaveSearchWindows() const
 		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
+			DWORD nTotal = 0;
+			for ( POSITION pos = GetIterator() ; pos ; )
+			{
+				CSearchWnd* pWnd = (CSearchWnd*)GetNext( pos );
+				if ( pWnd->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && pWnd->GetLastSearch() )
+					++nTotal;
+			}
+			DWORD nSkip = ( nTotal > Settings.Interface.SearchWindowsLimit ) ? ( nTotal - Settings.Interface.SearchWindowsLimit ) : 0;
+
 			for ( POSITION pos = GetIterator() ; pos ; )
 			{
 				CSearchWnd* pWnd = (CSearchWnd*)GetNext( pos );
 				if ( pWnd->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) &&
 					 pWnd->GetLastSearch() )
 				{
-					ar.WriteCount( 1 );
-					pWnd->Serialize( ar );
-					nCount++;
+					if ( nSkip )
+					{
+						--nSkip;
+					}
+					else
+					{
+						ar.WriteCount( 1 );
+						pWnd->Serialize( ar );
+						++nCount;
+					}
 				}
 			}
 			ar.WriteCount( 0 );
@@ -587,6 +603,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 			theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strTemp );
 			return FALSE;
 		}
+		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
@@ -596,8 +613,6 @@ BOOL CWindowManager::SaveSearchWindows() const
 		theApp.Message( MSG_ERROR, L"Failed to save search windows: %s", strTemp );
 		return FALSE;
 	}
-
-	pFile.Close();
 
 	if ( ! nCount )
 	{
@@ -651,6 +666,7 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 			theApp.Message( MSG_ERROR, L"Failed to load browse host windows: %s", strFile );
 			return FALSE;
 		}
+		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
@@ -660,8 +676,6 @@ BOOL CWindowManager::LoadBrowseHostWindows()
 		return FALSE;
 	}
 
-	pFile.Close();
-
 	return TRUE;
 }
 
@@ -669,7 +683,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 {
 	const CString strFile = Settings.General.DataPath + L"BrowseHosts.dat";
 	const CString strTemp = Settings.General.DataPath + L"BrowseHosts.tmp";
-	int nCount = 0;
+	DWORD nCount = 0;
 
 	if ( ! Settings.Interface.SaveOpenWindows )
 	{
@@ -690,14 +704,30 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 		CArchive ar( &pFile, CArchive::store, 262144 );		// 256 KB buffer
 		try
 		{
+			DWORD nTotal = 0;
+			for ( POSITION pos = GetIterator() ; pos ; )
+			{
+				CBrowseHostWnd* pWnd = (CBrowseHostWnd*) GetNext( pos );
+				if ( pWnd->IsKindOf( RUNTIME_CLASS(CBrowseHostWnd) ) )
+					++nTotal;
+			}
+			DWORD nSkip = ( nTotal > Settings.Interface.BrowseWindowsLimit ) ? ( nTotal - Settings.Interface.BrowseWindowsLimit ) : 0;
+
 			for ( POSITION pos = GetIterator() ; pos ; )
 			{
 				CBrowseHostWnd* pWnd = (CBrowseHostWnd*) GetNext( pos );
 				if ( pWnd->IsKindOf( RUNTIME_CLASS(CBrowseHostWnd) ) )
 				{
-					ar.WriteCount( 1 );
-					pWnd->Serialize( ar );
-					nCount++;
+					if ( nSkip )
+					{
+						--nSkip;
+					}
+					else
+					{
+						ar.WriteCount( 1 );
+						pWnd->Serialize( ar );
+						++nCount;
+					}
 				}
 			}
 			ar.WriteCount( 0 );
@@ -712,6 +742,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 			theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strTemp );
 			return FALSE;
 		}
+		pFile.Close();
 	}
 	catch ( CException* pException )
 	{
@@ -721,8 +752,6 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 		theApp.Message( MSG_ERROR, L"Failed to save browse host windows: %s", strTemp );
 		return FALSE;
 	}
-
-	pFile.Close();
 
 	//theApp.Message( MSG_DEBUG, L"Browses successfully saved to: %s", strFile );
 

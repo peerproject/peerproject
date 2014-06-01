@@ -55,8 +55,6 @@ private:
 	DWORD		m_tBandwidthLastCalc;		// Last time the bandwidth was calculated
 	DWORD		m_nLimitGeneric;
 	DWORD		m_nLimitDonkey;
-	DWORD		m_nTryingCount;
-	DWORD		m_nBTTryingCount;
 	bool		m_bAllowMoreDownloads;
 	bool		m_bAllowMoreTransfers;
 
@@ -70,8 +68,6 @@ public:
 	void		ClearPaused();
 	void		Clear(bool bClosing = false);
 	void		CloseTransfers();
-	void		StartTrying(bool bIsTorrent = false);
-	void		StopTrying(bool bIsTorrent = false);
 
 	int			GetSeedCount() const;
 	INT_PTR		GetCount(BOOL bActiveOnly = FALSE) const;

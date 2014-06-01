@@ -135,6 +135,7 @@ public:
 	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);	// Win2K+ ?	SHGetFolderPath()
 	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(__in REFKNOWNFOLDERID rfid, __in DWORD dwFlags, __in_opt HANDLE hToken, __deref_out PWSTR *ppszPath);		// Vista+	SHGetKnownFolderPath()
 	HRESULT			(WINAPI *m_pfnSHCreateItemFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in REFIID riid, __deref_out void **ppv);				// Win7+	SHCreateItemFromParsingName()
+	HRESULT			(WINAPI *m_pfnSHGetPropertyStoreFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in GETPROPERTYSTOREFLAGS flags, __in REFIID riid, __deref_out void **ppv);	// Vista+ SHGetPropertyStoreFromParsingName()
 	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(__in QUERY_USER_NOTIFICATION_STATE *state);						// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 	HRESULT			(WINAPI *m_pfnSetCurrentProcessExplicitAppUserModelID)(__in PCWSTR pszAppID);
 	HRESULT			(WINAPI *m_pfnSHGetImageList)(__in int iImageList, __in REFIID riid, __out void **ppv);						// WinXP+	SHGetImageList() for CShellIcons::Get()
