@@ -220,23 +220,15 @@ namespace Hashes
 			void addBlacklisted(const AlignedStorage& storage = alignedStorage())
 			{
 				// We don't want duplicates
-				if ( ! std::binary_search( m_blacklist.begin(),
-						m_blackList.end(), storage ) )
-				{
-					m_blacklist.insert( std::lower_bound( m_blacklist.begin(),
-						m_blacklist.end(), storage() ), storage() );
-				}
+				if ( ! std::binary_search( m_blacklist.begin(), m_blacklist.end(), storage ) )
+					m_blacklist.insert( std::lower_bound( m_blacklist.begin(), m_blacklist.end(), storage() ), storage() );
 			}
 			//! \brief Remove an entry from the blacklist.
 			//! If no argument is given, the current value of this hash is used.
 			void removeBlackListed(const AlignedStorage& storage = alignedStorage())
 			{
-				if ( std::binary_search( m_blacklist.begin(),
-						m_blackList.end(), storage() ) )
-				{
-					m_blacklist.erase( std::lower_bound( m_blacklist.begin(),
-						m_blacklist.end(), storage() ) );
-				}
+				if ( std::binary_search( m_blacklist.begin(), m_blacklist.end(), storage() ) )
+					m_blacklist.erase( std::lower_bound( m_blacklist.begin(), m_blacklist.end(), storage() ) );
 			}
 		private:
 			std::vector< AlignedStorage > m_blacklist;

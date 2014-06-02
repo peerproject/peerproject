@@ -55,6 +55,7 @@ protected:
 	void		MoveToTop();
 	void		MoveToEnd();
 	BOOL		HitTest(const CPoint& point, CDownload** ppDownload, CDownloadSource** ppSource, int* pnIndex, RECT* prcItem);
+	BOOL		HitTest(int nIndex, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource);
 	BOOL		GetRect(CDownload* pSelect, RECT* prcItem);
 	void		PaintDownload(CDC& dc, const CRect& rcRow, const CDownloadDisplayData* pDownloadData, BOOL bFocus = FALSE);

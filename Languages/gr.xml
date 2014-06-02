@@ -1169,6 +1169,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Άνοιγμα"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Άνοιγμα _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Ματαίωση Seeding"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Αντι_γραφή URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Βοήθεια..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Ιδιότητες..."/>

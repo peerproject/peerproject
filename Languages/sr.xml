@@ -1105,6 +1105,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Otvori"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Pokreni _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stani Seeding"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Kopiraj _URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="Pomoć..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Informacije o Torrent..."/>
@@ -2109,12 +2111,10 @@
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Molim da promenite frazu za traženje</text>
 		<newline gap="8"/>
-		<text>This search seems to contain only common file extensions, or no searchable
-		words.</text>
+		<text>This search seems to contain only common file extensions, or no searchable words.</text>
 		<newline gap="8"/>
 		<text>If you are having trouble creating searches, keep in mind that it's quite similar
-		to a web search. Specific terms or phrases are best- Unique names, titles and
-		keywords.</text>
+		to a web search. Specific terms or phrases are best- Unique names, titles and keywords.</text>
 		<newline gap="8"/>
 		<text>General terms cannot be searched for efficiently and may result in poor
 		search performance, as well as high bandwidth use during searches.</text>

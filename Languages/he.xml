@@ -1193,6 +1193,8 @@ gap i newline
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="‪_פתח"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="פתח _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="‪הפסק בקשות להעלאות"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="‪...URI העתק"/>
 		<item id="ID_DOWNLOADS_HELP" text="‪...ע_זרה"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="...‪מידע על ה_טורנט"/>

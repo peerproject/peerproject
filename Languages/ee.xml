@@ -1103,6 +1103,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Ava"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Ava _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Lõpeta Jagamine"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Kopeeri _URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Abi..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Info..."/>

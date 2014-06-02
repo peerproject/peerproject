@@ -1,7 +1,7 @@
 //
 // Window.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -67,7 +67,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			if ( szPath )
 			{
 				TCHAR buf[MAX_PATH], tbuf[MAX_PATH];
-				_snwprintf(buf, MAX_PATH, L"%s %s", szName, szVersion?szVersion:L"");
+				_snwprintf(buf, MAX_PATH, L"%s %s", szName, szVersion ? szVersion : L"");
 				_snwprintf(tbuf, MAX_PATH, L"%s - %s", szName, skinType ? SKIN_PACKAGE_TITLE : SKIN_SKIN_TITLE);
 				SetDlgItemText(hwndDlg, IDC_NAME, buf);
 				SetWindowText(hwndDlg, tbuf);
@@ -80,12 +80,12 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			}
 			if ( szUpdates && wcscmp( szAuthor, szUpdates ) != 0 )
 			{
-				TCHAR buf[MAX_PATH], updbuf[MAX_PATH];
+				TCHAR buf[MAX_PATH];
 				if ( szAuthor )
 				{
-					_snwprintf(updbuf, MAX_PATH, L",  Updated by %s", szUpdates);
 					GetDlgItemText(hwndDlg, IDC_AUTH, buf, MAX_PATH );
-					wcsncat( buf, updbuf, MAX_PATH - wcslen(buf) );
+					size_t len = wcslen(buf);
+					_snwprintf(buf + len, MAX_PATH - len, L",  Updated by %s", szUpdates);
 				}
 				else
 					_snwprintf(buf, MAX_PATH, L"Updated by %s", szUpdates);
@@ -126,8 +126,7 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			LPDRAWITEMSTRUCT lpDrawItemStruct;
 			lpDrawItemStruct = (LPDRAWITEMSTRUCT)lParam;
 			FillRect(lpDrawItemStruct->hDC, &lpDrawItemStruct->rcItem, IntToPtr(WHITE_BRUSH+1));
-			ExtFloodFill(lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem.top,
-				lpDrawItemStruct->rcItem.left, RGB(0, 0, 0), FLOODFILLBORDER);
+			ExtFloodFill(lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem.top, lpDrawItemStruct->rcItem.left, RGB(0, 0, 0), FLOODFILLBORDER);
 			SetBkMode(lpDrawItemStruct->hDC, TRANSPARENT);
 			SetTextColor(lpDrawItemStruct->hDC, RGB(0, 0, 0));
 			GetDlgItemText(hwndDlg, (UINT)wParam, buf, MAX_PATH);
@@ -146,8 +145,8 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				if ( !ExtractSkin(szFile, hwndDlg) )
 				{
 					SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_SETPOS, maxPos, 0);
-					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS),
-						!skinType ? L"An error occured while extracting the skin.  Please try again." :
+					SetWindowText(GetDlgItem(hwndDlg, IDC_STATUS), !skinType ? 
+						L"An error occured while extracting the skin.  Please try again." :
 						L"An error occured while extracting the package.  Please try again." );
 					EnableWindow(GetDlgItem(hwndDlg, IDOK), TRUE);
 					break;

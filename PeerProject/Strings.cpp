@@ -107,7 +107,7 @@ const CLowerCaseTable ToLower;
 CLowerCaseTable::CLowerCaseTable()
 {
 	for ( size_t i = 0 ; i < 65536 ; ++i )	cTable[ i ] = TCHAR( i );
-	VERIFY( CharLowerBuff( cTable, 65536 ) == 65536 );
+	CharLowerBuff( cTable, 65536 );
 
 	cTable[ 0x0130 ] = 0x0069;	// Turkish Capital I with dot to "i"			(304 to 105)
 
@@ -686,6 +686,7 @@ bool atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen, __int64& n
 	return true;
 }
 
+#ifdef __AFXCOLL_H__
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty)
 {
 	for ( LPCTSTR start = strSource ; *start ; start++ )
@@ -701,6 +702,7 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 		start = c;
 	}
 }
+#endif	// __AFXCOLL_H__
 
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
 {
@@ -733,6 +735,7 @@ BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen)
 	return _tcsnicmp( pszTest, pszText, nLen ) == 0;
 }
 
+#ifdef __AFX_H__
 CString LoadFile(LPCTSTR pszPath)
 {
 	CString strXML;
@@ -803,6 +806,7 @@ CString LoadFile(LPCTSTR pszPath)
 
 	return strXML;
 }
+#endif	// __AFX_H__
 
 BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr)
 {
@@ -894,13 +898,12 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 			if ( nPos > nPrevWord )
 			{
 				int len = str.GetLength();
-				ASSERT( len );
 				TCHAR last1 = str.GetAt( len - 1 );
 				TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : L'\0';
 				TCHAR last3 = ( len > 2 ) ? str.GetAt( len - 3 ) : L'\0';
 				if ( boundary[ 0 ] &&
-					( last2 == L' ' || last2 == L'-' || last2 == L'"' ) &&
-					! _istdigit( ( nPos < 3 ) ? last1 : last3 ) )
+					 ( last2 == L' ' || last2 == L'-' || last2 == L'"' ) &&
+					 ! _istdigit( ( nPos < 3 ) ? last1 : last3 ) )
 				{
 					// Join two phrases if the previous was a single characters word.
 					// idea of joining single characters breaks GDF compatibility completely,
@@ -910,32 +913,28 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 				else if ( last1 != L' ' && bCharacter )
 				{
 					if ( ( last1 == L'-' || last1 == L'"' || *pszPtr == L'"' ) &&
-						( ! bNegative || ! ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
+						 ( ! bNegative || ! ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str += L' ';
 				}
-				ASSERT( strPhrase.GetLength() > nPos - 1 );
 				if ( strPhrase.GetAt( nPos - 1 ) == L'-' && nPos > 1 )
 				{
-					ASSERT( strPhrase.GetLength() > nPos - 2 );
 					if ( *pszPtr != L' ' && strPhrase.GetAt( nPos - 2 ) != L' ' )
 					{
 						nPrevWord += nDistance + 1;
 						continue;
 					}
-					else
-					{
-						str += strPhrase.Mid( nPrevWord, nPos - nDistance - nPrevWord );
-					}
+
+					str += strPhrase.Mid( nPrevWord, nPos - nDistance - nPrevWord );
 				}
 				else
 				{
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
 					if ( boundary[ 1 ] == sNone && !bCharacter || *pszPtr == ' ' || !bExpression ||
-						( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
+						 ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
 						str += L' ';
 					else if ( !bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
-						( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
-						( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
+						 ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
+						 ( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str += L' ';
 				}
 			}
@@ -944,7 +943,6 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 	}
 
 	int len = str.GetLength();
-	ASSERT( len );
 	TCHAR last1 = str.GetAt( len - 1 );
 	TCHAR last2 = ( len > 1 ) ? str.GetAt( len - 2 ) : L'\0';
 	if ( boundary[ 0 ] && boundary[ 1 ] &&
@@ -1197,8 +1195,6 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 		}
 	}
 
-	ASSERT( pszNull == pszXML );
-	ASSERT( pszOut - pszValue <= nLength );
 	strValue.ReleaseBuffer( (int)( pszOut - pszValue ) );
 
 	return strValue;
@@ -1313,12 +1309,14 @@ DWORD IPStringToDWORD(LPCTSTR pszIP, BOOL bReverse)
 	return nIP;
 }
 
+#ifdef _WINSOCKAPI_
 CString HostToString(const SOCKADDR_IN* pHost)
 {
 	CString strHost;
 	strHost.Format( L"%s:%hu", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
 	return strHost;
 }
+#endif	// _WINSOCKAPI_ 
 
 LPCTSTR SafePath(const CString& sPath)
 {
@@ -1331,7 +1329,7 @@ BOOL MakeSafePath(CString& sPath)
 	if ( sPath.GetLength() < MAX_PATH - 4 )
 		return FALSE;
 
-	ASSERT( StartsWith( sPath, _P( L"\\\\?\\" ) ) );
+//	ASSERT( StartsWith( sPath, _P( L"\\\\?\\" ) ) );
 	if ( sPath[2] != L'?' )
 		sPath = CString( L"\\\\?\\" ) + sPath;
 	return TRUE;

@@ -1159,6 +1159,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Hape"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Aç _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Ndale Mbjelljen"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Kopjo _URIn"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ndihmë..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Info mbi Torrentin..."/>

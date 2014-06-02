@@ -52,6 +52,8 @@ protected:
 		STDMETHOD(InsertSeparator)(LONG nPosition);
 		STDMETHOD(InsertMenu)(LONG nPosition, BSTR sText, ISMenu FAR* FAR* ppMenu);
 		STDMETHOD(InsertCommand)(LONG nPosition, LONG nCommandID, BSTR sText, ISMenu FAR* FAR* ppMenu);
+		STDMETHOD(get_Position)(LONG FAR* pnCommandID);
+		STDMETHOD(get_Parent)(ISMenu FAR* FAR* ppMenu);
 	END_INTERFACE_PART(SMenu)
 
 	BEGIN_INTERFACE_PART(EnumVARIANT, IEnumVARIANT)

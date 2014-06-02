@@ -169,8 +169,8 @@ void CHashProgressBar::OnPaint()
 	CRect rcClient;
 	GetClientRect( &rcClient );
 
-//	CDC dc;
-//	dc.CreateCompatibleDC( pDC );
+	//CDC dc;
+	//dc.CreateCompatibleDC( pDC );
 	CPaintDC dc( this );
 
 	dc.Draw3dRect( &rcClient, Colors.m_crTipBorder, Colors.m_crTipBorder );
@@ -198,8 +198,8 @@ void CHashProgressBar::OnPaint()
 	dc.SetTextColor( Colors.m_crTipText );
 	dc.DrawText( strText, rcX, DT_RIGHT | DT_SINGLELINE );
 
-	if ( m_nFlash++ % 30 > 15 )
-		dc.SetTextColor( Colors.m_crTextStatus );
+	//if ( m_nFlash++ % 30 > 15 )
+	//	dc.SetTextColor( Colors.m_crTextStatus );
 
 	strText.Format( LoadString( IDS_HASH_MESSAGE ), LibraryBuilder.GetRemaining() );
 
@@ -208,7 +208,7 @@ void CHashProgressBar::OnPaint()
 		rcClient.right - 6, rcClient.top + 3 + sz.cy );
 	dc.DrawText( strText, rcText, DT_LEFT | DT_SINGLELINE );
 
-//	dc.SelectObject( &CoolInterface.m_fntCaption );
+	//dc.SelectObject( &CoolInterface.m_fntCaption );
 	rcText.top = rcText.bottom + 4;
 	rcText.bottom = rcClient.bottom - 10;
 	dc.DrawText( m_sCurrent, rcText, DT_LEFT | DT_SINGLELINE | DT_END_ELLIPSIS );
@@ -227,7 +227,7 @@ void CHashProgressBar::OnPaint()
 	rcProgress.top--;
 	dc.Draw3dRect( &rcProgress, Colors.m_crFragmentPass, Colors.m_crTipText );
 
-//	pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), &dc, 0, 0, SRCCOPY );
+	//pDC->BitBlt( rcClient.left, rcClient.top, rcClient.Width(), rcClient.Height(), &dc, 0, 0, SRCCOPY );
 }
 
 BOOL CHashProgressBar::OnEraseBkgnd(CDC* /*pDC*/)
@@ -267,7 +267,7 @@ void CHashProgressBar::OnTimer(UINT_PTR /*nIDEvent*/)
 
 	CRect rcClient;
 	GetClientRect( &rcClient );
-	if ( m_nFlash % 15 == 1 )	// Cycle text 3x per 2 seconds
+	if ( m_nFlash % 15 == 1 )	// Cycle text 3x per 2 seconds (Ocassionally update text)
 		rcClient.DeflateRect( 40, 3, 2, 2 );
 	else						// Update only progress bar 20x per second
 		rcClient.DeflateRect( 4, 40, 2, 2 );

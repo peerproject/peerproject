@@ -37,6 +37,7 @@
 
 #include "Library.h"
 #include "LibraryMaps.h"
+#include "MatchListView.h"
 #include "SharedFile.h"
 #include "FileExecutor.h"
 #include "PeerProjectURL.h"
@@ -186,6 +187,15 @@ CDownloadsWnd::CDownloadsWnd()
 
 CDownloadsWnd::~CDownloadsWnd()
 {
+}
+
+HRESULT CDownloadsWnd::GetGenericView(IGenericView** ppView)
+{
+	*ppView = NULL;
+	if ( IsWindow( m_wndDownloads.GetSafeHwnd() ) )
+		*ppView = CMatchListView::Attach( L"CDownloadsWnd", &Downloads );
+
+	return *ppView ? S_OK : S_FALSE;
 }
 
 /////////////////////////////////////////////////////////////////////////////

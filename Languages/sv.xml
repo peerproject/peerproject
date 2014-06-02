@@ -1124,6 +1124,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Öppna"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Öppna _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Sluta dela ut"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Kopiera _URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hjälp…"/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Torrentinformation…"/>

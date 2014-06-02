@@ -20,6 +20,7 @@
 #include "PeerProject.h"
 #include "PeerProjectFile.h"
 #include "Network.h"
+#include "DlgURLCopy.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -471,5 +472,12 @@ STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_URL(BSTR FAR* psURL)
 {
 	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
 	*psURL = CComBSTR( pThis->m_sURL ).Detach();
+	return S_OK;
+}
+
+STDMETHODIMP CPeerProjectFile::XPeerProjectFile::get_Magnet(BSTR FAR* psMagnet)
+{
+	METHOD_PROLOGUE( CPeerProjectFile, PeerProjectFile )
+	*psMagnet = CComBSTR( CURLCopyDlg::CreateMagnet( *pThis ) ).Detach();
 	return S_OK;
 }

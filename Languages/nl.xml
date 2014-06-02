@@ -1162,6 +1162,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Openen"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Openen _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop het uitzaaien"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="_URI kopiëren"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Help..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Torrentinformatie..."/>

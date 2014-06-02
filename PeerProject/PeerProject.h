@@ -401,21 +401,21 @@ const LPCTSTR RT_GZIP = L"GZIP";
 #define WIN_8					620				// 6.2
 #define WIN_8_1					630				// 6.3
 
-// Log severity (log level)
-#define MSG_SEVERITY_MASK		0x000f
-#define MSG_ERROR				0x0000
-#define MSG_WARNING				0x0001
-#define MSG_NOTICE				0x0002
-#define MSG_INFO				0x0003
-#define MSG_DEBUG				0x0004
-#define MSG_TRAY				0x0010			// Show message in system tray popup
+// Log severity (log level) (.IDL)
+//#define MSG_SEVERITY_MASK		0x000f
+//#define MSG_ERROR				0x0000
+//#define MSG_WARNING			0x0001
+//#define MSG_NOTICE			0x0002
+//#define MSG_INFO				0x0003
+//#define MSG_DEBUG				0x0004
+//#define MSG_TRAY				0x0010			// Show message in system tray popup
 
-// Log facility
-#define MSG_FACILITY_MASK		0xff00
-#define MSG_FACILITY_DEFAULT	0x0000
-#define MSG_FACILITY_SEARCH		0x0100
-#define MSG_FACILITY_INCOMING	0x0200
-#define MSG_FACILITY_OUTGOING	0x0300
+// Log facility (.IDL)
+//#define MSG_FACILITY_MASK		0xff00
+//#define MSG_FACILITY_DEFAULT	0x0000
+//#define MSG_FACILITY_SEARCH	0x0100
+//#define MSG_FACILITY_INCOMING	0x0200
+//#define MSG_FACILITY_OUTGOING	0x0300
 
 // Event Messages
 #define WM_WINSOCK				(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)

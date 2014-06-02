@@ -24,6 +24,7 @@ HKCR
 		}
 	}
 }
+
 HKCU
 {
 	NoRemove Software
@@ -37,18 +38,17 @@ HKCU
 					NoRemove LibraryBuilder
 					{
 						ForceRemove val '.3gp' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
-						ForceRemove val '.3gpp' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.3g2' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.asf' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.asx' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.avi' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.divx' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.dv' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
-						ForceRemove val '.flv' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.ivf' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.gvi' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
-						ForceRemove val '.m2v' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.m2p' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
+						ForceRemove val '.m2v' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
+						ForceRemove val '.m4v' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.mkv' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.mov' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.mp4' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
@@ -62,6 +62,7 @@ HKCU
 						ForceRemove val '.rm' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.rmvb' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.vob' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
+						ForceRemove val '.webm' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.wm' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.wmv' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'
 						ForceRemove val '.xvid' = s '{C8613374-9313-4E34-AD6C-A6F7FA317D3A}'

@@ -100,7 +100,7 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	HRESULT hr;
 	BSTR bsValue = NULL;
 	LPCWSTR pszSingular = NULL;
-	CString sTemp;
+	CString strTemp;
 	LONG nCount = 0;
 
 	hr = m_pDocProps->Open( bsFile, VARIANT_TRUE, dsoOptionOpenReadOnlyIfNoWriteAccess );
@@ -121,15 +121,15 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 	pszSingular = wcsrchr( pszSchema, L'/' ) + 1;
 
-	sTemp.Append( CW2T(pszSingular), static_cast< int >( wcslen( pszSingular ) - 4 ) );
-	sTemp.Append( L"s" );
+	strTemp.Append( CW2T(pszSingular), static_cast< int >( wcslen( pszSingular ) - 4 ) );
+	strTemp.Append( L"s" );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pElements;
 
 	pXML->get_Elements( &pElements );
-	pElements->Create( CComBSTR( sTemp ), &pPlural );
+	pElements->Create( CComBSTR( strTemp ), &pPlural );
 	pElements->Release();
 
 	// Add root element attributes
@@ -143,8 +143,8 @@ STDMETHODIMP CDocReader::ProcessMSDocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	ISXMLElement* pSingular;
 	pPlural->get_Elements( &pElements );
 
-	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	pElements->Create( CComBSTR( sTemp ), &pSingular );
+	strTemp = strTemp.Left( strTemp.GetLength() - 1 );
+	pElements->Create( CComBSTR( strTemp ), &pSingular );
 	pElements->Release();
 
 	// Get attributes and add all metadata
@@ -263,19 +263,16 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 		if ( ! pFile ) return STG_E_INVALIDNAME;
 	}
 
-	// Read docProps\app.xml from the archive (Properties -> Pages, Company and AppVersion)
-	// Read docProps\core.xml from the archive
-	//		(cp:coreProperties -> dc:title, subject, creator, keywords, description, revision, category)
-	CHAR szFirstFile[18] = "docProps/core.xml";
-	CHAR szSecondFile[17] = "docProps/app.xml";
-	CComBSTR sXML = GetMetadataXML( pFile, szFirstFile );
+	// Read docProps\app.xml from the archive	(Properties -> Pages, Company, AppVersion)
+	// Read docProps\core.xml from the archive	(cp:coreProperties -> dc:title, subject, creator, keywords, description, revision, category)
+	CComBSTR sXML = GetMetadataXML( pFile, "docProps/core.xml" );
 
 	ISXMLElement* pInputXML = NULL;
 	bool bSecondFile = false;
 
 	if ( FAILED( pXML->FromString( sXML, &pInputXML ) ) || pInputXML == NULL )
 	{
-		sXML = GetMetadataXML( pFile, szSecondFile );
+		sXML = GetMetadataXML( pFile, "docProps/app.xml" );
 		if ( pInputXML != NULL )
 		{
 			pInputXML->Delete();
@@ -303,7 +300,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 			return E_FAIL;
 		}
 
-		sXML = GetMetadataXML( pFile, szSecondFile );
+		sXML = GetMetadataXML( pFile, "docProps/app.xml" );
 
 		if ( ! sXML.Length() || FAILED( pInputXML->get_Elements( &pElements ) ) || pElements == NULL )
 		{
@@ -320,19 +317,19 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 	BSTR bsValue = NULL;
 	LPCWSTR pszSingular = NULL;
-	CString sTemp;
+	CString strTemp;
 
 	pszSingular = wcsrchr( pszSchema, L'/' ) + 1;
 
-	sTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
-	sTemp.Append( L"s" );
+	strTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
+	strTemp.Append( L"s" );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pDestElements;
 
 	pXML->get_Elements( &pDestElements );
-	pDestElements->Create( CComBSTR( sTemp ), &pPlural );
+	pDestElements->Create( CComBSTR( strTemp ), &pPlural );
 	pDestElements->Release();
 
 	// Add root element attributes
@@ -346,8 +343,8 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 	ISXMLElement* pSingular;
 	pPlural->get_Elements( &pDestElements );
 
-	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	pDestElements->Create( CComBSTR( sTemp ), &pSingular );
+	strTemp = strTemp.Left( strTemp.GetLength() - 1 );
+	pDestElements->Create( CComBSTR( strTemp ), &pSingular );
 	pDestElements->Release();
 
 	// Get attributes and add all metadata
@@ -426,7 +423,7 @@ STDMETHODIMP CDocReader::ProcessNewMSDocument(BSTR bsFile, ISXMLElement* pXML, L
 
 	if ( ! bSecondFile )
 	{
-		sXML = GetMetadataXML( pFile, szSecondFile );
+		sXML = GetMetadataXML( pFile, "docProps/app.xml" );
 		if ( sXML.Length() > 0 )
 		{
 			pInputXML->Delete();
@@ -528,8 +525,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	}
 
 	// Read meta.xml from the archive
-	CHAR szFile[9] = "meta.xml";
-	CComBSTR sXML = GetMetadataXML( pFile, szFile );
+	CComBSTR sXML = GetMetadataXML( pFile, "meta.xml" );
 
 	// Close the file
 	unzClose( pFile );
@@ -577,19 +573,19 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 	BSTR bsValue = NULL;
 	LPCWSTR pszSingular = NULL;
-	CString sTemp;
+	CString strTemp;
 
 	pszSingular = wcsrchr( pszSchema, L'/' ) + 1;
 
-	sTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
-	sTemp.Append( L"s" );
+	strTemp.Append( CW2T(pszSingular), static_cast< int>( wcslen( pszSingular ) - 4 ) );
+	strTemp.Append( L"s" );
 
 	// Get a pointer to elements node and create a root element
 	ISXMLElement* pPlural;
 	ISXMLElements* pDestElements;
 
 	pXML->get_Elements( &pDestElements );
-	pDestElements->Create( CComBSTR( sTemp ), &pPlural );
+	pDestElements->Create( CComBSTR( strTemp ), &pPlural );
 	pDestElements->Release();
 
 	// Add root element attributes
@@ -603,8 +599,8 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	ISXMLElement* pSingular;
 	pPlural->get_Elements( &pDestElements );
 
-	sTemp = sTemp.Left( sTemp.GetLength() - 1 );
-	pDestElements->Create( CComBSTR( sTemp ), &pSingular );
+	strTemp = strTemp.Left( strTemp.GetLength() - 1 );
+	pDestElements->Create( CComBSTR( strTemp ), &pSingular );
 	pDestElements->Release();
 
 	// Get attributes and add all metadata
@@ -708,7 +704,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 
 	// Now add some internal data
 
-	sTemp = pszFormat;
+	strTemp = pszFormat;
 	pAttributes->Add( CComBSTR( L"format" ), CComBSTR( pszFormat ) );
 
 	if ( pszSchema == CDocReader::uriBook )
@@ -730,7 +726,7 @@ STDMETHODIMP CDocReader::ProcessOODocument(BSTR bsFile, ISXMLElement* pXML, LPCW
 	return S_OK;
 }
 
-CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
+CComBSTR CDocReader::GetMetadataXML(unzFile pFile, const char* pszFile)
 {
 	CComBSTR sUnicode;
 
@@ -745,8 +741,7 @@ CComBSTR CDocReader::GetMetadataXML(unzFile pFile, char* pszFile)
 		if ( nError == UNZ_OK )
 		{
 			unz_file_info pInfo = {};
-			nError = unzGetCurrentFileInfo( pFile, &pInfo, pszFile,
-				sizeof pszFile, NULL, 0, NULL, 0 );
+			nError = unzGetCurrentFileInfo( pFile, &pInfo, NULL, 0, NULL, 0, NULL, 0 );
 			if ( nError == UNZ_OK )
 			{
 				// Prepare a buffer to read into
@@ -810,9 +805,9 @@ STDMETHODIMP CDocReader::LoadFromFile(BSTR sFile, IMAGESERVICEDATA* pParams, SAF
 		LeaveCritical();
 		return E_UNEXPECTED;
 	}
-	if ( pszFormat[ 0 ] == 'M' ) // Microsoft
+	if ( pszFormat[ 0 ] == 'M' )		// Microsoft
 		hr = GetMSThumbnail( sFile, pParams, ppImage );
-	else if ( pszFormat[ 0 ] == 'O' ) // OpenOffice or OpenDocument
+	else if ( pszFormat[ 0 ] == 'O' )	// OpenOffice or OpenDocument
 		hr = GetOOThumbnail( sFile, pParams, ppImage );
 
 	DllRelease();
@@ -890,6 +885,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 			// We will allocate pBI, do not forget to delete it
 			hBitmap = GetBitmapFromMetaFile( pds, nResolution, wColorDepth, &pBI );
+			if ( hBitmap == NULL || pBI == NULL ) return S_FALSE;
 			nWidth = pBI->bmiHeader.biWidth;
 			nHeight = pBI->bmiHeader.biHeight;
 
@@ -928,7 +924,6 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 		bm.bmBits = ( pclp + 4 + pBmH->biSize );
 
 		hBitmap = CreateBitmapIndirect( &bm );
-
 		if ( hBitmap )
 		{
 			pds.cbSizeofstruct = sizeof(PICTDESC);
@@ -940,10 +935,8 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	// Only some MS Visio documents keep them
 	else if ( (DWORD)*pclp == CF_ENHMETAFILE )
 	{
-		HENHMETAFILE hemf;
-
 		// Remove clipboard data type; save to EMF handle
-		hemf = SetEnhMetaFileBits( nSize - sizeof(DWORD), (BYTE*)(pclp + sizeof(DWORD)) );
+		HENHMETAFILE hemf = SetEnhMetaFileBits( nSize - sizeof(DWORD), (BYTE*)(pclp + sizeof(DWORD)) );
 		if ( NULL != hemf )
 		{
 			pds.cbSizeofstruct = sizeof(PICTDESC);
@@ -956,6 +949,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 
 			// We will allocate pBI, do not forget to delete it
 			hBitmap = GetBitmapFromEnhMetaFile( pds, nResolution, wColorDepth, &pBI );
+			if ( hBitmap == NULL || pBI == NULL ) return S_FALSE;
 			nWidth = pBI->bmiHeader.biWidth;
 			nHeight = pBI->bmiHeader.biHeight;
 
@@ -964,7 +958,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 			pParams->nComponents = 3;
 
 			if ( pParams->nFlags & IMAGESERVICE_SCANONLY ) return S_OK;
-			// Save pallete
+			// Save pallette
 			SetStdPalette( (void*)pPalette, pBI->bmiHeader.biBitCount );
 		}
 	}
@@ -973,7 +967,7 @@ STDMETHODIMP CDocReader::GetMSThumbnail(BSTR bsFile, IMAGESERVICEDATA* pParams, 
 	SEH_EXCEPT_NULL
 
 	// Check if we have a bitmap
-	if ( hBitmap == NULL ) return S_FALSE;
+	if ( hBitmap == NULL || pBI == NULL ) return S_FALSE;
 
 	// Get bitmap byte buffer from the handle
 	BYTE* pBytes = new BYTE[ pBI->bmiHeader.biSizeImage ];
@@ -1338,13 +1332,12 @@ HBITMAP CDocReader::GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD
 	bmInfo->bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
 	bmInfo->bmiHeader.biWidth = nDotsWidth;
 	bmInfo->bmiHeader.biHeight = nDotsHeight;
-	bmInfo->bmiHeader.biCompression = BI_RGB; // no compression
+	bmInfo->bmiHeader.biCompression = BI_RGB;	// No compression
 	bmInfo->bmiHeader.biXPelsPerMeter = static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biYPelsPerMeter=static_cast<long>(nResolution / 2.54E-2);
 	bmInfo->bmiHeader.biPlanes = 1;
 	bmInfo->bmiHeader.biBitCount = wBitsPerSample;
-	// Size in bytes
-	bmInfo->bmiHeader.biSizeImage = dwEffectiveWidth * nDotsHeight / 8;
+	bmInfo->bmiHeader.biSizeImage = dwEffectiveWidth * nDotsHeight / 8;		// Size in bytes
 
 	if ( wBitsPerSample <= 8 )
 	{
@@ -1963,7 +1956,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Title(BSTR bstrTitle)
 {
-	TRACE1("CSummaryProperties::put_Title(%S)\n", bstrTitle);
+	TRACE1("CSummaryProperties::put_Title(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrTitle));
 	return WriteProperty(&m_pSummPropList, PIDSI_TITLE, VT_BSTR, ((void*)bstrTitle));
 }
 
@@ -1978,7 +1971,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Subject(BSTR bstrSubject)
 {
-	TRACE1("CSummaryProperties::put_Subject(%S)\n", bstrSubject);
+	TRACE1("CSummaryProperties::put_Subject(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrSubject));
 	return WriteProperty(&m_pSummPropList, PIDSI_SUBJECT, VT_BSTR, ((void*)bstrSubject));
 }
 
@@ -1993,7 +1986,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Author(BSTR bstrAuthor)
 {
-	TRACE1("CSummaryProperties::put_Author(%S)\n", bstrAuthor);
+	TRACE1("CSummaryProperties::put_Author(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrAuthor));
 	return WriteProperty(&m_pSummPropList, PIDSI_AUTHOR, VT_BSTR, ((void*)bstrAuthor));
 }
 
@@ -2008,7 +2001,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Keywords(BSTR bstrKeywords)
 {
-	TRACE1("CSummaryProperties::put_Keywords(%S)\n", bstrKeywords);
+	TRACE1("CSummaryProperties::put_Keywords(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrKeywords));
 	return WriteProperty(&m_pSummPropList, PIDSI_KEYWORDS, VT_BSTR, ((void*)bstrKeywords));
 }
 
@@ -2023,7 +2016,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Comments(BSTR bstrComments)
 {
-	TRACE1("CSummaryProperties::put_Comments(%S)\n", bstrComments);
+	TRACE1("CSummaryProperties::put_Comments(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrComments));
 	return WriteProperty(&m_pSummPropList, PIDSI_COMMENTS, VT_BSTR, ((void*)bstrComments));
 }
 
@@ -2046,7 +2039,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_LastSavedBy(BSTR bstrLastSavedBy)
 {
-	TRACE1("CSummaryProperties::put_LastSavedBy(%S)\n", bstrLastSavedBy);
+	TRACE1("CSummaryProperties::put_LastSavedBy(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrLastSavedBy));
 	return WriteProperty(&m_pSummPropList, PIDSI_LASTAUTHOR, VT_BSTR, ((void*)bstrLastSavedBy));
 }
 
@@ -2160,7 +2153,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Category(BSTR bstrCategory)
 {
-	TRACE1("CSummaryProperties::put_Category(%S)\n", bstrCategory);
+	TRACE1("CSummaryProperties::put_Category(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrCategory));
 	return WriteProperty(&m_pDocPropList, PID_CATEGORY, VT_BSTR, ((void*)bstrCategory));
 }
 
@@ -2239,7 +2232,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Manager(BSTR bstrManager)
 {
-	TRACE1("CSummaryProperties::put_Manager(%S)\n", bstrManager);
+	TRACE1("CSummaryProperties::put_Manager(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrManager));
 	return WriteProperty(&m_pDocPropList, PID_MANAGER, VT_BSTR, ((void*)bstrManager));
 }
 
@@ -2254,7 +2247,7 @@ HRESULT CDocReader::CDocumentProperties::
 HRESULT CDocReader::CDocumentProperties::
 	CSummaryProperties::put_Company(BSTR bstrCompany)
 {
-	TRACE1("CSummaryProperties::put_Company(%S)\n", bstrCompany);
+	TRACE1("CSummaryProperties::put_Company(%S)\n", (LPCSTR)CW2A((LPCWSTR)bstrCompany));
 	return WriteProperty(&m_pDocPropList, PID_COMPANY, VT_BSTR, ((void*)bstrCompany));
 }
 
@@ -2416,7 +2409,7 @@ HRESULT CDocReader::CDocumentProperties::
 		{
 			// If data returned is not in the expected type, try to convert it...
 			if ( ( vtTmp.vt != vt ) &&
-				( FAILED( VariantChangeType( &vtTmp, &vtTmp, 0, vt ) ) ) )
+				 ( FAILED( VariantChangeType( &vtTmp, &vtTmp, 0, vt ) ) ) )
 				return S_FALSE;		// E_UNEXPECTED; FIX - 2/18/2000 (return S_FALSE same as missing).
 
 			// Return the native data based on the VT type...

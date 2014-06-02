@@ -1454,6 +1454,12 @@ STDMETHODIMP CLibraryFile::XLibraryFile::get_URL(BSTR FAR* psURL)
 	return pThis->m_xPeerProjectFile.get_URL( psURL );
 }
 
+STDMETHODIMP CLibraryFile::XLibraryFile::get_Magnet(BSTR FAR* psMagnet)
+{
+	METHOD_PROLOGUE( CLibraryFile, LibraryFile )
+	return pThis->m_xPeerProjectFile.get_Magnet( psMagnet );
+}
+
 STDMETHODIMP CLibraryFile::XLibraryFile::get_Application(IApplication FAR* FAR* ppApplication)
 {
 	METHOD_PROLOGUE( CLibraryFile, LibraryFile )

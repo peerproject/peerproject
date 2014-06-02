@@ -94,8 +94,10 @@ LPCTSTR _tcsnistr(LPCTSTR pszString, LPCTSTR pszSubString, size_t nlen);
 // Convert string to integer (64-bit, decimal only, with sign, no spaces allowed). Returns false on error.
 bool atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen, __int64& nNum);
 
+#ifdef __AFXCOLL_H__
 // Split string using delimiter to string array
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
+#endif	// __AFXCOLL_H__
 
 // StartsWith("Hello world", _P( L"hello" )) is true
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
@@ -103,8 +105,10 @@ BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 // EndsWith("Hello world", _P( L" world" )) is true
 BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen = 0);
 
+#ifdef __AFX_H__
 // Load all text from file (Unicode-compatible)
 CString LoadFile(LPCTSTR pszPath);
+#endif	// __AFX_H__
 
 // Replaces a substring with another (case-insensitive)
 BOOL ReplaceNoCase(CString& sInStr, LPCTSTR pszOldStr, LPCTSTR pszNewStr);
@@ -118,8 +122,10 @@ BOOL IsValidExtension(LPCTSTR pszName);
 // "1.2.3.4:0000" to ~0x11223344, 0 for invalid	(Alt ~0x44332211)
 DWORD IPStringToDWORD(LPCTSTR pszIP, BOOL bReverse = TRUE);
 
+#ifdef _WINSOCKAPI_
 // Returns "a.a.a.a:port"
 CString HostToString(const SOCKADDR_IN* pHost);
+#endif	// _WINSOCKAPI_
 
 // Format long paths if needed "\\?\"
 LPCTSTR SafePath(const CString& sPath);

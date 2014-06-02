@@ -1,7 +1,7 @@
 //
 // StdAfx.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,20 +66,34 @@ static const UINT primes[] =
 
 UINT GetBestHashTableSize(UINT nCount)
 {
-	const UINT* last  = primes + ( sizeof( primes ) / sizeof( primes[ 0 ] ) - 1 );
-	const UINT value  = ( nCount + nCount / 5 );
+	const UINT* last = primes + ( sizeof( primes ) / sizeof( primes[ 0 ] ) - 1 );
+	const UINT value = ( nCount + nCount / 5 );
 	return * std::lower_bound( primes, last, value, std::less< UINT >() );	// + 20%
 }
 
-// Disable MFC exception if the memory allocation fails
+// Disable exceptions if memory allocation fails
 
 class NoThrowNew
 {
 public:
-	inline NoThrowNew() throw() { AfxSetNewHandler( &NoThrowNew::OutOfMemoryHandler ); }
+	NoThrowNew() throw()
+	{
+		std::set_new_handler( &NoThrowNew::OutOfMemoryHandlerStd );
+		_set_new_handler( &NoThrowNew::OutOfMemoryHandler );
+		AfxSetNewHandler( &NoThrowNew::OutOfMemoryHandlerAfx );
+	}
 
 private:
-	static int AFX_CDECL OutOfMemoryHandler(size_t /*nSize*/)
+	static void __cdecl OutOfMemoryHandlerStd() throw()
+	{
+	}
+
+	static int __cdecl OutOfMemoryHandler(size_t /* nSize */) throw()
+	{
+		return 0;
+	}
+
+	static int __cdecl OutOfMemoryHandlerAfx(size_t /* nSize */) throw()
 	{
 		return 0;
 	}

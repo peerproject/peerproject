@@ -1,7 +1,7 @@
 //
 // PeerProjectFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -98,6 +98,7 @@ protected:
 		STDMETHOD(get_URN)(BSTR sURN, BSTR FAR* psURN);
 		STDMETHOD(get_Hash)(URN_TYPE nType, ENCODING nBase, BSTR FAR* psURN);
 		STDMETHOD(get_URL)(BSTR FAR* psURL);
+		STDMETHOD(get_Magnet)(BSTR FAR* psMagnet);
 	END_INTERFACE_PART(PeerProjectFile)
 
 	DECLARE_INTERFACE_MAP()

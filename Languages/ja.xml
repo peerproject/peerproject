@@ -1105,6 +1105,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開く"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="開くFolder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="シード停止"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="URIをコピー"/>
 		<item id="ID_DOWNLOADS_HELP" text="ヘルプ..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent情報..."/>

@@ -27,28 +27,17 @@ static const LPCWSTR VIRUSTOTAL_HOME	= L"http://www.virustotal.com";
 static const LPCWSTR VIRUSTOTAL_URL		= L"http://www.virustotal.com/latest-report.html?resource=";
 //static const LPCWSTR VIRUSTOTAL_URL	= L"http://www.virustotal.com/vt/en/consultamd5";	// Obsolete method
 
-void CPlugin::InsertCommand(ISMenu* pWebMenu, int nPos, UINT nID, LPCWSTR szItem)
+void CPlugin::InsertCommand(ISMenu* pMenu, int nPos, UINT nID, LPCWSTR szItem)
 {
-	LONG nCount;
-	if ( SUCCEEDED( pWebMenu->get_Count( &nCount ) ) )
-	{
-		for ( int i = 0; i < (int)nCount; ++i )
-		{
-			CComPtr< ISMenu > pItem;
-			LONG nItemID;	// Note: -1 - submenu, 0 - separator
-			if ( SUCCEEDED( pWebMenu->get_Item( CComVariant( i ), &pItem ) ) && pItem &&
-				 SUCCEEDED( pItem->get_CommandID( &nItemID ) ) && (UINT)nItemID == nID )
-				return;		// Already in place
-		}
-	}
-
-	// Insert new
-	pWebMenu->InsertCommand( nPos, nID, CComBSTR( szItem ), NULL );
+	// Check for existing menu item and insert new menu item
+	CComPtr< ISMenu > pCheckMenu;
+	if ( SUCCEEDED( pMenu->get_Item( CComVariant( nID ), &pCheckMenu ) ) && ! pCheckMenu )
+		pMenu->InsertCommand( nPos, nID, CComBSTR( szItem ), NULL );
 }
 
 HRESULT CPlugin::Request(LPCWSTR szHash)
 {
-	ATLTRACE( "CPlugin::Request( %ls )\n", szHash );
+	ATLTRACE( "VirusTotal::Request( %ls )\n", szHash );
 
 	ShellExecute( NULL, NULL, CString( VIRUSTOTAL_URL ) + szHash, NULL, NULL, SW_SHOWDEFAULT );
 
@@ -82,11 +71,11 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 //		else
 //		{
 //			pWebBrowserApp->Quit();
-//			ATLTRACE( "CPlugin::Request() : Internet Explorer navigate error: 0x%08x\n", hr );
+//			ATLTRACE( "VirusTotal::Request() : Internet Explorer navigate error: 0x%08x\n", hr );
 //		}
 //	}
 //	else
-//		ATLTRACE( "CPlugin::Request() : Create Internet Explorer instance error: 0x%08x\n", hr );
+//		ATLTRACE( "VirusTotal::Request() : Create Internet Explorer instance error: 0x%08x\n", hr );
 //
 //	return hr;
 //}
@@ -146,32 +135,59 @@ STDMETHODIMP CPlugin::InsertCommands()
 	if ( ! m_pUserInterface )
 		return E_UNEXPECTED;
 
+	// Insert new items at the top of "Web Services" submenu
+	UINT nMenuID = 0;
+	if ( FAILED( m_pUserInterface->NameToID( CComBSTR( L"ID_WEBSERVICES_LIST" ), &nMenuID ) ) || ! nMenuID )
+		return E_UNEXPECTED;
+
+	// But preferably after "MusicBrainz" item
+	UINT nAfterItemID = 0;
+	m_pUserInterface->NameToID( CComBSTR( L"ID_WEBSERVICES_MUSICBRAINZ" ), &nAfterItemID );
+
 	CComPtr< ISMenu > pSearchMenu;
-	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CSearchWnd" ),
-		VARIANT_FALSE, &pSearchMenu ) ) && pSearchMenu )
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CSearchWnd" ), VARIANT_FALSE, &pSearchMenu ) ) && pSearchMenu )
 	{
 		CComPtr< ISMenu > pWebMenu;
-		if ( SUCCEEDED( pSearchMenu->get_Item( CComVariant( 9 ), &pWebMenu ) ) && pWebMenu )
-			InsertCommand( pWebMenu, 1, m_nCmdCheck, VIRUSTOTAL_CHECK );
+		if ( SUCCEEDED( pSearchMenu->get_Item( CComVariant( nMenuID ), &pWebMenu ) ) && pWebMenu )
+			InsertCommand( pWebMenu, 0, m_nCmdCheck, VIRUSTOTAL_CHECK );
 	}
 
-	CComPtr< ISMenu > pFileMenu;
-	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CLibraryFileView" ),		// Was CLibraryFileView.Physical CLibraryFileView.Virtual
-		VARIANT_FALSE, &pFileMenu ) ) && pFileMenu )
+	CComPtr< ISMenu > pBrowseHostMenu;
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CBrowseHostWnd" ), VARIANT_FALSE, &pBrowseHostMenu ) ) && pBrowseHostMenu )
 	{
 		CComPtr< ISMenu > pWebMenu;
-		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( 12 ), &pWebMenu ) ) && pWebMenu )
-			InsertCommand( pWebMenu, 3, m_nCmdCheck, VIRUSTOTAL_CHECK );
+		if ( SUCCEEDED( pBrowseHostMenu->get_Item( CComVariant( nMenuID ), &pWebMenu ) ) && pWebMenu )
+			InsertCommand( pWebMenu, 0, m_nCmdCheck, VIRUSTOTAL_CHECK );
+	}
+
+	CComPtr< ISMenu > pHitMonitorMenu;
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CHitMonitorWnd" ), VARIANT_FALSE, &pHitMonitorMenu ) ) && pHitMonitorMenu )
+	{
+		CComPtr< ISMenu > pWebMenu;
+		if ( SUCCEEDED( pHitMonitorMenu->get_Item( CComVariant( nMenuID ), &pWebMenu ) ) && pWebMenu )
+			InsertCommand( pWebMenu, 0, m_nCmdCheck, VIRUSTOTAL_CHECK );
+	}
+
+	CComPtr< ISMenu > pFileMenu;		// Was CLibraryFileView.Physical CLibraryFileView.Virtual
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"CLibraryFileView" ), VARIANT_FALSE, &pFileMenu ) ) && pFileMenu )
+	{
+		CComPtr< ISMenu > pWebMenu;
+		if ( SUCCEEDED( pFileMenu->get_Item( CComVariant( nMenuID ), &pWebMenu ) ) && pWebMenu )
+			InsertCommand( pWebMenu, 0, m_nCmdCheck, VIRUSTOTAL_CHECK );
 	}
 
 	CComPtr< ISMenu > pListMenu;
-	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"WebServices.List.Menu" ),
-		VARIANT_FALSE, &pListMenu ) ) && pListMenu )
+	if ( SUCCEEDED( m_pUserInterface->GetMenu( CComBSTR( L"WebServices.List.Menu" ), VARIANT_FALSE, &pListMenu ) ) && pListMenu )
 	{
-		InsertCommand( pListMenu, 1, m_nCmdCheck, VIRUSTOTAL_CHECK );
+		LONG nPos = -1;
+		CComPtr< ISMenu > pAfterMenu;
+		if ( nAfterItemID && SUCCEEDED( pListMenu->get_Item( CComVariant( nAfterItemID ), &pAfterMenu ) ) && pAfterMenu )
+			pAfterMenu->get_Position( &nPos );
+
+		InsertCommand( pListMenu, nPos + 1, m_nCmdCheck, VIRUSTOTAL_CHECK );
 	}
 
-	return E_FAIL;
+	return S_OK;
 }
 
 STDMETHODIMP CPlugin::OnUpdate(
@@ -210,11 +226,11 @@ STDMETHODIMP CPlugin::OnUpdate(
 STDMETHODIMP CPlugin::OnCommand(
 	/*[in]*/ UINT nCommandID)
 {
-	ATLTRACE( "CPlugin::OnCommand( %d )\n", nCommandID );
+	ATLTRACE( "VirusTotal::OnCommand( %d )\n", nCommandID );
 
 	if ( ! m_pUserInterface )
 	{
-		ATLTRACE( "CPlugin::OnCommand : No user interface.\n" );
+		ATLTRACE( "VirusTotal::OnCommand : No user interface.\n" );
 		return E_UNEXPECTED;
 	}
 
@@ -234,7 +250,7 @@ STDMETHODIMP CPlugin::OnCommand(
 					hr = pGenericView->get_Item( CComVariant( i ), &pItem );
 					if ( FAILED( hr ) )
 					{
-						ATLTRACE( "CPlugin::OnCommand() : Get item error: 0x%08x\n", hr );
+						ATLTRACE( "VirusTotal::OnCommand() : Get item error: 0x%08x\n", hr );
 						break;
 					}
 
@@ -254,10 +270,10 @@ STDMETHODIMP CPlugin::OnCommand(
 								pLibraryFile->get_Hash( URN_SHA1, ENCODING_BASE16, &pSHA1 );
 							}
 							else
-								ATLTRACE( "CPlugin::OnCommand() : Find file by index error: 0x%08x\n", hr );
+								ATLTRACE( "VirusTotal::OnCommand() : Find file by index error: 0x%08x\n", hr );
 						}
 						else
-							ATLTRACE( "CPlugin::OnCommand() : Get Library error: 0x%08x\n", hr );
+							ATLTRACE( "VirusTotal::OnCommand() : Get Library error: 0x%08x\n", hr );
 					}
 					else if ( pItem.vt == VT_DISPATCH )
 					{
@@ -269,22 +285,22 @@ STDMETHODIMP CPlugin::OnCommand(
 						}
 					}
 					else
-						ATLTRACE( "CPlugin::OnCommand() : Unknown item data.\n" );
+						ATLTRACE( "VirusTotal::OnCommand() : Unknown item data.\n" );
 
 					if ( pMD5.Length() )
 						Request( pMD5 );
 					else if ( pSHA1.Length() )
 						Request( pSHA1 );
 					else
-						ATLTRACE( "CPlugin::OnCommand() : No compatible hashes found.\n" );
+						ATLTRACE( "VirusTotal::OnCommand() : No compatible hashes found.\n" );
 				}
 				return S_OK;
 			}
 			else
-				ATLTRACE( "CPlugin::OnCommand() : No files selected: 0x%08x\n", hr );
+				ATLTRACE( "VirusTotal::OnCommand() : No files selected: 0x%08x\n", hr );
 		}
 		else
-			ATLTRACE( "CPlugin::OnCommand() : Active view get error: 0x%08x\n", hr );
+			ATLTRACE( "VirusTotal::OnCommand() : Active view get error: 0x%08x\n", hr );
 	}
 
 	return S_FALSE;
