@@ -20,7 +20,7 @@
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 1,0,0,0
- PRODUCTVERSION 1,0,0,0
+ PRODUCTVERSION 1,0,1,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -40,10 +40,10 @@ BEGIN
             VALUE "FileDescription", "PeerProject Skin Installer"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "SkinInstaller"
-            VALUE "LegalCopyright", "© PeerProject Development Team, 2002-2012"
+            VALUE "LegalCopyright", "© PeerProject Development Team, 2002-2014"
             VALUE "OriginalFilename", "SkinInstaller.exe"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1.0.0.0"
+            VALUE "ProductVersion", "1.0.1.0"
         END
     END
     BLOCK "VarFileInfo"
@@ -57,10 +57,8 @@ END
 // English resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
-#ifdef _WIN32
 LANGUAGE LANG_ENGLISH, SUBLANG_DEFAULT
 #pragma code_page(1252)
-#endif // _WIN32
 
 
 /////////////////////////////////////////////////////////////////////////////

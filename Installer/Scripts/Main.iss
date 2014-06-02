@@ -179,9 +179,11 @@ Source: "Plugins\SWFPlugin\{#ConfigurationName} {#PlatformName}\SWFPlugin.dll"; 
 
 ;Source: "Plugins\RatDVDPlugin\{#ConfigurationName} {#PlatformName}\RatDVDReader.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Plugins\VirusTotal\{#ConfigurationName} {#PlatformName}\VirusTotal.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
-
 Source: "Plugins\SearchExport\{#ConfigurationName} {#PlatformName}\SearchExport.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\ShortURL\{#ConfigurationName} {#PlatformName}\ShortURL.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
+
+Source: "Plugins\VirusTotal\{#ConfigurationName} {#PlatformName}\VirusTotal.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsThumbnail.exe"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 

@@ -3,13 +3,14 @@ ___________________________
 
 
 0. This sourcecode package is self-contained, no setup required.  Only Microsoft Visual Studio is supported.
+	- http://www.visualstudio.com/downloads
 
 
 1. Install Visual Studio 2013
-	- http://www.visualstudio.com/downloads/download-visual-studio-vs  (90day Trial)
+	- http://www.microsoft.com/download/details.aspx?id=42664  (90day Trial)
 
    OR Install Visual Studio 2012
-	- http://www.microsoft.com/en-us/download/details.aspx?id=30678  (90day Trial)
+	- http://www.microsoft.com/download/details.aspx?id=30678  (90day Trial)
 	- http://go.microsoft.com/?linkid=9821199  (Update 4)
 
    OR Install Visual Studio 2010
@@ -34,7 +35,7 @@ Note: Visual Studio Express alternative for Browse/Edit only:
 	- No-Cost Visual C++ Express (Desktop) can be configured for MFC, but some projects STILL FAIL to build.
 
 X. Install Visual C++ Express + Windows SDK + WDK
-	- http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop  (Visual Studio Express 2012 for Desktop)
+	- http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop  (Visual Studio Express 2013 for Desktop)
 	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express  (Visual C++ 2010 Express)
 	- http://www.microsoft.com/en-us/download/details.aspx?id=8279  (Win7 SDK)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
