@@ -1,7 +1,7 @@
 //
 // HubHorizon.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -213,8 +213,11 @@ void CHubHorizonGroup::Add(IN_ADDR* pAddress, WORD nPort)
 	{
 		m_nBuffer += 8;
 		CHubHorizonHub** pList = new CHubHorizonHub*[ m_nBuffer ];
-		if ( m_nCount ) CopyMemory( pList, m_pList, sizeof(CHubHorizonHub*) * m_nCount );
-		if ( m_pList ) delete [] m_pList;
+		if ( m_pList )
+		{
+			if ( m_nCount ) CopyMemory( pList, m_pList, sizeof(CHubHorizonHub*) * m_nCount );
+			delete [] m_pList;
+		}
 		m_pList = pList;
 	}
 

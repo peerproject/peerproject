@@ -411,6 +411,67 @@ BOOL CUploadsCtrl::HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadF
 	return FALSE;
 }
 
+BOOL CUploadsCtrl::HitTest(int nIndex, CUploadQueue** ppQueue, CUploadFile** ppFile)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	int nScroll = GetScrollPos( SB_VERT );
+	int nCount = nIndex - 1;
+
+	if ( ppQueue != NULL ) *ppQueue = NULL;
+	if ( ppFile != NULL ) *ppFile = NULL;
+
+	CSingleLock pLock( &UploadQueues.m_pSection );
+	if ( ! pLock.Lock( 500 ) )
+		return FALSE;
+
+	for ( POSITION posQueue = GetQueueIterator() ; posQueue && nCount >= 0 ; )
+	{
+		CUploadQueue* pQueue = GetNextQueue( posQueue );
+
+		POSITION posFile = GetFileIterator( pQueue );
+		if ( posFile == NULL ) continue;
+
+		if ( nScroll > 0 )
+		{
+			nScroll --;
+		}
+		else
+		{
+			if ( ! nCount )
+			{
+				if ( ppQueue != NULL ) *ppQueue = pQueue;
+				return TRUE;
+			}
+			nCount--;
+		}
+
+		if ( ! pQueue->m_bExpanded ) continue;
+
+		while ( posFile && nCount )
+		{
+			CUploadFile* pFile = GetNextFile( pQueue, posFile );
+			if ( pFile == NULL ) continue;
+
+			if ( nScroll > 0 )
+			{
+				nScroll--;
+			}
+			else
+			{
+				if ( ! nCount )
+				{
+					if ( ppFile != NULL ) *ppFile = pFile;
+					return TRUE;
+				}
+				nCount--;
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 BOOL CUploadsCtrl::GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFile)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
@@ -1615,11 +1676,11 @@ void CUploadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	}
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( pLock.Lock( 50 ) )
+	if ( pLock.Lock( 100 ) )
 	{
 		m_nHover = nIndex;
 		CUploadFile* pFile;
-		if ( HitTest( point, NULL, &pFile, NULL, NULL ) )
+		if ( HitTest( nIndex, NULL, &pFile ) )
 		{
 			if ( pFile != NULL )
 			{

@@ -1139,6 +1139,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Obre"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Obre _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Atura el sembrat"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Copia _URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Ajuda..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Informació del Torrent..."/>

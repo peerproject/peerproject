@@ -43,6 +43,7 @@ protected:
 	void		SelectTo(int nIndex);
 	void		DeselectAll(CUploadFile* pExcept = NULL);
 	BOOL		HitTest(const CPoint& point, CUploadQueue** ppQueue, CUploadFile** ppFile, int* pnIndex, RECT* prcItem);
+	BOOL		HitTest(int nIndex, CUploadQueue** ppQueue, CUploadFile** ppFile);
 	BOOL		GetAt(int nSelect, CUploadQueue** ppQueue, CUploadFile** ppFile);
 	void		PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayData* pQueueData, BOOL bFocus);
 	void		PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayData* pUploadData, BOOL bFocus);

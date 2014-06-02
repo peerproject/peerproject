@@ -1142,6 +1142,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_فتح" />
 		<item id="ID_DOWNLOADS_FOLDER" text="فتح _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_إيقاف الإرسال" />
+		<separator />
+		<item id="ID_DOWNLOADS_URI" text="نسخ _رابط" />
 		<item id="ID_DOWNLOADS_HELP" text="_تعليمات..." />
 		<separator />
 		<item id="ID_DOWNLOADS_EDIT" text="_معلومات" />

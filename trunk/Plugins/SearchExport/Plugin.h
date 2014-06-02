@@ -47,6 +47,9 @@ protected:
 
 	HRESULT Export(IGenericView* pGenericView, LONG nCount);
 
+	// Insert menu item only if no item present
+	void InsertCommand(LPCTSTR szTitle, const LPCWSTR* szMenu, UINT nID);
+
 // IGeneralPlugin
 public:
 	STDMETHOD(SetApplication)(

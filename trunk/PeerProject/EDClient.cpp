@@ -1421,7 +1421,7 @@ void CEDClient::DetermineUserAgent()
 			else if ( m_nVersion >= 10100 )	// eDonkey from version 1.1.0
 			{
 				CString strVersion;
-				strVersion.Format( L"%i", m_nVersion );
+				strVersion.Format( L"%u", m_nVersion );
 				m_sUserAgent.AppendFormat( L"v%c.%c.%c", (TCHAR)strVersion[0], (TCHAR)strVersion[2], (TCHAR)strVersion[4] );
 			}
 			else if ( m_nVersion >= 1100 )	// Unknown

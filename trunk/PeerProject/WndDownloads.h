@@ -90,6 +90,7 @@ public:
 	virtual void OnSkinChange();
 	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	virtual HRESULT	GetGenericView(IGenericView** ppView);
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);

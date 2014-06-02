@@ -1,7 +1,7 @@
 //
 // Application.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -193,6 +193,22 @@ STDMETHODIMP CApplication::XApplication::get_ImageService(IImageServicePlugin FA
 	return S_OK;
 }
 
+STDMETHODIMP CApplication::XApplication::get_SmartAgent(BSTR FAR* psSmartAgent)
+{
+	METHOD_PROLOGUE( CApplication, Application )
+	if ( psSmartAgent == NULL ) return E_INVALIDARG;
+	*psSmartAgent = CComBSTR( Settings.SmartAgent() ).Detach();
+	return S_OK;
+}
+
+STDMETHODIMP CApplication::XApplication::Message(WORD nType, BSTR bsMessage)
+{
+	METHOD_PROLOGUE( CApplication, Application )
+	if ( bsMessage == NULL ) return E_INVALIDARG;
+	theApp.PrintMessage( nType, bsMessage );
+	return S_OK;
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CApplication ISettings
 
@@ -362,4 +378,34 @@ STDMETHODIMP CApplication::XUserInterface::GetToolbar(BSTR bsName, VARIANT_BOOL 
 	*ppToolbar = CComToolbar::Wrap( pBar );
 
 	return S_OK;
+}
+
+STDMETHODIMP CApplication::XUserInterface::NameToID(BSTR bsName, UINT* pnCommandID)
+{
+	METHOD_PROLOGUE( CApplication, UserInterface )
+	if ( pnCommandID == NULL ) return E_INVALIDARG;
+	*pnCommandID = CoolInterface.NameToID( CString( bsName ) );
+	return S_OK;
+}
+
+STDMETHODIMP CApplication::XUserInterface::AddString(UINT nStringID, BSTR sText)
+{
+	METHOD_PROLOGUE( CApplication, UserInterface )
+	if ( sText == NULL ) return E_INVALIDARG;
+	Skin.AddString( CString( sText ), nStringID );
+	return S_OK;
+}
+
+STDMETHODIMP CApplication::XUserInterface::LoadString(UINT nStringID, BSTR* psText)
+{
+	METHOD_PROLOGUE( CApplication, UserInterface )
+	if ( psText == NULL ) return E_INVALIDARG;
+	CString strText;
+	if ( Skin.LoadString( strText, nStringID ) )
+	{
+		*psText = CComBSTR( strText ).Detach();
+		return S_OK;
+	}
+
+	return E_FAIL;
 }

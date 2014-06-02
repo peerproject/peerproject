@@ -1189,6 +1189,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open File"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Stop Seeding"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Get P2P Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="_도움..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Properties..."/>

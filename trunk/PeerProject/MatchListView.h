@@ -1,7 +1,7 @@
 //
 // MatchListView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,31 +19,28 @@
 #pragma once
 
 class CMatchList;
-class CMatchFile;
-class CQueryHit;
+class CDownloads;
 
 
 class CMatchListView : public CComObject
 {
 	DECLARE_DYNAMIC(CMatchListView)
 
-public:
+protected:
+	CMatchListView();
 	CMatchListView(LPCTSTR pszName, CMatchList* pList);
+	CMatchListView(LPCTSTR pszName, CDownloads* pDownloads);
 	virtual ~CMatchListView();
 
+public:
 	static IGenericView* Attach(LPCTSTR pszName, CMatchList* pList);
+	static IGenericView* Attach(LPCTSTR pszName, CDownloads* pDownloads);
 
 protected:
-	CString			m_sName;
-	CMatchList*		m_pList;
-	CList< void* >	m_pSelection;
-
-	POSITION	GetIterator() const;
-	INT_PTR		GetCount() const { return m_pSelection.GetCount(); }
-	void		GetNext(POSITION& pos, CMatchFile** ppFile, CQueryHit** ppHit) const;
+	CString						m_sName;
+	CList< CPeerProjectFile >	m_pSelection;
 
 // Automation
-protected:
 	BEGIN_INTERFACE_PART(GenericView, IGenericView)
 		DECLARE_DISPATCH()
 		STDMETHOD(get_Name)(BSTR FAR* psName);

@@ -1102,7 +1102,7 @@
 		<separator/>
 		<item id="ID_BROWSE_LAUNCH" text="_Blaai deur Gebruikersinligting"/>
 		<item id="ID_TRANSFERS_CHAT" text="_Gesels met Gebruiker"/>
-		<item id="ID_DOWNLOADS_URI" text="Copy _URI"/>
+		<item id="ID_DOWNLOADS_URI" text="Kopieer _URI"/>
 		<separator/>
 		<item id="ID_TRANSFERS_DISCONNECT" text="_Diskonnekteer"/>
 		<item id="ID_TRANSFERS_FORGET" text="_Vergeet"/>
@@ -1130,6 +1130,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Open"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Open _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Hou op Saai"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="_Kopieer URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Hulp..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Eienskappe..."/>

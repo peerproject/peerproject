@@ -1,7 +1,7 @@
 //
 // DocReader.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2005.
 // Originally Created by:	Rolandas Rudomanskis
 //
@@ -35,7 +35,6 @@ class ATL_NO_VTABLE CDocReader :
 {
 public:
 	CDocReader();
-
 	~CDocReader();
 
 	DECLARE_REGISTRY_RESOURCEID(IDR_DOCREADER)
@@ -197,7 +196,7 @@ private:
 	STDMETHOD(ProcessOODocument)(BSTR bsFile, ISXMLElement* pXML, LPCWSTR pszSchema, LPCWSTR pszFormat);
 	STDMETHOD(GetMSThumbnail)(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
 	STDMETHOD(GetOOThumbnail)(BSTR bsFile, IMAGESERVICEDATA* pParams, SAFEARRAY** ppImage);
-	CComBSTR GetMetadataXML(unzFile pFile, char* pszFile);
+	CComBSTR GetMetadataXML(unzFile pFile, const char* pszFile);
 
 	HBITMAP GetBitmapFromMetaFile(PICTDESC pds, int nResolution, WORD wBitsPerSample, BITMAPINFO **ppBI);
 	HBITMAP GetBitmapFromEnhMetaFile(PICTDESC pds, int nResolution, WORD wBitsPerSample, BITMAPINFO **ppBI);

@@ -1130,6 +1130,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="開啟"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="開啟 Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="停止做種"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="複製 P2P Link (_URI)"/>
 		<item id="ID_DOWNLOADS_HELP" text="說明..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent 資訊..."/>

@@ -1,7 +1,7 @@
 //
 // ED2K.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions Copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -28,8 +28,8 @@
 CED2K::CED2K()
 	: m_pList		( NULL )
 	, m_nList		( 0 )
-	, m_nCurHash		( 0 )
-	, m_nCurByte		( 0 )
+	, m_nCurHash	( 0 )
+	, m_nCurByte	( 0 )
 	, m_bNullBlock	( FALSE )
 {
 	std::fill_n( &m_pRoot[ 0 ], 4, 0 );
@@ -68,27 +68,27 @@ uint32 CED2K::GetSize() const
 
 void CED2K::Save(uchar* pBuf) const
 {
-	if ( m_nList )
-	{
-		CopyMemory( pBuf, &m_pRoot[ 0 ], sizeof( CMD4::Digest ) );
-		pBuf += sizeof( CMD4::Digest );
-		if ( m_nList > 1 )
-			CopyMemory( pBuf, m_pList, sizeof( CMD4::Digest ) * m_nList );
-	}
+	if ( ! m_nList || ! m_pList )
+		return;
+
+	CopyMemory( pBuf, &m_pRoot[ 0 ], sizeof( CMD4::Digest ) );
+	pBuf += sizeof( CMD4::Digest );
+	if ( m_nList > 1 )
+		CopyMemory( pBuf, m_pList, sizeof( CMD4::Digest ) * m_nList );
 }
 
 void CED2K::Load(const uchar* pBuf)
 {
-	if ( m_nList )
-	{
-		CopyMemory( &m_pRoot[ 0 ], pBuf, sizeof( CMD4::Digest ) );
-		pBuf += sizeof( CMD4::Digest );
-		m_pList = new CMD4::Digest[ m_nList ];
-		if ( m_nList > 1 )
-			CopyMemory( m_pList, pBuf, sizeof( CMD4::Digest ) * m_nList );
-		else if ( m_nList == 1 )
-			std::copy( &m_pRoot[ 0 ], &m_pRoot[ 4 ], &m_pList[ 0 ][ 0 ] );
-	}
+	if ( ! m_nList )
+		return;
+
+	CopyMemory( &m_pRoot[ 0 ], pBuf, sizeof( CMD4::Digest ) );
+	pBuf += sizeof( CMD4::Digest );
+	m_pList = new CMD4::Digest[ m_nList ];
+	if ( m_nList > 1 )
+		CopyMemory( m_pList, pBuf, sizeof( CMD4::Digest ) * m_nList );
+	else if ( m_nList == 1 )
+		std::copy( &m_pRoot[ 0 ], &m_pRoot[ 4 ], &m_pList[ 0 ][ 0 ] );
 }
 
 uint32 CED2K::GetSerialSize() const
@@ -248,6 +248,7 @@ void CED2K::FromRoot(__in_bcount(16) const uchar* pHash)
 
 	m_nList = 1;
 	m_pList = new CMD4::Digest[ m_nList ];
+	if ( ! m_pList ) return;
 	std::copy( (uint32*)pHash, ( (uint32*)pHash ) + 4, &m_pRoot[ 0 ] );
 	std::copy( (uint32*)pHash, ( (uint32*)pHash ) + 4, &m_pList[ 0 ][ 0 ] );
 }
@@ -277,6 +278,7 @@ BOOL CED2K::FromBytes(BYTE* pOutput, uint32 nOutput, uint64 nSize)
 
 	m_nList = nOutput / sizeof( CMD4::Digest );
 	m_pList = new CMD4::Digest[ m_nList ];
+	if ( ! m_pList ) return FALSE;
 
 	CopyMemory( m_pList, pOutput, nOutput );
 

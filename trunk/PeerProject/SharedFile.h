@@ -178,6 +178,7 @@ protected:
 		STDMETHOD(get_URN)(BSTR sURN, BSTR FAR* psURN);
 		STDMETHOD(get_Hash)(URN_TYPE nType, ENCODING nBase, BSTR FAR* psURN);
 		STDMETHOD(get_URL)(BSTR FAR* psURL);
+		STDMETHOD(get_Magnet)(BSTR FAR* psMagnet);
 		STDMETHOD(get_Application)(IApplication FAR* FAR* ppApplication);
 		STDMETHOD(get_Library)(ILibrary FAR* FAR* ppLibrary);
 		STDMETHOD(get_Folder)(ILibraryFolder FAR* FAR* ppFolder);

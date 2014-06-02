@@ -15,6 +15,7 @@
 // TargetVer.h: (WINVER)
 #define NTDDI_VERSION	0x05010200	// NTDDI_WINXPSP2
 #define _WIN32_WINNT	0x0501		// XP
+#include <sdkddkver.h>
 
 #define VC_EXTRALEAN
 #define STRICT

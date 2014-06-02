@@ -995,6 +995,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="Otwórz"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Otwórz _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="Zakończ udostępnianie"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Kopiuj URI"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Pomoc..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="Torrent _Info..."/>

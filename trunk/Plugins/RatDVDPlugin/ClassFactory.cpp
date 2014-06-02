@@ -22,7 +22,7 @@
 
 #pragma once
 
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "RatDVDPlugin.h"
 
 ////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@
 
 STDMETHODIMP CRatDVDClassFactory::QueryInterface(REFIID riid, void** ppv)
 {
-	ODS(_T("CRatDVDClassFactory::QueryInterface\n"));
+	ODS(L"CRatDVDClassFactory::QueryInterface\n");
 
 	CHECK_NULL_RETURN(ppv, E_POINTER);
 
@@ -68,7 +68,7 @@ STDMETHODIMP_(ULONG) CRatDVDClassFactory::Release(void)
 {
     if ( 0 != --m_cRef ) return m_cRef;
 
-	ODS(_T("CRatDVDClassFactory delete\n"));
+	ODS(L"CRatDVDClassFactory delete\n");
 
     LockServer(FALSE);
     return 0;
@@ -84,7 +84,7 @@ STDMETHODIMP CRatDVDClassFactory::CreateInstance(LPUNKNOWN punk, REFIID riid, vo
 {
 	HRESULT hr;
 
-	ODS(_T("CFileClassFactory::CreateInstance\n"));
+	ODS(L"CFileClassFactory::CreateInstance\n");
 
 	CHECK_NULL_RETURN(ppv, E_POINTER);	*ppv = NULL;
 
@@ -104,9 +104,11 @@ STDMETHODIMP CRatDVDClassFactory::CreateInstance(LPUNKNOWN punk, REFIID riid, vo
 			else
 				*ppv = dynamic_cast<IImageServicePlugin*>(pRatDVDPlugin);
 		}
-		else return hr;
+		else
+			return hr;
 	}
-	else return E_NOINTERFACE;
+	else
+		return E_NOINTERFACE;
 
 	LockServer(TRUE);	// on success, bump up lock count
 
@@ -118,6 +120,7 @@ STDMETHODIMP CRatDVDClassFactory::CreateInstance(LPUNKNOWN punk, REFIID riid, vo
 //
 STDMETHODIMP CRatDVDClassFactory::LockServer(BOOL fLock)
 {
-	if (fLock) DllAddRef();	else DllRelease();
+	if (fLock) DllAddRef();
+	else DllRelease();
 	return S_OK;
 }

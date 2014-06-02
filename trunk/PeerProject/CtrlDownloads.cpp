@@ -617,6 +617,80 @@ BOOL CDownloadsCtrl::HitTest(const CPoint& point, CDownload** ppDownload, CDownl
 	return FALSE;
 }
 
+BOOL CDownloadsCtrl::HitTest(int nIndex, CDownload** ppDownload, CDownloadSource** ppSource)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	int nScroll = GetScrollPos( SB_VERT );
+	int nCount = nIndex - 1;
+
+	if ( ppDownload != NULL ) *ppDownload = NULL;
+	if ( ppSource != NULL ) *ppSource = NULL;
+
+	for ( POSITION posDownload = Downloads.GetIterator() ; posDownload && nIndex >= 0 ; )
+	{
+		CDownload* pDownload = Downloads.GetNext( posDownload );
+
+		if ( m_nGroupCookie != 0 && m_nGroupCookie != pDownload->m_nGroupCookie )
+			continue;
+		if ( IsFiltered( pDownload ) )
+			continue;
+
+		if ( nScroll > 0 )
+		{
+			nScroll--;
+		}
+		else
+		{
+			if ( ! nCount )
+			{
+				if ( ppDownload ) *ppDownload = pDownload;
+				return TRUE;
+			}
+
+			nCount--;
+		}
+
+		if ( ! pDownload->m_bExpanded || ( pDownload->IsSeeding() && ! Settings.General.DebugBTSources ) )
+			continue;
+
+		if ( Settings.Downloads.ShowSources )
+		{
+			int nSources = pDownload->GetSourceCount();
+
+			if ( nScroll >= nSources )
+			{
+				nScroll -= nSources;
+				continue;
+			}
+		}
+
+		for ( POSITION posSource = pDownload->GetIterator() ; posSource ; )
+		{
+			CDownloadSource* pSource = pDownload->GetNext( posSource );
+
+			if ( Settings.Downloads.ShowSources || pSource->IsConnected() )
+			{
+				if ( nScroll > 0 )
+				{
+					nScroll--;
+				}
+				else
+				{
+					if ( ! nCount )
+					{
+						if ( ppSource != NULL ) *ppSource = pSource;
+						return TRUE;
+					}
+					nCount--;
+				}
+			}
+		}
+	}
+
+	return FALSE;
+}
+
 BOOL CDownloadsCtrl::GetAt(int nSelect, CDownload** ppDownload, CDownloadSource** ppSource)
 {
 	ASSUME_LOCK( Transfers.m_pSection );
@@ -2294,8 +2368,6 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 		return;
 	}
 
-	m_nHover = nIndex;
-
 	// ToDo: Delay lock for Settings.Interface.TipDelay
 	//if ( ! m_wndTip.IsVisible() )
 	//{
@@ -2307,14 +2379,15 @@ void CDownloadsCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	//		return;
 	//}
 
+	m_nHover = nIndex;
+
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( pLock.Lock( 50 ) )
+	if ( pLock.Lock( 100 ) )
 	{
 		CDownload* pDownload;
 		CDownloadSource* pSource;
-		CRect rcItem;
 
-		if ( HitTest( point, &pDownload, &pSource, NULL, &rcItem ) )
+		if ( HitTest( nIndex, &pDownload, &pSource ) )
 		{
 			if ( pDownload != NULL )
 			{

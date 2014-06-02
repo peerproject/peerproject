@@ -1186,6 +1186,8 @@
 		<item id="ID_DOWNLOADS_LAUNCH_COMPLETE" text="_Открыть"/>
 		<item id="ID_DOWNLOADS_FOLDER" text="Открыть _Folder"/>
 		<item id="ID_DOWNLOADS_CLEAR_COMPLETE" text="_Убрать"/>
+		<separator/>
+		<item id="ID_DOWNLOADS_URI" text="Копировать _ссылку"/>
 		<item id="ID_DOWNLOADS_HELP" text="_Справка..."/>
 		<separator/>
 		<item id="ID_DOWNLOADS_EDIT" text="_Свойства..."/>
