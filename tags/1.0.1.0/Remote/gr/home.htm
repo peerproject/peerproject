@@ -1,0 +1,58 @@
+﻿		<!-- tabs -->
+		<div class="poetry">
+			<ul class="tabs">
+				<li class="active"><a href="home" class="noline">Αρχική</a></li>
+				<li class="inactive"><a href="downloads" class="noline">Λήψεις</a></li>
+				<li class="inactive"><a href="uploads" class="noline">Αποστολές</a></li>
+				<li class="inactive"><a href="network" class="noline">Δίκτυα</a></li>
+				<li class="inactive"><a href="search" class="noline">Αναζήτηση</a></li>
+			</ul>
+		</div>
+		<!-- /tabs -->
+<!-- main body -->
+		<div id="frame">
+			<p>Καλώς ήρθατε στο <b>Περιβάλλον Ιστού του PeerProject.</b></p> <p>Αυτό το περιβάλλον δίνει τη δυνατότητα διαχείρισης των αναζητήσεων, λήψεων, αποστολών και δικτύων.</p>
+			<div style="float: right; width: 40em;">
+				<h3>Έναρξη λήψης:</h3>
+				<div style="text-align: right;">
+					<form method="get" action="newsearch">
+						<div>
+							<label>Αναζήτηση:</label>
+							<input type="text" name="search" size="20" />
+							<select name="schema">
+								<option value="">Οτιδήποτε</option>
+								<option value="http://schemas.peerproject.org/Application.xsd">Εφαρμογή</option>
+								<option value="http://schemas.peerproject.org/Archive.xsd">Συμπίεση</option>
+								<option value="http://schemas.peerproject.org/Audio.xsd">Ήχος</option>
+								<option value="http://schemas.peerproject.org/Video.xsd">Video</option>
+								<option value="http://schemas.peerproject.org/Image.xsd">Εικόνα</option>
+								<option value="http://schemas.peerproject.org/Book.xsd">Βιβλίο</option>
+								<option value="http://schemas.peerproject.org/Document.xsd">Έγγραφο</option>
+								<option value="http://schemas.peerproject.org/BitTorrent.xsd">BitTorrent</option>
+								<option value="http://schemas.peerproject.org/Collection.xsd">Συλλογή</option>
+								<option value="http://schemas.peerproject.org/ROM.xsd">Εικόνα ROM</option>
+								<option value="http://schemas.peerproject.org/Skin.xsd">Φλοιός</option>
+								<option value="http://schemas.peerproject.org/SourceCode.xsd">Πηγαίος Κώδικας</option>
+								<option value="http://schemas.peerproject.org/Spreadsheet.xsd">Λογιστικό Φύλλο</option>
+								<option value="http://schemas.peerproject.org/Subtitle.xsd">Υπότιτλοι</option>
+							</select>
+							<input type="submit" value="Πάμε" />
+						</div>
+					</form><br/>
+					<form method="get" action="newdownload">
+						<div>
+							<label>Λήψη Magnet/Torrent:</label>
+							<input type="text" name="uri" size="35" />
+							<input type="submit" value="Πάμε" />
+						</div>
+					</form>
+				</div>
+			</div>
+			<h3>Χρήσιμες ιστοσελίδες:</h3>
+			<ul>
+				<li><a href="http://peerproject.org/el" onclick="window.open(this.href); return false;">PeerProject.org/el</a></li>
+				<li><a href="http://www.freebase.be/" onclick="window.open(this.href); return false;">Freebase.be</a></li>
+				<li><a href="http://www.legaltorrents.com/" onclick="window.open(this.href); return false;">LegalTorrents.com</a></li>
+				<li><a href="http://content.emule-project.net/" onclick="window.open(this.href); return false;">eMule content DB</a></li>
+			</ul>
+		</div>
