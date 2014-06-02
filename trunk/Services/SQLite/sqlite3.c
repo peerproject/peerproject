@@ -1,5 +1,5 @@
 /*
-** sqlite3.c  (3.8.5) (May.2014)
+** sqlite3.c  (3.8.5) (June.2014)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2014
 ** The original author disclaimed copyright to this source code.
@@ -31,7 +31,7 @@
 ** The code for the "sqlite3" command-line shell is also in a separate file.
 ** This file contains only code for the core SQLite library.
 **
-** This amalgamation was generated on 2014-04-21.
+** This amalgamation was generated on 2014-06-01.
 **
 ** http://www.sqlite.org/download.html
 */
@@ -238,7 +238,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.5"
 #define SQLITE_VERSION_NUMBER 3008005
-#define SQLITE_SOURCE_ID      "2014-05-07 15:46:04 1a0d7d3d9dd54b783e3a805961287dd01f94770c"
+#define SQLITE_SOURCE_ID      "2014-06-02 11:26:33 9f18b303cd1bc5779d82669884f802c7889b4947"
 
 /*
 ** Run-Time Library Version Numbers
@@ -544,6 +544,7 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_HAS_MOVED              20
 #define SQLITE_FCNTL_SYNC                   21
 #define SQLITE_FCNTL_COMMIT_PHASETWO        22
+#define SQLITE_FCNTL_WIN32_SET_HANDLE       23
 
 /*
 ** Mutex Handle
@@ -3461,6 +3462,7 @@ SQLITE_PRIVATE void sqlite3BtreeIncrblobCursor(BtCursor *);
 SQLITE_PRIVATE void sqlite3BtreeClearCursor(BtCursor *);
 SQLITE_PRIVATE int sqlite3BtreeSetVersion(Btree *pBt, int iVersion);
 SQLITE_PRIVATE void sqlite3BtreeCursorHints(BtCursor *, unsigned int mask);
+SQLITE_PRIVATE int sqlite3BtreeIsReadonly(Btree *pBt);
 
 #ifndef NDEBUG
 SQLITE_PRIVATE int sqlite3BtreeCursorIsValid(BtCursor*);
@@ -5438,7 +5440,7 @@ struct Index {
   u16 nKeyCol;             /* Number of columns forming the key */
   u16 nColumn;             /* Number of columns stored in the index */
   u8 onError;              /* OE_Abort, OE_Ignore, OE_Replace, or OE_None */
-  unsigned autoIndex:2;    /* 1==UNIQUE, 2==PRIMARY KEY, 0==CREATE INDEX */
+  unsigned idxType:2;      /* 1==UNIQUE, 2==PRIMARY KEY, 0==CREATE INDEX */
   unsigned bUnordered:1;   /* Use this index for == or IN queries only */
   unsigned uniqNotNull:1;  /* True if UNIQUE and NOT NULL for all columns */
   unsigned isResized:1;    /* True if resizeIndexObject() has been called */
@@ -5450,6 +5452,16 @@ struct Index {
   IndexSample *aSample;    /* Samples of the left-most key */
 #endif
 };
+
+/*
+** Allowed values for Index.idxType
+*/
+#define SQLITE_IDXTYPE_APPDEF      0   /* Created using CREATE INDEX */
+#define SQLITE_IDXTYPE_UNIQUE      1   /* Implements a UNIQUE constraint */
+#define SQLITE_IDXTYPE_PRIMARYKEY  2   /* Is the PRIMARY KEY for the table */
+
+/* Return true if index X is a PRIMARY KEY index */
+#define IsPrimaryKeyIndex(X)  ((X)->idxType==SQLITE_IDXTYPE_PRIMARYKEY)
 
 /*
 ** Each sample stored in the sqlite_stat3 table is represented in memory
@@ -6313,11 +6325,10 @@ struct Sqlite3Config {
   int isMutexInit;                  /* True after mutexes are initialized */
   int isMallocInit;                 /* True after malloc is initialized */
   int isPCacheInit;                 /* True after malloc is initialized */
-  sqlite3_mutex *pInitMutex;        /* Mutex used by sqlite3_initialize() */
   int nRefInitMutex;                /* Number of users of pInitMutex */
+  sqlite3_mutex *pInitMutex;        /* Mutex used by sqlite3_initialize() */
   void (*xLog)(void*,int,const char*); /* Function for logging */
   void *pLogArg;                       /* First argument to xLog() */
-  int bLocaltimeFault;              /* True to fail localtime() calls */
 #ifdef SQLITE_ENABLE_SQLLOG
   void(*xSqllog)(void*,sqlite3*,const char*, int);
   void *pSqllogArg;
@@ -6329,6 +6340,10 @@ struct Sqlite3Config {
   void (*xVdbeBranch)(void*,int iSrcLine,u8 eThis,u8 eMx);  /* Callback */
   void *pVdbeBranchArg;                                     /* 1st argument */
 #endif
+#ifndef SQLITE_OMIT_BUILTIN_TEST
+  int (*xTestCallback)(int);        /* Invoked by sqlite3FaultSim() */
+#endif
+  int bLocaltimeFault;              /* True to fail localtime() calls */
 };
 
 /*
@@ -6625,6 +6640,12 @@ SQLITE_PRIVATE int sqlite3ParseUri(const char*,const char*,unsigned int*,
                     sqlite3_vfs**,char**,char **);
 SQLITE_PRIVATE Btree *sqlite3DbNameToBtree(sqlite3*,const char*);
 SQLITE_PRIVATE int sqlite3CodeOnce(Parse *);
+
+#ifdef SQLITE_OMIT_BUILTIN_TEST
+# define sqlite3FaultSim(X) SQLITE_OK
+#else
+SQLITE_PRIVATE   int sqlite3FaultSim(int);
+#endif
 
 SQLITE_PRIVATE Bitvec *sqlite3BitvecCreate(u32);
 SQLITE_PRIVATE int sqlite3BitvecTest(Bitvec*, u32);
@@ -7427,15 +7448,22 @@ SQLITE_PRIVATE SQLITE_WSD struct Sqlite3Config sqlite3Config = {
    0,                         /* isMutexInit */
    0,                         /* isMallocInit */
    0,                         /* isPCacheInit */
-   0,                         /* pInitMutex */
    0,                         /* nRefInitMutex */
+   0,                         /* pInitMutex */
    0,                         /* xLog */
    0,                         /* pLogArg */
-   0,                         /* bLocaltimeFault */
 #ifdef SQLITE_ENABLE_SQLLOG
    0,                         /* xSqllog */
-   0                          /* pSqllogArg */
+   0,                         /* pSqllogArg */
 #endif
+#ifdef SQLITE_VDBE_COVERAGE
+   0,                         /* xVdbeBranch */
+   0,                         /* pVbeBranchArg */
+#endif
+#ifndef SQLITE_OMIT_BUILTIN_TEST
+   0,                         /* xTestCallback */
+#endif
+   0                          /* bLocaltimeFault */
 };
 
 /*
@@ -10972,6 +11000,56 @@ SQLITE_PRIVATE sqlite3_mutex_methods const *sqlite3DefaultMutex(void){
 *************************************************************************
 ** This file contains the C functions that implement mutexes for win32
 */
+#if SQLITE_OS_WIN
+/*
+** Include the header file for the Windows VFS.
+*/
+/************** Include os_win.h in the middle of mutex_w32.c ****************/
+/************** Begin file os_win.h ******************************************/
+/*
+** 2013 November 25
+**
+** The author disclaims copyright to this source code.
+**
+******************************************************************************
+**
+** This file contains code that is specific to Windows.
+*/
+#ifndef _OS_WIN_H_
+#define _OS_WIN_H_
+
+/*
+** Include the primary Windows SDK header file.
+*/
+#include "windows.h"
+
+#ifdef __CYGWIN__
+# include <sys/cygwin.h>
+# include <errno.h> /* amalgamator: dontcache */
+#endif
+
+/*
+** Determine if we are dealing with Windows NT.
+*/
+#if SQLITE_OS_WIN && !defined(SQLITE_OS_WINNT)
+#define SQLITE_OS_WINNT 1
+#endif
+
+/*
+** Determine if we are dealing with Windows CE - which has a much reduced API.
+*/
+#define SQLITE_OS_WINCE 0
+
+/*
+** Determine if we are dealing with WinRT, which provides only a subset of the full Win32 API.
+*/
+#define SQLITE_OS_WINRT 0
+
+#endif /* _OS_WIN_H_ */
+
+/************** End of os_win.h **********************************************/
+/************** Continuing where we left off in mutex_w32.c ******************/
+#endif
 
 /*
 ** The code in this file is only used if we are compiling multithreaded on a win32 system.
@@ -12798,6 +12876,7 @@ static int sqlite3StrAccumEnlarge(StrAccum *p, int N){
       zNew = sqlite3_realloc(zOld, p->nAlloc);
     }
     if( zNew ){
+      assert( p->zText!=0 || p->nChar==0 );
       if( zOld==0 && p->nChar>0 ) memcpy(zNew, p->zText, p->nChar);
       p->zText = zNew;
     }else{
@@ -13755,6 +13834,23 @@ SQLITE_PRIVATE void sqlite3UtfSelfTest(void){
 SQLITE_PRIVATE void sqlite3Coverage(int x){
   static unsigned dummy = 0;
   dummy += (unsigned)x;
+}
+#endif
+
+/*
+** Give a callback to the test harness that can be used to simulate faults
+** in places where it is difficult or expensive to do so purely by means of inputs.
+**
+** The intent of the integer argument is to let the fault simulator know
+** which of multiple sqlite3FaultSim() calls has been hit.
+**
+** Return whatever integer value the test callback returns, or return
+** SQLITE_OK if no test callback is installed.
+*/
+#ifndef SQLITE_OMIT_BUILTIN_TEST
+SQLITE_PRIVATE int sqlite3FaultSim(int iTest){
+  int (*xCallback)(int) = sqlite3GlobalConfig.xTestCallback;
+  return xCallback ? xCallback(iTest) : SQLITE_OK;
 }
 #endif
 
@@ -18144,7 +18240,7 @@ static int winGetReadLock(winFile *pFile){
     pFile->lastErrno = osGetLastError();
     /* No need to log a failure to lock */
   }
-  OSTRACE(("READ-LOCK file=%p, rc=%s\n", pFile->h, sqlite3ErrName(res)));
+  OSTRACE(("READ-LOCK file=%p, result=%d\n", pFile->h, res));
   return res;
 }
 
@@ -18168,7 +18264,7 @@ static int winUnlockReadLock(winFile *pFile){
     winLogError(SQLITE_IOERR_UNLOCK, pFile->lastErrno,
                 "winUnlockReadLock", pFile->zPath);
   }
-  OSTRACE(("READ-UNLOCK file=%p, rc=%s\n", pFile->h, sqlite3ErrName(res)));
+  OSTRACE(("READ-UNLOCK file=%p, result=%d\n", pFile->h, res));
   return res;
 }
 
@@ -18242,8 +18338,16 @@ static int winLock(sqlite3_file *id, int locktype){
       ** If you are using this code as a model for alternative VFSes, do not
       ** copy this retry logic.  It is a hack intended for Windows only.
       */
-      OSTRACE(("LOCK-PENDING-FAIL file=%p, count=%d, rc=%s\n",
-               pFile->h, cnt, sqlite3ErrName(res)));
+      lastErrno = osGetLastError();
+      OSTRACE(("LOCK-PENDING-FAIL file=%p, count=%d, result=%d\n",
+               pFile->h, cnt, res));
+      if( lastErrno==ERROR_INVALID_HANDLE ){
+        pFile->lastErrno = lastErrno;
+        rc = SQLITE_IOERR_LOCK;
+        OSTRACE(("LOCK-FAIL file=%p, count=%d, rc=%s\n",
+                 pFile->h, cnt, sqlite3ErrName(rc)));
+        return rc;
+      }
       if( cnt ) sqlite3_win32_sleep(1);
     }
     gotPendingLock = res;
@@ -18327,7 +18431,7 @@ static int winLock(sqlite3_file *id, int locktype){
 ** non-zero, otherwise zero.
 */
 static int winCheckReservedLock(sqlite3_file *id, int *pResOut){
-  int rc;
+  int res;
   winFile *pFile = (winFile*)id;
 
   SimulateIOError( return SQLITE_IOERR_CHECKRESERVEDLOCK; );
@@ -18335,17 +18439,17 @@ static int winCheckReservedLock(sqlite3_file *id, int *pResOut){
 
   assert( id!=0 );
   if( pFile->locktype>=RESERVED_LOCK ){
-    rc = 1;
-    OSTRACE(("TEST-WR-LOCK file=%p, rc=%d (local)\n", pFile->h, rc));
+    res = 1;
+    OSTRACE(("TEST-WR-LOCK file=%p, result=%d (local)\n", pFile->h, res));
   }else{
-    rc = winLockFile(&pFile->h, SQLITE_LOCKFILEEX_FLAGS,RESERVED_BYTE, 0, 1, 0);
-    if( rc ){
+    res = winLockFile(&pFile->h, SQLITE_LOCKFILEEX_FLAGS,RESERVED_BYTE, 0, 1, 0);
+    if( res ){
       winUnlockFile(&pFile->h, RESERVED_BYTE, 0, 1, 0);
     }
-    rc = !rc;
-    OSTRACE(("TEST-WR-LOCK file=%p, rc=%d (remote)\n", pFile->h, rc));
+    res = !res;
+    OSTRACE(("TEST-WR-LOCK file=%p, result=%d (remote)\n", pFile->h, res));
   }
-  *pResOut = rc;
+  *pResOut = res;
   OSTRACE(("TEST-WR-LOCK file=%p, pResOut=%p, *pResOut=%d, rc=SQLITE_OK\n",
            pFile->h, pResOut, *pResOut));
   return SQLITE_OK;
@@ -18486,6 +18590,17 @@ static int winFileControl(sqlite3_file *id, int op, void *pArg){
       OSTRACE(("FCNTL file=%p, rc=SQLITE_OK\n", pFile->h));
       return SQLITE_OK;
     }
+#ifdef SQLITE_TEST
+    case SQLITE_FCNTL_WIN32_SET_HANDLE: {
+      LPHANDLE phFile = (LPHANDLE)pArg;
+      HANDLE hOldFile = pFile->h;
+      pFile->h = *phFile;
+      *phFile = hOldFile;
+      OSTRACE(("FCNTL oldFile=%p, newFile=%p, rc=SQLITE_OK\n",
+               hOldFile, pFile->h));
+      return SQLITE_OK;
+    }
+#endif
     case SQLITE_FCNTL_TEMPFILENAME: {
       char *zTFile = 0;
       int rc = winGetTempname(pFile->pVfs, &zTFile);
@@ -37168,12 +37283,6 @@ static const void *fetchPayload(
   assert( cursorHoldsMutex(pCur) );
   assert( pCur->aiIdx[pCur->iPage]<pCur->apPage[pCur->iPage]->nCell );
   assert( pCur->info.nSize>0 );
-#if 0
-  if( pCur->info.nSize==0 ){
-    btreeParseCell(pCur->apPage[pCur->iPage], pCur->aiIdx[pCur->iPage],
-                   &pCur->info);
-  }
-#endif
   *pAmt = pCur->info.nLocal;
   return (void*)(pCur->info.pCell + pCur->info.nHeader);
 }
@@ -41359,6 +41468,13 @@ SQLITE_PRIVATE int sqlite3BtreeSetVersion(Btree *pBtree, int iVersion){
 SQLITE_PRIVATE void sqlite3BtreeCursorHints(BtCursor *pCsr, unsigned int mask){
   assert( mask==BTREE_BULKLOAD || mask==0 );
   pCsr->hints = mask;
+}
+
+/*
+** Return true if the given Btree is read-only.
+*/
+SQLITE_PRIVATE int sqlite3BtreeIsReadonly(Btree *p){
+  return (p->pBt->btsFlags & BTS_READ_ONLY)!=0;
 }
 
 /************** End of btree.c ***********************************************/
@@ -55444,7 +55560,7 @@ case OP_Init: {          /* jump */
   if( zTrace ){
     int i;
     for(i=0; i<db->nDb; i++){
-      if( MASKBIT(i) & p->btreeMask)==0 ) continue;
+      if( (MASKBIT(i) & p->btreeMask)==0 ) continue;
       sqlite3_file_control(db, db->aDb[i].zName, SQLITE_FCNTL_TRACE, zTrace);
     }
   }
@@ -56312,7 +56428,6 @@ static int vdbeSorterIterInit(
       rc = sqlite3OsRead(
           pSorter->pTemp1, &pIter->aBuffer[iBuf], nRead, iStart
       );
-      assert( rc!=SQLITE_IOERR_SHORT_READ );
     }
 
     if( rc==SQLITE_OK ){
@@ -65030,7 +65145,7 @@ static void analyzeOneTable(
     if( aGotoChng==0 ) continue;
 
     /* Populate the register containing the index name. */
-    if( pIdx->autoIndex==2 && !HasRowid(pTab) ){
+    if( IsPrimaryKeyIndex(pIdx) && !HasRowid(pTab) ){
       zIdxName = pTab->zName;
     }else{
       zIdxName = pIdx->zName;
@@ -67330,7 +67445,7 @@ SQLITE_PRIVATE int sqlite3CheckObjectName(Parse *pParse, const char *zName){
 */
 SQLITE_PRIVATE Index *sqlite3PrimaryKeyIndex(Table *pTab){
   Index *p;
-  for(p=pTab->pIndex; p && p->autoIndex!=2; p=p->pNext){}
+  for(p=pTab->pIndex; p && !IsPrimaryKeyIndex(p); p=p->pNext){}
   return p;
 }
 
@@ -67852,7 +67967,7 @@ SQLITE_PRIVATE void sqlite3AddPrimaryKey(
     p = sqlite3CreateIndex(pParse, 0, 0, 0, pList, onError, 0,
                            0, sortOrder, 0);
     if( p ){
-      p->autoIndex = 2;
+      p->idxType = SQLITE_IDXTYPE_PRIMARYKEY;
       if( v ) sqlite3VdbeJumpHere(v, pParse->addrSkipPK);
     }
     pList = 0;
@@ -67872,7 +67987,10 @@ SQLITE_PRIVATE void sqlite3AddCheckConstraint(
 ){
 #ifndef SQLITE_OMIT_CHECK
   Table *pTab = pParse->pNewTable;
-  if( pTab && !IN_DECLARE_VTAB ){
+  sqlite3 *db = pParse->db;
+  if( pTab && !IN_DECLARE_VTAB
+   && !sqlite3BtreeIsReadonly(db->aDb[db->init.iDb].pBt)
+  ){
     pTab->pCheck = sqlite3ExprListAppend(pParse, pTab->pCheck, pCheckExpr);
     if( pParse->constraintName.n ){
       sqlite3ExprListSetName(pParse, pTab->pCheck, &pParse->constraintName, 1);
@@ -68221,7 +68339,7 @@ static void convertToWithoutRowidTable(Parse *pParse, Table *pTab){
     assert( pParse->pNewTable==pTab );
     pPk = sqlite3CreateIndex(pParse, 0, 0, 0, pList, pTab->keyConf, 0, 0, 0, 0);
     if( pPk==0 ) return;
-    pPk->autoIndex = 2;
+    pPk->idxType = SQLITE_IDXTYPE_PRIMARYKEY;
     pTab->iPKey = -1;
   }else{
     pPk = sqlite3PrimaryKeyIndex(pTab);
@@ -68244,7 +68362,7 @@ static void convertToWithoutRowidTable(Parse *pParse, Table *pTab){
   */
   for(pIdx=pTab->pIndex; pIdx; pIdx=pIdx->pNext){
     int n;
-    if( pIdx->autoIndex==2 ) continue;
+    if( IsPrimaryKeyIndex(pIdx) ) continue;
     for(i=n=0; i<nPk; i++){
       if( !hasColumn(pIdx->aiColumn, pIdx->nKeyCol, pPk->aiColumn[i]) ) n++;
     }
@@ -69513,7 +69631,7 @@ SQLITE_PRIVATE Index *sqlite3CreateIndex(
   pIndex->pTable = pTab;
   pIndex->onError = (u8)onError;
   pIndex->uniqNotNull = onError!=OE_None;
-  pIndex->autoIndex = (u8)(pName==0);
+  pIndex->idxType = pName ? SQLITE_IDXTYPE_APPDEF : SQLITE_IDXTYPE_UNIQUE;
   pIndex->pSchema = db->aDb[iDb].pSchema;
   pIndex->nKeyCol = pList->nExpr;
   if( pPIWhere ){
@@ -69625,7 +69743,7 @@ SQLITE_PRIVATE Index *sqlite3CreateIndex(
     for(pIdx=pTab->pIndex; pIdx; pIdx=pIdx->pNext){
       int k;
       assert( pIdx->onError!=OE_None );
-      assert( pIdx->autoIndex );
+      assert( pIdx->idxType!=SQLITE_IDXTYPE_APPDEF );
       assert( pIndex->onError!=OE_None );
 
       if( pIdx->nKeyCol!=pIndex->nKeyCol ) continue;
@@ -69848,7 +69966,7 @@ SQLITE_PRIVATE void sqlite3DropIndex(Parse *pParse, SrcList *pName, int ifExists
     pParse->checkSchema = 1;
     goto exit_drop_index;
   }
-  if( pIndex->autoIndex ){
+  if( pIndex->idxType!=SQLITE_IDXTYPE_APPDEF ){
     sqlite3ErrorMsg(pParse, "index associated with UNIQUE "
       "or PRIMARY KEY constraint cannot be dropped", 0);
     goto exit_drop_index;
@@ -70500,7 +70618,8 @@ SQLITE_PRIVATE void sqlite3UniqueConstraint(
   }
   zErr = sqlite3StrAccumFinish(&errMsg);
   sqlite3HaltConstraint(pParse,
-    (pIdx->autoIndex==2)?SQLITE_CONSTRAINT_PRIMARYKEY:SQLITE_CONSTRAINT_UNIQUE,
+    IsPrimaryKeyIndex(pIdx) ? SQLITE_CONSTRAINT_PRIMARYKEY
+                            : SQLITE_CONSTRAINT_UNIQUE,
     onError, zErr, P4_DYNAMIC, P5_ConstraintUnique);
 }
 
@@ -73575,7 +73694,7 @@ static void groupConcatStep(
     }
     zVal = (char*)sqlite3_value_text(argv[0]);
     nVal = sqlite3_value_bytes(argv[0]);
-    if( nVal ) sqlite3StrAccumAppend(pAccum, zVal, nVal);
+    if( zVal ) sqlite3StrAccumAppend(pAccum, zVal, nVal);
   }
 }
 static void groupConcatFinalize(sqlite3_context *context){
@@ -73888,8 +74007,8 @@ SQLITE_PRIVATE int sqlite3FkLocateIndex(
       if( zKey==0 ){
         /* If zKey is NULL, then this foreign key is implicitly mapped to
         ** the PRIMARY KEY of table pParent. The PRIMARY KEY index may be
-        ** identified by the test (Index.autoIndex==2).  */
-        if( pIdx->autoIndex==2 ){
+        ** identified by the test.  */
+        if( IsPrimaryKeyIndex(pIdx) ){
           if( aiCol ){
             int i;
             for(i=0; i<nCol; i++) aiCol[i] = pFKey->aCol[i].iFrom;
@@ -75525,6 +75644,7 @@ SQLITE_PRIVATE void sqlite3Insert(
       if( j>=pTab->nCol ){
         if( sqlite3IsRowid(pColumn->a[i].zName) && !withoutRowid ){
           ipkColumn = i;
+          bIdListInOrder = 0;
         }else{
           sqlite3ErrorMsg(pParse, "table %S has no column named %s",
               pTabList, 0, pColumn->a[i].zName);
@@ -76328,7 +76448,7 @@ SQLITE_PRIVATE void sqlite3GenerateConstraintChecks(
           ** KEY values of this row before the update.  */
           int addrJump = sqlite3VdbeCurrentAddr(v)+pPk->nKeyCol;
           int op = OP_Ne;
-          int regCmp = (pIdx->autoIndex==2 ? regIdx : regR);
+          int regCmp = (IsPrimaryKeyIndex(pIdx) ? regIdx : regR);
 
           for(i=0; i<pPk->nKeyCol; i++){
             char *p4 = (char*)sqlite3LocateCollSeq(pParse, pPk->azColl[i]);
@@ -76429,7 +76549,7 @@ SQLITE_PRIVATE void sqlite3CompleteInsertion(
     sqlite3VdbeAddOp2(v, OP_IdxInsert, iIdxCur+i, aRegIdx[i]);
     pik_flags = 0;
     if( useSeekResult ) pik_flags = OPFLAG_USESEEKRESULT;
-    if( pIdx->autoIndex==2 && !HasRowid(pTab) ){
+    if( IsPrimaryKeyIndex(pIdx) && !HasRowid(pTab) ){
       assert( pParse->nested==0 );
       pik_flags |= OPFLAG_NCHANGE;
     }
@@ -76515,7 +76635,7 @@ SQLITE_PRIVATE int sqlite3OpenTableAndIndices(
   for(i=0, pIdx=pTab->pIndex; pIdx; pIdx=pIdx->pNext, i++){
     int iIdxCur = iBase++;
     assert( pIdx->pSchema==pTab->pSchema );
-    if( pIdx->autoIndex==2 && !HasRowid(pTab) && piDataCur ){
+    if( IsPrimaryKeyIndex(pIdx) && !HasRowid(pTab) && piDataCur ){
       *piDataCur = iIdxCur;
     }
     if( aToOpen==0 || aToOpen[i+1] ){
@@ -85741,10 +85861,11 @@ static void explainSimpleCount(
   Index *pIdx                     /* Index used to optimize scan, or NULL */
 ){
   if( pParse->explain==2 ){
+    int bCover = (pIdx!=0 && (HasRowid(pTab) || !IsPrimaryKeyIndex(pIdx)));
     char *zEqp = sqlite3MPrintf(pParse->db, "SCAN TABLE %s%s%s",
         pTab->zName,
-        pIdx ? " USING COVERING INDEX " : "",
-        pIdx ? pIdx->zName : ""
+        bCover ? " USING COVERING INDEX " : "",
+        bCover ? pIdx->zName : ""
     );
     sqlite3VdbeAddOp4(
         pParse->pVdbe, OP_Explain, pParse->iSelectId, 0, 0, zEqp, P4_DYNAMIC
@@ -88133,7 +88254,7 @@ SQLITE_PRIVATE void sqlite3Update(
   iIdxCur = iDataCur+1;
   pPk = HasRowid(pTab) ? 0 : sqlite3PrimaryKeyIndex(pTab);
   for(nIdx=0, pIdx=pTab->pIndex; pIdx; pIdx=pIdx->pNext, nIdx++){
-    if( pIdx->autoIndex==2 && pPk!=0 ){
+    if( IsPrimaryKeyIndex(pIdx) && pPk!=0 ){
       iDataCur = pParse->nTab;
       pTabList->a[0].iCursor = iDataCur;
     }
@@ -93241,13 +93362,20 @@ static void explainOneScan(
     if( (flags & (WHERE_IPK|WHERE_VIRTUALTABLE))==0
      && ALWAYS(pLoop->u.btree.pIndex!=0)
     ){
+      const char *zFmt;
+      Index *pIdx = pLoop->u.btree.pIndex;
       char *zWhere = explainIndexRange(db, pLoop, pItem->pTab);
-      zMsg = sqlite3MAppendf(db, zMsg,
-               ((flags & WHERE_AUTO_INDEX) ?
-                   "%s USING AUTOMATIC %sINDEX%.0s%s" :
-                   "%s USING %sINDEX %s%s"),
-               zMsg, ((flags & WHERE_IDX_ONLY) ? "COVERING " : ""),
-               pLoop->u.btree.pIndex->zName, zWhere);
+      assert( !(flags&WHERE_AUTO_INDEX) || (flags&WHERE_IDX_ONLY) );
+      if( !HasRowid(pItem->pTab) && IsPrimaryKeyIndex(pIdx) ){
+        zFmt = zWhere ? "%s USING PRIMARY KEY%.0s%s" : "%s%.0s%s";
+      }else if( flags & WHERE_AUTO_INDEX ){
+        zFmt = "%s USING AUTOMATIC COVERING INDEX%.0s%s";
+      }else if( flags & WHERE_IDX_ONLY ){
+        zFmt = "%s USING COVERING INDEX %s%s";
+      }else{
+        zFmt = "%s USING INDEX %s%s";
+      }
+      zMsg = sqlite3MAppendf(db, zMsg, zFmt, zMsg, pIdx->zName, zWhere);
       sqlite3DbFree(db, zWhere);
     }else if( (flags & WHERE_IPK)!=0 && (flags & WHERE_CONSTRAINT)!=0 ){
       zMsg = sqlite3MAppendf(db, zMsg, "%s USING INTEGER PRIMARY KEY", zMsg);
@@ -93735,7 +93863,7 @@ static Bitmask codeOneLoopStart(
       sqlite3VdbeAddOp2(v, OP_IdxRowid, iIdxCur, iRowidReg);
       sqlite3ExprCacheStore(pParse, iCur, -1, iRowidReg);
       sqlite3VdbeAddOp2(v, OP_Seek, iCur, iRowidReg);  /* Deferred seek */
-    }else{
+    }else if( iCur!=iIdxCur ){
       Index *pPk = sqlite3PrimaryKeyIndex(pIdx->pTable);
       iRowidReg = sqlite3GetTempRange(pParse, pPk->nKeyCol);
       for(j=0; j<pPk->nKeyCol; j++){
@@ -93819,6 +93947,7 @@ static Bitmask codeOneLoopStart(
     int untestedTerms = 0;             /* Some terms not completely tested */
     int ii;                            /* Loop counter */
     Expr *pAndExpr = 0;                /* An ".. AND (...)" expression */
+    Table *pTab = pTabItem->pTab;
 
     pTerm = pLoop->aLTerm[0];
     assert( pTerm!=0 );
@@ -93862,9 +93991,16 @@ static Bitmask codeOneLoopStart(
     ** called on an uninitialized cursor.
     */
     if( (pWInfo->wctrlFlags & WHERE_DUPLICATES_OK)==0 ){
-      regRowset = ++pParse->nMem;
+      if( HasRowid(pTab) ){
+        regRowset = ++pParse->nMem;
+        sqlite3VdbeAddOp2(v, OP_Null, 0, regRowset);
+      }else{
+        Index *pPk = sqlite3PrimaryKeyIndex(pTab);
+        regRowset = pParse->nTab++;
+        sqlite3VdbeAddOp2(v, OP_OpenEphemeral, regRowset, pPk->nKeyCol);
+        sqlite3VdbeSetP4KeyInfo(pParse, pPk);
+      }
       regRowid = ++pParse->nMem;
-      sqlite3VdbeAddOp2(v, OP_Null, 0, regRowset);
     }
     iRetInit = sqlite3VdbeAddOp2(v, OP_Integer, 0, regReturn);
 
@@ -93902,8 +94038,9 @@ static Bitmask codeOneLoopStart(
     for(ii=0; ii<pOrWc->nTerm; ii++){
       WhereTerm *pOrTerm = &pOrWc->a[ii];
       if( pOrTerm->leftCursor==iCur || (pOrTerm->eOperator & WO_AND)!=0 ){
-        WhereInfo *pSubWInfo;          /* Info for single OR-term scan */
-        Expr *pOrExpr = pOrTerm->pExpr;
+        WhereInfo *pSubWInfo;           /* Info for single OR-term scan */
+        Expr *pOrExpr = pOrTerm->pExpr; /* Current OR clause term */
+        int j1 = 0;                     /* Address of jump operation */
         if( pAndExpr && !ExprHasProperty(pOrExpr, EP_FromJoin) ){
           pAndExpr->pLeft = pOrExpr;
           pOrExpr = pAndExpr;
@@ -93919,15 +94056,55 @@ static Bitmask codeOneLoopStart(
               pParse, pOrTab, &pSubWInfo->a[0], iLevel, pLevel->iFrom, 0
           );
           if( (pWInfo->wctrlFlags & WHERE_DUPLICATES_OK)==0 ){
-            int iSet = ((ii==pOrWc->nTerm-1)?-1:ii);
             int r;
-            r = sqlite3ExprCodeGetColumn(pParse, pTabItem->pTab, -1, iCur,
-                                         regRowid, 0);
-            sqlite3VdbeAddOp4Int(v, OP_RowSetTest, regRowset,
-                                 sqlite3VdbeCurrentAddr(v)+2, r, iSet);
-            VdbeCoverage(v);
+            int iSet = ((ii==pOrWc->nTerm-1)?-1:ii);
+            if( HasRowid(pTab) ){
+              r = sqlite3ExprCodeGetColumn(pParse, pTab, -1, iCur, regRowid, 0);
+              j1 = sqlite3VdbeAddOp4Int(v, OP_RowSetTest, regRowset, 0, r,iSet);
+              VdbeCoverage(v);
+            }else{
+              Index *pPk = sqlite3PrimaryKeyIndex(pTab);
+              int nPk = pPk->nKeyCol;
+              int iPk;
+
+              /* Read the PK into an array of temp registers. */
+              r = sqlite3GetTempRange(pParse, nPk);
+              for(iPk=0; iPk<nPk; iPk++){
+                int iCol = pPk->aiColumn[iPk];
+                sqlite3ExprCodeGetColumn(pParse, pTab, iCol, iCur, r+iPk, 0);
+              }
+
+              /* Check if the temp table already contains this key. If so,
+              ** the row has already been included in the result set and
+              ** can be ignored (by jumping past the Gosub below). Otherwise,
+              ** insert the key into the temp table and proceed with processing the row.
+              **
+              ** Use some of the same optimizations as OP_RowSetTest: If iSet
+              ** is zero, assume that the key cannot already be present in
+              ** the temp table. And if iSet is -1, assume that there is no
+              ** need to insert the key into the temp table, as it will never
+              ** be tested for.  */
+              if( iSet ){
+                j1 = sqlite3VdbeAddOp4Int(v, OP_Found, regRowset, 0, r, nPk);
+                VdbeCoverage(v);
+              }
+              if( iSet>=0 ){
+                sqlite3VdbeAddOp3(v, OP_MakeRecord, r, nPk, regRowid);
+                sqlite3VdbeAddOp3(v, OP_IdxInsert, regRowset, regRowid, 0);
+                if( iSet ) sqlite3VdbeChangeP5(v, OPFLAG_USESEEKRESULT);
+              }
+
+              /* Release the array of temp registers */
+              sqlite3ReleaseTempRange(pParse, r, nPk);
+            }
           }
+
+          /* Invoke the main loop body as a subroutine */
           sqlite3VdbeAddOp2(v, OP_Gosub, regReturn, iLoopBody);
+
+          /* Jump here (skipping the main loop body subroutine) if the
+          ** current sub-WHERE row is a duplicate from prior sub-WHEREs. */
+          if( j1 ) sqlite3VdbeJumpHere(v, j1);
 
           /* The pSubWInfo->untestedTerms flag means that this OR term
           ** contained one or more AND term from a notReady table.  The
@@ -93952,6 +94129,7 @@ static Bitmask codeOneLoopStart(
           assert( (pSubLoop->wsFlags & WHERE_AUTO_INDEX)==0 );
           if( (pSubLoop->wsFlags & WHERE_INDEXED)!=0
            && (ii==0 || pSubLoop->u.btree.pIndex==pCov)
+           && (HasRowid(pTab) || !IsPrimaryKeyIndex(pSubLoop->u.btree.pIndex))
           ){
             assert( pSubWInfo->a[0].iIdxCur==iCovCur );
             pCov = pSubLoop->u.btree.pIndex;
@@ -94278,7 +94456,7 @@ static int whereLoopCheaperProperSubset(
     if( pX->rRun > pY->rRun ) return 0;    /* X costs more than Y */
     if( pX->nOut > pY->nOut ) return 0;    /* X costs more than Y */
   }
-  for(j=0, i=pX->nLTerm-1; i>=0; i--){
+  for(i=pX->nLTerm-1; i>=0; i--){
     for(j=pY->nLTerm-1; j>=0; j--){
       if( pY->aLTerm[j]==pX->aLTerm[i] ) break;
     }
@@ -94711,7 +94889,7 @@ static int whereLoopAddBtreeIndex(
         pNew->wsFlags |= WHERE_LIKELIHOOD;
       }else{
 #ifdef SQLITE_ENABLE_STAT3_OR_STAT4
-       tRowcnt nOut = 0;
+        tRowcnt nOut = 0;
         if( nInMul==0
          && pProbe->nSample
          && pNew->u.btree.nEq<=pProbe->nSampleCol
@@ -95174,8 +95352,7 @@ static int whereLoopAddVirtual(
           /* A virtual table that is constrained by an IN clause may not
           ** consume the ORDER BY clause because (1) the order of IN terms
           ** is not necessarily related to the order of output terms and
-          ** (2) Multiple outputs from a single IN value will not merge
-          ** together.  */
+          ** (2) Multiple outputs from a single IN value will not merge together.  */
           pIdxInfo->orderByConsumed = 0;
         }
       }
@@ -95229,7 +95406,6 @@ static int whereLoopAddOr(WhereLoopBuilder *pBuilder, Bitmask mExtra){
   pNew = pBuilder->pNew;
   memset(&sSum, 0, sizeof(sSum));
   pItem = pWInfo->pTabList->a + pNew->iTab;
-  if( !HasRowid(pItem->pTab) ) return SQLITE_OK;
   iCur = pItem->iCursor;
 
   for(pTerm=pWC->a; pTerm<pWCEnd && rc==SQLITE_OK; pTerm++){
@@ -95434,14 +95610,6 @@ static i8 wherePathSatisfiesOrderBy(
   */
 
   assert( pOrderBy!=0 );
-
-  /* Sortability of virtual tables is determined by the xBestIndex method
-  ** of the virtual table itself */
-  if( pLast->wsFlags & WHERE_VIRTUALTABLE ){
-    testcase( nLoop>0 );  /* True when outer loops are one-row and match
-                          ** no ORDER BY terms */
-    return pLast->u.vtab.isOrdered;
-  }
   if( nLoop && OptimizationDisabled(db, SQLITE_OrderByIdxJoin) ) return 0;
 
   nOrderBy = pOrderBy->nExpr;
@@ -95706,7 +95874,7 @@ static int wherePathSolver(WhereInfo *pWInfo, LogEst nRowEst){
   /* TUNING: For simple queries, only the best path is tracked.
   ** For 2-way joins, the 5 best paths are followed.
   ** For joins of 3 or more tables, track the 10 best paths */
-  mxChoice = (nLoop==1) ? 1 : (nLoop==2 ? 5 : 10);
+  mxChoice = (nLoop<=1) ? 1 : (nLoop==2 ? 5 : 10);
   assert( nLoop<=pWInfo->pTabList->nSrc );
   WHERETRACE(0x002, ("---- begin solver\n"));
 
@@ -95736,7 +95904,7 @@ static int wherePathSolver(WhereInfo *pWInfo, LogEst nRowEst){
     aFrom[0].isOrdered = 0;
     nOrderBy = 0;
   }else{
-    aFrom[0].isOrdered = -1;
+    aFrom[0].isOrdered = nLoop>0 ? -1 : 1;
     nOrderBy = pWInfo->pOrderBy->nExpr;
   }
 
@@ -96425,7 +96593,14 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
       int op = OP_OpenRead;
       /* iIdxCur is always set if to a positive value if ONEPASS is possible */
       assert( iIdxCur!=0 || (pWInfo->wctrlFlags & WHERE_ONEPASS_DESIRED)==0 );
-      if( pWInfo->okOnePass ){
+      if( !HasRowid(pTab) && IsPrimaryKeyIndex(pIx)
+       && (wctrlFlags & WHERE_ONETABLE_ONLY)!=0
+      ){
+        /* This is one term of an OR-optimization using the PRIMARY KEY of a
+        ** WITHOUT ROWID table.  No need for a separate index */
+        iIndexCur = pLevel->iTabCur;
+        op = 0;
+      }else if( pWInfo->okOnePass ){
         Index *pJ = pTabItem->pTab->pIndex;
         iIndexCur = iIdxCur;
         assert( wctrlFlags & WHERE_ONEPASS_DESIRED );
@@ -96443,9 +96618,11 @@ SQLITE_PRIVATE WhereInfo *sqlite3WhereBegin(
       pLevel->iIdxCur = iIndexCur;
       assert( pIx->pSchema==pTab->pSchema );
       assert( iIndexCur>=0 );
-      sqlite3VdbeAddOp3(v, op, iIndexCur, pIx->tnum, iDb);
-      sqlite3VdbeSetP4KeyInfo(pParse, pIx);
-      VdbeComment((v, "%s", pIx->zName));
+      if( op ){
+        sqlite3VdbeAddOp3(v, op, iIndexCur, pIx->tnum, iDb);
+        sqlite3VdbeSetP4KeyInfo(pParse, pIx);
+        VdbeComment((v, "%s", pIx->zName));
+      }
     }
     if( iDb>=0 ) sqlite3CodeVerifySchema(pParse, iDb);
     notReady &= ~getMask(&pWInfo->sMaskSet, pTabItem->iCursor);
@@ -103450,8 +103627,7 @@ SQLITE_API int sqlite3_limit(sqlite3 *db, int limitId, int newLimit){
 
   /* EVIDENCE-OF: R-30189-54097 For each limit category SQLITE_LIMIT_NAME
   ** there is a hard upper bound set at compile-time by a C preprocessor
-  ** macro called SQLITE_MAX_NAME. (The "_LIMIT_" in the name is changed to
-  ** "_MAX_".)
+  ** macro called SQLITE_MAX_NAME. (The "_LIMIT_" in the name is changed to "_MAX_".)
   */
   assert( aHardLimit[SQLITE_LIMIT_LENGTH]==SQLITE_MAX_LENGTH );
   assert( aHardLimit[SQLITE_LIMIT_SQL_LENGTH]==SQLITE_MAX_SQL_LENGTH );
@@ -103461,8 +103637,7 @@ SQLITE_API int sqlite3_limit(sqlite3 *db, int limitId, int newLimit){
   assert( aHardLimit[SQLITE_LIMIT_VDBE_OP]==SQLITE_MAX_VDBE_OP );
   assert( aHardLimit[SQLITE_LIMIT_FUNCTION_ARG]==SQLITE_MAX_FUNCTION_ARG );
   assert( aHardLimit[SQLITE_LIMIT_ATTACHED]==SQLITE_MAX_ATTACHED );
-  assert( aHardLimit[SQLITE_LIMIT_LIKE_PATTERN_LENGTH]==
-                                               SQLITE_MAX_LIKE_PATTERN_LENGTH );
+  assert( aHardLimit[SQLITE_LIMIT_LIKE_PATTERN_LENGTH]==SQLITE_MAX_LIKE_PATTERN_LENGTH );
   assert( aHardLimit[SQLITE_LIMIT_VARIABLE_NUMBER]==SQLITE_MAX_VARIABLE_NUMBER);
   assert( aHardLimit[SQLITE_LIMIT_TRIGGER_DEPTH]==SQLITE_MAX_TRIGGER_DEPTH );
   assert( SQLITE_LIMIT_TRIGGER_DEPTH==(SQLITE_N_LIMIT-1) );
@@ -104466,7 +104641,7 @@ SQLITE_API const char *sqlite3_db_filename(sqlite3 *db, const char *zDbName){
 */
 SQLITE_API int sqlite3_db_readonly(sqlite3 *db, const char *zDbName){
   Btree *pBt = sqlite3DbNameToBtree(db, zDbName);
-  return pBt ? sqlite3PagerIsreadonly(sqlite3BtreePager(pBt)) : -1;
+  return pBt ? sqlite3BtreeIsReadonly(pBt) : -1;
 }
 
 /************** End of main.c ************************************************/

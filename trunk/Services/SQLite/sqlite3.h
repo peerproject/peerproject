@@ -86,7 +86,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.5"
 #define SQLITE_VERSION_NUMBER 3008005
-#define SQLITE_SOURCE_ID      "2014-05-07 15:46:04 1a0d7d3d9dd54b783e3a805961287dd01f94770c"
+#define SQLITE_SOURCE_ID      "2014-06-02 11:26:33 9f18b303cd1bc5779d82669884f802c7889b4947"
 
 /*
 ** Run-Time Library Version Numbers
@@ -391,6 +391,7 @@ struct sqlite3_io_methods {
 #define SQLITE_FCNTL_HAS_MOVED              20
 #define SQLITE_FCNTL_SYNC                   21
 #define SQLITE_FCNTL_COMMIT_PHASETWO        22
+#define SQLITE_FCNTL_WIN32_SET_HANDLE       23
 
 /*
 ** Mutex Handle
