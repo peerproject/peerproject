@@ -503,10 +503,8 @@ BOOL CDownloadWithSources::AddSourceURL(LPCTSTR pszURL, FILETIME* pLastSeen, int
 		return TRUE;
 	}
 
-	if ( AddSource( &pURL, FALSE ) )
-		return FALSE;	// Not match
-
-	return AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ), pszURL, bHashAuth, pLastSeen, nRedirectionCount ) );
+	return	AddSource( &pURL, FALSE ) &&
+			AddSourceInternal( new CDownloadSource( static_cast< const CDownload* >( this ), pszURL, bHashAuth, pLastSeen, nRedirectionCount ) );
 }
 
 //////////////////////////////////////////////////////////////////////
