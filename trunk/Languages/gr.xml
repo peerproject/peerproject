@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3099,10 +3099,10 @@
 	<string id="20556" value="Αδυναμία ανάλυσης host &quot;%s&quot;."/>
 	<string id="20557" value="Ανάλυση host &quot;%s&quot;..."/>
 	<string id="20558" value="Αποστολή αίτησης για &quot;%s&quot; προς %s."/>
-	<string id="20560" value="Η διεύθυνση %s είναι ήδη φραγμένη από τους κανόνες ασφαλείας."/>
-	<string id="20561" value="Προσθήκη κανόνα ασφαλείας για φραγή του %s."/>
-	<string id="20562" value="Ο διαχειριστής ασφαλείας αρνήθηκε την αίτηση σύνδεσης από %s."/>
-	<string id="20563" value="Ο διαχειριστής ασφαλείας εμπόδισε τη σύνδεση προς %s."/>
+	<string id="20560" value="Ο διαχειριστής ασφαλείας αρνήθηκε την αίτηση σύνδεσης από %s."/>
+	<string id="20561" value="Ο διαχειριστής ασφαλείας εμπόδισε τη σύνδεση προς %s."/>
+	<string id="20562" value="Προσθήκη κανόνα ασφαλείας για φραγή του %s."/>
+	<string id="20563" value="Η διεύθυνση %s είναι ήδη φραγμένη από τους κανόνες ασφαλείας."/>
 	<string id="20564" value="Έναρξη δικτυακού πυρήνα PeerProject..."/>
 	<string id="20565" value="Τρέχετε το Scheduler με ‘G2 μόνο’ Θέλετε να κλείσετε τον τρόπο αυτό, έτσι ώστε ολά τα ενεργά δίκτυα να παραμείνουν συνδεδεμένα;"/>
 	<string id="20566" value="Η αντιστοίχηση θυρών UPnP εγκαταλήφθηκε μετά από 10 προσπάθειες."/>

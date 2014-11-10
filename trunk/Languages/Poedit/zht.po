@@ -6020,20 +6020,20 @@ msgstr "正在解析主機 \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "正在傳送 \"%s\" 的詢問至 %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "位址 %s 已經被您設定的安全性規則封鎖了."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "已新增一個安全性規則用來封鎖 %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "安全性管理員拒絕了來自於 %s 的連線."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "安全性管理員禁止了來自於 %s 的連線."
 
 #: string;20564

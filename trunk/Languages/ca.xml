@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3007,10 +3007,10 @@
 	<string id="20556" value="No s'ha pogut resoldre el servidor &quot;%s&quot;."/>
 	<string id="20557" value="Resolent el servidor &quot;%s&quot;..."/>
 	<string id="20558" value="Enviant petició per a &quot;%s&quot; a %s."/>
-	<string id="20560" value="L'adreça %s ja està bloqueada en les teves normes de seguretat."/>
-	<string id="20561" value="Afegeix una norma de seguretat %s."/>
-	<string id="20562" value="El control de seguretat ha denegat la connexió de %s."/>
-	<string id="20563" value="El control de seguretat ha marcat la connexió a %s."/>
+	<string id="20560" value="El control de seguretat ha denegat la connexió de %s."/>
+	<string id="20561" value="El control de seguretat ha marcat la connexió a %s."/>
+	<string id="20562" value="Afegeix una norma de seguretat %s."/>
+	<string id="20563" value="L'adreça %s ja està bloqueada en les teves normes de seguretat."/>
 	<string id="20564" value="Iniciant el nucli de la xarxa..."/>
 	<string id="20566" value="El mapegi de ports UPnP ha fallat després de 10 intents."/>
 	<string id="20570" value="%s ha enviat un paquet de resposta a cerca incorrecta."/>

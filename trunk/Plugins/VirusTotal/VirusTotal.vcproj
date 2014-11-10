@@ -261,7 +261,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
 				ModuleDefinitionFile="VirusTotal.def"
@@ -355,7 +354,6 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
 				ModuleDefinitionFile="VirusTotal.def"

@@ -7,7 +7,7 @@ ___________________________
 
 
 1. Install Visual Studio 2013
-	- http://www.microsoft.com/download/details.aspx?id=42664  (90day Trial)
+	- http://www.microsoft.com/download/details.aspx?id=43730  (90day Trial)
 
    OR Install Visual Studio 2012
 	- http://www.microsoft.com/download/details.aspx?id=30678  (90day Trial)
@@ -23,7 +23,7 @@ ___________________________
 	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
 
 2. Locate this complete PeerProject sourcecode set.
-	- http://peerproject.svn.sourceforge.net/viewvc/peerproject/trunk.tar.gz
+	- https://sourceforge.net/p/peerproject/code/HEAD/tarball?path=/trunk
 	- OR http://github.com/peerproject/peerproject/zipball/master
 	- That's it, there are no external dependencies or setup.
 	- Open \VS20XX\PeerProject.sln and click "Build Solution"
@@ -34,8 +34,9 @@ ___________________________
 Note: Visual Studio Express alternative for Browse/Edit only:
 	- No-Cost Visual C++ Express (Desktop) can be configured for MFC, but some projects STILL FAIL to build.
 
-X. Install Visual C++ Express + Windows SDK + WDK
-	- http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop  (Visual Studio Express 2013 for Desktop)
+X. Install Visual C++ Express (Desktop) + Windows SDK + WDK
+	- http://www.microsoft.com/download/details.aspx?id=43733 (Visual Studio Express 2013 for Desktop)
+	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop
 	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express  (Visual C++ 2010 Express)
 	- http://www.microsoft.com/en-us/download/details.aspx?id=8279  (Win7 SDK)
 	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
@@ -50,7 +51,7 @@ PeerProject License Notes:
 _________________________
 
 
-0. This sourcecode package contains files under many licenses.  READ THEM.
+0. This sourcecode package contains files under many licenses, read them.
 
 
 1. Code is GPL/AGPLv3, except where noted otherwise.

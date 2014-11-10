@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2736,10 +2736,10 @@ gap i newline
 	<string id="20555" value="‪‪%s ‏של‎ %i  ‏מפורט‎ ‏חיבורים יוצאים יהיו"/>
 	<string id="20556" value="‪‪‪...&quot;%s&quot;.לא מצליח לפענח כתובת משתמש"/>
 	<string id="20557" value="‪‪...&quot;%s&quot;.מפענח כתובת משתמש"/>
-	<string id="20560" value="‪‪.כבר חסומה על ידי חוקי האבטחה שלך %s הכתובת"/>
-	<string id="20561" value="‪‪‪.%s הוסף חוק אבטחה לחסימת"/>
-	<string id="20562" value="‪%s מנהל האבטחה מנע חיבור של"/>
-	<string id="20563" value="‪%s מנהל האבטחה בלם חיבור של"/>
+	<string id="20560" value="‪%s מנהל האבטחה מנע חיבור של"/>
+	<string id="20561" value="‪%s מנהל האבטחה בלם חיבור של"/>
+	<string id="20562" value="‪‪‪.%s הוסף חוק אבטחה לחסימת"/>
+	<string id="20563" value="‪‪.כבר חסומה על ידי חוקי האבטחה שלך %s הכתובת"/>
 	<string id="20564" value="‪מאתחל את בסיס הרשת של שרזה..."/>
 	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="20576" value="‪‪%s  ‏משכן‎ ‏ניווט‎ ‏בקשת‎ (‏ ‪%i bit = %lu[%i], %i%% full)"/>

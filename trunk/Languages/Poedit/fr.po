@@ -6020,20 +6020,20 @@ msgstr "Résolution de l'hôte « %s »..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Envoi d'une requête pour « %s » à %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "L'adresse %s est déjà bloquée par vos règles de sécurité."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Règle de sécurité ajoutée pour le bloc %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Le gestionnaire de sécurité a rejeté la connexion de %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Le gestionnaire de sécurité a interdit une connexion à %s."
 
 #: string;20564

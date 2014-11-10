@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Italian Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3096,10 +3096,10 @@
 	<string id="20556" value="Impossibile risolvere l'host &quot;%s&quot;."/>
 	<string id="20557" value="Risoluzione host &quot;%s&quot; in corso..."/>
 	<string id="20558" value="Invio richiesta per &quot;%s&quot; a %s."/>
-	<string id="20560" value="L'indirizzo %s è già bloccato dalle regole di sicurezza."/>
-	<string id="20561" value="Regola di sicurezza per bloccare %s aggiunta."/>
-	<string id="20562" value="Il gestore di sicurezza ha negato la connessione da %s."/>
-	<string id="20563" value="Il gestore di sicurezza ha bloccato la connessione a %s."/>
+	<string id="20560" value="Il gestore di sicurezza ha negato la connessione da %s."/>
+	<string id="20561" value="Il gestore di sicurezza ha bloccato la connessione a %s."/>
+	<string id="20562" value="Regola di sicurezza per bloccare %s aggiunta."/>
+	<string id="20563" value="L'indirizzo %s è già bloccato dalle regole di sicurezza."/>
 	<string id="20564" value="Avvio del nucleo della rete in corso..."/>
 	<string id="20565" value="Stai utilizzando il pianificatore in modalità 'solo G2'. Vuoi disabilitare questa modalità, cosicchè tutte le reti attive rimangano connesse?"/>
 	<string id="20566" value="La mappatura delle porta UPnP è fallita dopo 10 tentativi."/>

@@ -6020,20 +6020,20 @@ msgstr "Razrešujem gostitelja \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Pošiljam poizvedbo za \"%s\" do %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "Naslov %s je že blokiran s strani vaših varnostnih pravil."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Dodano je bilo varnostno pravilo v skupino (blok) %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Varnostni upravljalec je zavrnil povezavo od %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Varnostni upravljalec je prepovedal povezavo do %s."
 
 #: string;20564

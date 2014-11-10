@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2900,10 +2900,10 @@
 	<string id="20556" value="Gostitelja &quot;%s&quot; ni bilo mogoče razrešiti."/>
 	<string id="20557" value="Razrešujem gostitelja &quot;%s&quot;..."/>
 	<string id="20558" value="Pošiljam poizvedbo za &quot;%s&quot; do %s."/>
-	<string id="20560" value="Naslov %s je že blokiran s strani vaših varnostnih pravil."/>
-	<string id="20561" value="Dodano je bilo varnostno pravilo v skupino (blok) %s."/>
-	<string id="20562" value="Varnostni upravljalec je zavrnil povezavo od %s."/>
-	<string id="20563" value="Varnostni upravljalec je prepovedal povezavo do %s."/>
+	<string id="20560" value="Varnostni upravljalec je zavrnil povezavo od %s."/>
+	<string id="20561" value="Varnostni upravljalec je prepovedal povezavo do %s."/>
+	<string id="20562" value="Dodano je bilo varnostno pravilo v skupino (blok) %s."/>
+	<string id="20563" value="Naslov %s je že blokiran s strani vaših varnostnih pravil."/>
 	<string id="20564" value="Zaganjam omrežno jedro PeerProject..."/>
 	<string id="20570" value="Received a malformatted query hit packet from %s, ignoring."/>
 	<string id="20571" value="%s:  Prejel zmaličen format poizvedbenega paketa od %s, ignoriram."/>

@@ -6020,20 +6020,20 @@ msgstr "Překládám adresu \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Posílám dotaz na \"%s\" do %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "Adresa %s je již blokovaná vašimi směrnicemi pro zabezpeční."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Přidat pravidlo zabezpečení pro blokování %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Manažer zabezpečení odepřel připojení od %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Manažer zabezpečení vyloučil připojení k %s."
 
 #: string;20564

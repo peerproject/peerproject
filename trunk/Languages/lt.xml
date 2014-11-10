@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3098,10 +3098,10 @@
 	<string id="20556" value="Neįmanoma nustatyti adresato „%s“ adreso."/>
 	<string id="20557" value="Nustatomas adresato „%s“ adresas..."/>
 	<string id="20558" value="Siunčiama užklausa failui „%s“ adresatui %s."/>
-	<string id="20560" value="Adresas %s jau yra blokuojamas pagal Jūsų saugos taisykles."/>
-	<string id="20561" value="Pridėta %s adreso blokavimo saugos taisyklė."/>
-	<string id="20562" value="Apsaugos tvarkytuvė užkirto adresato %s prieigą."/>
-	<string id="20563" value="Apsaugos tvarkytuvė užtvėrė ryšį su adresatu %s."/>
+	<string id="20560" value="Apsaugos tvarkytuvė užkirto adresato %s prieigą."/>
+	<string id="20561" value="Apsaugos tvarkytuvė užtvėrė ryšį su adresatu %s."/>
+	<string id="20562" value="Pridėta %s adreso blokavimo saugos taisyklė."/>
+	<string id="20563" value="Adresas %s jau yra blokuojamas pagal Jūsų saugos taisykles."/>
 	<string id="20564" value="Startuojamas „PeerProject“ tinklo branduolys..."/>
 	<string id="20565" value="Jūsų planuotojas veikia tik G2 tinklo veiksenoje. Ar norite išjungti šią veikseną, kad visi aktyvūs tinklai liktų prijungti?"/>
 	<string id="20566" value="Prievado peradresavimas naudojant UPnP buvo nesėkmingas po 10 bandymų."/>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2696,10 +2696,10 @@
 	<string id="20556" value="Greška na hostu &quot;%s&quot;."/>
 	<string id="20557" value="Rješavanje hosta &quot;%s&quot;..."/>
 	<string id="20558" value="Šaljem upit za &quot;%s&quot; to %s."/>
-	<string id="20560" value="Adresa %s je već blokirana prema vašim sigurnosnim pravilima."/>
-	<string id="20561" value="Blokada %s je dodana u sigurnosna pravila."/>
-	<string id="20562" value="Veza od %s je odbijena iz sigurnosnih razloga."/>
-	<string id="20563" value="Veza sa %s je blokirana iz sigurnosnih razloga."/>
+	<string id="20560" value="Veza od %s je odbijena iz sigurnosnih razloga."/>
+	<string id="20561" value="Veza sa %s je blokirana iz sigurnosnih razloga."/>
+	<string id="20562" value="Blokada %s je dodana u sigurnosna pravila."/>
+	<string id="20563" value="Adresa %s je već blokirana prema vašim sigurnosnim pravilima."/>
 	<string id="20564" value="Pokrečem mrežnu jezgru..."/>
 	<!-- Missing Packet Strings -->
 	<!-- Missing Scheduler/Security Strings -->

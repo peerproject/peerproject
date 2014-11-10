@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.1.2.7) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2678,10 +2678,10 @@
 	<string id="20556" value="Unable to resolve host &quot;%s&quot;."/>
 	<string id="20557" value="Resolving host &quot;%s&quot;..."/>
 	<string id="20558" value="Wyśli sprostowanie &quot;%s&quot; do %s."/>
-	<string id="20560" value="Ten adres %s jest już zablokowany przez twoje reguły zabezbieczeń."/>
-	<string id="20561" value="Dodano regułę bezpieczeństwa, która blokuje %s."/>
-	<string id="20562" value="Menadżer Zabezpieczeń zabronił połączenia z %s."/>
-	<string id="20563" value="Security manager barred a connection to %s."/>
+	<string id="20560" value="Menadżer Zabezpieczeń zabronił połączenia z %s."/>
+	<string id="20561" value="Security manager barred a connection to %s."/>
+	<string id="20562" value="Dodano regułę bezpieczeństwa, która blokuje %s."/>
+	<string id="20563" value="Ten adres %s jest już zablokowany przez twoje reguły zabezbieczeń."/>
 	<string id="20564" value="Startuje jądro PeerProjecty..."/>
 	<string id="20565" value="Używasz narzędzia Scheduler w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
 	<string id="20566" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>

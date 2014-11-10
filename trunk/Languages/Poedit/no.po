@@ -6020,20 +6020,20 @@ msgstr "Fastsetter vert \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Sender forespørsel for \"%s\" til %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "Adressen %s er allerede blokert i sikkerhetsreglene."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "La til ny sikkerhetsregel for å blokkere %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Sikkerhetsinnstillingene nektet kobling fra %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Sikkerhetsinnstillingene blokkerte kobling til %s."
 
 #: string;20564

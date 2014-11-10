@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.8.5) (May.2014)
+** sqlite3.h  (3.8.5) (June.2014)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2014
 ** The original author disclaimed copyright to this source code.
@@ -86,7 +86,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.5"
 #define SQLITE_VERSION_NUMBER 3008005
-#define SQLITE_SOURCE_ID      "2014-06-02 11:26:33 9f18b303cd1bc5779d82669884f802c7889b4947"
+#define SQLITE_SOURCE_ID      "2014-06-04 14:06:34 b1ed4f2a34ba66c29b130f8d13e9092758019212"
 
 /*
 ** Run-Time Library Version Numbers

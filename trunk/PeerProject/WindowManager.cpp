@@ -45,6 +45,7 @@ BEGIN_MESSAGE_MAP(CWindowManager, CWnd)
 	ON_WM_SIZE()
 	ON_WM_PAINT()
 	ON_WM_ERASEBKGND()
+	ON_WM_STYLECHANGED()
 END_MESSAGE_MAP()
 
 
@@ -135,9 +136,12 @@ CChildWnd* CWindowManager::Find(CRuntimeClass* pClass, CChildWnd* pAfter, CChild
 	{
 		CChildWnd* pChild = GetNext( pos );
 
-		if ( pChild == pExcept ) continue;
-		else if ( bFound && ( ! pClass || pChild->IsKindOf( pClass ) ) ) return pChild;
-		else if ( pChild == pAfter ) bFound = TRUE;
+		if ( pChild == pExcept )
+			continue;
+		if ( bFound && ( ! pClass || pChild->IsKindOf( pClass ) ) )
+			return pChild;
+		if ( pChild == pAfter )
+			bFound = TRUE;
 	}
 
 	return NULL;
@@ -571,6 +575,7 @@ BOOL CWindowManager::SaveSearchWindows() const
 				if ( pWnd->IsKindOf( RUNTIME_CLASS(CSearchWnd) ) && pWnd->GetLastSearch() )
 					++nTotal;
 			}
+
 			DWORD nSkip = ( nTotal > Settings.Interface.SearchWindowsLimit ) ? ( nTotal - Settings.Interface.SearchWindowsLimit ) : 0;
 
 			for ( POSITION pos = GetIterator() ; pos ; )
@@ -711,6 +716,7 @@ BOOL CWindowManager::SaveBrowseHostWindows() const
 				if ( pWnd->IsKindOf( RUNTIME_CLASS(CBrowseHostWnd) ) )
 					++nTotal;
 			}
+
 			DWORD nSkip = ( nTotal > Settings.Interface.BrowseWindowsLimit ) ? ( nTotal - Settings.Interface.BrowseWindowsLimit ) : 0;
 
 			for ( POSITION pos = GetIterator() ; pos ; )
@@ -860,6 +866,9 @@ void CWindowManager::PostSkinRemove()
 
 void CWindowManager::OnSize(UINT nType, int cx, int cy)
 {
+	if ( ! Settings.Skin.FrameEdge )
+		ModifyStyleEx( WS_EX_CLIENTEDGE, 0 );	// Required here for OnStyleChanged?
+
 	if ( nType != 1982 )
 		CWnd::OnSize( nType, cx, cy );
 
@@ -907,4 +916,11 @@ void CWindowManager::OnPaint()
 //	}
 //
 //	dc.FillSolidRect( &rc, crBackground );
+}
+
+void CWindowManager::OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruct)
+{
+	// Remove 3d bevel
+	if ( ! Settings.Skin.FrameEdge && nStyleType == GWL_EXSTYLE && ( lpStyleStruct->styleNew & WS_EX_CLIENTEDGE ) )
+		ModifyStyleEx( WS_EX_CLIENTEDGE, 0 );
 }

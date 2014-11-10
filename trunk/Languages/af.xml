@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3032,12 +3032,12 @@
 	<string id="20556" value="Kon nie aan gasheer &quot;%s&quot; konnekteer nie."/>
 	<string id="20557" value="Probeer gasheer &quot;%s&quot;..."/>
 	<string id="20558" value="Navraag vir &quot;%s&quot; word aan %s gestuur."/>
-	<string id="20560" value="Die adres %s is alreeds geblok deur jou sekuriteitsreëls."/>
-	<string id="20561" value="'n Sekuriteitsreël is bygevoeg om %s te blok."/>
-	<string id="20562" value="Sekuriteitsbeheer het die konneksie vanaf %s afgekeur."/>
-	<string id="20563" value="Sekuriteitsbeheer het 'n konneksie na %s afgekeur."/>
+	<string id="20560" value="Sekuriteitsbeheer het die konneksie vanaf %s afgekeur."/>
+	<string id="20561" value="Sekuriteitsbeheer het 'n konneksie na %s afgekeur."/>
+	<string id="20562" value="'n Sekuriteitsreël is bygevoeg om %s te blok."/>
+	<string id="20563" value="Die adres %s is alreeds geblok deur jou sekuriteitsreëls."/>
 	<string id="20564" value="Begin PeerProject netwerkkern..."/>
-	<string id="20565" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"/>
+	<!--string id="20565" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"-->
 	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
 	<string id="20570" value="Foutiewe navraag-tref pakkie ontvang van %s, oorgesien."/>
 	<string id="20571" value="%s: outiewe navraagpakkie ontvang van %s, oorgesien."/>
@@ -3100,7 +3100,7 @@
 	<string id="20664" value="%lu lêer in %lu navraag|%lu lêer in %lu navrae|%lu lêers in %lu navrae"/>
 	<string id="20665" value="Gevind:"/>
 	<string id="20666" value="Besig om te soek:"/>
-	<string id="20668" value=" Besig ..."/>
+	<string id="20668" value="Besig ..."/>
 	<string id="20669" value="Plain Teks Soektog"/>
 	<string id="20670" value="PeerProject deursoek die netwerk..."/>
 	<string id="20672" value="Select the eDonkey/eMule temp folder:"/>
@@ -3181,7 +3181,7 @@
 	<string id="20773" value="van jou biblioteek"/>
 	<string id="20774" value="N.v.t"/>
 	<string id="20775" value="Volgende in Lyn"/>
-	<string id="20776" value=" (Geen Hashset)"/>
+	<string id="20776" value="(Geen Hashset)"/>
 	<string id="20777" value="Onvolledige Bron (%.2f%% beskikbaar)"/>
 	<string id="20778" value="%i oplaaiposisies, %i op waglys"/>
 	<string id="20780" value="Tot"/>

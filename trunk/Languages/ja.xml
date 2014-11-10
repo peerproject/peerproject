@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2946,10 +2946,10 @@
 	<string id="20556" value="ホスト &quot;%s&quot; を名前解決できませんでした"/>
 	<string id="20557" value="ホスト &quot;%s&quot; を名前解決中です..."/>
 	<string id="20558" value="&quot;%s&quot; の問い合わせを %s へ送信中です"/>
-	<string id="20560" value="セキュリティ規則によりアドレス %s は既にブロックされています"/>
-	<string id="20561" value="%s をブロックする為のセキュリティ規則が追加されました"/>
-	<string id="20562" value="セキュリティマネージャが %s からの接続を拒否しました"/>
-	<string id="20563" value="セキュリティマネージャが %s への接続を禁止しました"/>
+	<string id="20560" value="セキュリティマネージャが %s からの接続を拒否しました"/>
+	<string id="20561" value="セキュリティマネージャが %s への接続を禁止しました"/>
+	<string id="20562" value="%s をブロックする為のセキュリティ規則が追加されました"/>
+	<string id="20563" value="セキュリティ規則によりアドレス %s は既にブロックされています"/>
 	<string id="20564" value="PeerProjectネットワークコアを開始しています..."/>
 	<string id="20570" value="%s から不正な形式のヒットパケットを受信した為、無視しています"/>
 	<string id="20571" value="%s: %s から不正な形式の問い合わせパケットを受信した為、無視しています"/>

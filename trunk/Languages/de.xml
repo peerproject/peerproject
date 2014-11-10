@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3163,10 +3163,10 @@
 	<string id="20556" value="Kann Host &quot;%s&quot; nicht auflösen."/>
 	<string id="20557" value="Host &quot;%s&quot; auflösen..."/>
 	<string id="20558" value="Suchanfrage für &quot;%s&quot; an %s senden."/>
-	<string id="20560" value="Die Adresse %s wird von ihren Sicherheitsregeln bereits blockiert."/>
-	<string id="20561" value="Eine Regel, um %s zu blockieren, wurde hinzugefügt."/>
-	<string id="20562" value="Der Sicherheitsmanager hat die Verbindung von %s verweigert."/>
-	<string id="20563" value="Der Sicherheitsmanager hat eine Verbindung zu %s verhindert."/>
+	<string id="20560" value="Der Sicherheitsmanager hat die Verbindung von %s verweigert."/>
+	<string id="20561" value="Der Sicherheitsmanager hat eine Verbindung zu %s verhindert."/>
+	<string id="20562" value="Eine Regel, um %s zu blockieren, wurde hinzugefügt."/>
+	<string id="20563" value="Die Adresse %s wird von ihren Sicherheitsregeln bereits blockiert."/>
 	<string id="20564" value="Der PeerProjekt-Netzwerkkern wird gestartet..."/>
 	<string id="20565" value="Sie benutzen die Zeitsteuerung nur mit dem G2-Netzwerk. Möchten Sie dies ausschalten und zu allen aktivierten Netzwerken verbinden ?"/>
 	<string id="20566" value="UPnP-Portfreigabe nach 10 Versuchen fehlgeschlagen."/>

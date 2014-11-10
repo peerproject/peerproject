@@ -115,6 +115,7 @@ void CSkin::CreateDefault()
 	Settings.SetDefault( &Settings.Skin.ButtonEdge );		// 4
 	Settings.SetDefault( &Settings.Skin.LibIconsX );		// 220
 	Settings.SetDefault( &Settings.Skin.LibIconsY );		// 56
+	Settings.SetDefault( &Settings.Skin.FrameEdge );		// true
 	Settings.SetDefault( &Settings.Skin.MenuBorders );		// true
 	Settings.SetDefault( &Settings.Skin.MenuGripper );		// true
 	Settings.SetDefault( &Settings.Skin.RoundedSelect );	// false
@@ -652,6 +653,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 			Text[ L"rowsize" ]		= 'w';
 			Text[ L"roundedselect" ] = 'c';
 			Text[ L"highlightchamfer" ] = 'c';
+			Text[ L"frameedge" ]	= 'f';
 			Text[ L"buttonedge" ]	= 'e';
 			Text[ L"buttonmap" ] 	= 'e';
 			Text[ L"icongrid" ]		= 'i';
@@ -789,6 +791,20 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				Settings.Skin.ButtonEdge = _wtoi(strWidth);
 			else if ( ! strValue.IsEmpty() )
 				Settings.Skin.ButtonEdge = _wtoi(strValue);
+			break;
+		case 'f':	// "FrameEdge"
+			if ( strValue == L"true" )
+				Settings.Skin.FrameEdge = true;
+			else if ( strValue == L"false" )
+				Settings.Skin.FrameEdge = false;
+			else if ( strValue == L"on" )
+				Settings.Skin.FrameEdge = true;
+			else if ( strValue == L"off" )
+				Settings.Skin.FrameEdge = false;
+			else if ( strValue == L"1" )
+				Settings.Skin.FrameEdge = true;
+			else if ( strValue == L"0" )
+				Settings.Skin.FrameEdge = false;
 			break;
 		case 'i':	// "IconGrid" or "LibraryTiles"
 			if ( ! strHeight.IsEmpty() )

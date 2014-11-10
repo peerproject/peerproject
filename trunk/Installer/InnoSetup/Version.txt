@@ -1,4 +1,4 @@
-Inno Setup 5.5.4 Components
+Inno Setup 5.5.5 Components
 Copyright 2014 Jordan Russell
 Redistributed as per License.txt
 
@@ -6,4 +6,4 @@ http://jrsoftware.org/isdl.php
 http://jrsoftware.org/ishelp
 http://ispp.sourceforge.net
 
-Source: isetup-5.5.4.exe
+Source: isetup-5.5.5.exe

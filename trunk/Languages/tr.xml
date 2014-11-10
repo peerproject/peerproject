@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3042,10 +3042,10 @@
 	<string id="20556" value="&quot;%s&quot; host çözülemez."/>
 	<string id="20557" value="&quot;%s&quot; host çözülüyor..."/>
 	<string id="20558" value="&quot;%s&quot; için %s 'ye sorgu gönderiliyor."/>
-	<string id="20560" value="Güvenlik kuralları tarafından %s adresi engellendi."/>
-	<string id="20561" value="%s engelini güvenlik kuralı olarak ekle."/>
-	<string id="20562" value="Güvenlik yöneticisi %s'den bağlantıyı kabul etmiyor."/>
-	<string id="20563" value="Güvenlik yöneticisi %s bağlantısını engelledi."/>
+	<string id="20560" value="Güvenlik yöneticisi %s'den bağlantıyı kabul etmiyor."/>
+	<string id="20561" value="Güvenlik yöneticisi %s bağlantısını engelledi."/>
+	<string id="20562" value="%s engelini güvenlik kuralı olarak ekle."/>
+	<string id="20563" value="Güvenlik kuralları tarafından %s adresi engellendi."/>
 	<string id="20564" value="PeerProject ağ merkezi başlıyor..."/>
 	<string id="20565" value="Planlayıcıyı 'sadece G2' modunda işletmektesiniz. Tüm etkin ağların bağlı kalması için bu modu devre dışı bırakmak ister misiniz?"/>
 	<string id="20566" value="UPnP port açılışı 10 denemeye rağmen başarısız olmuştur."/>
@@ -3192,7 +3192,7 @@
 	<string id="20773" value="Kütüphanenizden"/>
 	<string id="20774" value="N/A"/>
 	<string id="20775" value="Diğer bağlantı"/>
-	<string id="20776" value=" (Hashset yok)"/>
+	<string id="20776" value="(Hashset yok)"/>
 	<string id="20777" value="Kısmi kaynak (%.2f%% mevcut)"/>
 	<string id="20778" value="%i aktarım programları, %i sıra bekliyor"/>
 	<string id="20780" value="Boyut"/>

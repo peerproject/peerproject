@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2881,10 +2881,10 @@
 	<string id="20556" value="E Pamundur të zgjidh hostin &quot;%s&quot;."/>
 	<string id="20557" value="Po zgjidh hostin &quot;%s&quot;..."/>
 	<string id="20558" value="Po dërgoj hetim për &quot;%s&quot; tek %s."/>
-	<string id="20560" value="Adresa %s po bllokohet që më parë për rregulla sigurie."/>
-	<string id="20561" value="Shtova një rregull sigurie për bllokimin e %s."/>
-	<string id="20562" value="Manaxheri i sigurisë mohoi lidhjen nga %s."/>
-	<string id="20563" value="Menaxheri i sigurisë ndau një lidhje tek %s."/>
+	<string id="20560" value="Manaxheri i sigurisë mohoi lidhjen nga %s."/>
+	<string id="20561" value="Menaxheri i sigurisë ndau një lidhje tek %s."/>
+	<string id="20562" value="Shtova një rregull sigurie për bllokimin e %s."/>
+	<string id="20563" value="Adresa %s po bllokohet që më parë për rregulla sigurie."/>
 	<string id="20564" value="Po niset bërthama e rrjetit PeerProject..."/>
 	<string id="20565" value="Planifikuesi vepron sipas mënyrës 'Vetëm G2'. Do e fikësh këtë mënyrë që tërë rrjetet aktive të mbeten të lidhura?"/>
 	<string id="20566" value="Përparimi UPnP i portit dështoi pas 10 orvatjesh."/>

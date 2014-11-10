@@ -6020,20 +6020,20 @@ msgstr "Опрашиваю хост «%s»..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Шлю запрос для «%s» в %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "Адрес %s уже заблокирован вашими правилами безопасности."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Добавленно правило безопасности для блокировки %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Менеджер безопасности отклонил соединение с %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Менеджер  безопасности запретил соединение с %s."
 
 #: string;20564

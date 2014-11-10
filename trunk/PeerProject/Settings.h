@@ -120,6 +120,7 @@ public:
 		bool		MenuBorders;
 		bool		MenuGripper;
 		bool		RoundedSelect;
+		DWORD		FrameEdge;
 		DWORD		ButtonEdge;
 		DWORD		MenubarHeight;
 		DWORD		ToolbarHeight;

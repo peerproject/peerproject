@@ -1,7 +1,7 @@
 //
 // WindowManager.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -63,9 +63,12 @@ protected:
 	void		Remove(CChildWnd* pChild);
 	void		ActivateGrouped(CChildWnd* pExcept);
 
-	afx_msg void OnSize(UINT nType, int cx, int cy);
-	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
 	afx_msg void OnPaint();
+	afx_msg BOOL OnEraseBkgnd(CDC* pDC);
+	afx_msg void OnSize(UINT nType, int cx, int cy);
+	afx_msg void OnStyleChanged(int nStyleType, LPSTYLESTRUCT lpStyleStruct);
+//	afx_msg void OnStyleChanging(int nStyleType, LPSTYLESTRUCT lpStyleStruct);
+//	afx_msg void OnMDIActivate();
 
 	DECLARE_MESSAGE_MAP()
 

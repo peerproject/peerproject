@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3025,10 +3025,10 @@
 	<string id="20556" value="Nem tudom feloldani: &quot;%s&quot;."/>
 	<string id="20557" value="Feloldás: &quot;%s&quot;..."/>
 	<string id="20558" value="Keresési kérvény elküldése: &quot;%s&quot; ide: %s."/>
-	<string id="20560" value="A %s már blokkolva van a biztonsági beállításokban."/>
-	<string id="20561" value="Biztonsági szabály hozzáadása, hogy blokkolja: %s."/>
-	<string id="20562" value="Biztonsági okok miatt a kapcsolat meg lett tagva: %s."/>
-	<string id="20563" value="Biztonsági okok miatt a kapcsolat el lett hárítva: %s."/>
+	<string id="20560" value="Biztonsági okok miatt a kapcsolat meg lett tagva: %s."/>
+	<string id="20561" value="Biztonsági okok miatt a kapcsolat el lett hárítva: %s."/>
+	<string id="20562" value="Biztonsági szabály hozzáadása, hogy blokkolja: %s."/>
+	<string id="20563" value="A %s már blokkolva van a biztonsági beállításokban."/>
 	<string id="20564" value="PeerProject hálózati mag indítása..."/>
 	<string id="20565" value="Az Ütemező jelenleg kizárólagos G2 módban fut. Ki akarja ezt kapcsolni, hogy a többi hálózathoz is kapcsolódva maradhasson?"/>
 	<string id="20566" value="Az UPnP port hozzárendelés a 10 próbálkozás után sem sikerült."/>
@@ -3175,7 +3175,7 @@
 	<string id="20773" value="a könyvtár mérete"/>
 	<string id="20774" value="Nincs adat"/>
 	<string id="20775" value="Következő a sorban"/>
-	<string id="20776" value=" (Nincs Hash)"/>
+	<string id="20776" value="(Nincs Hash)"/>
 	<string id="20777" value="Részforrás (%.2f%% található)"/>
 	<string id="20778" value="%i feltöltés, %i várnak a sorukra"/>
 	<string id="20780" value="Méret"/>

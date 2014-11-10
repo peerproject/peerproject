@@ -30,8 +30,9 @@
  <option name="DropMenu" value="true" width="20"/>
  <option name="MenuBorders" value="false"/>
  <option name="MenuGripper" value="false"/>
+ <option name="FrameEdge" value="false"/>
  <option name="ButtonEdge" value="3"/>
- <option name="Taskbar" value="24" width="228"/>
+ <option name="Taskbar" value="25" width="228"/>
  <option name="Menubar" value="30"/>
  <!--option name="Toolbar" value="28"-->
  <!--option name="Titlebar" value="64"-->

@@ -306,7 +306,7 @@ CMainWnd::CMainWnd()
 	, m_nAlpha		( 255 )
 {
 	ZeroMemory( &m_pTray, sizeof( NOTIFYICONDATA ) );
-	m_pTray.cbSize				= sizeof( NOTIFYICONDATA );
+	m_pTray.cbSize				= theApp.m_bIsVistaOrNewer ? sizeof( NOTIFYICONDATA ) : NOTIFYICONDATA_V3_SIZE;
 	m_pTray.uVersion			= NOTIFYICON_VERSION;	// NOTIFYICON_VERSION_4;
 	m_pTray.uCallbackMessage	= WM_TRAY;
 }
@@ -449,10 +449,11 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Tray
 	m_pTray.hWnd = GetSafeHwnd();
-	m_pTray.hIcon = CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE );
+	m_pTray.hIcon = CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE, LVSIL_SMALL );
 
 	// Icon
-	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
+	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE, LVSIL_NORMAL ), TRUE );
+	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE, LVSIL_SMALL  ), FALSE );
 
 	// Status Bar
 	UINT wID[2] = { ID_SEPARATOR, ID_SEPARATOR };	// wID[3] + ID_SEPARATOR
@@ -1205,6 +1206,18 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 	m_wndToolBar.Clear();
 
 	Skin.Apply();
+
+	// Remove top 3d bevel
+	if ( CControlBar* pDockBar = GetControlBar( AFX_IDW_DOCKBAR_TOP ) )
+	{
+		DWORD nStyle = pDockBar->GetBarStyle();
+		if ( ! Settings.Skin.FrameEdge )
+			nStyle &= ~(CBRS_BORDER_3D|CBRS_BORDER_TOP|CBRS_BORDER_BOTTOM);
+		else
+			nStyle |= (CBRS_BORDER_3D|CBRS_BORDER_TOP);
+		pDockBar->SetBarStyle( nStyle );
+	//	pDockBar->SetBorders();	// Zero width
+	}
 
 	//ModifyStyleEx( 0, WS_EX_COMPOSITED ); // Counter-productive
 

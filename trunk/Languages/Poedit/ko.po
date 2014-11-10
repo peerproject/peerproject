@@ -6020,21 +6020,21 @@ msgstr "Resolving host \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Sending query for \"%s\" to %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
-msgstr "The address %s is already blocked by your security rules."
-
-#: string;20561
-msgid "Added a security rule to block %s."
-msgstr "Added a security rule to block %s."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
+msgstr "Address %s is already blocked by security rules."
 
 #: string;20562
+msgid "Added security rule to block %s."
+msgstr "Added security rule to block %s."
+
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Security manager denied connection from %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
-msgstr "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
+msgstr "Security manager barred connection to %s."
 
 #: string;20564
 msgid "Starting PeerProject network core..."

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2913,10 +2913,10 @@
 	<string id="20556" value="無法辨識主機 &quot;%s&quot;."/>
 	<string id="20557" value="正在解析主機 &quot;%s&quot;..."/>
 	<string id="20558" value="正在傳送 &quot;%s&quot; 的詢問至 %s."/>
-	<string id="20560" value="位址 %s 已經被您設定的安全性規則封鎖了."/>
-	<string id="20561" value="已新增一個安全性規則用來封鎖 %s."/>
-	<string id="20562" value="安全性管理員拒絕了來自於 %s 的連線."/>
-	<string id="20563" value="安全性管理員禁止了來自於 %s 的連線."/>
+	<string id="20560" value="安全性管理員拒絕了來自於 %s 的連線."/>
+	<string id="20561" value="安全性管理員禁止了來自於 %s 的連線."/>
+	<string id="20562" value="已新增一個安全性規則用來封鎖 %s."/>
+	<string id="20563" value="位址 %s 已經被您設定的安全性規則封鎖了."/>
 	<string id="20564" value="正在啟動 PeerProject 網路核心..."/>
 	<string id="20570" value="從 %s 接收到一個錯誤格式的 query hit 封包, 忽略中."/>
 	<string id="20571" value="%s: 從 %s 接收到一個錯誤格式的詢問封包, 忽略中."/>
