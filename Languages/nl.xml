@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3101,10 +3101,10 @@
 	<string id="20556" value="Niet mogelijk om de gastheer &quot;%s&quot; op te lossen."/>
 	<string id="20557" value="Gastheer &quot;%s&quot; oplossen..."/>
 	<string id="20558" value="Zoekaanvraag voor &quot;%s&quot; is verzonden naar %s."/>
-	<string id="20560" value="Het adres %s wordt al door je beveiligingsregels geblokkeerd."/>
-	<string id="20561" value="Een beveiligingsregel is toegevoegd voor het blokkeren van %s."/>
-	<string id="20562" value="De beveiligingscontrole heeft de verbinding vanaf %s niet erkend."/>
-	<string id="20563" value="De beveiligingscontrole heeft een verbinding met %s gesloten."/>
+	<string id="20560" value="De beveiligingscontrole heeft de verbinding vanaf %s niet erkend."/>
+	<string id="20561" value="De beveiligingscontrole heeft een verbinding met %s gesloten."/>
+	<string id="20562" value="Een beveiligingsregel is toegevoegd voor het blokkeren van %s."/>
+	<string id="20563" value="Het adres %s wordt al door je beveiligingsregels geblokkeerd."/>
 	<string id="20564" value="Opstarten van het netwerkcentrum van PeerProject..."/>
 	<string id="20566" value="Je router automatisch instellen mislukte na 10 pogingen."/>
 	<string id="20570" value="Er is een slecht geformatteerd query hit pakket ontvangen van %s, het wordt genegeerd."/>

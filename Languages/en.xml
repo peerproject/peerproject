@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3267,10 +3267,10 @@
 	<string id="20556" value="Unable to resolve host &quot;%s&quot;."/>
 	<string id="20557" value="Resolving host &quot;%s&quot;..."/>
 	<string id="20558" value="Sending query for &quot;%s&quot; to %s."/>
-	<string id="20560" value="The address %s is already blocked by your security rules."/>
-	<string id="20561" value="Added a security rule to block %s."/>
-	<string id="20562" value="Security manager denied connection from %s."/>
-	<string id="20563" value="Security manager barred a connection to %s."/>
+	<string id="20560" value="Security manager denied connection from %s."/>
+	<string id="20561" value="Security manager barred connection to %s."/>
+	<string id="20562" value="Added security rule to block %s."/>
+	<string id="20563" value="Address %s is already blocked by your security rules."/>
 	<string id="20564" value="Starting PeerProject network core..."/>
 	<string id="20565" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"/>
 	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>

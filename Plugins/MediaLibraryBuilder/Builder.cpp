@@ -128,41 +128,41 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 
 					CString strCodec;
 
-					if ( mt.subtype == MEDIASUBTYPE_MPEG1Video )
+					if (	// GUID AABBCCDD-0000-0010-8000-00AA00389B71
+						mt.subtype.Data2 == 0x0000 &&
+						mt.subtype.Data3 == 0x0010 &&
+						mt.subtype.Data4[0] == 0x80 &&
+						mt.subtype.Data4[1] == 0x00 &&
+						mt.subtype.Data4[2] == 0x00 &&
+						mt.subtype.Data4[3] == 0xAA &&
+						mt.subtype.Data4[4] == 0x00 &&
+						mt.subtype.Data4[5] == 0x38 &&
+						mt.subtype.Data4[6] == 0x9B &&
+						mt.subtype.Data4[7] == 0x71 )
 					{
-						strCodec = L"MPEG";
-					}
-					else if ( mt.subtype != MEDIASUBTYPE_None )
-					{
-						strCodec.Format( L"%c%c%c%c",
+						strCodec.Format(L"%c%c%c%c",
 							LOBYTE(LOWORD(mt.subtype.Data1)),
 							HIBYTE(LOWORD(mt.subtype.Data1)),
 							LOBYTE(HIWORD(mt.subtype.Data1)),
-							HIBYTE(HIWORD(mt.subtype.Data1)) );
+							HIBYTE(HIWORD(mt.subtype.Data1)));
+					}
+					else if ( mt.subtype == MEDIASUBTYPE_H264 )
+					{
+						strCodec = L"H264";
+					}
+					else if ( mt.subtype == MEDIASUBTYPE_MPEG1Video )
+					{
+						strCodec = L"MPEG";
+					}
+					else if ( mt.subtype == MEDIASUBTYPE_MJPG )
+					{
+						strCodec = L"MJPG";
 					}
 
 //					// Video Format (Not a codec)
 //					if ( mt.subtype == MEDIASUBTYPE_Y41P )
 //					{
 //						strCodec = L"MPEG";
-//					}
-//					else if (
-//						mt.subtype.Data2 == 0x0000 &&
-//						mt.subtype.Data3 == 0x0010 &&
-//						mt.subtype.Data4[0] == 0x80 &&
-//						mt.subtype.Data4[1] == 0x00 &&
-//						mt.subtype.Data4[2] == 0x00 &&
-//						mt.subtype.Data4[3] == 0xAA &&
-//						mt.subtype.Data4[4] == 0x00 &&
-//						mt.subtype.Data4[5] == 0x38 &&
-//						mt.subtype.Data4[6] == 0x9B &&
-//						mt.subtype.Data4[7] == 0x71 )
-//					{
-//						strCodec.Format(L"%c%c%c%c",
-//							LOBYTE (LOWORD (mt.subtype.Data1)),
-//							HIBYTE (LOWORD (mt.subtype.Data1)),
-//							LOBYTE (HIWORD (mt.subtype.Data1)),
-//							HIBYTE (HIWORD (mt.subtype.Data1)));
 //					}
 //					else if ( mt.subtype == MEDIASUBTYPE_RGB1 )
 //					{
@@ -205,7 +205,17 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 //						codec = L"Unknown";
 //					}
 
-					if ( strCodec.GetLength() == 4 )
+					if ( strCodec.GetLength() != 4 || strCodec == L"NV12" )
+					{
+						DWORD nCodec = pVih->bmiHeader.biCompression;
+						strCodec.Format( L"%c%c%c%c",
+							LOBYTE(LOWORD(nCodec)),
+							HIBYTE(LOWORD(nCodec)),
+							LOBYTE(HIWORD(nCodec)),
+							HIBYTE(HIWORD(nCodec)) );
+					}
+
+					if ( strCodec.GetLength() == 4 && strCodec != L"NV12" )
 						pISXMLAttributes->Add( CComBSTR("codec"), CComBSTR(strCodec) );
 
 					int nWidth  = pVih->bmiHeader.biWidth;
@@ -214,9 +224,9 @@ HRESULT CBuilder::SafeProcess(BSTR sFile, ISXMLElement* pXML)
 						nHeight = -nHeight;
 					if ( nHeight > 6000 )
 						nHeight = 0;
-					tmp.Format (L"%lu", nWidth);
+					tmp.Format( L"%lu", nWidth );
 					pISXMLAttributes->Add( CComBSTR("width"), CComBSTR(tmp) );
-					tmp.Format (L"%lu", nHeight);
+					tmp.Format( L"%lu", nHeight );
 					pISXMLAttributes->Add( CComBSTR("height"), CComBSTR(tmp) );
 
 					if ( mt.cbFormat )

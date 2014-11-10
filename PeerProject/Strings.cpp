@@ -929,10 +929,10 @@ CString MakeKeywords(const CString& strPhrase, bool bExpression)
 				else
 				{
 					str += strPhrase.Mid( nPrevWord, nPos - nPrevWord );
-					if ( boundary[ 1 ] == sNone && !bCharacter || *pszPtr == ' ' || !bExpression ||
-						 ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && !bNegative ) )
+					if ( boundary[ 1 ] == sNone && ! bCharacter || *pszPtr == L' ' || ! bExpression ||
+						 ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) && ! bNegative ) )
 						str += L' ';
-					else if ( !bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
+					else if ( ! bNegative && ( ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) ||
 						 ( boundary[ 0 ] & ( sHiragana | sKatakana | sKanji ) ) !=
 						 ( boundary[ 1 ] & ( sHiragana | sKatakana | sKanji ) ) ) )
 						str += L' ';

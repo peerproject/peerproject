@@ -441,12 +441,13 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 			return dwError;
 		}
 
-		// Save download every move
-		static_cast< CDownload* >( this )->Save();
-
 		const CString strPath = m_pFile->GetPath( nIndex );
 
 		MarkFileAsDownload( strPath );
+
+		// Save download every move (or every few if many)
+		if ( nCount < 600 || nIndex % 4 == 0 )
+			static_cast< CDownload* >( this )->Save();
 
 		LibraryBuilder.RequestPriority( strPath );
 

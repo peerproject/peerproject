@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3190,10 +3190,10 @@
 	<string id="20556" value="Impossible de résoudre l'hôte « %s »."/>
 	<string id="20557" value="Résolution de l'hôte « %s »..."/>
 	<string id="20558" value="Envoi d'une requête pour « %s » à %s."/>
-	<string id="20560" value="L'adresse %s est déjà bloquée par vos règles de sécurité."/>
-	<string id="20561" value="Règle de sécurité ajoutée pour le bloc %s."/>
-	<string id="20562" value="Le gestionnaire de sécurité a rejeté la connexion de %s."/>
-	<string id="20563" value="Le gestionnaire de sécurité a interdit une connexion à %s."/>
+	<string id="20560" value="Le gestionnaire de sécurité a rejeté la connexion de %s."/>
+	<string id="20561" value="Le gestionnaire de sécurité a interdit une connexion à %s."/>
+	<string id="20562" value="Règle de sécurité ajoutée pour le bloc %s."/>
+	<string id="20563" value="L'adresse %s est déjà bloquée par vos règles de sécurité."/>
 	<string id="20564" value="Démarrage du noyau réseau de PeerProject..."/>
 	<string id="20565" value="Le planificateur fonctionne actuellement en mode « limité à G2 ». Voulez-vous désactiver ce mode pour que tous les réseaux actifs restent connectés ?"/>
 	<string id="20566" value="Au bout de dix essais, PeerProject n'a pas réussi à configurer votre pare-feu ou routeur avec l'UPnP"/>
@@ -3341,7 +3341,7 @@
 	<string id="20773" value="de votre bibliothèque"/>
 	<string id="20774" value="Indisponible"/>
 	<string id="20775" value="Prochain dans la file d'attente"/>
-	<string id="20776" value=" (Aucun Hashset)"/>
+	<string id="20776" value="(Aucun Hashset)"/>
 	<string id="20777" value="Source partielle (%.2f%% disponible)"/>
 	<string id="20778" value="%i connecteurs d'envois, %i dans une file"/>
 	<string id="20780" value="Taille"/>

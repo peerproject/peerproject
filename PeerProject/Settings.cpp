@@ -154,6 +154,7 @@ void CSettings::Load()
 	Add( L"Skin", L"MenuBorders", &Skin.MenuBorders, true );
 	Add( L"Skin", L"MenuGripper", &Skin.MenuGripper, true );
 	Add( L"Skin", L"RoundedSelect", &Skin.RoundedSelect, false );
+	Add( L"Skin", L"FrameEdge", &Skin.FrameEdge, true );
 	Add( L"Skin", L"ButtonEdge", &Skin.ButtonEdge, 4, 1, 0, 100, L" px" );
 	Add( L"Skin", L"MenubarHeight", &Skin.MenubarHeight, 28, 1, 0, 100, L" px" );
 	Add( L"Skin", L"ToolbarHeight", &Skin.ToolbarHeight, 28, 1, 0, 100, L" px" );

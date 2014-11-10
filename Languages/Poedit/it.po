@@ -6024,20 +6024,20 @@ msgstr "Risoluzione host \"%s\" in corso..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Invio richiesta per \"%s\" a %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "L'indirizzo %s è già bloccato dalle regole di sicurezza."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Regola di sicurezza per bloccare %s aggiunta."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Il gestore di sicurezza ha negato la connessione da %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Il gestore di sicurezza ha bloccato la connessione a %s."
 
 #: string;20564

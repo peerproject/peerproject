@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2908,10 +2908,10 @@
 	<string id="20556" value="Ei suuda serverit lahendada &quot;%s&quot;."/>
 	<string id="20557" value="Lahendan serverit &quot;%s&quot;..."/>
 	<string id="20558" value="Saadan päringu &quot;%s&quot; %s."/>
-	<string id="20560" value="Address %s on juba sinu turva seadetega keelatud."/>
-	<string id="20561" value="Lisatud turvareegel %s blokeerimiseks."/>
-	<string id="20562" value="Turvateenus keelas ühenduse %s serveriga."/>
-	<string id="20563" value="Turvateenus tõkestas ühenduse %s."/>
+	<string id="20560" value="Turvateenus keelas ühenduse %s serveriga."/>
+	<string id="20561" value="Turvateenus tõkestas ühenduse %s."/>
+	<string id="20562" value="Lisatud turvareegel %s blokeerimiseks."/>
+	<string id="20563" value="Address %s on juba sinu turva seadetega keelatud."/>
 	<string id="20564" value="Käivitan PeerProject võrgu tuuma..."/>
 	<string id="20570" value="Vastu võetud vigaselt formeeritud pakettide päring %s, ignoreerin."/>
 	<string id="20571" value="%s: Vastu võetud vigaselt formeeritud info päring %s, ignoreerin."/>

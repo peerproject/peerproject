@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2797,10 +2797,10 @@
 	<string id="20556" value="Klarer ikke å fastsette vert &quot;%s&quot;."/>
 	<string id="20557" value="Fastsetter vert &quot;%s&quot;..."/>
 	<string id="20558" value="Sender forespørsel for &quot;%s&quot; til %s."/>
-	<string id="20560" value="Adressen %s er allerede blokert i sikkerhetsreglene."/>
-	<string id="20561" value="La til ny sikkerhetsregel for å blokkere %s."/>
-	<string id="20562" value="Sikkerhetsinnstillingene nektet kobling fra %s."/>
-	<string id="20563" value="Sikkerhetsinnstillingene blokkerte kobling til %s."/>
+	<string id="20560" value="Sikkerhetsinnstillingene nektet kobling fra %s."/>
+	<string id="20561" value="Sikkerhetsinnstillingene blokkerte kobling til %s."/>
+	<string id="20562" value="La til ny sikkerhetsregel for å blokkere %s."/>
+	<string id="20563" value="Adressen %s er allerede blokert i sikkerhetsreglene."/>
 	<string id="20564" value="Starter PeerProjects nettverkskjerne..."/>
 	<string id="20570" value="Mottok et feil formatert spørre-treff-pakke fra %s, ignorerer."/>
 	<string id="20571" value="%s: Mottok et feil formatert spørrepakke fra %s, ignorerer."/>
@@ -2941,7 +2941,7 @@
 	<string id="20773" value="av ditt bibliotek"/>
 	<string id="20774" value="I/T"/>
 	<string id="20775" value="Neste..."/>
-	<string id="20776" value=" (Intet hashsett)"/>
+	<string id="20776" value="(Intet hashsett)"/>
 	<string id="20777" value="Delvis kilde (%.2f%% tilgjengelig)"/>
 	<string id="20778" value="%i opplastings slots, %i venter i kø"/>
 	<string id="20780" value="Str"/>

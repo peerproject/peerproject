@@ -42,7 +42,7 @@ END_INTERFACE_MAP()
 BOOL FindMenuId(HMENU hMenu, UINT nRequestID, HMENU& hParent, UINT& nPosition, HMENU& hResultMenu)
 {
 	const int nCount = GetMenuItemCount( hMenu );
-	if ( nCount > 0 && nCount < (int)nRequestID  )
+	if ( nCount > 0 && nCount < (int)nRequestID )
 	{
 		for ( int i = 0 ; i < nCount ; ++i )
 		{
@@ -80,6 +80,7 @@ BOOL FindMenuId(HMENU hMenu, UINT nRequestID, HMENU& hParent, UINT& nPosition, H
 	}
 	return FALSE;
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CComMenu construction

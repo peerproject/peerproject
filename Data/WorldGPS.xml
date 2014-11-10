@@ -143,6 +143,7 @@
 		<city name="Auburndale"		state="Wisconsin"	latitude="44.63945" longitude="-90.00550"/>
 		<city name="Audubon"		state="New Jersey"	latitude="39.88899" longitude="-75.06605"/>
 		<city name="Augusta"		state="Georgia"		latitude="38.88990" longitude="-75.86972"/>
+		<city name="Augusta"		state="Maine"		latitude="44.30707" longitude="-69.7812"/>
 		<city name="Aurora"		state="Colorado"	latitude="40.55779" longitude="-98.18531"/>
 		<city name="Austin"		state="Texas"		latitude="31.10642" longitude="-97.61284"/>
 		<city name="Avenel"		state="New Jersey"	latitude="40.57981" longitude="-74.27890"/>
@@ -240,6 +241,7 @@
 		<city name="Blanco"		state="Texas"		latitude="30.08807" longitude="-98.40550"/>
 		<city name="Blanding"		state="Utah"		latitude="37.58807" longitude="-109.48623"/>
 		<city name="Bloomfield"		state="Colorado"	latitude="41.40000" longitude="-91.68991"/>
+		<city name="Bloomfield"		state="New Jersey"	latitude="40.80825" longitude="-74.21834"/>
 		<city name="Bloomfield Hills"	state="Michigan"	latitude="42.58899" longitude="-83.22935"/>
 		<city name="Bloomingdale"	state="Illinois"	latitude="42.16238" longitude="-87.01651"/>
 		<city name="Bloomington"	state="Indiana" 	latitude="41.98073" longitude="-90.08256"/>
@@ -1216,7 +1218,7 @@
 		<city name="Mayfield Heights"	state="Ohio"		latitude="41.50734" longitude="-81.46788"/>
 		<city name="Mayfield Village"	state="Ohio"		latitude="41.54862" longitude="-81.47889"/>
 		<city name="Mcallen"		state="Texas"		latitude="26.23761" longitude="-98.23486"/>
-		<city name="Mcclellan AFB"	state="California"	latitude="38.65871" longitude="-121.39816"/>
+		<city name="McClellan AFB"	state="California"	latitude="38.65871" longitude="-121.39816"/>
 		<city name="Mcgaw Park"		state="Illinois"	latitude="42.35780" longitude="-87.84771"/>
 		<city name="Mckinney"		state="Texas"		latitude="33.19816" longitude="-96.65504"/>
 		<city name="Mclean"		state="Virginia"	latitude="38.93119" longitude="-77.21284"/>
@@ -1333,8 +1335,7 @@
 		<city name="Mountain View"	state="California"	latitude="37.43119" longitude="-122.13578"/>
 		<city name="Mountlake Terrace"	state="Washington"	latitude="47.78807" longitude="-122.29541"/>
 		<city name="Mountville"		state="Pennsylvania"	latitude="40.03761" longitude="-76.42569"/>
-		<city name="Mpls"		state="Minnesota"	latitude="44.97798" longitude="-93.27523"/>
-		<city name="Msfc"		state="Alabama" 	latitude="37.99816" longitude="-97.99817"/>
+		<city name="MSFC"		state="Alabama" 	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Mt Dora"		state="Florida"		latitude="28.78899" longitude="-81.64954"/>
 		<city name="Mt Holly"		state="New Jersey"	latitude="39.98807" longitude="-74.79633"/>
 		<city name="Mt Laurel"		state="New Jersey"	latitude="39.94954" longitude="-74.89541"/>
@@ -2078,7 +2079,6 @@
 		<city name="Virginia Beach"	state="Virginia"	latitude="36.82568" longitude="-76.12844"/>
 		<city name="Visalia"		state="California"	latitude="36.35780" longitude="-119.29541"/>
 		<city name="Vista"		state="California"	latitude="33.18990" longitude="-117.24770"/>
-		<city name="West Los Angeles"	state="California"	latitude="34.03761" longitude="-118.44770"/>
 		<city name="Wabasso"		state="Minnesota"	latitude="44.40825" longitude="-95.25688"/>
 		<city name="Waco"		state="Texas"		latitude="31.55504" longitude="-97.15046"/>
 		<city name="Wadsworth"		state="Ohio"		latitude="41.03944" longitude="-81.73761"/>
@@ -2139,6 +2139,7 @@
 		<city name="West Henrietta"	state="New York"	latitude="43.03761" longitude="-77.68624"/>
 		<city name="West Kingston"	state="Rhode Island"	latitude="41.50734" longitude="-71.59816"/>
 		<city name="West Lafayette"	state="Indiana" 	latitude="40.43945" longitude="-86.91743"/>
+		<city name="West Los Angeles"	state="California"	latitude="34.03761" longitude="-118.44770"/>
 		<city name="West Mifflin"	state="Pennsylvania"	latitude="40.36789" longitude="-79.88807"/>
 		<city name="West Milford"	state="New Jersey"	latitude="41.08899" longitude="-74.36697"/>
 		<city name="West Newbury"	state="Massachusetts"	latitude="42.78990" longitude="-70.97615"/>
@@ -2155,6 +2156,7 @@
 		<city name="Westchester"	state="Illinois"	latitude="41.84862" longitude="-87.87523"/>
 		<city name="Westerly"		state="Rhode Island"	latitude="41.36972" longitude="-71.80734"/>
 		<city name="Westerville"	state="Ohio"		latitude="40.10917" longitude="-82.90458"/>
+		<city name="Westfield"		state="New Jersey"	latitude="40.6524" longitude="-74.3476"/>
 		<city name="Westfield"		state="New York"	latitude="42.31926" longitude="-79.56881"/>
 		<city name="Westfield"		state="Massachusetts"	latitude="37.99816" longitude="-97.99817"/>
 		<city name="Westford"		state="Massachusetts"	latitude="42.58899" longitude="-71.43853"/>
@@ -5885,7 +5887,7 @@
 		<city name=""	state="Nabatîyé" latitude="33.25" longitude="35.5"/>
 	</country>
 	<country code="LS" name="Lesotho">
-		<city name="Maseru"	state="Maseru" latitude="-29.31666" longitude="27.48333"/>
+		<city name="Maseru"	state="Lesotho" latitude="-29.31666" longitude="27.48333"/>
 		<city name="" state="Lesotho" latitude="-29.53333" longitude="28.6"/>
 	</country>
 	<country code="LR" name="Liberia">
@@ -6403,6 +6405,7 @@
 		<city name="Kano"	state="Kano State" latitude="11.99639" longitude="8.51666"/>
 		<city name="Katsina"	state="Katsina State" latitude="12.99778" longitude="7.59944"/>
 		<city name="Lafia"	state="Nassarawa State" latitude="8.48333" longitude="8.51666"/>
+		<city name="Lagos"	state="Lagos State" latitude="6.4766" longitude="3.37"/>
 		<city name="Lokoja"	state="Kogi State" latitude="7.8" longitude="6.73333"/>
 		<city name="Maiduguri"	state="Borno State" latitude="11.845" longitude="13.16"/>
 		<city name="Makurdi"	state="Benue State" latitude="7.73333" longitude="8.53333"/>
@@ -6670,6 +6673,7 @@
 		<city name="Viseu"	state="Viseu" latitude="40.65" longitude="-7.91666"/>
 	</country>
 	<country code="PR" name="Puerto Rico">
+		<city name="Ponce"	state="Puerto Rico" latitude="17.996" longitude="-66.606"/>
 		<city name="San Juan"	state="Puerto Rico" latitude="18.46833" longitude="-66.10611"/>
 	</country>
 	<country code="QA" name="Qatar">

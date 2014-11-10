@@ -238,7 +238,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.5"
 #define SQLITE_VERSION_NUMBER 3008005
-#define SQLITE_SOURCE_ID      "2014-06-02 11:26:33 9f18b303cd1bc5779d82669884f802c7889b4947"
+#define SQLITE_SOURCE_ID      "2014-06-04 14:06:34 b1ed4f2a34ba66c29b130f8d13e9092758019212"
 
 /*
 ** Run-Time Library Version Numbers
@@ -71681,7 +71681,7 @@ SQLITE_PRIVATE void sqlite3DeleteFrom(
   sqlite3BeginWriteOperation(pParse, 1, iDb);
 
   /* If we are trying to delete from a view, realize that view into
-  ** a ephemeral table.
+  ** an ephemeral table.
   */
 #if !defined(SQLITE_OMIT_VIEW) && !defined(SQLITE_OMIT_TRIGGER)
   if( isView ){
@@ -76721,7 +76721,7 @@ static int xferCompatibleIndex(Index *pDest, Index *pSrc){
 **     INSERT INTO tab1 SELECT * FROM tab2;
 **
 ** The xfer optimization transfers raw records from tab2 over to tab1.
-** Columns are not decoded and reassemblied, which greatly improves
+** Columns are not decoded and reassembled, which greatly improves
 ** performance.  Raw index records are transferred in the same way.
 **
 ** The xfer optimization is only attempted if tab1 and tab2 are compatible.
@@ -82728,14 +82728,14 @@ static void generateSortTail(
   }
   if( pSort->regReturn ) sqlite3VdbeAddOp1(v, OP_Return, pSort->regReturn);
   sqlite3VdbeResolveLabel(v, addrBreak);
-  if( eDest==SRT_Output || eDest==SRT_Coroutine ){
-    sqlite3VdbeAddOp2(v, OP_Close, pseudoTab, 0);
-  }
 }
 
 /*
 ** Return a pointer to a string containing the 'declaration type' of the
 ** expression pExpr. The string may be treated as static by the caller.
+**
+** Also try to estimate the size of the returned value and return that
+** result in *pEstWidth.
 **
 ** The declaration type is the exact datatype definition extracted from the
 ** original CREATE TABLE statement if the expression is a column. The
@@ -82750,6 +82750,9 @@ static void generateSortTail(
 **   SELECT abc FROM (SELECT col AS abc FROM tbl);
 **
 ** The declaration type for any expression other than a column is NULL.
+**
+** This routine has either 3 or 6 parameters depending on whether or not
+** the SQLITE_ENABLE_COLUMN_METADATA compile-time option is used.
 */
 #ifdef SQLITE_ENABLE_COLUMN_METADATA
 # define columnType(A,B,C,D,E,F) columnTypeImpl(A,B,C,D,E,F)
@@ -90712,7 +90715,7 @@ struct WhereInfo {
 #define WHERE_AUTO_INDEX   0x00004000  /* Uses an ephemeral index */
 #define WHERE_SKIPSCAN     0x00008000  /* Uses the skip-scan algorithm */
 #define WHERE_UNQ_WANTED   0x00010000  /* WHERE_ONEROW would have been helpful*/
-#define WHERE_LIKELIHOOD   0x00020000  /* A likelihood() is affecting nOut */
+//#define WHERE_LIKELIHOOD 0x00020000  /* A likelihood() is affecting nOut */
 
 /************** End of whereInt.h ********************************************/
 /************** Continuing where we left off in where.c **********************/
@@ -94886,7 +94889,7 @@ static int whereLoopAddBtreeIndex(
         testcase( eOp & WO_IN );
         pNew->nOut += pTerm->truthProb;
         pNew->nOut -= nIn;
-        pNew->wsFlags |= WHERE_LIKELIHOOD;
+      //pNew->wsFlags |= WHERE_LIKELIHOOD;
       }else{
 #ifdef SQLITE_ENABLE_STAT3_OR_STAT4
         tRowcnt nOut = 0;
@@ -94895,7 +94898,7 @@ static int whereLoopAddBtreeIndex(
          && pNew->u.btree.nEq<=pProbe->nSampleCol
          && OptimizationEnabled(db, SQLITE_Stat3)
          && ((eOp & WO_IN)==0 || !ExprHasProperty(pTerm->pExpr, EP_xIsSelect))
-         && (pNew->wsFlags & WHERE_LIKELIHOOD)==0
+       //&& (pNew->wsFlags & WHERE_LIKELIHOOD)==0
         ){
           Expr *pExpr = pTerm->pExpr;
           if( (eOp & (WO_EQ|WO_ISNULL))!=0 ){

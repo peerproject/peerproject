@@ -6024,20 +6024,20 @@ msgstr ""
 msgid "Sending query for \"%s\" to %s."
 msgstr ""
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
-msgstr ""
-
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr ""
 
 #: string;20562
+msgid "Added security rule to block %s."
+msgstr ""
+
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr ""
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr ""
 
 #: string;20564

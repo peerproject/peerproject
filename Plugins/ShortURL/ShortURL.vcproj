@@ -77,6 +77,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="ws2_32.lib Wininet.lib"
+				DelayLoadDLLs="ws2_32.dll;Wininet.dll;"
 				IgnoreImportLibrary="true"
 				ModuleDefinitionFile="ShortURL.def"
 				GenerateDebugInformation="true"
@@ -167,6 +169,8 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="ws2_32.lib Wininet.lib"
+				DelayLoadDLLs="ws2_32.dll;Wininet.dll;"
 				IgnoreImportLibrary="true"
 				ModuleDefinitionFile="ShortURL.def"
 				GenerateDebugInformation="true"
@@ -261,7 +265,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				AdditionalDependencies="ws2_32.lib Wininet.lib"
+				DelayLoadDLLs="ws2_32.dll;Wininet.dll;"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
 				ModuleDefinitionFile="ShortURL.def"
@@ -355,10 +361,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				RegisterOutput="true"
+				AdditionalDependencies="ws2_32.lib Wininet.lib"
+				DelayLoadDLLs="ws2_32.dll;Wininet.dll;"
+				ModuleDefinitionFile="ShortURL.def"
+				RegisterOutput="false"
 				IgnoreImportLibrary="true"
 				LinkIncremental="1"
-				ModuleDefinitionFile="ShortURL.def"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"

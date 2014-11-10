@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3026,10 +3026,10 @@
 	<string id="20556" value="Kan inte hämta värd &quot;%s&quot;."/>
 	<string id="20557" value="Hämtar värd &quot;%s&quot;."/>
 	<string id="20558" value="Skickar begäran om &quot;%s&quot; till %s."/>
-	<string id="20560" value="Adressen %s är redan blockerad av dina säkerhetsregler."/>
-	<string id="20561" value="Lade till säkerhetsregel för att blockera %s."/>
-	<string id="20562" value="Säkerhetshanteraren nekade åtkomst från %s."/>
-	<string id="20563" value="Säkerhetshanteraren stängde av åtkomst från %s."/>
+	<string id="20560" value="Säkerhetshanteraren nekade åtkomst från %s."/>
+	<string id="20561" value="Säkerhetshanteraren stängde av åtkomst från %s."/>
+	<string id="20562" value="Lade till säkerhetsregel för att blockera %s."/>
+	<string id="20563" value="Adressen %s är redan blockerad av dina säkerhetsregler."/>
 	<string id="20564" value="Startar PeerProjects nätverkskärna…"/>
 	<string id="20566" value="UPnP portmapping misslyckades efter 10 försök."/>
 	<string id="20570" value="Tog emot ett felformaterat frågeträffpaket från %s, ignorerar."/>

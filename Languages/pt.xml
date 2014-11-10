@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3147,10 +3147,10 @@
 	<string id="20556" value="Incapaz de decidir host &quot;%s&quot;."/>
 	<string id="20557" value="Resolvendo host &quot;%s&quot;..."/>
 	<string id="20558" value="Enviando inquisição para &quot;%s&quot; para %s."/>
-	<string id="20560" value="O endereço %s já está sendo bloqueado pelas suas regras de segurança."/>
-	<string id="20561" value="Adicionada uma regra de segurança para bloquear %s."/>
-	<string id="20562" value="O Gerenciador de segurança negou conexão de %s."/>
-	<string id="20563" value="O Gerenciador de segurança barrou uma conexão com %s."/>
+	<string id="20560" value="O Gerenciador de segurança negou conexão de %s."/>
+	<string id="20561" value="O Gerenciador de segurança barrou uma conexão com %s."/>
+	<string id="20562" value="Adicionada uma regra de segurança para bloquear %s."/>
+	<string id="20563" value="O endereço %s já está sendo bloqueado pelas suas regras de segurança."/>
 	<string id="20564" value="Iniciando o núcleo de rede do PeerProject..."/>
 	<string id="20565" value="Você está executando a Agenda no modo 'apenas G2'. Você gostaria de desativar esta modo, para que todas as redes ativas permaneçam conectadas?"/>
 	<string id="20566" value="O mapamento de portas UPnP falhou após 10 tentativas."/>

@@ -1,7 +1,7 @@
 //
 // PageFileComments.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -110,19 +110,20 @@ void CFileCommentsPage::OnMeasureItem(int /*nIDCtl*/, LPMEASUREITEMSTRUCT lpMeas
 
 void CFileCommentsPage::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruct)
 {
-	if ( lpDrawItemStruct->itemID == (UINT)-1 ) return;
-	if ( ( lpDrawItemStruct->itemAction & ODA_SELECT ) == 0 &&
-		 ( lpDrawItemStruct->itemAction & ODA_DRAWENTIRE ) == 0 ) return;
+	if ( lpDrawItemStruct->itemID == (UINT)-1 ||
+		 ( lpDrawItemStruct->itemAction & ODA_SELECT ) == 0 &&
+		 ( lpDrawItemStruct->itemAction & ODA_DRAWENTIRE ) == 0 )
+		return;
+
+	const int nRating = lpDrawItemStruct->itemID;
 
 	CRect rcItem( &lpDrawItemStruct->rcItem );
-	CPoint pt( rcItem.left + 1, rcItem.top + 1 );
+
 	CDC dc;
 
 	dc.Attach( lpDrawItemStruct->hDC );
 	if ( Settings.General.LanguageRTL )
 		SetLayout( dc.m_hDC, LAYOUT_RTL );
-
-	int nRating = lpDrawItemStruct->itemID;
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( nRating > 0 ? &theApp.m_gdiFontBold : &theApp.m_gdiFont );
 	dc.SetBkMode( TRANSPARENT );

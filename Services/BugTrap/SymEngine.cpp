@@ -17,6 +17,11 @@
 #include "MemStream.h"
 #include "FileStream.h"
 
+// VS2008:
+#ifndef VER_SUITE_WH_SERVER
+#define VER_SUITE_WH_SERVER 0x00008000
+#endif
+
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2990,10 +2990,10 @@
 	<string id="20556" value="Nemůžu přeložit adresu &quot;%s&quot;."/>
 	<string id="20557" value="Překládám adresu &quot;%s&quot;..."/>
 	<string id="20558" value="Posílám dotaz na &quot;%s&quot; do %s."/>
-	<string id="20560" value="Adresa %s je již blokovaná vašimi směrnicemi pro zabezpeční."/>
-	<string id="20561" value="Přidat pravidlo zabezpečení pro blokování %s."/>
-	<string id="20562" value="Manažer zabezpečení odepřel připojení od %s."/>
-	<string id="20563" value="Manažer zabezpečení vyloučil připojení k %s."/>
+	<string id="20560" value="Manažer zabezpečení odepřel připojení od %s."/>
+	<string id="20561" value="Manažer zabezpečení vyloučil připojení k %s."/>
+	<string id="20562" value="Přidat pravidlo zabezpečení pro blokování %s."/>
+	<string id="20563" value="Adresa %s je již blokovaná vašimi směrnicemi pro zabezpeční."/>
 	<string id="20564" value="Spouštím síťové jádro PeerProject..."/>
 	<string id="20566" value="Mapování UPnP portu selhalo po 10 pokusech."/>
 	<string id="20570" value="Přijat dotaz na poškozený paket od %s, ignoruji."/>
@@ -3139,7 +3139,7 @@
 	<string id="20773" value="ve vaší knihovně"/>
 	<string id="20774" value="Neznámo"/>
 	<string id="20775" value="Další v pořadí"/>
-	<string id="20776" value=" (Žádný Hashset)"/>
+	<string id="20776" value="(Žádný Hashset)"/>
 	<string id="20777" value="Částečný zdroj (%.2f%% je dostupný)"/>
 	<string id="20778" value="%i slot pro odesílání, %i čeká ve frontě"/>
 	<string id="20780" value="Velké"/>

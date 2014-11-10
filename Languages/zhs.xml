@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Simplified) Skin File -->
 
-<!-- Translation based on default en.xml r110 --> <!-- (Shareaza r6092) -->
+<!-- Translation based on default en.xml r120 --> <!-- (Shareaza r6092) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -2971,10 +2971,10 @@
 	<string id="20556" value="不能解析 &quot;%s&quot; 主机。"/>
 	<string id="20557" value="正在解析 &quot;%s&quot; 主机..."/>
 	<string id="20558" value="为 &quot;%s&quot; 发送查询到 %s。"/>
-	<string id="20560" value="您的安全策略已经屏蔽了该地址。"/>
-	<string id="20561" value="添加安全策略屏蔽 %s 主机。"/>
-	<string id="20562" value="安全管理器拒绝来自 %s 主机的连接。"/>
-	<string id="20563" value="安全管理器禁止连接 %s 主机。"/>
+	<string id="20560" value="安全管理器拒绝来自 %s 主机的连接。"/>
+	<string id="20561" value="安全管理器禁止连接 %s 主机。"/>
+	<string id="20562" value="添加安全策略屏蔽 %s 主机。"/>
+	<string id="20563" value="您的安全策略已经屏蔽了该地址。"/>
 	<string id="20564" value="启动 PeerProject 网络内核..."/>
 	<string id="20570" value="接收到来自 %s 主机混乱格式的命中数据包，忽略数据包。"/>
 	<string id="20571" value="%s: 接收到来自 %s 主机的混乱格式的质询，忽略数据包。"/>

@@ -6020,20 +6020,20 @@ msgstr "ホスト \"%s\" を名前解決中です..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "\"%s\" の問い合わせを %s へ送信中です"
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "セキュリティ規則によりアドレス %s は既にブロックされています"
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "%s をブロックする為のセキュリティ規則が追加されました"
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "セキュリティマネージャが %s からの接続を拒否しました"
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "セキュリティマネージャが %s への接続を禁止しました"
 
 #: string;20564

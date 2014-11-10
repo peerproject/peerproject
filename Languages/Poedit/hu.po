@@ -6020,20 +6020,20 @@ msgstr "Feloldás: \"%s\"..."
 msgid "Sending query for \"%s\" to %s."
 msgstr "Keresési kérvény elküldése: \"%s\" ide: %s."
 
-#: string;20560
-msgid "The address %s is already blocked by your security rules."
+#: string;20563
+msgid "Address %s is already blocked by security rules."
 msgstr "A %s már blokkolva van a biztonsági beállításokban."
 
-#: string;20561
-msgid "Added a security rule to block %s."
+#: string;20562
+msgid "Added security rule to block %s."
 msgstr "Biztonsági szabály hozzáadása, hogy blokkolja: %s."
 
-#: string;20562
+#: string;20560
 msgid "Security manager denied connection from %s."
 msgstr "Biztonsági okok miatt a kapcsolat meg lett tagva: %s."
 
-#: string;20563
-msgid "Security manager barred a connection to %s."
+#: string;20561
+msgid "Security manager barred connection to %s."
 msgstr "Biztonsági okok miatt a kapcsolat el lett hárítva: %s."
 
 #: string;20564

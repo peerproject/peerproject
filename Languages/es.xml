@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Spanish Skin File -->
 
-<!-- Translation based on default en.xml r110 -->
+<!-- Translation based on default en.xml r120 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -3103,10 +3103,10 @@
 	<string id="20556" value="No se pudo resolver host &quot;%s&quot;."/>
 	<string id="20557" value="Resolviendo la ruta de &quot;%s&quot;..."/>
 	<string id="20558" value="Mandando query para &quot;%s&quot; a %s."/>
-	<string id="20560" value="La dirección %s ya esta bloqueada en tus reglas de seguridad."/>
-	<string id="20561" value="Agregar una regla de seguridad %s."/>
-	<string id="20562" value="Security manager denegó la conexión de %s."/>
-	<string id="20563" value="Security manager bloqueo conectarse a %s."/>
+	<string id="20560" value="Security manager denegó la conexión de %s."/>
+	<string id="20561" value="Security manager bloqueo conectarse a %s."/>
+	<string id="20562" value="Agregar una regla de seguridad %s."/>
+	<string id="20563" value="La dirección %s ya esta bloqueada en tus reglas de seguridad."/>
 	<string id="20564" value="Iniciando el nucleo de la red..."/>
 	<string id="20566" value="Mapeo del puerto UPnP falló después de 10 intentos."/>
 	<string id="20570" value="%s envió una respuesta incorrecta, ignorando."/>
