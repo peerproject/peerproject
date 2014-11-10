@@ -256,8 +256,6 @@ void CPropertySheetAdv::OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR
 
 LRESULT CPropertySheetAdv::OnNcHitTest(CPoint point)
 {
-	if ( Skin.m_bSkinChanging ) return NULL;	// Crashfix?
-
 	if ( m_pSkin )
 		return m_pSkin->OnNcHitTest( this, point, ( GetStyle() & WS_THICKFRAME ) ? TRUE : FALSE );
 
@@ -266,8 +264,6 @@ LRESULT CPropertySheetAdv::OnNcHitTest(CPoint point)
 
 BOOL CPropertySheetAdv::OnNcActivate(BOOL bActive)
 {
-	if ( Skin.m_bSkinChanging ) return FALSE;	// Crashfix?
-
 	if ( m_pSkin )
 	{
 		BOOL bVisible = IsWindowVisible();

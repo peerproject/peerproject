@@ -451,8 +451,6 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_pTray.hWnd = GetSafeHwnd();
 	m_pTray.hIcon = CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE );
 
-	SnarlRegister();
-
 	// Icon
 	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
 
@@ -561,6 +559,8 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 		PostMessage( WM_COMMAND, ID_HELP_WARNINGS );
 	else if ( ! Settings.Windows.RunPromote )
 		PostMessage( WM_COMMAND, ID_HELP_PROMOTE );
+
+	SnarlRegister();
 
 	Scheduler.CheckSchedule();	// Now we are sure main window is valid
 
@@ -837,8 +837,7 @@ void CMainWnd::OnWindowPosChanging(WINDOWPOS* lpwndpos)
 {
 	CMDIFrameWnd::OnWindowPosChanging( lpwndpos );
 
-	HMONITOR hMonitor = MonitorFromWindow( GetSafeHwnd(),
-		MONITOR_DEFAULTTOPRIMARY );
+	HMONITOR hMonitor = MonitorFromWindow( GetSafeHwnd(), MONITOR_DEFAULTTOPRIMARY );
 
 	MONITORINFO oMonitor = {0};
 	oMonitor.cbSize = sizeof( MONITORINFO );
@@ -1193,7 +1192,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 {
 	CWaitCursor pCursor;
 
-	Skin.m_bSkinChanging = TRUE;	// Indicate transitional state where needed
+	//BOOL bHandled = Skin.m_bSkinChanging;	// External setting?
+	Skin.m_bSkinChanging = TRUE;			// Indicate transitional state where needed
 
 	if ( m_pSkin )
 		CoolInterface.EnableTheme( this, TRUE );
@@ -1295,7 +1295,8 @@ LRESULT CMainWnd::OnSkinChanged(WPARAM /*wParam*/, LPARAM /*lParam*/)
 		CPeerProjectURL::Register();
 	}
 
-	Skin.m_bSkinChanging = FALSE;	// Restore system state
+	//if ( ! bHandled )
+		Skin.m_bSkinChanging = FALSE;	// Restore system state
 
 	return 0;
 }

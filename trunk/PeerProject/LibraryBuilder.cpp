@@ -381,7 +381,11 @@ DWORD CLibraryBuilder::GetNextFileToHash()
 	}
 
 	CQuickLock oLock( m_pSection );
-	m_sPath = strPath;
+
+	if ( nIndex )
+		m_sPath = strPath;
+	else
+		m_sPath.Empty();
 
 	return nIndex;
 }
@@ -1151,7 +1155,7 @@ bool CLibraryBuilder::RefreshMetadata(const CString& sPath)
 		if ( ! pFile )
 			return false;
 		nIndex = pFile->m_nIndex;
-		pFile->m_bMetadataAuto = TRUE;
+	//	pFile->m_bMetadataAuto = TRUE;
 	}
 
 	theApp.Message( MSG_DEBUG, L"Refreshing: %s", (LPCTSTR)sPath );

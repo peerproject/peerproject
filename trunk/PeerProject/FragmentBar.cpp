@@ -60,10 +60,10 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	rcArea.top		= prcBar->top;
 	rcArea.bottom	= prcBar->bottom;
 
-	rcArea.left		= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
+	rcArea.left 	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
 	rcArea.right	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) / nTotal );
 
-	rcArea.left		= max( rcArea.left, prcBar->left );
+	rcArea.left 	= max( rcArea.left, prcBar->left );
 	rcArea.right	= min( rcArea.right, prcBar->right );
 
 	if ( rcArea.right <= rcArea.left )
@@ -88,7 +88,7 @@ void CFragmentBar::DrawFragment(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 		pDC->FillSolidRect( &rcArea, crFill );
 	}
 
-	pDC->ExcludeClipRect( &rcArea );		// ToDo: High CPU here?
+	pDC->ExcludeClipRect( &rcArea );			// ToDo: High CPU here?
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -99,17 +99,17 @@ void CFragmentBar::DrawStateBar(CDC* pDC, CRect* prcBar, QWORD nTotal, QWORD nOf
 	if ( nTotal == 0 || nLength == 0 || nTotal == SIZE_UNKNOWN || nOffset == SIZE_UNKNOWN || nLength == SIZE_UNKNOWN )
 		return;
 
-	ASSERT( nLength <= nTotal - nOffset );
+	ASSERT( nLength <= nTotal - nOffset );		// ToDo: Why does this fail?
 
 	if ( Settings.General.LanguageRTL )
 		nOffset = nTotal - nOffset - nLength;
 
 	CRect rcArea;
 
-	rcArea.left		= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
+	rcArea.left 	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * nOffset / nTotal );
 	rcArea.right	= prcBar->left + LONG( ( prcBar->Width() + 1 ) * ( nOffset + nLength ) / nTotal );
 
-	rcArea.left		= max( rcArea.left, prcBar->left );
+	rcArea.left 	= max( rcArea.left, prcBar->left );
 	rcArea.right	= min( rcArea.right, prcBar->right );
 
 	if ( bTop )

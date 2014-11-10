@@ -206,19 +206,31 @@ BOOL CDownloadTransferHTTP::StartNextFragment()
 	}
 
 	if ( m_pDownload->m_nSize == SIZE_UNKNOWN )
-	{
 		return SendRequest();
-	}
-	else if ( m_pDownload->NeedTigerTree() && ! m_sTigerTree.IsEmpty() )
+
+	if ( m_pDownload->NeedTigerTree() )
 	{
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_TIGER_REQUEST, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
+		if ( m_sTigerTree.IsEmpty() && m_pDownload->m_oTiger && Settings.Downloads.VerifyTiger && ! m_bTigerIgnore )
+		{
+			// Converting urn containing tiger tree root to
+			// "/gnutella/thex/v1?urn:tree:tiger/:{TIGER_ROOT}&depth={TIGER_HEIGHT}&ed2k={0/1}"
+			// in case if "X-Thex-URI" and "X-TigerTree-Path" headers will be absent or it is a "GIV" (push) connection
+			m_sTigerTree.Format( L"/gnutella/thex/v1?%s&depth=%u&ed2k=%d", (LPCTSTR)m_pDownload->m_oTiger.toUrn(),
+				Settings.Library.TigerHeight, ( Settings.Downloads.VerifyED2K ? 1 : 0 ) );
+		}
 
-		m_bTigerFetch	= TRUE;
-		m_bTigerIgnore	= TRUE;
+		if ( ! m_sTigerTree.IsEmpty() )
+		{
+			theApp.Message( MSG_INFO,IDS_DOWNLOAD_TIGER_REQUEST, (LPCTSTR)m_pDownload->GetDisplayName(),(LPCTSTR)m_sAddress );
 
-		return SendRequest();
+			m_bTigerFetch = TRUE;
+			m_bTigerIgnore = TRUE;
+
+			return SendRequest();
+		}
 	}
-	else if ( m_pSource && ! m_pSource->m_bMetaIgnore && ! m_sMetadata.IsEmpty() )
+
+	if ( m_pSource && ! m_pSource->m_bMetaIgnore && ! m_sMetadata.IsEmpty() )
 	{
 		theApp.Message( MSG_INFO, IDS_DOWNLOAD_METADATA_REQUEST, (LPCTSTR)m_pDownload->GetDisplayName(), (LPCTSTR)m_sAddress );
 
@@ -227,7 +239,8 @@ BOOL CDownloadTransferHTTP::StartNextFragment()
 
 		return SendRequest();
 	}
-	else if ( m_pDownload->GetFragment( this ) )
+
+	if ( m_pDownload->GetFragment( this ) )
 	{
 		ChunkifyRequest( &m_nOffset, &m_nLength, Settings.Downloads.ChunkSize, TRUE );
 
@@ -236,16 +249,14 @@ BOOL CDownloadTransferHTTP::StartNextFragment()
 
 		return SendRequest();
 	}
-	else
-	{
-		if ( m_pSource != NULL )
-			m_pSource->SetAvailableRanges( NULL );
 
-		theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
-		Close( TRI_TRUE );
+	if ( m_pSource != NULL )
+		m_pSource->SetAvailableRanges( NULL );
 
-		return FALSE;
-	}
+	theApp.Message( MSG_INFO, IDS_DOWNLOAD_FRAGMENT_END, (LPCTSTR)m_sAddress );
+	Close( TRI_TRUE );
+
+	return FALSE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -460,7 +471,6 @@ BOOL CDownloadTransferHTTP::SendRequest()
 	m_nContentLength	= SIZE_UNKNOWN;
 	m_sContentType.Empty();
 
-	m_sTigerTree.Empty();
 	m_nRequests++;
 
 	m_pSource->SetLastSeen();
@@ -665,9 +675,10 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		return FALSE;
 
 	CString strCase( strHeader );
-	strCase.MakeLower();
 	if ( strCase.GetLength() < 4 )
 		return TRUE;	// Skip bad/unknown small header
+
+	strCase.MakeLower();
 
 	// Expected Headers
 	SwitchMap( Text )
@@ -873,8 +884,8 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			Hashes::Ed2kHash oED2K;
 			Hashes::BtHash oBTH;
 			Hashes::Md5Hash oMD5;
-			CString strURNs = strValue + ',';
-			for ( int nPos = strURNs.Find( ',' ) ; nPos >= 0 ; nPos = strURNs.Find( ',' ) )
+			CString strURNs = strValue + L',';
+			for ( int nPos = strURNs.Find( L',' ) ; nPos >= 0 ; nPos = strURNs.Find( L',' ) )
 			{
 				strValue = strURNs.Left( nPos ).TrimLeft();
 				strURNs = strURNs.Mid( nPos + 1 );
@@ -885,19 +896,6 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 					&& ( !   oMD5.fromUrn( strValue ) || m_pSource->CheckHash( oMD5 ) )
 					&& ( !   oBTH.fromUrn( strValue ) || ( m_pSource->CheckHash( oBTH ), TRUE ) ) )
 				{
-				//	if ( oTiger && Settings.Downloads.VerifyTiger && ! m_bTigerIgnore && m_sTigerTree.IsEmpty()
-				//		&& (   _tcsistr( m_sUserAgent, L"Shareaza 2.1.4" ) != NULL
-				//			|| _tcsistr( m_sUserAgent, L"Shareaza 2.2.0" ) != NULL ) )
-				//	{
-				//		// Converting urn containing tiger tree root to
-				//		// "/gnutella/thex/v1?urn:tree:tiger/:{TIGER_ROOT}&depth={TIGER_HEIGHT}&ed2k={0/1}"
-				//		// in case if "X-Thex-URI" and "X-TigerTree-Path" headers will be absent
-				//		// (perfect workaround for "silent" Shareaza 2.2.0.0)
-				//		m_sTigerTree.Format( L"/gnutella/thex/v1?%s&depth=%u&ed2k=%d",
-				//			(LPCTSTR)oTiger.toUrn(),
-				//			Settings.Library.TigerHeight,
-				//			( Settings.Downloads.VerifyED2K ? 1 : 0 ) );
-				//	}
 					continue;
 				}
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_WRONG_HASH, (LPCTSTR)m_sAddress, (LPCTSTR)m_pDownload->GetDisplayName() );
@@ -914,7 +912,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 		break;
 
 	case 'g':		// "X-TigerTree-Path"
-		if ( Settings.Downloads.VerifyTiger && ! m_bTigerIgnore && m_sTigerTree.IsEmpty() )
+		if ( Settings.Downloads.VerifyTiger && ! m_bTigerIgnore )
 		{
 			if ( strValue.Find( L"tigertree/v1" ) < 0 &&
 				 strValue.Find( L"tigertree/v2" ) < 0 )

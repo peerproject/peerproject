@@ -1,7 +1,7 @@
 //
 // PageTorrentFiles.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -33,12 +33,14 @@ public:
 	enum { IDD = IDD_TORRENT_FILES };
 
 protected:
-//	CComboListCtrl	m_wndFiles;		// Custom features currently unused
+//	CComboListCtrl	m_wndFiles;		// Custom feature currently unused
 	CListCtrl	m_wndFiles;
 	CString 	m_sFilecount;
+	BOOL		m_bLoaded;	// Filelist complete
 
-	void Update();		// Refresh interface
-	void UpdateCount();	// Refresh file counter text
+	void GetFiles();		// Populate interface
+	void Update();			// Refresh interface
+	void UpdateCount();		// Refresh file counter text
 
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();

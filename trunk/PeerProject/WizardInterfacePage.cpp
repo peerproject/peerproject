@@ -191,11 +191,8 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinVistaFrames.xml", 1 );
 		}
 
-		// Crashfix workaround:
-		GetParent()->ModifyStyle( WS_VISIBLE, 0 );
 		PostMainWndMessage( WM_SKINCHANGED );
-		Sleep( 2500 );
-		GetParent()->ModifyStyle( 0, WS_VISIBLE );
+		Sleep( 2500 );		// Magic number
 		GetParent()->Invalidate();
 	}
 
@@ -217,7 +214,7 @@ void CWizardInterfacePage::ClearSkins(LPCTSTR pszPath /*NULL*/)
 	{
 		do
 		{
-			if ( pFind.cFileName[0] == '.' ) continue;
+			if ( pFind.cFileName[0] == L'.' ) continue;
 
 			if ( pFind.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY )
 			{

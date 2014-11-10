@@ -1,7 +1,7 @@
 //
 // SkinWindow.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -64,6 +64,7 @@ public:
 	BOOL		OnNcLButtonDblClk(CWnd* pWnd, UINT nHitTest, CPoint point);
 
 protected:
+	BOOL		m_bLoaded;		// Workaround: destructor has not been called
 	HBITMAP		m_hoSkin;
 	CBitmap		m_bmAlpha;
 	CRectMap	m_pPartList;	// Typedef above

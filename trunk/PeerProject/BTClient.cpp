@@ -643,8 +643,9 @@ BOOL CBTClient::OnHandshake2()
 //		{ 'T', 'R', L"Transmission" },
 //		{ 'T', 'S', L"TorrentStorm" },
 //		{ 'T', 'T', L"TuoTu" },
-//		{ 'U', 'L', L"uLeecher!" },
-//		{ 'U', 'M', L"\x00B5Torrent mac" },
+//		{ 'U', 'L', L"uLeecher" },
+//		{ 'U', 'E', L"\x00B5Torrent Embed" },
+//		{ 'U', 'M', L"\x00B5Torrent Mac" },
 //		{ 'U', 'T', L"\x00B5Torrent" },
 //		{ 'W', 'Y', L"FireTorrent" },
 //		{ 'X', 'L', L"Xunlei" },
@@ -695,6 +696,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"A~" ] = L"Ares";
 		Vendors[ L"AG" ] = L"Ares";
 		Vendors[ L"AR" ] = L"Arctic";
+		Vendors[ L"AT" ] = L"Artemis";
 		Vendors[ L"AV" ] = L"Avicora";
 		Vendors[ L"AX" ] = L"BitPump";
 		Vendors[ L"AZ" ] = L"Azureus";		// +Frostwire/etc.
@@ -723,6 +725,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"HK" ] = L"Hekate";
 		Vendors[ L"HL" ] = L"Halite";
 		Vendors[ L"HN" ] = L"Hydranode";
+		Vendors[ L"JT" ] = L"JavaTorrent";
 		Vendors[ L"KG" ] = L"KGet";
 		Vendors[ L"KT" ] = L"KTorrent";
 		Vendors[ L"LC" ] = L"Leechcraft";
@@ -758,14 +761,15 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"ST" ] = L"SymTorrent";
 		Vendors[ L"SZ" ] = L"Shareaza";
 		Vendors[ L"S~" ] = L"ShareazaBeta";
-//		Vendors[ L"TB" ] = L"TB";			// ?
+	//	Vendors[ L"TB" ] = L"TB";			// ?
 		Vendors[ L"TL" ] = L"Tribler";
 		Vendors[ L"TN" ] = L"Torrent.NET";
 		Vendors[ L"TR" ] = L"Transmission";
 		Vendors[ L"TS" ] = L"TorrentStorm";
 		Vendors[ L"TT" ] = L"TuoTu";
-//		Vendors[ L"TX" ] = L"Texati";		// ?
+	//	Vendors[ L"TX" ] = L"Texati";		// ?
 		Vendors[ L"UL" ] = L"uLeecher";
+		Vendors[ L"UE" ] = L"\x00B5Torrent Embed";
 		Vendors[ L"UM" ] = L"\x00B5Torrent Mac";
 		Vendors[ L"UT" ] = L"\x00B5Torrent";
 		Vendors[ L"VG" ] = L"Vagaa";
@@ -775,6 +779,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"XL" ] = L"Xunlei";
 		Vendors[ L"XT" ] = L"XanTorrent";
 		Vendors[ L"XX" ] = L"xTorrent";
+		Vendors[ L"ZO" ] = L"Zona";
 		Vendors[ L"ZT" ] = L"ZipTorrent";
 	}
 
@@ -783,9 +788,9 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 	if ( strUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
 		strUserAgent.Format( L"BitTorrent (%c%c)", (TCHAR)pVendor[ 0 ], (TCHAR)pVendor[ 1 ] );
 	else if ( nVendor == 6 )
-		strUserAgent.Format( L"%s %i.%i.%i.%i", strUserAgent, ( pVendor[ 2 ] - '0' ), ( pVendor[ 3 ] - '0' ), ( pVendor[ 4 ] - '0' ), ( pVendor[ 5 ] - '0' ) );
+		strUserAgent.Format( L"%s %c.%c.%c.%c", strUserAgent, (TCHAR)pVendor[ 2 ], (TCHAR)pVendor[ 3 ], (TCHAR)pVendor[ 4 ], (TCHAR)pVendor[ 5 ] );
 	else //if ( nVendor == 4 )
-		strUserAgent.Format( L"%s %i.%i", strUserAgent, pVendor[ 2 ], pVendor[ 3 ] );
+		strUserAgent.Format( L"%s %c.%c", strUserAgent, (TCHAR)pVendor[ 2 ], (TCHAR)pVendor[ 3 ] );
 
 	return strUserAgent;
 }

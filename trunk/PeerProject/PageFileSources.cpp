@@ -46,7 +46,6 @@ END_MESSAGE_MAP()
 
 CFileSourcesPage::CFileSourcesPage()
 	: CFilePropertiesPage(CFileSourcesPage::IDD)
-	, m_sSource()
 {
 }
 
@@ -129,7 +128,7 @@ void CFileSourcesPage::AddSource(CSharedSource* pSource)
 	strDate.ReleaseBuffer();
 	strTime.ReleaseBuffer();
 
-	strDate += ' ';
+	strDate += L' ';
 	strDate += strTime;
 
 	m_wndList.SetItemText( pItem.iItem, 1, strDate );
@@ -200,6 +199,7 @@ void CFileSourcesPage::OnDblClk(NMHDR* /*pNMHDR*/, LRESULT *pResult)
 		CSharedSource* pSource = (CSharedSource*)m_wndList.GetItemData( nItem );
 		m_sSource = pSource->m_sURL;
 	}
+
 	UpdateData( FALSE );
 
 	*pResult = 0;

@@ -221,7 +221,7 @@ BOOL CURLActionDlg::OnInitDialog()
 
 			if ( StartsWith( m_pURL->m_sURL, L"http", 4 ) )
 				m_sHashValue += L"  (HTTP)";
-			else if ( StartsWith( m_pURL->m_sURL, L"ftp", 4 ) )
+			else if ( StartsWith( m_pURL->m_sURL, L"ftp", 3 ) )
 				m_sHashValue += L"  (FTP)";
 		}
 
@@ -231,7 +231,7 @@ BOOL CURLActionDlg::OnInitDialog()
 		{
 			m_wndDownload.SetFocus();
 
-			if ( m_pURL->m_nProtocol != PROTOCOL_BT  )
+			if ( m_pURL->m_nProtocol != PROTOCOL_BT )
 				m_wndSearch.EnableWindow( FALSE );
 		}
 		else if ( m_pURL->m_nAction == CPeerProjectURL::uriSearch )

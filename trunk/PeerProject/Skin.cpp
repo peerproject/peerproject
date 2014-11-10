@@ -1142,25 +1142,19 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 			if ( UINT nID = LookupCommandID( pXML ) )
 			{
 				CCoolBarItem* pItem = pBar->Add( nID, pXML->GetAttributeValue( L"text" ) );
-				CString strTemp = pXML->GetAttributeValue( L"color" );
-				if ( ! strTemp )
-					strTemp = pXML->GetAttributeValue( L"colour" );
+				CString strValue = pXML->GetAttributeValue( L"color" );
+				if ( strValue.IsEmpty() )
+					strValue = pXML->GetAttributeValue( L"colour" );
 
-				if ( strTemp.GetLength() == 6 )
-				{
-					int nRed, nGreen, nBlue;
-					_stscanf( strTemp.Mid( 0, 2 ), L"%x", &nRed );
-					_stscanf( strTemp.Mid( 2, 2 ), L"%x", &nGreen );
-					_stscanf( strTemp.Mid( 4, 2 ), L"%x", &nBlue );
-					pItem->m_crText = RGB( nRed, nGreen, nBlue );
-				}
+				if ( ! strValue.IsEmpty() )
+					pItem->m_crText = GetColor( strValue );
 
-				strTemp = pXML->GetAttributeValue( L"tip" );
-				if ( ! strTemp.IsEmpty() )
-					pItem->SetTip( strTemp );
+				strValue = pXML->GetAttributeValue( L"tip" );
+				if ( ! strValue.IsEmpty() )
+					pItem->SetTip( strValue );
 
-				strTemp = pXML->GetAttributeValue( L"visible", L"true" );
-				if ( strTemp.CompareNoCase( L"false" ) == 0 )
+				strValue = pXML->GetAttributeValue( L"visible", L"true" );
+				if ( strValue.CompareNoCase( L"false" ) == 0 )
 					pItem->Show( FALSE );
 			}
 			else
@@ -2178,13 +2172,9 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 			COLORREF* pColor;
 			if ( pColors.Lookup( strName, (void*&)pColor ) )
 			{
-				if ( strValue.GetLength() == 6 )
+				if ( strValue.GetLength() > 2 )
 				{
-					int nRed, nGreen, nBlue;
-
-					_stscanf( strValue.Mid( 0, 2 ), L"%x", &nRed );
-					_stscanf( strValue.Mid( 2, 2 ), L"%x", &nGreen );
-					_stscanf( strValue.Mid( 4, 2 ), L"%x", &nBlue );
+					*pColor = GetColor( strValue );
 
 					if ( StartsWith( strName, _P( L"system." ) ) )
 					{
@@ -2196,8 +2186,6 @@ BOOL CSkin::LoadColorScheme(CXMLElement* pBase)
 							Colors.CalculateColors( TRUE );
 						}
 					}
-
-					*pColor = RGB( nRed, nGreen, nBlue );
 				}
 				else if ( strValue.IsEmpty() )
 				{
@@ -2872,7 +2860,7 @@ BOOL CSkin::LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor)
 		if ( *pColor || str == L"000000" )
 			return TRUE;
 
-		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad color attribute (" + str + L")", pXML->ToString() );
+		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad color attribute", pXML->ToString() );
 	}
 
 	return FALSE;
@@ -2883,24 +2871,26 @@ COLORREF CSkin::GetColor(CString sColor)
 	sColor.Trim( L" #" );
 
 	const int nLength = sColor.GetLength();
-	if ( nLength < 6 || nLength > 14 )
-		return ( sColor.CompareNoCase( L"none" ) == 0 ) ? CLR_NONE : NULL;
-
-	if ( sColor == L"CLR_NONE" )
-		return CLR_NONE;
-
-	int nRed = 0, nGreen = 0, nBlue = 0;
-	if ( nLength == 6 &&
-		_stscanf( sColor.Mid( 0, 2 ), L"%x", &nRed ) == 1 &&
-		_stscanf( sColor.Mid( 2, 2 ), L"%x", &nGreen ) == 1 &&
-		_stscanf( sColor.Mid( 4, 2 ), L"%x", &nBlue ) == 1 )
+	if ( nLength > 3 && nLength < 14 )
 	{
-		return RGB( nRed, nGreen, nBlue );
+		if ( sColor == L"CLR_NONE" || 
+			 nLength == 4 && sColor.CompareNoCase( L"none" ) == 0 )
+			return CLR_NONE;
+
+		int nRed = 0, nGreen = 0, nBlue = 0;
+
+		if ( nLength == 6 &&
+			 _stscanf( sColor.Mid( 0, 2 ), L"%x", &nRed ) == 1 &&
+			 _stscanf( sColor.Mid( 2, 2 ), L"%x", &nGreen ) == 1 &&
+			 _stscanf( sColor.Mid( 4, 2 ), L"%x", &nBlue ) == 1 )
+			return RGB( nRed, nGreen, nBlue );
+
+		if ( _stscanf( (LPCTSTR)sColor, L"%i, %i, %i", &nRed, &nGreen, &nBlue ) == 3 &&
+			 nRed < 256 && nGreen < 256 && nBlue < 256 )
+			return RGB( nRed, nGreen, nBlue );
 	}
 
-	if ( _stscanf( (LPCTSTR)sColor, L"%i, %i, %i", &nRed, &nGreen, &nBlue ) == 3 &&
-		 nRed < 256 && nGreen < 256 && nBlue < 256 )
-		return RGB( nRed, nGreen, nBlue );
+	theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad value for color: " + sColor );
 
 	return NULL;
 }
@@ -2914,7 +2904,7 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 	//if ( m_pBitmaps.Lookup( strName, hBitmap ) )
 	//	return hBitmap;
 
-	const int nPos = strName.Find( '$' );
+	const int nPos = strName.Find( L'$' );
 	if ( nPos < 0 )
 		return CImageFile::LoadBitmapFromFile( strName );
 
@@ -2946,6 +2936,6 @@ HBITMAP CSkin::LoadBitmap(UINT nID)
 LPCTSTR CSkin::m_pszModeSuffix[3][4] =
 {
 	{ L".Windowed", L"", NULL, NULL },			// GUI_WINDOWED
-	{ L".Tabbed", L"", NULL, NULL },				// GUI_TABBED
+	{ L".Tabbed", L"", NULL, NULL },			// GUI_TABBED
 	{ L".Basic", L".Tabbed", L"", NULL }		// GUI_BASIC
 };

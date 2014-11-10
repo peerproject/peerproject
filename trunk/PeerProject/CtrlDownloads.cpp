@@ -1016,7 +1016,12 @@ void CDownloadsCtrl::UpdateDownloadsData(BOOL bForce /*FALSE*/)
 		BOOL bvSuccess;		// Pass/Fail
 		for ( QWORD nvOffset = 0, nvLength = 0 ; pDownload->GetNextVerifyRange( nvOffset, nvLength, bvSuccess ) ; nRange++ )
 		{
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)
 			pDownloadData.m_pVerifyRanges.SetAtGrow( nRange, { nvOffset, nvLength, bvSuccess } );
+#else	// VS2008
+			CDownloadDisplayData::VERIFYRANGE pVerifyRange = { nvOffset, nvLength, bvSuccess };
+			pDownloadData.m_pVerifyRanges.SetAtGrow( nRange, pVerifyRange );
+#endif
 			nvOffset += nvLength;
 		}
 
@@ -1105,7 +1110,7 @@ void CDownloadsCtrl::OnPaint()
 	int nScroll = GetScrollPos( SB_VERT );
 	int nIndex = 0;
 
-	for ( UINT nDownload = 0 ; nDownload <= m_pDownloadsData.GetUpperBound() ; nDownload++  )
+	for ( UINT nDownload = 0 ; nDownload <= m_pDownloadsData.GetUpperBound() ; nDownload++ )
 	{
 		if ( rcItem.top > rcClient.bottom )
 			break;
