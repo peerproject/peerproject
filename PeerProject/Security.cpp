@@ -353,7 +353,7 @@ void CSecurity::Ban(const CPeerProjectFile* pFile, int nBanLength, BOOL bMessage
 	Add( pRule );
 
 	if ( bMessage && pFile )
-		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)pFile->m_sName );
+		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ADDED, (LPCTSTR)pFile->m_sName );
 }
 
 void CSecurity::Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage, LPCTSTR szComment)
@@ -383,7 +383,7 @@ void CSecurity::Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage, LPCT
 			else if ( nBanLength == banForever && ( pRule->m_nExpire != CSecureRule::srIndefinite ) )
 				pRule->m_nExpire = CSecureRule::srIndefinite;
 			else if ( bMessage && pAddress )
-				theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ALREADY_BLOCKED, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+				theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_EXISTS, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 			return;
 		}
 	}
@@ -396,7 +396,7 @@ void CSecurity::Ban(const IN_ADDR* pAddress, int nBanLength, BOOL bMessage, LPCT
 	Add( pRule );
 
 	if ( bMessage )
-		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
+		theApp.Message( MSG_NOTICE, IDS_NETWORK_SECURITY_ADDED, (LPCTSTR)CString( inet_ntoa( *pAddress ) ) );
 }
 
 CSecureRule* CSecurity::NewBanRule(int nBanLength, CString sComment) const

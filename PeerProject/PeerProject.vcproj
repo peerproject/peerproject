@@ -62,7 +62,7 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
-				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
+				PrecompiledHeaderFile="$(IntDir)\$(ProjectName).pch"
 				DisableSpecificWarnings="4512"
 				DebugInformationFormat="4"
 				WarningLevel="4"
@@ -148,14 +148,14 @@
 				AdditionalOptions="/Wall"
 				Optimization="0"
 				AdditionalIncludeDirectories="..\Services"
-				PreprocessorDefinitions="_DEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI"
+				PreprocessorDefinitions="_DEBUG;WIN64;WIN32;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				DefaultCharIsUnsigned="true"
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
-				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
+				PrecompiledHeaderFile="$(IntDir)\$(ProjectName).pch"
 				DisableSpecificWarnings="4512"
 				DebugInformationFormat="3"
 				WarningLevel="4"
@@ -254,7 +254,7 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
-				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
+				PrecompiledHeaderFile="$(IntDir)\$(ProjectName).pch"
 				DisableSpecificWarnings="4710;4711;4738"
 				DebugInformationFormat="3"
 				WarningLevel="4"
@@ -344,7 +344,7 @@
 				Optimization="3"
 				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="..\Services"
-				PreprocessorDefinitions="NDEBUG;WIN64;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI"
+				PreprocessorDefinitions="NDEBUG;WIN64;WIN32;_WINDOWS;_PEERPROJECT;ZLIB_WINAPI"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
 				OmitFramePointers="true"
@@ -354,7 +354,7 @@
 				RuntimeTypeInfo="false"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="StdAfx.h"
-				PrecompiledHeaderFile="$(IntDir)/$(ProjectName).pch"
+				PrecompiledHeaderFile="$(IntDir)\$(ProjectName).pch"
 				ProgramDataBaseFileName="$(IntDir)\PeerProject.pdb"
 				DisableSpecificWarnings="4710;4711;4738"
 				DebugInformationFormat="3"
@@ -416,8 +416,26 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="BitTorrentDHT/dht.c"
+				RelativePath="BitTorrentDHT\dht.c"
 				>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|x64"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+						UsePrecompiledHeader="0"
+						CompileAs="2"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="AlbumFolder.cpp"

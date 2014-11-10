@@ -411,8 +411,8 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 			else // Smart Rename
 			{
 				CString strFormat = strName;
-				int nPos = strFormat.ReverseFind( '.' );
-				if ( nPos > strFormat.ReverseFind( '\\' ) )
+				int nPos = strFormat.ReverseFind( L'.' );
+				if ( nPos > strFormat.ReverseFind( L'\\' ) )
 					strFormat.Insert( nPos, L".%i" );		// Filename.1.ext
 				else
 					strFormat.Append( L".%i" );
@@ -444,22 +444,22 @@ DWORD CDownloadWithFile::MoveFile(LPCTSTR pszDestination, LPPROGRESS_ROUTINE lpP
 		// Save download every move
 		static_cast< CDownload* >( this )->Save();
 
-		const CString sPath = m_pFile->GetPath( nIndex );
+		const CString strPath = m_pFile->GetPath( nIndex );
 
-		MarkFileAsDownload( sPath );
+		MarkFileAsDownload( strPath );
 
-		LibraryBuilder.RequestPriority( sPath );
+		LibraryBuilder.RequestPriority( strPath );
 
 		// Update with download hashes, single-file download only
 		if ( nCount == 1 )
-			LibraryHistory.Add( sPath, static_cast< CDownload* >( this ) );
+			LibraryHistory.Add( strPath, static_cast< CDownload* >( this ) );
 		//else // Multifile torrent
 			// ToDo: Get hashes for all files of download?
 
 		// Early metadata update
 		if ( oLibraryLock.Lock( 100 ) )
 		{
-			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( sPath ) )
+			if ( CLibraryFile* pFile = LibraryMaps.LookupFileByPath( strPath ) )
 				pFile->UpdateMetadata( static_cast< CDownload* >( this ) );
 			oLibraryLock.Unlock();
 		}

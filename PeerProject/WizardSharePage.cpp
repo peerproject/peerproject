@@ -84,7 +84,7 @@ BOOL CWizardSharePage::OnInitDialog()
 	else
 	{
 		m_wndList.SetBkColor( Colors.m_crWindow );
-		m_wndList.SetTextBkColor( Colors.m_crWindow  );
+		m_wndList.SetTextBkColor( Colors.m_crWindow );
 	}
 
 	m_wndList.SetTextColor( Colors.m_crText );

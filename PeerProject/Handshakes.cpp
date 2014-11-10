@@ -315,7 +315,7 @@ BOOL CHandshakes::AcceptConnection()
 	//	CNetwork::CloseSocket( hSocket, true );
 	//
 	//	// Report that this connection was denied for security reasons
-	//	theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ) );
+	//	theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)CString( inet_ntoa( pHost.sin_addr ) ) );
 	//	return TRUE;
 	//}
 
@@ -356,7 +356,7 @@ int CALLBACK CHandshakes::AcceptCheck(IN LPWSABUF lpCallerId,
 	if ( Security.IsDenied( &pHost->sin_addr ) )
 	{
 		// Record we are rejecting this connection because it is on the watch list, and tell WSAAccept to not connect
-		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_DENIED, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
+		theApp.Message( MSG_ERROR, IDS_NETWORK_SECURITY_BLOCKED, (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ) );
 		return CF_REJECT;
 	}
 

@@ -689,7 +689,8 @@ void CAlbumFolder::SetCollection(const Hashes::Sha1Hash& oSHA1, CCollectionFile*
 		if ( pFile->IsAvailable() )		// Not ghost
 		{
 			if ( validAndEqual( m_oCollSHA1, pFile->m_oSHA1 ) ||
-				 pCollection->FindFile( pFile, TRUE ) ) AddFile( pFile );
+				 pCollection->FindFile( pFile, TRUE ) )
+				AddFile( pFile );
 		}
 	}
 
@@ -1025,7 +1026,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 
 			if ( nCount >= 6 )
 			{
-				LPCTSTR szSeason = _tcsistr( L"season", results[2].c_str() );
+				LPCTSTR szSeason  = _tcsistr( L"season", results[2].c_str() );
 				LPCTSTR szEpisode = _tcsistr( L"episode", results[4].c_str() );
 				if ( szSeason && szEpisode &&
 					_tcsicmp( szSeason, L"season" ) == 0 &&
@@ -1071,7 +1072,7 @@ BOOL CAlbumFolder::OrganiseFile(CLibraryFile* pFile)
 			if ( cLast == L'[' || cLast == L'(' || cLast == L'{' )
 				return FALSE;	// Bad detection
 
-			int nSeriesNumber = _tstoi( results[2].c_str() );
+			int nSeriesNumber  = _tstoi( results[2].c_str() );
 			int nEpisodeNumber = _tstoi( results[3].c_str() );
 			if ( nSeriesNumber < 0 || nSeriesNumber > 200 || nEpisodeNumber < 0 || nEpisodeNumber > 400 )
 				return FALSE;	// Bad detection

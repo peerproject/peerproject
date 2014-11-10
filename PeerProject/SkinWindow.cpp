@@ -47,6 +47,7 @@ CSkinWindow::CSkinWindow()
 	, m_rcMirror			( 0, 0, 0, 0 )
 //	, m_rcMaximise			( -1, 0, -1, -1 )
 
+	, m_bLoaded				( FALSE )
 	, m_bCaption			( FALSE )
 	, m_bCaptionCaps		( FALSE )
 	, m_rcCaption			( 0, 0, 0, 0 )
@@ -69,10 +70,14 @@ CSkinWindow::CSkinWindow()
 	m_szMinSize.cx = m_szMinSize.cy = 0;
 	const int nBorderWidth( GetSystemMetrics( SM_CXSIZEFRAME ) );
 	m_rcResize.SetRect( nBorderWidth, nBorderWidth, nBorderWidth, nBorderWidth );	// Was BORDER_WIDTH
+
+	m_bLoaded = TRUE;		// Deliberate behavior
 }
 
 CSkinWindow::~CSkinWindow()
 {
+	m_bLoaded = FALSE;
+
 	if ( m_dcSkin.m_hDC != NULL )
 	{
 		if ( m_hoSkin != NULL ) m_dcSkin.SelectObject( CBitmap::FromHandle( m_hoSkin ) );
@@ -600,15 +605,21 @@ void CSkinWindow::OnGetMinMaxInfo(MINMAXINFO* lpMMI)
 UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 {
 	CRect rc, rcAnchor;
-	int nPointX = 0;
+	int nPointX = 0;	// RTL
 
-	if ( Skin.m_bSkinChanging ) return HTCLIENT;		// Crashfix Workaround
+	if ( m_bLoaded != TRUE ) return HTCLIENT;
 
 	pWnd->GetWindowRect( &rc );
 	if ( Settings.General.LanguageRTL )
 	{
 		nPointX = point.x;
 		point.x = 2 * rc.left + rc.Width() - point.x;
+	}
+
+	if ( m_bAnchor[ SKINANCHOR_CLOSE ] )
+	{
+		ResolveAnchor( rc, rcAnchor, SKINANCHOR_CLOSE );
+		if ( rcAnchor.PtInRect( point ) ) return HTCLOSE;
 	}
 
 	if ( m_bAnchor[ SKINANCHOR_MINIMISE ] )
@@ -623,22 +634,16 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 		if ( rcAnchor.PtInRect( point ) ) return HTMAXBUTTON;
 	}
 
-	if ( m_bAnchor[ SKINANCHOR_CLOSE ] )
+	if ( m_bAnchor[ SKINANCHOR_MENU ] )
 	{
-		ResolveAnchor( rc, rcAnchor, SKINANCHOR_CLOSE );
-		if ( rcAnchor.PtInRect( point ) ) return HTCLOSE;
+		ResolveAnchor( rc, rcAnchor, SKINANCHOR_MENU );
+		if ( rcAnchor.PtInRect( point ) ) return HTMENU;
 	}
 
 	if ( m_bAnchor[ SKINANCHOR_SYSTEM ] )
 	{
 		ResolveAnchor( rc, rcAnchor, SKINANCHOR_SYSTEM );
 		if ( rcAnchor.PtInRect( point ) ) return HTSYSMENU;
-	}
-
-	if ( m_bAnchor[ SKINANCHOR_MENU ] )
-	{
-		ResolveAnchor( rc, rcAnchor, SKINANCHOR_MENU );
-		if ( rcAnchor.PtInRect( point ) ) return HTMENU;
 	}
 
 	//if ( m_bAnchor[ SKINANCHOR_CUSTOM ] )
@@ -750,7 +755,7 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 
 BOOL CSkinWindow::OnEraseBkgnd(CWnd* pWnd, CDC* pDC)
 {
-	if ( m_bmWatermark.m_hObject == NULL || pDC == NULL ) return FALSE;
+	if ( m_bmWatermark.m_hObject == NULL || pDC == NULL || m_bLoaded != TRUE ) return FALSE;
 
 	if ( ! m_dcSkin.m_hDC ) m_dcSkin.CreateCompatibleDC( pDC );
 	CBitmap* pOldImage = (CBitmap*)m_dcSkin.SelectObject( &m_bmWatermark );
@@ -955,6 +960,8 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 {
 	// ToDo: Should most of this work be moved to OnSkin/OnSize?
 
+	if ( m_bLoaded != TRUE ) return;
+
 	HICON hIcon = NULL;
 	CString strCaption;
 	CRect rc, rcItem;
@@ -994,6 +1001,8 @@ void CSkinWindow::Paint(CWnd* pWnd, TRISTATE bActive)
 			strCaption.ReleaseBuffer();
 		}
 	}
+
+	if ( m_bLoaded != TRUE ) return;	// Double-check?
 
 	if ( m_bAnchor[ SKINANCHOR_ICON ] )
 	{

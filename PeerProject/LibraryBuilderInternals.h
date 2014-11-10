@@ -58,7 +58,7 @@ private:
 	bool		ReadMSI(DWORD nIndex, LPCTSTR pszPath);
 	CString		GetSummaryField(MSIHANDLE hSummaryInfo, UINT nProperty);
 
-	// Image Files
+	// Image Files (Prefer GFLLibraryBuilder Plugin)
 	bool		ReadJPEG(DWORD nIndex, HANDLE hFile);
 	bool		ReadGIF(DWORD nIndex, HANDLE hFile);
 	bool		ReadPNG(DWORD nIndex, HANDLE hFile);
@@ -75,11 +75,13 @@ private:
 	bool		ReadASF(DWORD nIndex, HANDLE hFile);
 	bool		ReadAVI(DWORD nIndex, HANDLE hFile);
 	bool		ReadMPEG(DWORD nIndex, HANDLE hFile);
+//	bool		ReadMKV(DWORD nIndex, HANDLE hFile);
 	bool		ReadOGG(DWORD nIndex, HANDLE hFile);
 	BYTE*		ReadOGGPage(HANDLE hFile, DWORD& nBuffer, BYTE nFlags, DWORD nSequence, DWORD nMinSize = 0);
 	bool		ReadOGGString(BYTE*& pOGG, DWORD& nOGG, CString& str);
 	bool		ReadAPE(DWORD nIndex, HANDLE hFile, bool bPreferFooter = false);
 
+	bool		ReadDJVU(DWORD nIndex, HANDLE hFile);
 	bool		ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
 	bool		ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPath);
 	CString		ReadPDFLine(HANDLE hFile, bool bReverse, bool bComplex = false, bool bSplitter = true);
