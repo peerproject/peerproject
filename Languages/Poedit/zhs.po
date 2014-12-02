@@ -5688,11 +5688,11 @@ msgstr "此文件 \"%s\" 未通过 Hash 确认测试，有可能不是您计划�
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "确定要移除 \"可能不安全\" 的文件吗？"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "文件 \"%s\" 未被 Hash。请等待文件被 Hash，稍后再试。"
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "识别和共享选定文件的功能由 bitprints.peerproject.org 提供。\\n\\n为了到 Bitprints 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 bitprints.peerproject.org 的隐私申明。\\n\\n您确定继续吗？"
 

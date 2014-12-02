@@ -43,7 +43,7 @@ public:
 
 	virtual BOOL	ConnectTo(const IN_ADDR* pAddress, WORD nPort, BOOL bAutomatic);
 	virtual BOOL	Send(CPacket* pPacket, BOOL bRelease = TRUE, BOOL bBuffered = FALSE);
-	virtual DWORD	GetUserCount() const { return m_oUsers.GetCount(); }
+	virtual DWORD	GetUserCount() const { return (DWORD)m_oUsers.GetCount(); }	// INT_PTR
 
 	virtual BOOL	ProcessPackets(CBuffer* pInput);		// Process packets from input buffer
 

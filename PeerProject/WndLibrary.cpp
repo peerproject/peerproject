@@ -222,7 +222,7 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 		// Check the collection folder
 		CString strSource( pszPath ), strTarget;
 
-		const int nName = strSource.ReverseFind( '\\' );
+		const int nName = strSource.ReverseFind( L'\\' );
 		if ( nName >= 0 )
 		{
 			strTarget = Settings.Downloads.CollectionPath + strSource.Mid( nName );

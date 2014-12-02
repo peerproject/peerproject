@@ -37,13 +37,13 @@ class CBrowseHostWnd : public CBaseMatchWnd
 
 public:
 	CBrowseHostWnd(PROTOCOLID nProtocol = PROTOCOL_ANY, SOCKADDR_IN* pHost = NULL, BOOL bMustPush = FALSE, const Hashes::Guid& pClientID = Hashes::Guid(), const CString& sNick = CString());
-	virtual ~CBrowseHostWnd();
+	//virtual ~CBrowseHostWnd();
 
 public:
 	inline CHostBrowser* GetBrowser() const { return m_pBrowser; }
 
 protected:
-	CHostBrowser*		m_pBrowser;
+	CAutoPtr< CHostBrowser > m_pBrowser;
 	CBrowseHeaderCtrl	m_wndHeader;
 	CBrowseProfileCtrl	m_wndProfile;
 	CBrowseFrameCtrl	m_wndFrame;
@@ -51,18 +51,18 @@ protected:
 	BOOL				m_bAutoBrowse;
 
 public:
-	void			Serialize(CArchive& ar, int nVersion = BROWSER_SER_VERSION);
-	virtual void	OnSkinChange();
-	virtual void	OnProfileReceived();
-	virtual BOOL	OnQueryHits(const CQueryHit* pHits);
-	virtual void	OnHeadPacket(CG2Packet* pPacket);
-	virtual void	OnPhysicalTree(CG2Packet* pPacket);
-	virtual void	OnVirtualTree(CG2Packet* pPacket);
-	virtual BOOL	OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
-	virtual BOOL	OnNewFile(CLibraryFile* pFile);
-	virtual void	UpdateMessages(BOOL bActive = TRUE);
+	void		 Serialize(CArchive& ar, int nVersion = BROWSER_SER_VERSION);
+	virtual void OnSkinChange();
+	virtual void OnProfileReceived();
+	virtual BOOL OnQueryHits(const CQueryHit* pHits);
+	virtual void OnHeadPacket(CG2Packet* pPacket);
+	virtual void OnPhysicalTree(CG2Packet* pPacket);
+	virtual void OnVirtualTree(CG2Packet* pPacket);
+	virtual BOOL OnPush(const Hashes::Guid& pClientID, CConnection* pConnection);
+	virtual BOOL OnNewFile(CLibraryFile* pFile);
+	virtual void UpdateMessages(BOOL bActive = TRUE);
 
-	virtual BOOL	OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
+	virtual BOOL OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo);
 
 protected:
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);

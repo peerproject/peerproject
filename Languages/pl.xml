@@ -2537,30 +2537,12 @@
 	<string id="20356" value="Jest już filtr nazwany &quot;%s&quot;, czy chcesz go zastąpić?"/>
 	<string id="20358" value="Proszę nadaj swojemu filtrowi nazwę."/>
 	<string id="20360" value="Błędy połączenia (%)"/>
-	<string id="20361" value="Download Bandwidth"/>
-	<string id="20362" value="Download File Count"/>
-	<string id="20363" value="Download Transfer Count"/>
-	<string id="20364" value="Gnutella Receive Bandwidth"/>
-	<string id="20365" value="Gnutella Transmit Bandwidth"/>
-	<string id="20366" value="Gnutella Connections (Total)"/>
-	<string id="20367" value="Gnutella Connections (Active)"/>
-	<string id="20368" value="Gnutella Packets Dropped"/>
-	<string id="20369" value="Gnutella Packets Lost"/>
+	<!-- Missing Bandwidth Strings -->
 	<string id="20370" value="Otrzymano pakiety Gnutelli"/>
 	<string id="20371" value="Przesłano pakiety Gnutelli"/>
 	<string id="20372" value="Gnutella, współczynnik Pingów odebranych/wysłanych"/>
 	<string id="20373" value="Gnutella, współczynnik Pongów odebranych/wysłanych"/>
-<!--	<string id="20374" value="Gnutella Queries Incoming"/>
-	<string id="20375" value="Gnutella Queries Processed"/>
-	<string id="20376" value="Gnutella Packets Routed"/>
-	<string id="20377" value="Total Generic Receive Bandwidth"/>
-	<string id="20378" value="Total Generic Transmit Bandwidth"/>
-	<string id="20379" value="Total TCP Receive Bandwidth"/>
-	<string id="20380" value="Total TCP Transmit Bandwidth"/>
-	<string id="20381" value="Total UDP Receive Bandwidth"/>
-	<string id="20382" value="Total UDP Transmit Bandwidth"/>
-	<string id="20383" value="Upload Bandwidth"/>
--->	<string id="20384" value="Upload Transfer Count"/>
+	<!-- Missing Bandwidth Strings -->
 	<string id="20400" value="PeerProject oblicza hash'e dla %Iu plików:"/>
 	<string id="20402" value="Dodaj"/>
 	<string id="20403" value="Kanały"/>
@@ -2589,15 +2571,12 @@
 	<string id="20437" value="Plik Ducha"/>
 	<string id="20444" value="Kopiuj URI"/>
 	<string id="20445" value="Eksportuj URI..."/>
-	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
-	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
-	<string id="20453" value="Unable to load media file &quot;%s&quot;"/>
-	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
-	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
+	<string id="20448" value="Publiczny"/>	<!--Shared-->
+	<string id="20449" value="Prywatny"/>	<!--Unshared-->
+	<!-- Missing Media Strings -->
 	<string id="20456" value="Lista Odtwarzania:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="Odtwarzacz Multimedialny PeerProject"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Bez wizualizacji)"/>
 	<!--string id="20464" value="PeerProject pobrała w całości:"-->
 	<!--string id="20465" value="PeerProject pobiera:"-->
@@ -4120,10 +4099,11 @@
 		<column from="File" to="Plik"/>
 		<column from="Type" to="Rozszerzenie"/>
 		<column from="Size" to="Wielkość"/>
-		<column from="Folder" to="Folder"/>
-		<column from="Hits" to="Trafienia"/>
-		<column from="Uploads" to="Wysyłki"/>
 		<column from="Modified" to="Zmodyfikowany"/>
+		<column from="Folder" to="Folder"/>
+		<column from="Shared" to="Wspólne"/>
+		<column from="Uploads" to="Wysyłki"/>
+		<column from="Hits" to="Trafienia"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>

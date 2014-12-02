@@ -743,7 +743,7 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 		// Remote computer is telling us its IP address
 		// Find the index of the first colon in the text
 		{
-			const int nColon = strValue.Find( ':' );
+			const int nColon = strValue.Find( L':' );
 			if ( nColon > 0 )	// There is a colon and it's not at the start of the text
 			{
 				// Save the default Gnutella port, 6346, in nPort to use it if we can't read the port number from the header value text
@@ -916,9 +916,9 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	{
 		// The remote computer is giving us a list GnucDNA G2 hubs
 		int nCount = 0;
-		for ( m_sTryDNAHubs += ',' ; ; )
+		for ( m_sTryDNAHubs += L',' ; ; )
 		{
-			int nPos = m_sTryDNAHubs.Find( ',' );			// Set nPos to the distance in characters from the start to the comma
+			int nPos = m_sTryDNAHubs.Find( L',' );			// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;							// If no comma was found, leave the loop
 			CString strHost = m_sTryDNAHubs.Left( nPos );	// Copy the text up to the comma into strHost
 			m_sTryDNAHubs = m_sTryDNAHubs.Mid( nPos + 1 );	// Clip that text and the comma off the start of strValue
@@ -935,9 +935,9 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	{
 		// The remote computer is giving us a list G2 hubs
 		int nCount = 0;
-		for ( m_sTryHubs += ',' ; ; )
+		for ( m_sTryHubs += L',' ; ; )
 		{
-			int nPos = m_sTryHubs.Find( ',' );			// Set nPos to the distance in characters from the start to the comma
+			int nPos = m_sTryHubs.Find( L',' );			// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;						// If no comma was found, leave the loop
 			CString strHost = m_sTryHubs.Left( nPos );	// Copy the text up to the comma into strHost
 			m_sTryHubs = m_sTryHubs.Mid( nPos + 1 );	// Clip that text and the comma off the start of strValue
@@ -957,10 +957,10 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 
 		int nCount = 0;
 		// Append a comma onto the end of the value text once, and then loop forever
-		for ( m_sTryUltrapeers += ',' ; ; )				// for ( ;; ) is forever
+		for ( m_sTryUltrapeers += L',' ; ; )				// for ( ;; ) is forever
 		{
 			// Find the first comma in the value text
-			int nPos = m_sTryUltrapeers.Find( ',' );	// Set nPos to the distance in characters from the start to the comma
+			int nPos = m_sTryUltrapeers.Find( L',' );	// Set nPos to the distance in characters from the start to the comma
 			if ( nPos < 0 ) break;						// If no comma was found, leave the loop
 
 			// Move the text before the comma from the value string to a new string for the host

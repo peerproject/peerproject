@@ -1128,7 +1128,7 @@ BOOL CG1Neighbour::OnClusterAdvisor(CG1Packet* pPacket)
 		// Read the IP address and port number from the packet, and add them to the Gnutella host cache
 		DWORD nAddress	= pPacket->ReadLongLE();
 		WORD nPort		= pPacket->ReadShortLE();
-		HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0, _T( VENDOR_CODE ) );
+		HostCache.Gnutella1.Add( (IN_ADDR*)&nAddress, nPort, 0, _T(VENDOR_CODE) );
 	}
 
 	// Record that now was when we last received a cluster advisor packet from the remote computer

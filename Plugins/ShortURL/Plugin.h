@@ -70,6 +70,8 @@ protected:
 	void InsertCommand(LPCTSTR szTitle, const LPCWSTR* szMenu, UINT nID);
 
 	HRESULT Request(LPCWSTR szHash);
+
+public:
 	CStringA RequestURL(LPCWSTR szURL);
 
 // IGeneralPlugin

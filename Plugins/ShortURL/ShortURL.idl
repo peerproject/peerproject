@@ -21,7 +21,8 @@ library ShortURLLib
 	interface ICommandPlugin;
 
 	[
-		uuid(76F13243-9F62-4241-AC07-3B359BBE4EC6)
+		uuid(76F13243-9F62-4241-AC07-3B359BBE4EC6),
+		helpstring("ShortURL Plugin")
 	]
 	coclass Plugin
 	{

@@ -533,7 +533,7 @@ CString CUPnPFinder::GetLocalRoutableIP(ServicePointer pService)
 {
 	CString strExternalIP;
 	HRESULT hr = InvokeAction( pService, L"GetExternalIPAddress", NULL, strExternalIP );
-	int nEqualPos = strExternalIP.Find( '=' );
+	int nEqualPos = strExternalIP.Find( L'=' );
 	strExternalIP = strExternalIP.Mid( nEqualPos + 1 ).Trim( '|' );
 
 	if ( FAILED( hr ) || strExternalIP.IsEmpty() )
@@ -634,7 +634,7 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 			// DeletePortMapping action takes 3 arguments:
 			//	RemoteHost, ExternalPort and PortMappingProtocol
 
-			CString strHost, strPort, strProtocol, strLocalIP;
+			CString strHost, strPort, strProtocol;
 
 			if ( _tcsistr( strActionResult, L"|VT_BSTR=PeerProject TCP|" ) != NULL ||
 				 _tcsistr( strActionResult, L"|VT_BSTR=PeerProject UDP|" ) != NULL )
@@ -645,9 +645,9 @@ void CUPnPFinder::DeleteExistingPortMappings(ServicePointer pService)
 				if ( oTokens.GetCount() != 8 )
 					break;
 
-				strHost		= '|' + oTokens[ 0 ];
-				strPort		= '|' + oTokens[ 1 ];
-				strProtocol	= '|' + oTokens[ 2 ] + '|';
+				strHost		= L'|' + oTokens[ 0 ];
+				strPort		= L'|' + oTokens[ 1 ];
+				strProtocol	= L'|' + oTokens[ 2 ] + L'|';
 
 				// Verify types
 				if ( _tcsistr( strHost, L"VT_BSTR" ) == NULL ||
@@ -872,7 +872,7 @@ INT_PTR CUPnPFinder::CreateVarFromString(const CString& strArgs, VARIANT*** pppV
 	for ( INT_PTR nArg = 0 ; nArg < nArgs ; nArg++ )
 	{
 		strToken = oTokens.GetAt( nArg );
-		int nEqualPos = strToken.Find( '=' );
+		int nEqualPos = strToken.Find( L'=' );
 
 		// Malformatted string test
 		if ( nEqualPos == -1 ) { bInvalid = TRUE; break; }

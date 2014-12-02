@@ -21,7 +21,8 @@
 
 #include "StdAfx.h"
 #include "Plugin.h"
-#include "..\..\PeerProject\Strings.h"
+#include "OptionsDlg.h"
+//#include "..\..\PeerProject\Strings.h"
 
 //#if (_WIN32_IE >= _WIN32_IE_IE70)
 #ifndef PROGDLG_NOCANCEL
@@ -29,12 +30,6 @@
 #define PROGDLG_MARQUEEPROGRESS 0x00000020      // Use marquee progress (comctl32 v6 required)
 #endif
 
-inline CString LoadString(UINT nID)
-{
-	CString str;
-	str.LoadString( nID );
-	return str;
-}
 
 void CPlugin::InsertCommand(LPCTSTR szTitle, const LPCWSTR* szMenu, UINT nID)
 {
@@ -75,7 +70,7 @@ HRESULT CPlugin::Request(LPCWSTR szHash)
 	}
 
 	CStringA sShortURL;
-	for ( CString sURLs = LoadString( IDS_URL ) ; sURLs.GetLength() ; )		// Links defined in .rc
+	for ( CString sURLs = GetURLs() ; sURLs.GetLength() ; )		// Links defined in .rc
 	{
 		CString strURL = sURLs.SpanExcluding( L"|" );
 		sURLs = sURLs.Mid( strURL.GetLength() + 1 );
@@ -166,6 +161,7 @@ CStringA CPlugin::RequestURL(LPCWSTR szURL)
 		InternetCloseHandle( hInternet );
 	}
 
+	sResponse.Trim( " \t\r\n" );
 	if ( sResponse.GetLength() < 16 || sResponse.Left( 7 ).CompareNoCase( "http://" ) )
 		return CStringA();
 
@@ -195,6 +191,8 @@ STDMETHODIMP CPlugin::QueryCapabilities(
 
 STDMETHODIMP CPlugin::Configure()
 {
+	COptionsDlg dlg( this );
+	dlg.DoModal();
 	return S_OK;
 }
 

@@ -428,7 +428,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 							ip = inet_addr( (LPCSTR)pszIP );
 							if ( ip != INADDR_NONE && strcmp( inet_ntoa( *(IN_ADDR*)&ip ), (LPCSTR)pszIP ) == 0 && nAddress != ip )
 								bSpam = true;
-							else if ( ! strNick.CompareNoCase( _T( VENDOR_CODE ) ) )
+							else if ( ! strNick.CompareNoCase( _T(VENDOR_CODE) ) )
 								bSpam = true;	// VendorCode Nick Spam
 						}
 						pPacket->m_nPosition = nSkipInner;

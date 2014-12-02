@@ -2736,6 +2736,8 @@
 	<string id="20082" value="Terminado, clique em Fechar"/>
 	<string id="20083" value="Pedindo..."/>
 	<string id="20084" value="Sucesso."/>
+	<string id="20086" value="O arquivo &quot;%s&quot; ainda não possui informação de hash. Por favr espere que o arquivo tenha um hash, e então tente novamente."/>
+	<string id="20088" value="Esta opção usa os serviços providenciados pelo bitprints.peerproject.org para identificação e compartilhamento sobre os arquivos selecionados.\n\nO PeerProject enviará o código de hash SHA1 para o(s) arquivo(s) selecionado(s) de modo a pesquisar o banco de dados do Bitprints. Se você está preocupado com sua privacidade, você pode desejar consultar a política de privacidade do bitprints.peerproject.org.\n\nVocê gostaria de prosseguir?"/>
 	<string id="20100" value="Fechando a conexão de navegação com %s."/>
 	<string id="20101" value="O host de navegação %s respondeu com uma resposta irreconhecível, e pode não suportar a navegação de usuário/host."/>
 	<string id="20102" value="Incapaz de conectar ao host para navegar o usuário."/>
@@ -3053,8 +3055,8 @@
 	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="O arquivo &quot;%s&quot; falhou no teste de verificação de hash, e pode não ser o arquivo que você pretendia baixar. Você tem certeza que você quer abrí-lo?"/>
 	<string id="20447" value="Você gostaria de remover o atributo de &quot;potencialmente inseguro&quot; deste arquivo?"/>
-	<string id="20448" value="O arquivo &quot;%s&quot; ainda não possui informação de hash. Por favr espere que o arquivo tenha um hash, e então tente novamente."/>
-	<string id="20449" value="Esta opção usa os serviços providenciados pelo bitprints.peerproject.org para identificação e compartilhamento sobre os arquivos selecionados.\n\nO PeerProject enviará o código de hash SHA1 para o(s) arquivo(s) selecionado(s) de modo a pesquisar o banco de dados do Bitprints. Se você está preocupado com sua privacidade, você pode desejar consultar a política de privacidade do bitprints.peerproject.org.\n\nVocê gostaria de prosseguir?"/>
+	<string id="20448" value="Público"/>	<!--Shared-->
+	<string id="20449" value="Privado"/>	<!--Unshared-->
 	<string id="20450" value="Uma sub-pasta do diretório selecionado &quot;%s&quot; já é parte da sua biblioteca.\nAdicionar esta pasta causará o re-hashing de alguns arquivos.\n\nVocê quer continuar ?"/>
 	<string id="20451" value="Não há arquivo tocando. Clique duas vezes num arquivo de mídia na sua biblioteca para tocá-lo."/>
 	<string id="20452" value="Todos os Arquivos de Mídia|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Arquivos de Áudio|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Arquivos de Vídeo|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Faixas de Áudio de CD|*.cda|Arquivos MIDI|*.mid;*.rmi;*.midi|Todos os Arquivos|*.*||"/>
@@ -3064,7 +3066,7 @@
 	<string id="20456" value="Lista de Execuções"/>
 	<string id="20457" value="O PeerProject não pôde iniciar o seu Plugin de Mídia. Por favor reinstale o PeerProject, e confirme que você tem os codecs e drivers necessários."/>
 	<string id="20458" value="PeerProject Media Player"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Sem visualização)"/>
 	<!--string id="20464" value="O PeerProject completou o download:"-->
 	<!--string id="20465" value="O PeerProject está baixando:"-->
@@ -4666,10 +4668,11 @@
 		<column from="File" to="Arquivo"/>
 		<column from="Type" to="Extensão"/>
 		<column from="Size" to="Tamanho"/>
-		<column from="Folder" to="Pasta"/>
-		<column from="Hits" to="Acertos"/>
-		<column from="Uploads" to="Uploads"/>
 		<column from="Modified" to="Modificados"/>
+		<column from="Folder" to="Pasta"/>
+		<column from="Shared" to="Compartilhado"/>
+		<column from="Uploads" to="Uploads"/>
+		<column from="Hits" to="Acertos"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Endereço"/>

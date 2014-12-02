@@ -5688,11 +5688,11 @@ msgstr "ファイル \"%s\" はハッシュ検証テストに失敗しました�
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "このファイルから\"潜在的に危険のある\"属性を取り除きますか?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "ファイル \"%s\" はまだハッシュされていません。 ファイルがハッシュされるまで待ってから再試行して下さい"
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "このオプション選択されたファイルに関する識別・共有情報が提供されるbitprints.peerproject.orgのサービスを使用します\\n\\nPeerProjectは選択したファイルのためにBitprintsデータベースにSHA1ハッシュコードを送信して問い合わせます。 プライバシーが心配ならbitprints.peerproject.orgプライバシーポリシーを参照できますnn続けて宜しいですか?"
 

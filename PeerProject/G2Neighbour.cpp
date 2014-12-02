@@ -697,6 +697,8 @@ BOOL CG2Neighbour::OnLNI(CG2Packet* pPacket)
 				CHAR szVendor[5] = { 0, 0, 0, 0, 0 };
 				pPacket->Read( szVendor, 4 );
 				m_pVendor = VendorCache.Lookup( szVendor );
+				if ( ! m_pVendor && m_sServerName.IsEmpty() )	// Unknown
+					m_sServerName = szVendor;
 			}
 			break;
 		case G2_PACKET_LIBRARY_STATUS:

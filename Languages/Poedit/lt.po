@@ -5688,11 +5688,11 @@ msgstr "Failo „%s“ maišos (tapatybės kodo) patikros testas nesėkmingas. F
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Ar norėtumėte pašalinti „galimai nesaugus“ požymį nuo šio failo?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Failo „%s“ maiša (tapatybės kodas) dar nebuvo apskaičiuota. Palaukite, kol ji bus apskaičiuota, ir po to mėginkite dar kartą."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Šios parinkties naudojimas reikalauja bitprints.peerproject.org paslaugos pasirinktiems failams atpažinti ir dalintis su kitais failo informacija.\\n\\nPeerProject persiųs pasirinkto failo(-ų) SHA1 maišą(-as), kuri reikalinga(-os) užklausoms Bitprints duomenų bazėje. Jei Jums svarbus slaptumas, Jūs galbūt norėsite susipažinti su bitprints.peerproject.org privatumo laidavimo dokumentu.\\n\\nAr norite tęsti?"
 

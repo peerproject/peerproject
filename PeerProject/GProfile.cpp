@@ -77,6 +77,7 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 {
 	// Add/Increment browsing counter
 	if ( ! bChallenge )		// Skip G2_PACKET_PROFILE_CHALLENGE
+	{
 		if ( CXMLElement* pStats = m_pXML->GetElementByName( L"statistics", TRUE ) )
 		{
 			CString strCount = pStats->GetAttributeValue( L"hitcount", L"0" );
@@ -84,6 +85,7 @@ CXMLElement* CGProfile::GetPublicXML(CString strClient, BOOL bChallenge)
 			pStats->AddAttribute( L"hitcount", (LPCTSTR)strCount );
 			Save();
 		}
+	}
 
 	// Prepare profile for UploadTransferHTTP browse (or G2 challenge request)
 	m_pXMLExport.Free();
@@ -148,8 +150,9 @@ void CGProfile::CreateBT()
 
 BOOL CGProfile::Load()
 {
-	const CXMLElement* pXML = CXMLElement::FromFile(
-		Settings.General.DataPath + L"Profile.xml", TRUE );
+	const CString strPath = Settings.General.DataPath + L"Profile.xml";
+
+	const CXMLElement* pXML = CXMLElement::FromFile( strPath, TRUE );
 	if ( pXML == NULL )
 	{
 		Create();
@@ -175,9 +178,10 @@ BOOL CGProfile::Load()
 
 BOOL CGProfile::Save()
 {
+	const CString strPath = Settings.General.DataPath + L"Profile.xml";
+
 	CFile pFile;
-	if ( ! pFile.Open( Settings.General.DataPath + L"Profile.xml",
-		CFile::modeWrite | CFile::modeCreate ) )
+	if ( ! pFile.Open( strPath, CFile::modeWrite | CFile::modeCreate ) )
 		return FALSE;
 
 	CStringA strUTF8 = UTF8Encode( m_pXML->ToString( TRUE, TRUE ) );

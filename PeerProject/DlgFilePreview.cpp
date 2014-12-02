@@ -66,7 +66,7 @@ CFilePreviewDlg::CFilePreviewDlg(CDownloadWithExtras* pDownload, DWORD nIndex, C
 {
 	CQuickLock oLock( m_pSection );
 
-	const int nPos = m_sSourceName.ReverseFind( '\\' );
+	const int nPos = m_sSourceName.ReverseFind( L'\\' );
 	if ( nPos >= 0 )
 	{
 		CString strFileName = m_sDisplayName;

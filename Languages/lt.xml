@@ -2688,6 +2688,8 @@
 	<string id="20082" value="Baigta, paspauskite „Užverti“"/>
 	<string id="20083" value="Užklausiama..."/>
 	<string id="20084" value="Sėkmė."/>
+	<string id="20086" value="Failo „%s“ maiša (tapatybės kodas) dar nebuvo apskaičiuota. Palaukite, kol ji bus apskaičiuota, ir po to mėginkite dar kartą."/>
+	<string id="20088" value="Šios parinkties naudojimas reikalauja bitprints.peerproject.org paslaugos pasirinktiems failams atpažinti ir dalintis su kitais failo informacija.\n\nPeerProject persiųs pasirinkto failo(-ų) SHA1 maišą(-as), kuri reikalinga(-os) užklausoms Bitprints duomenų bazėje. Jei Jums svarbus slaptumas, Jūs galbūt norėsite susipažinti su bitprints.peerproject.org privatumo laidavimo dokumentu.\n\nAr norite tęsti?"/>
 	<string id="20100" value="Nutraukiamas ryšys su peržiūrimuoju adresatu %s."/>
 	<string id="20101" value="Nusiuntus peržiūros užklausą, adresatas %s atsiuntė neatpažįstamą atsakymą ir galbūt nepalaiko naudotojo/adresato duomenų peržiūros."/>
 	<string id="20102" value="Neįmanoma susisiekti su adresatu naudotojo duomenims peržiūrėti."/>
@@ -3004,8 +3006,8 @@
 	<string id="20445" value="Eksportuoti nuorodas..."/>
 	<string id="20446" value="Failo „%s“ maišos (tapatybės kodo) patikros testas nesėkmingas. Failas gali būti ne tas, kurį Jūs ketinote parsisiųsti. Ar tikrai norite vykdyti šį failą?"/>
 	<string id="20447" value="Ar norėtumėte pašalinti „galimai nesaugus“ požymį nuo šio failo?"/>
-	<string id="20448" value="Failo „%s“ maiša (tapatybės kodas) dar nebuvo apskaičiuota. Palaukite, kol ji bus apskaičiuota, ir po to mėginkite dar kartą."/>
-	<string id="20449" value="Šios parinkties naudojimas reikalauja bitprints.peerproject.org paslaugos pasirinktiems failams atpažinti ir dalintis su kitais failo informacija.\n\nPeerProject persiųs pasirinkto failo(-ų) SHA1 maišą(-as), kuri reikalinga(-os) užklausoms Bitprints duomenų bazėje. Jei Jums svarbus slaptumas, Jūs galbūt norėsite susipažinti su bitprints.peerproject.org privatumo laidavimo dokumentu.\n\nAr norite tęsti?"/>
+	<string id="20448" value="Viešos"/>	<!--Shared-->
+	<string id="20449" value="Privatus"/>	<!--Unshared-->
 	<string id="20450" value="Pasirinkto aplanko „%s“ poaplankis jau yra Jūsų kolekcijoje.\nPridėjus šį aplanką, kai kurių failų maišos bus perskaičiuotos.\n\n\nAr norite tęsti?"/>
 	<string id="20451" value="Joks failas negrojamas. Grojimui spragtelkite grotuvo failą savo kolekcijoje."/>
 	<string id="20452" value="Visi grotuvo failai|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Grojaraščiai|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Garso failai|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Vaizdo failai|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD garso takeliai|*.cda|MIDI failai|*.mid;*.rmi;*.midi|Visi failai|*.*||"/>
@@ -3015,7 +3017,7 @@
 	<string id="20456" value="GROJARAŠTIS:"/>
 	<string id="20457" value="„PeerProject“ nesugebėjo sukurti atmintyje Grotuvo paslaugų papildinio objekto. Įdiekite „PeerProject“ iš naujo ir įsitikinkite, kad Jūs turite įdiegę reikalingus grotuvo kodekus bei išvesties tvarkykles."/>
 	<string id="20458" value="PeerProject grotuvas"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; J &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
+	<string id="20460" value="PEERPROJECT MEDIJA SISTEMA"/>
 	<string id="20462" value="(Be muzikos vaizdo)"/>
 	<!--string id="20464" value="„PeerProject“ baigė parsisiųsti:"-->
 	<!--string id="20465" value="„PeerProject“ siunčiasi:"-->
@@ -4598,10 +4600,11 @@
 		<column from="File" to="Failas"/>
 		<column from="Type" to="Plėtinys"/>
 		<column from="Size" to="Dydis"/>
-		<column from="Folder" to="Aplankas"/>
-		<column from="Hits" to="Kreipinių"/>
-		<column from="Uploads" to="Išsiųsta"/>
 		<column from="Modified" to="Pakeista"/>
+		<column from="Folder" to="Aplankas"/>
+		<column from="Shared" to="Dalijamasi"/>
+		<column from="Uploads" to="Išsiųsta"/>
+		<column from="Hits" to="Kreipinių"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresas"/>

@@ -527,10 +527,10 @@ int CFragmentedFile::SelectFile(CSingleLock* pLock) const
 	{
 		// Special case single file detection (disregard tracker spam)
 		if ( m_oFile[ 1 ].m_nSize < 100 &&
-			StartsWith( m_oFile[ 1 ].m_sName.Mid( m_oFile[ 1 ].m_sName.Find( '\\' ) + 1 ), L"Torrent downloaded from", 23 ) )
+			StartsWith( m_oFile[ 1 ].m_sName.Mid( m_oFile[ 1 ].m_sName.Find( L'\\' ) + 1 ), L"Torrent downloaded from", 23 ) )
 			return 0;
 		if ( m_oFile[ 0 ].m_nSize < 100 &&
-			StartsWith( m_oFile[ 0 ].m_sName.Mid( m_oFile[ 0 ].m_sName.Find( '\\' ) + 1 ), L"Torrent downloaded from", 23 ) )
+			StartsWith( m_oFile[ 0 ].m_sName.Mid( m_oFile[ 0 ].m_sName.Find( L'\\' ) + 1 ), L"Torrent downloaded from", 23 ) )
 			return 1;
 	}
 

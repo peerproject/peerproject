@@ -2845,6 +2845,8 @@
 	<string id="20082" value="Finished, click Close"/>
 	<string id="20083" value="Requesting..."/>
 	<string id="20084" value="Success."/>
+	<string id="20086" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
+	<string id="20088" value="This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\n\nWould you like to proceed?"/>
 	<string id="20100" value="Closing browse user connection to %s."/>
 	<string id="20101" value="Browse host %s responded with an unrecognised response, and may not support user/host browsing."/>
 	<string id="20102" value="Unable to connect to host to browse user."/>
@@ -3172,8 +3174,8 @@
 	<string id="20445" value="E&amp;xport P2P Links..."/>
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
-	<string id="20449" value="This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\n\nWould you like to proceed?"/>
+	<string id="20448" value="Public"/>	<!--Shared-->
+	<string id="20449" value="Private"/>	<!--Unshared-->
 	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
 	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3184,7 +3186,7 @@
 	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="PeerProject Media Player"/>
 	<string id="20459" value="&#160;/&#160;"/> <!--Track Time-->
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(No Visualisation)"/>
 	<!--string id="20464" value="PeerProject has completed downloading:"-->
 	<!--string id="20465" value="PeerProject is downloading:"-->
@@ -4821,10 +4823,11 @@
 		<column from="File" to=""/>
 		<column from="Type" to=""/>
 		<column from="Size" to=""/>
-		<column from="Folder" to=""/>
-		<column from="Hits" to=""/>
-		<column from="Uploads" to=""/>
 		<column from="Modified" to=""/>
+		<column from="Folder" to=""/>
+		<column from="Shared" to=""/>
+		<column from="Uploads" to=""/>
+		<column from="Hits" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to=""/>

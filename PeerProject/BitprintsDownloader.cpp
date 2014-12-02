@@ -232,11 +232,11 @@ BOOL CBitprintsDownloader::ExecuteRequest()
 	int nPos = strHost.Find( L"http://" );
 	if ( nPos != 0 ) return FALSE;
 	strHost = strHost.Mid( 7 );
-	nPos = strHost.Find( '/' );
+	nPos = strHost.Find( L'/' );
 	if ( nPos < 0 ) return FALSE;
 	CString strPath = strHost.Mid( nPos );
 	strHost = strHost.Left( nPos );
-	nPos = strHost.Find( ':' );
+	nPos = strHost.Find( L':' );
 
 	int nPort = INTERNET_DEFAULT_HTTP_PORT;
 

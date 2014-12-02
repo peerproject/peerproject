@@ -306,7 +306,7 @@ void CFileCopyDlg::OnRun()
 	//	CString strFile = strPath + L"\\" + strName;
 	//	if ( strFile == strCurrent )
 	//	{
-	//		strCurrent.Format( LoadString( IDS_LIBRARY_BITPRINTS_HASHED ), strName );
+	//		strCurrent.Format( LoadString( IDS_BITPRINTS_NOT_HASHED ), strName );
 	//		theApp.Message( MSG_NOTICE, strCurrent );
 	//		m_wndFileName.SetWindowText( LoadString( IDS_STATUS_FILEERROR ) );
 	//	}

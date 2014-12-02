@@ -97,8 +97,8 @@ CSourceDisplayData::CSourceDisplayData(const CDownloadSource* pSource)
 	, m_oAvailable			( pSource->m_oAvailable )		// pSource->m_oAvailable.length_sum()
 	, m_oPastFragments		( pSource->m_oPastFragments )
 {
-	//if ( m_bTransferBackwards && m_nTransferOffset >= m_nTransferLength )
-	//	m_nTransferOffset -= m_nTransferLength;
+	if ( m_bTransferBackwards && m_nTransferOffset >= m_nTransferLength )
+		m_nTransferOffset -= m_nTransferLength;
 };
 
 CSourceDisplayData& CSourceDisplayData::operator=(const CSourceDisplayData& pSource)

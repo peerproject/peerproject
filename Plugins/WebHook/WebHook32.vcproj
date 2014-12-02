@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="WebHook"
+	Name="WebHook32"
 	ProjectGUID="{7030A905-13CF-40FF-A7CC-9FBA3B6EDF92}"
-	RootNamespace="WebHook"
+	RootNamespace="WebHook32"
 	Keyword="AtlProj"
 	TargetFrameworkVersion="131072"
 	>
@@ -46,8 +46,8 @@
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
 				TypeLibraryName="$(IntDir)\WebHook.tlb"
-				InterfaceIdentifierFileName="WebHook_i.c"
-				HeaderFileName="WebHook_i.h"
+				InterfaceIdentifierFileName="$(IntDir)\WebHook_i.c"
+				HeaderFileName="$(IntDir)\WebHook_i.h"
 				DLLDataFileName=""
 				ProxyFileName=""
 			/>
@@ -136,8 +136,8 @@
 				TargetEnvironment="3"
 				GenerateStublessProxies="true"
 				TypeLibraryName="$(IntDir)\WebHook.tlb"
-				InterfaceIdentifierFileName="WebHook_i.c"
-				HeaderFileName="WebHook_i.h"
+				InterfaceIdentifierFileName="$(IntDir)\WebHook_i.c"
+				HeaderFileName="$(IntDir)\WebHook_i.h"
 				DLLDataFileName=""
 				ProxyFileName=""
 			/>
@@ -226,8 +226,8 @@
 				TargetEnvironment="1"
 				GenerateStublessProxies="true"
 				TypeLibraryName="$(IntDir)\WebHook.tlb"
-				InterfaceIdentifierFileName="WebHook_i.c"
-				HeaderFileName="WebHook_i.h"
+				InterfaceIdentifierFileName="$(IntDir)\WebHook_i.c"
+				HeaderFileName="$(IntDir)\WebHook_i.h"
 				DLLDataFileName=""
 				ProxyFileName=""
 			/>
@@ -321,8 +321,8 @@
 				TargetEnvironment="3"
 				GenerateStublessProxies="true"
 				TypeLibraryName="$(IntDir)\WebHook.tlb"
-				InterfaceIdentifierFileName="WebHook_i.c"
-				HeaderFileName="WebHook_i.h"
+				InterfaceIdentifierFileName="$(IntDir)\WebHook_i.c"
+				HeaderFileName="$(IntDir)\WebHook_i.h"
 				DLLDataFileName=""
 				ProxyFileName=""
 			/>
@@ -487,55 +487,6 @@
 			<File
 				RelativePath="WebHook.rgs"
 				>
-			</File>
-		</Filter>
-		<Filter
-			Name="Generated Files"
-			SourceControlFiles="false"
-			>
-			<File
-				RelativePath="WebHook_i.h"
-				>
-			</File>
-			<File
-				RelativePath="WebHook_i.c"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|x64"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						UsePrecompiledHeader="0"
-						CompileAsManaged="0"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 	</Files>

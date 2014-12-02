@@ -1,7 +1,7 @@
 //
 // Object.cpp : Implementation of CWebHook
 //
-// This file is part of PeerProject (peerproject.org) © 2009,2012
+// This file is part of PeerProject (peerproject.org) © 2009,2012,2014
 // Portions Copyright Shareaza Development Team, 2009.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -21,6 +21,9 @@
 
 #include "StdAfx.h"
 #include "Object.h"
+
+#define INITGUID
+#include "WebHook_i.c"
 
 // CWebHook
 

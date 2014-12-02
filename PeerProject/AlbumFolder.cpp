@@ -60,7 +60,7 @@ CAlbumFolder::CAlbumFolder(CAlbumFolder* pParent, LPCTSTR pszSchemaURI, LPCTSTR 
 	{
 		if ( m_pSchema != NULL )
 		{
-			const int nColon = m_pSchema->m_sTitle.Find( ':' );
+			const int nColon = m_pSchema->m_sTitle.Find( L':' );
 			if ( nColon >= 0 )
 				m_sName = m_pSchema->m_sTitle.Mid( nColon + 1 ).Trim();
 		}

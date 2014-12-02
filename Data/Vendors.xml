@@ -153,7 +153,7 @@
 
 	<vendor code="FUST">
 		<title>Fusteeno</title>
-		<link>http://www.fusteeno.com/</link>
+	<!--	<link>http://www.fusteeno.com/</link> -->
 		<capability name="g1"/>
 	</vendor>
 
@@ -171,8 +171,9 @@
 	</vendor>
 
 	<vendor code="GNEW">
-		<title>GNewtellium</title>
+		<title>Gnewtellium</title>
 		<link>http://gnewtellium.sourceforge.net/</link>
+		<capability name="g1"/>
 	</vendor>
 
 	<vendor code="GNOT">
@@ -298,7 +299,7 @@
 <!--
 	<vendor code="OCFG">
 		<title>OpenCola</title>
-	<!--	<link>http://www.opencola.org/</link> -->
+		<link>http://www.opencola.org/</link>
 	</vendor>
 -->
 	<vendor code="OPRA">
@@ -364,7 +365,7 @@
 
 	<vendor code="SWAP">
 		<title>Swapper.NET</title>
-		<link>http://www.revolutionarystuff.com/swapper/</link>
+	<!--	<link>http://www.revolutionarystuff.com/swapper/</link> -->
 	</vendor>
 
 	<vendor code="SWFT">

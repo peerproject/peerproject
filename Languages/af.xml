@@ -2630,6 +2630,8 @@
 	<string id="20082" value="Voltooi, kliek Maak Toe"/>
 	<string id="20083" value="Stuur versoek..."/>
 	<string id="20084" value="Sukses."/>
+	<string id="20086" value="Die lêer &quot;%s&quot; is nog nie geprosesseer nie. Wag asseblief vir die lêer om geprosesseer te word en probeer weer."/>
+	<string id="20088" value="Hierdie opsie gebruik dienste verskaf deur bitprints.peerproject.org vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitprints databasis geraadpleeg kan word. As jy bekommerd is oor privaatheid, kan jy gerus die bitprints.peerproject.org privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
 	<string id="20100" value="Lees-gebruiker konneksie aan %s word gesluit."/>
 	<string id="20101" value="Gasheer %s het gereageer met 'n onherkenbare antwoord en mag dalk nie die funksie ondersteun nie."/>
 	<string id="20102" value="Kon nie aan die gasheer konnekteer om deur sy inligting te blaai nie."/>
@@ -2939,8 +2941,8 @@
 	<string id="20445" value="Voer URI's Uit..."/>
 	<string id="20446" value="Die lêer &quot;%s&quot; het 'n prosesserings-validasie toets gefaal en mag dalk nie die lêer wees wat jy wou aflaai nie. Is jy seker jy wil dit oopmaak?"/>
 	<string id="20447" value="Wil jy die &quot;moontlik skadelik&quot; eienskap van hierdie lêer verwyder?"/>
-	<string id="20448" value="Die lêer &quot;%s&quot; is nog nie geprosesseer nie. Wag asseblief vir die lêer om geprosesseer te word en probeer weer."/>
-	<string id="20449" value="Hierdie opsie gebruik dienste verskaf deur bitprints.peerproject.org vir herkenning en deel van inligting oor sekere lêers.\n\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitprints databasis geraadpleeg kan word. As jy bekommerd is oor privaatheid, kan jy gerus die bitprints.peerproject.org privaatheidsbeleid lees.\n\nWil jy voortgaan?"/>
+	<string id="20448" value="Publiek"/>	<!--Shared-->
+	<string id="20449" value="Privaat"/>	<!--Unshared-->
 	<string id="20450" value="'n Subgids van die geselekteerde gids &quot;%s&quot; is alreeds deel van jou biblioteek.\nDie byvoeging van hierdie gids sal die herprosessering van sommige lêers veroorsaak.\n\nIs jy seker jy wil voortgaan ?"/>
 	<string id="20451" value="Daar is geen lêers wat speel nie. Dubbelkliek 'n medialêer in jou biblioteek om dit te speel, of kliek op Open"/>
 	<string id="20452" value="Alle Media Lêers|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Medialyste|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Klanklêers|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Lêers|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Klank Snitte|*.cda|MIDI Lêers|*.mid;*.rmi;*.midi|Alle Lêers|*.*||"/>
@@ -2949,7 +2951,7 @@
 	<string id="20455" value="Dele van hierdie lêer kan nie gespeel word nie, jy mag dalk addisionele kodeks moet aflaai."/>
 	<string id="20456" value="Medialys:"/>
 	<string id="20457" value="PeerProject kon nie die MediaDienste inpropprogram instansieer nie. Herinstalleer PeerProject en maak seker dat jy die nodige media kodeks en afvoerdrywers geinstalleer het."/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Geen Visualisering)"/>
 	<!--string id="20464" value="Aflaai is voltooi:"-->
 	<!--string id="20465" value="PeerProject is besig om af te laai:"-->
@@ -4487,10 +4489,11 @@
 		<column from="File" to="Lêer"/>
 		<column from="Type" to="Uitbreiding"/>
 		<column from="Size" to="Grootte"/>
-		<column from="Folder" to="Gids"/>
-		<column from="Hits" to="Treflaaie"/>
-		<column from="Uploads" to="Oplaaie"/>
 		<column from="Modified" to="Verander"/>
+		<column from="Folder" to="Gids"/>
+		<column from="Shared" to="Gedeel"/>
+		<column from="Uploads" to="Oplaaie"/>
+		<column from="Hits" to="Treflaaie"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>

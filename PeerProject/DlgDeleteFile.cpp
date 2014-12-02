@@ -227,10 +227,10 @@ void CDeleteFileDlg::OnDrawItem(int /*nIDCtl*/, LPDRAWITEMSTRUCT lpDrawItemStruc
 {
 	if ( lpDrawItemStruct->itemID == (UINT)-1 ) return;
 	if ( ( lpDrawItemStruct->itemAction & ODA_SELECT ) == 0 &&
-		( lpDrawItemStruct->itemAction & ODA_DRAWENTIRE ) == 0 ) return;
+		 ( lpDrawItemStruct->itemAction & ODA_DRAWENTIRE ) == 0 ) return;
 
 	CRect rcItem( &lpDrawItemStruct->rcItem );
-	CPoint pt( rcItem.left + 1, rcItem.top + 1 );
+
 	CDC dc;
 
 	dc.Attach( lpDrawItemStruct->hDC );

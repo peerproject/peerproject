@@ -92,7 +92,8 @@ void CVendorCache::Clear()
 
 BOOL CVendorCache::Load()
 {
-	CString strPath = Settings.General.Path + L"\\Data\\Vendors.xml";
+	const CString strPath = Settings.General.DataPath + L"Vendors.xml";
+
 	CXMLElement* pXML = CXMLElement::FromFile( strPath, TRUE );
 	BOOL bSuccess = FALSE;
 
@@ -104,7 +105,7 @@ BOOL CVendorCache::Load()
 			theApp.Message( MSG_ERROR, L"Invalid Vendors.xml file" );
 	}
 	else
-		theApp.Message( MSG_ERROR, L"Missed Vendors.xml file" );
+		theApp.Message( MSG_ERROR, L"Missing Vendors.xml file" );
 
 	return bSuccess;
 }
@@ -153,6 +154,9 @@ BOOL CVendorCache::LoadFrom(CXMLElement* pXML)
 bool CVendorCache::IsExtended(LPCTSTR pszCode) const
 {
 	ASSERT( pszCode );
+
+	if ( ! *pszCode || *pszCode == L'µ' || _tcsicmp( pszCode, L"BitTorrent" ) == 0  )
+		return false;
 
 	// Find by product name (Server or User-Agent HTTP-headers)
 	CVendor* pVendor = LookupByName( pszCode );

@@ -1247,7 +1247,7 @@ void CImages::BlendAlpha(CBitmap* bmImage, COLORREF crBlend /*RGB(255,255,255)*/
 	pV5Header.bV5Compression	= BI_RGB;
 	pV5Header.bV5SizeImage		= pInfo.bmWidth * pInfo.bmHeight * 3;
 
-	__try 
+	__try
 	{
 		void* pBits = NULL;
 		hImage = CreateDIBSection( GetDC( 0 ), (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS, (void**)&pBits, NULL, 0ul );

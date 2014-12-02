@@ -367,8 +367,7 @@ BOOL CManagedSearch::ExecuteNeighbours(const DWORD tTicks, const DWORD tSecs)
 				m_tMoreResults = 0;
 
 				// Display message in system window
-				theApp.Message( MSG_INFO, IDS_NETWORK_SEARCH_SENT,
-					m_pSearch->m_sSearch.GetLength() ? (LPCTSTR)m_pSearch->m_sSearch : L"URN",
+				theApp.Message( MSG_INFO, IDS_NETWORK_SEARCH_SENT, m_pSearch->GetSearch(),
 					(LPCTSTR)CString( inet_ntoa( pNeighbour->m_pHost.sin_addr ) ) );
 
 				// Save GUID of latest text search if needed

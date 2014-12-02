@@ -677,7 +677,7 @@ void CSettings::Load()
 
 	// Set default program and user paths
 	if ( General.Path.IsEmpty() || ! PathFileExists( General.Path ) )
-		General.Path = theApp.m_strBinaryPath.Left( theApp.m_strBinaryPath.ReverseFind( '\\' ) );
+		General.Path = theApp.m_strBinaryPath.Left( theApp.m_strBinaryPath.ReverseFind( L'\\' ) );
 
 	if ( General.MultiUser )
 	{

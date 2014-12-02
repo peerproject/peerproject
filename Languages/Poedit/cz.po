@@ -5688,11 +5688,11 @@ msgstr "U souboru \"%s\" se nepodařilo ověřit hash. Je možné, že soubor ne
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Chcete odstranit \"potenciálně nebezpečnou\" vlastnist z tohoto souboru?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Soubor \"%s\" ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Tuto možnost využívá služba poskytovaná bitprints.peerproject.org která zjišťuje a sdílí informace o vybraných souborech.\\n\\nPeerProject bude přenášet SHA1 hash pro označený soubor(y) v rámci dotazu poslaného databázi Bitprints. Pokud máte obavy o soukromí přečtěte si prohlášení bitprints.peerproject.org o ochraně osobních údajů.\\n\\nChcete pokračovat?"
 

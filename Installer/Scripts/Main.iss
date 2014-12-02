@@ -96,7 +96,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}";
 Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Languages: en en_uk;
 Name: "language"; Description: "{cm:tasks_languages}";
 Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked;
-Name: "webhook"; Description: "{cm:tasks_webhook}";
+Name: "webhook"; Description: "{cm:tasks_webhook}"; Flags: unchecked;
 ;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
 ;Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
 Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: WasInstalled; Flags: unchecked;
@@ -190,8 +190,10 @@ Source: "Plugins\WindowsThumbnail\{#ConfigurationName} {#PlatformName}\WindowsTh
 Source: "Plugins\MediaPlayer\{#ConfigurationName} {#PlatformName}\MediaPlayer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 ; Don't register WebHook.dll since it will setup PeerProject as download manager
-Source: "Plugins\WebHook\{#ConfigurationName} {#PlatformName}\WebHook.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension
-
+Source: "Plugins\WebHook\{#ConfigurationName} Win32\WebHook32.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension; Tasks: not webhook
+Source: "Plugins\WebHook\{#ConfigurationName} x64\WebHook64.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension; Tasks: not webhook
+Source: "Plugins\WebHook\{#ConfigurationName} Win32\WebHook32.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension regserver; Tasks: webhook
+Source: "Plugins\WebHook\{#ConfigurationName} x64\WebHook64.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension regserver; Tasks: webhook
 
 ; == Debug Databases ==
 #if ConfigurationName == "Debug"
@@ -218,7 +220,10 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.bak.*,*GPL*,WorldGPS.xml"
 
 ; Schemas
-Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,ReadMe.txt,PeerTags.*,SchemaDescriptor.*"
+Source: "Schemas\*"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.Safe.ico,ReadMe.txt,SchemaDescriptor.*,PeerTags.*"
+#if PlatformName == "Win32"
+Source: "Schemas\*.Safe.ico"; DestDir: "{app}\Schemas"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
+#endif
 
 ; Skins
 Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
@@ -492,6 +497,7 @@ Type: files; Name: "{app}\vc2.dll"
 ; Clean up old files from PeerProject
 Type: files; Name: "{app}\*.pdb"
 Type: files; Name: "{app}\LibGFL*.dll"
+Type: files; Name: "{app}\Plugins\WebHook.dll"
 Type: files; Name: "{app}\Plugins\7zx*.dll"
 Type: files; Name: "{app}\Plugins\*.pdb"
 Type: files; Name: "{app}\*.dat"
@@ -775,11 +781,10 @@ End;
 
 Function InitializeSetup: Boolean;
 Begin
-  Result := True;
+  // Malware checks
   Installed := (RegValueExists(HKEY_LOCAL_MACHINE, KeyLoc1, KeyName) or RegValueExists(HKEY_LOCAL_MACHINE, KeyLoc2, KeyName)) and DoesPathExist();
   MalwareDetected := False;
-
-  // Malware check
+  Result := True;
   Result := NOT MalwareCheck( ExpandConstant('{win}\vgraph.dll') );
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\Shareaza*') ); End;
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\Shareaza*') ); End;

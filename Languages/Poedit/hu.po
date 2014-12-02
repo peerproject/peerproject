@@ -5688,11 +5688,11 @@ msgstr "A(z) \"%s\" fájl megbukott a hash ellenőrzésen és valószínűleg ez
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "El akarja távolítani a fájl \"potenciálisan veszélyes\" attribútumát?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "A(z) \"%s\" még nem volt hashelve. Várja meg a hashelést és próbálja újra."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Ez az opció a bitprints.peerproject.org fájlinformációs szolgáltatásait használja.\\n\\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitprints adatbázisába. Ha nem bízik meg a Bitprintsben, akkor olvassa el a bitprints.peerproject.org adatvédelmi nyilatkozatát.\\n\\nTovább akar menni?"
 

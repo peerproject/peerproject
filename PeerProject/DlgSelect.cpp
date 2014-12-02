@@ -58,7 +58,7 @@ BOOL CSelectDialog::OnInitDialog()
 	for ( POSITION pos = m_List.GetHeadPosition(); pos; )
 	{
 		CItem it = m_List.GetNext( pos );
-		int index = m_ListCtrl.AddString( it.m_sItem.Mid( it.m_sItem.Find( '\\' ) + 1 ) );	// Use Truncated Path
+		int index = m_ListCtrl.AddString( it.m_sItem.Mid( it.m_sItem.Find( L'\\' ) + 1 ) );		// Use Truncated Path
 		m_ListCtrl.SetItemData( index, it.m_nData );
 		if ( it.m_nData == m_nData )
 			select = index;

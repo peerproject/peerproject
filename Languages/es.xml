@@ -2690,6 +2690,8 @@
 	<string id="20082" value="Terminado, haz click para cerrar"/>
 	<string id="20083" value="Pidiendo..."/>
 	<string id="20084" value="Suceso"/>
+	<string id="20086" value="El archivo &quot;%s&quot; no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
+	<string id="20088" value="Esto usa un servicio ofrecido por bitprints.peerproject.org, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la huella digital 'bitprint' del archivo para que Bitprints lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitprints.peerproject.org para más información.\n\n¿Quieres continuar?"/>
 	<string id="20100" value="Cerrando exploración del usuario %s."/>
 	<string id="20101" value="La exploración del usuario %s respondió incorrectamente, puede no soportar exploración de usuario."/>
 	<string id="20102" value="Fué imposible establecer la conexión."/>
@@ -3009,8 +3011,8 @@
 	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="El archivo &quot;%s&quot; falló la verificación, y puede no ser el correcto. ¿Estás seguro(a) de abrirlo?"/>
 	<string id="20447" value="¿Quieres quitar el atributo de &quot;potencialmente inseguro&quot; de este archivo?"/>
-	<string id="20448" value="El archivo &quot;%s&quot; no ha sido escaneado. Por favor espere a que sea escaneado, e intente más tarde."/>
-	<string id="20449" value="Esto usa un servicio ofrecido por bitprints.peerproject.org, para adquirir metadata acerca del archivo.\n\nPeerProject va a enviar una pequeña información sobre la huella digital 'bitprint' del archivo para que Bitprints lo pueda reconocer. Si tienes alguna duda sobre la privacidad de este servicio, visita bitprints.peerproject.org para más información.\n\n¿Quieres continuar?"/>
+	<string id="20448" value="Público"/>	<!--Shared-->
+	<string id="20449" value="Privado"/>	<!--Unshared-->
 	<string id="20450" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; forma parte de Colección.\nAñadir esta carpeta causará la refusión de algunos ficheros.\n\n¿Quieres continuar?"/>
 	<string id="20451" value="No hay ningún archivo reproduciendose. Haz doble click a un archivo de media en tu librería para reproducirlo."/>
 	<string id="20452" value="Todos los archivos de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -3020,7 +3022,7 @@
 	<string id="20456" value="Lista de Reproducción"/>
 	<string id="20457" value="PeerProject no pudo iniciar los servicios de reproducción. Por favor reinstale PeerProject, y confirme que tiene todos los codecs, filtros y controladores necesarios.."/>
 	<string id="20458" value="Reproductor de PeerProject"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; I &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; A"/>
+	<string id="20460" value="PEERPROJECT MEDIA SISTEMA"/>
 	<string id="20462" value="(No Visualización)"/>
 	<!--string id="20464" value="PeerProject ha terminado de bajar:"-->
 	<!--string id="20465" value="PeerProject esta descargando:"-->
@@ -4607,10 +4609,11 @@
 		<column from="File" to="Archivo"/>
 		<column from="Type" to="Extensión"/>
 		<column from="Size" to="Tamaño"/>
-		<column from="Folder" to="Carpeta"/>
-		<column from="Hits" to=""/>
-		<column from="Uploads" to="Subidas"/>
 		<column from="Modified" to="Modificado"/>
+		<column from="Folder" to="Carpeta"/>
+		<column from="Shared" to="Compartido"/>
+		<column from="Uploads" to="Subidas"/>
+		<column from="Hits" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Dirección"/>

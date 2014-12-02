@@ -58,11 +58,11 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 			{
 				LOGFONT lf;
 				HFONT hFont;
-				hFont=(HFONT)SendDlgItemMessage(hwndDlg,IDC_NAME,WM_GETFONT,0,0);
+				hFont=(HFONT)SendDlgItemMessage(hwndDlg, IDC_NAME, WM_GETFONT, 0, 0);
 				GetObject(hFont,sizeof(lf),&lf);
 				lf.lfWeight=FW_BOLD;
 				hFont=CreateFontIndirect(&lf);
-				SendDlgItemMessage(hwndDlg,IDC_NAME,WM_SETFONT,(WPARAM)hFont,0);
+				SendDlgItemMessage(hwndDlg, IDC_NAME, WM_SETFONT, (WPARAM)hFont, 0);
 			}
 			if ( szPath )
 			{
@@ -78,17 +78,26 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				_snwprintf(buf, MAX_PATH, L"By %s", szAuthor);
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
-			if ( szUpdates && wcscmp( szAuthor, szUpdates ) != 0 )
+			if ( szUpdates && wcscmp(szAuthor, szUpdates) != 0 )
 			{
 				TCHAR buf[MAX_PATH];
 				if ( szAuthor )
 				{
-					GetDlgItemText(hwndDlg, IDC_AUTH, buf, MAX_PATH );
+#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+					GetDlgItemText(hwndDlg, IDC_AUTH, buf, MAX_PATH);
 					size_t len = wcslen(buf);
 					_snwprintf(buf + len, MAX_PATH - len, L",  Updated by %s", szUpdates);
+#else	// VS2008
+					TCHAR upbuf[MAX_PATH];
+					_snwprintf(upbuf, MAX_PATH, L",  Updated by %s", szUpdates);
+					GetDlgItemText(hwndDlg, IDC_AUTH, buf, MAX_PATH);
+					wcsncat(buf, upbuf, MAX_PATH - wcslen(buf));
+#endif
 				}
 				else
+				{
 					_snwprintf(buf, MAX_PATH, L"Updated by %s", szUpdates);
+				}
 				SetDlgItemText(hwndDlg, IDC_AUTH, buf);
 			}
 			if ( szPath )
@@ -97,8 +106,8 @@ INT_PTR CALLBACK ExtractProc(HWND hwndDlg, UINT msg, WPARAM wParam, LPARAM lPara
 				if ( szAuthor )
 				{
 					_snwprintf(updbuf, MAX_PATH, L"        (%s Folder)", szPath);
-					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256 );
-					wcsncat( buf, updbuf, MAX_PATH - wcslen(buf) );
+					GetDlgItemText(hwndDlg, IDC_AUTH, buf, 256);
+					wcsncat(buf, updbuf, MAX_PATH - wcslen(buf));
 				}
 				else
 					_snwprintf(buf, MAX_PATH, L"(%s Folder)", szPath);

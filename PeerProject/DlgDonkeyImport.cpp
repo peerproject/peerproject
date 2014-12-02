@@ -63,7 +63,7 @@ BOOL CDonkeyImportDlg::OnInitDialog()
 
 	CString str;
 	m_wndCancel.GetWindowText( str );
-	int nPos = str.Find( '|' );
+	int nPos = str.Find( L'|' );
 	if ( nPos > 0 )
 	{
 		m_sCancel = str.Mid( nPos + 1 );

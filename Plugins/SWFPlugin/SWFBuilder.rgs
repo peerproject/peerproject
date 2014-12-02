@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove LibraryBuilder
 					{
-						ForceRemove val '.swf' = s '{C646E072-09A4-4E4C-9724-C5B737846D14}'
+						val '.swf' = s '{C646E072-09A4-4E4C-9724-C5B737846D14}'
 					}
 				}
 			}

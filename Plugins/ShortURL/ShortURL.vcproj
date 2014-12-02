@@ -410,6 +410,10 @@
 				>
 			</File>
 			<File
+				RelativePath="OptionsDlg.cpp"
+				>
+			</File>
+			<File
 				RelativePath="Plugin.cpp"
 				>
 			</File>
@@ -476,6 +480,10 @@
 				>
 			</File>
 			<File
+				RelativePath="OptionsDlg.h"
+				>
+			</File>
+			<File
 				RelativePath="Plugin.h"
 				>
 			</File>
@@ -494,11 +502,11 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="ShortURL.ico"
+				RelativePath="Plugin.rgs"
 				>
 			</File>
 			<File
-				RelativePath="Plugin.rgs"
+				RelativePath="ShortURL.rgs"
 				>
 			</File>
 			<File
@@ -506,7 +514,27 @@
 				>
 			</File>
 			<File
-				RelativePath="ShortURL.rgs"
+				RelativePath="ShortURL.ico"
+				>
+			</File>
+			<File
+				RelativePath="Up.ico"
+				>
+			</File>
+			<File
+				RelativePath="Down.ico"
+				>
+			</File>
+			<File
+				RelativePath="Add.ico"
+				>
+			</File>
+			<File
+				RelativePath="Delete.ico"
+				>
+			</File>
+			<File
+				RelativePath="Test.ico"
 				>
 			</File>
 		</Filter>

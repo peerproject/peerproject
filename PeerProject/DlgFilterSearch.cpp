@@ -377,10 +377,10 @@ void CFilterSearchDlg::OnClickedRegexp()
 			UpdateData( FALSE );
 		}
 
-		int nSelect = m_sFilter.Find( '<' );
+		int nSelect = m_sFilter.Find( L'<' );
 		if ( nSelect != -1 )
 		{
-			int nSelectEnd = m_sFilter.Find( '>', nSelect + 1 );
+			int nSelectEnd = m_sFilter.Find( L'>', nSelect + 1 );
 			if ( nSelectEnd != -1 )
 			{
 				CEdit* pEdit = static_cast< CEdit* >( GetDlgItem( IDC_FILTER ) );

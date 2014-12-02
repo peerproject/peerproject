@@ -129,7 +129,7 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	if ( CSchemaPtr pSchema = SchemaCache.Get( CSchema::uriSearchFolder ) )
 	{
 		strTitle = pSchema->m_sTitle;
-		const int nColon = strTitle.Find( ':' );
+		const int nColon = strTitle.Find( L':' );
 		if ( nColon >= 0 )
 			strTitle = strTitle.Mid( nColon + 1 ).Trim();
 	}

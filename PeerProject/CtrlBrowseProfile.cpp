@@ -149,6 +149,7 @@ void CBrowseProfileCtrl::Update(CHostBrowser* pBrowser)
 void CBrowseProfileCtrl::UpdateDocument1(CGProfile* pProfile)
 {
 	CSingleLock pLock( &m_pDocument1->m_pSection, TRUE );
+
 	CString str;
 
 	if ( m_pdNick != NULL )
@@ -434,7 +435,7 @@ void CBrowseProfileCtrl::LoadDefaultHead()
 
 	if ( m_imgHead.m_bLoaded ) return;
 
-	if ( m_imgHead.LoadFromFile( Settings.General.Path + L"\\Data\\DefaultAvatar.png" ) &&		// Settings.General.DataPath ?
+	if ( m_imgHead.LoadFromFile( Settings.General.DataPath + L"DefaultAvatar.png" ) &&
 		 m_imgHead.EnsureRGB( Colors.m_crWindow ) &&
 		 m_imgHead.Resample( 128, 128 ) )
 	{

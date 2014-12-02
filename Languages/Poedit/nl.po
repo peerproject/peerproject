@@ -5688,11 +5688,11 @@ msgstr "De hashcontroletest voor het bestand \"%s\" is mislukt. Het is mogelijk 
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Wil je de eigenschap \"mogelijk onveilig\" van dit bestand verwijderen?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Het bestand \"%s\" is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Deze optie gebruikt diensten die zijn verstrekt door bitprints.peerproject.org voor het herkennen en delen van informatie over de geselecteerde bestanden.\\n\\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitprints gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van bitprints.peerproject.org raadplegen.\\n\\nWil je verdergaan?"
 

@@ -37,31 +37,42 @@ public :
 
 CGFLImageServicesModule	_AtlModule;
 HINSTANCE				_hModuleInstance = NULL;
-typedef ATL::CAtlMap <ATL::CString, ATL::CString> CAtlStrStrMap;
+typedef ATL::CAtlMap < ATL::CStringA, GFL_INT32 > CAtlStrStrMap;
 CAtlStrStrMap			_ExtMap;
 
 inline void FillExtMap()
 {
-	CString tmp;
 	_ExtMap.RemoveAll();
+
 	GFL_INT32 count = gflGetNumberOfFormat();
 	ATLTRACE( "Total %d formats:\n", count );
 	for ( GFL_INT32 i = 0; i < count; ++i )
 	{
-		GFL_FORMAT_INFORMATION info;
+		GFL_FORMAT_INFORMATION info = {};
 		GFL_ERROR err = gflGetFormatInformationByIndex (i, &info);
 		if ( err == GFL_NO_ERROR && (info.Status & GFL_READ) )
 		{
-			CString name (info.Name);
-			CString desc (info.Description);
-			ATLTRACE( "%3d. %7s %32s :", i, info.Name, info.Description );
+			ATLTRACE( "%3d. %7s %32s #%d :", i, info.Name, info.Description, info.Index );
 			for ( GFL_UINT32 j = 0; j < info.NumberOfExtension; ++j )
 			{
-				CString ext (info.Extension [j]);
+				CStringA ext( info.Extension[j] );
 				ext.MakeLower();
-				ATLTRACE( " .%s", info.Extension [j] );
-				if ( !_ExtMap.Lookup( ext, tmp ) )
-					_ExtMap.SetAt( ext, name );
+
+				// GFL bugfix for short extensions
+				if ( ext.GetLength() > 6 )
+				{
+					if ( ext == "pspimag" )			// PaintShopPro Image
+						ext = "pspimage";
+					else if ( ext == "pspbrus" )	// PaintShopPro Brush
+						ext = "pspbrush";
+					else if ( ext == "pspfram" )	// PaintShopPro Frame
+						ext = "pspframe";
+				}
+
+				ATLTRACE( " .%s", ext );
+				GFL_INT32 index;
+				if ( ! _ExtMap.Lookup( ext, index ) )
+					_ExtMap.SetAt( ext, info.Index );
 			}
 			ATLTRACE( "\n" );
 		}
@@ -139,15 +150,15 @@ STDAPI DllRegisterServer(void)
 	HRESULT hr = _AtlModule.DllRegisterServer();
 
 	// Registering extensions using GFL
-	CString ext, tmp;
-	POSITION pos = _ExtMap.GetStartPosition();
-	while ( pos )
+	for ( POSITION pos = _ExtMap.GetStartPosition (); pos; )
 	{
-		_ExtMap.GetNextAssoc( pos, ext, tmp );
-		if ( ext == L"vst" ) continue;
-		ext.Insert( 0, L'.' );
-		ATLTRACE( "Add %s\n", CT2A( ext ) );
-		SHSetValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext, REG_SZ,
+		CStringA ext;
+		GFL_INT32 index;
+		_ExtMap.GetNextAssoc( pos, ext, index );
+		if ( ext == "vst" ) continue;
+		ext.Insert( 0, '.' );
+		ATLTRACE( "Add %s\n", ext );
+		SHSetValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, CA2T( ext ), REG_SZ,
 			L"{C9314782-CB91-40B8-B375-F631FF30C1C8}",
 			38 * sizeof(TCHAR) );
 	}
@@ -160,15 +171,15 @@ STDAPI DllUnregisterServer(void)
 	HRESULT hr = _AtlModule.DllUnregisterServer();
 
 	// Unregistering extensions using GFL
-	CString ext, tmp;
-	POSITION pos = _ExtMap.GetStartPosition();
-	while ( pos )
+	for ( POSITION pos = _ExtMap.GetStartPosition (); pos; )
 	{
-		_ExtMap.GetNextAssoc(pos, ext, tmp);
-		if ( ext == L"vst" ) continue;
-		ext.Insert( 0, L'.' );
-		ATLTRACE( "Remove %s\n", CT2A( ext ) );
-		SHDeleteValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, ext );
+		CStringA ext;
+		GFL_INT32 index;
+		_ExtMap.GetNextAssoc( pos, ext, index );
+		if ( ext == "vst" ) continue;
+		ext.Insert( 0, '.' );
+		ATLTRACE( "Remove %s\n", ext );
+		SHDeleteValue( HKEY_CURRENT_USER, REG_IMAGESERVICE_KEY, CA2T( ext ) );
 	}
 
 	return hr;
@@ -262,11 +273,11 @@ HRESULT SAFEgflSaveBitmap(LPCWSTR filename, const GFL_BITMAP *bitmap, const GFL_
 	return hr;
 }
 
-int GetFormatIndexByExt(LPCTSTR ext)
+int GetFormatIndexByExt(LPCSTR ext)
 {
-	CString name;
-	if ( _ExtMap.Lookup( ext, name ) )
-		return gflGetFormatIndexByName( CT2CA(name) );
+	GFL_INT32 index;
+	if ( _ExtMap.Lookup( ext, index ) )
+		return index;	// gflGetFormatIndexByName( CT2CA(name) );
 
 	return -1;
 }

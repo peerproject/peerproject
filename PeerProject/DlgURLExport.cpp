@@ -158,8 +158,8 @@ void CURLExportDlg::OnSave()
 //	theApp.WriteProfileString( L"Library", L"URLExportFormat", m_sFormat );
 	Settings.Library.URLExportFormat = m_sFormat;
 
-	LPCTSTR pszExt = ( m_sFormat.Find( '<' ) >= 0 ) ? L"htm" : L"txt";
-	LPCTSTR pszFilter = ( m_sFormat.Find( '<' ) >= 0 ) ?
+	LPCTSTR pszExt = ( m_sFormat.Find( L'<' ) >= 0 ) ? L"htm" : L"txt";
+	LPCTSTR pszFilter = ( m_sFormat.Find( L'<' ) >= 0 ) ?
 		L"HTML Files|*.htm;*.html|Text Files|*.txt|" + LoadString( IDS_FILES_ALL ) + L"|*.*||" :
 		L"Text Files|*.txt|HTML Files|*.htm;*.html|" + LoadString( IDS_FILES_ALL ) + L"|*.*||";
 

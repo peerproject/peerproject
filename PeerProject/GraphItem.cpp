@@ -128,7 +128,7 @@ DWORD CGraphItem::GetMaximum() const
 void CGraphItem::SetHistory(DWORD nSize, BOOL bMax)
 {
 	if ( bMax && m_nData >= nSize ) return;
-	else if ( ! bMax && m_nData == nSize ) return;
+	if ( ! bMax && m_nData == nSize ) return;
 
 	DWORD* pOldData		= m_pData;
 	DWORD nOldTotal		= m_nData;
@@ -274,7 +274,7 @@ QWORD CGraphItem::GetValue(const DWORD nCode, const float nMultiplier)
 
 	case GRC_DOWNLOADS_FILES:
 		if ( ! Transfers.m_pSection.Lock( 20 ) ) break;
-		nValue = Downloads.GetCount( TRUE );
+		nValue = (long double)Downloads.GetCount( TRUE );
 		Transfers.m_pSection.Unlock();
 		break;
 	case GRC_DOWNLOADS_TRANSFERS:

@@ -5688,11 +5688,11 @@ msgstr "Datoteka \"%s\" je pogrnila na testu preverjanja izvlečka (hasha) in pr
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Želite odstraniti \"potencialno nevarne\" atribute iz te datoteke?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Datoteka \"%s\" še ni bila zgoščena (hashed). Počakajte, da se postopek sgoščevanja (hashing) konča in nato poskusite znova."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Ta možnost uporablja storitve, ki jih zagotavlja bitprints.peerproject.org za prepoznavanje in deljenje informacij o izbranih datotekah.\\n\\nPeerProject bo prenesla SHA1 izvleček (hash code) za izbrane datoteke z namenom poizvedbe po Bitprints podatkovni zbirki. Če ste zaskrbljeni glede zasebnosti, vam svetujemo, da si ogledate izjavo o varovanju zasebnosti na bitprints.peerproject.org.\\n\\nŽelite nadaljevati?"
 

@@ -146,7 +146,7 @@ void CWizardCtrl::OnPaint()
 					if ( size.cx > rcFileName.Width() - 24 - 12 )
 					{
 						// Show only song name if possible
-						int nDashPos = strFileName.ReverseFind( '-' );
+						int nDashPos = strFileName.ReverseFind( L'-' );
 						if ( nDashPos != -1 )
 							strFileName = L"\x2026" + strFileName.Right( strFileName.GetLength() - nDashPos - 1 );
 					}

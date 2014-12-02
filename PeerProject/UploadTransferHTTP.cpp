@@ -657,7 +657,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 	{
 		DWORD nIndex = 0;
 		CString strFile = m_sRequest.Mid( 5 );
-		int nChar = strFile.Find( '/' );
+		int nChar = strFile.Find( L'/' );
 		bool bByIndex = ( _stscanf( strFile, L"%lu/", &nIndex ) == 1 &&
 			nChar > 0 && nChar < strFile.GetLength() - 1 );
 		strFile = strFile.Mid( nChar + 1 );
@@ -1043,8 +1043,6 @@ void CUploadTransferHTTP::SendDefaultHeaders()
 
 void CUploadTransferHTTP::SendFileHeaders()
 {
-	CString strHeader;
-
 	if ( ! m_sName.IsEmpty() )
 	{
 		Write( _P("Content-Disposition: attachment; filename=\"") );

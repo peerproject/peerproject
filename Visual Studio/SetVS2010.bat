@@ -2,11 +2,22 @@
 @setLocal EnableExtensions EnableDelayedExpansion
 @echo off
 
+set "header1=Microsoft Visual Studio Solution File, Format Version 11.00"
+set "header2=# Visual Studio 2010"
 set "version=v100"
 
-set counter=0
+echo %header1%>>PeerProject.sln.temp
+echo %header2%>>PeerProject.sln.temp
+
+for /f "skip=3 delims=*" %%a in (PeerProject.sln) do (
+echo %%a>>PeerProject.sln.temp   
+)
+xcopy PeerProject.sln.temp PeerProject.sln /y
+del PeerProject.sln.temp /f /q
 
 cd ..\
+
+set counter=0
 
 for /r %%n in (*.vcxproj) do (
   echo %%n

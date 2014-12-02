@@ -273,7 +273,7 @@ void CRemoteWnd::OnSkinChange()
 		CString strAnchor;
 		m_pSkin->m_pAnchorList.GetNextAssoc( pos, strAnchor, prcAnchor );
 
-		if ( strAnchor.Find( '_' ) == 0 )
+		if ( strAnchor.Find( L'_' ) == 0 )
 			m_pButtons.AddTail( new CmdButton( strAnchor ) );
 	}
 

@@ -282,7 +282,7 @@ void CHttpRequest::OnRun()
 						{
 							CString strHeader( pszHeader );
 							pszHeader += strHeader.GetLength() + 1;
-							const int nColon = strHeader.Find( ':' );
+							const int nColon = strHeader.Find( L':' );
 							if ( nColon > 0 )
 							{
 								CString strValue, strName = strHeader.Left( nColon );

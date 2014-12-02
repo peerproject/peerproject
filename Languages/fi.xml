@@ -2121,10 +2121,11 @@
 		<column from="File" to="Tiedosto"/>
 		<column from="Type" to="Tyyppi"/>
 		<column from="Size" to="Koko"/>
-		<column from="Folder" to=""/>
-		<column from="Hits" to=""/>
+		<column from="Modified" to="Muutettu"/>
+		<column from="Folder" to="Kansio"/>
+		<column from="Shared" to="Jaetun"/>
 		<column from="Uploads" to="Lähetykset"/>
-		<column from="Modified" to=""/>
+		<column from="Hits" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Osoite"/>
