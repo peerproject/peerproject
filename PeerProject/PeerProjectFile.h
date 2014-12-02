@@ -31,6 +31,7 @@ public:
 	CPeerProjectFile(const CPeerProjectFile& pFile);
 	CPeerProjectFile& operator=(const CPeerProjectFile& pFile);
 
+public:
 	CString				m_sName;	// Filename only
 	QWORD				m_nSize;	// Size if any: (no size if equal to 0 or SIZE_UNKNOWN)
 	Hashes::Sha1Hash	m_oSHA1;	// SHA1 (Base32)
@@ -52,6 +53,7 @@ public:
 
 	// Returns any available URNs
 	CString GetURN() const;
+	CString GetShortURN() const;
 
 	// Returns "sha1_SHA1", "ttr_TIGER" etc.
 	CString GetFilename() const;

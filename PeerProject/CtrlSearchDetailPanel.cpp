@@ -47,9 +47,11 @@ static char THIS_FILE[] = __FILE__;
 IMPLEMENT_DYNAMIC(CSearchDetailPanel, CPanelCtrl)
 
 BEGIN_MESSAGE_MAP(CSearchDetailPanel, CPanelCtrl)
+	ON_WM_CREATE()
 	ON_WM_DESTROY()
 	ON_WM_VSCROLL()
 	ON_WM_PAINT()
+	ON_WM_TIMER()
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
@@ -67,6 +69,7 @@ CSearchDetailPanel::CSearchDetailPanel()
 	, m_nIcon48 	( 0 )
 	, m_nRating 	( 0 )
 	, m_pSchema 	( NULL )
+	, m_bRedraw		( TRUE )
 	, m_bCanPreview ( FALSE )
 	, m_bRunPreview ( FALSE )
 	, m_bIsPreviewing ( FALSE )
@@ -204,7 +207,7 @@ void CSearchDetailPanel::Update()
 
 	SetScrollInfo( SB_VERT, &pInfo, TRUE );
 
-	Invalidate();
+	m_bRedraw = TRUE;
 }
 
 void CSearchDetailPanel::ClearReviews()
@@ -220,8 +223,19 @@ void CSearchDetailPanel::ClearReviews()
 /////////////////////////////////////////////////////////////////////////////
 // CSearchDetailPanel message handlers
 
+int CSearchDetailPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
+{
+	if ( CPanelCtrl::OnCreate( lpCreateStruct ) == -1 ) return -1;
+
+	SetTimer( 1, 500, NULL );
+
+	return 0;
+}
+
 void CSearchDetailPanel::OnDestroy()
 {
+	KillTimer( 1 );
+
 	ClearReviews();
 	CancelPreview();
 
@@ -246,11 +260,6 @@ void CSearchDetailPanel::OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* /*pScrol
 	}
 
 	Invalidate();
-}
-
-void CSearchDetailPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
-{
-	SetFocus();
 }
 
 void CSearchDetailPanel::OnPaint()
@@ -427,6 +436,11 @@ BOOL CSearchDetailPanel::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 	return CPanelCtrl::OnSetCursor( pWnd, nHitTest, message );
 }
 
+void CSearchDetailPanel::OnLButtonDown(UINT /*nFlags*/, CPoint /*point*/)
+{
+	SetFocus();
+}
+
 void CSearchDetailPanel::OnLButtonUp(UINT nFlags, CPoint point)
 {
 	if ( m_bValid && m_bCanPreview && ! m_bIsPreviewing && m_rcThumb.PtInRect( point ) )
@@ -446,6 +460,22 @@ void CSearchDetailPanel::OnLButtonUp(UINT nFlags, CPoint point)
 
 	CPanelCtrl::OnLButtonUp( nFlags, point );
 }
+
+void CSearchDetailPanel::OnTimer(UINT_PTR nIDEvent)
+{
+	CPanelCtrl::OnTimer( nIDEvent );
+
+	{
+		CQuickLock pLock( m_pSection );
+		if ( ! m_bRedraw )
+			return;
+		m_bRedraw = FALSE;
+	}
+
+	Invalidate();
+	UpdateWindow();
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 // Review construction
@@ -579,13 +609,13 @@ void CSearchDetailPanel::CancelPreview()
 	if ( m_bmThumb.m_hObject != NULL )
 	{
 		m_bmThumb.DeleteObject();
-		Invalidate();
+		m_bRedraw = TRUE;
 	}
 
 	if ( m_bIsPreviewing )
 	{
 		m_bIsPreviewing = FALSE;
-		Invalidate();
+		m_bRedraw = TRUE;
 	}
 
 	if ( m_pRequest.IsPending() && ! m_pRequest.IsThreadEnabled() )
@@ -608,7 +638,7 @@ void CSearchDetailPanel::OnRun()
 			{
 				m_bIsPreviewing = FALSE;
 				m_bCanPreview = ! m_pPreviewURLs.IsEmpty();
-				Invalidate();
+				m_bRedraw = TRUE;
 			}
 
 			pLock.Unlock();
@@ -624,7 +654,7 @@ void CSearchDetailPanel::OnRun()
 		if ( ! m_bIsPreviewing )
 		{
 			m_bIsPreviewing = TRUE;
-			Invalidate();
+			m_bRedraw = TRUE;
 		}
 
 		pLock.Unlock();
@@ -655,7 +685,7 @@ void CSearchDetailPanel::OnRun()
 	}
 }
 
-BOOL CSearchDetailPanel::ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* pnBuffer)
+BOOL CSearchDetailPanel::ExecuteRequest(const CString& strURL, BYTE** ppBuffer, DWORD* pnBuffer)
 {
 	m_pRequest.Clear();
 	m_pRequest.SetURL( strURL );
@@ -726,8 +756,7 @@ void CSearchDetailPanel::OnPreviewLoaded(const Hashes::Sha1Hash& oSHA1, CImageFi
 
 	m_bmThumb.Attach( pImage->CreateBitmap() );
 
-	pLock.Unlock();
-	Invalidate();
+	m_bRedraw = TRUE;
 }
 
 BOOL CSearchDetailPanel::CachePreviewImage(const Hashes::Sha1Hash& /*oSHA1*/, LPBYTE pBuffer, DWORD nBuffer)

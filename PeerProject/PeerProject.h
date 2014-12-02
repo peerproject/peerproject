@@ -144,6 +144,8 @@ public:
 	HINSTANCE		m_hShlWapi;
 	BOOL			(WINAPI *m_pfnAssocIsDangerous)(LPCWSTR);																	// XPsp1+	AssocIsDangerous() for CFileExecutor::IsSafeExecute()
 
+	BOOL			GetPropertyStoreFromParsingName(LPCWSTR pszPath, IPropertyStore**ppv);										// Vista+	Safe SHGetPropertyStoreFromParsingName for LibraryBuilderInternals
+
 	// GeoIP - IP to Country lookup
 	HINSTANCE		m_hGeoIP;
 	GeoIP*			m_pGeoIP;
@@ -199,6 +201,7 @@ public:
 
 	CString			GetWindowsFolder() const;
 	CString			GetProgramFilesFolder() const;
+	CString			GetProgramFilesFolder64() const;
 	CString			GetDocumentsFolder() const;
 	CString			GetDownloadsFolder() const;
 	CString			GetAppDataFolder() const;
@@ -400,6 +403,7 @@ const LPCTSTR RT_GZIP = L"GZIP";
 #define WIN_7					610				// 6.1
 #define WIN_8					620				// 6.2
 #define WIN_8_1					630				// 6.3
+#define WIN_10					640				// 6.4
 
 // Log severity (log level) (.IDL)
 //#define MSG_SEVERITY_MASK		0x000f

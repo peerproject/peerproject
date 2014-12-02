@@ -44,6 +44,7 @@ CCoolInterface::CCoolInterface()
 	// Experimental values
 	m_pNameMap.InitHashTable( 509 );
 	m_pImageMap16.InitHashTable( 347 );
+	//m_pImageMap24.InitHashTable( 347 );
 	m_pImageMap32.InitHashTable( 61 );
 	m_pImageMap48.InitHashTable( 61 );
 	m_pWindowIcons.InitHashTable( 61 );
@@ -82,6 +83,10 @@ void CCoolInterface::Clear()
 	m_pImageMap16.RemoveAll();
 	if ( m_pImages16.m_hImageList )
 		m_pImages16.DeleteImageList();
+
+//	m_pImageMap24.RemoveAll();
+//	if ( m_pImages24.m_hImageList )
+//		m_pImages24.DeleteImageList();
 
 	m_pImageMap32.RemoveAll();
 	if ( m_pImages32.m_hImageList )
@@ -137,6 +142,8 @@ int CCoolInterface::ImageForID(UINT nID, int nImageListType) const
 	{
 	case LVSIL_SMALL:
 		return m_pImageMap16.Lookup( nID, nImage ) ? nImage : -1;
+//	case LVSIL_MID:
+//		return m_pImageMap24.Lookup( nID, nImage ) ? nImage : -1;
 	case LVSIL_NORMAL:
 		return m_pImageMap32.Lookup( nID, nImage ) ? nImage : -1;
 	case LVSIL_BIG:
@@ -156,6 +163,9 @@ void CCoolInterface::AddIcon(UINT nID, HICON hIcon, int nImageListType)
 	case LVSIL_SMALL:
 		m_pImageMap16.SetAt( nID, m_pImages16.Add( hIcon ) );
 		break;
+//	case LVSIL_MID:
+//		m_pImageMap24.SetAt( nID, m_pImages24.Add( hIcon ) );
+//		break;
 	case LVSIL_NORMAL:
 		m_pImageMap32.SetAt( nID, m_pImages32.Add( hIcon ) );
 		break;
@@ -176,6 +186,10 @@ void CCoolInterface::CopyIcon(UINT nFromID, UINT nToID, int nImageListType)
 		if ( m_pImageMap16.Lookup( nFromID, nImage ) )
 			m_pImageMap16.SetAt( nToID, nImage );
 		break;
+//	case LVSIL_MID:
+//		if ( m_pImageMap24.Lookup( nFromID, nImage ) )
+//			m_pImageMap24.SetAt( nToID, nImage );
+//		break;
 	case LVSIL_NORMAL:
 		if ( m_pImageMap32.Lookup( nFromID, nImage ) )
 			m_pImageMap32.SetAt( nToID, nImage );
@@ -200,6 +214,9 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 		case LVSIL_SMALL:
 			hIcon = m_pImages16.ExtractIcon( nImage );
 			break;
+	//	case LVSIL_MID:
+	//		hIcon = m_pImages24.ExtractIcon( nImage );
+	//		break;
 		case LVSIL_NORMAL:
 			hIcon = m_pImages32.ExtractIcon( nImage );
 			break;
@@ -216,6 +233,9 @@ HICON CCoolInterface::ExtractIcon(UINT nID, BOOL bMirrored, int nImageListType)
 		case LVSIL_SMALL:
 			cx = 16;
 			break;
+	//	case LVSIL_MID:
+	//		cx = 24;
+	//		break;
 		case LVSIL_NORMAL:
 			cx = 32;
 			break;
@@ -320,6 +340,10 @@ BOOL CCoolInterface::ConfirmImageList()
 		  m_pImages16.Create( 16, 16, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
 		  m_pImages16.Create( 16, 16, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
 		  m_pImages16.Create( 16, 16, ILC_COLOR16|ILC_MASK, 16, 4 ) ) &&
+	//	( m_pImages24.GetSafeHandle() ||
+	//	  m_pImages24.Create( 24, 24, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
+	//	  m_pImages24.Create( 24, 24, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
+	//	  m_pImages24.Create( 24, 24, ILC_COLOR16|ILC_MASK, 16, 4 ) ) &&
 		( m_pImages32.GetSafeHandle() ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR32|ILC_MASK, 16, 4 ) ||
 		  m_pImages32.Create( 32, 32, ILC_COLOR24|ILC_MASK, 16, 4 ) ||
@@ -337,6 +361,8 @@ void CCoolInterface::LoadIconsTo(CImageList& pImageList, const UINT nID[], BOOL 
 	ASSERT( nCount != 0 );
 
 	int nSize = 16;		// LVSIL_SMALL
+	//if ( nImageListType == LVSIL_MID )
+	//	nSize = 24;
 	if ( nImageListType == LVSIL_NORMAL )
 		nSize = 32;
 	else if ( nImageListType == LVSIL_BIG )
@@ -702,6 +728,8 @@ int CCoolInterface::GetImageCount(int nImageListType)
 	{
 	case LVSIL_SMALL:
 		return m_pImages16.GetImageCount();
+	//case LVSIL_MID:
+	//	return m_pImages24.GetImageCount();
 	case LVSIL_NORMAL:
 		return m_pImages32.GetImageCount();
 	case LVSIL_BIG:
@@ -722,6 +750,9 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 	case LVSIL_SMALL:
 		nBase = m_pImages16.Add( CBitmap::FromHandle( hbmImage ), crMask );
 		break;
+	//case LVSIL_MID:
+	//	nBase = m_pImages24.Add( CBitmap::FromHandle( hbmImage ), crMask );
+	//	break;
 	case LVSIL_NORMAL:
 		nBase = m_pImages32.Add( CBitmap::FromHandle( hbmImage ), crMask );
 		break;
@@ -769,6 +800,9 @@ BOOL CCoolInterface::Add(CSkin* pSkin, CXMLElement* pBase, HBITMAP hbmImage, COL
 				case LVSIL_SMALL:
 					m_pImageMap16.SetAt( nID, Settings.General.LanguageRTL ? nIndexRev : nIndex );
 					break;
+			//	case LVSIL_MID:
+			//		m_pImageMap24.SetAt( nID, Settings.General.LanguageRTL ? nIndexRev : nIndex );
+			//		break;
 				case LVSIL_NORMAL:
 					m_pImageMap32.SetAt( nID, Settings.General.LanguageRTL ? nIndexRev : nIndex );
 					break;
@@ -794,6 +828,8 @@ CImageList* CCoolInterface::SetImageListTo(CListCtrl& pWnd, int nImageListType)
 	{
 	case LVSIL_SMALL:
 		return pWnd.SetImageList( &m_pImages16, nImageListType );
+	//case LVSIL_MID:
+	//	return pWnd.SetImageList( &m_pImages24, nImageListType );
 	case LVSIL_NORMAL:
 		return pWnd.SetImageList( &m_pImages32, nImageListType );
 	case LVSIL_BIG:
@@ -812,6 +848,9 @@ BOOL CCoolInterface::Draw(CDC* pDC, int nImage, POINT pt, UINT nStyle, int nImag
 	case LVSIL_SMALL:
 		hList = m_pImages16.GetSafeHandle();
 		break;
+	//case LVSIL_MID:
+	//	hList = m_pImages24.GetSafeHandle();
+	//	break;
 	case LVSIL_NORMAL:
 		hList = m_pImages32.GetSafeHandle();
 		break;
@@ -832,6 +871,9 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 	case LVSIL_SMALL:
 		hList = m_pImages16.GetSafeHandle();
 		break;
+	//case LVSIL_MID:
+	//	hList = m_pImages24.GetSafeHandle();
+	//	break;
 	case LVSIL_NORMAL:
 		hList = m_pImages32.GetSafeHandle();
 		break;
@@ -877,6 +919,8 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 //	{
 //	case LVSIL_SMALL:
 //		pImageListDrawParams.himl = m_pImages16.GetSafeHandle();
+//	case LVSIL_MID:
+//		pImageListDrawParams.himl = m_pImages24.GetSafeHandle();
 //	case LVSIL_NORMAL:
 //		pImageListDrawParams.himl = m_pImages32.GetSafeHandle();
 //	case LVSIL_BIG:
@@ -898,6 +942,10 @@ BOOL CCoolInterface::Draw(CDC* pDC, UINT nID, int nSize, int nX, int nY, COLORRE
 		hList = m_pImages16.GetSafeHandle();
 		nType = LVSIL_SMALL;
 		break;
+	//case 24:
+	//	hList = m_pImages24.GetSafeHandle();
+	//	nType = LVSIL_MID;
+	//	break;
 	case 32:
 		hList = m_pImages32.GetSafeHandle();
 		nType = LVSIL_NORMAL;

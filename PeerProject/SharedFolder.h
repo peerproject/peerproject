@@ -58,7 +58,7 @@ public:
 	POSITION		GetFolderIterator() const;
 	CLibraryFolder*	GetNextFolder(POSITION& pos) const;
 	CLibraryFolder*	GetFolderByName(LPCTSTR pszName) const;
-	CLibraryFolder*	GetFolderByPath(LPCTSTR pszPath) const;
+	CLibraryFolder*	GetFolderByPath(const CString& strPath) const;
 	BOOL			CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive = FALSE) const;
 	DWORD			GetFolderCount() const;
 	CLibraryFile*	AddFile(LPCTSTR szName, BOOL& bNew);		// Add new or get existing file

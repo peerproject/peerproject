@@ -1,7 +1,7 @@
 //
 // CtrlSearchDetailPanel.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -72,7 +72,7 @@ protected:
 	BOOL		RequestPreview();
 	void		CancelPreview();
 	BOOL		CachePreviewImage(const Hashes::Sha1Hash& oSHA1, LPBYTE pBuffer, DWORD nBuffer);
-	BOOL		ExecuteRequest(CString strURL, BYTE** ppBuffer, DWORD* pnBuffer);
+	BOOL		ExecuteRequest(const CString& strURL, BYTE** ppBuffer, DWORD* pnBuffer);
 	void		OnPreviewLoaded(const Hashes::Sha1Hash& oSHA1, CImageFile* pImage);
 	void		OnRun();
 
@@ -93,6 +93,7 @@ protected:
 	CMetaList			m_pMetadata;
 	CList< Review* >	m_pReviews;
 	CCriticalSection	m_pSection;
+	BOOL				m_bRedraw;
 	BOOL				m_bCanPreview;
 	BOOL				m_bRunPreview;
 	BOOL				m_bIsPreviewing;
@@ -101,8 +102,10 @@ protected:
 	CBitmap				m_bmThumb;			// Thumbnail
 	CRect				m_rcThumb;			// Thumbnail rect for mouse click detection
 
+	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
 	afx_msg void OnPaint();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnVScroll(UINT nSBCode, UINT nPos, CScrollBar* pScrollBar = NULL);
 	afx_msg BOOL OnMouseWheel(UINT nFlags, short zDelta, CPoint pt);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);

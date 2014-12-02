@@ -28,11 +28,6 @@ class CQuerySearch;
 class CXMLElement;
 
 
-#define SECURITY_SER_VERSION	1000	// 5
-// nVersion History:
-// 5 - extended security rule type (ryo-oh-ki)
-// 1000 - Added banCustom (PeerProject 1.0) (5+)
-
 // Set Column Order
 enum {
 	COL_SECURITY_CONTENT,
@@ -115,6 +110,7 @@ public:
 	BOOL			IsDenied(LPCTSTR pszContent);
 	BOOL			IsDenied(const CPeerProjectFile* pFile);
 	BOOL			IsDenied(const CQuerySearch* pQuery, const CString& strContent);
+	BOOL			IsFlood(const IN_ADDR* pAddress, const LPCTSTR pszVendor = NULL, PROTOCOLID nProtocol = PROTOCOL_NULL);
 	BOOL			Import(LPCTSTR pszFile);
 	BOOL			Load();
 	BOOL			Save();

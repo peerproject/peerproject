@@ -2570,7 +2570,7 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Folder Path Methods for Windows Vista/7 or XP/2000/2003
+// Folder Path Methods for Windows Vista/7 or XP/2000
 
 CString CPeerProjectApp::GetWindowsFolder() const
 {
@@ -2609,6 +2609,36 @@ CString CPeerProjectApp::GetWindowsFolder() const
 	return strWindows;
 }
 
+CString CPeerProjectApp::GetProgramFilesFolder64() const
+{
+	HRESULT hr;
+	CString strProgramFiles;
+
+	// 64-bit way
+	if ( m_pfnSHGetKnownFolderPath )
+	{
+		PWSTR pPath = NULL;
+		hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFilesX64, KF_FLAG_DONT_VERIFY, NULL, &pPath );
+		if ( pPath )
+		{
+			strProgramFiles = pPath;
+			CoTaskMemFree( pPath );
+		}
+		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )
+			return strProgramFiles;
+	}
+
+	// 32-bit way
+	DWORD nRes = ExpandEnvironmentStrings( L"%ProgramW6432%", strProgramFiles.GetBuffer( MAX_PATH ), MAX_PATH );
+	strProgramFiles.ReleaseBuffer( nRes );
+	strProgramFiles.Trim();
+	strProgramFiles.TrimRight( L"\\" );
+	if ( ! strProgramFiles.IsEmpty() )
+		return strProgramFiles;
+
+	return GetProgramFilesFolder();
+}
+
 CString CPeerProjectApp::GetProgramFilesFolder() const
 {
 	static CString strProgramFiles;
@@ -2622,8 +2652,8 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFiles,
-			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_ProgramFilesX86,
+			KF_FLAG_DONT_VERIFY, NULL, &pPath );
 		if ( pPath )
 		{
 			strProgramFiles = pPath;
@@ -2830,6 +2860,21 @@ CDatabase* CPeerProjectApp::GetDatabase(int nType) const
 		/*nType == DB_DEFAULT ?*/ L"PeerProject.db3" ) );
 }
 
+BOOL CPeerProjectApp::GetPropertyStoreFromParsingName(LPCWSTR pszPath, IPropertyStore**ppv)
+{
+	if ( m_pfnSHGetPropertyStoreFromParsingName )
+	{
+		__try
+		{
+			return SUCCEEDED( m_pfnSHGetPropertyStoreFromParsingName( pszPath, NULL, GPS_BESTEFFORT, __uuidof( IPropertyStore ), (void**)ppv ) );
+		}
+		__except ( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+	}
+	return FALSE;
+}
+
 #undef SafeLock
 
 BOOL SafeLock(CSingleLock& pLock, LPCTSTR pszDebug, LPCTSTR /*pszUnused*/)
@@ -2950,8 +2995,7 @@ BOOL DeleteFiles(CStringList& pList)
 		if ( dlg.DoModal() != IDOK )
 			return FALSE;
 
-		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ;
-			nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
+		for ( INT_PTR nProcess = dlg.m_bAll ? pList.GetCount() : 1 ; nProcess > 0 && pList.GetCount() > 0 ; nProcess-- )
 		{
 			const CString strPath = pList.RemoveHead();
 

@@ -110,8 +110,8 @@ void CMatchTipCtrl::LoadFromFile()
 	}
 	else
 	{
-		m_sCountryCode = L"";
-		m_sCountry = L"";
+		m_sCountryCode.Empty();
+		m_sCountry.Empty();
 	}
 	m_sSize = LoadString( IDS_TIP_SIZE ) + L":  " + m_pFile->m_sSize;
 	LoadTypeInfo();
@@ -408,7 +408,7 @@ void CMatchTipCtrl::OnCalcSize(CDC* pDC)
 	}
 
 	// Metadata
-	if ( int nCount = m_pMetadata.GetCount( TRUE ) )
+	if ( int nCount = (int)m_pMetadata.GetCount( TRUE ) )	// INT_PTR
 	{
 		m_sz.cy += TIP_RULE - 1;
 
@@ -432,7 +432,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 	if ( ! IsWindow( GetSafeHwnd() ) || ! IsWindowVisible() ) return;
 
 	CPoint pt( 0, 0 );
-	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
+	//CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
 	const COLORREF crBack = Images.m_bmToolTip.m_hObject ? CLR_NONE : Colors.m_crTipBack;
 
@@ -582,7 +582,7 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 		// Queue info
 		if ( ! m_sQueue.IsEmpty() )
 		{
-			if ( m_sBusy.GetLength() || m_sPush.GetLength() || m_sUnstable.GetLength() )	// Align queue info with above (if present)
+			if ( ! m_sBusy.IsEmpty() || ! m_sPush.IsEmpty() || ! m_sUnstable.IsEmpty() )	// Align queue info with above (if present)
 			{
 				pt.x += 20;
 				DrawText( pDC, &pt, m_sQueue );
@@ -604,8 +604,8 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			pt.x += 20;
 			pt.y++;
+			pt.x += 20;
 			DrawText( pDC, &pt, m_sPush );
 			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;
@@ -618,8 +618,8 @@ void CMatchTipCtrl::OnPaint(CDC* pDC)
 			if ( ! Images.m_bmToolTip.m_hObject )
 				pDC->ExcludeClipRect( pt.x, pt.y, pt.x + 16, pt.y + 16 );
 
-			pt.x += 20;
 			pt.y++;
+			pt.x += 20;
 			DrawText( pDC, &pt, m_sUnstable );
 			pt.x -= 20;
 			pt.y += TIP_ICONHEIGHT;

@@ -78,9 +78,9 @@ public:
 	DWORD				m_nSortOrder;			// How should this source be sorted in the list?
 	DWORD				m_tAttempt;
 	BOOL				m_bKeep;				// Source keeped by NeverDrop == TRUE flag
-	int					m_nFailures;			// Failure count
-	int					m_nBusyCount;			// Busy count (for incrementing RetryDelay)
-	int					m_nRedirectionCount;
+	DWORD				m_nFailures;			// Failure count
+	DWORD				m_nBusyCount;			// Busy count (for incrementing RetryDelay)
+	DWORD				m_nRedirectionCount;
 	Fragments::List		m_oAvailable;
 	Fragments::List		m_oPastFragments;
 
@@ -240,3 +240,14 @@ public:
 	// Source can be previewed
 	bool IsPreviewCapable() const;
 };
+
+template<>
+struct std::less< CDownloadSource* > : public std::binary_function < CDownloadSource*, CDownloadSource*, bool >
+{
+	inline bool operator()( const CDownloadSource* _Left, const CDownloadSource* _Right ) const throw( )
+	{
+		return ( CompareFileTime( &_Left->m_tLastSeen, &_Right->m_tLastSeen ) < 0 );
+	}
+};
+
+typedef std::set< CDownloadSource* > CSortedSources;

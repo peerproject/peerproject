@@ -282,7 +282,7 @@ void CTextCtrl::OnPaint()
 				rcPaint.top -= ( pLine->m_nLine - 1 ) * m_nHeight;
 			dc.SetBkMode( TRANSPARENT );
 			CoolInterface.DrawWatermark( &dc, &rcPaint, &Images.m_bmSelected, FALSE ); 	// No overdraw
-			dc.SetTextColor( m_crText[ nType == 2 ? Colors.m_crHiText : nType ] );
+			dc.SetTextColor( nType > 1 ? Colors.m_crHiText : m_crText[ nType ] );		// Visibility fix
 			pLine->Paint( &dc, &rcLine, TRUE );
 			dc.SetBkMode( OPAQUE );
 		}

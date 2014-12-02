@@ -139,8 +139,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
-	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE |
-		LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE | LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_NEIGHBOURS );
 	m_pSizer.Attach( &m_wndList );
 
@@ -494,8 +493,8 @@ void CNeighboursWnd::OnUpdateNeighboursChat(CCmdUI* pCmdUI)
 					pNeighbour->m_nProtocol == PROTOCOL_G1 ||
 					pNeighbour->m_nProtocol == PROTOCOL_DC );
 			}
+			pNetworkLock.Unlock();
 		}
-		pNetworkLock.Unlock();
 	}
 	pCmdUI->Enable( bEnable );
 }

@@ -179,8 +179,8 @@ CString CPeerProjectFile::GetBitprint() const
 
 CString CPeerProjectFile::GetURN() const
 {
-	if ( m_oSHA1 && m_oTiger )
-		return L"urn:bitprint:" + m_oSHA1.toString() + L'.' + m_oTiger.toString();
+	if ( m_oSHA1 && m_oTiger )	// L"urn:bitprint:"
+		return Hashes::TigerHash::urns[ 2 ].signature + m_oSHA1.toString() + L'.' + m_oTiger.toString();
 	if ( m_oSHA1 )
 		return m_oSHA1.toUrn();
 	if ( m_oTiger )
@@ -191,6 +191,24 @@ CString CPeerProjectFile::GetURN() const
 		return m_oBTH.toUrn();
 	if ( m_oMD5 )
 		return m_oMD5.toUrn();
+
+	return CString();
+}
+
+CString CPeerProjectFile::GetShortURN() const
+{
+	if ( m_oSHA1 && m_oTiger )
+		return Hashes::TigerHash::urns[ 3 ].signature + m_oSHA1.toString() + L'.' + m_oTiger.toString();
+	if ( m_oSHA1 )
+		return m_oSHA1.toShortUrn();
+	if ( m_oTiger )
+		return m_oTiger.toShortUrn();
+	if ( m_oED2K )
+		return m_oED2K.toShortUrn();
+	if ( m_oMD5 )
+		return m_oMD5.toShortUrn();
+	if ( m_oBTH )
+		return m_oBTH.toShortUrn();
 
 	return CString();
 }
@@ -249,12 +267,12 @@ bool CPeerProjectFile::SplitStringToURLs(LPCTSTR pszURLs, CMapStringToFILETIME& 
 
 		// Get time
 		FILETIME tSeen = { 0, 0 };
-		int nPos = strURL.ReverseFind( ' ' );
+		int nPos = strURL.ReverseFind( L' ' );
 		if ( nPos > 8 && TimeFromString( strURL.Mid( nPos + 1 ).TrimLeft(), &tSeen ) )
 			strURL = strURL.Left( nPos ).TrimRight();
 
 		// Convert short "h.o.s.t:port" to full source URL
-		nPos = strURL.Find( ':' );
+		nPos = strURL.Find( L':' );
 		if ( nPos > 6 && strURL.GetLength() > nPos + 1 &&
 			strURL.GetAt( nPos + 1 ) != '/' )
 		{

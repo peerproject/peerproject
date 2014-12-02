@@ -301,6 +301,8 @@ void CWizardPage::SetWizardButtons(DWORD dwFlags)
 
 void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 {
+	const int nLen = (int)_tcslen( pszSearch );
+
 	for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 	{
 		TCHAR szName[32];
@@ -315,8 +317,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 		{
 			int nPos = strText.Find( pszSearch );
 			if ( nPos < 0 ) break;
-			strText	= strText.Left( nPos ) + CString( pszReplace )
-					+ strText.Mid( nPos + static_cast< int >( _tcslen( pszSearch ) ) );
+			strText	= strText.Left( nPos ) + pszReplace + strText.Mid( nPos + nLen );
 		}
 
 		pChild->SetWindowText( strText );

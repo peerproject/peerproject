@@ -390,6 +390,8 @@ BOOL CBTClient::OnHandshake1()
 	Read( oFileHash );
 	oFileHash.validate();
 
+	theApp.Message( MSG_DEBUG, L"BitTorrent coupling with %s requested file: %s", (LPCTSTR)m_sAddress, (LPCTSTR)oFileHash.toString() );
+
 	if ( m_pDownload != NULL )	// If we initiated download (download has associated, which means we initiated download)
 	{
 		ASSERT( m_pDownloadTransfer != NULL );
@@ -1505,16 +1507,16 @@ BOOL CBTClient::OnUtPex(CBTPacket* pPacket)
 		if ( 0 == ( pPeersAdd->m_nValue % 6 ) )		// IPv4?
 		{
 			const BYTE* pPointer = (const BYTE*)pPeersAdd->m_pValue;
+			//int nMax = Settings.Downloads.SourcesWanted;
 
-			for ( int nPeer = (int)pPeersAdd->m_nValue / 6, nMax = Settings.Downloads.SourcesWanted ;
-				  nPeer > 0 ; nPeer--, pPointer += 6, nMax-- )
+			for ( int nPeer = (int)pPeersAdd->m_nValue / 6 ; nPeer > 0 ; nPeer--, pPointer += 6 )
 			{
 				const IN_ADDR* pAddress = (const IN_ADDR*)pPointer;
 				WORD nPort = *(const WORD*)( pPointer + 4 );
 
 				m_pDownload->AddSourceBT( Hashes::BtGuid(), pAddress, ntohs( nPort ) );
-				if ( nMax < 0 && m_pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
-					break;
+				//if ( nMax-- < 0 && m_pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
+				//	break;
 			}
 		}
 	}

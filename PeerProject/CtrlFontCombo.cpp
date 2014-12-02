@@ -146,7 +146,6 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 
 	CDC* pDC = CDC::FromHandle( lpDrawItemStruct->hDC );
 	CRect rcItem( &lpDrawItemStruct->rcItem );
-	CPoint pt( rcItem.left + 1, rcItem.top + 1 );
 
 	int nOldDC = pDC->SaveDC();
 
@@ -161,15 +160,12 @@ void CFontCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 	pDC->SetTextColor( GetSysColor( ( lpDrawItemStruct->itemState & ODS_SELECTED ) ?
 		COLOR_HIGHLIGHTTEXT : COLOR_MENUTEXT ) );
 
-	if ( IsWindowEnabled() )
-	{
-		if ( lpDrawItemStruct->itemState & ODS_SELECTED )
-			pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_HIGHLIGHT ) );
-		else
-			pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_WINDOW ) );
-	}
-	else
+	if ( ! IsWindowEnabled() )
 		pDC->FillSolidRect( &rcItem, GetBkColor( lpDrawItemStruct->hDC ) );
+	else if ( lpDrawItemStruct->itemState & ODS_SELECTED )
+		pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_HIGHLIGHT ) );
+	else
+		pDC->FillSolidRect( &rcItem, GetSysColor( COLOR_WINDOW ) );
 
 	pDC->SetBkMode( TRANSPARENT );
 

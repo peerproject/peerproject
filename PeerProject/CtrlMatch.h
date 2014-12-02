@@ -84,7 +84,7 @@ protected:
 	void	DrawItem(CDC& dc, CRect& rc, CMatchFile* pFile, CQueryHit* pHit, BOOL bFocus);
 	void	DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
 	void	DrawRating(CDC& dc, CRect& rcCol, int nRating, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
-	void	DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
+	void	DrawCountry(CDC& dc, CRect& rcCol, const CString& sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned = FALSE);
 	void	DrawEmptyMessage(CDC& dc, CRect& rcClient);
 	BOOL	HitTest(const CPoint& point, CMatchFile** poFile, CQueryHit** poHit, DWORD* pnIndex = NULL, CRect* pRect = NULL);
 	BOOL	GetItemRect(CMatchFile* pFindFile, CQueryHit* pFindHit, CRect* pRect);

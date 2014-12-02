@@ -862,7 +862,7 @@ DWORD CBTTrackerRequests::Request(CDownload* pDownload, BTTrackerEvent nEvent, D
 {
 	CQuickLock oLock( m_pSection );
 
-	CBTTrackerRequest* pRequest = new CBTTrackerRequest( pDownload, nEvent, nNumWant, pOnTrackerEvent );
+	CAutoPtr< CBTTrackerRequest > pRequest ( new CBTTrackerRequest( pDownload, nEvent, nNumWant, pOnTrackerEvent ) );
 	if ( ! pRequest )
 		return 0;	// Out of memory
 
@@ -872,7 +872,7 @@ DWORD CBTTrackerRequests::Request(CDownload* pDownload, BTTrackerEvent nEvent, D
 		if ( m_pTrackerRequests.PLookup( nTransactionID ) == NULL )
 		{
 			pRequest->m_nTransactionID = nTransactionID;
-			m_pTrackerRequests.SetAt( nTransactionID, pRequest );
+			m_pTrackerRequests.SetAt( nTransactionID, pRequest.Detach() );
 			return nTransactionID;
 		}
 	}

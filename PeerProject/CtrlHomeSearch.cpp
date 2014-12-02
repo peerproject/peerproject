@@ -115,20 +115,17 @@ int CHomeSearchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 void CHomeSearchCtrl::OnSkinChange(COLORREF crWindow, COLORREF crText)
 {
-	CString strCaption;
-
 	// Custom RichDoc values passed from CtrlHomeView
 	m_crWindow = crWindow;
 	m_crText = crText;
 
-	LoadString( strCaption, IDS_SEARCH_PANEL_START );
-	m_wndSearch.SetWindowText( strCaption );					// "Search"
-	m_wndSearch.SetCoolIcon( ID_SEARCH_SEARCH, FALSE );
+	// "Search"
+	m_wndSearch.SetWindowText( LoadString( IDS_SEARCH_PANEL_START ) );
+	m_wndSearch.SetCoolIcon( ID_SEARCH_SEARCH );
 
-	LoadString( strCaption, IDS_SEARCH_PANEL_ADVANCED );
-	strCaption += L'\x2026'; 								// "Advanced..."
-	m_wndAdvanced.SetWindowText( strCaption );
-	m_wndAdvanced.SetCoolIcon( ID_SEARCH_DETAILS, FALSE );
+	// "Advanced..."
+	m_wndAdvanced.SetWindowText( LoadString( IDS_SEARCH_PANEL_ADVANCED ) + L'\x2026' );
+	m_wndAdvanced.SetCoolIcon( ID_SEARCH_DETAILS );
 
 	LoadString( m_wndSchema.m_sNoSchemaText, IDS_SEARCH_PANEL_AFT );
 
@@ -191,8 +188,9 @@ void CHomeSearchCtrl::OnSize(UINT nType, int cx, int cy)
 void CHomeSearchCtrl::OnPaint()
 {
 	CRect rcClient, rcItem;
-	CPaintDC dc( this );
 	CString str;
+
+	CPaintDC dc( this );
 
 	GetClientRect( &rcClient );
 	rcClient.DeflateRect( 1, 1 );
@@ -203,7 +201,6 @@ void CHomeSearchCtrl::OnPaint()
 	dc.SetTextColor( m_crText );
 
 	LoadString( str, IDS_SEARCH_PAD_WORDS );
-
 	rcItem.SetRect( rcClient.left, rcClient.top, rcClient.right, rcClient.top + 16 );
 	dc.ExtTextOut( rcItem.left + 2, rcItem.top + 2, ETO_CLIPPED|ETO_OPAQUE, &rcItem, str, NULL );
 	dc.ExcludeClipRect( &rcItem );
@@ -253,13 +250,13 @@ void CHomeSearchCtrl::OnSelChangeText()
 
 void CHomeSearchCtrl::Search(bool bAutostart)
 {
-	CString strText, strURI, strEntry, strClear;
+	CString strText;
 
 	m_wndText.GetWindowText( strText );
 	strText.Trim();
 
-	LoadString( strClear, IDS_SEARCH_PAD_CLEAR_HISTORY );
-	if ( _tcscmp( strClear, strText ) == 0 ) return;
+	if ( _tcscmp( strText, LoadString( IDS_SEARCH_PAD_CLEAR_HISTORY ) ) == 0 )
+		return;
 
 	// Check if user pasted download link to search input box
 	if ( theApp.OpenURL( strText, TRUE ) )
@@ -268,14 +265,16 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 		return;
 	}
 
+	CString strURI;
+
 	CSchemaPtr pSchema = m_wndSchema.GetSelected();
 	if ( pSchema != NULL ) strURI = pSchema->GetURI();
 
 	Settings.Search.LastSchemaURI = strURI;
 
 	CQuerySearchPtr pSearch = new CQuerySearch();
+	pSearch->SetSearch( strText );
 	pSearch->m_bAutostart	= bAutostart;
-	pSearch->m_sSearch		= strText;
 	pSearch->m_pSchema		= pSchema;
 	BOOL bValid = pSearch->CheckValid( false );
 	if ( ! bValid && bAutostart )
@@ -293,6 +292,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 		if ( bValid )
 		{
 			// Load all
+			CString strEntry;
 			CStringList oList;
 			for ( int i = 0 ; ; i++ )
 			{
@@ -306,7 +306,7 @@ void CHomeSearchCtrl::Search(bool bAutostart)
 			}
 
 			// Cut to 200 items
-			while ( oList.GetCount() >= 200 )
+			while ( oList.GetCount() >= 200 )	// ToDo: Setting?
 				oList.RemoveTail();
 
 			// New one (at top)

@@ -411,8 +411,9 @@ void CPlugins::OnRun()
 		{
 			//HRESULT hr;
 
-			// Create plugin & Add plugin interface to GIT
-			if ( SUCCEEDED( /*hr =*/ pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID ) ) &&
+			// Create plugin, and add plugin interface to GIT	(Note: r9495 breaks GFL)
+			if ( //SUCCEEDED( /*hr =*/ pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID, NULL, CLSCTX_LOCAL_SERVER ) ) ||
+				 SUCCEEDED( /*hr =*/ pGITPlugin->m_pIUnknown.CoCreateInstance( m_inCLSID ) ) &&
 				 SUCCEEDED( /*hr =*/ pGITPlugin->m_pGIT.Attach( pGITPlugin->m_pIUnknown ) ) )
 			{
 				m_pCache.SetAt( m_inCLSID, pGITPlugin );
@@ -684,11 +685,16 @@ BOOL CPlugin::Start()
 	if ( FAILED( hr ) )
 		return FALSE;	// Something very bad
 
-	hr = m_pPlugin.CoCreateInstance( m_pCLSID );
-	if ( FAILED( hr ) )
+	// Note: r9495 breaks GFL
+//	hr = m_pPlugin.CoCreateInstance( m_pCLSID, NULL, CLSCTX_LOCAL_SERVER );
+//	if ( FAILED( hr ) )
 	{
-		m_pPlugin.Release();
-		return FALSE;
+		hr = m_pPlugin.CoCreateInstance( m_pCLSID );
+		if ( FAILED( hr ) )
+		{
+			m_pPlugin.Release();
+			return FALSE;
+		}
 	}
 
 	/*hr =*/ m_pPlugin->SetApplication( pApplication );

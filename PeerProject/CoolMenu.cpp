@@ -509,7 +509,7 @@ LRESULT CCoolMenu::OnMenuChar(UINT nChar, UINT /*nFlags*/, CMenu* pMenu)
 void CCoolMenu::DrawMenuText(CDC* pDC, CRect* pRect, const CString& strText)
 {
 	theApp.m_bMenuWasVisible = TRUE;
-	int nPos = strText.Find( '\t' );
+	int nPos = strText.Find( L'\t' );
 
 	if ( nPos >= 0 )
 	{
@@ -635,11 +635,11 @@ void CCoolMenu::DoExplorerMenu(HWND hwnd, const CStringList& oFiles, POINT point
 		{
 			CMINVOKECOMMANDINFOEX ici = {};
 			ici.cbSize = sizeof( CMINVOKECOMMANDINFOEX );
-			ici.hwnd = hwnd;
 			ici.fMask = CMIC_MASK_ASYNCOK | CMIC_MASK_NOZONECHECKS | CMIC_MASK_FLAG_LOG_USAGE;
-			ici.lpVerb = reinterpret_cast< LPCSTR >( nCmd - ID_SHELL_MENU_MIN );
-			ici.lpVerbW = reinterpret_cast< LPCWSTR >( nCmd - ID_SHELL_MENU_MIN );
+			ici.lpVerb = (LPCSTR)(DWORD_PTR)( nCmd - ID_SHELL_MENU_MIN );
+			ici.lpVerbW = (LPCWSTR)(DWORD_PTR)( nCmd - ID_SHELL_MENU_MIN );
 			ici.nShow = SW_SHOWNORMAL;
+			ici.hwnd = hwnd;
 			pContextMenu1->InvokeCommand( (CMINVOKECOMMANDINFO*)&ici );
 		}
 		else // if ( ( TPM_RETURNCMD & nFlags ) == 0 )

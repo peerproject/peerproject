@@ -49,10 +49,11 @@ enum {
 	COL_FILE,
 	COL_TYPE,
 	COL_SIZE,
-	COL_FOLDER,
-	COL_HITS,
-	COL_UPLOADS,
 	COL_MODIFIED,
+	COL_FOLDER,
+	COL_SHARED,
+	COL_UPLOADS,
+	COL_HITS,
 	COL_LAST	// Count
 };
 
@@ -159,21 +160,21 @@ int CLibraryDetailView::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	GET_LIST();
 
 	pList->SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
-	//SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE,
-	//	LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP,
-	//	LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
+	//SendMessage( LVM_SETEXTENDEDLISTVIEWSTYLE, 0, LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP );
 
-	pList->InsertColumn( COL_FILE, L"File", LVCFMT_LEFT, 220, -1 );
+	pList->InsertColumn( COL_FILE, L"File", LVCFMT_LEFT, 240, -1 );
 	pList->SetCallbackMask( LVIS_SELECTED );
 
 	if ( m_nStyle == LVS_REPORT )
 	{
 		pList->InsertColumn( COL_TYPE, L"Type", LVCFMT_CENTER, 40, 0 );
-		pList->InsertColumn( COL_SIZE, L"Size", LVCFMT_CENTER, 60, 1 );
-		pList->InsertColumn( COL_FOLDER, L"Folder", LVCFMT_LEFT, 0, 2 );
-		pList->InsertColumn( COL_HITS, L"Hits", LVCFMT_CENTER, 70, 3 );
-		pList->InsertColumn( COL_UPLOADS, L"Uploads", LVCFMT_CENTER, 70, 4 );
-		pList->InsertColumn( COL_MODIFIED, L"Modified", LVCFMT_CENTER, 0, 5 );
+		pList->InsertColumn( COL_SIZE, L"Size", LVCFMT_CENTER, 68, 1 );
+		pList->InsertColumn( COL_MODIFIED, L"Modified", LVCFMT_CENTER, 80, 2 );
+		pList->InsertColumn( COL_FOLDER, L"Folder", LVCFMT_LEFT, 0, 3 );
+		pList->InsertColumn( COL_SHARED, L"Shared", LVCFMT_CENTER, 64, 4 );
+		pList->InsertColumn( COL_UPLOADS, L"Uploads", LVCFMT_CENTER, 60, 5 );
+		pList->InsertColumn( COL_HITS, L"Hits", LVCFMT_CENTER, 60, 6 );
+
 		ShellIcons.AttachTo( pList, 16 );	// pList->SetImageList()
 
 		CHeaderCtrl* pHeader = (CHeaderCtrl*)GetWindow( GW_CHILD );
@@ -432,7 +433,7 @@ void CLibraryDetailView::CacheItem(int nItem)
 	pText->SetSize( m_nStyle == LVS_REPORT ? COL_LAST + m_pColumns.GetCount() : 1 );
 
 	CString strName( pFile->m_sName );
-	int nDot = strName.ReverseFind( '.' );
+	int nDot = strName.ReverseFind( L'.' );
 	if ( nDot >= 0 ) strName.SetAt( nDot, 0 );
 	pText->SetAt( COL_FILE, strName );
 
@@ -463,6 +464,16 @@ void CLibraryDetailView::CacheItem(int nItem)
 	pText->SetAt( COL_HITS, str );
 	str.Format( L"%lu (%lu)", pFile->m_nUploadsToday, pFile->m_nUploadsTotal );
 	pText->SetAt( COL_UPLOADS, str );
+
+	CSingleLock oLock( &Library.m_pSection );
+	if ( oLock.Lock( 200 ) )
+	{
+		LoadString( str, pFile->IsShared() ? IDS_LIBRARY_SHARED : IDS_LIBRARY_UNSHARED );	// "Public"/"Private"
+		if ( pFile->IsSharedOverride() )
+			str += L"•";
+		pText->SetAt( COL_SHARED, str );
+		oLock.Unlock();
+	}
 
 	TCHAR szModified[ 64 ];
 	SYSTEMTIME pTime;
@@ -632,18 +643,18 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 	{
 		switch ( nSortColumn )
 		{
-		case 0:
-			nTest = _tcsicoll( pfA->m_sName, pfB->m_sName );
+		case COL_FILE:
+			nTest = _tcsicoll( pfB->m_sName, pfA->m_sName );
 			break;
-		case 1:
+		case COL_TYPE:
 			{
 				LPCTSTR pszA = _tcsrchr( pfA->m_sName, '.' );
 				LPCTSTR pszB = _tcsrchr( pfB->m_sName, '.' );
 				nTest = ( pszA && pszB ) ?
-					_tcsicoll( pszA, pszB ) : ( pszA ? 1 : ( pszB ? -1 : 0 ) );
+					_tcsicoll( pszB, pszA ) : ( pszA ? 1 : ( pszB ? -1 : 0 ) );
 				break;
 			}
-		case 2:
+		case COL_SIZE:
 			if ( pfA->GetSize() == pfB->GetSize() )
 				nTest = 0;
 			else if ( pfA->GetSize() < pfB->GetSize() )
@@ -651,18 +662,13 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 			else
 				nTest = 1;
 			break;
-		case 3:
+		case COL_MODIFIED:
+			nTest = CompareFileTime( &pfA->m_pTime, &pfB->m_pTime );
+			break;
+		case COL_FOLDER:
 			nTest = _tcsicoll( pfA->GetPath(), pfB->GetPath() );
 			break;
-		case 4:
-			if ( pfA->m_nHitsTotal == pfB->m_nHitsTotal )
-				nTest = 0;
-			else if ( pfA->m_nHitsTotal < pfB->m_nHitsTotal )
-				nTest = -1;
-			else
-				nTest = 1;
-			break;
-		case 5:
+		case COL_UPLOADS:
 			if ( pfA->m_nUploadsTotal == pfB->m_nUploadsTotal )
 				nTest = 0;
 			else if ( pfA->m_nUploadsTotal < pfB->m_nUploadsTotal )
@@ -670,8 +676,38 @@ int CLibraryDetailView::ListCompare(LPCVOID pA, LPCVOID pB)
 			else
 				nTest = 1;
 			break;
-		case 6:
-			nTest = CompareFileTime( &pfA->m_pTime, &pfB->m_pTime );
+		case COL_HITS:
+			if ( pfA->m_nHitsTotal == pfB->m_nHitsTotal )
+				nTest = 0;
+			else if ( pfA->m_nHitsTotal < pfB->m_nHitsTotal )
+				nTest = -1;
+			else
+				nTest = 1;
+			break;
+		case COL_SHARED:
+			//nTest = ppA->pText->GetAt( COL_SHARED ).Compare( ppB->pText->GetAt( COL_SHARED ) );		// Crash
+			{
+				CSingleLock oLock( &Library.m_pSection );
+				if ( oLock.Lock( 50 ) )
+				{
+					BOOL bSharedA = pfA->IsShared();
+					BOOL bSharedB = pfB->IsShared();
+					oLock.Unlock();
+
+					if ( bSharedA && ! bSharedB )
+						nTest = 1;
+					else if ( bSharedB && ! bSharedA )
+						nTest = -1;
+					else if ( pfA->IsSharedOverride() && ! pfB->IsSharedOverride() )
+						nTest = 1;
+					else if ( pfB->IsSharedOverride() && ! pfA->IsSharedOverride() )
+						nTest = -1;
+					else
+						nTest = 0;
+				}
+				else
+					nTest = 0;
+			}
 			break;
 		default:
 			{
@@ -868,10 +904,9 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 
 			if ( *pResult == FALSE )
 			{
-				CString strFormat, strMessage, strError = GetErrorString();
-				LoadString( strFormat, IDS_LIBRARY_RENAME_FAIL );
-				strMessage.Format( strFormat, (LPCTSTR)pFile->m_sName, (LPCTSTR)strName );
-				strMessage += L"\r\n\r\n" + strError;
+				CString strMessage;
+				strMessage.Format( LoadString( IDS_LIBRARY_RENAME_FAIL ), (LPCTSTR)pFile->m_sName, (LPCTSTR)strName );
+				strMessage += L"\r\n\r\n" + GetErrorString();
 				MsgBox( strMessage, MB_ICONEXCLAMATION );
 			}
 		}
@@ -882,9 +917,10 @@ void CLibraryDetailView::OnEndLabelEditA(NMHDR* pNotify, LRESULT* pResult)
 
 void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 {
-	CW2T pszFind( (LPCWSTR)((NMLVFINDITEM*)pNotify)->lvfi.psz );
+	CString strFind( (LPCWSTR)((NMLVFINDITEM*)pNotify)->lvfi.psz );
 
 	GET_LIST();
+
 	CQuickLock oLock( Library.m_pSection );
 
 	for ( int nLoop = 0 ; nLoop < 2 ; nLoop++ )
@@ -895,7 +931,7 @@ void CLibraryDetailView::OnFindItemW(NMHDR* pNotify, LRESULT* pResult)
 			{
 				if ( ((NMLVFINDITEM*)pNotify)->lvfi.flags & LVFI_STRING )
 				{
-					if ( _tcsnicmp( (LPCTSTR)pszFind, pFile->m_sName, _tcslen( (LPCTSTR)pszFind ) ) == 0 )
+					if ( _tcsnicmp( strFind, pFile->m_sName, strFind.GetLength() ) == 0 )
 					{
 						*pResult = nItem;
 						return;
@@ -914,6 +950,7 @@ void CLibraryDetailView::OnFindItemA(NMHDR* pNotify, LRESULT* pResult)
 	CString strFind( (LPCSTR)((NMLVFINDITEM*)pNotify)->lvfi.psz );
 
 	GET_LIST();
+
 	CQuickLock oLock( Library.m_pSection );
 
 	for ( int nLoop = 0 ; nLoop < 2 ; nLoop++ )

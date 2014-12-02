@@ -377,11 +377,11 @@ void CBaseMatchWnd::OnUpdateSearchURI(CCmdUI* pCmdUI)
 {
 	const bool bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
 
-	const BOOL bSelected = m_pMatches->m_pSelectedFiles.GetCount() ||
-		m_pMatches->m_pSelectedHits.GetCount();
-	pCmdUI->Enable( bSelected );
+	INT_PTR nSelected = m_pMatches->m_pSelectedFiles.GetCount() + m_pMatches->m_pSelectedHits.GetCount();
 
-	pCmdUI->SetText( LoadString( ( bSelected == 1 && ! bShift ) ? IDS_LIBRARY_URI_COPY : IDS_LIBRARY_URI_EXPORT ) );
+	pCmdUI->Enable( nSelected > 0 );
+
+	pCmdUI->SetText( LoadString( ( nSelected == 1 && ! bShift ) ? IDS_LIBRARY_URI_COPY : IDS_LIBRARY_URI_EXPORT ) );
 }
 
 void CBaseMatchWnd::OnSearchURI()
@@ -391,8 +391,7 @@ void CBaseMatchWnd::OnSearchURI()
 	CSingleLock pLock( &m_pMatches->m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
-	INT_PTR nSelected = m_pMatches->m_pSelectedFiles.GetCount() +
-		m_pMatches->m_pSelectedHits.GetCount();
+	INT_PTR nSelected = m_pMatches->m_pSelectedFiles.GetCount() + m_pMatches->m_pSelectedHits.GetCount();
 
 	if ( nSelected < 1 ) return;
 
@@ -533,7 +532,7 @@ void CBaseMatchWnd::OnLibraryBitprintsWeb()
 {
 	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( MsgBox( IDS_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
 	}

@@ -330,8 +330,9 @@ inline void CAutoPtr< CBTTrackerRequest >::Free() throw()
 {
 	if ( m_p )
 	{
-		m_p->Release();
+		CBTTrackerRequest* p = m_p;
 		m_p = NULL;
+		p->Release();
 	}
 }
 

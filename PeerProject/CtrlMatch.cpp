@@ -1310,7 +1310,7 @@ void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, COLORREF crBack,
 		dc.FillSolidRect( &rcCol, crBack );
 }
 
-void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, CString sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned)
+void CMatchCtrl::DrawCountry(CDC& dc, CRect& rcCol, const CString& sCountry, COLORREF crBack, BOOL bSelected, BOOL bSkinned)
 {
 	int nFlagIndex = Flags.GetFlagIndex( sCountry );
 	// If the column is very narrow then don't draw the flag.

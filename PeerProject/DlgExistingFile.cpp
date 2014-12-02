@@ -88,6 +88,16 @@ CExistingFileDlg::Action CExistingFileDlg::CheckExisting(const CPeerProjectFile*
 	if ( ! SafeLock( pLibraryLock ) )
 		return Cancel;
 
+	if ( pFile->m_sPath.GetLength() )
+	{
+		const BOOL bIsFolder = ( pFile->m_sPath.GetAt( pFile->m_sPath.GetLength() - 1 ) == L'\\' );
+		if ( bIsFolder )
+		{
+			const CLibraryFolder* pFolder = LibraryFolders.GetFolder( pFile->m_sPath.Left( pFile->m_sPath.GetLength() - 1 ) );
+			return pFolder ? ShowInLibrary : Download;
+		}
+	}
+
 	CLibraryFile* pLibFile = LibraryMaps.LookupFileByHash( pFile );
 	if ( pLibFile == NULL )
 		return Download;

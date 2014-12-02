@@ -694,22 +694,35 @@ void CUploadsWnd::OnUpdateUploadsChat(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsChat()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
 		CUploadFile* pFile = UploadFiles.GetNext( pos );
 
-		if ( IsSelected( pFile ) && pFile->GetActive() != NULL )
+		if ( ! IsSelected( pFile ) )
+			continue;
+
+		if ( CUploadTransfer* pTransfer = pFile->GetActive() )
 		{
-			if ( pFile->GetActive()->m_nProtocol == PROTOCOL_HTTP )		// HTTP chat. (G2, G1)
-				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_HTTP );
-			else if ( pFile->GetActive()->m_bClientExtended )			// Client accepts G2 chat
-				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_G2 );
-			else if ( pFile->GetActive()->m_nProtocol == PROTOCOL_ED2K )// ED2K chat.
-				ChatWindows.OpenPrivate( Hashes::Guid(), &pFile->GetActive()->m_pHost, FALSE, PROTOCOL_ED2K );
+			PROTOCOLID nProtocol = pTransfer->m_nProtocol;
+			SOCKADDR_IN pAddress = pTransfer->m_pHost;
+			BOOL bClientExtended = pTransfer->m_bClientExtended;
+		//	CString strNick = pTransfer->m_sRemoteNick;
+
+			pLock.Unlock();
+
+			if ( nProtocol == PROTOCOL_HTTP )		// HTTP chat. (G2, G1)
+				ChatWindows.OpenPrivate( Hashes::Guid(), &pAddress, FALSE, PROTOCOL_HTTP );
+			else if ( bClientExtended )				// Client accepts G2 chat
+				ChatWindows.OpenPrivate( Hashes::Guid(), &pAddress, FALSE, PROTOCOL_G2 );
+			else if ( nProtocol == PROTOCOL_ED2K )	// ED2K chat.
+				ChatWindows.OpenPrivate( Hashes::Guid(), &pAddress, FALSE, PROTOCOL_ED2K );
 			//else		// Should never be called
 			//	theApp.Message( MSG_DEBUG, L"Error while initiating chat- Unable to select protocol" );
+
+			if ( ! SafeLock( pLock ) ) return;
 		}
 	}
 }

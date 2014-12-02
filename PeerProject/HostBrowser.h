@@ -42,28 +42,28 @@ public:
 public:
 	enum { hbsNull, hbsConnecting, hbsRequesting, hbsHeaders, hbsContent };
 
-	int				m_nState;
 	CGProfile*		m_pProfile;
-	BOOL			m_bNewBrowse;
 	IN_ADDR			m_pAddress;
 	WORD			m_nPort;
 	Hashes::Guid	m_oClientID;
 	Hashes::Guid	m_oPushID;
 	BOOL			m_bMustPush;
-	BOOL			m_bCanPush;
 	DWORD			m_tPushed;
 	BOOL			m_bConnect;
 	int				m_nHits;
-	CVendor*		m_pVendor;
 	BOOL			m_bCanChat;
-	CString			m_sNick;
 	CString			m_sServer;
-	BOOL			m_bDeflate;
-	DWORD			m_nLength;
-	DWORD			m_nReceived;
-	CBuffer*		m_pBuffer;
-	z_streamp		m_pInflate;
 
+protected:
+	CVendor*		m_pVendor;
+	CBuffer*		m_pBuffer;
+	CString			m_sNick;
+	DWORD			m_nReceived;
+	BOOL			m_bNewBrowse;
+	BOOL			m_bCanPush;
+	BOOL			m_bDeflate;
+	z_streamp		m_pInflate;
+	
 public:
 	void			Serialize(CArchive& ar, int nVersion = 0);	// BROWSER_SER_VERSION
 	BOOL			Browse();
@@ -71,12 +71,12 @@ public:
 	BOOL			IsBrowsing() const;
 	float			GetProgress() const;
 	void			OnQueryHits(CQueryHit* pHits);
+	BOOL			OnPush(const Hashes::Guid& oClientID, CConnection* pConnection);
+	BOOL			OnNewFile(const CLibraryFile* pFile);
 
 	virtual BOOL	OnConnected();
 	virtual void	OnDropped();
 	virtual BOOL	OnHeadersComplete();
-	virtual BOOL	OnPush(const Hashes::Guid& oClientID, CConnection* pConnection);
-	virtual BOOL	OnNewFile(CLibraryFile* pFile);
 
 protected:
 	CBrowseHostWnd*	m_pNotify;

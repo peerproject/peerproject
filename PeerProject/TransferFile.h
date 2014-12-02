@@ -1,7 +1,7 @@
 //
 // TransferFile.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -63,7 +63,7 @@ public:
 
 	inline BOOL	IsOpen() const throw()
 	{
-		return ( m_hFile != INVALID_HANDLE_VALUE );
+		return ( m_hFile != INVALID_HANDLE_VALUE ) || IsFolder();
 	}
 
 	inline BOOL	IsExists() const throw()
@@ -74,6 +74,11 @@ public:
 	inline BOOL	IsWritable() const throw()
 	{
 		return m_bWrite;
+	}
+
+	inline BOOL	IsFolder() const throw()
+	{
+		return ( m_sPath.GetAt( m_sPath.GetLength() - 1 ) == L'\\' );
 	}
 
 protected:

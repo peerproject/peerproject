@@ -170,14 +170,25 @@ CLibraryFolder* CLibraryFolder::GetFolderByName(LPCTSTR pszName) const
 	return pOutput->GetFolderByName( strNextName );
 }
 
-CLibraryFolder* CLibraryFolder::GetFolderByPath(LPCTSTR pszPath) const
+CLibraryFolder* CLibraryFolder::GetFolderByPath(const CString& strPath) const
 {
-	if ( m_sPath.CompareNoCase( pszPath ) == 0 )
-		return (CLibraryFolder*)this;
+	// Test for exact match
+	if ( m_sPath.CompareNoCase( strPath ) == 0 )
+		return const_cast< CLibraryFolder* >( this );
 
+	// Test for partial match
+	if ( m_sPath.GetLength() > strPath.GetLength() )
+	{
+		const CString strPart = m_sPath.Right( strPath.GetLength() );
+		const TCHAR cDel = m_sPath.GetAt( m_sPath.GetLength() - strPath.GetLength() - 1 );
+		if ( cDel == L'\\' && strPart.CompareNoCase( strPath ) == 0 )
+			return const_cast< CLibraryFolder* >( this );
+	}
+
+	// Test for nested folders
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
-		CLibraryFolder* pFolder = GetNextFolder( pos )->GetFolderByPath( pszPath );
+		CLibraryFolder* pFolder = GetNextFolder( pos )->GetFolderByPath( strPath );
 		if ( pFolder ) return pFolder;
 	}
 
@@ -368,7 +379,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 
 		PathToName();
 
-		DWORD_PTR nCount = ar.ReadCount();
+		UINT nCount = (UINT)ar.ReadCount();	// DWORD_PTR
 
 		m_pFolders.InitHashTable( GetBestHashTableSize( nCount ), FALSE );
 
@@ -386,7 +397,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 			m_nVolume += pFolder->m_nVolume;
 		}
 
-		nCount = ar.ReadCount();
+		nCount = (UINT)ar.ReadCount();	// DWORD_PTR
 		m_pFiles.InitHashTable( GetBestHashTableSize( nCount ), FALSE );
 
 		for ( ; nCount > 0 ; nCount-- )
@@ -414,7 +425,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 void CLibraryFolder::PathToName()
 {
 	m_sName = m_sPath;
-	int nPos = m_sName.ReverseFind( '\\' );
+	int nPos = m_sName.ReverseFind( L'\\' );
 	if ( nPos >= 0 && nPos < m_sName.GetLength() - 1 )
 		m_sName = m_sName.Mid( nPos + 1 );
 	m_sNameLC = m_sName;
@@ -1012,7 +1023,7 @@ STDMETHODIMP CLibraryFolder::XLibraryFolders::get_Item(VARIANT vIndex, ILibraryF
 	if ( vIndex.vt == VT_BSTR )
 	{
 		CString strName( vIndex.bstrVal );
-		if ( strName.Find( '\\' ) >= 0 )
+		if ( strName.Find( L'\\' ) >= 0 )
 			pFolder = pThis->GetFolderByPath( strName );
 		else
 			pFolder = pThis->GetFolderByName( strName );

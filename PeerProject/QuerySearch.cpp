@@ -1473,6 +1473,39 @@ BOOL CQuerySearch::CheckValid(bool bExpression)
 	return FALSE;
 }
 
+CString CQuerySearch::GetSearch() const
+{
+	return HasHash() ? GetURN() : m_sSearch;
+}
+
+void CQuerySearch::SetSearch(const CString& sSearch)
+{
+	m_sSearch.Empty();
+	m_oTiger.clear();
+	m_oSHA1.clear();
+	m_oED2K.clear();
+	m_oMD5.clear();
+	m_oBTH.clear();
+
+	m_oTiger.fromUrn( sSearch ) || m_oTiger.fromUrn< Hashes::base16Encoding >( sSearch );
+	m_oSHA1.fromUrn( sSearch ) || m_oSHA1.fromUrn< Hashes::base16Encoding >( sSearch );
+	m_oED2K.fromUrn( sSearch );
+	m_oMD5.fromUrn( sSearch );
+	m_oBTH.fromUrn( sSearch ) || m_oBTH.fromUrn< Hashes::base16Encoding >( sSearch );
+	if ( ! HasHash() )
+	{
+		m_oTiger.fromString( sSearch ) || m_oTiger.fromString< Hashes::base16Encoding >( sSearch ) ||
+		m_oSHA1.fromString( sSearch ) || m_oSHA1.fromString< Hashes::base16Encoding >( sSearch ) ||
+		m_oED2K.fromString( sSearch ) ||
+		m_oMD5.fromString( sSearch ) ||
+		m_oBTH.fromString( sSearch ) || m_oBTH.fromString< Hashes::base16Encoding >( sSearch );
+	}
+
+	// Keyword search
+	if ( ! HasHash() )
+		m_sSearch = sSearch;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CQuerySearch matching
 
@@ -1514,7 +1547,7 @@ BOOL CQuerySearch::Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLEl
 						int nMinusPos = -1;
 						while ( ! bNegative )
 						{
-							nMinusPos = m_sKeywords.Find( '-', nMinusPos + 1 );
+							nMinusPos = m_sKeywords.Find( L'-', nMinusPos + 1 );
 							if ( nMinusPos != -1 )
 							{
 								bNegative = ( IsCharacter( m_sKeywords.GetAt( nMinusPos + 1 ) ) != 0 );
@@ -1710,7 +1743,7 @@ BOOL CQuerySearch::NumberMatch(const CString& strValue, const CString& strRange)
 	if ( _stscanf( strValue, L"%lf", &nValue ) != 1 )
 		return FALSE;
 
-	const int nPos = strRange.Find( '-' );
+	const int nPos = strRange.Find( L'-' );
 
 	if ( nPos < 0 )
 		return _stscanf( strRange, L"%lf", &nMinimum ) == 1 && nValue == nMinimum;

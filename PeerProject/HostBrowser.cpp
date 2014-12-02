@@ -49,8 +49,7 @@ static char THIS_FILE[] = __FILE__;
 // CHostBrowser construction
 
 CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADDR* pAddress, WORD nPort, BOOL bMustPush, const Hashes::Guid& oClientID, const CString& sNick)
-	: m_nState		( hbsNull )
-	, m_pNotify		( pNotify )
+	: m_pNotify		( pNotify )
 	, m_pProfile	( NULL )
 	, m_bNewBrowse	( FALSE )
 	, m_nPort		( nPort )
@@ -64,7 +63,6 @@ CHostBrowser::CHostBrowser(CBrowseHostWnd* pNotify, PROTOCOLID nProtocol, IN_ADD
 	, m_pVendor		( NULL )
 	, m_bCanChat	( FALSE )
 	, m_bDeflate	( FALSE )
-	, m_nLength		( ~0ul )
 	, m_nReceived	( 0ul )
 	, m_pBuffer		( new CBuffer() )
 	, m_pInflate	( NULL )
@@ -93,7 +91,7 @@ BOOL CHostBrowser::Browse()
 	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	m_sAddress = inet_ntoa( m_pAddress );
-	m_sServer = protocolAbbr[ m_nProtocol ];
+	m_sServer = protocolAbbr[ ( ( m_nProtocol == PROTOCOL_ANY ) ? PROTOCOL_NULL : m_nProtocol ) ];
 	m_pVendor = VendorCache.Lookup( m_sServer );
 
 	switch ( m_nProtocol )
@@ -221,18 +219,25 @@ void CHostBrowser::Stop(BOOL bCompleted)
 
 BOOL CHostBrowser::IsBrowsing() const
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	return m_nState != hbsNull;
 }
 
 float CHostBrowser::GetProgress() const
 {
-	if ( m_nState != hbsContent || m_nLength == 0ul || m_nLength == SIZE_UNKNOWN ) return 0.0f;
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
 
-	return (float)m_nReceived / (float)m_nLength;
+	if ( m_nState != hbsContent || m_nLength == 0 || m_nLength == SIZE_UNKNOWN )
+		return 0.0f;
+
+	return (float)( (double)m_nReceived / (double)m_nLength );
 }
 
 void CHostBrowser::OnQueryHits(CQueryHit* pHits)
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	m_bCanPush  = TRUE;
 	m_oClientID = pHits->m_oClientID;
 
@@ -260,6 +265,8 @@ void CHostBrowser::OnQueryHits(CQueryHit* pHits)
 
 BOOL CHostBrowser::OnConnected()
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	CTransfer::OnConnected();
 
 	SendRequest();
@@ -269,6 +276,8 @@ BOOL CHostBrowser::OnConnected()
 
 BOOL CHostBrowser::OnRead()
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	// ED2K connections aren't handled here- they are in ED2KClient
 	if ( m_nProtocol == PROTOCOL_ED2K || m_nProtocol == PROTOCOL_DC ) return TRUE;
 
@@ -324,6 +333,8 @@ void CHostBrowser::OnDropped()
 
 BOOL CHostBrowser::OnRun()
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	CTransfer::OnRun();
 
 	const DWORD tNow = GetTickCount();
@@ -384,6 +395,8 @@ BOOL CHostBrowser::SendPush(BOOL bMessage)
 
 BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnection)
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	// ED2K connections aren't handled here- they are in ED2KClient
 	if ( m_nProtocol == PROTOCOL_ED2K || m_nProtocol == PROTOCOL_DC || m_tPushed == 0 ) return FALSE;
 	if ( IsValid() || ! pConnection->IsValid() || ! validAndEqual( m_oClientID, oClientID ) ) return FALSE;
@@ -398,28 +411,29 @@ BOOL CHostBrowser::OnPush(const Hashes::Guid& oClientID, CConnection* pConnectio
 	return TRUE;
 }
 
-BOOL CHostBrowser::OnNewFile(CLibraryFile* pFile)
+BOOL CHostBrowser::OnNewFile(const CLibraryFile* pFile)
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	if ( m_nProtocol == PROTOCOL_DC && ! m_sNick.IsEmpty() )
+		return FALSE;
+
+	CString strName;
+	strName.Format( L"Files of %s.xml.bz2", (LPCTSTR)SafeFilename( m_sNick ) );
+	if ( strName.CompareNoCase( pFile->m_sName ) != 0 )
+		return FALSE;
+
+	CQueryHit* pHits = NULL;
+
+	if ( LoadDC( pFile->GetPath(), pHits ) )
 	{
-		CString strName;
-		strName.Format( L"Files of %s.xml.bz2", (LPCTSTR)SafeFilename( m_sNick ) );
-		if ( strName == pFile->m_sName )
-		{
-			CQueryHit* pHits = NULL;
+		if ( pHits != NULL )
+			OnQueryHits( pHits );
 
-			if ( LoadDC( pFile->GetPath(), pHits ) )
-			{
-				if ( pHits != NULL )
-					OnQueryHits( pHits );
-
-				DeleteFileEx( pFile->GetPath(), TRUE, TRUE, TRUE );
-			}
-
-			return TRUE;
-		}
+		DeleteFileEx( pFile->GetPath(), TRUE, TRUE, TRUE );
 	}
-	return FALSE;
+
+	return TRUE;
 }
 
 BOOL CHostBrowser::LoadDC(LPCTSTR pszFile, CQueryHit*& pHits)
@@ -533,12 +547,7 @@ void CHostBrowser::SendRequest()
 			Write( _P("\r\n") );
 		}
 
-		Write( _P("Accept: text/html") );
-		if ( m_nProtocol == PROTOCOL_G2 || m_nProtocol == PROTOCOL_G1 || m_nProtocol == PROTOCOL_HTTP )
-			Write( _P(", application/x-gnutella-packets") );
-		if ( m_nProtocol == PROTOCOL_G2 || m_nProtocol == PROTOCOL_HTTP )
-			Write( _P(", application/x-gnutella2") );
-		Write( _P("\r\n") );
+		Write( _P("Accept: text/html, application/x-gnutella-packets, application/x-gnutella2\r\n") );
 
 		Write( _P("Accept-Encoding: deflate\r\n") );
 		Write( _P("Connection: close\r\n") );
@@ -555,7 +564,7 @@ void CHostBrowser::SendRequest()
 
 	m_nState	= hbsRequesting;
 	m_bDeflate	= FALSE;
-	m_nLength	= ~0ul;
+	m_nLength	= SIZE_UNKNOWN;
 	m_bConnect	= TRUE;
 
 	m_mInput.pLimit = m_mOutput.pLimit = &Settings.Bandwidth.Downloads;
@@ -628,6 +637,8 @@ BOOL CHostBrowser::ReadResponseLine()
 
 BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 {
+	//CQuickLock oTransfersLock( Transfers.m_pSection );
+
 	// ED2K connections aren't handled here- they are in ED2KClient
 	ASSERT( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC );
 
@@ -659,7 +670,7 @@ BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 	}
 	else if ( strHeader.CompareNoCase( L"Content-Length" ) == 0 )
 	{
-		_stscanf( strValue, L"%lu", &m_nLength );
+		_stscanf( strValue, L"%I64u", &m_nLength );
 	}
 
 	return TRUE;
@@ -667,7 +678,7 @@ BOOL CHostBrowser::OnHeaderLine(CString& strHeader, CString& strValue)
 
 BOOL CHostBrowser::OnHeadersComplete()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	if ( m_nState == hbsContent )
 		return TRUE;
@@ -695,7 +706,7 @@ BOOL CHostBrowser::OnHeadersComplete()
 
 BOOL CHostBrowser::ReadContent()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CQuickLock oTransfersLock( Transfers.m_pSection );
 
 	if ( m_nProtocol != PROTOCOL_ED2K && m_nProtocol != PROTOCOL_DC )
 	{
@@ -972,7 +983,7 @@ BOOL CHostBrowser::StreamHTML()
 					else if ( strSize.Find( L" KB" ) >= 0 )
 						nFloat *= 1024;
 
-					nSize = (DWORD)nFloat;
+					nSize = (DWORD)ceil( nFloat );
 				}
 			}
 
@@ -983,7 +994,7 @@ BOOL CHostBrowser::StreamHTML()
 			if ( nPosName >= 0 )
 				strName = strLine.Mid( nPosName + 1 ).SpanExcluding( L"<>" );
 
-			if ( strName.IsEmpty() && ( nPosName = strURI.ReverseFind( '/' ) ) > 0 )
+			if ( strName.IsEmpty() && ( nPosName = strURI.ReverseFind( L'/' ) ) > 0 )
 				strName = URLDecode( strURI.Mid( nPosName + 1 ) );
 
 			CQueryHit* pHit = new CQueryHit( PROTOCOL_NULL );
@@ -1037,7 +1048,7 @@ void CHostBrowser::Serialize(CArchive& ar, int nVersion)	// BROWSER_SER_VERSION
 		ar << m_sServer;
 		ar << m_nProtocol;
 		ar << m_nHits;
-		ar << m_nLength;
+		ar << (DWORD)m_nLength;
 		ar << m_nReceived;
 
 		bProfilePresent = ( m_pProfile != NULL );
@@ -1060,7 +1071,9 @@ void CHostBrowser::Serialize(CArchive& ar, int nVersion)	// BROWSER_SER_VERSION
 		ar >> m_sServer;
 		ar >> m_nProtocol;
 		ar >> m_nHits;
-		ar >> m_nLength;
+		DWORD nLength = 0;
+		ar >> nLength;
+		m_nLength = nLength;	// QWORD
 		ar >> m_nReceived;
 
 		m_pVendor = VendorCache.LookupByName( m_sServer );
@@ -1070,6 +1083,11 @@ void CHostBrowser::Serialize(CArchive& ar, int nVersion)	// BROWSER_SER_VERSION
 		m_pProfile = new CGProfile();
 	}
 
-	if ( m_pProfile && bProfilePresent )
-		m_pProfile->Serialize( ar, nVersion );
+	if ( bProfilePresent )
+	{
+		if ( m_pProfile == NULL )
+			m_pProfile = new CGProfile();
+		if ( m_pProfile )
+			m_pProfile->Serialize( ar, nVersion );
+	}
 }

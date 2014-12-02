@@ -31,7 +31,7 @@ namespace Hashes
 		//! \brief A model of \ref hashcheckingpoliciespage "Checking Policy"
 		//!
 		//! This policy does not perform any checking.
-		//! Thus \a check() always returns \c true.
+		//! Thus check() always returns true.
 		template<class StoragePolicyT>
 		struct NoCheck : public StoragePolicyT
 		{
@@ -154,7 +154,7 @@ namespace Hashes
 			{
 				return ZeroCheck< StoragePolicy >::check()
 						&& !std::binary_search( blackList.begin(),
-							blackList.end(), alignedStorage() );
+							blacklist.end(), alignedStorage() );
 			}
 		};
 

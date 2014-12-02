@@ -600,7 +600,6 @@ public:
 		bool		SortSources;			// Automatically sort sources (Status, protocol, queue)
 		DWORD		SourcesWanted;			// Number of sources PeerProject 'wants'. (Will not request more than this number of sources from ed2k)
 		DWORD		MaxReviews;				// Maximum number of reviews to store per download
-		DWORD		StartDroppingFailedSourcesNumber;	// Number of sources when failed sources are dropped after only one attempt
 		bool		NoRandomFragments;		// ToDo: Streaming Download and Rarest Piece Selection
 		bool		WebHookEnable;
 		string_set	WebHookExtensions;

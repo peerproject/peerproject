@@ -544,12 +544,6 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 	if ( ! pSource )
 		return FALSE;	// Out of memory
 
-	if ( GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
-	{
-		delete pSource;
-		return FALSE;	// Too many sources
-	}
-
 	// Check/Reject if source is invalid
 	if ( ! pSource->m_bPushOnly )
 	{
@@ -601,6 +595,7 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 			if ( pExisting->Equals( pSource ) ) 	// IPs and ports are equal
 			{
 				bool bExistingHTTPSource = pExisting->IsHTTPSource();
+				pExisting->SetLastSeen();
 
 				if ( bNeedHTTPSource && bExistingHTTPSource )
 					bNeedHTTPSource = false;
@@ -653,6 +648,63 @@ BOOL CDownloadWithSources::AddSourceInternal(CDownloadSource* pSource)
 					AddSourceInternal( pG2Source );
 				}
 			}
+		}
+	}
+
+	// Trimming extra sources - Idle and bad or busy
+	DWORD nSourceCount = GetEffectiveSourceCount();
+	if ( nSourceCount >= Settings.Downloads.SourcesWanted )
+	{
+#ifdef _DEBUG
+		FILETIME tNow;
+		GetSystemTimeAsFileTime( &tNow );
+#endif
+		CSortedSources oIdleSources;
+		for ( POSITION posSource = m_pSources.GetTailPosition() ; posSource && nSourceCount >= Settings.Downloads.SourcesWanted ; )
+		{
+			CDownloadSource* pExisting = m_pSources.GetPrev( posSource );
+
+			if ( pExisting->IsIdle() )
+			{
+				if ( pExisting->m_nFailures || pExisting->m_nBusyCount )
+				{
+#ifdef _DEBUG
+					theApp.Message( MSG_DEBUG, L"Removed extra source %s %s (%I64d seconds old)", (LPCTSTR)CString( inet_ntoa( pExisting->m_pAddress ) ),
+						(LPCTSTR)pExisting->m_oGUID.toString< Hashes::base16Encoding >().MakeUpper(),
+						( *( (LONGLONG*)&tNow ) - *( (LONGLONG*)&pExisting->m_tLastSeen ) ) / 10000000 );
+#endif
+					RemoveSource( pExisting, FALSE );
+					delete pExisting;
+					nSourceCount = GetEffectiveSourceCount();
+				}
+				else
+				{
+					oIdleSources.insert( pExisting );
+				}
+			}
+		}
+		// Remove older sources first
+		for ( CSortedSources::const_iterator i = oIdleSources.begin() ; i != oIdleSources.end() && nSourceCount >= Settings.Downloads.SourcesWanted ; ++i )
+		{
+			CDownloadSource* pExisting = (*i);
+#ifdef _DEBUG
+			theApp.Message( MSG_DEBUG, L"Removed extra source %s %s (%I64d seconds old)", (LPCTSTR)CString( inet_ntoa( pExisting->m_pAddress ) ),
+				(LPCTSTR)pExisting->m_oGUID.toString< Hashes::base16Encoding >().MakeUpper(),
+				( *( (LONGLONG*)&tNow ) - *( (LONGLONG*)&pExisting->m_tLastSeen ) ) / 10000000 );
+#endif
+			RemoveSource( pExisting, FALSE );
+			delete pExisting;
+			nSourceCount = GetEffectiveSourceCount();
+		}
+		if ( nSourceCount >= Settings.Downloads.SourcesWanted )
+		{
+			// Still too many sources
+#ifdef _DEBUG
+			theApp.Message( MSG_DEBUG, L"Ignored extra source %s %s due sources limit %u", (LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ),
+				(LPCTSTR)pSource->m_oGUID.toString< Hashes::base16Encoding >().MakeUpper(), Settings.Downloads.SourcesWanted );
+#endif
+			delete pSource;
+			return FALSE;
 		}
 	}
 
@@ -743,18 +795,18 @@ CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProt
 		{
 			if ( _tcsistr( pResult->m_sURL, L"http://" ) != NULL )
 			{
-				int nPos = pResult->m_sURL.Find( ':', 8 );
+				int nPos = pResult->m_sURL.Find( L':', 8 );
 				if ( nPos < 0 ) continue;
 				str = pResult->m_sURL.Mid( 7, nPos - 7 );
-				int nPosSlash = pResult->m_sURL.Find( '/', nPos );
+				int nPosSlash = pResult->m_sURL.Find( L'/', nPos );
 				if ( nPosSlash < 0 ) continue;
 
 				if ( ! strSources.IsEmpty() )
-					strSources += ',';
+					strSources += L',';
 
 				strSources += str;
 				str = pResult->m_sURL.Mid( nPos + 1, nPosSlash - nPos - 1 );
-				strSources += ':';
+				strSources += L':';
 				strSources += str;
 
 				if ( nMaximum == 1 )

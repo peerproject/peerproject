@@ -876,9 +876,6 @@
     <ClCompile Include="DlgFilePreview.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
-    <ClCompile Include="DlgFileProperties.cpp">
-      <Filter>Source Files\Dialogs</Filter>
-    </ClCompile>
     <ClCompile Include="DlgFilePropertiesPage.cpp">
       <Filter>Source Files\Dialogs</Filter>
     </ClCompile>
@@ -2502,9 +2499,6 @@
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgFilePreview.h">
-      <Filter>Header Files\Dialogs</Filter>
-    </ClInclude>
-    <ClInclude Include="DlgFileProperties.h">
       <Filter>Header Files\Dialogs</Filter>
     </ClInclude>
     <ClInclude Include="DlgFilePropertiesPage.h">

@@ -48,7 +48,7 @@ public:
 protected:
 	CDownload*			m_pDownload;
 	CDownloadSource*	m_pSource;
-	BYTE*				m_pAvailable;
+	std::vector< bool >	m_pAvailable;
 	CTimeAverage< DWORD, 2000 >	m_AverageSpeed;
 
 	DWORD				m_tSourceRequest;		// When source request was last sent (ms)
@@ -63,7 +63,7 @@ protected:
 	void				ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD nChunk, BOOL bVerifyLock) const;
 	bool				SelectFragment(const Fragments::List& oPossible, QWORD& nOffset, QWORD& nLength, bool bEndGame = false) const;
 private:
-	blockPair			SelectBlock(const Fragments::List& oPossible, const BYTE* pAvailable, bool bEndGame) const;
+	blockPair			SelectBlock(const Fragments::List& oPossible, const std::vector< bool >& pAvailable, bool bEndGame) const;
 	void				CheckPart(QWORD* nPart, QWORD nPartBlock, QWORD* nRange, QWORD& nRangeBlock, QWORD* nBestRange) const;
 	void				CheckRange(QWORD* nRange, QWORD* nBestRange) const;
 

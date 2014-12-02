@@ -133,7 +133,7 @@ static char THIS_FILE[] = __FILE__;
 //	if ( ! Settings.WebServices.BitprintsOkay )
 //	{
 //		CString strFormat;
-//		Skin.LoadString( strFormat, IDS_LIBRARY_BITPRINTS_MESSAGE );
+//		Skin.LoadString( strFormat, IDS_BITPRINTS_MESSAGE );
 //		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 //		Settings.WebServices.BitprintsOkay = true;
 //		Settings.Save();
@@ -577,7 +577,7 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 {
 	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
+		if ( MsgBox( IDS_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES )
 			return FALSE;
 		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
@@ -591,7 +591,7 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 	if ( ! pFile->m_oSHA1 || ! pFile->m_oTiger || ! pFile->m_oED2K )
 	{
 		CString strMessage;
-		strMessage.Format( LoadString( IDS_LIBRARY_BITPRINTS_HASHED ), (LPCTSTR)pFile->m_sName );
+		strMessage.Format( LoadString( IDS_BITPRINTS_NOT_HASHED ), (LPCTSTR)pFile->m_sName );
 		pLock.Unlock();
 		MsgBox( strMessage, MB_ICONINFORMATION );
 		return FALSE;

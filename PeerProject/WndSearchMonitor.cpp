@@ -288,20 +288,10 @@ void CSearchMonitorWnd::OnQuerySearch(const CQuerySearch* pSearch)
 	}
 
 	CString strURN;
-	if ( pSearch->m_oSHA1 && pSearch->m_oTiger )
-		strURN	= L"bitprint:" + pSearch->m_oSHA1.toString() + '.' + pSearch->m_oTiger.toString();
-	else if ( pSearch->m_oTiger )
-		strURN = pSearch->m_oTiger.toShortUrn();
-	else if ( pSearch->m_oSHA1 )
-		strURN = pSearch->m_oSHA1.toShortUrn();
-	else if ( pSearch->m_oED2K )
-		strURN = pSearch->m_oED2K.toShortUrn();
-	else if ( pSearch->m_oBTH )
-		strURN = pSearch->m_oBTH.toShortUrn();
-	else if ( pSearch->m_oMD5 )
-		strURN = pSearch->m_oMD5.toShortUrn();
-	//else
-	//	strURN = L"-";
+	if ( pSearch->HasHash() )
+		strURN = pSearch->GetShortURN();
+	else
+		strURN = L"None";
 
 	if ( pSearch->m_bWhatsNew )
 		strSearch = L"What's New?";

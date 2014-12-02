@@ -720,18 +720,10 @@ void CSearchWnd::UpdateMessages()
 			strCaption += L" : ";
 			if ( Settings.General.LanguageRTL ) strCaption += L"\x202B";
 
-			if ( ! pSearch->m_sSearch.IsEmpty() )
+			if ( pSearch->HasHash() )
+				strCaption += L"Hash " + pSearch->GetURN();
+			else if ( ! pSearch->m_sSearch.IsEmpty() )
 				strCaption += pSearch->m_sSearch;
-			else if ( pSearch->m_oSHA1 )
-				strCaption += pSearch->m_oSHA1.toUrn();
-			else if ( pSearch->m_oTiger )
-				strCaption += pSearch->m_oTiger.toUrn();
-			else if ( pSearch->m_oED2K )
-				strCaption += pSearch->m_oED2K.toUrn();
-			else if ( pSearch->m_oBTH )
-				strCaption += pSearch->m_oBTH.toUrn();
-			else if ( pSearch->m_oMD5 )
-				strCaption += pSearch->m_oMD5.toUrn();
 			else if ( pSearch->m_pSchema && pSearch->m_pXML )
 				strCaption += pSearch->m_pSchema->GetIndexedWords( pSearch->m_pXML->GetFirstElement() );
 
