@@ -254,6 +254,10 @@ bool CLibraryFile::IsShared(bool bIgnoreOverride) const
 {
 	ASSUME_LOCK( Library.m_pSection );
 
+	// Use override shared flag of file
+	if ( m_bShared != TRI_UNKNOWN && ! bIgnoreOverride )
+		return ( m_bShared == TRI_TRUE );
+
 	// Don't share offline files
 	if ( m_pFolder && m_pFolder->IsOffline() )
 		return false;
@@ -261,10 +265,6 @@ bool CLibraryFile::IsShared(bool bIgnoreOverride) const
 	// Don't share private torrents
 	if ( IsPrivateTorrent() )
 		return false;
-
-	// Use override shared flag of file
-	if ( m_bShared != TRI_UNKNOWN && ! bIgnoreOverride )
-		return ( m_bShared == TRI_TRUE );
 
 	// Ghost files by default shared, then use folder shared flag
 	return ! m_pFolder || m_pFolder->IsShared();
@@ -743,7 +743,7 @@ CSharedSource* CLibraryFile::AddAlternateSource(LPCTSTR pszURL, FILETIME* tSeen)
 		bSeen = FALSE;
 	}
 
-	int nPos = strURL.ReverseFind( ' ' );
+	int nPos = strURL.ReverseFind( L' ' );
 	if ( nPos > 0 )
 	{
 		CString strTime = strURL.Mid( nPos + 1 );

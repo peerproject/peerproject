@@ -719,6 +719,25 @@ BOOL CSecurity::IsDenied(const CQuerySearch* pQuery, const CString& strContent)
 	return m_bDenyPolicy;
 }
 
+BOOL CSecurity::IsFlood(const IN_ADDR* pAddress, const LPCTSTR pszVendor /*NULL*/, PROTOCOLID nProtocol /*PROTOCOL_NULL*/)
+{
+	if ( nProtocol == PROTOCOL_G2 )
+	{
+		CString strCode = theApp.GetCountryCode( *pAddress );
+		if ( StartsWith( strCode, _P( L"TW" ) ) ||
+			 StartsWith( strCode, _P( L"HK" ) ) ||
+			 StartsWith( strCode, _P( L"CN" ) ) )
+		{
+			if ( ! pszVendor || ! *pszVendor ||
+				 _tcsicmp( pszVendor, L"FOXY" ) == 0 ||
+				 _tcsicmp( pszVendor, L"RAZB" ) == 0 )
+				return TRUE;
+		}
+	}
+
+	return FALSE;
+}
+
 //////////////////////////////////////////////////////////////////////
 // CSecurity expire
 
@@ -846,6 +865,11 @@ BOOL CSecurity::Save()
 
 //////////////////////////////////////////////////////////////////////
 // CSecurity serialize
+
+#define SECURITY_SER_VERSION	1000	// 5
+// nVersion History:
+// 5 - extended security rule type (ryo-oh-ki)
+// 1000 - Added banCustom (PeerProject 1.0) (5+)
 
 void CSecurity::Serialize(CArchive& ar)
 {
@@ -991,7 +1015,6 @@ BOOL CSecurity::FromXML(CXMLElement* pXML)
 
 BOOL CSecurity::Import(LPCTSTR pszFile)
 {
-	CString strText;
 	CBuffer pBuffer;
 	CFile pFile;
 
@@ -1047,34 +1070,37 @@ BOOL CSecurity::Import(LPCTSTR pszFile)
 
 BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 {
-	// No user agent- Assume bad. (Allowed connection but no searches performed)
-	if ( sUserAgent.IsEmpty() ) 								return TRUE;
+	// No user agent: Assume bad. (Allowed connection but no searches performed)
+	if ( sUserAgent.IsEmpty() )									return TRUE;
 
 	// PeerProject Fakes
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"PeerProject" ) )
+	if ( StartsWith( sUserAgent, _P( L"PeerProject" ) ) )
 	{
+		LPCTSTR szVersion = sUserAgent;
 		szVersion += 11;
-		if ( _tcsistr( sUserAgent, L" 1." ) )				return FALSE;
-	//	if ( _tcsistr( sUserAgent, L" 2." ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, L" 1." ) )					return FALSE;
+		if ( _tcsistr( sUserAgent, L" 2.0" ) )					return FALSE;
 
 		return TRUE;
 	}
 
-	// Shareaza Fakes/Obsolete
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"shareaza" ) )
+	// Shareaza Fakes
+	if ( StartsWith( sUserAgent, _P( L"Shareaza" ) ) )
 	{
+		LPCTSTR szVersion = sUserAgent;
 		szVersion += 8;
-		if ( _tcsistr( sUserAgent, L" 2.0" ) )				return TRUE;
-		if ( _tcsistr( sUserAgent, L" 2." ) )				return FALSE;
-		if ( _tcsistr( sUserAgent, L"Plus" ) )				return FALSE;
+		if ( _tcsistr( sUserAgent, L" 2.0" ) )					return TRUE;
+		if ( _tcsistr( sUserAgent, L" 2." ) )					return FALSE;
+		if ( _tcsistr( sUserAgent, L"Plus" ) )					return FALSE;
 
 		return TRUE;
 	}
 
 	// Dianlei: Shareaza rip-off
 	// Based on Alpha code, need verification for current 1.x status
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"Dianlei" ) )
+	if ( StartsWith( sUserAgent, _P( L"Dianlei" ) ) )
 	{
+		LPCTSTR szVersion = sUserAgent;
 		szVersion += 7;
 		if ( _tcsistr( szVersion, L" 0." ) )					return TRUE;
 
@@ -1082,8 +1108,9 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 	}
 
 	// BearShare Selectivity
-	if ( LPCTSTR szVersion = _tcsistr( sUserAgent, L"BearShare" ) )
+	if ( StartsWith( sUserAgent, _P( L"BearShare" ) ) )
 	{
+		LPCTSTR szVersion = sUserAgent;
 		szVersion += 9;
 		if ( _tcsistr( szVersion, L" 4." ) )					return FALSE;
 		if ( _tcsistr( szVersion, L" 5." ) )					return FALSE;
@@ -1092,37 +1119,25 @@ BOOL CSecurity::IsClientBad(const CString& sUserAgent) const
 	}
 
 	// Any iMesh
-	if ( _tcsistr( sUserAgent, L"iMesh" ) )					return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"iMesh" ) ) )				return TRUE;
 
-	// Other Miscillaneous
-
-	if ( _tcsistr( sUserAgent, L"Trilix" ) )					return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"Gnutella Turbo" ) )			return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"Mastermax File Sharing" ) )	return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"Fildelarprogram" ) )		return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"Fastload.TV" ) )			return TRUE;
+	// Other Miscellaneous
+	if ( StartsWith( sUserAgent, _P( L"Trilix" ) ) )			return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"Gnutella Turbo" ) ) )	return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"Mastermax" ) ) )			return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"Fildelarprogram" ) ) )	return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"Fastload.TV" ) ) )		return TRUE;
 
 	// Other GPL Violaters, Etc.
+	if ( StartsWith( sUserAgent, _P( L"K-Lite" ) ) )			return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"SlingerX" ) ) )			return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"C -3.0.1" ) ) )			return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"vagaa" ) ) )				return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"mxie" ) ) )				return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"WinMX" ) ) )				return TRUE;
+	if ( StartsWith( sUserAgent, _P( L"eTomi" ) ) )				return TRUE;
 
-	if ( _tcsistr( sUserAgent, L"K-Lite" ) )					return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"SlingerX" ) )				return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"C -3.0.1" ) )				return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"vagaa" ) )					return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"mxie" ) )					return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"WinMX" ) )					return TRUE;
-
-	if ( _tcsistr( sUserAgent, L"eTomi" ) )					return TRUE;
-
-	// Unknown- Assume OK
+	// Unknown: Assume OK
 	return FALSE;
 }
 
@@ -1134,10 +1149,10 @@ BOOL CSecurity::IsClientBanned(const CString& sUserAgent)
 		return FALSE;
 
 	// Foxy (Private G2)
-	if ( _tcsistr( sUserAgent, L"Foxy" ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"Foxy" ) )						return TRUE;
 
 	// i2hub leecher client. (Tested, does not upload)
-	if ( _tcsistr( sUserAgent, L"i2hub" ) )					return TRUE;
+	if ( _tcsistr( sUserAgent, L"i2hub" ) )						return TRUE;
 
 	// Check by content filter
 	// ToDo: Implement user agent filter type
@@ -1148,7 +1163,7 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent) const
 {
 	// The remote computer didn't send a "User-Agent", or it sent whitespace
 	if ( sUserAgent.IsEmpty() ||
-		CString( sUserAgent ).Trim().IsEmpty() )				return TRUE; // ?
+		CString( sUserAgent ).Trim().IsEmpty() )				return TRUE;
 
 	// Loop through the user-defined list of programs to block
 	for ( string_set::const_iterator i = Settings.Uploads.BlockAgents.begin() ;
@@ -1164,7 +1179,7 @@ BOOL CSecurity::IsAgentBlocked(const CString& sUserAgent) const
 BOOL CSecurity::IsVendorBlocked(const CString& sVendor) const
 {
 	// Foxy (Private G2)
-	if ( _tcsistr( sVendor, L"foxy" ) )						return TRUE;
+	if ( _tcsistr( sVendor, L"foxy" ) )							return TRUE;
 
 	// Allow it
 	return FALSE;
@@ -1177,7 +1192,7 @@ CLiveList* CSecurity::GetList() const
 
 	if ( CLiveItem* pDefault = pLiveList->Add( (LPVOID)0 ) )
 	{
-		pDefault->Set( COL_SECURITY_NUM, L" - " );								// Need leading space for proper sort priority (until sorting is fixed)
+		pDefault->Set( COL_SECURITY_NUM, L" - " );									// Need leading space for proper sort priority (until sorting is fixed)
 		pDefault->Set( COL_SECURITY_CONTENT, LoadString( IDS_SECURITY_DEFAULT ) );	// "Default Policy"
 		pDefault->Set( COL_SECURITY_ACTION,  LoadString( Security.m_bDenyPolicy ? IDS_SECURITY_DENY : IDS_SECURITY_ACCEPT ) );
 		pDefault->SetImage( Security.m_bDenyPolicy ? Settings.General.LanguageRTL ? 0 : 2 : 1 );
@@ -1561,8 +1576,8 @@ void CMessageFilter::Load()
 	if ( strED2KSpamPhrases.IsEmpty() )
 		strED2KSpamPhrases = L"Your client is connecting too fast|Join the L33cher Team|PeerFactor|Your client is making too many connections|ZamBoR 2|AUTOMATED MESSAGE:|eMule FX the BEST eMule ever|DI-Emule";
 
-	if ( strFilteredPhrases.IsEmpty() )
-		strFilteredPhrases = L"";
+	//if ( strFilteredPhrases.IsEmpty() )
+	//	strFilteredPhrases = L"";
 
 	// Load the ED2K spam into the filter
 	if ( strED2KSpamPhrases.GetLength() > 3 )

@@ -52,7 +52,7 @@ BEGIN_MESSAGE_MAP(CLibraryMetaPanel, CPanelCtrl)
 	ON_WM_SETCURSOR()
 	ON_WM_LBUTTONUP()
 	ON_WM_LBUTTONDOWN()
-	ON_WM_XBUTTONDOWN()
+	ON_WM_TIMER()
 END_MESSAGE_MAP()
 
 /////////////////////////////////////////////////////////////////////////////
@@ -62,6 +62,7 @@ CLibraryMetaPanel::CLibraryMetaPanel()
 	: m_pMetadata	( new CMetaList() )
 	, m_pServiceData( NULL )
 	, m_bForceUpdate( FALSE )
+	, m_bRedraw		( TRUE )
 {
 	m_rcFolder.SetRectEmpty();
 }
@@ -223,10 +224,7 @@ void CLibraryMetaPanel::Update()
 			BeginThread( "CtrlLibraryMetaPanel" );
 	}
 
-	pLock2.Unlock();
-	pLock1.Unlock();
-
-	Invalidate();
+	m_bRedraw = TRUE;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -237,11 +235,15 @@ int CLibraryMetaPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CPanelCtrl::OnCreate( lpCreateStruct ) == -1 )
 		return -1;
 
+	SetTimer( 1, 500, NULL );
+
 	return 0;
 }
 
 void CLibraryMetaPanel::OnDestroy()
 {
+	KillTimer( 1 );
+
 	CloseThread();
 
 	CPanelCtrl::OnDestroy();
@@ -345,7 +347,7 @@ void CLibraryMetaPanel::OnPaint()
 	dc.SelectObject( &CoolInterface.m_fntNormal );
 	DrawText( &dc, rcWork.right - 60, rcWork.top, m_sSize );
 
-	if ( m_sFolder.Find( '\\' ) >= 0 )
+	if ( m_sFolder.Find( L'\\' ) >= 0 )
 	{
 		dc.SelectObject( &CoolInterface.m_fntUnder );
 		dc.SetTextColor( Colors.m_crTextLink );
@@ -369,7 +371,7 @@ void CLibraryMetaPanel::OnPaint()
 		str.Empty();
 
 	DrawText( &dc, rcWork.left + 68, rcWork.top, str, &m_rcFolder );
-	if ( m_sFolder.Find( '\\' ) < 0 )
+	if ( m_sFolder.Find( L'\\' ) < 0 )
 		m_rcFolder.SetRectEmpty();
 	rcWork.top += 18;
 
@@ -513,6 +515,21 @@ void CLibraryMetaPanel::OnXButtonDown(UINT /*nFlags*/, UINT nButton, CPoint /*po
 		GetParent()->SendMessage( WM_COMMAND, ID_LIBRARY_PARENT );
 }
 
+void CLibraryMetaPanel::OnTimer(UINT_PTR nIDEvent)
+{
+	CPanelCtrl::OnTimer( nIDEvent );
+
+	{
+		CQuickLock pLock( m_pSection );
+		if ( ! m_bRedraw )
+			return;
+		m_bRedraw = FALSE;
+	}
+
+	Invalidate();
+	UpdateWindow();
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CLibraryMetaPanel thread run
 
@@ -550,11 +567,11 @@ void CLibraryMetaPanel::OnRun()
 				m_bmThumb.Attach( pFile.CreateBitmap() );
 			}
 
-			Invalidate();
-
 			break;
 		}
 	}
+
+	m_bRedraw = TRUE;
 
 	m_pSection.Unlock();
 }

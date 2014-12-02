@@ -574,15 +574,14 @@ void CSettings::Load()
 	Add( L"Downloads", L"SourcesWanted", &Downloads.SourcesWanted, 800, 1, 10, 5000 );
 	Add( L"Downloads", L"SparseThreshold", &Downloads.SparseThreshold, 8*KiloByte, KiloByte, 0, 256, L" MB" );
 	Add( L"Downloads", L"StaggardStart", &Downloads.StaggardStart, false );
-	Add( L"Downloads", L"StartDroppingFailedSourcesNumber", &Downloads.StartDroppingFailedSourcesNumber, 20, 1, 0, 50 );
 	Add( L"Downloads", L"StarveGiveUp", &Downloads.StarveGiveUp, 3, 1, 3, 120, L" h" );
 	Add( L"Downloads", L"StarveTimeout", &Downloads.StarveTimeout, 30*60*1000, 60*1000, 20, 24*60, L" m" );
 	Add( L"Downloads", L"VerifyED2K", &Downloads.VerifyED2K, true );
 	Add( L"Downloads", L"VerifyFiles", &Downloads.VerifyFiles, true );
 	Add( L"Downloads", L"VerifyTiger", &Downloads.VerifyTiger, true );
 	Add( L"Downloads", L"NoRandomFragments", &Downloads.NoRandomFragments, false );	// ToDo: Streaming Download and Rarest Piece Selection
-	Add( L"Downloads", L"WebHookEnable", &Downloads.WebHookEnable, true );
-	Add( L"Downloads", L"WebHookExtensions", &Downloads.WebHookExtensions, L"|zip|7z|gz|rar|r0|tgz|ace|z|tar|arj|lzh|sit|hqx|fml|grs|mp3|iso|msi|exe|bin|" );
+	Add( L"Downloads", L"WebHookEnable", &Downloads.WebHookEnable, false );
+	Add( L"Downloads", L"WebHookExtensions", &Downloads.WebHookExtensions, L"|zip|zipx|7z|rar|r0|ace|z|gz|tgz|tar|arj|lzh|sit|hqx|fml|grs|cbr|cbz|aac|mp3|mp4|mkv|iso|msi|exe|bin|psk|" );
 
 	Add( L"Uploads", L"AllowBackwards", &Uploads.AllowBackwards, true );
 	Add( L"Uploads", L"AutoClear", &Uploads.AutoClear, false );

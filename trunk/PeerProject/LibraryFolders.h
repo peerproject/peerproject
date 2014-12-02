@@ -49,7 +49,7 @@ public:
 	POSITION		GetFolderIterator() const;
 	CLibraryFolder*	GetNextFolder(POSITION& pos) const;
 	INT_PTR			GetFolderCount() const { return m_pFolders.GetCount(); }
-	CLibraryFolder*	GetFolder(LPCTSTR pszPath) const;
+	CLibraryFolder*	GetFolder(const CString& strPath) const;
 	BOOL			CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive = FALSE) const;
 	CLibraryFolder*	GetFolderByName(LPCTSTR pszName) const;
 	CLibraryFolder*	AddFolder(LPCTSTR pszPath);

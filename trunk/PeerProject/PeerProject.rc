@@ -65,8 +65,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,1
- PRODUCTVERSION 1,0,1,1
+ FILEVERSION 1,0,1,2
+ PRODUCTVERSION 1,0,1,2
  FILEFLAGSMASK 0x1fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -85,12 +85,12 @@ BEGIN
 			VALUE "Comments", "PeerProject P2P"
 			VALUE "CompanyName", "PeerProject Development Team"
 			VALUE "FileDescription", "PeerProject P2P"
-			VALUE "FileVersion", "1.0.1.1"
+			VALUE "FileVersion", "1.0.1.2"
 			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
 			VALUE "OriginalFilename", "PeerProject.exe"
 			VALUE "InternalName", "PeerProject"
 			VALUE "ProductName", "PeerProject"
-			VALUE "ProductVersion", "1.0.1.1"
+			VALUE "ProductVersion", "1.0.1.2"
 		END
 	END
 	BLOCK "VarFileInfo"
@@ -3771,6 +3771,8 @@ BEGIN
 	IDS_BITPRINTS_FINISHED		"Finished, click Close"
 	IDS_BITPRINTS_REQUESTING	"Requesting..."
 	IDS_BITPRINTS_SUCCESS		"Success."
+	IDS_BITPRINTS_NOT_HASHED	"The file ""%s"" has not yet been hashed.  Please wait for the file to be hashed, and then try again."
+	IDS_BITPRINTS_MESSAGE		"This option uses services provided by bitprints.peerproject.org for recognizing and sharing information about selected files.\n\nPeerProject will send the SHA1 hash code for selected files in order to query the Bitprints database.  If you are concerned, you may wish to consult the bitprints.peerproject.org privacy policy.\n\nWould you like to proceed?"
 	IDS_BETA_EXPIRED			"This is a pre-release version of PeerProject, and the beta testing period has ended.  Please download the full, official release from http://peerproject.org/."
 END
 
@@ -4157,8 +4159,6 @@ END
 
 STRINGTABLE
 BEGIN
-	IDS_LIBRARY_BITPRINTS_HASHED	"The file ""%s"" has not yet been hashed.  Please wait for the file to be hashed, and then try again."
-	IDS_LIBRARY_BITPRINTS_MESSAGE	"This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\n\nPeerProject will send the SHA1 hash code for selected files in order to query the Bitprints database.  If you are concerned, you may wish to consult the bitprints.peerproject.org privacy policy.\n\nWould you like to proceed?"
 	IDS_LIBRARY_COLLECTION_CANT_INSTALL "PeerProject was unable to install the collection file ""%s"" by copying it to the folder ""%s""."
 	IDS_LIBRARY_COLLECTION_DOWNLOAD_ALL "Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."
 	IDS_LIBRARY_COLLECTION_INSTALLED "PeerProject has added the collection file ""%s"" to your library."
@@ -4166,12 +4166,12 @@ BEGIN
 	IDS_LIBRARY_COLLECTION_LOCKDOWN "Would you like to prevent this collection from prompting you to download anything else?"
 //	IDS_LIBRARY_COLLECTION_ACCESS "The collection has requested script access to the application. \nAllow this access?"
 	IDS_LIBRARY_CONFIRM_EXECUTE "Are you sure you want to launch the file ""%s"" ?\n\nSome files can be harmful to your computer.  Ensure you know what the file is before launching it."
+//	IDS_LIBRARY_ENQUEUE			"You have not yet selected an external media player to enqueue files with. \n\nWould you like to select one now?"
 //	IDS_LIBRARY_DELETE			"Are you sure you want to permanently delete %i selected files ?\n\nThe files will be moved to your ""recycle bin"" if enabled."
 	IDS_LIBRARY_DELETE_FOLDER	"Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the virtual folders themselves."
 	IDS_LIBRARY_DELETE_FAIL		"PeerProject could not delete the file:\n\n%s"
 	IDS_LIBRARY_DOWNLOADS_ADD	"Your downloaded files folder ""%s"" is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading.  Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"
 	IDS_LIBRARY_DOWNLOADS_SHARE "Your downloads folder has been added to your local library. \nWould you like to publicly share it too?"
-//	IDS_LIBRARY_ENQUEUE			"You have not yet selected an external media player to enqueue files with. \n\nWould you like to select one now?"
 	IDS_LIBRARY_ADD_FOLDER		"\nAdd this folder to your Library?\n\n%s"
 END
 
@@ -4185,6 +4185,8 @@ BEGIN
 	IDS_LIBRARY_SUBFOLDER_IN_LIBRARY "A subfolder of the selected folder ""%s"" is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue?"
 	IDS_LIBRARY_TARGET_EXISTS	"Target file exists:\n\n%s\n\nWould you like to overwrite it?"
 	IDS_LIBRARY_TYPE_FILTER_ALL	"Show All File Types"
+	IDS_LIBRARY_SHARED			"Public"
+	IDS_LIBRARY_UNSHARED		"Private"
 	IDS_LIBRARY_URI_COPY		"&Get P2P Link"
 	IDS_LIBRARY_URI_EXPORT		"Export &P2P Links..."
 	IDS_LIBRARY_VERIFY_FAIL		"The file ""%s"" failed a hash verification test, and might not be the file you intended to download.  Are you sure you want to open it?"
@@ -4201,7 +4203,7 @@ BEGIN
 	IDS_MEDIA_PARTIAL_RENDER	"Part of the file could not be played, you may need to install additional codecs.\n(Try a codec pack from www.codecs.com)"
 	IDS_MEDIA_PLUGIN_CREATE		"PeerProject could not instantiate its MediaServices plugin.  Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."
 	IDS_MEDIA_PLAYLIST			"Playlist:"
-	IDS_MEDIA_SMPLAYER			"PeerProject Media Player"
+	IDS_MEDIA_PLAYER			"PeerProject Media Player"
 	IDS_MEDIA_TITLE				"P    E    E    R    P    R    O    J    E    C    T         M    E    D    I    A         S    Y    S    T    E    M"
 	IDS_MEDIA_TIMESPLIT			" / "
 END

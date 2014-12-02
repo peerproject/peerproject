@@ -290,7 +290,6 @@ CSHA CBENode::GetSHA1() const
 void CBENode::Encode(CBuffer* pBuffer) const
 {
 	CHAR szBuffer[64];
-	CString str;
 
 	switch ( m_nType )
 	{
@@ -328,7 +327,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 			{
 				LPCSTR pszKey = (LPCSTR)pNode[1];
 				size_t nKeyLength = strlen( pszKey );
-				pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%i:", nKeyLength ) );
+				pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%u:", (DWORD)nKeyLength ) );
 				pBuffer->Print( pszKey, nKeyLength );
 				(*pNode)->Encode( pBuffer );
 			}

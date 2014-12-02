@@ -619,8 +619,14 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 
 	CRect rcText( m_rcVideo.left, pt.y + pInfo.bmHeight, m_rcVideo.right, pt.y + pInfo.bmHeight + 32 );
 
-	CString strText;
-	LoadString( strText, IDS_MEDIA_TITLE );
+	CString strText = LoadString( IDS_MEDIA_TITLE );
+	if ( strText.GetLength() < 50 )		// Add spacing to translations
+	{
+		for ( int nPos = strText.GetLength() - 1 ; nPos > 0 ; nPos-- )
+		{
+			strText.Insert( nPos, L"    " );
+		}
+	}
 
 	pt.x = ( m_rcVideo.left + m_rcVideo.right ) / 2 - dc.GetTextExtent( strText ).cx / 2;
 	pt.y = rcText.top + 8;
@@ -633,8 +639,7 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 
 void CMediaFrame::PaintListHeader(CDC& dc, CRect& rcBar)
 {
-	CString strText;
-	LoadString( strText, IDS_MEDIA_PLAYLIST );
+	CString strText = LoadString( IDS_MEDIA_PLAYLIST );
 	CSize szText = dc.GetTextExtent( strText );
 	CPoint pt = rcBar.CenterPoint();
 	pt.x -= szText.cx / 2;
@@ -724,7 +729,7 @@ void CMediaFrame::PaintStatus(CDC& dc, CRect& rcBar)
 	{
 		if ( m_nState >= smsOpen )
 		{
-			int nSlash = m_sFile.ReverseFind( '\\' );
+			int nSlash = m_sFile.ReverseFind( L'\\' );
 			str = nSlash >= 0 ? m_sFile.Mid( nSlash + 1 ) : m_sFile;
 		}
 		else
@@ -823,7 +828,7 @@ BOOL CMediaFrame::PaintStatusMicro(CDC& dc, CRect& rcBar)
 	}
 	else if ( m_nState >= smsOpen )
 	{
-		int nSlash = m_sFile.ReverseFind( '\\' );
+		int nSlash = m_sFile.ReverseFind( L'\\' );
 		str = nSlash >= 0 ? m_sFile.Mid( nSlash + 1 ) : m_sFile;
 
 		pMemDC->DrawText( str, &rcStatus, DT_SINGLELINE|DT_VCENTER|DT_LEFT|DT_NOPREFIX|DT_END_ELLIPSIS|dwOptions );

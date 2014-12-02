@@ -34,9 +34,8 @@ public:
 	CBTClient*		m_pClient;
 	BOOL			m_bChoked;
 	BOOL			m_bInterested;
-public:
+
 	BOOL			m_bAvailable;
-	DWORD			m_nAvailable;
 	DWORD			m_tRunThrottle;
 
 public:

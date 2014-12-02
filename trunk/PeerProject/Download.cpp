@@ -16,6 +16,8 @@
 // (http://www.gnu.org/licenses/agpl.html)
 //
 
+#pragma warning(suppress:4355)	// 'this' : used in base member initializer list
+
 #include "StdAfx.h"
 #include "Settings.h"
 #include "PeerProject.h"
@@ -516,36 +518,34 @@ void CDownload::OnRun()
 			// End Dead Download Check
 
 			// Run the download
-			if ( ! IsTorrent() || RunTorrent( tNow ) )
+			RunTorrent( tNow );
+			RunSearch( tNow );
+			RunValidation();
+
+			if ( IsSeeding() )
 			{
-				RunSearch( tNow );
-				RunValidation();
-
-				if ( IsSeeding() )
+				// Mark as collapsed to get correct heights when dragging files
+				if ( ! Settings.General.DebugBTSources && m_bExpanded )
+					m_bExpanded = FALSE;
+			}
+			else // if ( ! IsMoving() )
+			{
+				if ( IsComplete() && IsFileOpen() )
 				{
-					// Mark as collapsed to get correct heights when dragging files
-					if ( ! Settings.General.DebugBTSources && m_bExpanded )
-						m_bExpanded = FALSE;
+					if ( IsFullyVerified() )
+						OnDownloaded();
 				}
-				else // if ( ! IsMoving() )
+				else if ( CheckTorrentRatio() )
 				{
-					if ( IsComplete() && IsFileOpen() )
+					if ( ! Network.IsConnected() )
 					{
-						if ( IsFullyVerified() )
-							OnDownloaded();
+						StopTrying();
+						return;
 					}
-					else if ( CheckTorrentRatio() )
-					{
-						if ( ! Network.IsConnected() )
-						{
-							StopTrying();
-							return;
-						}
 
-						StartTransfersIfNeeded( tNow );
-					}
+					StartTransfersIfNeeded( tNow );
 				}
-			} // if ( RunTorrent( tNow ) )
+			}
 
 			// Calculate current downloading state
 			if ( HasActiveTransfers() )
@@ -687,14 +687,14 @@ void CDownload::OnMoved()
 BOOL CDownload::OpenDownload()
 {
 	if ( m_sName.IsEmpty() )
-		return TRUE;
+		return TRUE;	// Download has no name yet, postponing
 
 	if ( IsFileOpen() )
-		return TRUE;
+		return TRUE;	// Already opened
 
 	SetModified();
 
-	if ( IsTorrent() ?
+	if ( ( IsTorrent() && ! ( m_oSHA1 || m_oTiger || m_oED2K || m_oMD5 ) ) ?
 		 Open( m_pTorrent ) :
 		 Open( this ) )
 		return TRUE;
@@ -966,6 +966,144 @@ BOOL CDownload::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
 	return TRUE;
 }
 
+void CDownload::ForceComplete()
+{
+	m_bPaused = FALSE;
+	m_bTempPaused = FALSE;
+	m_bVerify = TRI_FALSE;
+	MakeComplete();
+	StopTrying();
+	Share( FALSE );
+	OnDownloaded();
+}
+
+BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal /*FALSE*/)
+{
+	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
+	{
+		// Shift key opens file externally, folder on multifile torrents
+		const CString strPath = IsMultiFileTorrent() ?
+			GetPath( 0 ).Left( GetPath( 0 ).ReverseFind( L'\\' ) + 1 ) : GetPath( 0 );
+		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
+			L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
+		return TRUE;
+	}
+
+	if ( nIndex < 0 )
+		nIndex = SelectFile( pLock );
+	if ( nIndex < 0 || ! Downloads.Check( this ) )
+		return FALSE;
+
+	BOOL bResult = TRUE;
+	const CString strPath = GetPath( nIndex );
+	const CString strName = GetName( nIndex );
+	const CString strExt  = strName.Mid( strName.ReverseFind( L'.' ) );
+
+	if ( IsCompleted() )
+	{
+		// Run complete file
+
+		if ( m_bVerify == TRI_FALSE )
+		{
+			if ( pLock ) pLock->Unlock();
+
+			CString strMessage;
+			strMessage.Format( LoadString( IDS_LIBRARY_VERIFY_FAIL ), (LPCTSTR)strName );
+			INT_PTR nResponse = MsgBox( strMessage, MB_ICONEXCLAMATION | MB_YESNOCANCEL | MB_DEFBUTTON2 );
+
+			if ( pLock ) pLock->Lock();
+
+			if ( nResponse == IDCANCEL )
+				return FALSE;
+			if ( nResponse == IDNO )
+				return TRUE;
+		}
+
+		if ( pLock ) pLock->Unlock();
+
+		bResult = CFileExecutor::Execute( strPath, strExt );
+
+		if ( pLock ) pLock->Lock();
+	}
+	else if ( CanPreview( nIndex ) )
+	{
+		if ( ! bForceOriginal )
+		{
+			// Previewing...
+			if ( pLock ) pLock->Unlock();
+
+			TRISTATE bSafe = CFileExecutor::IsSafeExecute( strExt, strName );
+
+			if ( pLock ) pLock->Lock();
+
+			if ( bSafe == TRI_UNKNOWN )
+				return FALSE;
+			if ( bSafe == TRI_FALSE )
+				return TRUE;
+
+			if ( ! Downloads.Check( this ) )
+				return TRUE;
+
+			if ( PreviewFile( nIndex, pLock ) )
+				return TRUE;
+		}
+
+		// Run file as is
+		if ( pLock ) pLock->Unlock();
+
+		bResult = CFileExecutor::Execute( strPath, strExt );
+
+		if ( pLock ) pLock->Lock();
+	}
+
+	return bResult;
+}
+
+BOOL CDownload::Enqueue(int nIndex, CSingleLock* pLock)
+{
+	if ( nIndex < 0 )
+		nIndex = SelectFile( pLock );
+	if ( nIndex < 0 || ! Downloads.Check( this ) )
+		return TRUE;
+
+	BOOL bResult = TRUE;
+	if ( IsStarted() )
+	{
+		if ( pLock ) pLock->Unlock();
+
+		const CString strPath = GetPath( nIndex );
+		const CString strName = GetName( nIndex );
+		const CString strExt = strName.Mid( strName.ReverseFind( L'.' ) );
+
+		bResult = CFileExecutor::Enqueue( strPath, strExt );
+
+		if ( pLock ) pLock->Lock();
+	}
+
+	return bResult;
+}
+
+void CDownload::Resize(QWORD nNewSize)
+{
+	if ( m_nSize == nNewSize )
+		return;
+
+	// Check for possible change to multi-file download
+	if ( ! m_oSHA1 && ! m_oTiger && ! m_oED2K && ! m_oMD5 && ( m_oBTH || IsTorrent() ) && IsFileOpen() )
+	{
+		// Remove old file
+		AbortTask();
+		ClearVerification();
+		CloseFile();
+		DeleteFile();
+
+		// Create a fresh one
+		AttachFile( new CFragmentedFile );
+	}
+
+	SetSize( nNewSize );
+}
+
 //////////////////////////////////////////////////////////////////////
 // CDownload serialize
 
@@ -1075,141 +1213,3 @@ void CDownload::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER_VERSION
 //		MergeMetadata( pXML.get() );
 //	}
 //}
-
-void CDownload::ForceComplete()
-{
-	m_bPaused = FALSE;
-	m_bTempPaused = FALSE;
-	m_bVerify = TRI_FALSE;
-	MakeComplete();
-	StopTrying();
-	Share( FALSE );
-	OnDownloaded();
-}
-
-BOOL CDownload::Launch(int nIndex, CSingleLock* pLock, BOOL bForceOriginal /*FALSE*/)
-{
-	if ( nIndex < 0 && IsCompleted() && ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0 )
-	{
-		// Shift key opens file externally, folder on multifile torrents
-		const CString strPath = IsMultiFileTorrent() ?
-			GetPath( 0 ).Left( GetPath( 0 ).ReverseFind( '\\' ) + 1 ) : GetPath( 0 );
-		ShellExecute( AfxGetMainWnd()->GetSafeHwnd(),
-			L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
-		return TRUE;
-	}
-
-	if ( nIndex < 0 )
-		nIndex = SelectFile( pLock );
-	if ( nIndex < 0 || ! Downloads.Check( this ) )
-		return FALSE;
-
-	BOOL bResult = TRUE;
-	const CString strPath = GetPath( nIndex );
-	const CString strName = GetName( nIndex );
-	const CString strExt  = strName.Mid( strName.ReverseFind( '.' ) );
-
-	if ( IsCompleted() )
-	{
-		// Run complete file
-
-		if ( m_bVerify == TRI_FALSE )
-		{
-			if ( pLock ) pLock->Unlock();
-
-			CString strMessage;
-			strMessage.Format( LoadString( IDS_LIBRARY_VERIFY_FAIL ), (LPCTSTR)strName );
-			INT_PTR nResponse = MsgBox( strMessage, MB_ICONEXCLAMATION | MB_YESNOCANCEL | MB_DEFBUTTON2 );
-
-			if ( pLock ) pLock->Lock();
-
-			if ( nResponse == IDCANCEL )
-				return FALSE;
-			if ( nResponse == IDNO )
-				return TRUE;
-		}
-
-		if ( pLock ) pLock->Unlock();
-
-		bResult = CFileExecutor::Execute( strPath, strExt );
-
-		if ( pLock ) pLock->Lock();
-	}
-	else if ( CanPreview( nIndex ) )
-	{
-		if ( ! bForceOriginal )
-		{
-			// Previewing...
-			if ( pLock ) pLock->Unlock();
-
-			TRISTATE bSafe = CFileExecutor::IsSafeExecute( strExt, strName );
-
-			if ( pLock ) pLock->Lock();
-
-			if ( bSafe == TRI_UNKNOWN )
-				return FALSE;
-			if ( bSafe == TRI_FALSE )
-				return TRUE;
-
-			if ( ! Downloads.Check( this ) )
-				return TRUE;
-
-			if ( PreviewFile( nIndex, pLock ) )
-				return TRUE;
-		}
-
-		// Run file as is
-		if ( pLock ) pLock->Unlock();
-
-		bResult = CFileExecutor::Execute( strPath, strExt );
-
-		if ( pLock ) pLock->Lock();
-	}
-
-	return bResult;
-}
-
-BOOL CDownload::Enqueue(int nIndex, CSingleLock* pLock)
-{
-	if ( nIndex < 0 )
-		nIndex = SelectFile( pLock );
-	if ( nIndex < 0 || ! Downloads.Check( this ) )
-		return TRUE;
-
-	BOOL bResult = TRUE;
-	if ( IsStarted() )
-	{
-		if ( pLock ) pLock->Unlock();
-
-		const CString strPath = GetPath( nIndex );
-		const CString strName = GetName( nIndex );
-		const CString strExt = strName.Mid( strName.ReverseFind( L'.' ) );
-
-		bResult = CFileExecutor::Enqueue( strPath, strExt );
-
-		if ( pLock ) pLock->Lock();
-	}
-
-	return bResult;
-}
-
-void CDownload::Resize(QWORD nNewSize)
-{
-	if ( m_nSize == nNewSize )
-		return;
-
-	// Check for possible change to multi-file download
-	if ( ! m_oSHA1 && ! m_oTiger && ! m_oED2K && ! m_oMD5 && ( m_oBTH || IsTorrent() ) && IsFileOpen() )
-	{
-		// Remove old file
-		AbortTask();
-		ClearVerification();
-		CloseFile();
-		DeleteFile();
-
-		// Create a fresh one
-		AttachFile( new CFragmentedFile );
-	}
-
-	SetSize( nNewSize );
-}

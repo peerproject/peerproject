@@ -102,11 +102,10 @@ void CPluginsSettingsPage::OnItemChangingPlugins(NMHDR *pNMHDR, LRESULT *pResult
 	NMLISTVIEW* pNMListView = reinterpret_cast<NMLISTVIEW*>(pNMHDR);
 	*pResult = 0;
 
-	if ( ( pNMListView->uOldState & LVIS_STATEIMAGEMASK ) == 0 &&
+	if ( m_bRunning &&
+		 ( pNMListView->uOldState & LVIS_STATEIMAGEMASK ) == 0 &&
 		 ( pNMListView->uNewState & LVIS_STATEIMAGEMASK ) != 0 )
-	{
-		if ( m_bRunning ) *pResult = 1;
-	}
+		*pResult = 1;
 }
 
 void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
@@ -153,10 +152,10 @@ void CPluginsSettingsPage::OnItemChangedPlugins(NMHDR* pNMHDR, LRESULT* pResult)
 
 		for ( int nDot = 0 ; nDot != -1 ; )
 		{
-			nDot = strExt.Find( '.', nDot );
+			nDot = strExt.Find( L'.', nDot );
 			if ( nDot != -1 )
 			{
-				strExt.Insert( nDot, '-' );
+				strExt.Insert( nDot, L'-' );
 				nDot += 2;
 			}
 		}
@@ -176,10 +175,10 @@ void CPluginsSettingsPage::OnCustomDrawPlugins(NMHDR *pNMHDR, LRESULT *pResult)
 	}
 	else if ( pDraw->nmcd.dwDrawStage == CDDS_ITEMPREPAINT )
 	{
-		if ( pDraw->nmcd.lItemlParam != 0 )
-			pDraw->clrText = Colors.m_crText ;			// Interface Elements
-		else
-			pDraw->clrText = Colors.m_crNetworkNull ;	// Hidden Plugin
+		if ( pDraw->nmcd.lItemlParam == 0 )
+			pDraw->clrText = RGB( 110, 110, 110 );	// Hidden Plugin		//Colors.m_crNetworkNull
+		//else
+		//	pDraw->clrText = 0;						// Interface Elements	//Colors.m_crText
 	}
 }
 
@@ -193,7 +192,9 @@ void CPluginsSettingsPage::OnPluginsSetup()
 	strExt = m_wndList.GetItemText( nItem, 2 );
 
 	if ( pPlugin != NULL && pPlugin->m_pPlugin != NULL )
+	{
 		pPlugin->m_pPlugin->Configure();
+	}
 	else if ( ! strExt.IsEmpty() )
 	{
 		CPluginExtSetupDlg dlg( &m_wndList, strExt );
@@ -239,7 +240,8 @@ void CPluginsSettingsPage::OnOK()
 		}
 	}
 
-	if ( bChanged ) PostMainWndMessage( WM_SKINCHANGED );
+	if ( bChanged )
+		PostMainWndMessage( WM_SKINCHANGED );
 
 	CSettingsPage::OnOK();
 }
@@ -319,8 +321,7 @@ void CPluginsSettingsPage::EnumerateMiscPlugins()
 {
 	HKEY hPlugins = NULL;
 
-	if ( ERROR_SUCCESS != RegOpenKeyEx( HKEY_CURRENT_USER,
-		 REGISTRY_KEY L"\\Plugins", 0, KEY_READ, &hPlugins ) )
+	if ( ERROR_SUCCESS != RegOpenKeyEx( HKEY_CURRENT_USER, REGISTRY_KEY L"\\Plugins", 0, KEY_READ, &hPlugins ) )
 		return;
 
 	for ( DWORD nIndex = 0 ; ; nIndex++ )
@@ -329,8 +330,8 @@ void CPluginsSettingsPage::EnumerateMiscPlugins()
 		TCHAR szName[128];
 		DWORD nName = 128;
 
-		if ( ERROR_SUCCESS != RegEnumKeyEx( hPlugins, nIndex, szName, &nName,
-			NULL, NULL, NULL, NULL ) ) break;
+		if ( ERROR_SUCCESS != RegEnumKeyEx( hPlugins, nIndex, szName, &nName, NULL, NULL, NULL, NULL ) )
+			break;
 
 		if ( _tcsicmp( szName, L"General" ) != 0 )
 		{
@@ -357,8 +358,8 @@ void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 		DWORD nName = 128, nValue = 128, nType = REG_SZ;
 		TCHAR szName[128], szValue[128];
 
-		if ( ERROR_SUCCESS != RegEnumValue( hRoot, nIndex, szName, &nName,
-			NULL, &nType, (LPBYTE)szValue, &nValue ) ) break;
+		if ( ERROR_SUCCESS != RegEnumValue( hRoot, nIndex, szName, &nName, NULL, &nType, (LPBYTE)szValue, &nValue ) )
+			break;
 
 		if ( nType == REG_SZ && szValue[0] == '{' )
 		{
@@ -373,16 +374,13 @@ void CPluginsSettingsPage::EnumerateMiscPlugins(LPCTSTR pszType, HKEY hRoot)
 
 					if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CURRENT_USER, strPath, 0, KEY_READ, &hUserPlugins ) )
 					{
-						if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue,
-												NULL, &nType, NULL, &nLength ) && nType == REG_SZ && nLength )
+						if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue, NULL, &nType, NULL, &nLength ) &&
+							 nType == REG_SZ && nLength )
 						{
 							TCHAR* pszExtValue = new TCHAR[ nLength ];
-							if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue,
-									NULL, &nType, (LPBYTE)pszExtValue, &nLength ) )
-							{
-								// Found under user options
-								strExts.SetString( pszExtValue );
-							}
+							if ( ERROR_SUCCESS == RegQueryValueEx( hUserPlugins, (LPCTSTR)szValue, NULL, &nType, (LPBYTE)pszExtValue, &nLength ) )
+								strExts.SetString( pszExtValue );	// Found under user options
+
 							delete [] pszExtValue;
 						}
 						else if ( nType == REG_DWORD )	// Upgrade from REG_DWORD to REG_SZ
@@ -434,8 +432,7 @@ void CPluginsSettingsPage::AddMiscPlugin(LPCTSTR /*pszType*/, LPCTSTR pszCLSID, 
 		DWORD nValue = MAX_PATH * sizeof( TCHAR ), nType = REG_SZ;
 		TCHAR szValue[ MAX_PATH ];
 
-		if ( ERROR_SUCCESS == RegQueryValueEx( hClass, NULL, NULL, &nType,
-			(LPBYTE)szValue, &nValue ) )
+		if ( ERROR_SUCCESS == RegQueryValueEx( hClass, NULL, NULL, &nType, (LPBYTE)szValue, &nValue ) )
 		{
 			if ( Hashes::fromGuid( pszCLSID, &pCLSID ) )
 			{
@@ -449,8 +446,7 @@ void CPluginsSettingsPage::AddMiscPlugin(LPCTSTR /*pszType*/, LPCTSTR pszCLSID, 
 	}
 }
 
-// Plugin descriptions are taken from Comments in its code resources.
-// Authors can put any information here.
+// Plugin descriptions are taken from Comments in its code resources. Authors can put any information here.
 CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 {
 	CString strPath;
@@ -458,21 +454,16 @@ CString CPluginsSettingsPage::GetPluginComments(LPCTSTR pszCLSID) const
 
 	strPath.Format( L"CLSID\\%s\\InProcServer32", pszCLSID );
 
-	if ( ERROR_SUCCESS == RegOpenKeyEx( HKEY_CLASSES_ROOT, strPath, 0, KEY_READ, &hClassServer ) )
-	{
-		DWORD nValue = MAX_PATH * sizeof( TCHAR ), nType = REG_SZ;
-		TCHAR szPluginPath[ MAX_PATH ];
-
-		if ( ERROR_SUCCESS == RegQueryValueEx( hClassServer, NULL, NULL, &nType,
-			(LPBYTE)szPluginPath, &nValue ) && nType == REG_SZ )
-		{
-			strPath.SetString( szPluginPath );
-		}
-		else
-			return CString();
-	}
-	else
+	if ( ERROR_SUCCESS != RegOpenKeyEx( HKEY_CLASSES_ROOT, strPath, 0, KEY_READ, &hClassServer ) )
 		return CString();
+
+	DWORD nValue = MAX_PATH * sizeof( TCHAR ), nType = REG_SZ;
+	TCHAR szPluginPath[ MAX_PATH ];
+
+	if ( ERROR_SUCCESS != RegQueryValueEx( hClassServer, NULL, NULL, &nType,(LPBYTE)szPluginPath, &nValue ) || nType != REG_SZ )
+		return CString();
+
+	strPath.SetString( szPluginPath );
 
 	DWORD nSize = GetFileVersionInfoSize( strPath, &nSize );
 	BYTE* pBuffer = new BYTE[ nSize ];

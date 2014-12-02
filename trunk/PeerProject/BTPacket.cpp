@@ -354,13 +354,13 @@ void CDHT::OnEvent(void* /*closure*/, int evt, const unsigned char* info_hash, c
 				//	ATLTRACE( "DHT> %s %s\n", (LPCSTR)CT2CA( pDownload->m_oBTH.toString() ), (LPCSTR)CT2CA( pDownload->m_sName ) );
 
 					size_t nCount = data_len / 6;
-					int nMax = Settings.Downloads.SourcesWanted;
-					for ( size_t i = 0 ; i < nCount ; ++i, nMax-- )
+					//int nMax = Settings.Downloads.SourcesWanted;
+					for ( size_t i = 0 ; i < nCount ; ++i )
 					{
 						const char* p = &((const char*)data)[ i * 6 ];
 						pDownload->AddSourceBT( Hashes::BtGuid(), (IN_ADDR*)p, ntohs( *(WORD*)(p + 4) ) );
-						if ( nMax < 0 && pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
-							break;
+					//	if ( nMax-- < 0 && pDownload->GetEffectiveSourceCount() > Settings.Downloads.SourcesWanted )
+					//		break;
 					}
 				}
 			}

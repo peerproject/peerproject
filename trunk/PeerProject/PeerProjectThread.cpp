@@ -21,136 +21,7 @@
 #include "PeerProjectThread.h"
 
 
-IMPLEMENT_DYNAMIC(CAppThread, CWinThread)
-
-CCriticalSection		CAppThread::m_ThreadMapSection;
-CAppThread::CThreadMap	CAppThread::m_ThreadMap;
-
-CAppThread::CAppThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/)
-	: CWinThread( NULL, pParam )
-	, m_pfnThreadProcExt( pfnThreadProc )
-{
-}
-
-CAppThread::~CAppThread()
-{
-	Remove( m_hThread );
-}
-
-HANDLE CAppThread::CreateThread(LPCSTR pszName, int nPriority /*= THREAD_PRIORITY_NORMAL*/,
-	DWORD dwCreateFlags /*= 0*/, UINT nStackSize /*= 0*/, LPSECURITY_ATTRIBUTES lpSecurityAttrs /*= NULL*/)
-{
-	if ( CWinThread::CreateThread( dwCreateFlags | CREATE_SUSPENDED, nStackSize, lpSecurityAttrs ) )
-	{
-		Add( this, pszName );
-
-		VERIFY( SetThreadPriority( nPriority ) );
-
-		if ( ! ( dwCreateFlags & CREATE_SUSPENDED ) )
-			VERIFY( ResumeThread() != (DWORD)-1 );
-
-		return m_hThread;
-	}
-
-	Delete();
-
-	return NULL;
-}
-
-BOOL CAppThread::InitInstance()
-{
-	CWinThread::InitInstance();
-
-	return TRUE;
-}
-
-int CAppThread::Run()
-{
-	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
-
-	int ret;
-	if ( m_pfnThreadProcExt )
-		ret = ( *m_pfnThreadProcExt )( m_pThreadParams );
-	else
-		ret = CWinThread::Run();
-
-	if ( bCOM )
-	{
-		__try
-		{
-			OleUninitialize();
-		}
-		__except( EXCEPTION_EXECUTE_HANDLER )
-		{
-		}
-	}
-
-	return ret;
-}
-
-void CAppThread::Add(CAppThread* pThread, LPCSTR pszName)
-{
-	CSingleLock oLock( &m_ThreadMapSection, TRUE );
-
-	if ( pszName )
-		SetThreadName( pThread->m_nThreadID, pszName );
-
-	CThreadTag tag = { pThread, pszName };
-	m_ThreadMap.SetAt( pThread->m_hThread, tag );
-
-	TRACE( L"Creating '%hs' thread (0x%08x). Count: %d\n",
-		( pszName ? pszName : "unnamed" ), pThread->m_hThread, m_ThreadMap.GetCount() );
-}
-
-void CAppThread::Remove(HANDLE hThread)
-{
-	if ( ! hThread )
-		return;
-
-	CSingleLock oLock( &m_ThreadMapSection, TRUE );
-
-	CThreadTag tag = { 0 };
-	if ( m_ThreadMap.Lookup( hThread, tag ) )
-	{
-		m_ThreadMap.RemoveKey( hThread );
-
-		TRACE( L"Removing '%hs' thread (0x%08x). Count: %d\n",
-			( tag.pszName ? tag.pszName : "unnamed" ),
-			hThread, m_ThreadMap.GetCount() );
-	}
-}
-
-void CAppThread::Terminate(HANDLE hThread)
-{
-	// Very dangerous function produces 100% unrecoverable TLS leaks/deadlocks
-	if ( TerminateThread( hThread, 0 ) )
-	{
-		CSingleLock oLock( &m_ThreadMapSection, TRUE );
-
-		CThreadTag tag = { 0 };
-		if ( m_ThreadMap.Lookup( hThread, tag ) )
-		{
-			ASSERT( hThread == tag.pThread->m_hThread );
-			ASSERT_VALID( tag.pThread );
-			ASSERT( static_cast<CWinThread*>( tag.pThread ) != AfxGetApp() );
-			tag.pThread->Delete();
-		}
-		else
-			CloseHandle( hThread );
-
-		theApp.Message( MSG_DEBUG, L"WARNING: Terminating '%hs' thread (0x%08x).",
-			( tag.pszName ? tag.pszName : "unnamed" ), hThread );
-		TRACE( L"WARNING: Terminating '%hs' thread (0x%08x).\n",
-			( tag.pszName ? tag.pszName : "unnamed" ), hThread );
-	}
-	else
-	{
-		theApp.Message( MSG_DEBUG, L"WARNING: Terminating thread (0x%08x) failed.", hThread );
-		TRACE( L"WARNING: Terminating thread (0x%08x) failed.\n", hThread );
-	}
-}
-
-void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
+inline void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
 {
 #ifdef _DEBUG
 	struct
@@ -174,64 +45,237 @@ void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName)
 	__except( EXCEPTION_CONTINUE_EXECUTION )
 	{
 	}
-#endif
+#else
 	UNUSED(dwThreadID);
 	UNUSED(szThreadName);
+#endif
 }
 
-HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
-	LPVOID pParam, int nPriority, UINT nStackSize, DWORD dwCreateFlags,
-	LPSECURITY_ATTRIBUTES lpSecurityAttrs, DWORD* pnThreadID)
+
+IMPLEMENT_DYNAMIC(CPeerThread, CWinThread)
+
+CCriticalSection		CPeerThread::m_ThreadMapSection;
+CPeerThread::CThreadMap	CPeerThread::m_ThreadMap;
+
+CPeerThread::CPeerThread(AFX_THREADPROC pfnThreadProc /*= NULL*/, LPVOID pParam /*= NULL*/)
+	: CWinThread( NULL, pParam )
+	, m_pfnThreadProcExt( pfnThreadProc )
+	, m_pnOwnerThreadID	( NULL )
 {
-	CAppThread* pThread = new CAppThread( pfnThreadProc, pParam );
-	ASSERT_VALID( pThread );
-	if ( pThread )
+}
+
+CPeerThread::~CPeerThread()
+{
+	Remove( m_nThreadID );
+}
+
+HANDLE CPeerThread::CreateThread(LPCSTR pszName, int nPriority, DWORD dwCreateFlags, UINT nStackSize, LPSECURITY_ATTRIBUTES lpSecurityAttrs, DWORD* pnThreadID)
+{
+	if ( CWinThread::CreateThread( dwCreateFlags | CREATE_SUSPENDED, nStackSize, lpSecurityAttrs ) )
 	{
-		HANDLE hThread = pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize, lpSecurityAttrs );
 		if ( pnThreadID )
-			*pnThreadID = pThread->m_nThreadID;
-		return hThread;
+		{
+			m_pnOwnerThreadID = pnThreadID;
+			*pnThreadID = m_nThreadID;
+		}
+
+		Add( this, pszName );
+
+		VERIFY( ::SetThreadPriority( m_hThread, nPriority ) );
+
+		if ( ! ( dwCreateFlags & CREATE_SUSPENDED ) )
+			VERIFY( ResumeThread() != (DWORD)-1 );
+
+		return m_hThread;
+	}
+
+	if  ( pnThreadID )
+		*pnThreadID = 0;
+
+	Delete();
+
+	return NULL;
+}
+
+BOOL CPeerThread::InitInstance()
+{
+	CWinThread::InitInstance();
+
+	return TRUE;
+}
+
+int CPeerThread::Run()
+{
+	BOOL bCOM = SUCCEEDED( OleInitialize( NULL ) );
+
+	int ret;
+	if ( m_pfnThreadProcExt )
+		ret = ( *m_pfnThreadProcExt )( m_pThreadParams );
+	else
+		ret = CWinThread::Run();
+
+	if ( bCOM )
+	{
+		__try
+		{
+			OleUninitialize();
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+	}
+
+	if ( m_pnOwnerThreadID )
+	{
+		*m_pnOwnerThreadID = 0;
+		m_pnOwnerThreadID = NULL;
+	}
+
+	return ret;
+}
+
+void CPeerThread::Add(CPeerThread* pThread, LPCSTR pszName)
+{
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	ASSERT( pThread->m_nThreadID );
+	ASSERT( ! IsThreadAlive( pThread->m_nThreadID ) );
+
+#ifdef _DEBUG
+	if ( pszName )
+		SetThreadName( pThread->m_nThreadID, pszName );
+#endif
+
+	CThreadTag tag = { pThread, pszName };
+	m_ThreadMap.SetAt( pThread->m_nThreadID, tag );
+
+	TRACE( L"Creating '%hs' thread (0x%x). Count: %d\n",
+		( pszName ? pszName : "unnamed" ), pThread->m_nThreadID, m_ThreadMap.GetCount() );
+}
+
+void CPeerThread::Remove(DWORD nThreadID)
+{
+	if ( ! nThreadID )
+		return;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	if ( m_ThreadMap.Lookup( nThreadID, tag ) )
+	{
+		m_ThreadMap.RemoveKey( nThreadID );
+
+		TRACE( L"Removing '%hs' thread (0x%x). Count: %d\n",
+			( tag.pszName ? tag.pszName : "unnamed" ), nThreadID, m_ThreadMap.GetCount() );
+	}
+}
+
+bool CPeerThread::IsThreadAlive(DWORD nThreadID)
+{
+	if ( ! nThreadID )
+		return false;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	return ( m_ThreadMap.Lookup( nThreadID, tag ) != FALSE );
+}
+
+bool CPeerThread::SetThreadPriority(DWORD nThreadID, int nPriority)
+{
+	if ( ! nThreadID )
+		return false;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	return ( m_ThreadMap.Lookup( nThreadID, tag ) && ( ::SetThreadPriority( tag.pThread->m_hThread, nPriority ) != FALSE ) );
+}
+
+HANDLE CPeerThread::GetHandle(DWORD nThreadID)
+{
+	if ( ! nThreadID )
+		return NULL;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	return ( m_ThreadMap.Lookup( nThreadID, tag ) ? tag.pThread->m_hThread : NULL );
+}
+
+void CPeerThread::DeleteThread(DWORD nThreadID)
+{
+	if ( ! nThreadID )
+		return;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	if ( m_ThreadMap.Lookup( nThreadID, tag ) )
+		tag.pThread->Delete();
+}
+
+void CPeerThread::DetachThread(DWORD nThreadID)
+{
+	if ( ! nThreadID )
+		return;
+
+	CSingleLock oLock( &m_ThreadMapSection, TRUE );
+
+	CThreadTag tag;
+	if ( m_ThreadMap.Lookup( nThreadID, tag ) )
+		tag.pThread->m_pnOwnerThreadID = NULL;
+}
+
+HANDLE CPeerThread::BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc, LPVOID pParam, int nPriority, UINT nStackSize, DWORD dwCreateFlags, LPSECURITY_ATTRIBUTES lpSecurityAttrs, DWORD* pnThreadID)
+{
+	if ( CPeerThread* pThread = new CPeerThread( pfnThreadProc, pParam ) )
+	{
+		return pThread->CreateThread( pszName, nPriority, dwCreateFlags, nStackSize, lpSecurityAttrs, pnThreadID );
 	}
 	return NULL;
 }
 
-void CloseThread(HANDLE hThread, DWORD dwTimeout)
+void CPeerThread::CloseThread(DWORD nThreadID, DWORD dwTimeout)
 {
 	__try
 	{
-		if ( hThread )
+		if ( HANDLE hThread = GetHandle( nThreadID ) )
 		{
-			__try
+			DWORD dwExitCode;
+			while ( GetExitCodeThread( hThread, &dwExitCode ) && dwExitCode == STILL_ACTIVE )
 			{
+				if ( ! IsThreadAlive( nThreadID ) )
+					return;
+
 				::SetThreadPriority( hThread, THREAD_PRIORITY_NORMAL );
 
-				DWORD dwExitCode;
-				while( GetExitCodeThread( hThread, &dwExitCode ) && dwExitCode == STILL_ACTIVE )
+				SafeMessageLoop();
+
+				DWORD res = MsgWaitForMultipleObjects( 1, &hThread, FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
+				if ( res == WAIT_OBJECT_0 + 1 )
+					continue;	// Handle messages
+				if ( res != WAIT_TIMEOUT )
+					break;		// Handle signaled state or errors
+
+				// Timeout
+
+				// Very dangerous function produces 100% unrecoverable TLS leaks/deadlocks
+				if ( TerminateThread( hThread, 0 ) )
 				{
-					::SetThreadPriority( hThread, THREAD_PRIORITY_NORMAL );
+					theApp.Message( MSG_DEBUG, L"WARNING: Terminating thread (0x%x).", nThreadID );
+					TRACE( L"WARNING: Terminating thread (0x%x).\n", nThreadID );
 
-					SafeMessageLoop();
-
-					DWORD res = MsgWaitForMultipleObjects( 1, &hThread, FALSE, dwTimeout, QS_ALLINPUT | QS_ALLPOSTMESSAGE );
-					if ( res == WAIT_OBJECT_0 + 1 )
-						continue;	// Handle messages
-					if ( res == WAIT_TIMEOUT )
-						CAppThread::Terminate( hThread );	// Timeout
-
-					// Handle signaled state or errors
-					break;
+					DeleteThread( nThreadID );
 				}
+				break;
 			}
-			__except( EXCEPTION_EXECUTE_HANDLER )
-			{
-				// Thread already ended
-			}
-
-			CAppThread::Remove( hThread );
 		}
 	}
 	__except( EXCEPTION_EXECUTE_HANDLER )
 	{
-		// Deleted thread handler
+		// Thread already ended
 	}
+
+	CPeerThread::Remove( nThreadID );
 }

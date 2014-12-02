@@ -241,7 +241,7 @@ void CLibraryFileView::OnMouseMove(UINT nFlags, CPoint point)
 {
 	CLibraryView::OnMouseMove( nFlags, point );
 
-	if ( DWORD_PTR nFile = HitTestIndex( point ) )
+	if ( DWORD nFile = (DWORD)HitTestIndex( point ) )	// DWORD_PTR
 		GetToolTip()->Show( nFile );
 	else
 		GetToolTip()->Hide();
@@ -608,7 +608,7 @@ void CLibraryFileView::OnLibraryRebuildAnsi()
 
 void CLibraryFileView::OnUpdateLibraryRebuild(CCmdUI* pCmdUI)
 {
-	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() );
+	pCmdUI->Enable( ! m_bGhostFolder && GetSelectedCount() > 0 );
 }
 
 void CLibraryFileView::OnLibraryRebuild()
@@ -632,7 +632,7 @@ void CLibraryFileView::OnUpdateLibraryRefreshMetadata(CCmdUI* pCmdUI)
 
 void CLibraryFileView::OnLibraryRefreshMetadata()
 {
-	const DWORD nTotal = GetSelectedCount();
+	const DWORD nTotal = (DWORD)GetSelectedCount();		// INT_PTR
 
 	if ( nTotal == 1 )
 	{
@@ -926,7 +926,7 @@ void CLibraryFileView::OnLibraryBitprintsDownload()
 
 	if ( ! Settings.WebServices.BitprintsOkay )
 	{
-		if ( MsgBox( IDS_LIBRARY_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+		if ( MsgBox( IDS_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 		Settings.WebServices.BitprintsOkay = true;
 		Settings.Save();
 	}

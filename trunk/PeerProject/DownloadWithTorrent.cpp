@@ -400,17 +400,14 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo* pTorrent)
 //////////////////////////////////////////////////////////////////////
 // CDownloadWithTorrent run
 
-bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
+void CDownloadWithTorrent::RunTorrent(DWORD tNow)
 {
-	//if ( ! IsTorrent() )
-	//	return true;
-
-	if ( ! Settings.BitTorrent.Enabled )	// ( || ! Network.IsConnected() )
-		return true;
+	if ( ! IsTorrent() || ! Settings.BitTorrent.Enabled || ! Network.IsConnected() )
+		return;
 
 	// Return if disk is full
 	if ( GetFileError() != ERROR_SUCCESS )
-		return false;
+		return;
 
 	// Choke torrents every 10 seconds
 	if ( tNow > m_tTorrentChoke && tNow - m_tTorrentChoke >= 10000ul )
@@ -418,11 +415,11 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 
 	// Check if the torrent file exists and has been opened
 	if ( ! OpenFile() )
-		return false;
+		return;
 
 	// Return if this download is waiting for a download task to finish
 	if ( IsTasking() )
-		return false;
+		return;
 
 	// Generate a peerid if there isn't one
 	if ( ! m_pPeerID )
@@ -461,16 +458,15 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 					if ( pFragFile.get() )
 					{
 						const DWORD nCount = pFragFile->GetCount();
-
 						if ( nCount > 1 )
 						{
 							CString strName;
 							for ( DWORD i = 0 ; i < nCount ; i++ )
 							{
 								strName = pFragFile->GetName( i );
-								strName = strName.Mid( strName.ReverseFind( '\\' ) + 1 );
+								strName = strName.Mid( strName.ReverseFind( L'\\' ) + 1 );
 
-								if ( strName[0] == '_' && Settings.BitTorrent.SkipPaddingFiles &&
+								if ( strName[0] == L'_' && Settings.BitTorrent.SkipPaddingFiles &&
 										  StartsWith( strName, L"_____padding_file_", 18 ) )
 									pFragFile->SetPriority( i, CFragmentedFile::prUnwanted );
 								else if ( Settings.BitTorrent.SkipTrackerFiles && strName.Right( 4 ) == L".txt" &&
@@ -483,8 +479,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 			}
 		}
 
-		// Report that the torrent checks have run successfully
-		return true;
+		return;
 	}
 
 	// Store if this is a regular update or not
@@ -523,8 +518,7 @@ bool CDownloadWithTorrent::RunTorrent(DWORD tNow)
 			m_tTorrentSources = tNow;		// Record time that source counts checked even if no update sent
 	}
 
-	// Report that the torrent checks have run successfully
-	return true;
+	//return;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -667,13 +661,13 @@ void CDownloadWithTorrent::OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCT
 		m_pTorrent.SetTrackerSucceeded( tNow );
 
 		// Get new sources
-		int nMax = Settings.Downloads.SourcesWanted;
-		for ( POSITION pos = pEvent->GetSources() ; pos ; nMax-- )
+		//int nMax = Settings.Downloads.SourcesWanted;
+		for ( POSITION pos = pEvent->GetSources() ; pos ; )
 		{
 			const CBTTrackerSource& pSource = pEvent->GetNextSource( pos );
 			AddSourceBT( pSource.m_pPeerID, &pSource.m_pAddress.sin_addr, ntohs( pSource.m_pAddress.sin_port ) );
-			if ( nMax < 0 && GetEffectiveSourceCount() >= Settings.Downloads.SourcesWanted )
-				break;
+			//if ( nMax-- < 0 && GetEffectiveSourceCount() >= Settings.Downloads.SourcesWanted )
+			//	break;
 		}
 
 		// Lock on this tracker if we were searching for one

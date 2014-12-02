@@ -130,14 +130,15 @@ CLibraryFolder* CLibraryFolders::GetNextFolder(POSITION& pos) const
 //////////////////////////////////////////////////////////////////////
 // CLibraryFolders physical folder search
 
-CLibraryFolder* CLibraryFolders::GetFolder(LPCTSTR pszPath) const
+CLibraryFolder* CLibraryFolders::GetFolder(const CString& strPath) const
 {
 	ASSUME_LOCK( Library.m_pSection );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
-		CLibraryFolder* pFolder = GetNextFolder( pos )->GetFolderByPath( pszPath );
-		if ( pFolder != NULL ) return pFolder;
+		CLibraryFolder* pFolder = GetNextFolder( pos )->GetFolderByPath( strPath );
+		if ( pFolder != NULL )
+			return pFolder;
 	}
 
 	return NULL;
@@ -258,38 +259,40 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 	if ( strPath.IsEmpty() )
 		return false;
 
-	// Convert path to lowercase
-	CString strPathLC( strPath );
-	ToLower( strPathLC );
+	strLastPath = strPath;
 
 	// Check if path is valid
-	if ( ! IsShareable( strPathLC ) )
+	if ( ! IsShareable( strPath ) )
 	{
 		CHelpDlg::Show( L"ShareHelp.BadShare" );
 		return false;
 	}
+
+	// Convert path to lowercase
+	CString strPathLow( strPath );
+	ToLower( strPathLow );
 
 	// Check if path is already shared
 	bool bForceAdd( false );
 	for ( int nItem( 0 ) ; nItem < oList.GetItemCount() ; ++nItem )
 	{
 		bool bSubFolder( false );
-		CString strOldLC( oList.GetItemText( nItem, 0 ) );
-		ToLower( strOldLC );
+		CString strOldLow( oList.GetItemText( nItem, 0 ) );
+		ToLower( strOldLow );
 
-		if ( strPathLC == strOldLC )
+		if ( strPathLow.Compare( strOldLow ) == 0 )
 		{
 			// Matches exactly
 		}
-		else if ( strPathLC.GetLength() > strOldLC.GetLength() )
+		else if ( strPathLow.GetLength() > strOldLow.GetLength() )
 		{
-			if ( strPathLC.Left( strOldLC.GetLength() + 1 ) != strOldLC + '\\' )
+			if ( strPathLow.Left( strOldLow.GetLength() + 1 ) != strOldLow + '\\' )
 				continue;
 		}
-		else if ( strPathLC.GetLength() < strOldLC.GetLength() )
+		else if ( strPathLow.GetLength() < strOldLow.GetLength() )
 		{
 			bSubFolder = true;
-			if ( strOldLC.Left( strPathLC.GetLength() + 1 ) != strPathLC + L'\\' )
+			if ( strOldLow.Left( strPathLow.GetLength() + 1 ) != strPathLow + L'\\' )
 				continue;
 		}
 		else
@@ -319,7 +322,7 @@ bool CLibraryFolders::AddSharedFolder(CListCtrl& oList)
 		else
 		{
 			CString strMessage;
-			strMessage.Format( LoadString( IDS_WIZARD_SHARE_ALREADY ), strOldLC );
+			strMessage.Format( LoadString( IDS_WIZARD_SHARE_ALREADY ), strOldLow );
 			MsgBox( strMessage, MB_ICONINFORMATION );
 			return false;
 		}
@@ -382,7 +385,7 @@ CLibraryFolder* CLibraryFolders::IsFolderShared(const CString& strPath) const
 				 strPathLow.GetAt( nLength ) == L'\\' )
 				return pFolder;
 		}
-		else if ( strPathLow == strOldLow )
+		else if ( strPathLow.Compare( strOldLow ) == 0 )
 		{
 			return pFolder;
 		}
@@ -426,38 +429,40 @@ CLibraryFolder* CLibraryFolders::IsSubFolderShared(const CString& strPath) const
 
 bool CLibraryFolders::IsShareable(const CString& strPath)
 {
-	// Convert path to lowercase
-	CString strPathLow( strPath );
-	if ( strPathLow.IsEmpty() ) return false;
-	ToLower( strPathLow );
+	if ( strPath.IsEmpty() )
+		return false;
 
 	// Get system paths (to compare)
-	CString strWindowsLow( theApp.GetWindowsFolder() );
-	ToLower( strWindowsLow );
 
-	CString strProgramsLow( theApp.GetProgramFilesFolder() );
-	ToLower( strProgramsLow );
+	const CString strWindows = theApp.GetWindowsFolder();
+	if ( strPath.GetLength() < 4 && _tcsnicmp( strWindows.Left( 3 ), strPath, strPath.GetLength() ) == 0 )
+		return false;
+	if ( _tcsnicmp( strWindows, strPath, strPath.GetLength() ) == 0 )
+		return false;
+
+	const CString strProgramFiles = theApp.GetProgramFilesFolder();
+	if ( _tcsnicmp( strProgramFiles, strPath, strPath.GetLength() ) == 0 )
+		return false;
+
+	const CString strProgramFiles64 = theApp.GetProgramFilesFolder64();
+	if ( _tcsnicmp( strProgramFiles64, strPath, strPath.GetLength() ) == 0 )
+		return false;
 
 	// Get various PeerProject paths (to compare)
-	CString strIncompletePathLow = Settings.Downloads.IncompletePath;
-	ToLower( strIncompletePathLow );
+	if ( _tcsnicmp( strPath, Settings.General.Path, Settings.General.Path.GetLength() ) == 0 )
+		return false;
+	if ( _tcsnicmp( Settings.General.Path, strPath, strPath.GetLength() ) == 0 )
+		return false;
 
-	CString strGeneralPathLow = Settings.General.Path;
-	ToLower( strGeneralPathLow );
+	if ( _tcsicmp( strPath, Settings.General.UserPath ) == 0 )
+		return false;
+	if ( _tcsicmp( strPath, Settings.General.DataPath ) == 0 )
+		return false;
 
-	CString strUserPathLow = Settings.General.UserPath;		// Settings.General.DataPath
-	ToLower( strUserPathLow );
+	if ( _tcsnicmp( Settings.Downloads.IncompletePath, strPath, strPath.GetLength() ) == 0 )
+		return false;
 
-	return ! (
-		 strPathLow == strWindowsLow.Left( 3 ) ||
-		 strPathLow == strWindowsLow.Left( 2 ) ||
-		 strPathLow == strWindowsLow ||
-		 strPathLow == strProgramsLow ||
-		 strPathLow == strGeneralPathLow ||
-		 strPathLow == strGeneralPathLow + L"\\data" ||
-		 strPathLow == strUserPathLow ||
-		 strPathLow == strUserPathLow + L"\\data" ||
-		 strPathLow == strIncompletePathLow );
+	return true;
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -58,6 +58,7 @@ protected:
 	CCriticalSection m_pSection;
 	CRect		m_rcFolder;
 	CRect		m_rcRating;
+	BOOL		m_bRedraw;
 	BOOL		m_bForceUpdate;
 //	CString		m_sThumbnailURL;	// Use this URL to load thumbnail instead
 	CString		m_sThumb;			// Loaded thumbnail file path or URL
@@ -72,6 +73,7 @@ protected:
 	afx_msg void OnPaint();
 	afx_msg int  OnCreate(LPCREATESTRUCT lpCreateStruct);
 	afx_msg void OnDestroy();
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);

@@ -238,7 +238,7 @@ void CIRCFrame::ClearChanListCount()
 void CIRCFrame::FillChanListCount(const CString& strUserCount, const CString& strChannelName)
 {
 	BOOL bFound = FALSE;
-	CString strCurrentChannel, strList, strUsers, strCount, strDisplay;
+	CString strList, strDisplay;
 	int nCount = _tstoi( strUserCount ), nList, nIndex, nCountWnd;
 	CListCtrl& wndChanList = m_wndPanel.m_boxChans.m_wndChanList;
 	nIndex = m_pChanList.GetIndexOfName( strChannelName );
@@ -269,6 +269,7 @@ void CIRCFrame::FillChanListCount(const CString& strUserCount, const CString& st
 	else
 		nCountWnd = nCount;
 
+	CString strCount;
 	strCount.Format( L"%d", nCountWnd );
 	if ( ! bFound )
 		nList = wndChanList.InsertItem( nChanCount, strDisplay );
@@ -1888,7 +1889,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		}
 	case ID_MESSAGE_CLIENT_JOIN_USERLIST:
 		{
-			CString strChannelName = m_pWords.GetAt( 4 ), strTemp, nModeStr;
+			CString strChannelName = m_pWords.GetAt( 4 ), strTemp;
 			int nMode, nWord, nModeColumn, nTab = m_wndTab.GetCurSel();
 			for ( nWord = 6 ; nWord < m_pWords.GetCount() - 1 ; nWord++ )
 			{
@@ -2120,7 +2121,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		{
 			CString strNick = m_pWords.GetAt( 0 );
 			CString strChannelName = GetTabText();
-			CString strCurUser, strTmp;
+			CString strCurUser;
 			int nListUser, nTab;
 			const int nTabCount = m_wndTab.GetItemCount();
 			for ( nTab = 0 ; nTab < nTabCount ; nTab++ )
@@ -2525,7 +2526,7 @@ void CIRCFrame::TabClick()
 	RedrawWindow();
 }
 
-int CIRCFrame::AddTab(CString strTabName, int nKindOfTab)
+int CIRCFrame::AddTab(const CString& strTabName, int nKindOfTab)
 {
 	if ( m_wndTab.GetItemCount() == MAX_CHANNELS )
 	{

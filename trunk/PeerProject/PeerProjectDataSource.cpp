@@ -368,8 +368,7 @@ HRESULT CPeerProjectDataSource::DoDragDropHelper(const T* pList, HBITMAP pImage,
 				if ( SUCCEEDED( hr ) )
 				{
 					// Begin async drag-n-drop operation
-					HANDLE hThread = BeginThread( "DragDrop",
-						DragDropThread<T>, (LPVOID)pStream );
+					HANDLE hThread = CPeerThread::BeginThread( "DragDrop", DragDropThread<T>, (LPVOID)pStream );
 					hr = ( hThread != NULL ) ? S_OK : E_FAIL;
 				}
 			}
@@ -574,7 +573,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 			if ( nPath1Length > 0 && pszDest[ nPath1Length - 1 ] == L'\\' )
 				nPath1Length--;
 			int nPath2Length = bFolder ? lstrlen( pAFOP->sFrom.GetData() ) :
-				( szPath2 - pAFOP->sFrom.GetData() - 1 );
+				(int)( szPath2 - pAFOP->sFrom.GetData() - 1 );
 			if ( nPath1Length == nPath2Length &&
 				_tcsncicmp( pszDest, pAFOP->sFrom.GetData(), nPath1Length ) == 0 )
 				return TRUE;	// source == destination
@@ -600,8 +599,7 @@ BOOL CPeerProjectDataSource::DropToFolder(IDataObject* pIDataObject, DWORD grfKe
 
 	pAFOP->dwEffect = *pdwEffect;
 
-	HANDLE hThread = BeginThread( "SHFileOperation",
-		AsyncFileOperationThread, (LPVOID)pAFOP.release() );
+	HANDLE hThread = CPeerThread::BeginThread( "SHFileOperation", AsyncFileOperationThread, (LPVOID)pAFOP.release() );
 	if ( hThread == NULL )
 		return FALSE;
 

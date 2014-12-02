@@ -626,6 +626,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	ASSERT( ! strName.IsEmpty() );
 
 	CString strTarget( CString( pszDestination ) + L"\\" + strName );
+	const BOOL bIsFolder = ( strName.GetAt( strName.GetLength() - 1 ) == L'\\' );
 
 	if ( strTarget.CompareNoCase( strPath ) == 0 )
 		return ERROR_SUCCESS;		// Already moved
@@ -646,7 +647,7 @@ DWORD CFragmentedFile::Move(DWORD nIndex, LPCTSTR pszDestination, LPPROGRESS_ROU
 	DWORD dwError = ::GetLastError();
 	if ( bSuccess )
 	{
-		if ( bSkip )
+		if ( bSkip || bIsFolder )
 			bSuccess = DeleteFileEx( strPath, FALSE, TRUE, TRUE );	// Breaks possible seeds?
 		else
 			bSuccess = MoveFileWithProgress( strPath, strTarget, lpProgressRoutine, pTask,

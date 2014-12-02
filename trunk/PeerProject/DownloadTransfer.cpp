@@ -52,7 +52,6 @@ CDownloadTransfer::CDownloadTransfer(CDownloadSource* pSource, PROTOCOLID nProto
 	, m_bRecvBackwards	( false )
 	, m_pDownload		( pSource->m_pDownload )
 	, m_pSource			( pSource )
-	, m_pAvailable		( NULL )
 	, m_tSourceRequest	( 0ul )
 {
 	ASSUME_LOCK( Transfers.m_pSection );
@@ -64,8 +63,6 @@ CDownloadTransfer::~CDownloadTransfer()
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 	ASSERT( m_pSource == NULL );
-
-	delete m_pAvailable;
 }
 
 void CDownloadTransfer::DrawStateBar(CDC* pDC, CRect* prcBar, COLORREF crFill, BOOL bTop) const
@@ -341,11 +338,11 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD 
 		QWORD nCount = *pnLength / nChunk;
 		if ( *pnLength % nChunk ) nCount++;
 		nCount = GetRandomNum( 0ui64, nCount - 1 );
-	// ToDo: Streaming Download and Rarest Piece Selection
-	//	nCount = ( Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ) );
+		// ToDo: Streaming Download and Rarest Piece Selection
+		//nCount = ( Settings.Downloads.NoRandomFragments ? 0ui64 : GetRandomNum( 0ui64, nCount - 1 ) );
 
 		QWORD nStart = *pnOffset + nChunk * nCount;
-		*pnLength = min( nChunk, *pnOffset + *pnLength - nStart );
+		*pnLength = min( (QWORD)nChunk, *pnOffset + *pnLength - nStart );
 		*pnOffset = nStart;
 	}
 }
@@ -356,7 +353,7 @@ void CDownloadTransfer::ChunkifyRequest(QWORD* pnOffset, QWORD* pnLength, DWORD 
 // Selects an available block, either unaligned blocks or
 // if none is available a random aligned block
 
-blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const BYTE* pAvailable, bool bEndGame) const
+blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const std::vector< bool >& pAvailable, bool bEndGame) const
 {
 	ASSUME_LOCK( Transfers.m_pSection );
 
@@ -401,7 +398,7 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const
 
 		// The start of a block is complete, but part is missing
 		if ( nPart[0] % nBlockSize
-			&& ( ! pAvailable || pAvailable[ nBlockBegin ] ) )
+			&& ( nBlockBegin >= pAvailable.size() || pAvailable[ (DWORD)nBlockBegin ] ) )
 		{
 			nPart[1] = min( pItr->end(), nBlockSize * ( nBlockBegin + 1ull ) );
 			nPart[1] -= nPart[0];
@@ -411,7 +408,7 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const
 		// The end of a block is complete, but part is missing
 		if ( ( ! nPart[1] || nBlockBegin != nBlockEnd )
 			&& pItr->end() % nBlockSize
-			&& ( ! pAvailable || pAvailable[ nBlockEnd ] ) )
+			&& ( nBlockEnd >= pAvailable.size() || pAvailable[ (DWORD)nBlockEnd ] ) )
 		{
 			nPart[0] = nBlockEnd * nBlockSize;
 			nPart[1] = pItr->end() - nPart[0];
@@ -421,10 +418,9 @@ blockPair CDownloadTransfer::SelectBlock(const Fragments::List& oPossible, const
 		// This fragment contains one or more aligned empty blocks
 		if ( ! nRange[2] )
 		{
-			for ( ; ( nBlockBegin <= nBlockEnd &&
-				oBlocks.size() < oBlocks.max_size() ) ;	++nBlockBegin )
+			for ( ; ( nBlockBegin <= nBlockEnd && oBlocks.size() < oBlocks.max_size() ) ; ++nBlockBegin )
 			{
-				if ( ! pAvailable || pAvailable[ nBlockBegin ] )
+				if ( nBlockBegin >= pAvailable.size() || pAvailable[ (DWORD)nBlockBegin ] )
 					oBlocks.push_back( nBlockBegin );
 			}
 		}

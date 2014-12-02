@@ -20,8 +20,8 @@
 
 #include "Skin.h"
 
-//#define LVSIL_MID		50	// ToDo: Allow 24x24 toolbar icons?
-#define LVSIL_BIG		100	// 48x48 icons
+#define LVSIL_MID		24	// 24x24 icons
+#define LVSIL_BIG		48	// 48x48 icons
 
 class CCoolInterface
 {
@@ -66,8 +66,7 @@ public:
 	BOOL		DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz = CSize( 16, 16 ), COLORREF clrBk = CLR_NONE, COLORREF clrFg = CLR_DEFAULT, UINT nStyle = ILD_NORMAL, int nImageListType = LVSIL_SMALL) const;
 //	BOOL		DrawIndirect(CDC* pDC, int nImage, POINT pt, SIZE sz = CSize( 16, 16 ), COLORREF clrBk = CLR_NONE, COLORREF clrFg = CLR_DEFAULT, UINT nStyle = ILD_NORMAL, DWORD nState = ILS_ALPHA, DWORD nAlpha = 200, int nImageListType = LVSIL_SMALL) const;
 	BOOL		DrawWatermark(CDC* pDC, CRect* pRect, CBitmap* pMark, BOOL bOverdraw = TRUE, int nOffX = 0, int nOffY = 0);
-	void		DrawThumbnail(CDC* pDC, const CRect& rcThumb, BOOL bWaiting, BOOL bSelected,
-					CBitmap& bmThumb, int nIcon48 = -1, int nIcon32 = -1, const CString& strLabel = CString());
+	void		DrawThumbnail(CDC* pDC, const CRect& rcThumb, BOOL bWaiting, BOOL bSelected, CBitmap& bmThumb, int nIcon48 = -1, int nIcon32 = -1, const CString& strLabel = CString());
 	void		CreateFonts(LPCTSTR pszFace = NULL, int nSize = 0);
 	CDC*		GetBuffer(CDC& dcScreen, const CSize& szItem);
 
@@ -81,12 +80,14 @@ protected:
 
 	//mutable CCriticalSection m_pSection;
 	CStringUINTMap	m_pNameMap;
-	CUINTintMap		m_pImageMap16;		// Small images (LVSIL_SMALL)
-	CImageList		m_pImages16;		// Small images (LVSIL_SMALL)
-	CUINTintMap		m_pImageMap32;		// Normal images (LVSIL_NORMAL)
-	CImageList		m_pImages32;		// Normal images (LVSIL_NORMAL)
-	CUINTintMap		m_pImageMap48;		// Normal images (LVSIL_BIG)
-	CImageList		m_pImages48;		// Normal images (LVSIL_BIG)
+	CUINTintMap		m_pImageMap16;		// 16px Small images (LVSIL_SMALL)
+	CImageList		m_pImages16;		// 16px Small images (LVSIL_SMALL)
+//	CUINTintMap		m_pImageMap24;		// 24px Medium images (LVSIL_MID custom)
+//	CImageList		m_pImages24;		// 24px Medium images (LVSIL_MID custom)
+	CUINTintMap		m_pImageMap32;		// 32px Normal images (LVSIL_NORMAL)
+	CImageList		m_pImages32;		// 32px Normal images (LVSIL_NORMAL)
+	CUINTintMap		m_pImageMap48;		// 48px Large images (LVSIL_BIG custom)
+	CImageList		m_pImages48;		// 48px Large images (LVSIL_BIG custom)
 	CSize			m_czBuffer;
 	CDC				m_dcBuffer;
 	CBitmap			m_bmBuffer;

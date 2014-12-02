@@ -113,72 +113,52 @@ CBTInfo::CBTFile::CBTFile(const CBTInfo* pInfo, const CBTFile* pBTFile)
 
 CString CBTInfo::CBTFile::FindFile() const
 {
-	CString strFile;
-
 	CQuickLock oLock( Library.m_pSection );
 
-	// Try to find file by hash/size
-	const CLibraryFile* pShared = LibraryMaps.LookupFileByHash( this, FALSE, TRUE );
-	if ( pShared )
-		strFile = SafePath( pShared->GetPath() );
+	// Try complete folder
+	CString strFile = Settings.Downloads.CompletePath + L"\\" + m_sPath;
+	if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+		return strFile;
 
-	if ( ! pShared || GetFileSize( strFile ) != m_nSize )
+	// Try folder of original .torrent
+	CString strTorrentPath = m_pInfo->m_sPath.Left( m_pInfo->m_sPath.ReverseFind( L'\\' ) + 1 );
+	strFile = SafePath( strTorrentPath + m_sPath );
+	if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+		return strFile;
+
+	int nSlash = m_sPath.Find( L'\\' );
+	if ( nSlash != -1 )
 	{
-		// Try complete folder
-		strFile = SafePath( Settings.Downloads.CompletePath + L"\\" + m_sPath );
+		CString strShortPath = m_sPath.Mid( nSlash + 1 );
 
-		if ( GetFileSize( strFile ) != m_nSize )
-		{
-			// Try folder of original .torrent
-			CString strTorrentPath = m_pInfo->m_sPath.Left( m_pInfo->m_sPath.ReverseFind( L'\\' ) + 1 );
-			strFile = SafePath( strTorrentPath + m_sPath );
+		// Try complete folder without outer file directory
+		strFile = Settings.Downloads.CompletePath + L"\\" + strShortPath;
+		if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+			return strFile;
 
-			if ( GetFileSize( strFile ) != m_nSize )
-			{
-				// Try complete folder without outer file directory
-				CString strShortPath;
-				int nSlash = m_sPath.Find( L'\\' );
-				if ( nSlash != -1 )
-					strShortPath = m_sPath.Mid( nSlash + 1 );
-				strFile = SafePath( Settings.Downloads.CompletePath + L"\\" + strShortPath );
-
-				if ( strShortPath.IsEmpty() || GetFileSize( strFile ) != m_nSize )
-				{
-					// Try folder of original .torrent without outer file directory
-					strFile = SafePath( strTorrentPath + strShortPath );
-
-					if ( strShortPath.IsEmpty() || GetFileSize( strFile ) != m_nSize )
-					{
-						// Try find by name only
-						pShared = LibraryMaps.LookupFileByName( m_sName, m_nSize, FALSE, TRUE );
-						if ( pShared )
-							strFile = SafePath( pShared->GetPath() );
-						if ( ! pShared || GetFileSize( strFile ) != m_nSize )
-							return m_sPath;
-					}
-				}
-			}
-		}
+		// Try folder of original .torrent without outer file directory
+		strFile = strTorrentPath + strShortPath;
+		if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+			return strFile;
 	}
 
-//	// Refill missed hashes (Obsolete)
-//	if ( ! pShared )
-//		pShared = LibraryMaps.LookupFileByPath( strFile, FALSE, FALSE );
-//	if ( pShared )
-//	{
-//		if ( ! m_oSHA1 && pShared->m_oSHA1 )
-//			m_oSHA1 = pShared->m_oSHA1;
-//		if ( ! m_oTiger && pShared->m_oTiger )
-//			m_oTiger = pShared->m_oTiger;
-//		if ( ! m_oED2K && pShared->m_oED2K )
-//			m_oED2K = pShared->m_oED2K;
-//		if ( ! m_oBTH && pShared->m_oBTH )
-//			m_oBTH = pShared->m_oBTH;
-//		if ( ! m_oMD5 && pShared->m_oMD5 )
-//			m_oMD5 = pShared->m_oMD5;
-//	}
+	// Try find by name only
+	if ( const CLibraryFile* pShared = LibraryMaps.LookupFileByName( m_sName, m_nSize, FALSE, TRUE ) )
+	{
+		strFile = pShared->GetPath();
+		if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+			return strFile;
+	}
 
-	return strFile;
+	// Try find by hash
+	if ( const CLibraryFile* pShared = LibraryMaps.LookupFileByHash( this, FALSE, TRUE ) )
+	{
+		strFile = pShared->GetPath();
+		if ( GetFileSize( SafePath( strFile ) ) == m_nSize )
+			return strFile;
+	}
+
+	return m_sPath;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1305,30 +1285,31 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		if ( nFiles == 1 )
 		{
 			// Single file in a multi-file torrent
+			CBTFile* pSingleFile = m_pFiles.GetHead();
 
 			// Reset the name
 			m_sName = strPath;
 
 			// Set data/file hashes (if they aren't)
-			if ( m_pFiles.GetHead()->m_oSHA1 )
-				m_oSHA1 = m_pFiles.GetHead()->m_oSHA1;
+			if ( pSingleFile->m_oSHA1 )
+				m_oSHA1 = pSingleFile->m_oSHA1;
 			else if ( m_oSHA1 )
-				m_pFiles.GetHead()->m_oSHA1 = m_oSHA1;
+				pSingleFile->m_oSHA1 = m_oSHA1;
 
-			if ( m_pFiles.GetHead()->m_oED2K )
-				m_oED2K = m_pFiles.GetHead()->m_oED2K;
+			if ( pSingleFile->m_oED2K )
+				m_oED2K = pSingleFile->m_oED2K;
 			else if ( m_oED2K )
-				m_pFiles.GetHead()->m_oED2K = m_oED2K;
+				pSingleFile->m_oED2K = m_oED2K;
 
-			if ( m_pFiles.GetHead()->m_oMD5 )
-				m_oMD5 = m_pFiles.GetHead()->m_oMD5;
+			if ( pSingleFile->m_oMD5 )
+				m_oMD5 = pSingleFile->m_oMD5;
 			else if ( m_oMD5 )
-				m_pFiles.GetHead()->m_oMD5 = m_oMD5;
+				pSingleFile->m_oMD5 = m_oMD5;
 
-			if ( m_pFiles.GetHead()->m_oTiger )
-				m_oTiger = m_pFiles.GetHead()->m_oTiger;
+			if ( pSingleFile->m_oTiger )
+				m_oTiger = pSingleFile->m_oTiger;
 			else if ( m_oTiger )
-				m_pFiles.GetHead()->m_oTiger = m_oTiger;
+				pSingleFile->m_oTiger = m_oTiger;
 		}
 	}
 	else

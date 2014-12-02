@@ -138,6 +138,8 @@ private:
 	BOOL					ReadDCPacket(CDCPacket* pPacket, const SOCKADDR_IN* pEndpoint = NULL);
 
 public:
+	CString					GetSearch() const;
+	void					SetSearch(const CString& sSearch);
 	BOOL					Match(LPCTSTR pszFilename, LPCTSTR pszSchemaURI, const CXMLElement* pXML, const CPeerProjectFile* pFile ) const;
 	TRISTATE				MatchMetadata(LPCTSTR pszSchemaURI, const CXMLElement* pXML) const;
 	BOOL					MatchMetadataShallow(LPCTSTR pszSchemaURI, const CXMLElement* pXML, bool* bReject = NULL) const;

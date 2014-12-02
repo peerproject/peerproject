@@ -127,8 +127,7 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
 
-	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE |
-		LVS_ICON | LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
+	m_wndList.Create( WS_CLIPCHILDREN | WS_CLIPSIBLINGS | WS_CHILD | WS_VISIBLE | LVS_AUTOARRANGE | LVS_REPORT | LVS_SHOWSELALWAYS,
 		rectDefault, this, IDC_HOSTS, COL_LAST );		// Ensure enum includes 3 additional debug columns or not
 
 	m_pSizer.Attach( &m_wndList );
@@ -138,7 +137,9 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 //	CoolInterface.LoadFlagsTo( m_gdiImageList );
 //	m_wndList.SetImageList( &m_gdiImageList, LVSIL_SMALL );
 
-	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP );	// No LVS_EX_SUBITEMIMAGES
+	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );
+	m_wndList.SetFont( &theApp.m_gdiFont );
+
 	m_wndList.InsertColumn( COL_ADDRESS,	L"Address",	LVCFMT_LEFT,	140 );
 	m_wndList.InsertColumn( COL_PORT,		L"Port", 	LVCFMT_CENTER,	 60 );
 	m_wndList.InsertColumn( COL_SEEN,		L"Last Seen", LVCFMT_CENTER,	128 );
@@ -154,7 +155,6 @@ int CHostCacheWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.InsertColumn( COL_DBG_QUERY,	L"Query",	LVCFMT_RIGHT, 0 );
 	m_wndList.InsertColumn( COL_DBG_ACK,	L"Ack",		LVCFMT_RIGHT, 0 );
 #endif
-	m_wndList.SetFont( &theApp.m_gdiFont );
 
 	LoadState( L"CHostCacheWnd", TRUE );
 
@@ -183,6 +183,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 	if ( ! bForce && ! m_bAllowUpdates ) return;
 
 	CHostCacheList* pCache = HostCache.ForProtocol( m_nMode ? m_nMode : PROTOCOL_G2 );
+
 	CSingleLock oLock( &pCache->m_pSection, FALSE );
 	if ( ! oLock.Lock( 100 ) ) return;
 
@@ -213,7 +214,7 @@ void CHostCacheWnd::Update(BOOL bForce)
 
 		if ( pHost->m_pVendor )
 			pItem->Set( COL_CLIENT, pHost->m_pVendor->m_sName );
-		else
+		else	// Unknown Vendor Code
 			pItem->Set( COL_CLIENT, CString( L"(" ) + protocolNames[ pHost->m_nProtocol ] + L")" );
 
 		CTime pTime( (time_t)pHost->Seen() );
@@ -265,6 +266,7 @@ void CHostCacheWnd::OnSkinChange()
 {
 	OnSize( 0, 0, 0 );
 	CPanelWnd::OnSkinChange();
+
 	Settings.LoadList( L"CHostCacheWnd", &m_wndList );
 	Skin.CreateToolBar( L"CHostCacheWnd", &m_wndToolBar );
 

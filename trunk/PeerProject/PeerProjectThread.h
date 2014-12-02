@@ -27,47 +27,46 @@
 #endif
 
 
-class CAppThread : public CWinThread
+class CPeerThread : public CWinThread
 {
-	DECLARE_DYNAMIC(CAppThread)
+	DECLARE_DYNAMIC(CPeerThread)
 
 public:
-	CAppThread(AFX_THREADPROC pfnThreadProc = NULL, LPVOID pParam = NULL);
-	virtual ~CAppThread();
+	CPeerThread(AFX_THREADPROC pfnThreadProc = NULL, LPVOID pParam = NULL);
+	virtual ~CPeerThread();
 
 public:
-	virtual HANDLE CreateThread(LPCSTR pszName, int nPriority = THREAD_PRIORITY_NORMAL,
-		DWORD dwCreateFlags = 0, UINT nStackSize = 0,
-		LPSECURITY_ATTRIBUTES lpSecurityAttrs = NULL);
+	virtual HANDLE CreateThread(LPCSTR pszName, int nPriority, DWORD dwCreateFlags, UINT nStackSize, LPSECURITY_ATTRIBUTES lpSecurityAttrs, DWORD* pnThreadID);
 	virtual BOOL InitInstance();
 	virtual int Run();
 
-	static void Add(CAppThread* pThread, LPCSTR pszName);
-	static void Remove(HANDLE hThread);
-	static void Terminate(HANDLE hThread);
+	static void Add(CPeerThread* pThread, LPCSTR pszName);
+	static void Remove(DWORD nThreadID);
+	static HANDLE GetHandle(DWORD nThreadID);
+	static bool IsThreadAlive(DWORD nThreadID);
+	static bool SetThreadPriority(DWORD nThreadID, int nPriority);
+	static void DeleteThread(DWORD nThreadID);
+	static void DetachThread(DWORD nThreadID);
+	static HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
+							  LPVOID pParam, int nPriority = THREAD_PRIORITY_NORMAL, UINT nStackSize = 0,
+							  DWORD dwCreateFlags = 0, LPSECURITY_ATTRIBUTES lpSecurityAttrs = NULL, DWORD* pnThreadID = NULL);
+	static void CloseThread(DWORD nThreadID, DWORD dwTimeout = ALMOST_INFINITE);
 
 protected:
 	typedef struct
 	{
-		CAppThread* 	pThread;	// Thread object
+		CPeerThread*	pThread;	// Thread object
 		LPCSTR			pszName;	// Thread name
 	} CThreadTag;
 
-	typedef CMap< HANDLE, HANDLE, CThreadTag, const CThreadTag& > CThreadMap;
+	typedef CMap< DWORD, DWORD, CThreadTag, const CThreadTag& > CThreadMap;
 
 	static CCriticalSection	m_ThreadMapSection;	// Guarding of m_ThreadMap
 	static CThreadMap		m_ThreadMap;		// Map of running threads
 	AFX_THREADPROC			m_pfnThreadProcExt;
+	LPDWORD					m_pnOwnerThreadID;
 
 private:
-	CAppThread(const CAppThread&);
-	CAppThread& operator=(const CAppThread&);
+	CPeerThread(const CPeerThread&);
+	CPeerThread& operator=(const CPeerThread&);
 };
-
-void SetThreadName(DWORD dwThreadID, LPCSTR szThreadName);
-
-HANDLE BeginThread(LPCSTR pszName, AFX_THREADPROC pfnThreadProc,
-				   LPVOID pParam, int nPriority = THREAD_PRIORITY_NORMAL, UINT nStackSize = 0,
-				   DWORD dwCreateFlags = 0, LPSECURITY_ATTRIBUTES lpSecurityAttrs = NULL, DWORD* pnThreadID = NULL);
-
-void CloseThread(HANDLE hThread, DWORD dwTimeout = ALMOST_INFINITE);

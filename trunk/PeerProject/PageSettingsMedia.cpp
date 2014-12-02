@@ -108,7 +108,7 @@ BOOL CMediaSettingsPage::OnInitDialog()
 	}
 
 	m_wndServices.AddString( L"(" + LoadString( IDS_GENERAL_CUSTOM ) + L"\x2026)" );
-	m_wndServices.AddString( LoadString( IDS_MEDIA_SMPLAYER ) );
+	m_wndServices.AddString( LoadString( IDS_MEDIA_PLAYER ) );
 	int nSelected = INTERNAL_INDEX;
 
 	for ( string_set::const_iterator i = Settings.MediaPlayer.ServicePath.begin() ;

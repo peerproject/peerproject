@@ -24,9 +24,6 @@
 #pragma once
 
 
-// ToDo: Visual C++ Express Editions + WDK uncomment this line  (See ReadMe.txt)
-//#define VCEXPRESS
-
 #if defined(_MSC_VER) && (_MSC_FULL_VER < 150030000)
 	#error Visual Studio 2008 SP1 or higher required for building
 #endif
@@ -126,7 +123,18 @@
 
 #include <sdkddkver.h>					// Setup versioning for Windows SDK
 
+#ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN
+#endif
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+
+#ifndef _SECURE_ATL
+#define _SECURE_ATL 1
+#endif
+
 #define SECURITY_WIN32
 
 #define _CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES 1
@@ -328,20 +336,45 @@ using augment::IUnknownImplementation;
 //typedef CString StringType;		// Previously for <Hashes>
 
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
-template<> AFX_INLINE UINT AFXAPI HashKey(const CString& key)
+template<>
+AFX_INLINE UINT AFXAPI HashKey(const CString& key)
 {
 	return HashKey<LPCTSTR>( key );
 }
 
-template<> AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
+template<>
+AFX_INLINE UINT AFXAPI HashKey(const IN_ADDR& key)
 {
 	return key.s_addr;
 }
 
-template<> AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, const IN_ADDR* pElement2)
+template<>
+AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, const IN_ADDR* pElement2)
 {
 	return pElement1->s_addr == pElement2->s_addr;
 }
+
+#ifdef _WIN64
+
+template<>
+AFX_INLINE UINT AFXAPI HashKey(void* key)
+{
+	return HashKey< __int64 >( (__int64)key );
+}
+
+template<>
+AFX_INLINE UINT AFXAPI HashKey(HICON key)
+{
+	return HashKey< __int64 >( (__int64)key );
+}
+
+template<>
+AFX_INLINE UINT AFXAPI HashKey(LPUNKNOWN key)
+{
+	return HashKey< __int64 >( (__int64)key );
+}
+
+#endif // _WIN64
 
 #include "Hashes.hpp"
 

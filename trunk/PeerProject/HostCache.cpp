@@ -400,24 +400,17 @@ CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD
 
 		pAddress = &saHost.sin_addr;
 		nPort = ntohs( saHost.sin_port );
-		if ( pAddress->s_addr != INADDR_ANY )
-		{
-			// Dotted IP address
+		if ( pAddress->s_addr != INADDR_ANY )		// Dotted IP address
 			szAddress = NULL;
-
-			if ( ! pAddress->S_un.S_un_b.s_b1 ||			// Don't add invalid address
-				 Network.IsFirewalledAddress( pAddress, TRUE ) ||	// Don't add own firewalled IPs
-				 Network.IsReserved( pAddress ) ||			// Check against IANA reserved address
-				 Security.IsDenied( pAddress ) )			// Check security settings, don't add blocked IPs
-				return NULL;	// Bad IP
-		}
 	}
-	else // if ( pAddress )
+
+	if ( pAddress->s_addr != INADDR_ANY )
 	{
-		if ( ! pAddress->S_un.S_un_b.s_b1 ||				// Don't add invalid address
-			 Network.IsFirewalledAddress( pAddress, TRUE ) ||	// Don't add own firewalled IPs
-			 Network.IsReserved( pAddress ) ||				// Check against IANA reserved address
-			 Security.IsDenied( pAddress ) )				// Check security settings, don't add blocked IPs
+		if ( ! pAddress->S_un.S_un_b.s_b1 ||						// Don't add invalid address
+			 Network.IsFirewalledAddress( pAddress, TRUE ) ||		// Don't add own firewalled IPs
+			 Network.IsReserved( pAddress ) ||						// Check against IANA reserved address
+			 Security.IsDenied( pAddress ) ||						// Check security settings, don't add blocked IPs
+			 Security.IsFlood( pAddress, pszVendor, m_nProtocol ) )	// Check unwanted flood regions
 			return NULL;	// Bad IP
 	}
 
@@ -440,6 +433,9 @@ CHostCacheHostPtr CHostCacheList::Add(const IN_ADDR* pAddress, WORD nPort, DWORD
 			pHost->m_sAddress = pHost->m_sAddress.SpanExcluding( L":" );
 
 			pHost->Update( nPort, tSeen, pszVendor, nUptime, nCurrentLeaves, nLeafLimit );
+
+			if ( ! pHost->m_pVendor && pHost->m_sName.IsEmpty() && pszVendor )
+				pHost->m_sName = pszVendor;
 
 			// Add host to map and index
 			m_Hosts.insert( CHostCacheMapPair( pHost->m_pAddress, pHost ) );
@@ -526,11 +522,13 @@ void CHostCacheList::SanityCheck()
 		CHostCacheHostPtr pHost = (*i).second;
 		if ( Security.IsDenied( &pHost->m_pAddress ) ||
 			( pHost->m_pVendor && Security.IsVendorBlocked( pHost->m_pVendor->m_sCode ) ) )
+		//	|| Security.IsFlood( &pHost->m_pAddress, pHost->m_pVendor->m_sCode, pHost->m_nProtocol ) ) )	// Crash?
 		{
 			i = Remove( pHost );
+			continue;
 		}
-		else
-			++i;
+
+		++i;
 	}
 }
 
@@ -1069,22 +1067,27 @@ bool CHostCache::CheckMinimumServers(PROTOCOLID nProtocol)
 	// Get the server list from local eMule/mods if possible
 	if ( nProtocol == PROTOCOL_ED2K )
 	{
-		const LPCTSTR sServerMetPaths[ 8 ] =
+		const LPCTSTR sServerMetPaths[ 4 ] =
 		{
 			{ L"\\eMule\\config\\server.met" },
 			{ L"\\eMule\\server.met" },
-			{ L"\\Neo Mule\\config\\server.met" },
-			{ L"\\Neo Mule\\server.met" },
-			{ L"\\hebMule\\config\\server.met" },
-			{ L"\\hebMule\\server.met" },
+		//	{ L"\\Neo Mule\\config\\server.met" },
+		//	{ L"\\Neo Mule\\server.met" },
+		//	{ L"\\hebMule\\config\\server.met" },
+		//	{ L"\\hebMule\\server.met" },
+		//	{ L"\\iMule\\config\\server.met" },
+		//	{ L"\\iMule\\server.met" },
 			{ L"\\aMule\\config\\server.met" },
 			{ L"\\aMule\\server.met" }
 		};
 
-		CString strRootPaths[ 3 ];
-		strRootPaths[ 0 ] = theApp.GetProgramFilesFolder();
-		strRootPaths[ 1 ] = theApp.GetLocalAppDataFolder();
-		strRootPaths[ 2 ] = theApp.GetAppDataFolder();
+		CString strRootPaths[ 4 ] =
+		{
+			theApp.GetProgramFilesFolder(),
+			theApp.GetProgramFilesFolder64(),
+			theApp.GetLocalAppDataFolder(),
+			theApp.GetAppDataFolder()
+		};
 
 		for ( int i = 0 ; i < _countof( strRootPaths ) ; ++i )
 			for ( int j = 0 ; j < _countof( sServerMetPaths ) ; ++j )

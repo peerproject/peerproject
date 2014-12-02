@@ -300,7 +300,7 @@ protected:
 	CString			GetTabText(int nTabIndex = -1) const;
 	int				GetTabIndex(const CString& strTabName) const;
 	void			HighlightTab(int nTab, BOOL bHighlight = TRUE);
-	int				AddTab(CString TabName, int nKindOfTab);
+	int				AddTab(const CString& TabName, int nKindOfTab);
 	void			TabClick();
 	void			ReloadViewText();
 	int				FindInList(CString strName, int nList=0, int nTab=0);

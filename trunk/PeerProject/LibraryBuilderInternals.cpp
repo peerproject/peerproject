@@ -384,8 +384,7 @@ bool CLibraryBuilderInternals::ExtractProperties(DWORD nIndex, const CString& st
 		return false;
 
 	CComPtr< IPropertyStore > pStore;
-	HRESULT hr = theApp.m_pfnSHGetPropertyStoreFromParsingName( CT2W( strPath ), NULL, GPS_BESTEFFORT, __uuidof( IPropertyStore ), (void**)&pStore );
-	if ( SUCCEEDED( hr ) )
+	if ( theApp.GetPropertyStoreFromParsingName( CT2W( strPath ), &pStore ) )
 	{
 		LPCTSTR szSchema = NULL;
 		CAutoPtr< CXMLElement > pXML;
@@ -517,8 +516,8 @@ bool CLibraryBuilderInternals::ExtractProperties(DWORD nIndex, const CString& st
 					{
 						CString strItem;
 						strItem.Format( L"%c%c%c%c",
-							LOBYTE( LOWORD( nFourCC ) ), HIBYTE( LOWORD( nFourCC ) ),
-							LOBYTE( HIWORD( nFourCC ) ), HIBYTE( HIWORD( nFourCC ) ) );
+							(TCHAR)LOBYTE( LOWORD( nFourCC ) ), (TCHAR)HIBYTE( LOWORD( nFourCC ) ),
+							(TCHAR)LOBYTE( HIWORD( nFourCC ) ), (TCHAR)HIBYTE( HIWORD( nFourCC ) ) );
 						pXML->AddAttribute( L"codec", strItem );
 					}
 
@@ -898,10 +897,10 @@ bool CLibraryBuilderInternals::ReadID3v2(DWORD nIndex, HANDLE hFile)
 
 				for ( ;; )
 				{
-					int nPos1 = strGenre.Find( '(' );
+					int nPos1 = strGenre.Find( L'(' );
 					if ( nPos1 < 0 )
 						break;
-					int nPos2 = strGenre.Find( ')' );
+					int nPos2 = strGenre.Find( L')' );
 					if ( nPos2 <= nPos1 )
 						break;
 
@@ -2722,7 +2721,7 @@ bool CLibraryBuilderInternals::ReadOGG(DWORD nIndex, HANDLE hFile)
 		if ( ! ReadOGGString( pOGG, nOGG, strComment ) )
 			break;
 
-		int nEquals = strComment.Find( '=' );
+		int nEquals = strComment.Find( L'=' );
 		if ( nEquals <= 0 )
 			continue;
 
@@ -4610,7 +4609,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		switch ( nCount )
 		{
 		case 1:		// Version number
-			nPos = strLine.ReverseFind( ' ' );
+			nPos = strLine.ReverseFind( L' ' );
 			strLine = strLine.Mid( nPos + 1 );
 			if ( ! bBook )
 				pXML->AddAttribute( L"formatVersion", strLine );
@@ -4634,7 +4633,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		case 4:		// Title
 			if ( strLine.IsEmpty() )
 				break;
-			nPos = strLine.Find( ',' );
+			nPos = strLine.Find( L',' );
 			strTemp = strLine.Left( nPos );
 			ToLower( strTemp );
 			if ( strLine.CompareNoCase( L"htmlhelp" ) != 0 &&
@@ -4643,7 +4642,7 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 				 strLine.CompareNoCase( L"windows" ) != 0 )
 			{
 				bHasTitle = true;
-				nPos = strLine.ReverseFind( '\\' );		// Remove paths in title
+				nPos = strLine.ReverseFind( L'\\' );		// Remove paths in title
 				strLine = strLine.Mid( nPos + 1 );
 				pXML->AddAttribute( L"title", strLine );
 			}
@@ -4793,9 +4792,9 @@ bool CLibraryBuilderInternals::ReadDJVU(DWORD nIndex, HANDLE hFile)
 
 bool CLibraryBuilderInternals::ReadCollection(DWORD nIndex, LPCTSTR pszPath)
 {
-	if ( _tcsicmp( pszPath + _tcslen( pszPath ) - 4, _T (".bz2") ) == 0 )
+	if ( _tcsicmp( pszPath + _tcslen( pszPath ) - 4, L".bz2" ) == 0 )
 	{
-		if ( _tcslen( pszPath ) < 9 || _tcsicmp( pszPath + _tcslen( pszPath ) - 8, _T (".xml.bz2") ) != 0 )
+		if ( _tcslen( pszPath ) < 9 || _tcsicmp( pszPath + _tcslen( pszPath ) - 8, L".xml.bz2" ) != 0 )
 		{
 			auto_ptr< CXMLElement > pXML( new CXMLElement( NULL, L"archive" ) );
 			LibraryBuilder.SubmitMetadata( nIndex, CSchema::uriArchive, pXML.release() );

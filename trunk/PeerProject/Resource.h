@@ -886,6 +886,8 @@
 #define IDS_BITPRINTS_FINISHED              20082
 #define IDS_BITPRINTS_REQUESTING            20083
 #define IDS_BITPRINTS_SUCCESS               20084
+#define IDS_BITPRINTS_NOT_HASHED            20086
+#define IDS_BITPRINTS_MESSAGE               20088
 #define IDS_BROWSE_CLOSED                   20100
 #define IDS_BROWSE_BAD_RESPONSE             20101
 #define IDS_BROWSE_CANT_CONNECT             20102
@@ -1197,12 +1199,12 @@
 #define IDS_LIBRARY_COLLECTION_LOCKDOWN     20429
 //#define IDS_LIBRARY_COLLECTION_ACCESS     20430
 #define IDS_LIBRARY_CONFIRM_EXECUTE         20430
+//#define IDS_LIBRARY_ENQUEUE               20431
 //#define IDS_LIBRARY_DELETE                20431
 #define IDS_LIBRARY_DELETE_FOLDER           20432
 #define IDS_LIBRARY_DELETE_FAIL             20433
 #define IDS_LIBRARY_DOWNLOADS_ADD           20434
 #define IDS_LIBRARY_DOWNLOADS_SHARE         20435
-//#define IDS_LIBRARY_ENQUEUE               20436
 #define IDS_LIBRARY_ADD_FOLDER              20436
 #define IDS_LIBRARY_GHOST_FILE              20437
 #define IDS_LIBRARY_METADATA_EDIT           20438
@@ -1215,8 +1217,8 @@
 #define IDS_LIBRARY_URI_EXPORT              20445
 #define IDS_LIBRARY_VERIFY_FAIL             20446
 #define IDS_LIBRARY_VERIFY_FIX              20447
-#define IDS_LIBRARY_BITPRINTS_HASHED        20448
-#define IDS_LIBRARY_BITPRINTS_MESSAGE       20449
+#define IDS_LIBRARY_SHARED                  20448
+#define IDS_LIBRARY_UNSHARED                20449
 #define IDS_LIBRARY_SUBFOLDER_IN_LIBRARY    20450
 #define IDS_MEDIA_EMPTY                     20451
 #define IDS_MEDIA_FILTER                    20452
@@ -1225,7 +1227,7 @@
 #define IDS_MEDIA_PARTIAL_RENDER            20455
 #define IDS_MEDIA_PLAYLIST                  20456
 #define IDS_MEDIA_PLUGIN_CREATE             20457
-#define IDS_MEDIA_SMPLAYER                  20458
+#define IDS_MEDIA_PLAYER                    20458
 #define IDS_MEDIA_TIMESPLIT                 20459
 #define IDS_MEDIA_TITLE                     20460
 #define IDS_MEDIAVIS_NOVIS                  20462

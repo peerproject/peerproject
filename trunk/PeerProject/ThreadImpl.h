@@ -27,7 +27,6 @@ class CThreadImpl
 public:
 	CThreadImpl()
 		: m_pCancel		( FALSE, TRUE )
-		, m_hThread 	( NULL )
 		, m_nThreadID	( 0 )
 		, m_bCancelled	( FALSE )
 	//	, m_bCompleted	( false )
@@ -36,11 +35,10 @@ public:
 
 	virtual ~CThreadImpl()
 	{
-		CloseThread();
+		CPeerThread::DetachThread( m_nThreadID );
 	}
 
 private:
-	volatile HANDLE m_hThread;		// Thread handle
 	DWORD			m_nThreadID;	// Thread ID
 	CEvent			m_pWakeup;		// Thread wakeup event (optional)
 	CEvent			m_pCancel;		// Thread cancel event (signaled if abort requested)
@@ -52,7 +50,6 @@ private:
 		CThreadImpl* pThis = reinterpret_cast< CThreadImpl* >( pParam );
 		pThis->OnRun();
 	//	pThis->m_bCompleted = true;	// Set complete status
-		pThis->m_hThread = NULL;
 		return 0;
 	}
 
@@ -65,13 +62,12 @@ protected:
 public:
 	inline bool BeginThread(LPCSTR szName = NULL, int nPriority = THREAD_PRIORITY_NORMAL) throw()
 	{
-		if ( ! IsThreadAlive() )
-		{
-		//	m_bCompleted = false;		// Reset complete status
-			m_pCancel.ResetEvent();		// Enable thread run
-			m_hThread = ::BeginThread( szName, ThreadStart, this, nPriority, 0, 0, NULL, &m_nThreadID );
-		}
-		return ( m_hThread != NULL );
+		if ( IsThreadAlive() )
+			return true;
+
+	//	m_bCompleted = false;		// Reset complete status
+		m_pCancel.ResetEvent();		// Enable thread run
+		return ( CPeerThread::BeginThread( szName, ThreadStart, this, nPriority, 0, 0, NULL, &m_nThreadID ) != NULL );
 	}
 
 	inline void CloseThread(DWORD dwTimeout = ALMOST_INFINITE) throw()
@@ -82,8 +78,8 @@ public:
 		{
 			if ( m_nThreadID != GetCurrentThreadId() )
 			{
-				::CloseThread( m_hThread, dwTimeout );
-				m_hThread = NULL;
+				CPeerThread::CloseThread( m_nThreadID, dwTimeout );
+				m_nThreadID = 0;
 			}
 			InterlockedExchange( &m_bCancelled, FALSE );
 		}
@@ -95,7 +91,8 @@ public:
 		{
 			if ( m_nThreadID != GetCurrentThreadId() )
 			{
-				::CloseThread( m_hThread, INFINITE );
+				CPeerThread::CloseThread( m_nThreadID, INFINITE );
+				m_nThreadID = 0;
 			}
 			InterlockedExchange( &m_bCancelled, FALSE );
 		}
@@ -121,14 +118,14 @@ public:
 		return m_pWakeup;
 	}
 
-	inline bool IsThreadEnabled( DWORD dwTimeout = 0 ) const throw()
+	inline bool IsThreadEnabled(DWORD dwTimeout = 0) const throw()
 	{
 		return ( WaitForSingleObject( m_pCancel, dwTimeout ) == WAIT_TIMEOUT );
 	}
 
 	inline bool IsThreadAlive() const throw()
 	{
-		return m_hThread && ( WaitForSingleObject( m_hThread, 0 ) == WAIT_TIMEOUT );
+		return CPeerThread::IsThreadAlive( m_nThreadID );
 	}
 
 	inline void Exit() throw()
@@ -138,6 +135,6 @@ public:
 
 	inline bool SetThreadPriority(int nPriority) throw()
 	{
-		return m_hThread && ( ::SetThreadPriority( m_hThread, nPriority ) != FALSE );
+		return CPeerThread::SetThreadPriority( m_nThreadID, nPriority );
 	}
 };
