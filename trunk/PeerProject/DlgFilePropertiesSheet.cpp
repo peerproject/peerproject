@@ -1,7 +1,7 @@
 //
 // DlgFilePropertiesSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -76,8 +76,6 @@ INT_PTR CFilePropertiesSheet::DoModal(int nPage)
 	CFileSourcesPage	pSources;
 	CFileSharingPage	pSharing;
 
-	CString strTabLabel;
-
 	switch ( m_pList->GetCount() )
 	{
 	case 0:
@@ -123,10 +121,7 @@ BOOL CFilePropertiesSheet::OnInitDialog()
 
 	SetFont( &theApp.m_gdiFont );
 	SetIcon( theApp.LoadIcon( IDI_PROPERTIES ), TRUE );
-
-	CString strCaption;
-	LoadString( strCaption, IDS_FILE_PROPERTIES );
-	SetWindowText( strCaption );
+	SetWindowText( LoadString( IDS_FILE_PROPERTIES ) );
 
 	if ( GetDlgItem( IDOK ) )
 	{

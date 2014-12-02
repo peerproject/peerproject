@@ -2489,7 +2489,7 @@ void CMatchFile::GetStatusTip(CString& sStatus, COLORREF& crStatus)
 						CString str( sStatus.Left( 150 ) );
 						if ( IsCharacter( sStatus.GetAt( 151 ) ) )
 						{
-							nLen = str.ReverseFind( ' ' );
+							nLen = str.ReverseFind( L' ' );
 							sStatus = nLen == -1 ? str : str.Left( nLen );
 						}
 						sStatus += L"\x2026)";

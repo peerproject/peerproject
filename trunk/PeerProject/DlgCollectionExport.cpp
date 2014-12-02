@@ -133,7 +133,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	// Get label and button caption for the first screen, save the rest to variables for later use.
 	CString str;
 	m_wndOK.GetWindowText( str );
-	int nPos = str.Find( '|' );
+	int nPos = str.Find( L'|' );
 	if ( nPos > 0 )
 	{
 		m_sBtnNext = str.Left( nPos );
@@ -142,7 +142,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	}
 
 	m_wndExplain.GetWindowText( str );
-	nPos = str.Find( '|' );
+	nPos = str.Find( L'|' );
 	if ( nPos > 0 )
 	{
 		m_sLblExplain1 = str.Left( nPos );
@@ -151,7 +151,7 @@ BOOL CCollectionExportDlg::OnInitDialog()
 	}
 
 	m_wndDelete.GetWindowText( str );
-	nPos = str.Find( '|' );
+	nPos = str.Find( L'|' );
 	if ( nPos > 0 )
 	{
 		m_sBtnDelete = str.Left( nPos );
@@ -485,7 +485,7 @@ BOOL CCollectionExportDlg::Step2()
 					{
 						ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nPosDocs++ ), strReplaceID, strNewReplace );
 					}
-					else if ( strMap == "m" )	// Individual file doc replacement; multi-file picker
+					else if ( strMap == L"m" )	// Individual file doc replacement; multi-file picker
 					{
 						strNewReplace.Replace( L'\\', L'/' );
 						ReplaceNoCase( m_wndWizard.m_pFileDocs.GetAt( nFileID ), strReplaceID, strNewReplace );

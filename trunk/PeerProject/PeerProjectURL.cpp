@@ -416,7 +416,7 @@ BOOL CPeerProjectURL::ParseHTTP(LPCTSTR pszURL, BOOL bResolve)
 	{
 		m_nAction = uriDownload;
 
-		CString strName( URLDecode( m_sPath.Mid( m_sPath.ReverseFind( '/' ) + 1 ).SpanExcluding( L"?" ) ) );
+		CString strName( URLDecode( m_sPath.Mid( m_sPath.ReverseFind( L'/' ) + 1 ).SpanExcluding( L"?" ) ) );
 		if ( ! strName.IsEmpty() )
 			m_sName = strName;
 	}
@@ -482,7 +482,7 @@ BOOL CPeerProjectURL::ParseFTP(LPCTSTR pszURL, BOOL bResolve)
 		return FALSE;
 
 	// Add fix set name
-	const int nPos = m_sPath.ReverseFind( '/' );
+	const int nPos = m_sPath.ReverseFind( L'/' );
 	if ( m_sName.IsEmpty() && nPos >= 0 )
 	{
 		const CString sName( URLDecode( m_sPath.Mid( nPos + 1 ).SpanExcluding( L"?" ) ) );
@@ -974,7 +974,7 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse, PROTOCO
 	m_nPort = protocolPorts[ nProtocol ];
 	m_nProtocol = nProtocol;
 
-	int nPos = m_sName.Find( ':' );
+	int nPos = m_sName.Find( L':' );
 	if ( nPos >= 0 )
 	{
 		_stscanf( m_sName.Mid( nPos + 1 ), L"%i", &m_nPort );
@@ -1180,7 +1180,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		}
 
 		// Read in next chunk
-		nSep = strURL.Find( '|' );
+		nSep = strURL.Find( L'|' );
 		if ( nSep < 0 ) return TRUE;
 		strPart	= strURL.Left( nSep );
 		strURL	= strURL.Mid( nSep + 1 );
@@ -1189,14 +1189,14 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 	while ( strURL.GetLength() > 8 )
 	{
 		// Source (Starts with |/|sources,
-		nSep = strURL.Find( ',' );
+		nSep = strURL.Find( L',' );
 		if ( nSep < 0 ) return TRUE;
 		strPart	= strURL.Left( nSep );
 		strURL	= strURL.Mid( nSep + 1 );
 
 		if ( _tcsncmp( strPart, L"sources", 7 ) != 0 ) return TRUE;
 
-		nSep = strURL.Find( '|' );
+		nSep = strURL.Find( L'|' );
 		if ( nSep < 0 ) return TRUE;
 		strPart	= strURL.Left( nSep );
 		strURL	= strURL.Mid( nSep + 1 );
@@ -1306,7 +1306,7 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 	CString strURL, strNets, strTemp( pszURL );
 	m_nProtocol = PROTOCOL_NULL;
 
-	int nPos = strTemp.Find( '?' );
+	int nPos = strTemp.Find( L'?' );
 
 	strURL = nPos < 0 ? strTemp : strTemp.Left( nPos );
 	strNets = strTemp.Mid( nPos + 1 );
@@ -1334,7 +1334,7 @@ BOOL CPeerProjectURL::ParseDiscovery(LPCTSTR pszURL, int nType)
 			return FALSE;
 	}
 
-	nPos = strURL.Find( '|' );
+	nPos = strURL.Find( L'|' );
 	if ( nPos >= 0 )
 		strURL = strURL.Left( nPos );
 

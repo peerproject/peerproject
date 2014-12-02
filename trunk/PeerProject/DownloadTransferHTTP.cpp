@@ -366,7 +366,7 @@ BOOL CDownloadTransferHTTP::SendRequest()
 
 	if ( m_pSource->m_nPort == INTERNET_DEFAULT_HTTP_PORT )
 	{
-		int nSlash = m_pSource->m_sURL.ReverseFind( '/' );
+		int nSlash = m_pSource->m_sURL.ReverseFind( L'/' );
 		if ( nSlash > 0 )
 		{
 			Write( _P("Referrer: ") );
@@ -979,7 +979,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 			{
 				m_sQueueName = strValue.Mid( nPos + 3 );
 				m_sQueueName.TrimLeft();
-				if ( m_sQueueName.Find( '\"' ) == 0 )
+				if ( m_sQueueName.Find( L'\"' ) == 0 )
 					m_sQueueName = m_sQueueName.Mid( 1 ).SpanExcluding( L"\"" );
 				else
 					m_sQueueName = m_sQueueName.SpanExcluding( L"\" " );

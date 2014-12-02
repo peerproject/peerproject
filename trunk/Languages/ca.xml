@@ -2604,6 +2604,8 @@
 	<string id="20082" value="Acabat, fes clic a tancar"/>
 	<string id="20083" value="Demanat..."/>
 	<string id="20084" value="Procesat"/>
+	<string id="20086" value="l'arxiu %s no ha estat escanejat. Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
+	<string id="20088" value="Aquesta opció utilitza un servei ofrerit per Bitprints, per a adquirir metainformació de l'arxiu.\n\nPeerProject enviarà una petita informació sobre la marca digital 'bitprint' de l'arxiu per a que Bitprints el pugui reconèixer. Si tens algun dubte sobre la privacitat d'aquest servei, visita bitprints.peerproject.org per a més informació.\n\nVols continuar?"/>
 	<string id="20100" value="Tancant exploració de l'usuari %s."/>
 	<string id="20101" value="L'exploració de l'usuari %s ha respost incorrectament, pots no soportar-ho."/>
 	<string id="20102" value="Ha estat impossible establir la connexió."/>
@@ -2913,8 +2915,8 @@
 	<string id="20445" value="Exportar URIs..."/>
 	<string id="20446" value="L'arxiu %s ha fallat la verificació, i pot no ser el correcte. Estàs segur(a) d'obrir-lo?"/>
 	<string id="20447" value="Vols treure l'atribut &quot;potencialment insegur&quot; d'aquest arxiu?"/>
-	<string id="20448" value="l'arxiu %s no ha estat escanejat. Per favor, espera a que sigui escanejat i intenta-ho més tard."/>
-	<string id="20449" value="Aquesta opció utilitza un servei ofrerit per Bitprints, per a adquirir metainformació de l'arxiu.\n\nPeerProject enviarà una petita informació sobre la marca digital 'bitprint' de l'arxiu per a que Bitprints el pugui reconèixer. Si tens algun dubte sobre la privacitat d'aquest servei, visita bitprints.peerproject.org per a més informació.\n\nVols continuar?"/>
+	<string id="20448" value="Públic"/>	<!--Shared-->
+	<string id="20449" value="Privat"/>	<!--Unshared-->
 	<string id="20450" value="Una subcarpeta de la carpeta seleccionada &quot;%s&quot; ja és actualment part de la col·lecció.nAfegir aquesta carpeta causarà una reverificació dels arxius.\n\nDe segur que dessitja continuar?"/>
 	<string id="20451" value="No hi ha cap arxiu reproduïnt-se. Fes doble clic a un arxiu de media en la teva biblioteca per a reproduir-lo."/>
 	<string id="20452" value="Tots els arxius de Media|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
@@ -2924,7 +2926,7 @@
 	<string id="20456" value="LLISTA:"/>
 	<string id="20457" value="PeerProject no ha pogut iniciar els serveis de reproducció. Per favor reinstala PeerProject, i confirma que tens tots els codecs, filtres i controladors necesaris.."/>
 	<string id="20458" value="PeerProject Media Player"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(No Visualització)"/>
 	<!--string id="20464" value="PeerProject està verificant l'arxiu descarregat:"-->
 	<!--string id="20465" value="PeerProject està descarregant:"-->
@@ -4467,10 +4469,11 @@
 		<column from="File" to="Arxiu"/>
 		<column from="Type" to="Extensió"/>
 		<column from="Size" to="Mida"/>
-		<column from="Folder" to="Carpeta"/>
-		<column from="Hits" to=""/>
-		<column from="Uploads" to="Pujades"/>
 		<column from="Modified" to="Modificat"/>
+		<column from="Folder" to="Carpeta"/>
+		<column from="Shared" to="Compartit"/>
+		<column from="Uploads" to="Pujades"/>
+		<column from="Hits" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adreça"/>

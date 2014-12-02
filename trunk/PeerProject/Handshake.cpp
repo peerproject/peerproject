@@ -187,7 +187,7 @@ void CHandshake::OnDropped()
 	if ( m_bPushing )
 		theApp.Message( MSG_ERROR, IDS_UPLOAD_CONNECT_ERROR, (LPCTSTR)m_sAddress );
 	else
-		theApp.Message( MSG_INFO, L"Handshaking connection from %s port %i dropped unexpectedly.", (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
+		theApp.Message( MSG_DEBUG, L"Handshaking connection from %s port %i dropped unexpectedly.", (LPCTSTR)m_sAddress, htons( m_pHost.sin_port ) );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -394,6 +394,8 @@ BOOL CHandshake::OnAcceptGive()
 		oGUID[ nByte ] = (BYTE)nPos;
 	}
 	oGUID.validate();
+
+	theApp.Message( MSG_DEBUG, L"Got push answer from %s : %s...", (LPCTSTR)CString( inet_ntoa( m_pHost.sin_addr ) ), (LPCTSTR)oGUID.toString< Hashes::base16Encoding >().MakeUpper() );
 
 	// If a child window recognizes this guid, return true
 	if ( Network.OnPush( oGUID, this ) )

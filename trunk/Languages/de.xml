@@ -2754,6 +2754,8 @@
 	<string id="20082" value="Fertig, Schließen klicken"/>
 	<string id="20083" value="Anfordern..."/>
 	<string id="20084" value="Erfolg"/>
+	<string id="20086" value="Die Datei &quot;%s&quot; wurde noch nicht gehasht. Bitte warten Sie bis die Datei gehasht wurde und versuchen Sie es später erneut."/>
+	<string id="20088" value="Diese Option benutzt Dienste, die von bitprints.peerproject.org zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitprints-Datenbank abzufragen.nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;bitprints.peerproject.org privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
 	<string id="20100" value="&quot;Durchsuchen&quot; Verbindung zu %s wird beendet."/>
 	<string id="20101" value="&quot;Durchsuchen&quot; Host %s hat eine unbekannte Nachricht übertragen, &quot;Durchsuchen&quot; wird möglicherweise nicht unterstützt."/>
 	<string id="20102" value="Kann keine Verbindung zum Durchsuchen herstellen."/>
@@ -3069,8 +3071,8 @@
 	<string id="20445" value="&amp;RIs exportieren..."/>
 	<string id="20446" value="Die Datei &quot;%s&quot; hat die Hash-Überprüfung nicht bestanden und ist möglicherweise nicht die Datei, die Sie herunterladen wollten. Sind Sie sicher, dass Sie die Datei öffnen möchten?"/>
 	<string id="20447" value="Wollen sie das &quot;potenziell unsicher&quot;-Atribut von dieser Datei entfernen?"/>
-	<string id="20448" value="Die Datei &quot;%s&quot; wurde noch nicht gehasht. Bitte warten Sie bis die Datei gehasht wurde und versuchen Sie es später erneut."/>
-	<string id="20449" value="Diese Option benutzt Dienste, die von bitprints.peerproject.org zur Verfügung gestellt werden, um Information über Dateien zu sammeln und zugänglich zu machen.\n\nPeerProjekt wird den SHA1-Hashwert für die ausgewählte(n) Datei(en) übertragen, um die Bitprints-Datenbank abzufragen.nWenn Sie sich Sorgen um ihre Privatsphäre machen, können Sie die &quot;bitprints.peerproject.org privacy policy&quot; lesen.\n\nWollen Sie fortfahren?"/>
+	<string id="20448" value="Öffent"/>	<!--Shared-->
+	<string id="20449" value="Privat"/>	<!--Unshared-->
 	<string id="20450" value="Ein Unterordner des ausgewählten Ordners &quot;%s&quot; befindet sich schon in ihrer Bibliothek.nDas Hinzufügen dieses Ordners hat zur Folge, dass einige Dateien neu verifiziert werden müssen.\n\nMöchten Sie fortfahren?"/>
 	<string id="20451" value="Es wird keine Datei wiedergegeben. Doppelklicken Sie eine Datei in Ihrer Bibliothek an, um sie abzuspielen."/>
 	<string id="20452" value="Alle Multimedia Dateien|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Wiedergabelisten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Dateien|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;|Video Dateien|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.ogm;*.wmv|CD Audio Tracks|*.cda|MIDI Dateien|*.mid;*.rmi;*.midi|Alle Dateien|*.*||"/>
@@ -3080,7 +3082,7 @@
 	<string id="20456" value="Playlist:"/>
 	<string id="20457" value="PeerProjekt konnte das MediaServices-Plugin nicht laden. Bitte installieren Sie PeerProjekt erneut und stellen Sie sicher, dass Sie die nötigen Codecs und Ausgabetreiber installiert haben."/>
 	<string id="20458" value="PeerProjekt-Medienwiedergabe"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; K &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJEKT MEDIA SYSTEM"/>
 	<string id="20462" value="(Keine Visualisierung)"/>
 	<!--string id="20464" value="PeerProjekt hat den Download abgeschlossen:"-->
 	<!--string id="20465" value="PeerProjekt lädt herunter:"-->
@@ -4682,10 +4684,11 @@
 		<column from="File" to="Dateiname"/>
 		<column from="Type" to="Typ"/>
 		<column from="Size" to="Größe"/>
-		<column from="Folder" to="Ordner"/>
-		<column from="Hits" to="Treffer"/>
-		<column from="Uploads" to="Uploads"/>
 		<column from="Modified" to="Modifiziert"/>
+		<column from="Folder" to="Ordner"/>
+		<column from="Shared" to="Geteilt"/>
+		<column from="Uploads" to="Uploads"/>
+		<column from="Hits" to="Treffer"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresse"/>

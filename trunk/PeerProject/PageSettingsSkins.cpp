@@ -253,7 +253,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 		return FALSE;
 	}
 
-	CString	strType		= pManifest->GetAttributeValue( L"type", L"Unknown" );
+//	CString	strType		= pManifest->GetAttributeValue( L"type", L"Unknown" );
 	CString	strName		= pManifest->GetAttributeValue( L"name", pszName );
 	CString strAuthor	= pManifest->GetAttributeValue( L"author", L"Unknown" );
 	CString strVersion	= pManifest->GetAttributeValue( L"version", L"Unknown" );
@@ -297,7 +297,7 @@ BOOL CSkinsSettingsPage::AddSkin(LPCTSTR pszPath, LPCTSTR pszName)
 	else
 		strURL.Empty();
 
-	if ( strEmail.Find( '@' ) < 0 ) strEmail.Empty();
+	if ( strEmail.Find( L'@' ) < 0 ) strEmail.Empty();
 
 	CLiveItem pItem( COL_LAST, 0 );
 	HICON hIcon = NULL;
@@ -590,7 +590,7 @@ void CSkinsSettingsPage::OnSkinsDelete()
 
 	DeleteFileEx( strPath, FALSE, TRUE, TRUE );
 
-	int nSlash = strPath.ReverseFind( '\\' );
+	int nSlash = strPath.ReverseFind( L'\\' );
 	strPath = strPath.Left( nSlash ) + L"\\*.xml";
 
 	WIN32_FIND_DATA pFind;

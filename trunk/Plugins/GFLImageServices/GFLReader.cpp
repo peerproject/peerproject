@@ -243,7 +243,7 @@ STDMETHODIMP CGFLReader::SaveToFile (
 				ATLASSERT( nSource == ( ( ( pParams->nWidth * pParams->nComponents ) + 3 ) & ( -4 ) ) * pParams->nHeight );
 
 				nSource++;
-				CString ext( sFile );
+				CStringA ext( sFile );
 				int nDot = ext.ReverseFind( '.' );
 				if ( nDot > 0 )
 					ext = ext.Mid( nDot + 1 );
@@ -299,11 +299,12 @@ STDMETHODIMP CGFLReader::SaveToMemory (
 				int nDot = ext.ReverseFind( '.' );
 				if ( nDot != -1 )
 					ext = ext.Mid( nDot + 1 );
+				ext.MakeLower();
 
 				CopyMemory( hGflBitmap->Data, pSource, nSource );
 				GFL_SAVE_PARAMS params;
 				gflGetDefaultSaveParams( &params );
-				params.FormatIndex = GetFormatIndexByExt( ext );
+				params.FormatIndex = GetFormatIndexByExt( CT2A( ext ) );
 				params.Quality = (GFL_INT16)pParams->nQuality;
 				GFL_UINT8* data = NULL;
 				GFL_UINT32 size = 0;
@@ -337,6 +338,8 @@ STDMETHODIMP CGFLReader::SaveToMemory (
 		SafeArrayDestroy( *ppMemory );
 		*ppMemory = NULL;
 	}
+
+	//ATLTRACE( "SaveToMemory (\"%s\", 0x%08x, 0x%08x, 0x%08x) : %s\n", (LPCSTR)CW2A( (LPCWSTR)sType ), ppMemory, pParams, pImage, SUCCEEDED( hr ) ? "OK" : "ERROR" );
 
 	return hr;
 }

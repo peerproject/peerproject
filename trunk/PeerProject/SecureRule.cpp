@@ -675,9 +675,9 @@ CString CSecureRule::ToGnucleusString() const
 			nTo[0], nTo[1], nTo[2], nTo[3] );
 	}
 
-	strRule += ':';
+	strRule += L':';
 	strRule += m_sComment;
-	strRule += ':';
+	strRule += L':';
 
 	return strRule;
 }
@@ -686,7 +686,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 {
 	int nPos, x[4];
 
-	nPos = str.Find( ':' );
+	nPos = str.Find( L':' );
 	if ( nPos < 1 ) return FALSE;
 
 	CString strAddress = str.Left( nPos );
@@ -698,7 +698,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	m_nIP[0] = (BYTE)x[0]; m_nIP[1] = (BYTE)x[1];
 	m_nIP[2] = (BYTE)x[2]; m_nIP[3] = (BYTE)x[3];
 
-	nPos = strAddress.Find( '-' );
+	nPos = strAddress.Find( L'-' );
 
 	if ( nPos >= 0 )
 	{

@@ -154,6 +154,6 @@ void CAboutDlg::OnRButtonDown(UINT /*nFlags*/, CPoint point)
 #endif
 
 	volatile DWORD* pNullPtr = (DWORD*)NULL;
-	*pNullPtr = 0xFFFFFFFF;				// Force program crash
+	*pNullPtr = 0xFFFFFFFF;  //-V522		// Force program crash
 //#endif
 }

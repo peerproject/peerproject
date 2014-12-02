@@ -2252,7 +2252,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 
 	if ( m_nSubType == dsOldBootStrap )
 	{
-		int nPos = strHost.Find( ':' );
+		int nPos = strHost.Find( L':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2265,7 +2265,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 	else if ( m_nSubType == dsGnutellaTCP )
 	{
 		strHost  = strHost.Mid( nSkip );
-		int nPos = strHost.Find( ':' );
+		int nPos = strHost.Find( L':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2278,7 +2278,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 	else if ( m_nSubType == dsGnutella2TCP )
 	{
 		strHost  = strHost.Mid( nSkip );
-		int nPos = strHost.Find( ':' );
+		int nPos = strHost.Find( L':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2291,7 +2291,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 	else if ( m_nSubType == dsGnutellaUDPHC )
 	{
 		strHost  = strHost.Mid( nSkip );
-		int nPos = strHost.Find( ':' );
+		int nPos = strHost.Find( L':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 
@@ -2304,7 +2304,7 @@ BOOL CDiscoveryService::ResolveGnutella()
 	else if ( m_nSubType == dsGnutella2UDPKHL )
 	{
 		strHost  = strHost.Mid( nSkip );
-		int nPos = strHost.Find( ':' );
+		int nPos = strHost.Find( L':' );
 		if ( nPos >= 0 && _stscanf( strHost.Mid( nPos + 1 ), L"%i", &nPort ) == 1 )
 			strHost = strHost.Left( nPos );
 

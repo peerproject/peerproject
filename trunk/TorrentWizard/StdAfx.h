@@ -42,7 +42,13 @@
 #define _WIN32_WINDOWS		0x0600
 #define NTDDI_VERSION		NTDDI_LONGHORN  // Minimum build target = Vista
 
+#ifndef VC_EXTRALEAN
 #define VC_EXTRALEAN						// Exclude rarely-used things from Windows headers
+#endif
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
 
 #define _SECURE_ATL 1
 
@@ -60,13 +66,6 @@
 #include <shlobj.h> 		// Shell objects
 #include <shlwapi.h>		// Shell win api
 
-#ifndef _PORTABLE
-#include "..\HashLib\HashLib.h"
-//#include "..\PeerProject\Strings.h"
-//#include "..\PeerProject\Buffer.h"	// Using local file
-//#include "..\PeerProject\BENode.h"	// Using local file
-#endif
-
 typedef unsigned __int64 QWORD;
 
 #ifndef OFN_ENABLESIZING
@@ -74,4 +73,11 @@ typedef unsigned __int64 QWORD;
 #endif
 #ifndef BIF_NEWDIALOGSTYLE
   #define BIF_NEWDIALOGSTYLE	0x00000040
+#endif
+
+#ifndef _PORTABLE
+#include "..\HashLib\HashLib.h"
+//#include "..\PeerProject\Strings.h"
+//#include "..\PeerProject\Buffer.h"	// Using local file
+//#include "..\PeerProject\BENode.h"	// Using local file
 #endif

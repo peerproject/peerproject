@@ -51,9 +51,6 @@
     <ClInclude Include="receivedata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="bsdqueue.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="declspec.h">
       <Filter>Header Files</Filter>
     </ClInclude>

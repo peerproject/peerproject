@@ -2,7 +2,10 @@ HKCR
 {
 	NoRemove AppID
 	{
-		'%APPID%' = s 'DocumentReader'
+		'%APPID%' = s 'DocumentReader Metadata'
+		{
+			val DllSurrogate = s ''
+		}
 		'DocumentReader.DLL'
 		{
 			val AppID = s '%APPID%'

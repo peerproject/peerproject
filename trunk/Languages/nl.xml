@@ -2699,6 +2699,8 @@
 	<string id="20082" value="Klaar, klik op sluiten"/>
 	<string id="20083" value="Wordt aangevraagd..."/>
 	<string id="20084" value="Gelukt."/>
+	<string id="20086" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
+	<string id="20088" value="Deze optie gebruikt diensten die zijn verstrekt door bitprints.peerproject.org voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitprints gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van bitprints.peerproject.org raadplegen.\n\nWil je verdergaan?"/>
 	<string id="20100" value="De verbinding met %s voor het bekijken van de gebruiker is gesloten."/>
 	<string id="20101" value="&quot;Bekijken&quot; gastheer %s heeft geantwoord met een niet herkend antwoord en ondersteunt misschien niet het bekijken van gebruiker/bron."/>
 	<string id="20102" value="Niet mogelijk om te verbinden met gastheer voor het bekijken van de gebruiker."/>
@@ -3007,8 +3009,8 @@
 	<string id="20445" value="Exporteer URIs..."/>
 	<string id="20446" value="De hashcontroletest voor het bestand &quot;%s&quot; is mislukt. Het is mogelijk niet het bestand dat je eigenlijk wilde downloaden. Weet je zeker dat je het wilt openen?"/>
 	<string id="20447" value="Wil je de eigenschap &quot;mogelijk onveilig&quot; van dit bestand verwijderen?"/>
-	<string id="20448" value="Het bestand &quot;%s&quot; is nog niet gehasht. Wacht alsjeblieft even totdat het bestand gehasht is en probeer het dan nog een keer."/>
-	<string id="20449" value="Deze optie gebruikt diensten die zijn verstrekt door bitprints.peerproject.org voor het herkennen en delen van informatie over de geselecteerde bestanden.\n\nPeerProject geeft de SHA1 hash-code door voor de geselecteerde bestand(en) om de Bitprints gegevensbank op te vragen. Als je je zorgen maakt over privacy, kun je de privacypolis van bitprints.peerproject.org raadplegen.\n\nWil je verdergaan?"/>
+	<string id="20448" value="Publiek"/> 	<!--Shared-->
+	<string id="20449" value="Particulier"/>	<!--Unshared-->
 	<string id="20450" value="De complete en incomplete mappen mogen niet dezelfde zijn"/>
 	<string id="20451" value="Er is geen bestand aan het afspelen. Dubbelklik op een mediabestand uit je bibliotheek om het af te spelen."/>
 	<string id="20452" value="Alle mediabestanden|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Afspeellijsten|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiobestanden|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videobestanden|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD audiobestanden|*.cda|MIDI bestanden|*.mid;*.rmi;*.midi|Alle bestanden|*.*||"/>
@@ -3018,7 +3020,7 @@
 	<string id="20456" value="Afspeellijst:"/>
 	<string id="20457" value="PeerProject kon de MediaServices plugin niet opstarten. Installeer PeerProject alsjeblieft opnieuw en kijk na of je de benodigde mediacodecs en outputdrivers hebt geïnstalleerd."/>
 	<string id="20458" value="PeerProject Media Speler"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Geen visualisatie)"/>
 	<!--string id="20464" value="PeerProject heeft het downloaden voltooid van:"-->
 	<!--string id="20465" value="PeerProject is aan het downloaden:"-->
@@ -4605,10 +4607,11 @@
 		<column from="File" to="Bestand"/>
 		<column from="Type" to="Extensie"/>
 		<column from="Size" to="Grootte"/>
-		<column from="Folder" to="Map"/>
-		<column from="Hits" to="Hits"/>
-		<column from="Uploads" to="Uploads"/>
 		<column from="Modified" to="Gewijzigd"/>
+		<column from="Folder" to="Map"/>
+		<column from="Shared" to="Gedeeld"/>
+		<column from="Uploads" to="Uploads"/>
+		<column from="Hits" to="Hits"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>

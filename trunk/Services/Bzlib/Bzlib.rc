@@ -26,7 +26,7 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 1,0,6,0
- PRODUCTVERSION 1,0,1,0
+ PRODUCTVERSION 1,0,2,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -49,7 +49,7 @@ BEGIN
 			VALUE "LegalCopyright", "© 1996-2007 Julian Seward (bzip.org)"
 			VALUE "OriginalFilename", "bzlib.dll"
 			VALUE "ProductName", "PeerProject"
-			VALUE "ProductVersion", "1.0.1.0"
+			VALUE "ProductVersion", "1.0.2.0"
 		END
 	END
 	BLOCK "VarFileInfo"

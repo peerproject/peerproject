@@ -1009,7 +1009,7 @@ void CNeighboursWithConnect::Maintain()
 	nCount[ PROTOCOL_G2 ][ ntNode ] += nCount[ PROTOCOL_NULL ][ ntNode ];
 
 	// Connect to more computers or disconnect from some to get the connection counts where settings wants them to be
-	for ( PROTOCOLID nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )		// Loop once for each protocol
+	for ( int nProtocol = PROTOCOL_NULL ; nProtocol < PROTOCOL_LAST ; ++nProtocol )		// Loop once for each protocol
 	{
 		// If we're connected to a hub of this protocol, store the tick count now in m_tPresent for this protocol
 		if ( nCount[ nProtocol ][ ntHub ] > 0 ) m_tPresent[ nProtocol ] = tNow;
@@ -1049,7 +1049,7 @@ void CNeighboursWithConnect::Maintain()
 			// Lower the needed hub number to avoid hitting Windows XP Service Pack 2's half open connection limit
 			nAttempt = min( nAttempt, ( Settings.Downloads.MaxConnectingSources - 1 ) );
 
-			CHostCacheList* pCache = HostCache.ForProtocol( nProtocol );
+			CHostCacheList* pCache = HostCache.ForProtocol( (PROTOCOLID)nProtocol );
 
 			CSingleLock oLock( &pCache->m_pSection, FALSE );
 			if ( ! oLock.Lock( 250 ) )

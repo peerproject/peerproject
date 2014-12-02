@@ -85,7 +85,7 @@ void CCoolMenuBarCtrl::SetMenu(HMENU hMenu)
 		CString strMenu;
 		pMenu.GetMenuString( nItem, strMenu, MF_BYPOSITION );
 
-		int nAmp = strMenu.Find( '&' );
+		int nAmp = strMenu.Find( L'&' );
 		if ( nAmp >= 0 ) strMenu = strMenu.Left( nAmp ) + strMenu.Mid( nAmp + 1 );
 
 		CCoolBarItem* pItem = new CCoolBarItem( this, nItem + 1 );

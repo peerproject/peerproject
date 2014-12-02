@@ -370,7 +370,7 @@ CString	CShellIcons::GetMIME(LPCTSTR pszType)
 BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon, CString* psName, CString* psMIME, HICON* phHugeIcon)
 {
 	DWORD nType, nResult;
-	TCHAR szResult[MAX_PATH];
+	TCHAR szResult[ MAX_PATH + 1 ];
 	HKEY hKey, hSub;
 
 	if ( phSmallIcon ) *phSmallIcon = NULL;

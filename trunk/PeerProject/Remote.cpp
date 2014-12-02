@@ -1433,9 +1433,9 @@ void CRemote::PageImage(CString& strPath)
 	if ( CheckCookie() ) return;
 
 	strPath = strPath.Mid( 15 );
-	if ( strPath.Find( '%' ) >= 0 ) return;
-	if ( strPath.Find( '/' ) >= 0 ) return;
-	if ( strPath.Find( '\\' ) >= 0 ) return;
+	if ( strPath.Find( L'%' ) >= 0 ) return;
+	if ( strPath.Find( L'/' ) >= 0 ) return;
+	if ( strPath.Find( L'\\' ) >= 0 ) return;
 
 	CFile hFile;
 	strPath = Settings.General.Path + L"\\Remote\\Resources\\" + strPath;

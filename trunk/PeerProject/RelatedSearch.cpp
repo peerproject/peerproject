@@ -226,7 +226,7 @@ CString CRelatedSearch::Tokenise(LPCTSTR psz)
 	strTemp.ReleaseBuffer( nSource );
 	psz = strTemp.GetBuffer( nSource );
 
-	int nLastPoint = strTemp.ReverseFind( '.' );
+	int nLastPoint = strTemp.ReverseFind( L'.' );
 	if ( nLastPoint > 0 )
 		nLastPoint = strTemp.GetLength() - nLastPoint - 1;
 

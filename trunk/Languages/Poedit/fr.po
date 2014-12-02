@@ -5688,11 +5688,11 @@ msgstr "Le fichier « %s » a échoué au test de hachage, il est possible que
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Souhaitez-vous retirer l'attribut « potentiellement corrompu » attribué à ce fichier ?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Ce fichier « %s » n'a pas encore été haché. Prière d'attendre que le fichier soit haché et réessayer."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Cette option utilise les services de bitprints.peerproject.org pour la reconnaissance et le partage de l'information sur les fichiers sélectionnés.\\n\\nPeerProject va transmettre le code SHA1 de ce(s) fichier(s) pour interroger la base de donnée de Bitprints. Si vous êtes préoccupé par votre vie privée, consultez la politique de confidentialité de bitprints.peerproject.org.\\n\\nVoulez-vous continuer ?"
 

@@ -112,7 +112,7 @@ BOOL CContactProfilePage::OnInitDialog()
 		}
 	}
 
-	if ( m_sEmail.Find( '@' ) < 0 || m_sEmail.Find( '.' ) < 0 )
+	if ( m_sEmail.Find( L'@' ) < 1 || m_sEmail.Find( L'.' ) < 1 )
 		m_sEmail.Empty();
 
 	UpdateData( FALSE );
@@ -166,7 +166,7 @@ void CContactProfilePage::OnOK()
 {
 	UpdateData();
 
-	if ( m_sEmail.Find( '@' ) < 0 || m_sEmail.Find( '.' ) < 0 )
+	if ( m_sEmail.Find( L'@' ) < 0 || m_sEmail.Find( L'.' ) < 0 )
 		m_sEmail.Empty();
 
 	AddAddress( L"Email", L"Primary", m_sEmail );

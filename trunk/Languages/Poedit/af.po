@@ -5688,11 +5688,11 @@ msgstr "Die lêer \"%s\" het 'n prosesserings-validasie toets gefaal en mag dalk
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Wil jy die \"moontlik skadelik\" eienskap van hierdie lêer verwyder?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Die lêer \"%s\" is nog nie geprosesseer nie.  Wag asseblief vir die lêer om geprosesseer te word en probeer weer."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Hierdie opsie gebruik dienste verskaf deur bitprints.peerproject.org vir herkenning en deel van inligting oor sekere lêers.\\n\\nPeerProject sal die SHA1 hash-kode vir die geselekteerde lêer(s) stuur sodat die Bitprints databasis geraadpleeg kan word.  As jy bekommerd is oor privaatheid, kan jy gerus die bitprints.peerproject.org privaatheidsbeleid lees.\\n\\nWil jy voortgaan?"
 

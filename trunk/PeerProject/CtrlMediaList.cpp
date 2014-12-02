@@ -200,7 +200,7 @@ void CMediaListCtrl::Remove(LPCTSTR pszFile)
 BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 {
 	CString strPath = pszFile;
-	strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+	strPath = strPath.Left( strPath.ReverseFind( L'\\' ) + 1 );
 
 	CFile pFile;
 	if ( ! pFile.Open( pszFile, CFile::modeRead ) ) return FALSE;
@@ -214,9 +214,9 @@ BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 	{
 		strItem.Trim();
 
-		if ( strItem.GetLength() && strItem.GetAt( 0 ) != '#' )
+		if ( strItem.GetLength() && strItem.GetAt( 0 ) != L'#' )
 		{
-			if ( strItem.Find( '\\' ) != 0 && strItem.Find( ':' ) != 1 )
+			if ( strItem.Find( L'\\' ) != 0 && strItem.Find( L':' ) != 1 )
 				strItem = strPath + strItem;	// Relative path
 
 			if ( GetFileAttributes( strItem ) != 0xFFFFFFFF )
@@ -230,7 +230,7 @@ BOOL CMediaListCtrl::LoadTextList(LPCTSTR pszFile)
 BOOL CMediaListCtrl::SaveTextList(LPCTSTR pszFile)
 {
 	CString strPath = pszFile;
-	strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+	strPath = strPath.Left( strPath.ReverseFind( L'\\' ) + 1 );
 
 	CString strFile;
 	for ( int nItem = 0 ; nItem < GetItemCount() ; nItem++ )
@@ -267,7 +267,7 @@ int CMediaListCtrl::Add(LPCTSTR pszPath, int nItem)
 	}
 
 	CString strTemp = (LPTSTR)pszFile;
-	int nDotPos = strTemp.ReverseFind( '.' );
+	int nDotPos = strTemp.ReverseFind( L'.' );
 	if ( nDotPos != -1 ) strTemp = strTemp.Left( nDotPos );
 	LPTSTR pszFileTmp = strTemp.GetBuffer( strTemp.GetLength() );
 
@@ -529,7 +529,7 @@ void CMediaListCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 
 void CMediaListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 {
-	int nHit = HitTest( point );
+	const int nHit = HitTest( point );
 
 	if ( m_pDragImage != NULL )
 	{
@@ -549,7 +549,7 @@ void CMediaListCtrl::OnMouseMove(UINT nFlags, CPoint point)
 	}
 	else
 	{
-		DWORD_PTR nFile = nHit >= 0 ? GetItemData( nHit ) : 0;
+		DWORD nFile = nHit >= 0 ? (DWORD)GetItemData( nHit ) : 0;	// DWORD_PTR
 
 		if ( nFile > 0 && ! Library.LookupFile( nFile ) )
 			nFile = 0;

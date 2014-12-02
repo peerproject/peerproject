@@ -1316,7 +1316,7 @@ CString HostToString(const SOCKADDR_IN* pHost)
 	strHost.Format( L"%s:%hu", (LPCTSTR)CString( inet_ntoa( pHost->sin_addr ) ), ntohs( pHost->sin_port ) );
 	return strHost;
 }
-#endif	// _WINSOCKAPI_ 
+#endif	// _WINSOCKAPI_
 
 LPCTSTR SafePath(const CString& sPath)
 {

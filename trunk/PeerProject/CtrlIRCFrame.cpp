@@ -381,9 +381,8 @@ void CIRCFrame::SetFonts()
 	m_pContent.m_fntNormal.DeleteObject();
 
 	// Obsolete:
-	//int nHeight = (int)Settings.IRC.FontSize;
-	//
 	// Find optimal default font sizes for different languages
+	//int nHeight = (int)Settings.IRC.FontSize;
 	//if ( nHeight < 6 || nHeight > 100 )
 	//{
 	//	nHeight = 10;
@@ -422,7 +421,8 @@ void CIRCFrame::SetFonts()
 	//			else
 	//				nHeight = (int)( 10.0f * 13.0f / ( 16.0f / txtMetric.tmAscent * nMainChar ) + 0.5 );
 	//		}
-	//		else nHeight = 10;
+	//		else
+	//			nHeight = 10;
 	//	}
 	//	else
 	//	{
@@ -1322,13 +1322,13 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //	CString strMsgTemp, strCurrentWord;
 //	CStringArray pWordDivide;
 //	BOOL bStartedSplit = FALSE;
-//	nCurrentChar = strMessage.Find( ' ', nOldChar );
+//	nCurrentChar = strMessage.Find( L' ', nOldChar );
 //	strMessage.Trim();
 //	while ( nCurrentChar != -1 )
 //	{
 //		pWordDivide.Add( strMessage.Mid( nOldChar, nCurrentChar - nOldChar ) );
 //		nOldChar = nCurrentChar + 1;
-//		nCurrentChar = strMessage.Find( ' ', nOldChar );
+//		nCurrentChar = strMessage.Find( L' ', nOldChar );
 //	}
 //	pWordDivide.Add( strMessage.Mid( nOldChar ) );
 //	nCurrentLength = 0;
@@ -2820,10 +2820,10 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //	BOOL bMinimized = ( (CMainWnd*)AfxGetMainWnd() )->m_bTrayHide;
 //	if ( ! bMinimized ) return FALSE;
 //
-//	// Does not support Win9x/Me/NT
+//	// Does not support Win9x
 //
 //	// Verify input parameters
-//	// Balloon tooltip text can be up to 255 chars long.
+//	// Balloon tooltip text can be up to 255 chars long
 //	CString strText( szText );
 //	if ( strText.GetLength() > 255 )
 //	{
@@ -2834,11 +2834,11 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //		else
 //		{
 //			strText = strText.Left( 254 );
-//			int nLastWord = strText.ReverseFind( ' ' );
+//			int nLastWord = strText.ReverseFind( L' ' );
 //			strText = strText.Left( nLastWord ) + L"\x2026";
 //		}
 //	}
-//	// Balloon title text can be up to 63 chars long.
+//	// Balloon title text can be up to 63 chars long
 //	CString strTitle;
 //	if ( szTitle )
 //	{
@@ -2847,7 +2847,7 @@ int CIRCFrame::FindInList(CString strName, int nList, int nTab)
 //	}
 //	// dwBalloonIcon must be valid.
 //	if ( NIIF_NONE != dwIcon && NIIF_INFO != dwIcon && NIIF_WARNING != dwIcon && NIIF_ERROR != dwIcon ) return FALSE;
-//	// Timeout must be between 10 and 30 seconds.
+//	// Timeout between 10 and 30 seconds
 //	if ( uTimeout < 10 || uTimeout > 30 ) return FALSE;
 //
 //	m_pTray.uFlags = NIF_INFO;

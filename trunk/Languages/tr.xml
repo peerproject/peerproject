@@ -2632,6 +2632,8 @@
 	<string id="20082" value="Bitti, Kapat'ı tıklayın"/>
 	<string id="20083" value="İsteniyor..."/>
 	<string id="20084" value="Başarılı."/>
+	<string id="20086" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
+	<string id="20088" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için bitprints.peerproject.org tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitprints veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek. Eğer gizlilikle ilgileniyorsan bitprints.peerproject.org gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
 	<string id="20100" value="%s'ye gözatan kullanıcı bağlantısı kapatılıyor."/>
 	<string id="20101" value="%s gözatan hostu anlaşılamayan bir yanıt verdi, kullanıcı ya da host taramalarını desteklemiyor olabilir."/>
 	<string id="20102" value="Kullanıcı hosta bağlantı yapamaz."/>
@@ -2948,8 +2950,8 @@
 	<string id="20445" value="&amp;URI'leri Gönder..."/>
 	<string id="20446" value="&quot;%s&quot; dosyası bir hash test doğrulamasını başaramadı ve indirmeyi tasarladığın dosya olmayabilir. Bunu açmak istediğinden emin misin?"/>
 	<string id="20447" value="Bu dosyadan &quot;gizlilik ve tehlikeli&quot; özniteliklerini kaldırmak istiyor musunuz?"/>
-	<string id="20448" value="&quot;%s&quot; dosyası henüz taranmadı. Lütfen dosyanın taranması için bekleyin ve sonra tekrar deneyin."/>
-	<string id="20449" value="Bu seçeneklerle seçilen dosyada onaylanan ve paylaşılan bilgi için bitprints.peerproject.org tarafından sağlanan servisler kullanılır.\n\nPeerProject Bitprints veritabanı sorgu düzeninde seçilen dosyalar için SHA1 hash kod gönderecek. Eğer gizlilikle ilgileniyorsan bitprints.peerproject.org gizlilik politikasını danışmak isteyebilirsin.\n\nİlerlemek istiyor musun?"/>
+	<string id="20448" value="Kamu"/>	<!--Shared-->
+	<string id="20449" value="Özel"/>	<!--Unshared-->
 	<string id="20450" value="Seçilen klasör &quot;%s&quot; klasörünün alt klasörü, zaten kütüphanenizin parçasıdır.\nEklenen bu klasör bazı dosyaların bozulmasına neden olacaktır.\n\nDevam etmek istiyor musunuz ?"/>
 	<string id="20451" value="Oynayacak dosya yok. Kütüphanenizdeki bir ortam dosyasını oynatmak için çift-tıklın."/>
 	<string id="20452" value="Tüm ortam dosyaları|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Oynatma Listeleri|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ses Dosyaları|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Dosyaları|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Ses Trackleri|*.cda|MIDI Dosyalar|*.mid;*.rmi;*.midi|Tüm Dosyalar|*.*||"/>
@@ -2959,7 +2961,7 @@
 	<string id="20456" value="Oynatma Listesi:"/>
 	<string id="20457" value="PeerProject MedyaServisleri plugin'ini desteklenemedi. Lütfen PeerProjectyı tekrar yükleyin ve zorunlu ortam codeclerinin ve çıkış sürücülerinin yüklendiğini doğrulayın."/>
 	<string id="20458" value="PeerProject Ortam Sistema"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; O &#160;&#160; R &#160;&#160; T &#160;&#160; A &#160;&#160; M &#160;&#160; &#160;&#160; S &#160;&#160; İ &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M &#160;&#160; İ"/>
+	<string id="20460" value="PEERPROJECT ORTAM SİSTEMİ"/>
 	<string id="20462" value="(Görüntü Yok)"/>
 	<!--string id="20464" value="PeerProject tamamıyla indirildi:"-->
 	<!--string id="20465" value="PeerProject indiriliyor:"-->
@@ -4545,10 +4547,11 @@
 		<column from="File" to="Dosya"/>
 		<column from="Type" to="Uzantı"/>
 		<column from="Size" to="Boyut"/>
-		<column from="Folder" to="Klasör"/>
-		<column from="Hits" to="Bakışlar"/>
-		<column from="Uploads" to="Aktarımlar"/>
 		<column from="Modified" to="Değiştirme"/>
+		<column from="Folder" to="Klasör"/>
+		<column from="Shared" to="Paylaşılan"/>
+		<column from="Uploads" to="Aktarımlar"/>
+		<column from="Hits" to="Bakışlar"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adres"/>

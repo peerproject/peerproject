@@ -73,7 +73,7 @@ bool CDatabase::IsBusy() const throw()
 
 int CDatabase::GetCount() const throw()
 {
-	return m_raw.GetCount();
+	return (int)m_raw.GetCount();	// IN_PTR
 }
 
 bool CDatabase::Exec(LPCTSTR szQuery)

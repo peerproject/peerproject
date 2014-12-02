@@ -1850,7 +1850,7 @@ void CDownloadsWnd::OnDownloadsFolder()
 			if ( strPath.Find( strName ) > 1 )
 				strPath = strPath.Left( strPath.Find( strName ) + strName.GetLength() );
 			else
-				strPath = strPath.Left( strPath.ReverseFind( '\\' ) + 1 );
+				strPath = strPath.Left( strPath.ReverseFind( L'\\' ) + 1 );
 
 			if ( PathIsDirectory( strPath ) )
 				ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
@@ -1892,11 +1892,11 @@ void CDownloadsWnd::OnDownloadsFileDelete()
 		if ( nCount > 1 )	// pDownload->IsMultiFileTorrent()
 		{
 			CString strPath = pDownload->GetPath( 0 );
-			strPath = strPath.Left( strPath.ReverseFind( '\\' ) );
+			strPath = strPath.Left( strPath.ReverseFind( L'\\' ) );
 			pFolderList.AddTail( strPath );
 
 			CString strPathCheck = pList.GetTail();
-			strPathCheck = strPathCheck.Left( strPathCheck.ReverseFind( '\\' ) );
+			strPathCheck = strPathCheck.Left( strPathCheck.ReverseFind( L'\\' ) );
 			if ( strPathCheck.GetLength() < strPath.GetLength() )
 				pFolderList.AddTail( strPathCheck );
 

@@ -8,7 +8,7 @@
 ; E-Mail: mr.lols@yandex.ua
 ; Web: http://counter-strike.com.ua/
 ;
-; Version 2012.06.01
+; Version 2012.12.14
 ;
 ; Based on translation by Vitaliy Levchenko v.4.0.5
 
@@ -323,6 +323,6 @@ UninstallProgram=Видалити %1
 LaunchProgram=Відкрити %1
 AssocFileExtension=&Асоціювати %1 з розширенням файлу %2
 AssocingFileExtension=Асоціювання %1 з розширенням файлу %2...
-AutoStartProgramGroupDescription=Автозапуск:
-AutoStartProgram=Автоматично запускати %1
+AutoStartProgramGroupDescription=Автозавантаження:
+AutoStartProgram=Автоматично завантужувати %1
 AddonHostProgramNotFound=%1 не знайдений у вказаній вами папці%n%nВи все одно бажаєте продовжити?

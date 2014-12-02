@@ -1,7 +1,7 @@
 //
 // VendorCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -52,8 +52,9 @@ public:
 			CVendor* pVendor;
 			if ( m_pCodeMap.Lookup( pszCode, pVendor ) )
 				return pVendor;
-			else
-				return NULL;
+			
+			theApp.Message( MSG_INFO, L"Unknown Vendor Code: %s", pszCode );
+			return NULL;
 		}
 		return NULL;
 	}

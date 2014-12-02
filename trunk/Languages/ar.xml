@@ -2673,10 +2673,12 @@
 	<string id="20443" value="عرض جميع امتداد الملفات" />
 	<string id="20444" value="Copy &amp;URI" />
 	<string id="20445" value="Export &amp;URIs..." />
+	<string id="20448" value="جمهور"/>	<!--Shared-->
+	<string id="20449" value="خاص"/>	<!--Unshared-->
 	<!-- Missing Strings -->
 	<string id="20456" value="الأغاني:" />
 	<string id="20458" value="PeerProject Media Player" />
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(No Visualisation)" />
 	<string id="20470" value="إلغاء الأمر" />
 	<string id="20471" value="Open" />
@@ -4009,10 +4011,11 @@
 		<column from="File" to="ملف" />
 		<column from="Type" to="الإمتداد" />
 		<column from="Size" to="الحجم" />
-		<column from="Folder" to="مجلد" />
-		<column from="Hits" to="ضربات" />
-		<column from="Uploads" to="رفع الملفات" />
 		<column from="Modified" to="تعديل" />
+		<column from="Folder" to="مجلد" />
+		<column from="Shared" to="المشترك" />
+		<column from="Uploads" to="رفع الملفات" />
+		<column from="Hits" to="ضربات" />
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="العنوان" />

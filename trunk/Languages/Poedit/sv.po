@@ -5688,11 +5688,11 @@ msgstr "Filen \"%s\" misslyckades med en granskningsverifikation och kanske inte
 msgid "Would you like to remove the \"potentially unsafe\" attribute from this file?"
 msgstr "Vill du radera det \"eventuellt osäkra\" attributet från denna fil?"
 
-#: string;20448
+#: string;20086
 msgid "The file \"%s\" has not yet been hashed. Please wait for the file to be hashed, and then try again."
 msgstr "Filen \"%s\" har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."
 
-#: string;20449
+#: string;20088
 msgid "This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\\n\\nPeerProject will transmit the SHA1 hash code for the selected files in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\\n\\nWould you like to proceed?"
 msgstr "Detta val använder tjänster tillhandahållna av bitprints.peerproject.org för igenkänning och utdelning av information om valda filer.\\n\\nPeerProject kommer att överföra SHA1-granskningskoden för de valda filerna för att begära information från Bitprintsdatabasen. Om du är rädd om din integritet kan du välja att läsa integritetspolicyn för bitprints.peerproject.org.\\n\\nVill du fortsätta?"
 

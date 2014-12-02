@@ -358,9 +358,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		strTemp = pXML->GetAttributeValue( L"format" );
 		ToLower( strTemp );
 
-		if ( strTemp.Find( 'b' ) >= 0 )	pElement->m_nFlags |= retfBold;
-		if ( strTemp.Find( 'i' ) >= 0 )	pElement->m_nFlags |= retfItalic;
-		if ( strTemp.Find( 'u' ) >= 0 )	pElement->m_nFlags |= retfUnderline;
+		if ( strTemp.Find( L'b' ) >= 0 )	pElement->m_nFlags |= retfBold;
+		if ( strTemp.Find( L'i' ) >= 0 )	pElement->m_nFlags |= retfItalic;
+		if ( strTemp.Find( L'u' ) >= 0 )	pElement->m_nFlags |= retfUnderline;
 
 		strTemp = pXML->GetAttributeValue( L"align" );
 		ToLower( strTemp );

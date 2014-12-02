@@ -96,7 +96,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 
 VS_VERSION_INFO VERSIONINFO
  FILEVERSION 1,4,0,0
- PRODUCTVERSION 1,0,1,0
+ PRODUCTVERSION 1,0,2,0
  FILEFLAGSMASK 0x17L
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -119,7 +119,7 @@ BEGIN
             VALUE "LegalCopyright", "© 2005-2010 IntelleSoft"
             VALUE "OriginalFilename", "BugTrap.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1.0.1.0"
+            VALUE "ProductVersion", "1.0.2.0"
         END
         BLOCK "000704b0"
         BEGIN
@@ -131,7 +131,7 @@ BEGIN
             VALUE "LegalCopyright", "© 2005-2010 IntelleSoft"
             VALUE "OriginalFilename", "BugTrap.dll"
             VALUE "ProductName", "PeerProject"
-            VALUE "ProductVersion", "1.0.1.0"
+            VALUE "ProductVersion", "1.0.2.0"
         END
     END
     BLOCK "VarFileInfo"

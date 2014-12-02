@@ -2517,6 +2517,8 @@
 	<string id="20082" value="Lõpetatud, kliki Sule"/>
 	<string id="20083" value="Saadan päringu..."/>
 	<string id="20084" value="Õnnestus"/>
+	<string id="20086" value="Fail &quot;%s&quot; on alles segamini. Palun oota kuni fail koos on ja proovi siis uuesti."/>
+	<string id="20088" value="See võimalus kasutab teenuseid, mida pakub bitprints.peerproject.org failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitprints andmebaasist. Kui oled mures oma turvalisuse pärast, siis võid tutvuda bitprints.peerproject.org privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
 	<string id="20100" value="Sulen %s failide vaatamiseks ühenduse."/>
 	<string id="20101" value="Sirvitud kasutaja %s andis tundmatu vastuse ja ei pruugi sirvimist toetada."/>
 	<string id="20102" value="Ei suuda luua serveriga ühendust, et kasutajat kuvada."/>
@@ -2815,8 +2817,8 @@
 	<string id="20445" value="Ekspordi URI-d..."/>
 	<string id="20446" value="Fail &quot;%s&quot; ei läbimnud kinnitust ja ei pruugi olla see fail mida, sa tahtsid. Oled kindel, et tahad selle faili avada?"/>
 	<string id="20447" value="Kas tahad eemaldada &quot;ebaturvalisee&quot; osa, sellest failist?"/>
-	<string id="20448" value="Fail &quot;%s&quot; on alles segamini. Palun oota kuni fail koos on ja proovi siis uuesti."/>
-	<string id="20449" value="See võimalus kasutab teenuseid, mida pakub bitprints.peerproject.org failide tuvastamise ja jagamiste kohta.\n\nPeerProject võtab SHA1 koodi, valitud failide kohta Bitprints andmebaasist. Kui oled mures oma turvalisuse pärast, siis võid tutvuda bitprints.peerproject.org privaatsus poliitikaga.\n\nKas tahad jätkata?"/>
+	<string id="20448" value="Avalik"/>	<!--Shared-->
+	<string id="20449" value="Privaatne"/>	<!--Unshared-->
 	<string id="20450" value="Valitud kausta alamkaust &quot;%s&quot; on juba sinu raamatukogus.nSelle kausta lisamine võib mõnede failide ümberjagamist mõjutada.\n\nKas soovid jätkata ?"/>
 	<string id="20451" value="Ühtegi faili ei mängi hetkel. Topeltklikk failil, et alustada meediafaili mängimist."/>
 	<string id="20452" value="Kõik Meedia Failid|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlistid|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Failid|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Failid|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Failid|*.mid;*.rmi;*.midi|Kõik Failid|*.*||"/>
@@ -2825,7 +2827,7 @@
 	<string id="20455" value="Ühte osa failist ei ole võimalik avada, sa pead tõmbama lisa koodekeid."/>
 	<string id="20456" value="Playlist:"/>
 	<string id="20457" value="PeerProject ei suutnud oma Meediateenuste lisa käivitada. Palun installi PeerProject uuesti ja kontrolli, et sul on vajalikud meedia koodekid ja draiverid installitud."/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Ilma Visualisatioonita)"/>
 	<!--string id="20464" value="PeerProject on lõpetanud allalaadimise:"-->
 	<!--string id="20465" value="PeerProject tõmbab:"-->
@@ -4354,10 +4356,11 @@
 		<column from="File" to="Fail"/>
 		<column from="Type" to="Faililaiend"/>
 		<column from="Size" to="Suurus"/>
-		<column from="Folder" to="Kaust"/>
-		<column from="Hits" to=""/>
-		<column from="Uploads" to="Üleslaadimine"/>
 		<column from="Modified" to="Muudetud"/>
+		<column from="Folder" to="Kaust"/>
+		<column from="Shared" to="Jagatud"/>
+		<column from="Uploads" to="Üleslaadimine"/>
+		<column from="Hits" to=""/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Aadress"/>

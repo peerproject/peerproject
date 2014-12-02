@@ -2573,11 +2573,13 @@
 	<string id="20064" value="较好"/>
 	<string id="20065" value="很好"/>
 	<string id="20066" value="极棒"/>
-	<string id="20080" value="这是 PeerProject 的内部测试版本， beta 测试期已经结束。请下载 http://peerproject.org/ 完整的官方版本。"/>
+	<string id="20080" value="这是 PeerProject 的内部测试版本， beta 测试期已经结束。请下载 http://peerproject.org 完整的官方版本。"/>
 	<string id="20081" value="关闭(_C)"/>
 	<string id="20082" value="已完成，单击关闭"/>
 	<string id="20083" value="请求中..."/>
-	<string id="20084" value="成功！"/>
+	<string id="20084" value="成功"/>
+	<string id="20086" value="文件 &quot;%s&quot; 未被 Hash。请等待文件被 Hash，稍后再试。"/>
+	<string id="20088" value="识别和共享选定文件的功能由 bitprints.peerproject.org 提供。\n\n为了到 Bitprints 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 bitprints.peerproject.org 的隐私申明。\n\n您确定继续吗？"/>
 	<string id="20100" value="关闭连接到 %s 的浏览用户。"/>
 	<string id="20101" value="浏览主机 %s 回应以无法辨识的应答，并且可能不支持 用户/主机 浏览。"/>
 	<string id="20102" value="未能连接到主机以浏览用户。"/>
@@ -2873,12 +2875,12 @@
 	<string id="20441" value="PeerProject 不能把 \n\n%s\n 更名为 \n%s"/>
 	<string id="20442" value="目标文件已存在:\n\n%s\n\n您要覆盖吗？"/>
 	<string id="20443" value="显示所有文件类型"/>
-	<string id="20444" value="复制 URI(_U)"/>
-	<string id="20445" value="导出 URI(_U)..."/>
+	<string id="20444" value="复制 _URI"/>
+	<string id="20445" value="导出 _URI..."/>
 	<string id="20446" value="此文件 &quot;%s&quot; 未通过 Hash 确认测试，有可能不是您计划要下载的文件。确定要打开吗？"/>
 	<string id="20447" value="确定要移除 &quot;可能不安全&quot; 的文件吗？"/>
-	<string id="20448" value="文件 &quot;%s&quot; 未被 Hash。请等待文件被 Hash，稍后再试。"/>
-	<string id="20449" value="识别和共享选定文件的功能由 bitprints.peerproject.org 提供。\n\n为了到 Bitprints 数据库进行查询，PeerProject 自动转换成 SHA1 Hash。如果涉及隐私，您可能需要查看 bitprints.peerproject.org 的隐私申明。\n\n您确定继续吗？"/>
+	<string id="20448" value="公众"/>	<!--Shared-->
+	<string id="20449" value="私人"/>	<!--Unshared-->
 	<string id="20450" value="选定文件夹的子目录 &quot;%s&quot; 已经是您收藏的一部分。\n添加此文件夹将导致重新 Hash 某些文件。\n\n您希望继续吗？"/>
 	<string id="20451" value="没有文件被播放。请在您的收藏中双击媒体文件进行播放。"/>
 	<string id="20452" value="所有媒体文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放列表文件|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音频文件|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|视频文件|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音轨|*.cda|MIDI 文件|*.mid;*.rmi;*.midi|所有文件|*.*||"/>
@@ -2888,7 +2890,7 @@
 	<string id="20456" value="播放列表"/>
 	<string id="20457" value="PeerProject 无法初始化它的媒体服务插件。请重新安装，并确定您已经安装必要的媒体编码解码器和输出驱动程序。"/>
 	<string id="20458" value="PeerProject 媒体播放器"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; 媒 &#160;&#160; 系  统"/>
+	<string id="20460" value="PEERPROJECT 媒 &#160; 系  统"/>
 	<string id="20462" value="(无可视化效果)"/>
 	<!--string id="20464" value="PeerProject 已经完成下载:"-->
 	<!--string id="20465" value="PeerProject 正在下载:"-->
@@ -4440,10 +4442,11 @@
 		<column from="File" to="文件"/>
 		<column from="Type" to="扩展名"/>
 		<column from="Size" to="大小"/>
-		<column from="Folder" to="文件夹"/>
-		<column from="Hits" to="命中"/>
-		<column from="Uploads" to="上传"/>
 		<column from="Modified" to="修改时间"/>
+		<column from="Folder" to="文件夹"/>
+		<column from="Shared" to="共享"/>
+		<column from="Uploads" to="上传"/>
+		<column from="Hits" to="命中"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="地址"/>

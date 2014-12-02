@@ -503,7 +503,7 @@ BOOL CNetwork::Resolve(LPCTSTR pszHost, int nPort, SOCKADDR_IN* pHost, BOOL bNam
 
 	CString strHost( pszHost );
 
-	const int nColon = strHost.Find( ':' );
+	const int nColon = strHost.Find( L':' );
 
 	if ( nColon > 0 )
 	{

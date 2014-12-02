@@ -2589,6 +2589,8 @@
 	<string id="20082" value="Po dokončení klikněte na Zavřít"/>
 	<string id="20083" value="Žádám..."/>
 	<string id="20084" value="Úspěšně"/>
+	<string id="20086" value="Soubor &quot;%s&quot; ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."/>
+	<string id="20088" value="Tuto možnost využívá služba poskytovaná bitprints.peerproject.org která zjišťuje a sdílí informace o vybraných souborech.\n\nPeerProject bude přenášet SHA1 hash pro označený soubor(y) v rámci dotazu poslaného databázi Bitprints. Pokud máte obavy o soukromí přečtěte si prohlášení bitprints.peerproject.org o ochraně osobních údajů.\n\nChcete pokračovat?"/>
 	<string id="20100" value="Ukončuji připojení prohlížení uživatele %s."/>
 	<string id="20101" value="Prohlížeč hosta %s odpověděl zamítavou odezvou, neumožňuje podporu prohledávání uživatele/hosta."/>
 	<string id="20102" value="Nelze se připojit k uživateli a prohlížet profil nebo soubory."/>
@@ -2896,8 +2898,8 @@
 	<string id="20445" value="Export URIs..."/>
 	<string id="20446" value="U souboru &quot;%s&quot; se nepodařilo ověřit hash. Je možné, že soubor není ten, který jste chtěli stáhnout. Opravdu jej chcete otevřít?"/>
 	<string id="20447" value="Chcete odstranit &quot;potenciálně nebezpečnou&quot; vlastnist z tohoto souboru?"/>
-	<string id="20448" value="Soubor &quot;%s&quot; ještě nemá hash. Prosím čekejte než bude pro soubor vypočítán hash, a potom to zkuste znovu."/>
-	<string id="20449" value="Tuto možnost využívá služba poskytovaná bitprints.peerproject.org která zjišťuje a sdílí informace o vybraných souborech.\n\nPeerProject bude přenášet SHA1 hash pro označený soubor(y) v rámci dotazu poslaného databázi Bitprints. Pokud máte obavy o soukromí přečtěte si prohlášení bitprints.peerproject.org o ochraně osobních údajů.\n\nChcete pokračovat?"/>
+	<string id="20448" value="Veřejné"/>	<!--Shared-->
+	<string id="20449" value="Soukromý"/>	<!--Unshared-->
 	<string id="20450" value="Kompletní a neúplné složky by neměly být stejné"/>
 	<string id="20451" value="Nepřehrává se žádný soubor. Dvojitým kliknutím soubor ve vaší knihovně přehrajete."/>
 	<string id="20452" value="Všechny multimediální soubory|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlisty|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio soubory|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video soubory|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD stopy|*.cda|MIDI soubory|*.mid;*.rmi;*.midi|Všechny soubory|*.*||"/>
@@ -2907,7 +2909,7 @@
 	<string id="20456" value="Playlist:"/>
 	<string id="20457" value="PeerProject nemůže použít plugin pro MediaServices. Prosím nainstalujte znovu PeerProject, a zkontrolujte že máte také nainstalované potřebné kodetky a ovladače."/>
 	<string id="20458" value="PeerProject Media Player"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Nezobrazovat)"/>
 	<!--string id="20464" value="PeerProject dokončila stahování:"-->
 	<!--string id="20465" value="PeerProject stahuje soubor:"-->
@@ -4447,10 +4449,11 @@
 		<column from="File" to="Soubor"/>
 		<column from="Type" to="Přípona"/>
 		<column from="Size" to="Velikost"/>
-		<column from="Folder" to="Složka"/>
-		<column from="Hits" to="Výsledky"/>
-		<column from="Uploads" to="Odesílání"/>
 		<column from="Modified" to="Změněno"/>
+		<column from="Folder" to="Složka"/>
+		<column from="Shared" to="Sdílet"/>
+		<column from="Uploads" to="Odesílání"/>
+		<column from="Hits" to="Výsledky"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>

@@ -1,4 +1,4 @@
-/* $Id: miniwget.c,v 1.61 2014/02/05 17:27:48 nanard Exp $ */
+/* $Id: miniwget.c,v 1.65 2014/11/04 22:31:55 nanard Exp $ */
 /* Project : miniupnp
  * Website : http://miniupnp.free.fr/
  * Author : Thomas Bernard
@@ -19,7 +19,6 @@
 #include <ws2tcpip.h>
 #include <io.h>
 #define MAXHOSTNAMELEN 64
-#define MIN(x,y) (((x)<(y))?(x):(y))
 #define snprintf _snprintf
 #define socklen_t int
 #ifndef strncasecmp
@@ -43,10 +42,16 @@
 #include <net/if.h>
 #include <netdb.h>
 #define closesocket close
+#include <strings.h>
 #endif /* #else _WIN32 */
-//#if defined(__sun) || defined(sun)
-//#define MIN(x,y) (((x)<(y))?(x):(y))
-//#endif
+//#ifdef __GNU__
+//#define MAXHOSTNAMELEN 64
+//#endif /* __GNU__ */
+
+#ifndef MIN
+#define MIN(x,y) (((x)<(y))?(x):(y))
+#endif /* MIN */
+
 
 #include "miniupnpcstrings.h"
 #include "miniwget.h"
@@ -368,7 +373,7 @@ miniwget3(const char * host,
 				 "GET %s HTTP/%s\r\n"
 				 "Host: %s:%d\r\n"
 				 "Connection: Close\r\n"
-				 "User-Agent: " OS_STRING ", UPnP/1.0, MiniUPnPc/" MINIUPNPC_VERSION_STRING "\r\n"
+				 "User-Agent: " OS_STRING ", " UPNP_VERSION_STRING ", MiniUPnPc/" MINIUPNPC_VERSION_STRING "\r\n"
 
 				 "\r\n",
 			   path, httpversion, host, port);

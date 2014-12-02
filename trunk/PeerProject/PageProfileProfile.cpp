@@ -366,14 +366,14 @@ void CProfileProfilePage::OnOK()
 
 			if ( _stscanf( m_sLocLatitude, L"%f", &nValue ) == 1 )
 			{
-				if ( m_sLocLatitude.Find( 'S' ) >= 0 ) nValue *= -1;
+				if ( m_sLocLatitude.Find( L'S' ) >= 0 ) nValue *= -1;
 				strValue.Format( L"%f", double( nValue ) );
 				pCoordinates->AddAttribute( L"latitude", strValue );
 			}
 
 			if ( _stscanf( m_sLocLongitude, L"%f", &nValue ) == 1 )
 			{
-				if ( m_sLocLongitude.Find( 'W' ) >= 0 ) nValue *= -1;
+				if ( m_sLocLongitude.Find( L'W' ) >= 0 ) nValue *= -1;
 				strValue.Format( L"%f", double( nValue ) );
 				pCoordinates->AddAttribute( L"longitude", strValue );
 			}

@@ -199,8 +199,6 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 
 BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 {
-	CString strXML;
-
 	CXMLElement* pRoot = CXMLElement::FromFile( pszFile );
 	if ( pRoot == NULL ) return FALSE;
 
@@ -269,7 +267,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 	//if ( strImported.GetLength() > 5 && strImported.Find( L".xsd" ) > 1 )
 	//{
 	//	CString strFile( pszFile );
-	//	strFile = strFile.Left( strFile.ReverseFind( '\\' ) + 1 ) + strImported;
+	//	strFile = strFile.Left( strFile.ReverseFind( L'\\' ) + 1 ) + strImported;
 	//	LoadSchema( (LPCTSTR)strFile );
 	//}
 
@@ -454,7 +452,7 @@ void CSchema::LoadDescriptorIcons(CXMLElement* pElement)
 
 		if ( pIcon->IsNamed( L"icon" ) )
 		{
-			int nSlash = m_sIcon.ReverseFind( '\\' );
+			int nSlash = m_sIcon.ReverseFind( L'\\' );
 			if ( nSlash >= 0 ) m_sIcon = m_sIcon.Left( nSlash + 1 );
 			m_sIcon += pIcon->GetAttributeValue( L"path" );
 		}
@@ -810,9 +808,9 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 {
 	for ( ;; )
 	{
-		int nOpen = str.Find( '{' );
+		int nOpen = str.Find( L'{' );
 		if ( nOpen < 0 ) break;
-		int nClose = str.Find( '}' );
+		int nClose = str.Find( L'}' );
 		if ( nClose <= nOpen ) break;
 
 		CString strMember = str.Mid( nOpen + 1, nClose - nOpen - 1 ).Trim();

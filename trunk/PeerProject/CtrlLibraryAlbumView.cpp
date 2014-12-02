@@ -1043,23 +1043,23 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 
 		if ( m_sArtist.IsEmpty() || m_sTitle.IsEmpty() )
 		{
-			int nDash = pFile->m_sName.Find( '-' );
+			int nDash = pFile->m_sName.Find( L'-' );
 			if ( nDash > 0 )
 			{
 				if ( m_sArtist.IsEmpty() )
 					m_sArtist = pFile->m_sName.Left( nDash );
 				if ( m_sTitle.IsEmpty() )
 				{
-					nDash = pFile->m_sName.ReverseFind( '-' );
+					nDash = pFile->m_sName.ReverseFind( L'-' );
 					m_sTitle = pFile->m_sName.Mid( nDash + 1 );
-					nDash = m_sTitle.ReverseFind( '.' );
+					nDash = m_sTitle.ReverseFind( L'.' );
 					if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
 				}
 			}
 			else if ( m_sTitle.IsEmpty() )
 			{
 				m_sTitle = pFile->m_sName;
-				nDash = m_sTitle.ReverseFind( '.' );
+				nDash = m_sTitle.ReverseFind( L'.' );
 				if ( nDash >= 0 ) m_sTitle = m_sTitle.Left( nDash );
 			}
 		}
@@ -1077,7 +1077,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 		if ( m_sTitle.IsEmpty() )
 		{
 			m_sTitle = pFile->m_sName;
-			m_sTitle = m_sTitle.Left( m_sTitle.ReverseFind( '.' ) );
+			m_sTitle = m_sTitle.Left( m_sTitle.ReverseFind( L'.' ) );
 			m_sTitle.Replace( '_', ' ' );
 			if ( ! m_sArtist.IsEmpty() )
 				m_sTitle.Replace( m_sArtist, L"" );
@@ -1085,7 +1085,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 		m_sLength	= pFile->m_pMetadata->GetAttributeValue( L"minutes" );  // Video
 		if ( ! m_sLength.IsEmpty() )
 		{
-			int nSplit = m_sLength.Find( '.' );
+			int nSplit = m_sLength.Find( L'.' );
 			float fSeconds = 0.000;
 
 			if ( nSplit >= 0 && nSplit < m_sLength.GetLength() )
@@ -1103,7 +1103,7 @@ BOOL CLibraryAlbumTrack::Update(CLibraryFile* pFile)
 			else
 			{
 				if ( m_sTitle.Left( 6 ) == L"eBook " || m_sTitle.Left( 6 ) == L"ebook " )
-					m_sTitle = m_sTitle.Mid( ( m_sTitle.GetAt( 6 ) == '-' ) ? 7 : 6 );
+					m_sTitle = m_sTitle.Mid( ( m_sTitle.GetAt( 6 ) == L'-' ) ? 7 : 6 );
 
 				strSize = pFile->m_pMetadata->GetAttributeValue( L"pages" );  // Document
 				if ( ! strSize.IsEmpty() )

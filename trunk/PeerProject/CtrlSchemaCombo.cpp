@@ -257,7 +257,7 @@ void CSchemaCombo::DrawItem(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		{
 			if ( LPCTSTR pszLeft = _tcschr( (LPCTSTR)strURI + 7, '/' ) )
 			{
-				int nRight = strURI.ReverseFind( '/' );
+				int nRight = strURI.ReverseFind( L'/' );
 				if ( nRight >= 0 )
 				{
 					int nLeft = static_cast< int >( pszLeft - (LPCTSTR)strURI );	// !!! (ToDo:?)

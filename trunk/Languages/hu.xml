@@ -2622,6 +2622,8 @@
 	<string id="20082" value="Kész, zárd be"/>
 	<string id="20083" value="Kérés..."/>
 	<string id="20084" value="Siker."/>
+	<string id="20086" value="A(z) &quot;%s&quot; még nem volt hashelve. Várja meg a hashelést és próbálja újra."/>
+	<string id="20088" value="Ez az opció a bitprints.peerproject.org fájlinformációs szolgáltatásait használja.\n\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitprints adatbázisába. Ha nem bízik meg a Bitprintsben, akkor olvassa el a bitprints.peerproject.org adatvédelmi nyilatkozatát.\n\nTovább akar menni?"/>
 	<string id="20100" value="Fájllista kapcsolat bezárása %s."/>
 	<string id="20101" value="%s egy ismeretlen válasszal válaszolt és nem támogatja a fájllista letöltését."/>
 	<string id="20102" value="Nem lehetett kapcsolatot létesíteni a fájllista letöltéséhez."/>
@@ -2931,8 +2933,8 @@
 	<string id="20445" value="URI exportálása..."/>
 	<string id="20446" value="A(z) &quot;%s&quot; fájl megbukott a hash ellenőrzésen és valószínűleg ez nem az a fájl, amit ön szeretne. Biztos meg akarja nyitni?"/>
 	<string id="20447" value="El akarja távolítani a fájl &quot;potenciálisan veszélyes&quot; attribútumát?"/>
-	<string id="20448" value="A(z) &quot;%s&quot; még nem volt hashelve. Várja meg a hashelést és próbálja újra."/>
-	<string id="20449" value="Ez az opció a bitprints.peerproject.org fájlinformációs szolgáltatásait használja.\n\nA PeerProject a fájl SHA1 hash kódját elküldi a Bitprints adatbázisába. Ha nem bízik meg a Bitprintsben, akkor olvassa el a bitprints.peerproject.org adatvédelmi nyilatkozatát.\n\nTovább akar menni?"/>
+	<string id="20448" value="Nyilvános"/>	<!--Shared-->
+	<string id="20449" value="Magán"/>	<!--Unshared-->
 	<string id="20450" value="A kész és a félkész fájlok ne legyenek azonos mappában."/>
 	<string id="20451" value="Nincs semmilyen lejátszás folyamatban. Kattintson duplán egy médiafájlra a lejátszáshoz."/>
 	<string id="20452" value="Minden médiafájl|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lejátszólisták|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audiófájlok|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videófájlok|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|AudióCD hangsávok|*.cda|MIDI fájlok|*.mid;*.rmi;*.midi|Minden fájl|*.*||"/>
@@ -2942,7 +2944,7 @@
 	<string id="20456" value="LEJÁTSZÓLISTA:"/>
 	<string id="20457" value="A PeerProject nem tudta betölteni a MediaServices plugint. Telepítsd újra a PeerProject és győződj meg róla, hogy minden fontos kodeket is föltelepítettél."/>
 	<string id="20458" value="PeerProject Médialejátszó"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; L &#160;&#160; E &#160;&#160; J &#160;&#160; Á &#160;&#160; T &#160;&#160; S &#160;&#160; Z &#160;&#160; Ó"/>
+	<string id="20460" value="PEERPROJECT MEDIALEJÁTSZÓ"/>
 	<string id="20462" value="(Nincs képi megjelenítés)"/>
 	<!--string id="20464" value="Letöltés befejezve:"-->
 	<!--string id="20465" value="Letöltés folyamatban:"-->
@@ -4527,10 +4529,11 @@
 		<column from="File" to="Fájl"/>
 		<column from="Type" to="Típus"/>
 		<column from="Size" to="Méret"/>
-		<column from="Folder" to="Mappa"/>
-		<column from="Hits" to="Találatok"/>
-		<column from="Uploads" to="Feltöltés"/>
 		<column from="Modified" to="Módosítva"/>
+		<column from="Folder" to="Mappa"/>
+		<column from="Shared" to="Megosztott"/>
+		<column from="Uploads" to="Feltöltés"/>
+		<column from="Hits" to="Találatok"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Cím"/>

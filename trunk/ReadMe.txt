@@ -6,41 +6,41 @@ ___________________________
 	- http://www.visualstudio.com/downloads
 
 
-1. Install Visual Studio 2013
-	- http://www.microsoft.com/download/details.aspx?id=43730  (90day Trial)
+1. Install Visual Studio Community  (No Cost)
+	- http://www.visualstudio.com/products/visual-studio-community-vs
+
+   OR Install Visual Studio 2015
+	- http://www.microsoft.com/download/details.aspx?id=44934  (Preview)
+
+   OR Install Visual Studio 2013
+	- http://www.microsoft.com/download/details.aspx?id=44916  (Trial)
 
    OR Install Visual Studio 2012
-	- http://www.microsoft.com/download/details.aspx?id=30678  (90day Trial)
-	- http://go.microsoft.com/?linkid=9821199  (Update 4)
+	- http://www.microsoft.com/download/details.aspx?id=30678  (Trial)
+	- http://go.microsoft.com/?linkid=9821199  (Update)
 
    OR Install Visual Studio 2010
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (30/90day Trial)
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=75568aa6-8107-475d-948a-ef22627e57a5  (Service Pack)
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (Trial)
+	- http://www.microsoft.com/download/details.aspx?id=23691  (Service Pack)
 
    OR Install Visual Studio 2008 SP1
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (90day Trial)
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=fbee1648-7106-44a7-9649-6d9f6d58056e  (Service Pack)
-	- http://www.microsoft.com/downloads/details.aspx?familyid=C17BA869-9671-4330-A63E-1FD44E0E2505  (Win7 SDK)
+	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (Trial)
+	- http://www.microsoft.com/download/details.aspx?id=10986  (Service Pack)
+	- http://www.microsoft.com/download/details.aspx?id=3138   (Win7 SDK)
+
+   NOTE: Visual Studio Express (C++/Desktop) is not supported for builds
+
 
 2. Locate this complete PeerProject sourcecode set.
 	- https://sourceforge.net/p/peerproject/code/HEAD/tarball?path=/trunk
 	- OR http://github.com/peerproject/peerproject/zipball/master
 	- That's it, there are no external dependencies or setup.
-	- Open \VS20XX\PeerProject.sln and click "Build Solution"
 
 
-
-
-Note: Visual Studio Express alternative for Browse/Edit only:
-	- No-Cost Visual C++ Express (Desktop) can be configured for MFC, but some projects STILL FAIL to build.
-
-X. Install Visual C++ Express (Desktop) + Windows SDK + WDK
-	- http://www.microsoft.com/download/details.aspx?id=43733 (Visual Studio Express 2013 for Desktop)
-	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-express-windows-desktop
-	- OR http://www.microsoft.com/visualstudio/eng/downloads#d-2010-express  (Visual C++ 2010 Express)
-	- http://www.microsoft.com/en-us/download/details.aspx?id=8279  (Win7 SDK)
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=36a2630f-5d56-43b5-b996-7633f2ec14ff  (WDK 7.1)
-	- Configure MFC from WDK mfc42 folder ("Build Environments" only install)
+3. Build the project
+	- Open \Visual Studio\ folder
+	- Click SetVS201X.bat file as needed to update project files for version
+	- Open PeerProject.sln file and click "Build Solution"
 
 
 

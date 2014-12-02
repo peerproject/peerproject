@@ -2035,8 +2035,8 @@ BOOL CEDClient::OnViewSharedDirAnswer(CEDPacket* pPacket)
 
 	if ( pPacket->GetRemaining() >= 2 )
 	{
-		// Read original directory name (Unused?)
-		CString strDir = pPacket->ReadEDString( m_bEmUnicode );
+		// Read original directory name (Unused)
+		//CString strDir = pPacket->ReadEDString( m_bEmUnicode );
 
 		if ( pPacket->GetRemaining() >= 4 )
 		{

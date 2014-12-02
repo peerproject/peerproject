@@ -2684,6 +2684,8 @@
 	<string id="20082" value="Finito, clicca Chiudi"/>
 	<string id="20083" value="Richiesta in corso..."/>
 	<string id="20084" value="Successo."/>
+	<string id="20086" value="Il file &quot;%s&quot; non ha subito il processo di hash. Attendi che il file abbia subito il processo di hash, poi prova ancora."/>
+	<string id="20088" value="Questa opzione utilizza i servizi di bitprints.peerproject.org per il riconoscimento e la condivisione delle informazioni sui file selezionati.\n\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitprints. Se non conosci le condizioni sulla privacy, consultale su bitprints.peerproject.org.\n\nDesideri continuare?"/>
 	<string id="20100" value="Chiusura della connessione per l'esame dell'host %s."/>
 	<string id="20101" value="L'esame dell'host %s ha replicato con una risposta non riconoscibile, potrebbe non supportare l'esplorazione dell'utente/host."/>
 	<string id="20102" value="Impossibile connettersi all'host per esaminare i file."/>
@@ -3003,8 +3005,8 @@
 	<string id="20445" value="Esporta URI..."/>
 	<string id="20446" value="Il file &quot;%s&quot; ha fallito il test di verifica dell'hash e potrebbe non essere il file che intendevi scaricare. Desideri aprirlo comunque?"/>
 	<string id="20447" value="Desideri rimuovere l'attributo &quot;potenzialmente non sicuro&quot; da questo file?"/>
-	<string id="20448" value="Il file &quot;%s&quot; non ha subito il processo di hash. Attendi che il file abbia subito il processo di hash, poi prova ancora."/>
-	<string id="20449" value="Questa opzione utilizza i servizi di bitprints.peerproject.org per il riconoscimento e la condivisione delle informazioni sui file selezionati.\n\nPeerProject trasmetterà il codice hash SHA1 per i file selezionati per poter effettuare richieste al database di Bitprints. Se non conosci le condizioni sulla privacy, consultale su bitprints.peerproject.org.\n\nDesideri continuare?"/>
+	<string id="20448" value="Pubblico"/>	<!--Shared-->
+	<string id="20449" value="Privato"/>	<!--Unshared-->
 	<string id="20450" value="Una sottocartella della cartella selezionata &quot;%s&quot; è già parte della tua libreria.nAggiungere questa cartella causerà il re-hashing di alcuni file.\n\nVuoi continuare?"/>
 	<string id="20451" value="Nessun file in riproduzione. Fai doppio click su un file multimediale della tua libreria per riprodurlo."/>
 	<string id="20452" value="Tutti i file multimediali|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlist|*.asx;*.wax;*.m3u;*.wvx;*.wmx|File audio|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|File video|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Tracce CD audio|*.cda|File MIDI|*.mid;*.rmi;*.midi|Tutti i file|*.*||"/>
@@ -3014,7 +3016,7 @@
 	<string id="20456" value="Playlist:"/>
 	<string id="20457" value="PeerProject non riesce ad instanziare il plugin MediaServices. Reinstalla PeerProject e assicurati di avere i codec multimediali e i driver necessari installati."/>
 	<string id="20458" value="Lettore multimediale di PeerProject"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Nessuna visualizzazione)"/>
 	<!--string id="20464" value="PeerProject sta verificando il download alla ricerca di eventuali errori:"-->
 	<!--string id="20465" value="PeerProject sta scaricando:"-->
@@ -4602,10 +4604,11 @@
 		<column from="File" to="File"/>
 		<column from="Type" to="Tipo"/>
 		<column from="Size" to="Dimensione"/>
-		<column from="Folder" to="Cartella"/>
-		<column from="Hits" to="Richieste"/>
-		<column from="Uploads" to="Upload"/>
 		<column from="Modified" to="Modificato"/>
+		<column from="Folder" to="Cartella"/>
+		<column from="Shared" to="Condiviso"/>
+		<column from="Uploads" to="Upload"/>
+		<column from="Hits" to="Richieste"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Indirizzo"/>

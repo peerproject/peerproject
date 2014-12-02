@@ -1,7 +1,7 @@
 //
 // LibraryMaps.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2014
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -924,7 +924,7 @@ STDMETHODIMP CLibraryMaps::XLibraryFiles::get_Item(VARIANT vIndex, ILibraryFile 
 	if ( vIndex.vt == VT_BSTR )
 	{
 		CString strName( vIndex.bstrVal );
-		if ( strName.Find( '\\' ) >= 0 )
+		if ( strName.Find( L'\\' ) >= 0 )
 			pFile = pThis->LookupFileByPath( strName );
 		else
 			pFile = pThis->LookupFileByName( strName, SIZE_UNKNOWN, FALSE, FALSE );

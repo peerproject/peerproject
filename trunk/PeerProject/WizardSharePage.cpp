@@ -175,7 +175,7 @@ void CWizardSharePage::AddPhysicalFolder(LPCTSTR pszFolder)
 
 void CWizardSharePage::AddRegistryFolder(HKEY hRoot, LPCTSTR pszKey, LPCTSTR pszValue)
 {
-	TCHAR szFolder[MAX_PATH];
+	TCHAR szFolder[ MAX_PATH ];
 	DWORD dwType, dwFolder;
 	HKEY hKey = NULL;
 
@@ -184,8 +184,8 @@ void CWizardSharePage::AddRegistryFolder(HKEY hRoot, LPCTSTR pszKey, LPCTSTR psz
 	dwType = REG_SZ;
 	dwFolder = MAX_PATH - 1;
 
-	if ( RegQueryValueEx( hKey, pszValue, NULL, &dwType, (LPBYTE)szFolder, &dwFolder )
-		 != ERROR_SUCCESS || dwType != REG_SZ )
+	if ( RegQueryValueEx( hKey, pszValue, NULL, &dwType, (LPBYTE)szFolder, &dwFolder ) != ERROR_SUCCESS ||
+		 dwType != REG_SZ )
 	{
 		RegCloseKey( hKey );
 		return;
@@ -235,13 +235,13 @@ void CWizardSharePage::OnDoubleClick(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 LRESULT CWizardSharePage::OnWizardNext()
 {
-	CWaitCursor pCursor;
-
 	if ( m_wndList.GetItemCount() == 0 )
 	{
 		if ( MsgBox( IDS_WIZARD_SHARE_CONFIRM, MB_ICONQUESTION|MB_YESNO ) == IDNO )
 			return -1;
 	}
+
+	CWaitCursor pCursor;
 
 	{
 		CQuickLock oLock( Library.m_pSection );
@@ -270,7 +270,7 @@ LRESULT CWizardSharePage::OnWizardNext()
 
 		for ( int nItem = 0 ; nItem < m_wndList.GetItemCount() ; nItem++ )
 		{
-			LibraryFolders.AddFolder( m_wndList.GetItemText( nItem, 0 ), m_wndList.GetCheck(nItem) );
+			LibraryFolders.AddFolder( m_wndList.GetItemText( nItem, 0 ), m_wndList.GetCheck( nItem ) );
 		}
 	}
 

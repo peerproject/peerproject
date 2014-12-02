@@ -3,6 +3,9 @@ HKCR
 	NoRemove AppID
 	{
 		'%APPID%' = s 'GFLLibraryBuilder'
+		{
+			val DllSurrogate = s ''
+		}
 		'GFLLibraryBuilder.DLL'
 		{
 			val AppID = s '%APPID%'

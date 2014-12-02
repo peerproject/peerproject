@@ -694,7 +694,7 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 			|| strHeader.CompareNoCase( L"Node" ) == 0 )
 	{
 		// Find another colon in the value
-		int nColon = strValue.Find( ':' );
+		int nColon = strValue.Find( L':' );
 
 		// If the remote computer first contacted us and the colon is there but not first
 		if ( ! m_bInitiated && nColon > 0 )

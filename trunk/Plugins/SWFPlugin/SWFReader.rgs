@@ -36,7 +36,7 @@ HKCU
 				{
 					NoRemove ImageService
 					{
-						ForceRemove val '.swf' = s '{C604ED62-01C8-407B-B8A2-3A5C8A71B542}'
+						val '.swf' = s '{C604ED62-01C8-407B-B8A2-3A5C8A71B542}'
 					}
 				}
 			}

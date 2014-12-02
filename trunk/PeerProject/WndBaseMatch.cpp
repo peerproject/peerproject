@@ -720,11 +720,10 @@ void CBaseMatchWnd::OnUpdateSearchFilter(CCmdUI* pCmdUI)
 {
 	if ( ! m_pMatches->m_sFilter.IsEmpty() )
 	{
-	//	int nAmp = m_pMatches->m_sFilter.Find( '&' );
-
+	//	int nAmp = m_pMatches->m_sFilter.Find( L'&' );
 	//	if ( nAmp >= 0 )
 	//	{
-	//		CString strFilter =	m_pMatches->m_sFilter.Left( nAmp ) + '&' +
+	//		CString strFilter =	m_pMatches->m_sFilter.Left( nAmp ) + L'&' +
 	//							m_pMatches->m_sFilter.Mid( nAmp );
 	//		pCmdUI->SetText( L"&Filtered by \"" + strFilter + L"\"..." );
 	//	}

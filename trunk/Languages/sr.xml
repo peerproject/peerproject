@@ -2779,12 +2779,13 @@
 	<string id="20444" value="Kopiraj URI"/>
 	<string id="20445" value="Export URIs..."/>
 	<!-- Missing Library File Strings -->
+	<string id="20448" value="Публиц"/>	<!--Shared-->
+	<string id="20449" value="Приватно"/>	<!--Unshared-->
 	<string id="20450" value="Podfascikla u odabranoj fascikli &quot;%s&quot; je već deo vaše kolekcije.\nDodavanje ove fascikle će izazvati re-hashing nekih datoteka.\n\nŽelite li svejedno nastaviti?"/>
-	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="Ne mogu učitati datoteku &quot;%s&quot;"/>
 	<!-- Missing Media Strings -->
 	<string id="20456" value="Playlista:"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Nema Vizualizacije)"/>
 	<!--string id="20464" value="PeerProject je završila skidanje:"-->
 	<!--string id="20465" value="PeerProject skida:"-->
@@ -4253,10 +4254,11 @@
 		<column from="File" to="Ime Datoteke"/>
 		<column from="Type" to="Vrsta"/>
 		<column from="Size" to="Veličina"/>
-		<column from="Folder" to="Fascikla"/>
-		<column from="Hits" to="Viđeno"/>
-		<column from="Uploads" to="Dano"/>
 		<column from="Modified" to="Menjano"/>
+		<column from="Folder" to="Fascikla"/>
+		<column from="Shared" to="Схаред"/>
+		<column from="Uploads" to="Dano"/>
+		<column from="Hits" to="Viđeno"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>

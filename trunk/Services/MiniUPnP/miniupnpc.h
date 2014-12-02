@@ -1,8 +1,8 @@
-/* $Id: miniupnpc.h,v 1.36 2014/06/10 09:43:41 nanard Exp $ */
+/* $Id: miniupnpc.h,v 1.38 2014/11/17 09:41:33 nanard Exp $ */
 /* Project: miniupnp
  * http://miniupnp.free.fr/
  * Author: Thomas Bernard
- * Copyright (c) 2005-2012 Thomas Bernard
+ * Copyright (c) 2005-2014 Thomas Bernard
  * This software is subject to the conditions detailed
  * in the LICENCE file provided within this distribution */
 
@@ -18,9 +18,9 @@
 #define UPNPDISCOVER_SOCKET_ERROR (-101)
 #define UPNPDISCOVER_MEMORY_ERROR (-102)
 
-/* versions : 1.9.20140701 */
-#define MINIUPNPC_VERSION	"1.9"
-#define MINIUPNPC_API_VERSION	10
+/* versions : */
+#define MINIUPNPC_VERSION	"1.9.20141120"
+#define MINIUPNPC_API_VERSION	12
 
 #ifdef __cplusplus
 extern "C" {
@@ -58,6 +58,26 @@ upnpDiscover(int delay, const char * multicastif,
 			 const char * minissdpdsock, int sameport,
 			 int ipv6,
 			 int * error);
+
+MINIUPNP_LIBSPEC struct UPNPDev *
+upnpDiscoverAll(int delay, const char * multicastif,
+				const char * minissdpdsock, int sameport,
+				int ipv6,
+				int * error);
+
+MINIUPNP_LIBSPEC struct UPNPDev *
+upnpDiscoverDevice(const char * device, int delay, const char * multicastif,
+				const char * minissdpdsock, int sameport,
+				int ipv6,
+				int * error);
+
+MINIUPNP_LIBSPEC struct UPNPDev *
+upnpDiscoverDevices(const char * const deviceTypes[],
+					int delay, const char * multicastif,
+					const char * minissdpdsock, int sameport,
+					int ipv6,
+					int * error);
+
 /* freeUPNPDevlist()
  * free list returned by upnpDiscover() */
 MINIUPNP_LIBSPEC void freeUPNPDevlist(struct UPNPDev * devlist);

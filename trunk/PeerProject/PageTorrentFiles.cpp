@@ -180,7 +180,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 			for ( DWORD i = 0 ; i < nCount ; i++ )
 			{
 				strName = pFragFile->GetName( i );
-				strName = strName.Mid( strName.ReverseFind( '\\' ) + 1 );
+				strName = strName.Mid( strName.ReverseFind( L'\\' ) + 1 );
 
 				if ( strName.GetAt( 0 ) == L'_' && strName.Left( 18 ) == L"_____padding_file_" )
 					pFragFile->SetPriority( i, bChecked ? CFragmentedFile::prNormal : CFragmentedFile::prUnwanted );
@@ -205,7 +205,7 @@ void CTorrentFilesPage::OnCheckbox(NMHDR* pNMHDR, LRESULT* pResult)
 			}
 		}
 	}
-	
+
 	if ( m_bLoaded )
 		UpdateCount();
 }
@@ -339,7 +339,7 @@ void CTorrentFilesPage::Update()
 		for ( int i = 0 ; i < nCount ; i++ )
 		{
 			strText = pFragFile->GetName( i );
-			strText = strText.Mid( strText.Find( '\\' ) + 1 );
+			strText = strText.Mid( strText.Find( L'\\' ) + 1 );
 			if ( strText.GetAt( 0 ) != L'_' || _tcscmp( strText.Left( 18 ), L"_____padding_file_" ) != 0 )
 				continue;
 
@@ -385,7 +385,7 @@ void CTorrentFilesPage::GetFiles()
 	for ( DWORD i = 0 ; i < nCount ; i++ )
 	{
 		strText = pFragFile->GetName( i );
-		strText = strText.Mid( strText.Find( '\\' ) + 1 );
+		strText = strText.Mid( strText.Find( L'\\' ) + 1 );
 
 		// Unwanted files
 		if ( strText[0] == L'_' && StartsWith( strText, L"_____padding_file_", 18 ) )

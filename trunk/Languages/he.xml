@@ -2657,6 +2657,8 @@ gap i newline
 	<string id="20443" value="‪הצג את כל סוגי הקבצים"/>
 	<string id="20444" value="‪העתק URI"/>
 	<string id="20445" value="‪ייצא URI..."/>
+	<string id="20448" value="ציבור"/>	<!--Shared-->
+	<string id="20449" value="פרטי"/> 	<!--Unshared-->
 	<string id="20451" value="‪אף קובץ לא מנוגן כעת, לחץ לחיצה כפולה על קובץ בספריה שלך להשמעתו"/>
 	<string id="20452" value="‪All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
 	<string id="20453" value="‪Unable to load media file &quot;%s&quot;"/>
@@ -4123,10 +4125,11 @@ gap i newline
 		<column from="File" to="קובץ"/>
 		<column from="Type" to="סיומת"/>
 		<column from="Size" to="גודל"/>
-		<column from="Folder" to="תיקייה"/>
-		<column from="Hits" to="בקשות"/>
-		<column from="Uploads" to="העלאות"/>
 		<column from="Modified" to="השתנה"/>
+		<column from="Folder" to="תיקייה"/>
+		<column from="Shared" to="משותף"/>
+		<column from="Uploads" to="העלאות"/>
+		<column from="Hits" to="בקשות"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="כתובת"/>

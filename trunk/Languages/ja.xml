@@ -2553,6 +2553,8 @@
 	<string id="20082" value="完了しました。閉じるをクリックして下さい"/>
 	<string id="20083" value="要求中..."/>
 	<string id="20084" value="成功."/>
+	<string id="20086" value="ファイル &quot;%s&quot; はまだハッシュされていません。 ファイルがハッシュされるまで待ってから再試行して下さい"/>
+	<string id="20088" value="このオプション選択されたファイルに関する識別・共有情報が提供されるbitprints.peerproject.orgのサービスを使用します\n\nPeerProjectは選択したファイルのためにBitprintsデータベースにSHA1ハッシュコードを送信して問い合わせます。 プライバシーが心配ならbitprints.peerproject.orgプライバシーポリシーを参照できます\n\n続けて宜しいですか?"/>
 	<string id="20100" value="%s へのユーザ参照接続を閉じています"/>
 	<string id="20101" value="参照ホスト %s は認識できない応答を返しました。ユーザ/ホスト参照をサポートしていない可能性があります"/>
 	<string id="20102" value="ユーザーを参照するホストと接続できません"/>
@@ -2852,8 +2854,8 @@
 	<string id="20445" value="&amp;URIをエクスポート..."/>
 	<string id="20446" value="ファイル &quot;%s&quot; はハッシュ検証テストに失敗しました。 これはあなたが要求したファイルではない可能性があります。 ファイルを開いて宜しいですか?"/>
 	<string id="20447" value="このファイルから&quot;潜在的に危険のある&quot;属性を取り除きますか?"/>
-	<string id="20448" value="ファイル &quot;%s&quot; はまだハッシュされていません。 ファイルがハッシュされるまで待ってから再試行して下さい"/>
-	<string id="20449" value="このオプション選択されたファイルに関する識別・共有情報が提供されるbitprints.peerproject.orgのサービスを使用します\n\nPeerProjectは選択したファイルのためにBitprintsデータベースにSHA1ハッシュコードを送信して問い合わせます。 プライバシーが心配ならbitprints.peerproject.orgプライバシーポリシーを参照できます\n\n続けて宜しいですか?"/>
+	<string id="20448" value="公共"/>	<!--Shared-->
+	<string id="20449" value="プライベート"/>	<!--Unshared-->
 	<string id="20450" value="選択したフォルダ &quot;%s&quot; のサブフォルダが既にライブラリ内に存在します。nこのフォルダを追加すればいくつかのファイルを再ハッシュする可能性があります。\n\nこのまま続けて宜しいですか?"/>
 	<string id="20451" value="再生中のファイルはありません。 ライブラリ内のメディアファイルをダブルクリックすれば再生できます"/>
 	<string id="20452" value="全てのメディアファイル|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|再生リスト|*.asx;*.wax;*.m3u;*.wvx;*.wmx|オーディオファイル|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|ビデオファイル|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CDオーディオトラック|*.cda|MIDIファイル|*.mid;*.rmi;*.midi|全てのファイル|*.*||"/>
@@ -2863,7 +2865,7 @@
 	<string id="20456" value="再 生 リ ス ト"/>
 	<string id="20457" value="PeerProjectはそのメディアサービスプラグインをインスタンス化できません。 PeerProjectを再インストールし、必要なメディアコーデックと出力ドライバがインストールされているか確認して下さい"/>
 	<string id="20458" value="PeerProjectメディアプレーヤー"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; メ &#160; デ &#160; ィ &#160; ア &#160;&#160; &#160;&#160; シ &#160; ス &#160; テ &#160; ム"/>
+	<string id="20460" value="PEERPROJECT メ デ ィ アシ ス テ ム"/>
 	<string id="20462" value="(視覚効果無し)"/>
 	<!--string id="20464" value="PeerProjectはダウンロード終了しました:"-->
 	<!--string id="20465" value="PeerProjectはダウンロード中です:"-->
@@ -4402,10 +4404,11 @@
 		<column from="File" to="ファイル"/>
 		<column from="Type" to="拡張子"/>
 		<column from="Size" to="サイズ"/>
+		<column from="Modified" to="日付"/>
 		<column from="Folder" to="フォルダ"/>
-		<column from="Hits" to="ヒット"/>
+		<column from="Shared" to="共有の"/>
 		<column from="Uploads" to="アップロード"/>
-		<column from="Modified" to="最終更新日"/>
+		<column from="Hits" to="ヒット"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="アドレス"/>

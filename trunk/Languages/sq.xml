@@ -2811,24 +2811,17 @@
 	<!-- Missing Library Strings -->
 	<string id="20436" value="Shto këtë dosje në bibliotekën tuaj?\n\n%s"/>
 	<string id="20437" value="Skeda Fantazmë"/>
-	<string id="20440" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
-	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
-	<string id="20442" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
 	<string id="20443" value="Shfaqi Gjithë Llojet"/>
 	<string id="20444" value="Kopjo URI-n"/>
 	<string id="20445" value="Eksporto URI-t..."/>
-	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
-	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.\nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
-	<string id="20451" value="There is no file playing. Double-click a media file in your library to play it."/>
+	<string id="20448" value="Publik"/>	<!--Shared-->
+	<string id="20449" value="Privat"/>	<!--Unshared-->
+	<!-- Missing Media Strings -->
 	<string id="20452" value="Tërë Skedat Mediatike|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Lista|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Skeda Zanore|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Skeda Filmike|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Kolona CD Audio|*.cda|Skeda MIDI|*.mid;*.rmi;*.midi|Tërë Skedat|*.*||"/>
 	<string id="20453" value="Nuk mund të ngarkohet kjo skedë mediatike &quot;%s&quot;"/>
-	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
-	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
 	<string id="20456" value="Lista:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="MediaLuajtësi i PeerProject-s"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Asnjë vegim)"/>
 	<!--string id="20464" value="PeerProject përfundoi shkarkimin:"-->
 	<!--string id="20465" value="PeerProject po shkarkon:"-->
@@ -4311,10 +4304,11 @@
 		<column from="File" to="Skedë"/>
 		<column from="Type" to="Shtojcë"/>
 		<column from="Size" to="Përmasë"/>
-		<column from="Folder" to="Dosje"/>
-		<column from="Hits" to="Hitet"/>
-		<column from="Uploads" to="Ngarkesa"/>
 		<column from="Modified" to="Modifikimi"/>
+		<column from="Folder" to="Dosje"/>
+		<column from="Shared" to="Ndarjen"/>
+		<column from="Uploads" to="Ngarkesa"/>
+		<column from="Hits" to="Hitet"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adresa"/>

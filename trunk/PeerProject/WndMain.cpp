@@ -1503,7 +1503,7 @@ void CMainWnd::GetMessageString(UINT nID, CString& rMessage) const
 {
 	if ( LoadString( rMessage, nID ) )
 	{
-		int nPos = rMessage.Find( '\n' );
+		int nPos = rMessage.Find( L'\n' );
 		if ( nPos >= 0 ) rMessage.SetAt( nPos, 0 );
 	}
 }

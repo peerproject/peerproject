@@ -1,7 +1,7 @@
 /* $Id: minisoap.c,v 1.22 2012/01/21 13:30:31 nanard Exp $ */
 /* Project : miniupnp
  * Author : Thomas Bernard
- * Copyright (c) 2005-2012 Thomas Bernard
+ * Copyright (c) 2005-2014 Thomas Bernard
  * This software is subject to the conditions detailed in the
  * LICENCE file provided in this distribution.
  *
@@ -26,7 +26,7 @@
 #include <stdlib.h>
 
 #ifdef _WIN32
-#define PRINT_SOCKET_ERROR(x)    printf("Socket error: %s, %d\n", x, WSAGetLastError());
+#define PRINT_SOCKET_ERROR(x) printf("Socket error: %s, %d\n", x, WSAGetLastError());
 #else
 #define PRINT_SOCKET_ERROR(x) perror(x)
 #endif
@@ -95,7 +95,7 @@ int soapPostSubmit(int fd,
 	headerssize = snprintf(headerbuf, sizeof(headerbuf),
 						"POST %s HTTP/%s\r\n"
 						"Host: %s%s\r\n"
-						"User-Agent: " OS_STRING ", UPnP/1.0, MiniUPnPc/" MINIUPNPC_VERSION_STRING "\r\n"
+						"User-Agent: " OS_STRING ", " UPNP_VERSION_STRING ", MiniUPnPc/" MINIUPNPC_VERSION_STRING "\r\n"
 						"Content-Length: %d\r\n"
 						"Content-Type: text/xml\r\n"
 						"SOAPAction: \"%s\"\r\n"

@@ -2821,7 +2821,9 @@
 	<string id="20445" value="匯出 URIs..."/>
 	<string id="20446" value="這個檔案 &quot;%s&quot; 無法通過切細驗證測試, 可能不是您想要下載的檔案. 您確定要開啟它嗎?"/>
 	<string id="20447" value="您要將&quot;潛在不安全的&quot;屬性從這個檔案移除嗎?"/>
-	<string id="20448" value="這個檔案 &quot;%s&quot; 尚未切細. 請等到檔案完成切細後,再試一次."/>
+	<string id="20448" value="公眾"/>	<!--Shared-->
+	<string id="20449" value="私人"/>	<!--Unshared-->
+	<string id="20086" value="這個檔案 &quot;%s&quot; 尚未切細. 請等到檔案完成切細後,再試一次."/>
 	<string id="20450" value="選擇的資料夾的次資料夾 &quot;%s&quot; 已經是您的收藏的一部份了.\n新增這個資料夾會引起某些檔案被重新切細.\n\n您要繼續嗎?"/>
 	<string id="20451" value="目前沒有播放任何檔案. 在您的收藏裡雙點一個多媒體檔案播放."/>
 	<string id="20452" value="所有的多媒體檔案|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|播放清單|*.asx;*.wax;*.m3u;*.wvx;*.wmx|音訊檔|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|視訊檔|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD 音軌|*.cda|MIDI 檔|*.mid;*.rmi;*.midi|所有的檔案|*.*||"/>
@@ -2830,7 +2832,7 @@
 	<string id="20455" value="這個檔案的某些部分無法播放, 您可能需要下載額外的 codecs."/>
 	<string id="20456" value="播放清單"/>
 	<string id="20457" value="PeerProject 無法啟用 MediaServices 外掛. 請重新安裝 PeerProject, 並確認您有必要的多媒體 codecs 與安裝好的輸出驅動程式."/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; 媒 &#160;&#160; &#160;&#160; 系 &#160; 统"/>
+	<string id="20460" value="PEERPROJECT 媒 系 &#160; 统"/>
 	<string id="20462" value="(沒有視覺效果)"/>
 	<!--string id="20464" value="PeerProject 已經完成下載:"-->
 	<!--string id="20465" value="PeerProject 正在下載:"-->
@@ -4366,10 +4368,11 @@
 		<column from="File" to="檔案"/>
 		<column from="Type" to="延伸"/>
 		<column from="Size" to="大小"/>
-		<column from="Folder" to="資料夾"/>
-		<column from="Hits" to="搜尋次數"/>
-		<column from="Uploads" to="上傳"/>
 		<column from="Modified" to="最後修改"/>
+		<column from="Folder" to="資料夾"/>
+		<column from="Shared" to="共享"/>
+		<column from="Uploads" to="上傳"/>
+		<column from="Hits" to="搜尋次數"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="位址"/>

@@ -2624,6 +2624,8 @@
 	<string id="20082" value="Avslutad, klicka Stäng"/>
 	<string id="20083" value="Efterfrågar…"/>
 	<string id="20084" value="Framgång."/>
+	<string id="20086" value="Filen &quot;%s&quot; har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."/>
+	<string id="20088" value="Detta val använder tjänster tillhandahållna av bitprints.peerproject.org för igenkänning och utdelning av information om valda filer.\n\nPeerProject kommer att överföra SHA1-granskningskoden för de valda filerna för att begära information från Bitprintsdatabasen. Om du är rädd om din integritet kan du välja att läsa integritetspolicyn för bitprints.peerproject.org.\n\nVill du fortsätta?"/>
 	<string id="20100" value="Stänger listningsanslutning till %s."/>
 	<string id="20101" value="Listningsvärd %s svarade med ett okänt svar och kanske inte stödjer fillistning."/>
 	<string id="20102" value="Kan inte ansluta till värden för att visa användarens filer."/>
@@ -2932,8 +2934,8 @@
 	<string id="20445" value="Exportera URIs…"/>
 	<string id="20446" value="Filen &quot;%s&quot; misslyckades med en granskningsverifikation och kanske inte är filen du ville ladda ned. Är du säker på att du vill öppna den?"/>
 	<string id="20447" value="Vill du radera det &quot;eventuellt osäkra&quot; attributet från denna fil?"/>
-	<string id="20448" value="Filen &quot;%s&quot; har inte blivit granskad ännu. Vänta tills filen har blivit granskad och försök sedan igen."/>
-	<string id="20449" value="Detta val använder tjänster tillhandahållna av bitprints.peerproject.org för igenkänning och utdelning av information om valda filer.\n\nPeerProject kommer att överföra SHA1-granskningskoden för de valda filerna för att begära information från Bitprintsdatabasen. Om du är rädd om din integritet kan du välja att läsa integritetspolicyn för bitprints.peerproject.org.\n\nVill du fortsätta?"/>
+	<string id="20448" value="Allmän"/>	<!--Shared-->
+	<string id="20449" value="Privat"/>	<!--Unshared-->
 	<string id="20450" value="En undermapp till mappen &quot;%s&quot; finns redan i ditt bibliotek.\nOm du lgger till den här mappen måste hashen beråknas om för vissa filer.\n\nVill du fortsätta?"/>
 	<string id="20451" value="Ingen fil spelas. Dubbelklicka på en mediafil i ditt bibliotek för att spela den."/>
 	<string id="20452" value="Alla mediafiler|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Spellistor|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Ljudfiler|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Videofiler|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Ljudspår på CD|*.cda|MIDI-filer|*.mid;*.rmi;*.midi|Alla filer|*.*||"/>
@@ -2943,7 +2945,7 @@
 	<string id="20456" value="Spellista:"/>
 	<string id="20457" value="PeerProject kan inte initiera sitt insticksprogram för MediaServices. Installera om PeerProject och kontrollera att alla mediacodecs och utmatningsenheter är installerade."/>
 	<string id="20458" value="PeerProject mediaspelare"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT MEDIA SYSTEM"/>
 	<string id="20462" value="(Ingen visualisering)"/>
 	<!--string id="20464" value="PeerProject har fullständigt laddat ned:"-->
 	<!--string id="20465" value="PeerProject laddar ned:"-->
@@ -4527,10 +4529,11 @@
 		<column from="File" to="Fil"/>
 		<column from="Type" to="Filändelse"/>
 		<column from="Size" to="Storlek"/>
-		<column from="Folder" to="Mapp"/>
-		<column from="Hits" to="Träffar"/>
-		<column from="Uploads" to="Uppladdningar"/>
 		<column from="Modified" to="Ändrad"/>
+		<column from="Folder" to="Mapp"/>
+		<column from="Shared" to="Delad"/>
+		<column from="Uploads" to="Uppladdningar"/>
+		<column from="Hits" to="Träffar"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="Adress"/>

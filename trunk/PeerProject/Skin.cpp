@@ -336,7 +336,7 @@ BOOL CSkin::LoadFromFile(LPCTSTR pszFile)
 	if ( pXML == NULL ) return FALSE;
 
 	CString strPath = pszFile;
-	int nSlash = strPath.ReverseFind( '\\' );
+	int nSlash = strPath.ReverseFind( L'\\' );
 	if ( nSlash >= 0 ) strPath = strPath.Left( nSlash + 1 );
 
 	BOOL bResult = LoadFromXML( pXML, strPath );
@@ -1616,7 +1616,7 @@ BOOL CSkin::Apply(LPCTSTR pszName, CDialog* pDialog, UINT nIconID, CToolTipCtrl*
 
 				if ( (CString)szClass != "Co" )
 				{
-					int nPos = strCaption.Find( '_' );
+					int nPos = strCaption.Find( L'_' );
 					if ( nPos >= 0 ) strCaption.SetAt( nPos, '&' );
 					pWnd->SetWindowText( strCaption );
 				}
@@ -2889,7 +2889,7 @@ COLORREF CSkin::GetColor(CString sColor)
 	const int nLength = sColor.GetLength();
 	if ( nLength > 3 && nLength < 14 )
 	{
-		if ( sColor == L"CLR_NONE" || 
+		if ( sColor == L"CLR_NONE" ||
 			 nLength == 4 && sColor.CompareNoCase( L"none" ) == 0 )
 			return CLR_NONE;
 

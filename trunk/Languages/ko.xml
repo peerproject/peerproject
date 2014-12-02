@@ -1962,36 +1962,9 @@
 	<!-- Missing Browse Strings -->
 	<!-- Missing BitTorrent Strings -->
 	<string id="20163" value="연결이 닫혔습니다."/>
-	<string id="20164" value="Connection to %s closed."/>
-	<string id="20165" value="Connection established, handshaking..."/>
-	<string id="20166" value="Connected to %s, handshaking..."/>
-	<string id="20167" value="Initiating a connection to %s..."/>
-	<string id="20168" value="Connecting to %s for chat..."/>
-	<string id="20169" value="Unable to connect to host %s."/>
 	<string id="20170" value="이 길을 잃었다고 연결 채팅."/>
-	<string id="20171" value="The connection to %s was lost."/>
-	<string id="20172" value="Handshake failed, host may not support chatting."/>
-	<string id="20173" value="Handshake complete, chat protocol version %s."/>
-	<string id="20174" value="Exchanging profile information..."/>
-	<string id="20175" value="You have not yet filled in your user profile. You must provide a profile before you can chat with other users.\n\nWould you like to fill in your profile now?"/>
-	<string id="20176" value="Cannot send message, you are not connected. PeerProject is trying to connect..."/>
-	<string id="20177" value="Cannot send message, a connection has not been established yet."/>
-	<string id="20178" value="%s is now known as %s."/>
-	<string id="20179" value="Now chatting with %s (%s)."/>
-	<string id="20180" value="Granted upload priority to host %s."/>
-	<string id="20181" value="%s is away: %s"/>
-	<string id="20182" value="Private conversation granted, you are now chatting with %s."/>
-	<string id="20183" value="%s is not accepting private conversations, sorry."/>
-	<string id="20184" value="Requesting private conversation with user..."/>
+	<!-- Missing Connection Strings -->
 	<string id="20185" value="인증된 사용자"/>
-	<string id="20186" value="Accepted push connection from %s, handshaking..."/>
-	<string id="20187" value="Requesting a firewalled push connection from %s..."/>
-	<string id="20188" value="Connection failed due to invalid data on the wire."/>
-	<string id="20189" value="Received an unknown response: %s"/>
-	<string id="20190" value="You're not connected."/>
-	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="20196" value="This template does not have any customizations."/>
-	<string id="20197" value="This template is invalid."/>
 	<string id="20199" value="(전송 후 종료)"/>
 	<!-- Missing File Strings -->
 	<string id="20250" value="끌어 다 놓으십시오 %s 그룹에 파일을"/>
@@ -2000,7 +1973,7 @@
 	<!-- Missing Hash Strings -->
 	<string id="20260" value="다운로드 등록"/>
 	<!-- Missing Connection Strings -->
-	<!-- <string id="20400" value="PeerProject is creating hashes for %Iu files:"/> -->
+	<!--string id="20400" value="PeerProject is creating hashes for %Iu files:"-->
 	<string id="20401" value="나의 선택을 다음 번에 기억"/>
 	<string id="20402" value="추가"/>
 	<string id="20403" value="채"/>
@@ -2024,41 +1997,22 @@
 	<string id="20422" value="평가"/>
 	<string id="20423" value="타이틀"/>
 	<string id="20424" value="#"/> <!-- Track number -->
-	<string id="20425" value="PeerProject was unable to install the collection file &quot;%s&quot; by copying it to the folder &quot;%s&quot;."/>
-	<string id="20426" value="Would you like to download all files in this collection?\n\nChoose Cancel to stop any further prompts."/>
-	<string id="20427" value="PeerProject has added the collection file &quot;%s&quot; to your library."/>
-	<string id="20428" value="PeerProject received a collection file:\n\n&quot;%s&quot;.\n\nThis file does not appear to be a valid collection file."/>
-	<string id="20429" value="Would you like to prevent this collection from prompting you to download anything else?"/>
-	<string id="20430" value="Are you sure you want to launch the file &quot;%s&quot; ?\n\nSome files can be harmful to your computer. Ensure you know what the file is before launching it."/>
-	<!--string id="20431" value="Are you sure you want to permanently delete the %i selected files ?\n\nThe files will be moved to your &quot;recycle bin&quot; if it is enabled."-->
-	<string id="20432" value="Are you sure you want to delete the %i selected album folders ?\n\nNote that this action does not delete the files within the album folders, only the folders themselves."/>
-	<string id="20433" value="PeerProject could not delete the file:\n\n%s"/>
-	<string id="20434" value="Your downloaded files folder &quot;%s&quot; is not yet in your library.\n\nIncluding your downloaded files folder in your library makes it easier to view and organise new downloads, and lets you take advantage of advanced PeerProject features such as download verification and automatic upgrading. Placing downloaded files in your library does not necessarily require you to share them: you can choose whether or not to share files independently.\n\nWould you like to add your downloaded files folder to your library now?"/>
-	<string id="20435" value="Your downloads folder has been added to your library. Would you like to share it too?"/>
+	<!-- Missing Library Strings -->
 	<string id="20436" value="도서관에이 폴더를 추가?\n\n%s"/>
 	<string id="20437" value="Ghost File"/>
-	<string id="20438" value="Editing metadata of %i files."/>
-	<string id="20439" value="You are about to modify the metadata of %i files, are you sure you want to continue?"/>
-	<string id="20440" value="Unable to move the file %s. The file may be in use by another application.\n\nDo you wish to try to copy this file instead?"/>
-	<string id="20441" value="PeerProject could not rename:\n\n%s\nto\n%s"/>
-	<string id="20442" value="Target file exists:\n\n%s\n\nWould you like to overwrite it?"/>
 	<string id="20443" value="모두보기 파일 형식"/>
 	<string id="20444" value="Get P2P Link (URI)"/>
 	<string id="20445" value="Export P2P Links..."/>
 	<string id="20446" value="The file &quot;%s&quot; failed a hash verification test, and might not be the file you intended to download. Are you sure you want to open it?"/>
 	<string id="20447" value="Would you like to remove the &quot;potentially unsafe&quot; attribute from this file?"/>
-	<string id="20448" value="The file &quot;%s&quot; has not yet been hashed. Please wait for the file to be hashed, and then try again."/>
-	<string id="20449" value="This option uses services provided by bitprints.peerproject.org for recognising and sharing information about selected files.\n\nPeerProject will transmit the SHA1 hash code for the selected file(s) in order to query the Bitprints database. If you are concerned about privacy, you may wish to consult the bitprints.peerproject.org privacy policy.\n\nWould you like to proceed?"/>
+	<string id="20448" value="공공"/> 	<!--Shared-->
+	<string id="20449" value="개인"/> 	<!--Unshared-->
 	<string id="20450" value="A subfolder of the selected folder &quot;%s&quot; is already part of your library.nAdding this folder will cause re-hashing of some files.\n\nDo you want to continue ?"/>
 	<string id="20451" value="아니 파일을 재생합니다. 미디어를 클릭하여 라이브러리에서 파일을 재생할 수있습니다."/>
-	<string id="20452" value="All Media Files|*.asx;*.wax;*.m3u;*.wvx;*.wmx;*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm;*.cda;*.mid;*.rmi;*.midi;*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|Playlists|*.asx;*.wax;*.m3u;*.wvx;*.wmx|Audio Files|*.asf;*.wav;*.snd;*.au;*.aif;*.aifc;*.aiff;*.wma;*.rm;*.mp3;*.ogg;*.ogm|Video Files|*.avi;*.asf;*.mpeg;*.mpg;*.m1v;*.mp2;*.mpa;*.mpe;*.wmv|CD Audio Tracks|*.cda|MIDI Files|*.mid;*.rmi;*.midi|All Files|*.*||"/>
-	<string id="20453" value="Unable to load media file &quot;%s&quot;"/>
-	<string id="20454" value="The file may be damaged, or you may not have the necessary codecs to play it."/>
-	<string id="20455" value="Part of this file could not be played, you may need to download additional codecs."/>
+	<!-- Missing Media Strings -->
 	<string id="20456" value="재생 목록:"/>
-	<string id="20457" value="PeerProject could not instantiate its MediaServices plugin. Please reinstall PeerProject, and confirm that you have the necessary media codecs and output drivers installed."/>
 	<string id="20458" value="PeerProject Media Player"/>
-	<string id="20460" value="P &#160;&#160; E &#160;&#160; E &#160;&#160; R &#160;&#160; P &#160;&#160; R &#160;&#160; O &#160;&#160; J &#160;&#160; E &#160;&#160; C &#160;&#160; T &#160;&#160; &#160;&#160; M &#160;&#160; E &#160;&#160; D &#160;&#160; I &#160;&#160; A &#160;&#160; &#160;&#160; S &#160;&#160; Y &#160;&#160; S &#160;&#160; T &#160;&#160; E &#160;&#160; M"/>
+	<string id="20460" value="PEERPROJECT 미디어 시스템"/>
 	<string id="20462" value="(No Visualisation)"/>
 	<string id="20470" value="취소"/>
 	<string id="20471" value="열린"/>
@@ -2076,92 +2030,15 @@
 	<string id="20483" value="볼륨 업로드:"/>
 	<string id="20484" value="다운로드 속도 제한"/>
 	<string id="20485" value="업로드 속도 제한"/>
-	<string id="20490" value="Multiple"/>
-	<string id="20491" value="Multiple Values"/>
-	<string id="20494" value="You haven't entered your location in your user profile.\n\nIt's a good idea to enter your location so that other users can see which country you are from. Note that entering a location does not reveal any compromising information.\n\nAre you sure you want to continue without entering your location?"/>
-	<string id="20495" value="You haven't entered a screen name in your user profile."/>
-	<string id="20496" value="You have not selected your age and gender. Are you sure you want to continue without doing this?"/>
+	<!-- Missing Profile Strings -->
 	<string id="20499" value="새 폴더"/>
-<!--
-	<string id="20500" value="Click the Connect button to get started."/>
-	<string id="20501" value="You're not connected to the network."/>
-	<string id="20502" value="Closing"/>
-	<string id="20503" value="Compression:"/>
-	<string id="20504" value="Deflate"/>
-	<string id="20505" value="None"/>
-	<string id="20506" value="Connecting"/>
-	<string id="20507" value="Current:"/>
-	<string id="20509" value="DC++ Client-to-Hub Connection"/>
-	<string id="20510" value="eDonkey Server Connection"/>
-	<string id="20511" value="eDonkey (HighID)"/>
-	<string id="20512" value="eDonkey Server Connection (LOWID: %lu)"/>
-	<string id="20513" value="eDonkey (LowID)"/>
-	<string id="20514" value="eDonkey Server"/>
-	<string id="20515" value="G1 Leaf"/>
-	<string id="20516" value="G1 Peer"/>
-	<string id="20517" value="Gnutella: Peer-to-Peer Connection"/>
-	<string id="20518" value="Gnutella: Leaf-to-Ultrapeer Connection"/>
-	<string id="20519" value="Gnutella: Ultrapeer-to-Leaf Connection"/>
-	<string id="20520" value="G1 Ultrapeer"/>
-	<string id="20521" value="G2 Hub"/>
-	<string id="20522" value="G2 Leaf"/>
-	<string id="20524" value="G2 Peer"/>
-	<string id="20525" value="Gnutella2: Leaf-to-Hub Connection"/>
-	<string id="20526" value="Gnutella2: Hub-to-Hub Connection"/>
-	<string id="20527" value="Gnutella2: Hub-to-Leaf Connection"/>
-	<string id="20530" value="Handshake"/>
-	<string id="20531" value="Handshaking"/>
-	<string id="20532" value="Inbound"/>
-	<string id="20533" value="Outbound"/>
-	<string id="20534" value="Total:"/>
-	<string id="20535" value="Ratio:"/>
-	<string id="20536" value="Rejected"/>
-	<string id="20538" value="Unknown"/>
--->
+	<!-- Missing Network Strings -->
 	<string id="20540" value="연결"/>
 	<string id="20541" value="연결 중..."/>
 	<string id="20542" value="연결"/>
 	<string id="20543" value="연결 끊기"/>
-<!--
-	<string id="20544" value="Shutting down PeerProject network core..."/>
-	<string id="20545" value="Disconnected."/>
-	<string id="20546" value="Are you sure you want to disconnect?"/>
-	<string id="20547" value="Gnutella2 is PeerProject's premiere network. Disabling support for it may severely limit both the number and quality of your search results. Are you SURE you want to do this?"/>
-	<string id="20548" value="Can't bind to %s port %i for incoming connections. Incoming connections will not be supported."/>
-	<string id="20549" value="Can't resolve %s for outgoing connections. Outgoing connections will use the default interface."/>
-	<string id="20550" value="Your outgoing bandwidth is too low to enable this network"/>
-	<string id="20551" value="Firewalled, not listening for incoming connections."/>
-	<string id="20552" value="Forcing your PC into hub mode may have adverse effects on performance and the P2P network. It is generally better to allow PeerProject to decide whether or not hub mode should be used.\n\nHub mode does NOT produce better search results, or have any other advantages for you.\n\nDo you really want to do this, despite these disadvantages?"/>
-	<string id="20553" value="Accepting incoming TCP connections on %s port %i."/>
-	<string id="20554" value="Listening for UDP datagrams on %s port %i."/>
-	<string id="20555" value="Outgoing connections will be from %s port %i."/>
-	<string id="20556" value="Unable to resolve host &quot;%s&quot;."/>
-	<string id="20557" value="Resolving host &quot;%s&quot;..."/>
-	<string id="20558" value="Sending query for &quot;%s&quot; to %s."/>
-	<string id="20560" value="Security manager denied connection from %s."/>
-	<string id="20561" value="Security manager barred connection to %s."/>
-	<string id="20562" value="Added security rule to block %s."/>
-	<string id="20563" value="Address %s is already blocked by your security rules."/>
-	<string id="20564" value="Starting PeerProject network core..."/>
-	<string id="20565" value="You are running the Scheduler in 'G2 only' mode. Would you like to turn this mode off, so that all active networks remain connected?"/>
-	<string id="20566" value="UPnP port mapping failed after 10 attempts."/>
-	<string id="20570" value="Ignoring malformatted query hit packet from %s."/>
-	<string id="20571" value="Ignoring malformatted %s search query packet from %s."/>
-	<string id="20572" value="Neighbor %s forwarded a packet with excessive TTL, dropping packet (TTL=%i, Hops=%i)."/>
-	<string id="20574" value="Neighbor %s forwarded an extended packet that is not GGEP encoded."/>
-	<string id="20575" value="Neighbor %s sent an invalid query routing table update, dropping connection."/>
-	<string id="20576" value="Sending query routing table to neighbor %s (%i bit = %lu[%i], %i%% full)"/>
-	<string id="20577" value="Receiving an unexpected query routing table update from neighbor %s."/>
-	<string id="20578" value="Neighbor %s updated its query routing table (%i bit = %lu[%i], %i%% full)."/>
-	<string id="20579" value="%s -&gt; %s [%i/%i] %s %s"/>
-	<string id="20580" value="Leaf neighbor %s is forwarding queries, dropping connection."/>
-	<string id="20582" value="Neighbor %s forwarded a %s packet with invalid length, ignoring."/>
-	<string id="20584" value="Neighbor %s forwarded a packet of excessive size, dropping connection."/>
-	<string id="20586" value="Neighbor %s forwarded an unrecognised packet (0x%.2x), ignoring."/>
-	<string id="20587" value="Neighbor %s forwarded a pong with invalid address data, ignoring."/>
-	<string id="20588" value="Neighbor %s forwarded a push request to a firewalled address, ignoring."/>
--->
-	<!-- Missing Scheduler/Security Strings -->
+	<!-- Missing Security Strings -->
+	<!-- Missing Scheduler Strings -->
 	<string id="20620" value="PeerProject 적극적으로 네트워크를 찾고있습니다..."/>
 	<string id="20621" value="여기를 클릭하여 다시 검색을"/>
 	<string id="20622" value="All 네트워크"/>
@@ -2212,16 +2089,11 @@
 	<string id="20670" value="PeerProject 네트워크를 찾고있습니다..."/>
 	<string id="20672" value="Select the eDonkey/eMule temp folder:"/>
 	<string id="20673" value="자동"/>
-	<string id="20674" value="The complete and incomplete folders should not be the same"/>
-	<string id="20675" value="Windows doesn't support paths longer than 256 characters.\nPlease select a folder with a shorter path."/>
-	<string id="20676" value="The incomplete files folder should not be in the library, as it would reduce performance. Incomplete files may be shared directly from the transfers window."/>
-	<string id="20677" value="Please type the bandwidth limit you wish to set in the form &quot;123 kb/s&quot; for kilobits per second, or &quot;123 KB/s&quot; for kilobytes per second."/>
-	<string id="20678" value="The eDonkey network uses large queues with long wait times. By limiting the maximum queue position you will accept so strictly, you may have trouble getting downloads to begin.nAre you sure you want to limit what queue positions you will accept?"/>
+	<!-- Missing Info Strings -->
 	<string id="20680" value="PeerProject 설정"/>
 	<string id="20682" value="Remote access is disabled."/>
 	<string id="20684" value="http://%s:%i/remote - Username/password required."/>
 	<string id="20685" value="Unable to accept connections, URL unavailable."/>
-	<string id="20692" value="Are you sure you want to delete the &quot;%s&quot; skin? This cannot be undone."/>
 	<string id="20699" value="&amp;Schemas"/>
 	<string id="20700" value="%s in : %s out (d:%I64i/u:%I64i)"/>
 	<string id="20701" value="%lu 이웃에 연결됨. %s 지방 컬렉션."/>
@@ -2310,45 +2182,7 @@
 	<string id="20796" value="Files shared over the Internet"/>
 	<string id="20798" value="PeerProject has finished downloading the next PeerProject version (%s). Would you like to upgrade now?\n\nIf you select Yes, PeerProject will close temporarily while the upgrade is installed."/>
 	<string id="20799" value="새로 PeerProject 버전 감지."/>
-<!--
-	<string id="20800" value="Sending default HTML response to upload host %s (%s)."/>
-	<string id="20801" value="Incoming connection from %s is a HTTP upload request."/>
-	<string id="20802" value="Upload host %s (%s) sent a browse user request, responding..."/>
-	<string id="20803" value="Upload host %s is on the user-agent block list, denying request."/>
-	<string id="20804" value="Refusing browse user request from %s, too many browse connections."/>
-	<string id="20805" value="Denied browse user request from %s."/>
-	<string id="20806" value="Queued upload %s is re-requesting too fast, closing connection."/>
-	<string id="20807" value="Refusing upload of &quot;%s&quot; to %s (%s), too many concurrent from host."/>
-	<string id="20808" value="Refusing upload of &quot;%s&quot; to %s (%s), busy and client does not support queues."/>
-	<string id="20809" value="Refusing upload of &quot;%s&quot; to %s (%s), all matching queues are full."/>
-	<string id="20810" value="Upload host %s requested an unsatisfiable range of file &quot;%s&quot;."/>
-	<string id="20811" value="eDonkey uploads should not be cancelled. Are you sure you want to cancel this upload?"/>
-	<string id="20812" value="Can't open &quot;%s&quot; to upload to host %s, disk/file error."/>
-	<string id="20813" value="Initiating a push connection to %s. %s"/>
-	<string id="20814" value="Unable to connect to host %s for push."/>
-	<string id="20815" value="Sending upload content range %I64i-%I64i from &quot;%s&quot; to host %s (%s)."/>
-	<string id="20816" value="Upload connection to %s was closed."/>
-	<string id="20817" value="Refusing new upload to %s because an earlier connection is still pending."/>
-	<string id="20818" value="Closing older upload to %s because it has made a fresh connection."/>
-	<string id="20819" value="Refusing upload to %s (%s), network disabled."/>
-	<string id="20820" value="Stopped uploading &quot;%s&quot; to %s because the file was deleted."/>
-	<string id="20821" value="Uploading file &quot;%s&quot; to host %s..."/>
-	<string id="20822" value="Upload host %s requested unknown or unavailable object &quot;%s&quot;."/>
-	<string id="20823" value="Finished uploading part of &quot;%s&quot; to %s."/>
-	<string id="20824" value="Push connection to %s established, waiting for handshake..."/>
-	<string id="20825" value="Upload host %s requested &quot;%s&quot; with different SHA1."/>
-	<string id="20826" value="Sending upload headers from &quot;%s&quot; to host %s (%s)."/>
-	<string id="20827" value="Uploading metadata for &quot;%s&quot; to %s."/>
-	<string id="20828" value="Upload host %s sent an invalid HTTP request."/>
-	<string id="20830" value="Sending upload content range %I64i-%I64i from partial file &quot;%s&quot; to host %s (%s)."/>
-	<string id="20832" value="Refusing to upload a preview of &quot;%s&quot; to %s, too many preview connections."/>
-	<string id="20833" value="Scheduling a dynamic preview of &quot;%s&quot; for upload to %s."/>
-	<string id="20834" value="Upload host %s requested a preview of &quot;%s&quot;, but no preview is available."/>
-	<string id="20835" value="Uploading a preview of &quot;%s&quot; to %s."/>
-	<string id="20836" value="Refusing push request to %s because it has too many upload connections."/>
-	<string id="20838" value="Too busy to upload &quot;%s&quot; to %s, queued at #%i of %i (&quot;%s&quot;.."/>
-	<string id="20840" value="Upload connection to %s was lost, preserving queue position."/>
--->
+	<!-- Missing Upload Strings -->
 	<string id="20841" value="New 대기열"/>
 	<string id="20842" value="모든 파일"/>
 	<string id="20843" value="DC++ Guard"/>
@@ -2376,9 +2210,7 @@
 	<string id="20866" value="파일명:"/>
 	<string id="20867" value="호스트 :"/>
 	<string id="20868" value="포트"/>
-	<!--string id="20869" value="Unable to display URL action dialog because PeerProject is busy."-->
-	<string id="20870" value="Unable to parse URL: PeerProject does not understand this URL."/>
-	<string id="20871" value="Received URL &quot;%s&quot;"/>
+	<!-- Missing URL Parse Messages -->
 	<string id="20872" value="종류:"/>
 	<string id="20874" value="URL:"/>
 	<string id="20875" value="지정되지 않음"/>
@@ -3432,10 +3264,11 @@
 		<column from="File" to="파일"/>
 		<column from="Type" to="확장"/>
 		<column from="Size" to="크기"/>
-		<column from="Folder" to="폴더"/>
-		<column from="Hits" to="조회수"/>
-		<column from="Uploads" to="업로드"/>
 		<column from="Modified" to="수정됨"/>
+		<column from="Folder" to="폴더"/>
+		<column from="Shared" to="공유"/>
+		<column from="Uploads" to="업로드"/>
+		<column from="Hits" to="조회수"/>
 	</list>
 	<list name="CNeighboursWnd">
 		<column from="Address" to="주소"/>
