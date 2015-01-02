@@ -278,8 +278,8 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				if ( CLibraryFile* pTargetFile1 = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
 				{
 					// Collection was already there: Re-mount the collection
-					LibraryFolders.MountCollection( pTargetFile1 ->m_oSHA1, &pCollection );
-					pFolder = LibraryFolders.GetCollection( pTargetFile1 ->m_oSHA1 );
+					LibraryFolders.MountCollection( pTargetFile1->m_oSHA1, &pCollection );
+					pFolder = LibraryFolders.GetCollection( pTargetFile1->m_oSHA1 );
 					oLock.Unlock();
 				}
 				else	// File of this name exists in the folder, but does not appear in the library.

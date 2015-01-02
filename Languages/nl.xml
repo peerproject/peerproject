@@ -4300,8 +4300,9 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI kopiëren">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI kopiëren">
 		<control caption="Je kunt in verschillende formaten een URI kopiëren van het geselecteerde bestand. Selecteer het formaat naar keuze door te klikken op één van de URI's hieronder:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

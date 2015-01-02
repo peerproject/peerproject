@@ -4222,8 +4222,9 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI másolása">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI másolása">
 		<control caption="Különböző formátumokban másolhatja le a kiválasztott URI-t. Válasza ki az önnek legmegfelelőbbet és másolja le:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

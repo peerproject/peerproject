@@ -194,10 +194,10 @@ void CSettings::Load()
 	Add( L"Library", L"QueryRouteSize", &Library.QueryRouteSize, 20, 1, 8, 24 );
 	Add( L"Library", L"MarkFileAsDownload", &Library.MarkFileAsDownload, true );
 	Add( L"Library", L"ManyFilesWarning", &Library.ManyFilesWarning, 0, 1, 0, 2 );
-	Add( L"Library", L"ManyFilesCount", &Library.ManyFilesCount, 18, 1, 0, 1000, L" files" );
+	Add( L"Library", L"ExecuteFilesLimit", &Library.ExecuteFilesLimit, 20, 1, 0, 1000, L" files" );
 	Add( L"Library", L"MaliciousFileCount", &Library.MaliciousFileCount, 5, 1, 2, 50, L" files" );
 	Add( L"Library", L"MaliciousFileSize", &Library.MaliciousFileSize, 2*MegaByte, KiloByte, KiloByte, 10*MegaByte, L" KB" );
-	Add( L"Library", L"MaliciousFileTypes", &Library.MaliciousFileTypes, L"|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wmv|" );
+	Add( L"Library", L"MaliciousFileTypes", &Library.MaliciousFileTypes, L"|exe|com|bat|vbs|scr|zip|rar|ace|7z|cab|lzh|tar|tgz|bz2|wma|wmv|" );
 	Add( L"Library", L"PrivateTypes", &Library.PrivateTypes, L"|vbs|js|jc!|fb!|bc!|!ut|db3|dbx|part|partial|pst|reget|getright|crdownload|pif|lnk|url|pd|sd|wab|m4p|infodb|racestats|svn|chk|tmp|temp|ini|inf|log|old|manifest|met|bak|$$$|---|~~~|###|__incomplete___|" );
 	Add( L"Library", L"SafeExecute", &Library.SafeExecute, L"|3gp|7z|aac|ace|ape|asf|avi|bmp|cbr|cbz|co|collection|divx|flv|flac|gif|iso|jpg|jpeg|lit|mid|mov|m1v|m2v|m3u|m4a|mka|mkv|mp2|mp3|mp4|mpa|mpe|mpg|mpeg|ogg|ogm|pdf|png|psk|qt|rar|rm|sks|swf|rtf|tar|tgz|torrent|txt|wav|zip|" );
 	Add( L"Library", L"SchemaURI", &Library.SchemaURI, CSchema::uriAudio );

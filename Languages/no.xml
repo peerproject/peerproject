@@ -3941,8 +3941,9 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopier URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopier URI">
 		<control caption="Du kan kopiere en URI til valgte objekt på flere forskjellige måter. Vennligst velg en av URI-typene du ønsker å bruke under:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

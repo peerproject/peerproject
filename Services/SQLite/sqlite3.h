@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.8.8) (Nov.2014)
+** sqlite3.h  (3.8.8) (Dec.2014)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2014
 ** The original author disclaimed copyright to this source code.
@@ -86,7 +86,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.8"
 #define SQLITE_VERSION_NUMBER 3008008
-#define SQLITE_SOURCE_ID      "2014-11-11 14:59:31 b5df5ac0529f7b0d1e880a7f4a307e7d77b7fa6c"
+#define SQLITE_SOURCE_ID      "2014-12-31 14:18:48 cf48eb608af9102a8def2a5b7f5f7b348548116f"
 
 /*
 ** Run-Time Library Version Numbers
@@ -1007,9 +1007,9 @@ SQLITE_API int sqlite3_create_function_v2(
 ** Text Encodings
 */
 
-#define SQLITE_UTF8           1
-#define SQLITE_UTF16LE        2
-#define SQLITE_UTF16BE        3
+#define SQLITE_UTF8           1    /* IMP: R-37514-35566 */
+#define SQLITE_UTF16LE        2    /* IMP: R-03371-37637 */
+#define SQLITE_UTF16BE        3    /* IMP: R-51971-34154 */
 #define SQLITE_UTF16          4    /* Use native byte order */
 #define SQLITE_ANY            5    /* Deprecated */
 #define SQLITE_UTF16_ALIGNED  8    /* sqlite3_create_collation only */
@@ -1810,12 +1810,13 @@ SQLITE_API int sqlite3_wal_checkpoint_v2(
 );
 
 /*
-** Checkpoint operation parameters
+** Checkpoint Mode Values
 */
 
-#define SQLITE_CHECKPOINT_PASSIVE 0
-#define SQLITE_CHECKPOINT_FULL    1
-#define SQLITE_CHECKPOINT_RESTART 2
+#define SQLITE_CHECKPOINT_PASSIVE  0  /* Do as much as possible w/o blocking */
+#define SQLITE_CHECKPOINT_FULL     1  /* Wait for writers, then checkpoint */
+#define SQLITE_CHECKPOINT_RESTART  2  /* Like FULL but wait for for readers */
+#define SQLITE_CHECKPOINT_TRUNCATE 3  /* Like RESTART but also truncate WAL */
 
 /*
 ** Virtual Table Interface Configuration

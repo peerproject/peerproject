@@ -42,9 +42,10 @@ BEGIN_MESSAGE_MAP(CURLCopyDlg, CSkinDialog)
 	ON_WM_CTLCOLOR()
 	ON_WM_SETCURSOR()
 	ON_BN_CLICKED(IDC_INCLUDE_SELF, &CURLCopyDlg::OnIncludeSelf)
-	ON_STN_CLICKED(IDC_URL_HOST, &CURLCopyDlg::OnStnClickedUrlHost)
 	ON_STN_CLICKED(IDC_URL_MAGNET, &CURLCopyDlg::OnStnClickedUrlMagnet)
 	ON_STN_CLICKED(IDC_URL_ED2K, &CURLCopyDlg::OnStnClickedUrlEd2k)
+	ON_STN_CLICKED(IDC_URL_HOST, &CURLCopyDlg::OnStnClickedUrlHost)
+	ON_STN_CLICKED(IDC_URL_HASH, &CURLCopyDlg::OnStnClickedUrlHash)
 END_MESSAGE_MAP()
 
 
@@ -60,9 +61,10 @@ void CURLCopyDlg::DoDataExchange(CDataExchange* pDX)
 	CSkinDialog::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_INCLUDE_SELF, m_wndIncludeSelf);
 	DDX_Control(pDX, IDC_MESSAGE, m_wndMessage);
-	DDX_Text(pDX, IDC_URL_HOST, m_sHost);
 	DDX_Text(pDX, IDC_URL_MAGNET, m_sMagnet);
 	DDX_Text(pDX, IDC_URL_ED2K, m_sED2K);
+	DDX_Text(pDX, IDC_URL_HOST, m_sHost);
+	DDX_Text(pDX, IDC_URL_HASH, m_sHash);
 }
 
 void CURLCopyDlg::Add(const CPeerProjectFile* pFile)
@@ -236,12 +238,27 @@ void CURLCopyDlg::OnIncludeSelf()
 	else if ( ! m_pFile.m_sURL.IsEmpty() )
 		m_sMagnet += L"&xs=" + URLEncode( m_pFile.m_sURL );
 
-	if ( m_pFile.m_oSHA1 )
-	{
-		m_sGnutella.Format( L"gnutella://%s/", (LPCTSTR)m_pFile.m_oSHA1.toUrn() );
+	//if ( m_pFile.m_oSHA1 )
+	//{
+	//	m_sGnutella.Format( L"gnutella://%s/", (LPCTSTR)m_pFile.m_oSHA1.toUrn() );
+	//
+	//	if ( ! m_pFile.m_sName.IsEmpty() )
+	//		m_sGnutella += URLEncode( m_pFile.m_sName ) + L"/";
+	//}
 
+	if ( m_pFile.m_oSHA1 )
+		m_sHash = m_pFile.m_oSHA1.toUrn();
+	else if ( m_pFile.m_oED2K )
+		m_sHash = m_pFile.m_oED2K.toUrn();
+	else
+		m_sHash.Empty();
+
+	if ( ! m_sHash.IsEmpty() )
+	{
 		if ( ! m_pFile.m_sName.IsEmpty() )
-			m_sGnutella += URLEncode( m_pFile.m_sName ) + L"/";
+			m_sHash.Format( L"%s	(%I64u)	%s", (LPCTSTR)m_sHash, m_pFile.m_nSize, (LPCTSTR)m_pFile.m_sName );
+		else if ( m_pFile.m_nSize && m_pFile.m_nSize != SIZE_UNKNOWN )
+			m_sHash.Format( L"%s	(%I64u)", (LPCTSTR)m_sHash, m_pFile.m_nSize );
 	}
 
 	if ( m_pFile.m_oED2K &&
@@ -329,18 +346,6 @@ BOOL CURLCopyDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 // Use theApp.SetClipboard( string )
 
-void CURLCopyDlg::OnStnClickedUrlHost()
-{
-	UpdateData();
-
-	if ( m_sHost.IsEmpty() )
-		return;
-
-	theApp.SetClipboard( m_sHost, TRUE );
-
-	CSkinDialog::OnOK();
-}
-
 void CURLCopyDlg::OnStnClickedUrlMagnet()
 {
 	UpdateData();
@@ -361,6 +366,30 @@ void CURLCopyDlg::OnStnClickedUrlEd2k()
 		return;
 
 	theApp.SetClipboard( m_sED2K, TRUE );
+
+	CSkinDialog::OnOK();
+}
+
+void CURLCopyDlg::OnStnClickedUrlHost()
+{
+	UpdateData();
+
+	if ( m_sHost.IsEmpty() )
+		return;
+
+	theApp.SetClipboard( m_sHost, TRUE );
+
+	CSkinDialog::OnOK();
+}
+
+void CURLCopyDlg::OnStnClickedUrlHash()
+{
+	UpdateData();
+
+	if ( m_sHash.IsEmpty() )
+		return;
+
+	theApp.SetClipboard( m_sHash, TRUE );
 
 	CSkinDialog::OnOK();
 }

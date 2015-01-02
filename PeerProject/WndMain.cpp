@@ -1347,6 +1347,20 @@ LRESULT CMainWnd::OnHandleImport(WPARAM wParam, LPARAM /*lParam*/)
 	return 0;
 }
 
+LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
+{
+	LPTSTR pszPath = (LPTSTR)wParam;
+	CString strPath( pszPath );
+	delete [] pszPath;
+
+	CTorrentSeedDlg dlg( strPath );
+	// Shift key bypasses torrent loading attempt straight to dialog
+	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || ! dlg.LoadTorrent( strPath ) )
+		dlg.DoModal();	// Try again manually
+
+	return 0;
+}
+
 LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 {
 	LPTSTR pszPath = (LPTSTR)wParam;
@@ -1363,19 +1377,28 @@ LRESULT CMainWnd::OnHandleCollection(WPARAM wParam, LPARAM /*lParam*/)
 	return 0;
 }
 
-LRESULT CMainWnd::OnHandleTorrent(WPARAM wParam, LPARAM /*lParam*/)
-{
-	LPTSTR pszPath = (LPTSTR)wParam;
-	CString strPath( pszPath );
-	delete [] pszPath;
-
-	CTorrentSeedDlg dlg( strPath );
-	// Shift key bypasses torrent loading attempt straight to dialog
-	if ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 || ! dlg.LoadTorrent( strPath ) )
-		dlg.DoModal();	// Try again manually
-
-	return 0;
-}
+//LRESULT CMainWnd::OnHandleMetalink(WPARAM wParam, LPARAM /*lParam*/)
+//{
+//	LPTSTR pszPath = (LPTSTR)wParam;
+//	CString strPath( pszPath );
+//	delete [] pszPath;
+//
+//	OpenFromTray();
+//
+//	Hashes::Sha1Hash oSHA1;
+//	if ( oSHA1.fromUrn( strURN ) )
+//	{
+//		if ( CLibraryFile* pLibFile = LibraryMaps.LookupFileBySHA1( oSHA1 ) )
+//		{
+//			if ( CLibraryWnd* pLibrary = CLibraryWnd::GetLibraryWindow() )
+//			{
+//				pLibrary->Display( pLibFile );
+//			}
+//		}
+//	}
+//
+//	return 0;
+//}
 
 LRESULT CMainWnd::OnVersionCheck(WPARAM wParam, LPARAM /*lParam*/)
 {

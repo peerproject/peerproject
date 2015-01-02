@@ -4497,12 +4497,13 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI (P2P Link)">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI (P2P Link)">
 		<control caption="You can copy the P2P Link ('URI') for a selected item in various formats.{n}Simply click the format you wish to save to clipboard:"/>
 		<control/>
 		<control/>
 		<control/>
-		<control caption="Include _myself as a fixed source in the URL"/>
+		<control/>
+		<control caption="_Include myself as a fixed source in the URL"/>
 		<control caption="Cancel"/>
 	</dialog>
 	<dialog name="CURLExportDlg" cookie="StEdStCoStCoBuBumsBu" caption="Export URIs (P2P Links)">

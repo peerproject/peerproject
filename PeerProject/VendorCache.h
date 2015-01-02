@@ -52,7 +52,7 @@ public:
 			CVendor* pVendor;
 			if ( m_pCodeMap.Lookup( pszCode, pVendor ) )
 				return pVendor;
-			
+
 			theApp.Message( MSG_INFO, L"Unknown Vendor Code: %s", pszCode );
 			return NULL;
 		}

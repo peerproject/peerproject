@@ -38,7 +38,7 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-//#define TOO_MANY_FILES_LIMIT	20	// Settings.Library.ManyFilesCount
+//#define TOO_MANY_FILES_LIMIT	20	// Settings.Library.ExecuteFilesLimit
 
 // Some known media players
 static const struct
@@ -56,6 +56,10 @@ KnownPlayers[] =
 	{ L"mpc-hc.exe", 	L"\"%s\" /add" },
 	// MediaPlayerClassic HomeCinema 64
 	{ L"mpc-hc64.exe",	L"\"%s\" /add" },
+	// MediaPlayerClassic Black Edition
+	{ L"mpc-be.exe", 	L"\"%s\" /add" },
+	// MediaPlayerClassic Black Edition 64
+	{ L"mpc-be64.exe",	L"\"%s\" /add" },
 	// MPlayer
 	{ L"mplayer.exe",	L"-enqueue %s" },
 	// SMplayer (GUI for MPlayer)
@@ -63,9 +67,9 @@ KnownPlayers[] =
 	// VideoLAN
 	{ L"vlc.exe",		L"--one-instance --playlist-enqueue \"%s\"" },
 	// WinAmp
-	{ L"winamp.exe",		L"/ADD \"%s\"" },
+	{ L"winamp.exe",	L"/ADD \"%s\"" },
 	// Light Alloy
-	{ L"la.exe",			L"/ADD \"%s\"" },
+	{ L"la.exe",		L"/ADD \"%s\"" },
 	// KMPlayer
 	{ L"kmplayer.exe",	L"/ADD \"%s\"" },
 	// BSPlayer
@@ -154,7 +158,7 @@ CString CFileExecutor::GetCustomPlayer()
 		i != Settings.MediaPlayer.ServicePath.end() ; ++i )
 	{
 		CString strPlayer = *i;
-		if ( strPlayer.Right( 1 ) != L'*' )	// SELECTED_PLAYER_TOKEN
+		if ( strPlayer.Right( 1 ) != L'*' )		// SELECTED_PLAYER_TOKEN
 			continue;
 
 		// Has Asterisk at end to indicate selected player
@@ -177,8 +181,7 @@ TRISTATE CFileExecutor::IsSafeExecute(LPCTSTR szExt, LPCTSTR szFile)
 		TCHAR szPrettyPath[ 60 ];
 		PathCompactPathEx( szPrettyPath, szFile, _countof( szPrettyPath ) - 1, 0 );
 		strPrompt.Format( LoadString( IDS_LIBRARY_CONFIRM_EXECUTE ), szPrettyPath );
-		switch ( MsgBox( strPrompt,
-			MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 ) )
+		switch ( MsgBox( strPrompt, MB_ICONQUESTION | MB_YESNOCANCEL | MB_DEFBUTTON2 ) )
 		{
 		case IDYES:
 			return TRI_TRUE;	// Run it
@@ -209,8 +212,7 @@ TRISTATE CFileExecutor::IsVerified(LPCTSTR szFile)
 
 	CString strMessage;
 	strMessage.Format( LoadString( IDS_LIBRARY_VERIFY_FAIL ), szFile );
-	INT_PTR nResponse = MsgBox( strMessage,
-		MB_ICONEXCLAMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
+	INT_PTR nResponse = MsgBox( strMessage, MB_ICONEXCLAMATION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
 	if ( nResponse == IDCANCEL )
 		return TRI_UNKNOWN;	// Cancel file operation
 	if ( nResponse == IDNO )
@@ -344,7 +346,7 @@ BOOL CFileExecutor::Execute(LPCTSTR pszFile, LPCTSTR pszExt)
 
 BOOL CFileExecutor::Execute(const CStringList& pList)
 {
-	if ( pList.GetCount() > Settings.Library.ManyFilesCount )	// TOO_MANY_FILES_LIMIT
+	if ( pList.GetCount() > Settings.Library.ExecuteFilesLimit )	// TOO_MANY_FILES_LIMIT
 	{
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );
@@ -534,7 +536,7 @@ BOOL CFileExecutor::Enqueue(LPCTSTR pszFile, LPCTSTR pszExt)
 
 BOOL CFileExecutor::Enqueue(const CStringList& pList)
 {
-	if ( pList.GetCount() > Settings.Library.ManyFilesCount )	// TOO_MANY_FILES_LIMIT
+	if ( pList.GetCount() > Settings.Library.ExecuteFilesLimit )	// TOO_MANY_FILES_LIMIT
 	{
 		CString strMessage;
 		strMessage.Format( LoadString( IDS_TOO_MANY_FILES ), pList.GetCount() );

@@ -4377,8 +4377,9 @@
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI kopieren">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI kopieren">
 		<control caption="Sie können für das gewählte Objekt eine URI in verschiedenen Formaten kopieren. Bitte wählen Sie das gewünschte Format, indem Sie unten auf eine URI klicken:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

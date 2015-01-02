@@ -436,13 +436,13 @@ const LPCTSTR RT_GZIP = L"GZIP";
 #define WM_SETALPHA				(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
 #define WM_METADATA				(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
 #define WM_SANITY_CHECK			(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
-#define WM_NOWUPLOADING			(WM_APP+117)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_TORRENT				(WM_APP+118)	// Open torrent file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
-#define WM_IMPORT				(WM_APP+119)	// Import hub list file ( WPARAM: LPTSTR szFilename, LPARAM: unused )
+#define WM_NOWUPLOADING			(WM_APP+116)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_TORRENT				(WM_APP+118)	// Open torrent file (WPARAM: LPTSTR szFilename, LPARAM: unused)
+#define WM_IMPORT				(WM_APP+119)	// Import hub list file (WPARAM: LPTSTR szFilename, LPARAM: unused)
 
 // WM_COPYDATA types - Note Windows scheduling not implemented.
-//#define COPYDATA_SCHEDULER	0				// Scheduler task ( lpData: LPCTSTR szTaskData - encoded string )
-#define COPYDATA_OPEN			1				// Open file ( lpData: LPCTSTR szFilename - file name or URL )
+//#define COPYDATA_SCHEDULER	0				// Scheduler task (lpData: LPCTSTR szTaskData - encoded string)
+#define COPYDATA_OPEN			1				// Open file (lpData: LPCTSTR szFilename - file name or URL)
 
 // Ranges
 #define ID_PLUGIN_FIRST			27000

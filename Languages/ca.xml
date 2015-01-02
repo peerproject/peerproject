@@ -4162,8 +4162,9 @@
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copiar URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copiar URI">
 		<control caption="Pots copiar el URI en diversos formats. Per favor, tria el format que vulgues d'aquests:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

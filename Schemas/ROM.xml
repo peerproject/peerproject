@@ -4,18 +4,18 @@
 	<object type="file" availability="advanced"/>
 	<titles>
 		<title language="en">ROM Image</title>
-		<title language="af">ROM / CD Afdruk</title>
+		<title language="af">ROM Afdruk</title>
 		<title language="ca">Imatge ROM</title>
 		<title language="cz">ROM Image</title>
 		<title language="de">ROM-Image</title>
 		<title language="ee">ROM Pilt</title>
-		<title language="es">ROM Image</title>
+		<title language="es">ROM Imagen</title>
 		<title language="fr">Image ROM</title>
 		<title language="gr">Εικόνα ROM</title>
 		<title language="he">תמונת ROM</title>
 		<title language="hr">ROM Image</title>
 		<title language="hu">Image fájl</title>
-		<title language="it">Immagine della ROM</title>
+		<title language="it">Immagine ROM</title>
 		<title language="lt">ROM atvaizdis</title>
 		<title language="nl">ROM Afbeelding</title>
 		<title language="no">ROM image</title>
@@ -413,6 +413,7 @@
 		<type extension="mx1"/>
 		<type extension="mx2"/>
 		<type extension="nes"/>
+		<type extension="nds"/>
 		<type extension="n64"/>
 		<type extension="ngc"/>
 		<type extension="ngp"/>
@@ -443,7 +444,6 @@
 		<type extension="st"/>
 		<type extension="swc"/>
 		<type extension="sv"/>
-		<type extension="t"/>
 		<type extension="t64"/>
 		<type extension="tap"/>
 		<type extension="tao"/>

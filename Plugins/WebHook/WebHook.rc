@@ -42,8 +42,8 @@ BEGIN
     BEGIN
         BLOCK "000004b0"
         BEGIN
-            VALUE "Comments", "PeerProject Web Link Handler"
-            VALUE "CompanyName", "PeerProject Development Team"
+            VALUE "Comments", "PeerProject Download Manager"
+            VALUE "CompanyName", "PeerProject.org"
             VALUE "FileDescription", "PeerProject Web Hook"
             VALUE "FileVersion", "1.0.0.0"
             VALUE "InternalName", "WebHook"

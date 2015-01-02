@@ -88,6 +88,7 @@
 			<title language="sr">Autor</title>
 			<title language="sv">Författare</title>
 			<title language="tr">Yazar</title>
+			<title language="ko">저자</title>
 			<title language="ja">著者</title>
 			<title language="zhs">作者</title>
 			<title language="zht">作者</title>
@@ -146,6 +147,7 @@
 			<title language="sv">Språk</title>
 			<title language="tr">Dil</title>
 			<title language="ja">言語</title>
+			<title language="ko">언어</title>
 			<title language="zhs">语言</title>
 			<title language="zht">語言</title>
 		</member>
@@ -260,6 +262,7 @@
 			<title language="sv">Upphovsrätt</title>
 			<title language="tr">Telif Hakkı</title>
 			<title language="ja">著作権</title>
+			<title language="ko">저작권</title>
 			<title language="zhs">版权</title>
 			<title language="zht">版權</title>
 		</member>
@@ -510,29 +513,32 @@
 		</member>
 	</members>
 	<typeFilter>
-		<type extension="blt"/>
 		<type extension="chm"/>
 		<type extension="csk"/>
 		<type extension="cw3"/>
 		<type extension="cwk"/>
 		<type extension="db"/>
 		<type extension="dif"/>
+		<type extension="djvu"/>
 		<type extension="doc"/>
 		<type extension="docm"/>
 		<type extension="docx"/>
 		<type extension="dot"/>
 		<type extension="dox"/>
 		<type extension="emr"/>
+		<type extension="epub"/>
 		<type extension="fft"/>
 		<type extension="htm"/>
 		<type extension="html"/>
 		<type extension="lit"/>
+		<type extension="log"/>
 		<type extension="lwp"/>
 		<type extension="mif"/>
 		<type extension="mht"/>
 		<type extension="nfo"/>
 		<type extension="odt"/>
 		<type extension="ott"/>
+		<type extension="oxps"/>
 		<type extension="pdb"/>
 		<type extension="pdf"/>
 		<type extension="ps"/>
@@ -543,6 +549,7 @@
 		<type extension="sdw"/>
 		<type extension="stw"/>
 		<type extension="sxw"/>
+		<type extension="tex"/>
 		<type extension="txt"/>
 		<type extension="wkb"/>
 		<type extension="wk3"/>
@@ -550,6 +557,7 @@
 		<type extension="wp"/>
 		<type extension="wp5"/>
 		<type extension="wp6"/>
+		<type extension="wp7"/>
 		<type extension="wpd"/>
 		<type extension="wpf"/>
 		<type extension="wpw"/>

@@ -3760,8 +3760,9 @@
 		<control caption="حسنا" />
 		<control caption="إلغاء الأمر" />
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="نسخ الرابط">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="نسخ الرابط">
 		<control caption="You can copy a URI for the selected item in a variety of different formats. Please choose the format you wish to use by clicking one of the URIs below:" />
+		<control />
 		<control />
 		<control />
 		<control />

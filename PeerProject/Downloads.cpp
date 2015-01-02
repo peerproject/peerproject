@@ -299,21 +299,14 @@ CDownload* CDownloads::Add(const CPeerProjectURL& oURL, BOOL bAddToHead)
 	//	}
 	//}
 
+	// Obsolete: (Moved to DownloadWithTorrent)
 	//if ( oURL.m_pTorrent )
 	//{
 	//	pDownload->SetTorrent( oURL.m_pTorrent );
 	//
-	// Obsolete: (Moved to DownloadWithTorrent)
 	//	// Add sources from torrents
 	//	if ( oURL.m_pTorrent->m_sURLs.GetCount() )
-	//	{
-	//		for ( POSITION pos = oURL.m_pTorrent->m_sURLs.GetHeadPosition() ; pos ; )
-	//		{
-	//			CString pCurrentUrl = oURL.m_pTorrent->m_sURLs.GetNext( pos );
-	//			pDownload->AddSourceURLs( (LPCTSTR)pCurrentUrl, FALSE );
-	//		}
-	//		oURL.m_pTorrent->m_sURLs.RemoveAll();
-	//	}
+	//		pDownload->AddSourceURLs( oURL.m_pTorrent->m_sURLs.GetHead() )
 	//}
 
 	// Obsolete: Remove this

@@ -4182,8 +4182,9 @@
 		<control caption="OK"/>
 		<control caption="Kanselleer"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopieer URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopieer URI">
 		<control caption="Jy kan 'n URI van die geselekteerde item kopieer in 'n verskeidenheid formate. Kies asseblief die formaat wat jy wil gebruik deur op een van die URIs hieronder te kliek:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

@@ -4095,8 +4095,9 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URIをコピー">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URIをコピー">
 		<control caption="選択したファイル用にそれぞれ異なる形式のURIをコピーすることが出来ます。 以下の中から使用したい形式のURIを選択して下さい:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

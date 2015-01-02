@@ -4296,8 +4296,9 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Αντιγραφή URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Αντιγραφή URI">
 		<control caption="Μπορείτε να αντιγράψετε ένα URI για το επιλεγμένο αντικείμενο, σε διάφορες μορφές. Παρακαλώ διαλέξτε τη μορφή που θέλετε με κλικ σε ένα από τα παρακάτω URIs:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
