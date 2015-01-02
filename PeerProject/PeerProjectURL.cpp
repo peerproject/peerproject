@@ -771,6 +771,7 @@ BOOL CPeerProjectURL::ParseMagnet(LPCTSTR pszURL)
 		if ( strKey == L"xt" ||		// "Exact Topic"  (URN containing file hash)
 			 strKey == L"xs" ||		// "Exact Source" (p2p link)
 			 strKey == L"as" ||		// "Acceptable Source" (web link)
+			 strKey == L"ws" ||		// "Web Seed" (BitTorrent HTTP source, BEP 19)
 			 strKey == L"mt" ||		//
 			 strKey == L"tr" )		// "Tracker address" (BitTorrent tracker URL)
 		{

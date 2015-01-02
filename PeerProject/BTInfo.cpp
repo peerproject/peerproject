@@ -1010,6 +1010,45 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	// Get the name
 	m_sName = pInfo->GetStringFromSubNode( "name", m_nEncoding );
 
+	CString strURL;		// Root for path, if given
+
+	// Get Web Seed  (http://bittorrent.org/beps/bep_0019.html)
+	if ( const CBENode* pURL = pRoot->GetNode( "url-list" ) )
+	{
+		// Get the source
+		if ( pURL->IsType( CBENode::beString ) )
+		{
+			strURL = pURL->GetString();
+		}
+		else if ( pURL->IsType( CBENode::beList ) )
+		{
+			// ToDo: Handle full list
+			if ( const CBENode* pSource = pURL->GetNode( 0 ) )
+			{
+				if ( pSource->IsType( CBENode::beString ) )
+					strURL = pSource->GetString();
+			}
+		}
+
+		if ( ! strURL.IsEmpty() )
+		{
+			// Unescape if needed
+			if ( strURL.Find( L"%2F", 3 ) > 0 )
+			{
+				strURL.Replace( L"%3A", L":" );
+				strURL.Replace( L"%2F", L"/" );
+			}
+
+			// Ensure it's valid
+			if ( ! StartsWith( strURL, L"http://", 7 ) )
+				strURL.Empty();
+			else if ( strURL.Right( 1 ) == L'/' && ! m_sName.IsEmpty() )
+				strURL += m_sName + L'/';
+
+			// Note: Handle http source below
+		}
+	}
+
 	// If we still don't have a name, generate one
 	if ( m_sName.IsEmpty() )
 		m_sName.Format( L"Torrent-%i", GetRandomNum( 0i32, _I32_MAX ) );
@@ -1110,6 +1149,14 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				if ( ! pSource || ! pSource->IsType( CBENode::beString ) ) continue;
 				m_sURLs.AddTail( pSource->GetString() );
 			}
+		}
+
+		// Add http web seed
+		if ( ! strURL.IsEmpty() )
+		{
+			if ( strURL.Right( 1 ) == L'/' )
+				strURL += pBTFile->m_sName;
+			m_sURLs.AddTail( strURL );
 		}
 	}
 	else if ( const CBENode* pFiles = pInfo->GetNode( "files" ) )
@@ -1240,9 +1287,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			if ( const CBENode* pED2K = pFile->GetNode( "ed2k" ) )
 			{
-				if ( ! pED2K->IsType( CBENode::beString ) ||
-					   pED2K->m_nValue != Hashes::Ed2kHash::byteCount ) return FALSE;
-				pBTFile->m_oED2K = *static_cast< Hashes::Ed2kHash::RawStorage* >( pED2K->m_pValue );
+				if ( pED2K->IsType( CBENode::beString ) && pED2K->m_nValue != Hashes::Ed2kHash::byteCount )
+					pBTFile->m_oED2K = *static_cast< Hashes::Ed2kHash::RawStorage* >( pED2K->m_pValue );
 			}
 
 			if ( const CBENode* pMD5 = pFile->GetNode( "md5sum" ) )
@@ -1269,13 +1315,21 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			if ( const CBENode* pTiger = pFile->GetNode( "tiger" ) )
 			{
-				if ( ! pTiger->IsType( CBENode::beString ) ||
-					   pTiger->m_nValue != Hashes::TigerHash::byteCount ) return FALSE;
-				pBTFile->m_oTiger = *static_cast< Hashes::TigerHash::RawStorage* >( pTiger->m_pValue );
+				if ( pTiger->IsType( CBENode::beString ) && pTiger->m_nValue != Hashes::TigerHash::byteCount )
+					pBTFile->m_oTiger = *static_cast< Hashes::TigerHash::RawStorage* >( pTiger->m_pValue );
 			}
 
 			m_nSize += pBTFile->m_nSize;
 			nOffset += pBTFile->m_nSize;
+
+			// Add http web seed
+			// ToDo: Handle additonal multi-file http web seeds
+			if ( nFile == 0 && ! strURL.IsEmpty() )	// First file only (no offset?)
+			{
+				if ( strURL.Right( 1 ) == L'/' )
+					strURL += PathFindFileName( pBTFile->m_sName );
+				m_sURLs.AddTail( strURL );
+			}
 
 			m_pFiles.AddTail( pBTFile.Detach() );
 		}
@@ -1287,6 +1341,14 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 			// Reset the name
 			m_sName = strPath;
+
+			// Add http web seed (added above)
+			//if ( ! strURL.IsEmpty )
+			//{
+			//	if ( strURL.Right( 1 ) == L'/' )
+			//		strURL += PathFindFileName( m_sName );
+			//	m_sURLs.AddTail( strURL );
+			//}
 
 			// Set data/file hashes (if they aren't)
 			if ( pSingleFile->m_oSHA1 )

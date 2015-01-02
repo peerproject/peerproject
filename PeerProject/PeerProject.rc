@@ -65,8 +65,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,0,1,2
- PRODUCTVERSION 1,0,1,2
+ FILEVERSION 1,0,2,0
+ PRODUCTVERSION 1,0,2,0
  FILEFLAGSMASK 0x1fL
 #ifdef _DEBUG
  FILEFLAGS 0x1L
@@ -85,12 +85,12 @@ BEGIN
 			VALUE "Comments", "PeerProject P2P"
 			VALUE "CompanyName", "PeerProject Development Team"
 			VALUE "FileDescription", "PeerProject P2P"
-			VALUE "FileVersion", "1.0.1.2"
+			VALUE "FileVersion", "1.0.2.0"
 			VALUE "LegalCopyright", "© PeerProject Development Team, 2008-2014"
 			VALUE "OriginalFilename", "PeerProject.exe"
 			VALUE "InternalName", "PeerProject"
 			VALUE "ProductName", "PeerProject"
-			VALUE "ProductVersion", "1.0.1.2"
+			VALUE "ProductVersion", "1.0.2.0"
 		END
 	END
 	BLOCK "VarFileInfo"
@@ -1655,7 +1655,7 @@ BEGIN
 	LTEXT			"This is the first time you have clicked PeerProject's close button.\nPlease choose what action you would like to take:",IDC_STATIC,15,10,260,30
 	CONTROL			"Minimize to tray area",IDC_CLOSE_0,"Button",BS_AUTORADIOBUTTON|BS_FLAT|WS_GROUP,30,35,245,10
 	CONTROL			"Shut down PeerProject immediately",IDC_CLOSE_1,"Button",BS_AUTORADIOBUTTON|BS_FLAT,30,60,245,10
-	CONTROL			"Shut down PeerProject after any downloads and uploads finish",IDC_CLOSE_2,"Button",BS_AUTORADIOBUTTON|BS_FLAT,30,75,245,10
+	CONTROL			"Shut down PeerProject after any downloads finish",IDC_CLOSE_2,"Button",BS_AUTORADIOBUTTON|BS_FLAT,30,75,245,10
 	DEFPUSHBUTTON	"OK",IDOK,179,94,50,14,WS_GROUP
 	PUSHBUTTON		"Cancel",IDCANCEL,235,94,50,14
 END
