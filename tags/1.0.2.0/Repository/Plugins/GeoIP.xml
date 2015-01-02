@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
+
+<manifest
+ name="GeoIP Update"
+ version="2012.00"
+ author="Maxmind (via PeerProject.org)"
+ description="This product includes GeoLite data created by MaxMind, available from http://maxmind.com/"
+ link="http://maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz"
+ email="Contact(at)peerproject.org"
+ license="OPEN DATA LICENSE"
+ platform="PeerProject 1.0"
+ path="Data"
+ type="Data"
+/>
+
+</package>

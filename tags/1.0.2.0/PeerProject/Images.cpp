@@ -1,0 +1,1679 @@
+//
+// Images.cpp
+//
+// This file is part of PeerProject (peerproject.org) © 2010-2014
+// All work here is original and released as-is under Persistent Public Domain [PPD]
+//
+
+// Dynamic Watermarks  (Common volatile skinned buttons etc.)
+
+#include "StdAfx.h"
+#include "Settings.h"
+#include "Images.h"
+#include "Colors.h"
+#include "Skin.h"
+
+#ifdef _DEBUG
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#define new DEBUG_NEW
+#endif	// Debug
+
+CImages Images;
+
+
+//////////////////////////////////////////////////////////////////////
+// CImages construction
+
+//CImages::CImages()
+//{
+//}
+
+//CImages::~CImages()
+//{
+//}
+
+//////////////////////////////////////////////////////////////////////
+// CImages Bitmap Objects
+
+void CImages::DeleteObjects()
+{
+	if ( m_brDialog.m_hObject ) m_brDialog.DeleteObject();
+	if ( m_brDialogPanel.m_hObject ) m_brDialogPanel.DeleteObject();
+	if ( m_brMediaControl.m_hObject ) m_brMediaControl.DeleteObject();
+
+	if ( m_bmBanner.m_hObject ) m_bmBanner.DeleteObject();
+	if ( m_bmBannerEdge.m_hObject ) m_bmBannerEdge.DeleteObject();
+	if ( m_bmDialog.m_hObject ) m_bmDialog.DeleteObject();
+	if ( m_bmDialogPanel.m_hObject ) m_bmDialogPanel.DeleteObject();
+	if ( m_bmPanelMark.m_hObject ) m_bmPanelMark.DeleteObject();
+	if ( m_bmMediaStatusBar.m_hObject ) m_bmMediaStatusBar.DeleteObject();
+
+	if ( m_bmSelected.m_hObject ) m_bmSelected.DeleteObject();
+	if ( m_bmSelectedGrey.m_hObject ) m_bmSelectedGrey.DeleteObject();
+	if ( m_bmMenuSelected.m_hObject ) m_bmMenuSelected.DeleteObject();
+	if ( m_bmMenuSelectedEdge.m_hObject ) m_bmMenuSelectedEdge.DeleteObject();
+	if ( m_bmMenuDisabled.m_hObject ) m_bmMenuDisabled.DeleteObject();
+	if ( m_bmMenuDisabledEdge.m_hObject ) m_bmMenuDisabledEdge.DeleteObject();
+	if ( m_bmProgress.m_hObject ) m_bmProgress.DeleteObject();
+	if ( m_bmProgressEdge.m_hObject ) m_bmProgressEdge.DeleteObject();
+	if ( m_bmProgressNone.m_hObject ) m_bmProgressNone.DeleteObject();
+	if ( m_bmProgressShaded.m_hObject ) m_bmProgressShaded.DeleteObject();
+	if ( m_bmToolTip.m_hObject ) m_bmToolTip.DeleteObject();
+
+	if ( m_bmIconButton.m_hObject ) m_bmIconButton.DeleteObject();
+	if ( m_bmIconButtonHover.m_hObject ) m_bmIconButtonHover.DeleteObject();
+	if ( m_bmIconButtonPress.m_hObject ) m_bmIconButtonPress.DeleteObject();
+	if ( m_bmIconButtonActive.m_hObject ) m_bmIconButtonActive.DeleteObject();
+	if ( m_bmIconButtonDisabled.m_hObject ) m_bmIconButtonDisabled.DeleteObject();
+
+	if ( m_bmRichButton.m_hObject ) m_bmRichButton.DeleteObject();
+	if ( m_bmRichButtonEdge.m_hObject ) m_bmRichButtonEdge.DeleteObject();
+	if ( m_bmRichButtonHover.m_hObject ) m_bmRichButtonHover.DeleteObject();
+	if ( m_bmRichButtonHoverEdge.m_hObject ) m_bmRichButtonHoverEdge.DeleteObject();
+	if ( m_bmRichButtonPress.m_hObject ) m_bmRichButtonPress.DeleteObject();
+	if ( m_bmRichButtonPressEdge.m_hObject ) m_bmRichButtonPressEdge.DeleteObject();
+	if ( m_bmRichButtonActive.m_hObject ) m_bmRichButtonActive.DeleteObject();
+	if ( m_bmRichButtonActiveEdge.m_hObject ) m_bmRichButtonActiveEdge.DeleteObject();
+	if ( m_bmRichButtonDisabled.m_hObject ) m_bmRichButtonDisabled.DeleteObject();
+	if ( m_bmRichButtonDisabledEdge.m_hObject ) m_bmRichButtonDisabledEdge.DeleteObject();
+
+	if ( m_bmToolbarButton.m_hObject ) m_bmToolbarButton.DeleteObject();
+	if ( m_bmToolbarButtonEdge.m_hObject ) m_bmToolbarButtonEdge.DeleteObject();
+	if ( m_bmToolbarButtonHover.m_hObject ) m_bmToolbarButtonHover.DeleteObject();
+	if ( m_bmToolbarButtonHoverEdge.m_hObject ) m_bmToolbarButtonHoverEdge.DeleteObject();
+	if ( m_bmToolbarButtonPress.m_hObject ) m_bmToolbarButtonPress.DeleteObject();
+	if ( m_bmToolbarButtonPressEdge.m_hObject ) m_bmToolbarButtonPressEdge.DeleteObject();
+	if ( m_bmToolbarButtonActive.m_hObject ) m_bmToolbarButtonActive.DeleteObject();
+	if ( m_bmToolbarButtonActiveEdge.m_hObject ) m_bmToolbarButtonActiveEdge.DeleteObject();
+	if ( m_bmToolbarButtonDisabled.m_hObject ) m_bmToolbarButtonDisabled.DeleteObject();
+	if ( m_bmToolbarButtonDisabledEdge.m_hObject ) m_bmToolbarButtonDisabledEdge.DeleteObject();
+	if ( m_bmToolbarSeparator.m_hObject ) m_bmToolbarSeparator.DeleteObject();
+	if ( m_bmToolbar.m_hObject ) m_bmToolbar.DeleteObject();
+
+	if ( m_bmMenubarItem.m_hObject ) m_bmMenubarItem.DeleteObject();
+	if ( m_bmMenubarItemEdge.m_hObject ) m_bmMenubarItemEdge.DeleteObject();
+	if ( m_bmMenubarItemHover.m_hObject ) m_bmMenubarItemHover.DeleteObject();
+	if ( m_bmMenubarItemHoverEdge.m_hObject ) m_bmMenubarItemHoverEdge.DeleteObject();
+	if ( m_bmMenubarItemPress.m_hObject ) m_bmMenubarItemPress.DeleteObject();
+	if ( m_bmMenubarItemPressEdge.m_hObject ) m_bmMenubarItemPressEdge.DeleteObject();
+	if ( m_bmMenubarButton.m_hObject ) m_bmMenubarButton.DeleteObject();
+	if ( m_bmMenubarButtonEdge.m_hObject ) m_bmMenubarButtonEdge.DeleteObject();
+	if ( m_bmMenubarButtonHover.m_hObject ) m_bmMenubarButtonHover.DeleteObject();
+	if ( m_bmMenubarButtonHoverEdge.m_hObject ) m_bmMenubarButtonHoverEdge.DeleteObject();
+	if ( m_bmMenubarButtonPress.m_hObject ) m_bmMenubarButtonPress.DeleteObject();
+	if ( m_bmMenubarButtonPressEdge.m_hObject ) m_bmMenubarButtonPressEdge.DeleteObject();
+	if ( m_bmMenubarButtonActive.m_hObject ) m_bmMenubarButtonActive.DeleteObject();
+	if ( m_bmMenubarButtonActiveEdge.m_hObject ) m_bmMenubarButtonActiveEdge.DeleteObject();
+
+	if ( m_bmTaskbarButton.m_hObject ) m_bmTaskbarButton.DeleteObject();
+	if ( m_bmTaskbarButtonEdge.m_hObject ) m_bmTaskbarButtonEdge.DeleteObject();
+	if ( m_bmTaskbarButtonActive.m_hObject ) m_bmTaskbarButtonActive.DeleteObject();
+	if ( m_bmTaskbarButtonActiveEdge.m_hObject ) m_bmTaskbarButtonActiveEdge.DeleteObject();
+	if ( m_bmTaskbarButtonHover.m_hObject ) m_bmTaskbarButtonHover.DeleteObject();
+	if ( m_bmTaskbarButtonHoverEdge.m_hObject ) m_bmTaskbarButtonHoverEdge.DeleteObject();
+	if ( m_bmTaskbarButtonPress.m_hObject ) m_bmTaskbarButtonPress.DeleteObject();
+	if ( m_bmTaskbarButtonPressEdge.m_hObject ) m_bmTaskbarButtonPressEdge.DeleteObject();
+
+	if ( m_bmDownloadGroup.m_hObject ) m_bmDownloadGroup.DeleteObject();
+	if ( m_bmDownloadGroupEdge.m_hObject ) m_bmDownloadGroupEdge.DeleteObject();
+	if ( m_bmDownloadGroupActive.m_hObject ) m_bmDownloadGroupActive.DeleteObject();
+	if ( m_bmDownloadGroupActiveEdge.m_hObject ) m_bmDownloadGroupActiveEdge.DeleteObject();
+	if ( m_bmDownloadGroupHover.m_hObject ) m_bmDownloadGroupHover.DeleteObject();
+	if ( m_bmDownloadGroupHoverEdge.m_hObject ) m_bmDownloadGroupHoverEdge.DeleteObject();
+	if ( m_bmDownloadGroupPress.m_hObject ) m_bmDownloadGroupPress.DeleteObject();
+	if ( m_bmDownloadGroupPressEdge.m_hObject ) m_bmDownloadGroupPressEdge.DeleteObject();
+
+	if ( m_bmButtonMapIconbox.m_hObject ) m_bmButtonMapIconbox.DeleteObject();
+	if ( m_bmButtonMapRichdoc.m_hObject ) m_bmButtonMapRichdoc.DeleteObject();
+	if ( m_bmButtonMapToolbar.m_hObject ) m_bmButtonMapToolbar.DeleteObject();
+	if ( m_bmButtonMapMenubar.m_hObject ) m_bmButtonMapMenubar.DeleteObject();
+	if ( m_bmButtonMapMenutext.m_hObject ) m_bmButtonMapMenutext.DeleteObject();
+	if ( m_bmButtonMapMenuselect.m_hObject ) m_bmButtonMapMenuselect.DeleteObject();
+	if ( m_bmButtonMapSelect.m_hObject ) m_bmButtonMapSelect.DeleteObject();
+	if ( m_bmButtonMapProgressbar.m_hObject ) m_bmButtonMapProgressbar.DeleteObject();
+	if ( m_bmButtonMapDownloadgroup.m_hObject ) m_bmButtonMapDownloadgroup.DeleteObject();
+	if ( m_bmButtonMapTaskbar.m_hObject ) m_bmButtonMapTaskbar.DeleteObject();
+}
+
+void CImages::Load()
+{
+	DeleteObjects();
+
+	if ( HBITMAP hSelected = Skin.GetWatermark( L"System.Highlight" ) )
+		m_bmSelected.Attach( hSelected );
+	else if ( HBITMAP hSelected = Skin.GetWatermark( L"CTransfers.Selected" ) )
+		m_bmSelected.Attach( hSelected );
+
+	if ( HBITMAP hSelected = Skin.GetWatermark( L"System.Highlight.Inactive" ) )
+		m_bmSelectedGrey.Attach( hSelected );
+	else if ( HBITMAP hSelected = Skin.GetWatermark( L"CTransfers.Selected.Inactive" ) )
+		m_bmSelectedGrey.Attach( hSelected );
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"System.MenuSelected" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenuSelected.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.MenuSelectedEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hButton );
+			m_bmMenuSelectedEdge.Attach( hEdge );
+			m_bmMenuSelectedEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenuSelectedEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenu.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenuSelected.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenu.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hButton );
+			m_bmMenuSelectedEdge.Attach( hEdge );
+			m_bmMenuSelectedEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenuSelectedEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"System.MenuDisabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenuDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.MenuDisabledEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hButton );
+			m_bmMenuDisabledEdge.Attach( hEdge );
+			m_bmMenuDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenuDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenu.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenuDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenu.Disabled.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hButton );
+			m_bmMenuDisabledEdge.Attach( hEdge );
+			m_bmMenuDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenuDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress" ) )
+	{
+		m_bmProgress.Attach( hProgress );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.Progress.Edge" ) )
+		{
+			BITMAP bmInfo;
+			m_bmProgressEdge.Attach( hEdge );
+			m_bmProgressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmProgressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar" ) )
+	{
+		m_bmProgress.Attach( hProgress );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ProgressBar.Edge" ) )
+		{
+			BITMAP bmInfo;
+			m_bmProgressEdge.Attach( hEdge );
+			m_bmProgressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmProgressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress.None" ) )
+		m_bmProgressNone.Attach( hProgress );
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar.None" ) )
+		m_bmProgressNone.Attach( hProgress );
+
+	if ( HBITMAP hProgress = Skin.GetWatermark( L"System.Progress.Shaded" ) )
+		m_bmProgressShaded.Attach( hProgress );
+	else if ( HBITMAP hProgress = Skin.GetWatermark( L"ProgressBar.Shaded" ) )
+		m_bmProgressShaded.Attach( hProgress );
+
+	if ( HBITMAP hToolTip = Skin.GetWatermark( L"System.ToolTip" ) )
+		m_bmToolTip.Attach( hToolTip );
+	else if ( HBITMAP hToolTip = Skin.GetWatermark( L"System.Tooltips" ) )
+		m_bmToolTip.Attach( hToolTip );
+	else if ( HBITMAP hToolTip = Skin.GetWatermark( L"CToolTipCtrl" ) )
+		m_bmToolTip.Attach( hToolTip );
+
+	if ( HBITMAP hDialog = Skin.GetWatermark( L"System.Dialogs" ) )
+		m_bmDialog.Attach( hDialog );
+	else if ( HBITMAP hDialog = Skin.GetWatermark( L"CDialog" ) )
+		m_bmDialog.Attach( hDialog );
+
+	if ( HBITMAP hDialog = Skin.GetWatermark( L"System.DialogPanels" ) )
+		m_bmDialogPanel.Attach( hDialog );
+	else if ( HBITMAP hDialog = Skin.GetWatermark( L"CDialog.Panel" ) )
+		m_bmDialogPanel.Attach( hDialog );
+
+	// Related brushes:
+	// (Note skinnable dialogs:  Brush applies to opaque text/control bg.  Body in DlgSkinDialog, WndSettingPage, etc.)
+
+	if ( m_bmDialog.m_hObject )
+		m_brDialog.CreatePatternBrush( & m_bmDialog );	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) );
+	else
+		m_brDialog.CreateSolidBrush( Colors.m_crDialog );
+
+	if ( m_bmDialogPanel.m_hObject )
+		m_brDialogPanel.CreatePatternBrush( & m_bmDialogPanel );
+	else
+		m_brDialogPanel.CreateSolidBrush( Colors.m_crDialogPanel );
+
+	if ( HBITMAP hControl = Skin.GetWatermark( L"System.Dialogs.Control" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brDialog.CreatePatternBrush( &bmControl ); 	// Attach( (HBRUSH)GetStockObject( NULL_BRUSH ) ); ?
+	}
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CDialog.Control" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brDialog.CreatePatternBrush( &bmControl );
+	}
+
+	if ( HBITMAP hControl = Skin.GetWatermark( L"System.DialogPanels.Control" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brDialog.CreatePatternBrush( &bmControl );
+	}
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CDialog.Panel.Control" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brDialogPanel.CreatePatternBrush( &bmControl );
+	}
+
+	if ( HBITMAP hControl = Skin.GetWatermark( L"CMediaFrame.Slider" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brMediaControl.CreatePatternBrush( &bmControl );
+	}
+	else if ( HBITMAP hControl = Skin.GetWatermark( L"CCoolbar.Control" ) )
+	{
+		CBitmap bmControl;
+		bmControl.Attach( hControl );
+		m_brMediaControl.CreatePatternBrush( &bmControl );
+	}
+	else
+		m_brMediaControl.CreateSolidBrush( Colors.m_crMidtone );
+
+	m_nBanner = 0;		// Height = Images.m_bmBanner.GetBitmapDimension().cy
+
+	if ( HBITMAP hBanner = Skin.GetWatermark( L"System.Header" ) )
+	{
+		BITMAP bmInfo;
+		m_bmBanner.Attach( hBanner );
+		m_bmBanner.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		m_nBanner = bmInfo.bmHeight;
+		Skin.m_nBanner = m_nBanner;
+
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"System.Header.Edge" ) )
+		{
+			m_bmBannerEdge.Attach( hEdge );
+			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hBanner = Skin.GetWatermark( L"Banner" ) )
+	{
+		BITMAP bmInfo;
+		m_bmBanner.Attach( hBanner );
+		m_bmBanner.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmBanner.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		m_nBanner = bmInfo.bmHeight;
+		Skin.m_nBanner = m_nBanner;
+
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"Banner.Edge" ) )
+		{
+			m_bmBannerEdge.Attach( hEdge );
+			m_bmBannerEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmBannerEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hPanelMark = Skin.GetWatermark( L"CPanelWnd.Caption" ) )
+		m_bmPanelMark.Attach( hPanelMark );
+	else if ( Colors.m_crPanelBack == RGB_DEFAULT_CASE )
+		m_bmPanelMark.LoadBitmap( IDB_PANEL_MARK );				// Special-case default resource handling
+
+	if ( HBITMAP hPanelMark = Skin.GetWatermark( L"CMediaFrame.StatusBar" ) )
+		m_bmMediaStatusBar.Attach( hPanelMark );
+
+	// Note "System.Toolbars" fallback handled at toolbar creation
+
+	// Button states:
+
+	// Dialog Single-Icon Buttons:
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton" ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButton.Attach( hButton );
+		m_bmIconButton.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmIconButton.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Hover" ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonHover.Attach( hButton );
+		m_bmIconButtonHover.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmIconButtonHover.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Press" ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonPress.Attach( hButton );
+		m_bmIconButtonPress.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmIconButtonPress.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Active" ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonActive.Attach( hButton );
+		m_bmIconButtonActive.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmIconButtonActive.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"IconButton.Disabled" ) )
+	{
+		BITMAP bmInfo;
+		m_bmIconButtonDisabled.Attach( hButton );
+		m_bmIconButtonDisabled.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmIconButtonDisabled.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+	}
+
+	// RichDoc Buttons (Search):
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton" ) )
+	{
+		PreBlend( hButton );
+		m_bmRichButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmRichButtonEdge.Attach( hEdge );
+			m_bmRichButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmRichButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmRichButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmRichButtonHoverEdge.Attach( hEdge );
+			m_bmRichButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmRichButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmRichButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmRichButtonPressEdge.Attach( hEdge );
+			m_bmRichButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmRichButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmRichButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Active" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmRichButtonActiveEdge.Attach( hEdge );
+			m_bmRichButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmRichButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	if ( HBITMAP hButton = Skin.GetWatermark( L"RichButton.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmRichButtonDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"RichButtonEdge.Disabled" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmRichButtonDisabledEdge.Attach( hEdge );
+			m_bmRichButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmRichButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+
+	// Command Toolbar Buttons:
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonEdge.Attach( hEdge );
+			m_bmToolbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Up" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Up.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonEdge.Attach( hEdge );
+			m_bmToolbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonHoverEdge.Attach( hEdge );
+			m_bmToolbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonHoverEdge.Attach( hEdge );
+			m_bmToolbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonPressEdge.Attach( hEdge );
+			m_bmToolbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Down" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Down.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonPressEdge.Attach( hEdge );
+			m_bmToolbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Active" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonActiveEdge.Attach( hEdge );
+			m_bmToolbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Checked" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Checked.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonActiveEdge.Attach( hEdge );
+			m_bmToolbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"ToolbarButton.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"ToolbarButtonEdge.Disabled" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonDisabledEdge.Attach( hEdge );
+			m_bmToolbarButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolbar.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmToolbarButtonDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolbar.Disabled.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmToolbarButtonDisabledEdge.Attach( hEdge );
+			m_bmToolbarButtonDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmToolbarButtonDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hImage = Skin.GetWatermark( L"System.Toolbars.Separator" ) )
+	{
+		PreBlend( hImage );
+		m_bmToolbarSeparator.Attach( hImage );
+	}
+	else if ( HBITMAP hImage = Skin.GetWatermark( L"CCoolbar.Separator" ) )
+	{
+		PreBlend( hImage );
+		m_bmToolbarSeparator.Attach( hImage );
+	}
+	else if ( HBITMAP hImage = Skin.GetWatermark( L"ToolbarSeparator" ) )
+	{
+		PreBlend( hImage );
+		m_bmToolbarSeparator.Attach( hImage );
+	}
+
+	if ( HBITMAP hImage = Skin.GetWatermark( L"System.Toolbars" ) )
+	{
+		m_bmToolbar.Attach( hImage );
+	}
+
+
+	// Main Menubar (Text) Buttons:
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItem.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemEdge.Attach( hEdge );
+			m_bmMenubarItemEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Up" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItem.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Up.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemEdge.Attach( hEdge );
+			m_bmMenubarItemEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItemHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemHoverEdge.Attach( hEdge );
+			m_bmMenubarItemHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItemHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemHoverEdge.Attach( hEdge );
+			m_bmMenubarItemHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarItem.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItemPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarItemEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemPressEdge.Attach( hEdge );
+			m_bmMenubarItemPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuItem.Down" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarItemPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuItem.Down.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarItemPressEdge.Attach( hEdge );
+			m_bmMenubarItemPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarItemPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonEdge.Attach( hEdge );
+			m_bmMenubarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Up" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Up.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonEdge.Attach( hEdge );
+			m_bmMenubarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonHoverEdge.Attach( hEdge );
+			m_bmMenubarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonHoverEdge.Attach( hEdge );
+			m_bmMenubarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonPressEdge.Attach( hEdge );
+			m_bmMenubarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Down" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Down.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonPressEdge.Attach( hEdge );
+			m_bmMenubarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"MenubarButton.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"MenubarButtonEdge.Active" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonActiveEdge.Attach( hEdge );
+			m_bmMenubarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CCoolMenuBar.Checked" ) )
+	{
+		PreBlend( hButton );
+		m_bmMenubarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CCoolMenuBar.Checked.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmMenubarButtonActiveEdge.Attach( hEdge );
+			m_bmMenubarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmMenubarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+
+	// Taskbar Tabs:
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonEdge.Attach( hEdge );
+			m_bmTaskbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, 0 );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Tab" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButton.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonEdge.Attach( hEdge );
+			m_bmTaskbarButtonEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Active" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonActiveEdge.Attach( hEdge );
+			m_bmTaskbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Active.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonActiveEdge.Attach( hEdge );
+			m_bmTaskbarButtonActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonHoverEdge.Attach( hEdge );
+			m_bmTaskbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonHoverEdge.Attach( hEdge );
+			m_bmTaskbarButtonHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"TaskbarButton.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"TaskbarButtonEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonPressEdge.Attach( hEdge );
+			m_bmTaskbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CWndTabBar.Active.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmTaskbarButtonPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CWndTabBar.Active.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmTaskbarButtonPressEdge.Attach( hEdge );
+			m_bmTaskbarButtonPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmTaskbarButtonPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	// Download Groups Bar Tabs:
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroup.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupEdge.Attach( hEdge );
+			m_bmDownloadGroupEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Up" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroup.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Up.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupEdge.Attach( hEdge );
+			m_bmDownloadGroupEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Active" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupActiveEdge.Attach( hEdge );
+			m_bmDownloadGroupActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Active" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupActive.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Active.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupActiveEdge.Attach( hEdge );
+			m_bmDownloadGroupActiveEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupActiveEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Hover" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupHoverEdge.Attach( hEdge );
+			m_bmDownloadGroupHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupHover.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupHoverEdge.Attach( hEdge );
+			m_bmDownloadGroupHoverEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupHoverEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Press" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Press" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupPressEdge.Attach( hEdge );
+			m_bmDownloadGroupPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Active.Hover" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupPress.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Active.Hover.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupPressEdge.Attach( hEdge );
+			m_bmDownloadGroupPressEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupPressEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+	if ( HBITMAP hButton = Skin.GetWatermark( L"DownloadGroup.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"DownloadGroupEdge.Disabled" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupDisabledEdge.Attach( hEdge );
+			m_bmDownloadGroupDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+	else if ( HBITMAP hButton = Skin.GetWatermark( L"CDownloadTabBar.Disabled" ) )
+	{
+		PreBlend( hButton );
+		m_bmDownloadGroupDisabled.Attach( hButton );
+		if ( HBITMAP hEdge = Skin.GetWatermark( L"CDownloadTabBar.Disabled.Edge" ) )
+		{
+			BITMAP bmInfo;
+			PreBlend( hEdge );
+			m_bmDownloadGroupDisabledEdge.Attach( hEdge );
+			m_bmDownloadGroupDisabledEdge.GetObject( sizeof( BITMAP ), &bmInfo );
+			m_bmDownloadGroupDisabledEdge.SetBitmapDimension( bmInfo.bmWidth, bmInfo.bmHeight );
+		}
+	}
+
+
+	// Button Maps:
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Iconbox" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapIconbox.Attach( hButtonMap );
+		m_bmButtonMapIconbox.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapIconbox.SetBitmapDimension( 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Richdoc" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapRichdoc.Attach( hButtonMap );
+		m_bmButtonMapRichdoc.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapRichdoc.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Toolbar" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapToolbar.Attach( hButtonMap );
+		m_bmButtonMapToolbar.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapToolbar.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Menubar" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapMenubar.Attach( hButtonMap );
+		m_bmButtonMapMenubar.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapMenubar.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.MenuText" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapMenutext.Attach( hButtonMap );
+		m_bmButtonMapMenutext.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapMenutext.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.MenuSelect" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapMenuselect.Attach( hButtonMap );
+		m_bmButtonMapMenuselect.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapMenuselect.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Select" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapSelect.Attach( hButtonMap );
+		m_bmButtonMapSelect.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapSelect.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
+	}
+	else if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Highlight" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapSelect.Attach( hButtonMap );
+		m_bmButtonMapSelect.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapSelect.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );	// 2?
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.ProgressBar" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapProgressbar.Attach( hButtonMap );
+		m_bmButtonMapProgressbar.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapProgressbar.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / 3 );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.DownloadGroup" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapDownloadgroup.Attach( hButtonMap );
+		m_bmButtonMapDownloadgroup.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapDownloadgroup.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+
+	if ( HBITMAP hButtonMap = Skin.GetWatermark( L"ButtonMap.Taskbar" ) )
+	{
+		BITMAP bmInfo;
+		PreBlend( hButtonMap );
+		m_bmButtonMapTaskbar.Attach( hButtonMap );
+		m_bmButtonMapTaskbar.GetObject( sizeof( BITMAP ), &bmInfo );
+		m_bmButtonMapTaskbar.SetBitmapDimension(
+			bmInfo.bmWidth > Settings.Skin.ButtonEdge ? Settings.Skin.ButtonEdge : 0, bmInfo.bmHeight / STATE_COUNT );
+	}
+}
+
+void CImages::BlendAlpha(CBitmap* bmImage, COLORREF crBlend /*RGB(255,255,255)*/)
+{
+	BITMAP pInfo;
+	bmImage->GetBitmap( &pInfo );
+	if ( pInfo.bmBitsPixel != 32 )
+		return;
+
+	HBITMAP hImage = (HBITMAP)bmImage->Detach();
+
+	const BYTE nRValue = GetBValue( crBlend );	// Flip
+	const BYTE nGValue = GetGValue( crBlend );
+	const BYTE nBValue = GetRValue( crBlend );	// Flip
+
+	const int bufferSize = pInfo.bmWidthBytes * pInfo.bmHeight;
+	BYTE* buffer = (BYTE*)malloc(bufferSize);
+	GetBitmapBits( hImage, bufferSize, buffer );	// Get/SetBitmapBits() deprecated by MS, but useful here
+
+	for ( int i = 0, j = 0 ; i < bufferSize ; i += 4, j += 3 )
+	{
+		DWORD nAlpha = (DWORD)buffer[i + 3];
+
+		if ( nAlpha == 255 )
+		{
+			buffer[j + 0] = buffer[i + 0];
+			buffer[j + 1] = buffer[i + 1];
+			buffer[j + 2] = buffer[i + 2];
+		}
+		else if ( nAlpha == 0 )
+		{
+			buffer[j + 0] = nRValue;
+			buffer[j + 1] = nGValue;
+			buffer[j + 2] = nBValue;
+		}
+		else
+		{
+			DWORD dwInR = (DWORD)(buffer[i + 0]);
+			DWORD dwInG = (DWORD)(buffer[i + 1]);
+			DWORD dwInB = (DWORD)(buffer[i + 2]);
+
+			if ( ! dwInR )
+				buffer[j + 0] = (BYTE)( nAlpha > nRValue ? 0 : nRValue - nAlpha );
+			else if ( dwInR == 255 )
+				buffer[j + 0] = (BYTE)( nAlpha > ( 255 - nRValue ) ? 255 : nRValue + nAlpha );
+			else
+				buffer[j + 0] = (BYTE)( ( dwInR * nAlpha + (DWORD)nRValue * ( 255 - nAlpha ) ) / 255 );
+
+			if ( ! dwInG )
+				buffer[j + 1] = (BYTE)( nAlpha > nGValue ? 0 : nGValue - nAlpha );
+			else if ( dwInG == 255 )
+				buffer[j + 1] = (BYTE)( nAlpha > ( 255 - nGValue ) ? 255 : nGValue + nAlpha );
+			else
+				buffer[j + 1] = (BYTE)( ( dwInG * nAlpha + (DWORD)nGValue * ( 255 - nAlpha ) ) / 255 );
+
+			if ( ! dwInB )
+				buffer[j + 2] = (BYTE)( nAlpha > nBValue ? 0 : nBValue - nAlpha );
+			else if ( dwInB == 255 )
+				buffer[j + 2] = (BYTE)( nAlpha > ( 255 - nBValue ) ? 255 : nBValue + nAlpha );
+			else
+				buffer[j + 2] = (BYTE)( ( dwInB * nAlpha + (DWORD)nBValue * ( 255 - nAlpha ) ) / 255 );
+
+		//	buffer[j + 0] = (BYTE)( ( (DWORD)(buffer[i + 0]) * nAlpha + (DWORD)nRValue * ( 255 - nAlpha ) ) / 255 );
+		//	buffer[j + 1] = (BYTE)( ( (DWORD)(buffer[i + 1]) * nAlpha + (DWORD)nGValue * ( 255 - nAlpha ) ) / 255 );
+		//	buffer[j + 2] = (BYTE)( ( (DWORD)(buffer[i + 2]) * nAlpha + (DWORD)nBValue * ( 255 - nAlpha ) ) / 255 );
+		}
+	}
+
+	BITMAPV5HEADER pV5Header = {};
+	pV5Header.bV5Size			= sizeof(BITMAPV5HEADER);
+	pV5Header.bV5Width			= (LONG)pInfo.bmWidth;
+	pV5Header.bV5Height			= (LONG)pInfo.bmHeight;
+	pV5Header.bV5Planes			= 1;
+	pV5Header.bV5BitCount		= 24;
+	pV5Header.bV5Compression	= BI_RGB;
+	pV5Header.bV5SizeImage		= pInfo.bmWidth * pInfo.bmHeight * 3;
+
+	__try
+	{
+		void* pBits = NULL;
+		hImage = CreateDIBSection( GetDC( 0 ), (BITMAPINFO*)&pV5Header, DIB_RGB_COLORS, (void**)&pBits, NULL, 0ul );
+	}
+	__except( EXCEPTION_EXECUTE_HANDLER )
+	{
+		hImage = NULL;
+	}
+
+	SetBitmapBits( hImage, bufferSize * 3 / 4, buffer );
+	bmImage->Attach( hImage );
+
+	delete buffer;
+}
+
+BOOL CImages::PreBlend(HBITMAP hButton)
+{
+	BITMAP pInfo;
+	static CBitmap *spBitMap;
+	spBitMap = CBitmap::FromHandle( hButton );
+	spBitMap->GetBitmap( &pInfo );
+
+	if ( pInfo.bmBitsPixel != 32 )
+		return FALSE;
+
+	// Pre-multiply for AlphaBlend transparency support (rgba from PNG)
+
+	const int bufferSize = pInfo.bmWidthBytes * pInfo.bmHeight;
+	BYTE* buffer = (BYTE*)malloc(bufferSize);
+	GetBitmapBits( hButton, bufferSize, buffer );	// Get/SetBitmapBits() deprecated by MS, but useful here
+
+	for ( int i = 0 ; i < bufferSize ; i += 4 )
+	{
+		if ( buffer[i + 3] == 255 ) continue;
+
+		buffer[i + 0] = buffer[i + 0] * buffer[i + 3] / 255;
+		buffer[i + 1] = buffer[i + 1] * buffer[i + 3] / 255;
+		buffer[i + 2] = buffer[i + 2] * buffer[i + 3] / 255;
+	}
+
+	SetBitmapBits( hButton, bufferSize, buffer );
+	delete buffer;
+
+	return TRUE;
+}
+
+BOOL CImages::DrawImage(CDC* pDC, const CRect* prc, CBitmap* bmImage, BOOL bRepeat /*=TRUE*/)
+{
+	if ( ! bmImage->m_hObject || pDC == NULL || prc == NULL )
+		return FALSE;
+
+	BITMAP bmWatermark;
+	CBitmap* pOldMark;
+	CDC dcMark;
+
+	dcMark.CreateCompatibleDC( pDC );
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+	pOldMark = (CBitmap*)dcMark.SelectObject( bmImage );
+	bmImage->GetBitmap( &bmWatermark );
+
+	if ( bRepeat )
+	{
+		for ( int nY = prc->top ; nY < prc->bottom ; nY += bmWatermark.bmHeight )
+		{
+			for ( int nX = prc->left ; nX < prc->right ; nX += bmWatermark.bmWidth )
+			{
+				pDC->BitBlt( nX, nY,
+					min( bmWatermark.bmWidth, prc->right - nX ),
+					min( bmWatermark.bmHeight, prc->bottom - nY ),
+					&dcMark, 0, 0, SRCCOPY );
+			}
+		}
+	}
+	else
+	{
+		pDC->BitBlt( 0, 0,
+			min( bmWatermark.bmWidth, prc->right ),
+			min( bmWatermark.bmHeight, prc->bottom ),
+			&dcMark, 0, 0, SRCCOPY );
+	}
+
+	dcMark.SelectObject( pOldMark );
+	dcMark.DeleteDC();
+
+	return TRUE;
+}
+
+BOOL CImages::DrawIconButton(CDC* pDC, const CRect* rc, CBitmap* bmButton)
+{
+	if ( ! bmButton->m_hObject || pDC == NULL || rc == NULL )
+		return FALSE;
+
+	CDC dcMark;
+	dcMark.CreateCompatibleDC( pDC );
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, LAYOUT_BITMAPORIENTATIONPRESERVED );
+
+	CBitmap* pOld;
+	pOld = (CBitmap*)dcMark.SelectObject( bmButton );
+
+	CSize szButton( bmButton->GetBitmapDimension() );
+	if ( szButton.cx > 16 && szButton.cy > 16 && szButton.cx < rc->Width() + 2 && szButton.cy < rc->Height() + 2 )
+	{
+		if ( ! m_bmDialog.m_hObject )
+			pDC->FillSolidRect( rc, pDC->GetBkColor() );
+
+		// Set button rect to centered image size
+		CRect rcIcon( rc );
+		rcIcon.top += ( rcIcon.Height() - szButton.cy ) / 2;
+		rcIcon.left += ( rcIcon.Width() - szButton.cx ) / 2;
+		rcIcon.right = rcIcon.left + szButton.cx;
+		rcIcon.bottom = rcIcon.top + szButton.cy;
+
+		pDC->BitBlt( rcIcon.left, rcIcon.top,
+			szButton.cx, szButton.cy,
+			&dcMark, 0, 0, SRCCOPY );
+	}
+	else
+	{
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += szButton.cy )
+		{
+			for ( int nX = rc->left ; nX < rc->right ; nX += szButton.cx )
+			{
+				pDC->BitBlt( nX, nY,
+					min( szButton.cx, rc->right - nX ),
+					min( szButton.cy, rc->bottom - nY ),
+					&dcMark, 0, 0, SRCCOPY );
+			}
+		}
+	}
+
+	dcMark.SelectObject( pOld );
+	dcMark.DeleteDC();
+
+	return TRUE;
+}
+
+BOOL CImages::DrawButton(CDC* pDC, const CRect* rc, CBitmap* bmButton, CBitmap* bmButtonEdge, BOOL bRTL)
+{
+	if ( ! bmButton->m_hObject || pDC == NULL || rc == NULL )
+		return FALSE;
+
+	static CDC dcMark;
+	if ( ! dcMark.m_hDC )
+		dcMark.CreateCompatibleDC( pDC );
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, bRTL ? LAYOUT_RTL : LAYOUT_BITMAPORIENTATIONPRESERVED );
+
+	CBitmap* pOld = (CBitmap*)dcMark.SelectObject( bmButton );
+
+	BLENDFUNCTION bf;				// Set now if needed
+	bf.BlendFlags = 0;				// Must be zero
+	bf.BlendOp = AC_SRC_OVER;		// Must be defined
+	bf.AlphaFormat = AC_SRC_ALPHA;	// Use bitmap alpha
+	bf.SourceConstantAlpha = 0xFF;	// Opaque (Bitmap alpha only)
+
+	const int nEdge = ( bmButtonEdge && bmButtonEdge->m_hObject ) ? bmButtonEdge->GetBitmapDimension().cx : 0;
+
+	if ( rc->Width() > nEdge )
+	{
+		BITMAP pInfo;
+		bmButton->GetBitmap( &pInfo );
+
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += pInfo.bmHeight )
+		{
+			for ( int nX = rc->left ; nX < rc->right - nEdge ; nX += pInfo.bmWidth )
+			{
+				const int nWidth  = min( pInfo.bmWidth, rc->right - nX - nEdge );
+				const int nHeight = min( pInfo.bmHeight, rc->bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
+
+				if ( pInfo.bmBitsPixel == 32 )		// (Pre-multiplied for AlphaBlend Transparency)
+					pDC->AlphaBlend( nX, nY, nWidth, nHeight, &dcMark, 0, 0, nWidth, nHeight, bf );
+				else
+					pDC->BitBlt( nX, nY, nWidth, nHeight, &dcMark, 0, 0, SRCCOPY );
+			}
+		}
+	}
+
+	if ( nEdge > 0 )
+	{
+		BITMAP pInfo;
+		bmButtonEdge->GetBitmap( &pInfo );
+		dcMark.SelectObject( bmButtonEdge );
+
+		const int nHeight = min( pInfo.bmHeight, rc->Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
+
+		if ( pInfo.bmBitsPixel == 32 )
+			pDC->AlphaBlend( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, 0, 0, nEdge, nHeight, bf );
+		else
+			pDC->BitBlt( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, 0, 0, SRCCOPY );
+	}
+
+	dcMark.SelectObject( pOld );
+//	dcMark.DeleteDC();
+
+	return TRUE;
+}
+
+BOOL CImages::DrawButtonMap(CDC* pDC, const CRect* rc, CBitmap* bmButtonMap, const int nState, BOOL bRTL)
+{
+	if ( ! bmButtonMap->m_hObject || pDC == NULL || rc == NULL )
+		return FALSE;
+
+	BITMAP pInfo;
+	bmButtonMap->GetBitmap( &pInfo );
+
+	const int nSourceHeight	= bmButtonMap->GetBitmapDimension().cy;
+	const int nPosition 	= nSourceHeight * nState;
+	const int nEdge			= bmButtonMap->GetBitmapDimension().cx;
+	const int nSourceWidth	= pInfo.bmWidth - nEdge;
+
+	if ( pInfo.bmBitsPixel == 32 && nState == STATE_DEFAULT )	// Test for empty inactive button
+	{
+		// ToDo: Faster/smarter way to check if available button state should be drawn now?
+		BOOL bEmpty = TRUE;
+		const int bufferSize = pInfo.bmWidthBytes * pInfo.bmHeight;
+		BYTE* buffer = (BYTE*)malloc(bufferSize);
+		GetBitmapBits( (HBITMAP)bmButtonMap->m_hObject, bufferSize, buffer );	// Deprecated function but useful
+
+		for ( int i = 3 ; i < ( pInfo.bmWidthBytes * ( nSourceHeight - 1 ) ) ; i += 4 )
+		{
+			if ( buffer[i] > 1 )	// Non-zero alpha
+			{
+				bEmpty = FALSE;
+				break;
+			}
+		}
+
+		delete buffer;
+		if ( bEmpty ) return FALSE;
+	}
+
+	CDC dcMark;
+	dcMark.CreateCompatibleDC( pDC );
+	if ( Settings.General.LanguageRTL )
+		SetLayout( dcMark.m_hDC, bRTL ? LAYOUT_RTL : LAYOUT_BITMAPORIENTATIONPRESERVED );
+
+	CBitmap* pOld;
+	pOld = (CBitmap*)dcMark.SelectObject( bmButtonMap );
+
+	BLENDFUNCTION bf;				// Set now if needed
+	bf.BlendOp = AC_SRC_OVER;		// Must be defined
+	bf.BlendFlags = 0;				// Must be zero
+	bf.SourceConstantAlpha = 0xFF;	// Opaque (Bitmap alpha only)
+	bf.AlphaFormat = AC_SRC_ALPHA;	// Use bitmap alpha
+
+	if ( rc->Width() > nEdge )
+	{
+		for ( int nY = rc->top ; nY < rc->bottom ; nY += nSourceHeight )
+		{
+			for ( int nX = rc->left ; nX < rc->right - nEdge ; nX += nSourceWidth )
+			{
+				const int nWidth  = min( nSourceWidth, rc->right - nX - nEdge );
+				const int nHeight = min( nSourceHeight, rc->bottom - nY ); 	// No repeat (+ 1 to allow 1px overdraw?)
+
+				if ( pInfo.bmBitsPixel == 32 )		// (Pre-multiplied for AlphaBlend Transparency)
+					pDC->AlphaBlend( nX, nY, nWidth, nHeight, &dcMark, 0, nPosition, nWidth, nHeight, bf );
+				else
+					pDC->BitBlt( nX, nY, nWidth, nHeight, &dcMark, 0, nPosition, SRCCOPY );
+			}
+		}
+	}
+
+	if ( nEdge > 0 )
+	{
+		const int nHeight = min( nSourceHeight, rc->Height() ); 	// No repeat (+ 1 to allow 1px overdraw?)
+
+		if ( pInfo.bmBitsPixel == 32 )
+			pDC->AlphaBlend( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, nEdge, nHeight, bf );
+		else
+			pDC->BitBlt( rc->right - nEdge, rc->top, nEdge, nHeight, &dcMark, nSourceWidth, nPosition, SRCCOPY );
+	}
+
+	dcMark.SelectObject( pOld );
+	dcMark.DeleteDC();
+
+	return TRUE;
+}
+
+BOOL CImages::DrawButtonState(CDC* pDC, const CRect* rc, const int nResource)
+{
+	if ( pDC == NULL || rc == NULL )
+		return FALSE;
+
+	// Abstracted pass-through for convenience/consistency elsewhere:
+
+	switch ( nResource )
+	{
+	case IMAGE_BANNER:
+		if ( m_nBanner < 2 ) return FALSE;
+		return DrawButton(pDC, rc, &m_bmBanner, &m_bmBannerEdge);
+	case IMAGE_DIALOG:
+		return DrawButton( pDC, rc, &m_bmDialog );		// ToDo: m_bmDialogEdge?
+	case IMAGE_DIALOGPANEL:
+		return DrawButton( pDC, rc, &m_bmDialogPanel );	// ToDo: m_bmDialogPanelEdge?
+	case IMAGE_PANELMARK:
+		return DrawButton( pDC, rc, &m_bmPanelMark );
+	case IMAGE_TOOLTIP:
+		return DrawButton( pDC, rc, &m_bmToolTip );		// ToDo: &m_bmToolTipEdge?
+
+	case IMAGE_SELECTED:	// + IMAGE_HIGHLIGHT
+		return DrawButton( pDC, rc, &m_bmSelected ) ||	// ToDo: &m_bmSelectedEdge?
+			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT, TRUE );
+	case IMAGE_SELECTEDGREY:
+		return DrawButton( pDC, rc, &m_bmSelectedGrey ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapSelect, STATE_DEFAULT+1, TRUE ) ||
+			DrawButton( pDC, rc, &m_bmSelected );
+	case IMAGE_MENUSELECTED:
+		return DrawButton( pDC, rc, &m_bmMenuSelected, &m_bmMenuSelectedEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_HOVER, TRUE );
+	case IMAGE_MENUDISABLED:
+		return DrawButton( pDC, rc, &m_bmMenuDisabled, &m_bmMenuDisabledEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenuselect, STATE_PRESS, TRUE );
+	case IMAGE_PROGRESSBAR:
+		return DrawButton( pDC, rc, &m_bmProgress, &m_bmProgressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapProgressbar, STATE_HOVER );
+	case IMAGE_PROGRESSBAR_NONE:
+		return DrawButton( pDC, rc, &m_bmProgressNone ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapProgressbar, STATE_DEFAULT );
+	case IMAGE_PROGRESSBAR_SHADED:
+		return DrawButton( pDC, rc, &m_bmProgressShaded ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapProgressbar, STATE_PRESS );
+
+	case ICONBUTTON_DEFAULT:
+		return DrawIconButton( pDC, rc, &m_bmIconButton ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_DEFAULT );
+	case ICONBUTTON_HOVER:
+		return DrawIconButton( pDC, rc, &m_bmIconButtonHover ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_HOVER );
+	case ICONBUTTON_PRESS:
+		return DrawIconButton( pDC, rc, &m_bmIconButtonPress ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_PRESS );
+	case ICONBUTTON_ACTIVE:
+		return DrawIconButton( pDC, rc, &m_bmIconButtonActive ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_ACTIVE );
+	case ICONBUTTON_DISABLED:
+		return DrawIconButton( pDC, rc, &m_bmIconButtonDisabled ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapIconbox, STATE_DISABLED );
+
+	case RICHBUTTON_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmRichButton, &m_bmRichButtonEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_DEFAULT );
+	case RICHBUTTON_HOVER:
+		return DrawButton( pDC, rc, &m_bmRichButtonHover, &m_bmRichButtonHoverEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_HOVER );
+	case RICHBUTTON_PRESS:
+		return DrawButton( pDC, rc, &m_bmRichButtonPress, &m_bmRichButtonPressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_PRESS );
+	case RICHBUTTON_ACTIVE:
+		return DrawButton( pDC, rc, &m_bmRichButtonActive, &m_bmRichButtonActiveEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_ACTIVE );
+	case RICHBUTTON_DISABLED:
+		return DrawButton( pDC, rc, &m_bmRichButtonDisabled, &m_bmRichButtonDisabledEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapRichdoc, STATE_DISABLED );
+
+	case TOOLBARBUTTON_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmToolbarButton, &m_bmToolbarButtonEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DEFAULT, TRUE );
+	case TOOLBARBUTTON_HOVER:
+		return DrawButton( pDC, rc, &m_bmToolbarButtonHover, &m_bmToolbarButtonHoverEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_HOVER, TRUE );
+	case TOOLBARBUTTON_PRESS:
+		return DrawButton( pDC, rc, &m_bmToolbarButtonPress, &m_bmToolbarButtonPressEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_PRESS, TRUE );
+	case TOOLBARBUTTON_ACTIVE:
+		return DrawButton( pDC, rc, &m_bmToolbarButtonActive, &m_bmToolbarButtonActiveEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_ACTIVE, TRUE );
+	case TOOLBARBUTTON_DISABLED:
+		return DrawButton( pDC, rc, &m_bmToolbarButtonDisabled, &m_bmToolbarButtonDisabledEdge, TRUE ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapToolbar, STATE_DISABLED, TRUE );
+	case TOOLBAR_SEPARATOR:
+		return DrawButton( pDC, rc, &m_bmToolbarSeparator );
+
+	case MENUBARITEM_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmMenubarItem, &m_bmMenubarItemEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenutext, STATE_DEFAULT );
+	case MENUBARITEM_HOVER:
+		return DrawButton( pDC, rc, &m_bmMenubarItemHover, &m_bmMenubarItemHoverEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenutext, STATE_HOVER );
+	case MENUBARITEM_PRESS:
+		return DrawButton( pDC, rc, &m_bmMenubarItemPress, &m_bmMenubarItemPressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenutext, STATE_PRESS );
+	case MENUBARBUTTON_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmMenubarButton, &m_bmMenubarButtonEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenubar, STATE_DEFAULT );
+	case MENUBARBUTTON_HOVER:
+		return DrawButton( pDC, rc, &m_bmMenubarButtonHover, &m_bmMenubarButtonHoverEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenubar, STATE_HOVER );
+	case MENUBARBUTTON_PRESS:
+		return DrawButton( pDC, rc, &m_bmMenubarButtonPress, &m_bmMenubarButtonPressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenubar, STATE_PRESS );
+	case MENUBARBUTTON_ACTIVE:
+		return DrawButton( pDC, rc, &m_bmMenubarButtonActive, &m_bmMenubarButtonActiveEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapMenubar, STATE_ACTIVE );
+
+	case TASKBARBUTTON_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmTaskbarButton, &m_bmTaskbarButtonEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapTaskbar, STATE_DEFAULT );
+	case TASKBARBUTTON_HOVER:
+		return DrawButton( pDC, rc, &m_bmTaskbarButtonHover, &m_bmTaskbarButtonHoverEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapTaskbar, STATE_HOVER );
+	case TASKBARBUTTON_PRESS:
+		return DrawButton( pDC, rc, &m_bmTaskbarButtonPress, &m_bmTaskbarButtonPressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapTaskbar, STATE_PRESS );
+	case TASKBARBUTTON_ACTIVE:
+		return DrawButton( pDC, rc, &m_bmTaskbarButtonActive, &m_bmTaskbarButtonActiveEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapTaskbar, STATE_ACTIVE );
+
+	case DOWNLOADGROUP_DEFAULT:
+		return DrawButton( pDC, rc, &m_bmDownloadGroup, &m_bmDownloadGroupEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_DEFAULT );
+	case DOWNLOADGROUP_HOVER:
+		return DrawButton( pDC, rc, &m_bmDownloadGroupHover, &m_bmDownloadGroupHoverEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_HOVER );
+	case DOWNLOADGROUP_PRESS:
+		return DrawButton( pDC, rc, &m_bmDownloadGroupPress, &m_bmDownloadGroupPressEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_PRESS );
+	case DOWNLOADGROUP_ACTIVE:
+		return DrawButton( pDC, rc, &m_bmDownloadGroupActive, &m_bmDownloadGroupActiveEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_ACTIVE );
+	case DOWNLOADGROUP_DISABLED:
+		return DrawButton( pDC, rc, &m_bmDownloadGroupDisabled, &m_bmDownloadGroupDisabledEdge ) ||
+			DrawButtonMap( pDC, rc, &m_bmButtonMapDownloadgroup, STATE_DISABLED );
+	}
+
+	ASSERT( FALSE );
+	return FALSE;
+}

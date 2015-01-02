@@ -1,0 +1,8 @@
+MiniUPnPc
+Version 1.9.20141120
+Nov 20 2014
+
+http://miniupnp.free.fr
+https://github.com/miniupnp/miniupnp
+
+Note: Update version miniupnpcstrings.h

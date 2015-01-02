@@ -1,0 +1,58 @@
+﻿		<!-- tabs -->
+		<div class="poetry">
+			<ul class="tabs">
+				<li class="active"><a href="home" class="noline">Shtëpi</a></li>
+				<li class="inactive"><a href="downloads" class="noline">Shkarkesat</a></li>
+				<li class="inactive"><a href="uploads" class="noline">Ngarkesat</a></li>
+				<li class="inactive"><a href="network" class="noline">Rrjetet</a></li>
+				<li class="inactive"><a href="search" class="noline">Kërko</a></li>
+			</ul>
+		</div>
+		<!-- /tabs -->
+<!-- main body -->
+		<div id="frame">
+			<p>Mirë se erdhët në <b>Ndërfaqen e Rrjetit të PeerProject-s.</b></p> <p>Kjo ndërfaqe rrjeti ju lejon të kontrolloni kërkimet, shkarkesat, ngarkesat dhe lidhjet në rrjet.</p>
+			<div style="float: right; width: 40em;">
+				<h3>Nise shkarkimin:</h3>
+				<div style="text-align: right;">
+					<form method="get" action="newsearch">
+						<div>
+							<label>Kërkim i shpejtë:</label>
+							<input type="text" name="search" size="20" />
+							<select name="schema">
+								<option value="">Çdo skedë</option>
+								<option value="http://schemas.peerproject.org/Application.xsd">Aplikim</option>
+								<option value="http://schemas.peerproject.org/Archive.xsd">Arkivi</option>
+								<option value="http://schemas.peerproject.org/Audio.xsd">Audio</option>
+								<option value="http://schemas.peerproject.org/Video.xsd">Video</option>
+								<option value="http://schemas.peerproject.org/Image.xsd">Figurë</option>
+								<option value="http://schemas.peerproject.org/Book.xsd">Libër</option>
+								<option value="http://schemas.peerproject.org/Document.xsd">Procesimi i Fjalës</option>
+								<option value="http://schemas.peerproject.org/BitTorrent.xsd">BitTorrent</option>
+								<option value="http://schemas.peerproject.org/Collection.xsd">Koleksioni</option>
+								<option value="http://schemas.peerproject.org/ROM.xsd">Imazh ROM</option>
+								<option value="http://schemas.peerproject.org/Skin.xsd">Lëvore</option>
+								<option value="http://schemas.peerproject.org/SourceCode.xsd">Kodburimi</option>
+								<option value="http://schemas.peerproject.org/Spreadsheet.xsd">Faqe e Palosur</option>
+								<option value="http://schemas.peerproject.org/Subtitle.xsd">Titrat</option>
+							</select>
+							<input type="submit" value="Shko" />
+						</div>
+					</form><br/>
+					<form method="get" action="newdownload">
+						<div>
+							<label>Shkarkesë Magnet/Torrent:</label>
+							<input type="text" name="uri" size="35" />
+							<input type="submit" value="Shko" />
+						</div>
+					</form>
+				</div>
+			</div>
+			<h3>Linket e dobishme:</h3>
+			<ul>
+				<li><a href="http://peerproject.org/sq" onclick="window.open(this.href); return false;">PeerProject.org/sq</a></li>
+				<li><a href="http://www.freebase.be/" onclick="window.open(this.href); return false;">Freebase.be</a></li>
+				<li><a href="http://www.legaltorrents.com/" onclick="window.open(this.href); return false;">LegalTorrents.com</a></li>
+				<li><a href="http://content.emule-project.net/" onclick="window.open(this.href); return false;">eMule content DB</a></li>
+			</ul>
+		</div>

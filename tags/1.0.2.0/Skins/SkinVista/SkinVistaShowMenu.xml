@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<skin xmlns="schemas.peerproject.org/Skin.xsd" version="1.0">
+
+<manifest
+ name="SkinSeven.ShowMenu"
+ author="SkinVista"
+ description="Mix to add classic XP-style menu bar to SkinSeven, SkinEight, or others"
+ link="http://PeerProject.org"
+ email="Contact(at)PeerProject.org"
+ license="Persistent Public Domain (PPD)"
+ path="SkinVista"
+ version="1.0"
+ type="Skin"
+/>
+
+<options>
+ <option name="DropMenu" value="false" width="0"/>
+ <option name="ButtonEdge" value="3"/>
+ <option name="MonitorBar" value="110"/>
+</options>
+
+<images>
+ <image target="ButtonMap.MenuText" path="ButtonmapMenuBar.png"/>
+ <!--image target="CCoolMenuItem.Hover" path="Seven\MenuButtonState.png"-->
+</images>
+
+</skin>
