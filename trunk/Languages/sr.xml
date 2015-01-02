@@ -3947,8 +3947,9 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiraj URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiraj URI">
 		<control caption="Vi možete kopirati URI za selektovanu datoteku u više različith formata. Molimo Vas izaberite foramat koji želite da koristite tako što ćete kliknuti na URIe ispod:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

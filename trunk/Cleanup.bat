@@ -1,7 +1,8 @@
 @echo off
 //del /q "Builds\*.exe" 2>nul:
 //del /q "Builds\*.txt" 2>nul:
-//rd /s /q "VS2010\ipch\" 2>nul:
+//del /q "Visual Studio\PeerProject.sdf" 2>nul:
+//rd /s /q "Visual Studio\ipch\" 2>nul:
 //for /r %%i in (*.aps) do del /q "%%i" && echo Cleaning %%i
 //for /r %%i in (*.ncb) do del /q "%%i" && echo Cleaning %%i
 //for /r %%i in (*.sdf) do del /q "%%i" && echo Cleaning %%i

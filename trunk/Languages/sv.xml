@@ -4222,8 +4222,9 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiera URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiera URI">
 		<control caption="Du kan kopiera en URI för den valda artikeln till flera olika format. Välj det format som du vill använda genom att klicka på det nedan:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

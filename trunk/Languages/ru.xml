@@ -4333,8 +4333,9 @@
 		<control caption="OK"/>
 		<control caption="Отмена"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Копировать ссылку">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Копировать ссылку">
 		<control caption="Вы можете скопировать ссылку на объект в различных форматах. Выберите нужный формат щелкнув на одну из ссылок ниже:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

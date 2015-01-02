@@ -9,8 +9,8 @@ set "version=v100"
 echo %header1%>>PeerProject.sln.temp
 echo %header2%>>PeerProject.sln.temp
 
-for /f "skip=3 delims=*" %%a in (PeerProject.sln) do (
-echo %%a>>PeerProject.sln.temp   
+for /f "skip=2 delims=*" %%a in (PeerProject.sln) do (
+echo %%a>>PeerProject.sln.temp
 )
 xcopy PeerProject.sln.temp PeerProject.sln /y
 del PeerProject.sln.temp /f /q

@@ -3998,8 +3998,9 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopjo URI-n">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopjo URI-n">
 		<control caption="Ju mund të kopjoni një URI për njësinë e zgjedhuri në një mori formatesh të ndryshme. Ju lutemi zgjidhni formatin që dëshironi të përdorni duke klikuar një nga URI-t më poshtë:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

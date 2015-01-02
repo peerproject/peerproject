@@ -4135,8 +4135,9 @@
 		<control caption="确定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="复制 URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="复制 URI">
 		<control caption="您可以用多种不同的格式为选定的项目复制 URI。请通过点击下列某一 URI 选择您希望使用的格式:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

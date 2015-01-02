@@ -4302,8 +4302,9 @@
 		<control caption="Aceptar"/>
 		<control caption="Cancelar"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copiar URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copiar URI">
 		<control caption="El URI para el archivo seleccionado puede ser copiado de varias formás. Seleccione su forma favorita, magnet es recomendado:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

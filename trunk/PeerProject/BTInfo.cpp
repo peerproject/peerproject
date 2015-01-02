@@ -740,7 +740,7 @@ BOOL CBTInfo::LoadTorrentBuffer(const CBuffer* pBuffer)
 }
 
 //////////////////////////////////////////////////////////////////////
-// CBTInfo load torrent info from tree
+// CBTInfo load torrent info from tree (keys)
 
 BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 {
@@ -997,9 +997,10 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 		}
 	}
 
-	// Get the info node
+	// Get the info node (As above, for reference)
 	//CBENode* pInfo = pRoot->GetNode( "info" );
-	//if ( ! pInfo || ! pInfo->IsType( CBENode::beDict ) ) return FALSE;
+	//if ( ! pInfo || ! pInfo->IsType( CBENode::beDict ) )
+	//	return FALSE;
 
 	// Get the private flag (if present)
 	const CBENode* pPrivate = pInfo->GetNode( "private" );
@@ -1011,7 +1012,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 	// If we still don't have a name, generate one
 	if ( m_sName.IsEmpty() )
-		m_sName.Format( L"Unnamed_Torrent_%i", GetRandomNum( 0i32, _I32_MAX ) );
+		m_sName.Format( L"Torrent-%i", GetRandomNum( 0i32, _I32_MAX ) );
 
 	// Get the piece stuff
 	const CBENode* pPL = pInfo->GetNode( "piece length" );
@@ -1106,7 +1107,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			for ( int nSource = 0 ; nSource < m_nSources ; nSource++ )
 			{
 				CBENode* pSource = pSources->GetNode( nSource );
-				if ( ! pSource || ! pSource->IsType(CBENode::beString) ) continue;
+				if ( ! pSource || ! pSource->IsType( CBENode::beString ) ) continue;
 				m_sURLs.AddTail( pSource->GetString() );
 			}
 		}
@@ -1241,8 +1242,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			{
 				if ( ! pED2K->IsType( CBENode::beString ) ||
 					   pED2K->m_nValue != Hashes::Ed2kHash::byteCount ) return FALSE;
-				pBTFile->m_oED2K =
-					*static_cast< Hashes::Ed2kHash::RawStorage* >( pED2K->m_pValue );
+				pBTFile->m_oED2K = *static_cast< Hashes::Ed2kHash::RawStorage* >( pED2K->m_pValue );
 			}
 
 			if ( const CBENode* pMD5 = pFile->GetNode( "md5sum" ) )
@@ -1253,8 +1253,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 				}
 				else if ( pMD5->m_nValue == Hashes::Md5Hash::byteCount )
 				{
-					pBTFile->m_oMD5 =
-						*static_cast< const Hashes::Md5Hash::RawStorage* >( pMD5->m_pValue );
+					pBTFile->m_oMD5 = *static_cast< const Hashes::Md5Hash::RawStorage* >( pMD5->m_pValue );
 				}
 				else if ( pMD5->m_nValue == Hashes::Md5Hash::byteCount * 2 )
 				{
@@ -1272,8 +1271,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			{
 				if ( ! pTiger->IsType( CBENode::beString ) ||
 					   pTiger->m_nValue != Hashes::TigerHash::byteCount ) return FALSE;
-				pBTFile->m_oTiger =
-					*static_cast< Hashes::TigerHash::RawStorage* >( pTiger->m_pValue );
+				pBTFile->m_oTiger = *static_cast< Hashes::TigerHash::RawStorage* >( pTiger->m_pValue );
 			}
 
 			m_nSize += pBTFile->m_nSize;

@@ -4061,8 +4061,9 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="複製 URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="複製 URI">
 		<control caption="您可以為選擇的項目使用不同的格式複製 URL. 請點選以下其中一個 URI 決定您要使用的格式:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

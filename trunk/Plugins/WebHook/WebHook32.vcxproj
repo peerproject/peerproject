@@ -82,6 +82,9 @@
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Configuration) $(Platform)\</IntDir>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</IgnoreImportLibrary>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Midl>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -90,14 +93,13 @@
       <TypeLibraryName>$(IntDir)WebHook.tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>$(IntDir)WebHook_i.c</InterfaceIdentifierFileName>
       <HeaderFileName>$(IntDir)WebHook_i.h</HeaderFileName>
-      <DllDataFileName>
-      </DllDataFileName>
-      <ProxyFileName>
-      </ProxyFileName>
+      <DllDataFileName></DllDataFileName>
+      <ProxyFileName></ProxyFileName>
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(IntDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ExceptionHandling></ExceptionHandling>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
@@ -130,10 +132,8 @@
       <TypeLibraryName>$(IntDir)WebHook.tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>$(IntDir)WebHook_i.c</InterfaceIdentifierFileName>
       <HeaderFileName>$(IntDir)WebHook_i.h</HeaderFileName>
-      <DllDataFileName>
-      </DllDataFileName>
-      <ProxyFileName>
-      </ProxyFileName>
+      <DllDataFileName></DllDataFileName>
+      <ProxyFileName></ProxyFileName>
     </Midl>
     <ClCompile>
       <Optimization>Disabled</Optimization>
@@ -170,10 +170,8 @@
       <TypeLibraryName>$(IntDir)WebHook.tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>$(IntDir)WebHook_i.c</InterfaceIdentifierFileName>
       <HeaderFileName>$(IntDir)WebHook_i.h</HeaderFileName>
-      <DllDataFileName>
-      </DllDataFileName>
-      <ProxyFileName>
-      </ProxyFileName>
+      <DllDataFileName></DllDataFileName>
+      <ProxyFileName></ProxyFileName>
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>
@@ -214,10 +212,8 @@
       <TypeLibraryName>$(IntDir)WebHook.tlb</TypeLibraryName>
       <InterfaceIdentifierFileName>$(IntDir)WebHook_i.c</InterfaceIdentifierFileName>
       <HeaderFileName>$(IntDir)WebHook_i.h</HeaderFileName>
-      <DllDataFileName>
-      </DllDataFileName>
-      <ProxyFileName>
-      </ProxyFileName>
+      <DllDataFileName></DllDataFileName>
+      <ProxyFileName></ProxyFileName>
     </Midl>
     <ClCompile>
       <Optimization>Full</Optimization>

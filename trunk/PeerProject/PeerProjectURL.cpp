@@ -249,7 +249,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 		return ParseDCFile( pszURL, FALSE );
 	case 'x':	// foxy://download?
 		pszURL = SkipSlashes( pszURL, nRoot );
-		if ( _tcsnicmp( pszURL, L"download?", 9 ) == 0 )		// Original
+		if ( _tcsnicmp( pszURL, L"download?", 9 ) == 0 )	// Original
 			return ParseMagnet( pszURL + 9 );
 		if ( _tcsnicmp( pszURL, L"download/?", 10 ) == 0 )	// "Fixed" by IE
 			return ParseMagnet( pszURL + 10 );
@@ -335,7 +335,7 @@ BOOL CPeerProjectURL::ParseRoot(LPCTSTR pszURL, BOOL bResolve)
 //	else if ( _tcsnicmp( pszURL, L"foxy:", 5 ) == 0 )			// Foxy
 //	{
 //		pszURL += 5;
-//		if ( ! _tcsnicmp( pszURL, L"//download?", 11 ) )			// Original
+//		if ( ! _tcsnicmp( pszURL, L"//download?", 11 ) )		// Original
 //		{
 //			pszURL += 11;
 //			return ParseMagnet( pszURL );
@@ -1001,7 +1001,7 @@ BOOL CPeerProjectURL::ParsePeerProjectFile(LPCTSTR pszURL)
 {
 	CString strURL( pszURL );
 
-	for ( strURL += '/' ; ! strURL.IsEmpty() ; )
+	for ( strURL += L'/' ; ! strURL.IsEmpty() ; )
 	{
 		CString strPart = strURL.SpanExcluding( L"/|" );
 		strURL = strURL.Mid( strPart.GetLength() + 1 );
@@ -1165,7 +1165,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		else if ( _tcsncmp( strPart, L"s=", 2 ) == 0 )
 		{
 			// HTTP source
-			//theApp.Message(MSG_INFO, L"HTTP" );
+			//theApp.Message( MSG_INFO, L"HTTP" );
 			strPart = strPart.Mid( 2 );
 
 			if ( ! m_sURL.IsEmpty() ) m_sURL += L", ";
@@ -1175,7 +1175,7 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		else if ( _tcsncmp( strPart, L"p=", 2 ) == 0 )
 		{
 			// Hash set
-			//theApp.Message(MSG_INFO, L"hash set" );
+			//theApp.Message( MSG_INFO, L"hash set" );
 			strPart = strPart.Mid( 2 );
 		}
 

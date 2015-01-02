@@ -3818,8 +3818,9 @@ gap i newline
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI העתק">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI העתק">
 		<control caption="של הרכיב הנבחר בצורות שונות, אנא בחר את הקונטקסט של הכתובת שאתה מעוניין בה על ידי לחיצה על אחד :מהכתובות שמתחת URI אתה יכול להעתיק את הכתובת"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

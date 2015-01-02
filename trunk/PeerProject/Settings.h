@@ -186,7 +186,7 @@ public:
 		DWORD		HighPriorityHashing;	// desired speed in MB/s when hashing with hi priority
 		DWORD		LowPriorityHashing;		// desired speed in MB/s when hashing with low priority
 		DWORD		ManyFilesWarning;		// Too many files selected warning.  0 -ask user, 1 -no, 2 -yes
-		DWORD		ManyFilesCount;			// Minimum number of selected files to trigger warning  (TOO_MANY_FILES_LIMIT)
+		DWORD		ExecuteFilesLimit;		// Minimum number of selected files to trigger warning  (TOO_MANY_FILES_LIMIT)
 		DWORD		MaliciousFileCount;		// Minimum number of duplicate files to trigger warning
 		DWORD		MaliciousFileSize;		// Size range for which to trigger malicious software search
 		string_set	MaliciousFileTypes;		// Malicious software file extensions

@@ -883,8 +883,7 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 					( ( pHit && pHit->m_nPartial ) ||
 					( nHits == 1 && pFile->GetBestPartial() ) ) )
 				{
-					CoolInterface.Draw( &dc, IDI_PARTIAL, 16,
-						rcCol.left, rcCol.top, CLR_NONE, bSelected, FALSE );
+					CoolInterface.Draw( &dc, IDI_PARTIAL, 16, rcCol.left, rcCol.top, CLR_NONE, bSelected, FALSE );
 				}
 
 				if ( bLeftMargin || ! bSelectmark )
@@ -1036,15 +1035,15 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_SPEED:
 			if ( pHit )
 			{
-				if ( ! bSelected && pHit->m_bMeasured == TRI_TRUE )
-					dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pHit->m_sSpeed;
+			//	if ( ! bSelected && pHit->m_bMeasured == TRI_TRUE )
+			//		dc.SetTextColor( Colors.m_crTextStatus );
 			}
 			else
 			{
-				if ( ! bSelected && pFile->GetBestMeasured() == TRI_TRUE )
-					dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pFile->m_sSpeed;
+			//	if ( ! bSelected && pFile->GetBestMeasured() == TRI_TRUE )
+			//		dc.SetTextColor( Colors.m_crTextStatus );
 			}
 			break;
 
@@ -1069,13 +1068,15 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 		case MATCH_COL_CLIENT:
 			if ( pHit )
 			{
-				if ( ! bSelected && pHit->m_bBrowseHost ) dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pHit->m_pVendor->m_sName;
+			//	if ( ! bSelected && pHit->m_bBrowseHost )
+			//		dc.SetTextColor( Colors.m_crTextStatus );
 			}
 			else if ( nHits == 1 )
 			{
-				if ( ! bSelected && pFile->GetBestBrowseHost() ) dc.SetTextColor( Colors.m_crTextStatus );
 				pszText = pFile->GetBestVendorName();
+			//	if ( ! bSelected && pFile->GetBestBrowseHost() )
+			//		dc.SetTextColor( Colors.m_crTextStatus );
 			}
 			break;
 
@@ -1193,83 +1194,68 @@ void CMatchCtrl::DrawItem(CDC& dc, CRect& rcRow, CMatchFile* pFile, CQueryHit* p
 
 void CMatchCtrl::DrawStatus(CDC& dc, CRect& rcCol, CMatchFile* pFile, CQueryHit* pHit, COLORREF crBack, BOOL bSelected, BOOL bSkinned)
 {
-	if ( rcCol.Width() < 16 * 3 ) return;
+	if ( rcCol.Width() < 8 ) return;	// 16 * 3
+
+	const BOOL bBusy		= ( pHit ? pHit->m_bBusy : pFile->m_bBusy ) == TRI_TRUE;
+	const BOOL bPush		= ( pHit ? pHit->m_bPush : pFile->m_bPush ) == TRI_TRUE;
+	const BOOL bUnstable	= ( pHit ? pHit->m_bStable : pFile->m_bStable ) == TRI_FALSE;
+	const BOOL bPreview		= ( pHit ? pHit->m_bPreview : pFile->m_bPreview );
+//	const BOOL bBrowse		= pHit && pHit->m_bBrowseHost;
+//	const BOOL bChat		= pHit && pHit->m_bChat;
+	const BOOL bChecked		= ! bBusy && ! bPush && ! bUnstable;
+	const int nTotal = bBusy + bPush + bUnstable + bPreview + bChecked;		// + bBrowse + bChat
+
+	const COLORREF crBackMark = bSkinned ? -1 : crBack;
 
 	int nLeft = rcCol.left;
-	if ( rcCol.Width() > 16 * 6 )
-		nLeft = ( rcCol.left + rcCol.right ) / 2 - ( 16 * 6 ) / 2;
+	if ( rcCol.Width() > 16 * nTotal )
+		nLeft = ( rcCol.left + rcCol.right ) / 2 - ( 16 * nTotal ) / 2;
 	int nPos = nLeft;
 
-	COLORREF crBackMark = bSkinned ? -1 : crBack;
-
-	TRISTATE bState;
-	if ( ( bState = pHit ? pHit->m_bBusy : pFile->m_bBusy ) != FALSE )
+	if ( bChecked )
 	{
-		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_BUSY : IDI_TICK ), 16,
-			nPos, rcCol.top, crBackMark, bSelected );
-	}
-	else if ( ! bSkinned )
-	{
-		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-	}
-
-	nPos += 16;
-
-	if ( ( bState = pHit ? pHit->m_bPush : pFile->m_bPush ) != FALSE )
-	{
-		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_FIREWALLED : IDI_TICK ), 16,
-			nPos, rcCol.top, crBackMark, bSelected );
-	}
-	else if ( ! bSkinned )
-	{
-		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-	}
-
-	nPos += 16;
-
-	if ( ( bState = pHit ? pHit->m_bStable : pFile->m_bStable ) != FALSE )
-	{
-		CoolInterface.Draw( &dc, ( bState == TRI_TRUE ? IDI_TICK : IDI_UNSTABLE ), 16,
-			nPos, rcCol.top, crBackMark, bSelected );
-	}
-	else if ( ! bSkinned )
-	{
-		dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-	}
-
-	nPos += 16;
-
-	if ( nPos + 16 < rcCol.right )
-	{
-		if ( pHit ? pHit->m_bPreview : pFile->m_bPreview )
-			CoolInterface.Draw( &dc, IDI_PREVIEW, 16, nPos, rcCol.top, crBackMark, bSelected );
-		else if ( ! bSkinned )
-			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-
+		CoolInterface.Draw( &dc, IDI_TICK, 16, nPos, rcCol.top, crBackMark, bSelected );
 		nPos += 16;
 	}
 
-	if ( nPos + 16 < rcCol.right && pHit )
+	if ( bBusy )
 	{
-		if ( pHit->m_bBrowseHost )
-			CoolInterface.Draw( &dc, IDI_BROWSE, 16, nPos, rcCol.top, crBackMark, bSelected );
-		else if ( ! bSkinned )
-			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-
+		CoolInterface.Draw( &dc, IDI_BUSY, 16, nPos, rcCol.top, crBackMark, bSelected );
 		nPos += 16;
 	}
 
-	if ( nPos + 16 < rcCol.right && pHit )
+	if ( bPush )
 	{
-		if ( pHit->m_bChat )
-			CoolInterface.Draw( &dc, IDR_CHATFRAME, 16, nPos, rcCol.top, crBackMark, bSelected );
-		else
-			dc.FillSolidRect( nPos, rcCol.top, 16, 16, crBack );
-
+		CoolInterface.Draw( &dc, IDI_FIREWALLED, 16, nPos, rcCol.top, crBackMark, bSelected );
 		nPos += 16;
 	}
 
-	dc.ExcludeClipRect( nLeft, rcCol.top, nPos, rcCol.top + 16 );
+	if ( bUnstable && nPos < rcCol.right )
+	{
+		CoolInterface.Draw( &dc, IDI_UNSTABLE, 16, nPos, rcCol.top, crBackMark, bSelected );
+		nPos += 16;
+	}
+
+	if ( bPreview && nPos < rcCol.right )
+	{
+		CoolInterface.Draw( &dc, IDI_PREVIEW, 16, nPos, rcCol.top, crBackMark, bSelected );
+		nPos += 16;
+	}
+
+//	if ( bBrowse && nPos < rcCol.right - 4 )
+//	{
+//		CoolInterface.Draw( &dc, IDI_BROWSE, 16, nPos, rcCol.top, crBackMark, bSelected );
+//		nPos += 16;
+//	}
+
+//	if ( bChat && nPos < rcCol.right - 4 )
+//	{
+//		CoolInterface.Draw( &dc, IDR_CHATFRAME, 16, nPos, rcCol.top, crBackMark, bSelected );
+//		nPos += 16;
+//	}
+
+	if ( ! bSkinned )
+		dc.ExcludeClipRect( nLeft, rcCol.top, nPos, rcCol.top + 16 );
 }
 
 void CMatchCtrl::DrawRating(CDC& dc, CRect& rcCol, int nRating, COLORREF crBack, BOOL bSelected, BOOL bSkinned )

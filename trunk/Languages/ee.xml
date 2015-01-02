@@ -4049,8 +4049,9 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopeeri URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopeeri URI">
 		<control caption="Kopeeri valitud faili URI, erinevates formaatides. Palun vali formaat, klikkides allpool oleval URI-l:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

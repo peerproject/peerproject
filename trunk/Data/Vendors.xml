@@ -241,6 +241,15 @@
 		<capability name="bt"/>
 	</vendor>
 
+	<vendor code="WSHR">
+		<title>WireShare</title>
+		<link>http://sourceforge.net/p/wireshare/</link>
+		<capability name="htmlHostBrowse"/>
+		<capability name="chatFlag"/>
+		<capability name="g1"/>
+		<capability name="bt"/>
+	</vendor>
+
 	<vendor code="MACT">
 		<title>Mactella</title>
 		<note>Discontinued</note>

@@ -4143,8 +4143,9 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopírování URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopírování URI">
 		<control caption="Můzete kopírovat URI pro vybranou položku v různých variantách formátů. Klikutím dole na jednu z URI si prosím vyberte formát který chcete použít:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

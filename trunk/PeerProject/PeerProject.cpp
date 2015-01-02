@@ -1200,6 +1200,22 @@ BOOL CPeerProjectApp::OpenCollection(LPCTSTR lpszFileName)
 	return FALSE;
 }
 
+//BOOL CPeerProjectApp::OpenMetalink(LPCTSTR lpszFileName)
+//{
+//	AddToRecentFileList( lpszFileName );
+//
+//	const size_t nLen = _tcslen( lpszFileName ) + 1;
+//	CAutoVectorPtr< TCHAR > pszPath( new TCHAR[ nLen ] );
+//	if ( pszPath )
+//	{
+//		_tcscpy_s( pszPath, nLen, lpszFileName );
+//		if ( PostMainWndMessage( WM_METALINK, (WPARAM)pszPath.Detach() ) )
+//			return TRUE;
+//	}
+//
+//	return FALSE;
+//}
+
 BOOL CPeerProjectApp::OpenURL(LPCTSTR lpszFileName, BOOL bSilent)
 {
 	if ( ! bSilent )

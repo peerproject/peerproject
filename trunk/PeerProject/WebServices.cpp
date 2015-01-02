@@ -132,9 +132,7 @@ static char THIS_FILE[] = __FILE__;
 //
 //	if ( ! Settings.WebServices.BitprintsOkay )
 //	{
-//		CString strFormat;
-//		Skin.LoadString( strFormat, IDS_BITPRINTS_MESSAGE );
-//		if ( MsgBox( strFormat, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
+//		if ( MsgBox( IDS_BITPRINTS_MESSAGE, MB_ICONQUESTION|MB_YESNO ) != IDYES ) return;
 //		Settings.WebServices.BitprintsOkay = true;
 //		Settings.Save();
 //	}
@@ -831,7 +829,7 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 			}
 			else if ( pFile->m_pSchema->CheckURI( CSchema::uriImage ) )
 			{
-				if ( str == "width" )
+				if ( str == L"width" )
 				{
 					nTemp = _ttoi( strReplace );
 					strReplace.Format( L"%d", nTemp );
@@ -849,12 +847,12 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 				}
 				else if ( str == L"colors" )
 				{
-					if ( strReplace == "2" ) strReplace = "1";
-					else if ( strReplace == "16" ) strReplace = "4";
-					else if ( strReplace == "256" || strReplace == "Greyscale" ) strReplace = "8";
-					else if ( strReplace == "64K" ) strReplace = "16";
-					else if ( strReplace == "16.7M" ) strReplace = "24";
-					else strReplace = "";
+					if ( strReplace == L"2" ) strReplace = L"1";
+					else if ( strReplace == L"16" ) strReplace = L"4";
+					else if ( strReplace == L"256" || strReplace == L"Greyscale" ) strReplace = L"8";
+					else if ( strReplace == L"64K" ) strReplace = L"16";
+					else if ( strReplace == L"16.7M" ) strReplace = L"24";
+					else strReplace.Empty();
 
 					if ( ! strReplace.IsEmpty() )
 					{
@@ -869,7 +867,7 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 				{
 					strDescription = URLEncode( strReplace.Trim() );	// L"&tag.objective.description=" +
 				}
-				else if ( str == "width" )
+				else if ( str == L"width" )
 				{
 					nTemp = _ttoi( strReplace );
 					strReplace.Format( L"%d", nTemp );
@@ -983,9 +981,6 @@ BOOL CWebServices::ShowBitprintsTicket(DWORD nIndex)
 			FileExt[ L"MP3" ]	= 'X';
 			FileExt[ L"AAC" ]	= 'X';
 			FileExt[ L"FLAC" ]	= 'X';
-			FileExt[ L"PNG" ]	= 'X';
-			FileExt[ L"GIF" ]	= 'X';
-			FileExt[ L"JPG" ]	= 'X';
 			FileExt[ L"PDF" ]	= 'X';
 			FileExt[ L"ZIP" ]	= 'X';
 			FileExt[ L"RAR" ]	= 'X';

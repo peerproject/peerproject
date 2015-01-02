@@ -4390,8 +4390,9 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copie d'URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copie d'URI">
 		<control caption="Vous pouvez copier une URI de cet objet dans différents formats. Veuillez choisir le format à utiliser en cliquant sur une des URI ci-dessous :"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

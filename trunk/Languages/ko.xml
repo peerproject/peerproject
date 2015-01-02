@@ -2966,8 +2966,9 @@
 		<control caption="OK"/>
 		<control caption="취소"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI (P2P Link)">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI (P2P Link)">
 		<control caption="You can copy a URI for the selected item in a variety of different formats. Please choose the format you wish to use by clicking one of the URIs below:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

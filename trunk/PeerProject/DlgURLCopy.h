@@ -33,15 +33,16 @@ public:
 
 protected:
 	CPeerProjectFile m_pFile;
-	CButton			m_wndIncludeSelf;
-	CStatic			m_wndMessage;
-	CString			m_sHost;
-	CString			m_sMagnet;
-	CString			m_sGnutella;
-	CString			m_sED2K;
+	CButton		m_wndIncludeSelf;
+	CStatic		m_wndMessage;
+//	CString		m_sGnutella;
+	CString		m_sMagnet;
+	CString		m_sED2K;
+	CString		m_sHost;
+	CString		m_sHash;
 
 public:
-	void			Add(const CPeerProjectFile* pFile);
+	void		Add(const CPeerProjectFile* pFile);
 
 	// Gather more information about file (including trackers list)
 	static void Resolve(CPeerProjectFile& pFile, CString& sTracker);
@@ -53,10 +54,11 @@ protected:
 
 	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
-	afx_msg void OnIncludeSelf();
-	afx_msg void OnStnClickedUrlHost();
 	afx_msg void OnStnClickedUrlMagnet();
 	afx_msg void OnStnClickedUrlEd2k();
+	afx_msg void OnStnClickedUrlHost();
+	afx_msg void OnStnClickedUrlHash();
+	afx_msg void OnIncludeSelf();
 
 	DECLARE_MESSAGE_MAP()
 };

@@ -3779,8 +3779,9 @@
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Copy URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Copy URI">
 		<control caption="You can copy a URI for the selected item in a variety of different formats.Please choose the format you wish to use by clicking one of the URIs below:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

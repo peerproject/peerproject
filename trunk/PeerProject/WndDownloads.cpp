@@ -1825,36 +1825,51 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 
 void CDownloadsWnd::OnDownloadsFolder()
 {
+	CStringList pList;
+
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
 	{
-		if ( ! SafeLock( pLock ) ) return;
-
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( ! pDownload->m_bSelected || ! ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
 			continue;
 
-		pLock.Unlock();
-
 		CString strPath = pDownload->GetPath( 0 );
 
-		if ( pDownload->GetFileCount() == 1 )
+		if ( pDownload->GetFileCount() > 1 )
 		{
-			ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
-		}
-		else
-		{
-			CString strName = pDownload->m_sName;
+			CString strName = pDownload->m_sName + L'\\';
 			if ( strPath.Find( strName ) > 1 )
 				strPath = strPath.Left( strPath.Find( strName ) + strName.GetLength() );
 			else
 				strPath = strPath.Left( strPath.ReverseFind( L'\\' ) + 1 );
-
-			if ( PathIsDirectory( strPath ) )
-				ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 		}
+
+		pList.AddTail( strPath );
+	}
+
+	pLock.Unlock();
+
+	while ( ! pList.IsEmpty() )
+	{
+		CString strPath = pList.GetHead();
+
+		if ( strPath.Right( 1 ) != L'\\' )
+		{
+			if ( PathFileExists( SafePath( strPath ) ) )
+			{
+				MakeSafePath( strPath );
+				ShellExecute( GetSafeHwnd(), NULL, L"Explorer.exe", L"/select, " + strPath, NULL, SW_SHOWNORMAL );
+				continue;
+			}
+
+			strPath = strPath.Left( strPath.ReverseFind( L'\\' ) + 1 );
+		}
+
+		if ( PathIsDirectory( strPath ) )
+			ShellExecute( GetSafeHwnd(), L"open", strPath, NULL, NULL, SW_SHOWNORMAL );
 	}
 }
 

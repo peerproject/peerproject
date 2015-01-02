@@ -3792,8 +3792,9 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiuj URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiuj URI">
 		<control caption="Możesz skopiować URI zaznaczonego pliku w wielu różnych formatach. Proszę, wybierz format który chcesz użyć klikając na jedno URI-ów poniżej:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

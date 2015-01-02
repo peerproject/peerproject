@@ -664,8 +664,9 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 
 		CMenu* pMenu = Skin.GetMenu( pChild->m_bPanelMode ? L"CTabBar" : L"CTabBar.Child" );
 
-		BOOL bCanRestore	= pChild->IsIconic() || pChild->IsZoomed();
 		UINT nCommand		= 0;
+		BOOL bCanRestore	= pChild->IsIconic() || pChild->IsZoomed();
+		BOOL bCanMove		= m_pItems.GetCount() > 1;
 
 		//MENUITEMINFO pInfo;
 		//pInfo.cbSize	= sizeof( pInfo );
@@ -681,11 +682,11 @@ void CWndTabBar::OnRButtonUp(UINT nFlags, CPoint point)
 		pMenu->EnableMenuItem( ID_CHILD_RESTORE, MF_BYCOMMAND |
 			( bCanRestore ? 0 : MF_GRAYED ) );
 		pMenu->EnableMenuItem( ID_MOVETAB_LEFT, MF_BYCOMMAND |
-			( m_pItems.GetCount() > 1 ? 0 : MF_GRAYED ) );
+			( ( bCanMove && m_pItems.GetHead() != pItem ) ? 0 : MF_GRAYED ) );
 		pMenu->EnableMenuItem( ID_MOVETAB_RIGHT, MF_BYCOMMAND |
-			( m_pItems.GetCount() > 1 ? 0 : MF_GRAYED ) );
-
+			( ( bCanMove && m_pItems.GetTail() != pItem ) ? 0 : MF_GRAYED ) );
 		m_bMenuGray = TRUE;
+
 		Invalidate();
 
 		CoolMenu.AddMenu( pMenu, TRUE );

@@ -4241,8 +4241,9 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="URI Kopyala">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="URI Kopyala">
 		<control caption="Farklı formattaki değişiklik içinden seçilen parça için URI kopyalayabilirsin. Lütfen URI'nin altında kullanmak istediğiniz formatlardan birini tıklayınız:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

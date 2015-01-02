@@ -73,11 +73,11 @@ BEGIN_MESSAGE_MAP(CDiscoveryWnd, CPanelWnd)
 	ON_NOTIFY(LVN_COLUMNCLICK, IDC_SERVICES, OnSortList)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_QUERY, OnUpdateDiscoveryQuery)
 	ON_COMMAND(ID_DISCOVERY_QUERY, OnDiscoveryQuery)
+	ON_COMMAND(ID_DISCOVERY_ADD, OnDiscoveryAdd)
+	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_EDIT, OnUpdateDiscoveryEdit)
+	ON_COMMAND(ID_DISCOVERY_EDIT, OnDiscoveryEdit)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_REMOVE, OnUpdateDiscoveryRemove)
 	ON_COMMAND(ID_DISCOVERY_REMOVE, OnDiscoveryRemove)
-	ON_COMMAND(ID_DISCOVERY_ADD, OnDiscoveryAdd)
-	ON_COMMAND(ID_DISCOVERY_EDIT, OnDiscoveryEdit)
-	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_EDIT, OnUpdateDiscoveryEdit)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_GNUTELLA, OnUpdateDiscoveryGnutella)
 	ON_COMMAND(ID_DISCOVERY_GNUTELLA, OnDiscoveryGnutella)
 	ON_UPDATE_COMMAND_UI(ID_DISCOVERY_WEBCACHE, OnUpdateDiscoveryWebcache)
@@ -206,7 +206,6 @@ void CDiscoveryWnd::Update()
 				pItem->SetImage( 3 );		// IDI_DISCOVERY_GRAY
 			else
 				pItem->SetImage( 4 );		// Blank?
-
 			break;
 		case CDiscoveryService::dsServerList:
 			if ( ! m_bShowServerList ) continue;
@@ -294,7 +293,8 @@ void CDiscoveryWnd::OnSize(UINT nType, int cx, int cy)
 {
 	if ( ! m_wndList ) return;
 
-	CPanelWnd::OnSize(nType, cx, cy);
+	CPanelWnd::OnSize( nType, cx, cy );
+
 	SizeListAndBar( &m_wndList, &m_wndToolBar );
 	m_wndList.SetWindowPos( NULL, 0, 0, cx, cy - Settings.Skin.ToolbarHeight, SWP_NOZORDER );
 }
@@ -307,7 +307,7 @@ void CDiscoveryWnd::OnTimer(UINT_PTR nIDEvent)
 
 void CDiscoveryWnd::OnDblClkList(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 {
-	OnDiscoveryEdit();
+	OnDiscoveryQuery();
 	*pResult = 0;
 }
 
@@ -348,7 +348,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryQuery(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryQuery()
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 250 ) )
+	if ( ! SafeLock( pLock ) )
 		return;
 
 	for ( int nItem = -1 ; ( nItem = m_wndList.GetNextItem( nItem, LVIS_SELECTED ) ) >= 0 ; )
@@ -382,7 +382,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryAdvertise(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryAdvertise()
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 
@@ -398,7 +398,7 @@ void CDiscoveryWnd::OnUpdateDiscoveryBrowse(CCmdUI* pCmdUI)
 void CDiscoveryWnd::OnDiscoveryBrowse()
 {
 	CSingleLock pLock( &Network.m_pSection );
-	if ( ! pLock.Lock( 500 ) ) return;
+	if ( ! SafeLock( pLock ) ) return;
 
 	CDiscoveryService* pService = GetItem( m_wndList.GetNextItem( -1, LVIS_SELECTED ) );
 	CString strURL;
@@ -454,7 +454,8 @@ void CDiscoveryWnd::OnDiscoveryEdit()
 
 	CDiscoveryServiceDlg dlg( NULL, pService );
 
-	if ( dlg.DoModal() == IDOK ) Update();
+	if ( dlg.DoModal() == IDOK )
+		Update();
 }
 
 void CDiscoveryWnd::OnUpdateDiscoveryGnutella(CCmdUI* pCmdUI)
@@ -531,6 +532,11 @@ BOOL CDiscoveryWnd::PreTranslateMessage(MSG* pMsg)
 			return TRUE;
 		}
 		if ( pMsg->wParam == VK_RETURN )
+		{
+			PostMessage( WM_COMMAND, ID_DISCOVERY_QUERY );
+			return TRUE;
+		}
+		if ( pMsg->wParam == VK_F2 )
 		{
 			PostMessage( WM_COMMAND, ID_DISCOVERY_EDIT );
 			return TRUE;

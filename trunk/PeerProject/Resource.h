@@ -753,10 +753,10 @@
 #define IDC_URI_DC                          1658
 #define IDC_URL_DOWNLOAD                    1660
 #define IDC_URL_MAGNET                      1661
-#define IDC_URL_GNUTELLA                    1662
-#define IDC_URL_ED2K                        1663
-#define IDC_URL_FORMAT                      1664
-#define IDC_URL_HOST                        1665
+#define IDC_URL_ED2K                        1662
+#define IDC_URL_HOST                        1663
+#define IDC_URL_HASH                        1664
+#define IDC_URL_FORMAT                      1665
 #define IDC_URL_NAME_TITLE                  1666
 #define IDC_URL_NAME_VALUE                  1667
 #define IDC_URL_PRESET                      1668

@@ -4045,8 +4045,9 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Kopiraj URI">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Kopiraj URI">
 		<control caption="Omogočeno vam je kopiranje URI naslova za izbran element v različne oblike oz. formate. Obliko izberete tako, da kliknete na enega od spodnjih URI-jev:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>

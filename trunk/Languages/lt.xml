@@ -4293,8 +4293,9 @@
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
-	<dialog name="CURLCopyDlg" cookie="StStStStBuBu" caption="Nuorodos kopijavimas">
+	<dialog name="CURLCopyDlg" cookie="StStStStStBuBu" caption="Nuorodos kopijavimas">
 		<control caption="Jūs galite nukopijuoti pasirinkto failo nuorodą skirtingais formatais. Pasirinkite norimą formatą, paspaudę vieną iš žemiau pateiktų nuorodų:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control/>
