@@ -1826,11 +1826,12 @@ void CDownloadsWnd::OnUpdateDownloadsFolder(CCmdUI* pCmdUI)
 void CDownloadsWnd::OnDownloadsFolder()
 {
 	CStringList pList;
+	UINT nLimit = Settings.Library.ExecuteFilesLimit ? Settings.Library.ExecuteFilesLimit : 999;
 
 	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
-	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
+	for ( POSITION pos = Downloads.GetIterator() ; pos && nLimit ; )
 	{
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( ! pDownload->m_bSelected || ! ( pDownload->IsCompleted() || pDownload->IsSeeding() ) )
@@ -1848,13 +1849,14 @@ void CDownloadsWnd::OnDownloadsFolder()
 		}
 
 		pList.AddTail( strPath );
+		nLimit--;
 	}
 
 	pLock.Unlock();
 
 	while ( ! pList.IsEmpty() )
 	{
-		CString strPath = pList.GetHead();
+		CString strPath = pList.RemoveHead();
 
 		if ( strPath.Right( 1 ) != L'\\' )
 		{
