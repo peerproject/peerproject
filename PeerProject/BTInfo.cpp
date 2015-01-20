@@ -1,7 +1,7 @@
 //
 // BTInfo.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1701,109 +1701,110 @@ void CBTInfo::RemoveAllTrackers()
 	m_oTrackers.RemoveAll();
 }
 
-BOOL CBTInfo::ScrapeTracker()
-{
-	ASSUME_NO_LOCK( Transfers.m_pSection );		// Custom Debug !ASSUME_LOCK
-
-	if ( m_tTrackerScrape )
-	{
-		// Support rare min_request_interval flag,  Low default throttle is enough in practice
-		if ( ( GetTickCount() - m_tTrackerScrape ) < m_nTrackerWait )
-			return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
-	}
-
-	m_tTrackerScrape = GetTickCount();
-
-	if ( theApp.m_bClosing )
-		return FALSE;
-
-	CString strURL = GetTrackerAddress();
-	if ( ! StartsWith( strURL, _P( L"http://" ) ) )
-		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS?
-
-	if ( strURL.Replace( L"/announce", L"/scrape" ) != 1 )
-		return FALSE;
-
-	// Fetch scrape only for the given info hash
-	strURL = strURL.TrimRight( L'&' ) + ( ( strURL.Find( L'?' ) != -1 ) ? L'&' : L'?' ) + L"info_hash=";
-
-	// m_oBTH must be protected by Transfers.m_pSection
-	CSingleLock oLock( &Transfers.m_pSection );
-	if ( ! oLock.Lock( 500 ) ) return FALSE;
-
-	strURL += CBTTrackerRequest::Escape( m_oBTH );
-		// + L"&peer_id=" + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Is this needed?
-
-	LPBYTE nKey = &m_oBTH[ 0 ];
-
-	oLock.Unlock();
-
-	CHttpRequest pRequest;
-	pRequest.SetURL( strURL );
-	pRequest.AddHeader( L"Accept-Encoding", L"deflate, gzip" );
-	pRequest.EnableCookie( false );
-
-	// Wait for thread
-	if ( ! pRequest.Execute( FALSE ) || ! pRequest.InflateResponse() )
-		return FALSE;
-
-	CBuffer* pResponse = pRequest.GetResponseBuffer();
-	if ( pResponse == NULL || pResponse->m_pBuffer == NULL )
-		return FALSE;
-
-	if ( const CBENode* pNode = CBENode::Decode( pResponse ) )
-	{
-		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[BT] Received BitTorrent tracker response: %s", pNode->Encode() );
-
-		//if ( ! oLock.Lock( 500 ) ) return FALSE;
-		//LPBYTE nKey = &m_oBTH[ 0 ];		// Above
-		//oLock.Unlock();
-
-		CBENode* pFiles = pNode->GetNode( "files" );
-		CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
-		if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
-
-		if ( const CBENode* pSeeds = pFile->GetNode( "complete" ) )
-		{
-			if ( pSeeds->IsType( CBENode::beInt ) )
-				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 );		// QWORD Caution: Don't get negative values from buggy trackers
-		}
-
-		if ( const CBENode* pPeers = pFile->GetNode( "incomplete" ) )
-		{
-			if ( pPeers->IsType( CBENode::beInt ) )
-				m_nTrackerPeers = (int)( pPeers->GetInt() & ~0xFFFF0000 );
-		}
-
-		//if ( const CBENode* pHistory = pFile->GetNode( "downloaded" ) )		// ToDo: Use stat of all completed downloads ?
-		//{
-		//	if ( pHistory->IsType( CBENode::beInt ) )
-		//		m_nTrackerHistory = (int)( pHistory->GetInt() & ~0xFFFF0000 );
-		//}
-
-		// Unofficial min_request_interval
-		if ( m_nTrackerWait < 200 * 1000 )
-		{
-			if ( const CBENode* pFlags = pNode->GetNode( "flags" ) )
-			{
-				if ( const CBENode* pWait = pFlags->GetNode( "min_request_interval" ) )
-				{
-					if ( pWait->IsType( CBENode::beInt ) )
-						m_nTrackerWait = pWait->GetInt() * 1000;
-
-					if ( m_nTrackerWait < 60 * 1000 )
-						m_nTrackerWait = 90 * 1000;
-					else if ( m_nTrackerWait > 6 * 60 * 60 * 1000 )
-						m_nTrackerWait = 30 * 60 * 1000;
-				}
-			}
-		}
-
-		delete pNode;
-	}
-
-	return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
-}
+// For Reference, use BTTrackerRequest
+//BOOL CBTInfo::ScrapeTracker()
+//{
+//	ASSUME_NO_LOCK( Transfers.m_pSection );		// Custom Debug !ASSUME_LOCK
+//
+//	if ( m_tTrackerScrape )
+//	{
+//		// Support rare min_request_interval flag,  Low default throttle is enough in practice
+//		if ( ( GetTickCount() - m_tTrackerScrape ) < m_nTrackerWait )
+//			return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
+//	}
+//
+//	m_tTrackerScrape = GetTickCount();
+//
+//	if ( theApp.m_bClosing )
+//		return FALSE;
+//
+//	CString strURL = GetTrackerAddress();
+//	if ( ! StartsWith( strURL, _P( L"http://" ) ) )
+//		return FALSE;	// ToDo: Support UDP Tracker scrape & handle rare HTTPS?
+//
+//	if ( strURL.Replace( L"/announce", L"/scrape" ) != 1 )
+//		return FALSE;
+//
+//	// Fetch scrape only for the given info hash
+//	strURL = strURL.TrimRight( L'&' ) + ( ( strURL.Find( L'?' ) != -1 ) ? L'&' : L'?' ) + L"info_hash=";
+//
+//	// m_oBTH must be protected by Transfers.m_pSection
+//	CSingleLock oLock( &Transfers.m_pSection );
+//	if ( ! oLock.Lock( 500 ) ) return FALSE;
+//
+//	strURL += CBTTrackerRequest::Escape( m_oBTH );
+//		// + L"&peer_id=" + CBTTrackerRequest::Escape( pDownload.m_pPeerID ); 	// ToDo: Is this needed?
+//
+//	LPBYTE nKey = &m_oBTH[ 0 ];
+//
+//	oLock.Unlock();
+//
+//	CHttpRequest pRequest;
+//	pRequest.SetURL( strURL );
+//	pRequest.AddHeader( L"Accept-Encoding", L"deflate, gzip" );
+//	pRequest.EnableCookie( false );
+//
+//	// Don't wait for thread
+//	if ( ! pRequest.Execute( TRUE ) || ! pRequest.InflateResponse() )
+//		return FALSE;
+//
+//	CBuffer* pResponse = pRequest.GetResponseBuffer();
+//	if ( pResponse == NULL || pResponse->m_pBuffer == NULL )
+//		return FALSE;
+//
+//	if ( const CBENode* pNode = CBENode::Decode( pResponse ) )
+//	{
+//		theApp.Message( MSG_DEBUG | MSG_FACILITY_INCOMING, L"[BT] Received BitTorrent tracker response: %s", pNode->Encode() );
+//
+//		//if ( ! oLock.Lock( 500 ) ) return FALSE;
+//		//LPBYTE nKey = &m_oBTH[ 0 ];		// Above
+//		//oLock.Unlock();
+//
+//		CBENode* pFiles = pNode->GetNode( "files" );
+//		CBENode* pFile = pFiles->GetNode( nKey, Hashes::BtHash::byteCount );
+//		if ( ! pFile->IsType( CBENode::beDict ) ) return FALSE;
+//
+//		if ( const CBENode* pSeeds = pFile->GetNode( "complete" ) )
+//		{
+//			if ( pSeeds->IsType( CBENode::beInt ) )
+//				m_nTrackerSeeds = (int)( pSeeds->GetInt() & ~0xFFFF0000 );		// QWORD Caution: Don't get negative values from buggy trackers
+//		}
+//
+//		if ( const CBENode* pPeers = pFile->GetNode( "incomplete" ) )
+//		{
+//			if ( pPeers->IsType( CBENode::beInt ) )
+//				m_nTrackerPeers = (int)( pPeers->GetInt() & ~0xFFFF0000 );
+//		}
+//
+//		//if ( const CBENode* pHistory = pFile->GetNode( "downloaded" ) )		// ToDo: Use stat of all completed downloads ?
+//		//{
+//		//	if ( pHistory->IsType( CBENode::beInt ) )
+//		//		m_nTrackerHistory = (int)( pHistory->GetInt() & ~0xFFFF0000 );
+//		//}
+//
+//		// Unofficial min_request_interval
+//		if ( m_nTrackerWait < 200 * 1000 )
+//		{
+//			if ( const CBENode* pFlags = pNode->GetNode( "flags" ) )
+//			{
+//				if ( const CBENode* pWait = pFlags->GetNode( "min_request_interval" ) )
+//				{
+//					if ( pWait->IsType( CBENode::beInt ) )
+//						m_nTrackerWait = pWait->GetInt() * 1000;
+//
+//					if ( m_nTrackerWait < 60 * 1000 )
+//						m_nTrackerWait = 90 * 1000;
+//					else if ( m_nTrackerWait > 6 * 60 * 60 * 1000 )
+//						m_nTrackerWait = 30 * 60 * 1000;
+//				}
+//			}
+//		}
+//
+//		delete pNode;
+//	}
+//
+//	return ( m_nTrackerSeeds > 0 || m_nTrackerPeers > 0 );
+//}
 
 CString CBTInfo::GetTrackerHash() const
 {

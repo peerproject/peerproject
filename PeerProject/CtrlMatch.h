@@ -1,7 +1,7 @@
 //
 // CtrlMatch.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,6 +20,23 @@
 
 #include "CtrlMatchTip.h"
 #include "Schema.h"
+
+// Set Column Order
+#define MATCH_COL_NAME		0
+#define MATCH_COL_TYPE		1
+#define MATCH_COL_SIZE		2
+#define MATCH_COL_COUNT		3
+#define MATCH_COL_SPEED		4
+#define MATCH_COL_RATING	5
+#define MATCH_COL_STATUS	6
+#define MATCH_COL_CLIENT	7
+#define MATCH_COL_COUNTRY	8
+#define MATCH_COL_TIME		9
+#define MATCH_COL_MAX		10
+
+#define IDC_MATCHES			100
+#define IDC_MATCH_HEADER	115
+
 
 class CMatchList;
 class CMatchFile;
@@ -125,18 +142,3 @@ public:
 
 	DECLARE_MESSAGE_MAP()
 };
-
-#define MATCH_COL_NAME		0
-#define MATCH_COL_TYPE		1
-#define MATCH_COL_SIZE		2
-#define MATCH_COL_COUNT		3
-#define MATCH_COL_SPEED		4
-#define MATCH_COL_RATING	5
-#define MATCH_COL_STATUS	6
-#define MATCH_COL_CLIENT	7
-#define MATCH_COL_COUNTRY	8
-#define MATCH_COL_TIME		9
-#define MATCH_COL_MAX		10
-
-#define IDC_MATCHES			100
-#define IDC_MATCH_HEADER	115

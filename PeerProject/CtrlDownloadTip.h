@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,6 +19,7 @@
 #pragma once
 
 #include "CtrlCoolTip.h"
+#include "BTTrackerRequest.h"
 
 class CPeerProjectFile;
 class CDownload;
@@ -27,7 +28,7 @@ class CLineGraph;
 class CGraphItem;
 
 
-class CDownloadTipCtrl : public CCoolTipCtrl
+class CDownloadTipCtrl : public CCoolTipCtrl, public CTrackerEvent /* Scrape */
 {
 	DECLARE_DYNAMIC(CDownloadTipCtrl)
 
@@ -89,6 +90,8 @@ protected:
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CDownloadSource* pSource);
 
 protected:
+	virtual void OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* pEvent);
+
 	virtual BOOL OnPrepare();
 	virtual void OnShow();
 	virtual void OnHide();

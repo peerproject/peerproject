@@ -1,7 +1,7 @@
 //
 // BTClient.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -697,20 +697,23 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 	{
 		Vendors[ L"A~" ] = L"Ares";
 		Vendors[ L"AG" ] = L"Ares";
+		Vendors[ L"AB" ] = L"CPAN:AnyEvent";
 		Vendors[ L"AR" ] = L"Arctic";
 		Vendors[ L"AT" ] = L"Artemis";
 		Vendors[ L"AV" ] = L"Avicora";
 		Vendors[ L"AX" ] = L"BitPump";
-		Vendors[ L"AZ" ] = L"Azureus";		// +Frostwire/etc.
+		Vendors[ L"AZ" ] = L"Azureus";		// Vuze+Frostwire/etc.
 	//	Vendors[ L"BA" ] = L"BA";			// ?
 		Vendors[ L"BB" ] = L"BitBuddy";
 		Vendors[ L"BC" ] = L"BitComet";
+		Vendors[ L"BE" ] = L"BareTorrent";
 		Vendors[ L"BF" ] = L"Bitflu";
 		Vendors[ L"BG" ] = L"BTG";
-	//	Vendors[ L"BO" ] = L"BO ";			// ?
+		Vendors[ L"BO" ] = L"BitsOnWheels";
 		Vendors[ L"bk" ] = L"BitKitten";
 		Vendors[ L"BR" ] = L"BitRocket";
 		Vendors[ L"BS" ] = L"BitSlave";
+		Vendors[ L"BT" ] = L"BitTorrent";
 		Vendors[ L"BX" ] = L"Bittorrent X";
 		Vendors[ L"CB" ] = L"ShareazaPlus";
 		Vendors[ L"CD" ] = L"CTorrent";		// "Enhanced"
@@ -721,12 +724,16 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"ES" ] = L"Electric Sheep";
 		Vendors[ L"FC" ] = L"FileCroc";
 		Vendors[ L"FG" ] = L"FlashGet";		// vXX.XX
+	//	Vendors[ L"FL" ] = L"FL";			// ?
 		Vendors[ L"FT" ] = L"FoxTorrent";
+		Vendors[ L"FX" ] = L"Freebox";
 		Vendors[ L"GR" ] = L"GetRight";
 		Vendors[ L"GS" ] = L"GSTorrent";
 		Vendors[ L"HK" ] = L"Hekate";
 		Vendors[ L"HL" ] = L"Halite";
 		Vendors[ L"HN" ] = L"Hydranode";
+		Vendors[ L"IL" ] = L"iLivid";
+		Vendors[ L"JS" ] = L"JustSeed.It";
 		Vendors[ L"JT" ] = L"JavaTorrent";
 		Vendors[ L"KG" ] = L"KGet";
 		Vendors[ L"KT" ] = L"KTorrent";
@@ -742,6 +749,7 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"MO" ] = L"Mono Torrent";
 		Vendors[ L"MP" ] = L"MooPolice";
 		Vendors[ L"MT" ] = L"Moonlight";
+		Vendors[ L"NB" ] = L"CPAN:Net:BitTorrent";
 		Vendors[ L"NX" ] = L"NetTransport";
 		Vendors[ L"OS" ] = L"OneSwarm";
 		Vendors[ L"PC" ] = L"CacheLogic";
@@ -756,28 +764,32 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"RT" ] = L"Retriever";
 		Vendors[ L"SB" ] = L"SwiftBit";
 		Vendors[ L"SD" ] = L"Xunlei";
+		Vendors[ L"SK" ] = L"Spark";
 		Vendors[ L"SM" ] = L"SoMud";
 		Vendors[ L"SN" ] = L"ShareNet";
+		Vendors[ L"SP" ] = L"BitSpirit";
 		Vendors[ L"SS" ] = L"Swarmscope";
 		Vendors[ L"st" ] = L"Sharktorrent";
 		Vendors[ L"ST" ] = L"SymTorrent";
 		Vendors[ L"SZ" ] = L"Shareaza";
 		Vendors[ L"S~" ] = L"ShareazaBeta";
-	//	Vendors[ L"TB" ] = L"TB";			// ?
+		Vendors[ L"TB" ] = L"Torch";
+		Vendors[ L"TE" ] = L"Terasaur";
 		Vendors[ L"TL" ] = L"Tribler";
 		Vendors[ L"TN" ] = L"Torrent.NET";
 		Vendors[ L"TR" ] = L"Transmission";
 		Vendors[ L"TS" ] = L"TorrentStorm";
 		Vendors[ L"TT" ] = L"TuoTu";
-	//	Vendors[ L"TX" ] = L"Texati";		// ?
+		Vendors[ L"TX" ] = L"Tixati";
 		Vendors[ L"UL" ] = L"uLeecher";
 		Vendors[ L"UE" ] = L"\x00B5Torrent Embed";
 		Vendors[ L"UM" ] = L"\x00B5Torrent Mac";
 		Vendors[ L"UT" ] = L"\x00B5Torrent";
 		Vendors[ L"VG" ] = L"Vagaa";
 		Vendors[ L"WT" ] = L"BitLet";
+		Vendors[ L"WW" ] = L"WebTorrent";
 		Vendors[ L"WY" ] = L"FireTorrent";
-		Vendors[ L"XC" ] = L"XC ";			// ?
+	//	Vendors[ L"XC" ] = L"XC ";			// ?
 		Vendors[ L"XL" ] = L"Xunlei";
 		Vendors[ L"XT" ] = L"XanTorrent";
 		Vendors[ L"XX" ] = L"xTorrent";
@@ -785,10 +797,15 @@ CString CBTClient::GetUserAgentAzureusStyle(LPBYTE pVendor, size_t nVendor)
 		Vendors[ L"ZT" ] = L"ZipTorrent";
 	}
 
-	strUserAgent = Vendors[ CString( pVendor ).Left( 2 ) ];
+	const CString strVendor = CString( pVendor );
+
+	strUserAgent = Vendors[ strVendor.Left( 2 ) ];
+
+	if ( strUserAgent.IsEmpty() )
+		theApp.Message( MSG_NOTICE, L"BitTorrent Unknown Vendor Code: %s", (LPCTSTR)strVendor.Left( 6 ) );
 
 	if ( strUserAgent.IsEmpty() ) 	// If we don't want the version, etc.
-		strUserAgent.Format( L"BitTorrent (%c%c)", (TCHAR)pVendor[ 0 ], (TCHAR)pVendor[ 1 ] );
+		strUserAgent.Format( L"BitTorrent (%s)", (LPCTSTR)strVendor.Left( 2 ) );
 	else if ( nVendor == 6 )
 		strUserAgent.Format( L"%s %c.%c.%c.%c", strUserAgent, (TCHAR)pVendor[ 2 ], (TCHAR)pVendor[ 3 ], (TCHAR)pVendor[ 4 ], (TCHAR)pVendor[ 5 ] );
 	else //if ( nVendor == 4 )

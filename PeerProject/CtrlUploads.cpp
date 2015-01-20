@@ -1,7 +1,7 @@
 //
 // CtrlUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -40,6 +40,24 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+#define HEADER_HEIGHT			20
+//#define ITEM_HEIGHT			17	// Settings.Skin.RowSize
+
+// Set Column Order
+enum {
+	COL_TITLE,
+	COL_SIZE,
+	COL_PROGRESS,
+	COL_TRANSFER,
+	COL_SPEED,
+	COL_RATING,
+	COL_USER,
+	COL_CLIENT,
+	COL_COUNTRY,
+	COL_LAST	// Count
+};
+
+
 IMPLEMENT_DYNAMIC(CUploadsCtrl, CWnd)
 
 BEGIN_MESSAGE_MAP(CUploadsCtrl, CWnd)
@@ -64,19 +82,6 @@ BEGIN_MESSAGE_MAP(CUploadsCtrl, CWnd)
 	ON_NOTIFY(HDN_ITEMCHANGEDA, AFX_IDW_PANE_FIRST, OnChangeHeader)
 	ON_NOTIFY(HDN_ENDDRAG, AFX_IDW_PANE_FIRST, OnChangeHeader)
 END_MESSAGE_MAP()
-
-#define HEADER_HEIGHT			20
-//#define ITEM_HEIGHT			17	// Settings.Skin.RowSize
-
-#define UPLOAD_COLUMN_TITLE		0
-#define UPLOAD_COLUMN_SIZE		1
-#define UPLOAD_COLUMN_PROGRESS	2
-#define UPLOAD_COLUMN_TRANSFER	3
-#define UPLOAD_COLUMN_SPEED		4
-#define UPLOAD_COLUMN_RATING	5
-#define UPLOAD_COLUMN_USER		6
-#define UPLOAD_COLUMN_CLIENT	7
-#define UPLOAD_COLUMN_COUNTRY	8
 
 
 //////////////////////////////////////////////////////////////////////////////
@@ -120,15 +125,15 @@ int CUploadsCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	GetDesktopWindow()->GetWindowRect( &rect );
 
-	InsertColumn( UPLOAD_COLUMN_TITLE, L"Uploaded File", LVCFMT_LEFT, rect.Width() > 1600 ? 400 : 300 );
-	InsertColumn( UPLOAD_COLUMN_SIZE, L"Size", LVCFMT_CENTER, 64 );
-	InsertColumn( UPLOAD_COLUMN_PROGRESS, L"Progress", LVCFMT_CENTER, 100 );
-	InsertColumn( UPLOAD_COLUMN_TRANSFER, L"Transfer", LVCFMT_CENTER, 64 );
-	InsertColumn( UPLOAD_COLUMN_SPEED, L"Speed", LVCFMT_CENTER, 76 );
-	InsertColumn( UPLOAD_COLUMN_RATING, L"Rating", LVCFMT_CENTER, 0 );
-	InsertColumn( UPLOAD_COLUMN_USER, L"Remote User", LVCFMT_CENTER, 140 );
-	InsertColumn( UPLOAD_COLUMN_CLIENT, L"Client", LVCFMT_CENTER, 100 );
-	InsertColumn( UPLOAD_COLUMN_COUNTRY, L"Country", LVCFMT_LEFT, 54 );
+	InsertColumn( COL_TITLE, L"Uploaded File", LVCFMT_LEFT, rect.Width() > 1600 ? 400 : 300 );
+	InsertColumn( COL_SIZE, L"Size", LVCFMT_CENTER, 64 );
+	InsertColumn( COL_PROGRESS, L"Progress", LVCFMT_CENTER, 100 );
+	InsertColumn( COL_TRANSFER, L"Transfer", LVCFMT_CENTER, 64 );
+	InsertColumn( COL_SPEED, L"Speed", LVCFMT_CENTER, 76 );
+	InsertColumn( COL_RATING, L"Rating", LVCFMT_CENTER, 0 );
+	InsertColumn( COL_USER, L"Remote User", LVCFMT_CENTER, 140 );
+	InsertColumn( COL_CLIENT, L"Client", LVCFMT_CENTER, 100 );
+	InsertColumn( COL_COUNTRY, L"Country", LVCFMT_LEFT, 54 );
 
 	LoadColumnState();
 
@@ -789,15 +794,15 @@ void CUploadsCtrl::UpdateUploadsData(BOOL bForce /*FALSE*/)
 	const int nMax = nMin + ( rcClient.Height() / Settings.Skin.RowSize ) + 1;
 	int nCount = 0;
 
-	CSingleLock pTransfersLock( &Transfers.m_pSection );
-	if ( ! pTransfersLock.Lock( 250 ) )
-		return;
-
 	CSingleLock pUploadQueuesLock( &UploadQueues.m_pSection );
-	if ( ! pUploadQueuesLock.Lock( 200 ) )
+	if ( ! pUploadQueuesLock.Lock( 250 ) )
 		return;
 
-	int nQueue = 0;
+	CSingleLock pTransfersLock( &Transfers.m_pSection );
+	if ( ! pTransfersLock.Lock( 50 ) )
+		return;
+
+	INT_PTR nQueue = 0;
 	for ( POSITION posQueue = GetQueueIterator() ; posQueue ; )
 	{
 		CUploadQueue* pQueue = GetNextQueue( posQueue );
@@ -846,13 +851,11 @@ void CUploadsCtrl::UpdateUploadsData(BOOL bForce /*FALSE*/)
 			break;
 	}
 
-	pUploadQueuesLock.Unlock();
 	pTransfersLock.Unlock();
+	pUploadQueuesLock.Unlock();
 
-	for ( int nRemove = m_pDisplayData.GetUpperBound() ; nRemove >= nQueue ; nRemove-- )
-	{
-		m_pDisplayData.RemoveAt( nRemove );
-	}
+	while ( m_pDisplayData.GetCount() > nQueue )
+		m_pDisplayData.RemoveAt( nQueue );
 
 	tUpdate = GetTickCount();
 }
@@ -964,7 +967,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayDa
 
 		switch ( pColumn.lParam )
 		{
-		case UPLOAD_COLUMN_TITLE:
+		case COL_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
 			crLeftMargin = ( bLeftMargin ? crNatural : bSelected ? -1 : crBack );
 			if ( bLeftMargin || ! bSelected && rcCell.Height() > 16 )
@@ -1011,12 +1014,12 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayDa
 			strText = pQueueData->m_sName;
 			break;
 
-		case UPLOAD_COLUMN_SIZE:
+		case COL_SIZE:
 			if ( ! pQueueData->m_bHistoryQueue )
 				strText.Format( L"%u/%u", pQueueData->m_nMinTransfers, pQueueData->m_nMaxTransfers );	// GetTransferCount(), GetQueuedCount()
 			break;
 
-		case UPLOAD_COLUMN_SPEED:
+		case COL_SPEED:
 			if ( ! pQueueData->m_bHistoryQueue )
 				strText = Settings.SmartSpeed( pQueueData->m_nSpeed );
 			break;
@@ -1024,9 +1027,6 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayDa
 
 		if ( strText.IsEmpty() )
 			continue;
-
-		nTextLeft  = min( nTextLeft, rcCell.left );
-		nTextRight = max( nTextRight, rcCell.right );
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
@@ -1038,6 +1038,9 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayDa
 			if ( ! strText.IsEmpty() )
 				strText += L'\x2026';
 		}
+
+		nTextLeft  = min( nTextLeft, (int)rcCell.left );
+		nTextRight = max( nTextRight, (int)rcCell.right );
 
 		int nPosition = 0;
 
@@ -1068,7 +1071,7 @@ void CUploadsCtrl::PaintQueue(CDC& dc, const CRect& rcRow, const CQueueDisplayDa
 
 	if ( bFocus )
 	{
-		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
+		CRect rcFocus( nTextLeft, rcRow.top, max( (int)rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
 		if ( Settings.Skin.RoundedSelect )
@@ -1148,7 +1151,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 
 		switch ( pColumn.lParam )
 		{
-		case UPLOAD_COLUMN_TITLE:
+		case COL_TITLE:
 			bLeftMargin = rcRow.left == rcCell.left;
 			crLeftMargin = ( bLeftMargin ? crNatural : bSelectmark ? -1 : crBack );
 
@@ -1176,23 +1179,23 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 			strText = pUploadData->m_sName;
 			break;
 
-		case UPLOAD_COLUMN_SIZE:
+		case COL_SIZE:
 			strText = Settings.SmartVolume( pUploadData->m_nSize );
 			break;
 
-		case UPLOAD_COLUMN_PROGRESS:
+		case COL_PROGRESS:
 			rcCell.DeflateRect( 1, 2 );
 			dc.Draw3dRect( &rcCell, crBorder, crBorder );
 			rcCell.DeflateRect( 1, 1 );
 			CFragmentBar::DrawUpload( &dc, &rcCell, pUploadData, crNatural );
 			break;
 
-		case UPLOAD_COLUMN_TRANSFER:
+		case COL_TRANSFER:
 			if ( pUploadData->m_nUploaded != NULL )
 				strText = Settings.SmartVolume( pUploadData->m_nUploaded );
 			break;
 
-		case UPLOAD_COLUMN_SPEED:
+		case COL_SPEED:
 			if ( pUploadData->m_bTransferNull )
 			{
 				LoadString( strText, IDS_STATUS_COMPLETED );
@@ -1217,11 +1220,11 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 			}
 			break;
 
-		case UPLOAD_COLUMN_RATING:
+		case COL_RATING:
 			strText.Format( L"%u", pUploadData->m_nUserRating );
 			break;
 
-		case UPLOAD_COLUMN_USER:
+		case COL_USER:
 		//	if ( pUploadData->m_bTransferNull )
 		//		strText.Empty();
 			if ( pUploadData->m_sRemoteNick.IsEmpty() )
@@ -1230,12 +1233,12 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 				strText = pUploadData->m_sRemoteNick + L" (" + pUploadData->m_sAddress + L")";
 			break;
 
-		case UPLOAD_COLUMN_CLIENT:
+		case COL_CLIENT:
 		//	if ( ! pUploadData->m_bTransferNull )
 				strText = pUploadData->m_sUserAgent;
 			break;
 
-		case UPLOAD_COLUMN_COUNTRY:
+		case COL_COUNTRY:
 			int nFlagImage = Flags.GetFlagIndex( pUploadData->m_sCountry );
 
 			if ( ! bSelectmark )
@@ -1250,11 +1253,8 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 			break;
 		}
 
-		if ( strText.IsEmpty() )	// pColumn.lParam == UPLOAD_COLUMN_PROGRESS
+		if ( strText.IsEmpty() )	// pColumn.lParam == COL_PROGRESS
 			continue;
-
-		nTextLeft  = min( nTextLeft, rcCell.left );
-		nTextRight = max( nTextRight, rcCell.right );
 
 		if ( dc.GetTextExtent( strText ).cx > rcCell.Width() - 8 )
 		{
@@ -1267,18 +1267,21 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 				strText += L'\x2026';
 		}
 
+		nTextLeft  = min( nTextLeft,  (int)rcCell.left );
+		nTextRight = max( nTextRight, (int)rcCell.right );
+
 		int nPos = 0;
 
 		switch ( pColumn.fmt & LVCFMT_JUSTIFYMASK )
 		{
-		default:
-			nPos = ( rcCell.left + 4 );
-			break;
 		case LVCFMT_CENTER:
 			nPos = ( ( rcCell.left + rcCell.right ) / 2 ) - ( dc.GetTextExtent( strText ).cx / 2 );
 			break;
 		case LVCFMT_RIGHT:
 			nPos = ( rcCell.right - 4 - dc.GetTextExtent( strText ).cx );
+			break;
+		default:
+			nPos = ( rcCell.left + 4 );
 			break;
 		}
 
@@ -1294,7 +1297,7 @@ void CUploadsCtrl::PaintFile(CDC& dc, const CRect& rcRow, const CUploadDisplayDa
 
 	if ( bFocus )
 	{
-		CRect rcFocus( nTextLeft, rcRow.top, max( rcRow.right, nTextRight ), rcRow.bottom );
+		CRect rcFocus( nTextLeft, rcRow.top, max( (int)rcRow.right, nTextRight ), rcRow.bottom );
 		dc.Draw3dRect( &rcFocus, Colors.m_crHiBorder, Colors.m_crHiBorder );
 
 		if ( Settings.Skin.RoundedSelect )
@@ -1428,7 +1431,7 @@ void CUploadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 {
 	m_wndTip.Hide();
 
-	CSingleLock pLock( &Transfers.m_pSection, FALSE );	// Only when needed
+	CSingleLock pLock( &Transfers.m_pSection, FALSE );	// Only where needed
 
 	switch ( nChar )
 	{
@@ -1437,7 +1440,7 @@ void CUploadsCtrl::OnKeyDown(UINT nChar, UINT nRepCnt, UINT nFlags)
 		return;
 	case VK_END:
 		{
-			INT nMin, nMax;
+			int nMin, nMax;
 			GetScrollRange( SB_VERT, &nMin, &nMax );
 			if ( nMax > 0 )
 				SelectTo( nMax - 1 );
@@ -1718,7 +1721,7 @@ int CUploadsCtrl::GetExpandableColumnX() const
 
 	for ( int nColumn = 0 ; m_wndHeader.GetItem( m_wndHeader.OrderToIndex( nColumn ), &pColumn ) ; nColumn++ )
 	{
-		if ( pColumn.lParam == UPLOAD_COLUMN_TITLE )
+		if ( pColumn.lParam == COL_TITLE )
 			break;
 
 		nTitleStarts += pColumn.cxy;

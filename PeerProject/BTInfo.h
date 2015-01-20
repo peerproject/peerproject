@@ -1,7 +1,7 @@
 //
 // BTInfo.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -111,8 +111,8 @@ public:
 	DWORD		m_tCreationDate;
 	BOOL		m_bPrivate;
 	int 		m_nStartDownloads;		// When do we start downloads for this torrent
-	int 		m_nTrackerSeeds;		// Count from most recent scrape
-	int 		m_nTrackerPeers;		//
+	DWORD		m_nTrackerSeeds;		// Count from most recent scrape
+	DWORD		m_nTrackerPeers;		//
 	DWORD 		m_nTrackerWait; 		// min_request_interval (in ms)
 
 private:
@@ -162,7 +162,7 @@ public:
 	DWORD		GetTrackerFailures() const;
 	void		OnTrackerFailure();
 
-	BOOL		ScrapeTracker();
+	//BOOL		ScrapeTracker();
 
 	// Count of files
 	inline INT_PTR GetCount() const

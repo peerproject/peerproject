@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -37,8 +37,6 @@
 #include "FragmentBar.h"
 #include "GraphLine.h"
 #include "GraphItem.h"
-
-#include "BENode.h" // Torrent Scrape
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -101,6 +99,13 @@ void CDownloadTipCtrl::OnShow()
 	m_pGraph = CreateLineGraph();
 	m_pItem  = new CGraphItem( 0, 1.0f, RGB( 0, 0, 0xFF ) );
 	m_pGraph->AddItem( m_pItem );
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( pLock.Lock( 500 ) )
+	{
+		TrackerRequests.Request( m_pDownload, BTE_TRACKER_SCRAPE, 0, this );
+	//	pLock.Unlock();
+	}
 }
 
 void CDownloadTipCtrl::OnHide()
@@ -253,7 +258,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	CPoint pt( 0, 0 );
 	CSize sz( m_sz.cx, TIP_TEXTHEIGHT );
 
-	const CString strOf = LoadString( IDS_GENERAL_OF );
+	const CString strOf   = LoadString( IDS_GENERAL_OF );
 	const CString strSize = LoadString( IDS_TIP_SIZE ) + L": ";
 	const CString strType = LoadString( IDS_TIP_TYPE ) + L": ";
 
@@ -382,7 +387,7 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 	// Update Torrent Seeds/Peers from last Tracker Scrape
 	if ( pDownload->IsTorrent() && ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers ) )
 	{
-		m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",	// ToDo: Translation ?
+		m_sSeedsPeers.Format( L"   ( %u seeds %u peers )",	// ToDo: Translation ?
 			pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 
 		if ( pDownload->IsSeeding() )
@@ -629,7 +634,7 @@ void CDownloadTipCtrl::PrepareDownloadInfo(CDownload* pDownload)
 		m_sURL = pDownload->m_pTorrent.GetTrackerAddress();
 
 		if ( pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers )
-			m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",	// ToDo: Translation ?
+			m_sSeedsPeers.Format( L"   ( %u seeds %u peers )",	// ToDo: Translation ?
 				pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 	}
 
@@ -963,23 +968,23 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 {
 	CCoolTipCtrl::OnTimer( nIDEvent );
 
-	if ( nIDEvent == 2 )	// Async
-	{
-		CSingleLock pLock( &Transfers.m_pSection );
-		if ( ! pLock.Lock( 100 ) )
-			return;
+	//if ( nIDEvent == 2 )	// Async
+	//{
+	//	CSingleLock pLock( &Transfers.m_pSection );
+	//	if ( ! pLock.Lock( 100 ) )
+	//		return;
 
-		// Trigger tracker scrape if needed
-		if ( ! m_pDownload || ! m_pDownload->IsTorrent() )
-			return;
+	//	// Trigger tracker scrape if needed
+	//	if ( ! m_pDownload || ! m_pDownload->IsTorrent() )
+	//		return;
 
-		pLock.Unlock();
+	//	pLock.Unlock();
 
-		if ( m_pDownload->m_pTorrent.ScrapeTracker() )
-			Invalidate( FALSE );
+	//	if ( m_pDownload->m_pTorrent.ScrapeTracker() )
+	//		Invalidate( FALSE );
 
-		return;
-	}
+	//	return;
+	//}
 
 	if ( m_pGraph == NULL )
 		return;
@@ -1011,4 +1016,23 @@ void CDownloadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 //	InvalidateRect( &rcUpdateGraph, FALSE );
 
 	Invalidate( FALSE );
+}
+
+/* BTTrackerRequest Virtual */
+void CDownloadTipCtrl::OnTrackerEvent(bool bSuccess, LPCTSTR /*pszReason*/, LPCTSTR /*pszTip*/, CBTTrackerRequest* pEvent)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	//m_nRequest = 0;		// Need no cancel
+
+	if ( ! bSuccess )
+		return;
+
+	DWORD nComplete   = pEvent->GetComplete();		// ->m_nSeeders
+	DWORD nIncomplete = pEvent->GetIncomplete();	// ->m_nLeechers
+	
+	m_pDownload->m_pTorrent.m_nTrackerSeeds = nComplete;
+	m_pDownload->m_pTorrent.m_nTrackerPeers = nIncomplete;
+
+	m_sSeedsPeers.Format( L"   ( %u seeds %u peers )", nComplete, nIncomplete );	// ToDo: Translation ?
 }

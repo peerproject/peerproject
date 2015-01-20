@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -39,18 +39,18 @@ static char THIS_FILE[] = __FILE__;
 static LPCTSTR szEvents[] =
 {
 	NULL,									// BTE_TRACKER_UPDATE
-	L"completed",						// BTE_TRACKER_COMPLETED
-	L"started",							// BTE_TRACKER_STARTED
-	L"stopped"							// BTE_TRACKER_STOPPED
+	L"completed",							// BTE_TRACKER_COMPLETED
+	L"started",								// BTE_TRACKER_STARTED
+	L"stopped"								// BTE_TRACKER_STOPPED
 };
 
 static LPCTSTR szEventInfo[] =
 {
-	L"update tracker announce",			// BTE_TRACKER_UPDATE
-	L"completed tracker announce",		// BTE_TRACKER_COMPLETED
+	L"update tracker announce",				// BTE_TRACKER_UPDATE
+	L"completed tracker announce",			// BTE_TRACKER_COMPLETED
 	L"initial tracker announce",			// BTE_TRACKER_STARTED
-	L"final tracker announce",			// BTE_TRACKER_STOPPED
-	L"tracker scrape"					// BTE_TRACKER_SCRAPE
+	L"final tracker announce",				// BTE_TRACKER_STOPPED
+	L"tracker scrape"						// BTE_TRACKER_SCRAPE
 };
 
 static const DWORD nMinResponseSize[] =
@@ -241,6 +241,7 @@ BOOL CBTTrackerPacket::OnPacket(const SOCKADDR_IN* pHost)
 
 	return FALSE;
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CBTTrackerRequest construction
@@ -625,6 +626,11 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 		const CBENode* pDownloaded = pFile->GetNode( BT_DICT_DOWNLOADED );
 		if ( pDownloaded && pDownloaded->IsType( CBENode::beInt ) )
 			m_nDownloaded = (DWORD)( pDownloaded->GetInt() & ~0xFFFF0000 );
+
+		if ( m_nComplete )		
+			m_pDownload->m_pTorrent.m_nTrackerSeeds = m_nComplete;
+		if ( m_nIncomplete )
+			m_pDownload->m_pTorrent.m_nTrackerPeers = m_nIncomplete;
 	}
 	else
 	{
@@ -776,9 +782,12 @@ BOOL CBTTrackerRequest::OnAnnounce(CBTTrackerPacket* pPacket)
 	if ( m_sURL.GetLength() < 14 )
 		return FALSE;	// Strange Access Violation in Cancel()?
 
-	m_nInterval = pPacket->ReadLongBE();
-	m_nIncomplete = pPacket->ReadLongBE();
-	m_nComplete = pPacket->ReadLongBE();
+	m_nInterval 	= pPacket->ReadLongBE();
+	m_nIncomplete	= pPacket->ReadLongBE();
+	m_nComplete 	= pPacket->ReadLongBE();
+
+	m_pDownload->m_pTorrent.m_nTrackerSeeds = m_nComplete;
+	m_pDownload->m_pTorrent.m_nTrackerPeers = m_nIncomplete;
 
 	if ( m_nInterval > 10000 )
 		m_nInterval = 10000;
@@ -810,6 +819,9 @@ BOOL CBTTrackerRequest::OnScrape(CBTTrackerPacket* pPacket)
 		m_nComplete   = pPacket->ReadLongBE();
 		m_nDownloaded = pPacket->ReadLongBE();
 		m_nIncomplete = pPacket->ReadLongBE();
+
+		m_pDownload->m_pTorrent.m_nTrackerSeeds = m_nComplete;
+		m_pDownload->m_pTorrent.m_nTrackerPeers = m_nIncomplete;
 	}
 
 	CString strError;

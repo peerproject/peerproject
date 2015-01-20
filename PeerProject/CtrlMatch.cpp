@@ -1,7 +1,7 @@
 //
 // CtrlMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -80,7 +80,6 @@ END_MESSAGE_MAP()
 CMatchCtrl::CMatchCtrl()
 	: m_pMatches			( NULL )
 	, m_sType				( L"Search" )
-
 	, m_pSchema 			( NULL )
 	, m_nTopIndex			( 0 )
 	, m_nHitIndex			( 0 )
@@ -121,19 +120,17 @@ void CMatchCtrl::OnSkinChange()
 
 BOOL CMatchCtrl::Create(CMatchList* pMatches, CWnd* pParentWnd)
 {
-	CRect rc( 0, 0, 0, 0 );
 	m_pMatches = pMatches;
 	return CWnd::CreateEx( 0, NULL, L"CMatchCtrl", WS_CHILD|WS_TABSTOP|WS_VSCROLL|WS_VISIBLE,
-		rc, pParentWnd, IDC_MATCHES, NULL );
+		CRect( 0 ), pParentWnd, IDC_MATCHES, NULL );
 }
 
 int CMatchCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
 
-	CRect rc;
 	if ( ! m_wndHeader.Create( WS_CHILD|WS_VISIBLE|HDS_BUTTONS|HDS_DRAGDROP|HDS_HOTTRACK|HDS_FULLDRAG,
-		rc, this, IDC_MATCH_HEADER ) ) return -1;
+		CRect( 0 ), this, IDC_MATCH_HEADER ) ) return -1;
 
 	if ( ! m_wndTip.Create( this ) ) return -1;
 

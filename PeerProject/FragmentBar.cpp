@@ -1,7 +1,7 @@
 //
 // FragmentBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -175,7 +175,7 @@ void CFragmentBar::DrawDownload(CDC* pDC, CRect* prcBar, const CDownloadDisplayD
 		DrawStateBar( pDC, prcBar, pDownloadData->m_nSize, 0, pDownloadData->m_nVolumeComplete, Colors.m_crFragmentComplete, TRUE );
 
 	// pDownload->GetNextVerifyRange( nvOffset, nvLength, bvSuccess )
-	for ( UINT nRange = 0 ; nRange < pDownloadData->m_pVerifyRanges.GetUpperBound() ; nRange++ )
+	for ( INT_PTR nRange = 0 ; nRange < pDownloadData->m_pVerifyRanges.GetCount() ; nRange++ )
 	{
 		DrawStateBar( pDC, prcBar, pDownloadData->m_nSize,
 			pDownloadData->m_pVerifyRanges.GetAt( nRange ).nOffset, pDownloadData->m_pVerifyRanges.GetAt( nRange ).nLength,

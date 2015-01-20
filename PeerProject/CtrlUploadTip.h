@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -19,6 +19,7 @@
 #pragma once
 
 #include "CtrlCoolTip.h"
+#include "BTTrackerRequest.h"
 
 class CUpload;
 class CUploadFile;
@@ -26,7 +27,7 @@ class CLineGraph;
 class CGraphItem;
 
 
-class CUploadTipCtrl : public CCoolTipCtrl
+class CUploadTipCtrl : public CCoolTipCtrl, public CTrackerEvent /* Scrape */
 {
 	DECLARE_DYNAMIC(CUploadTipCtrl)
 
@@ -55,6 +56,9 @@ protected:
 
 protected:
 	void DrawProgressBar(CDC* pDC, CPoint* pPoint, CUploadFile* pFile);
+
+protected:
+	virtual void OnTrackerEvent(bool bSuccess, LPCTSTR pszReason, LPCTSTR pszTip, CBTTrackerRequest* pEvent);
 
 	virtual BOOL OnPrepare();
 	virtual void OnShow();

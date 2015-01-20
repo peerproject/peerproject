@@ -1,7 +1,7 @@
 //
 // CtrlUploadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -38,7 +38,6 @@
 // Torrent Scrape:
 #include "Download.h"
 #include "Downloads.h"
-#include "BENode.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -90,6 +89,14 @@ void CUploadTipCtrl::OnShow()
 	m_pItem  = new CGraphItem( 0, 1.0f, RGB( 0xFF, 0, 0 ) );	// ToDo: Skin tip graphlines?  Colors.m_cr
 
 	m_pGraph->AddItem( m_pItem );
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( pLock.Lock( 500 ) )
+	{
+		CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH );	// Transfers lock required
+		TrackerRequests.Request( pDownload, BTE_TRACKER_SCRAPE, 0, this );
+	//	pLock.Unlock();
+	}
 }
 
 void CUploadTipCtrl::OnHide()
@@ -375,12 +382,37 @@ void CUploadTipCtrl::OnTimer(UINT_PTR nIDEvent)
 			{
 				CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH );		// Transfers lock required
 				pLock.Unlock();
-				if ( pDownload && pDownload->m_pTorrent.ScrapeTracker() )		// No transfers lock allowed
-					m_sSeedsPeers.Format( L"   ( %i seeds %i peers )",		// ToDo: Translation ?
+				if ( pDownload && pDownload->m_pTorrent.m_nTrackerSeeds || pDownload->m_pTorrent.m_nTrackerPeers )
+					m_sSeedsPeers.Format( L"   ( %u seeds %u peers )",			// ToDo: Translation ?
 						pDownload->m_pTorrent.m_nTrackerSeeds, pDownload->m_pTorrent.m_nTrackerPeers );
 			}
 		}
 
 		Invalidate( FALSE );
+	}
+}
+
+/* BTTrackerRequest Virtual */
+void CUploadTipCtrl::OnTrackerEvent(bool bSuccess, LPCTSTR /*pszReason*/, LPCTSTR /*pszTip*/, CBTTrackerRequest* pEvent)
+{
+	ASSUME_LOCK( Transfers.m_pSection );
+
+	//m_nRequest = 0;		// Need no cancel
+
+	if ( ! bSuccess )
+		return;
+
+	DWORD nComplete   = pEvent->GetComplete();		// ->m_nSeeders
+	DWORD nIncomplete = pEvent->GetIncomplete();	// ->m_nLeechers
+
+	m_sSeedsPeers.Format( L"   ( %u seeds %u peers )", nComplete, nIncomplete );			// ToDo: Translation ?
+
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( pLock.Lock( 150 ) )
+	{
+		CDownload* pDownload = Downloads.FindByBTH( m_pUploadFile->GetActive()->m_oBTH );	// Transfers lock required
+		pDownload->m_pTorrent.m_nTrackerSeeds = nComplete;
+		pDownload->m_pTorrent.m_nTrackerPeers = nIncomplete;
+	//	pLock.Unlock();
 	}
 }

@@ -1,7 +1,7 @@
 //
 // PageTorrentFiles.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,7 +20,6 @@
 #include "Settings.h"
 #include "PeerProject.h"
 
-#include "ShellIcons.h"
 #include "DlgDownloadSheet.h"
 #include "PageTorrentFiles.h"
 #include "LiveList.h"
@@ -30,6 +29,7 @@
 
 #include "Skin.h"
 #include "Colors.h"
+#include "ShellIcons.h"
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -360,13 +360,16 @@ void CTorrentFilesPage::GetFiles()
 
 	KillTimer( 1 );
 
-	ASSUME_LOCK( Transfers.m_pSection );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	CDownload* pDownload = ((CDownloadSheet*)GetParent())->GetDownload();
 	ASSERT( pDownload && pDownload->IsTorrent() );
 
 	auto_ptr< CFragmentedFile > pFragFile( pDownload->GetFile() );
 	if ( ! pFragFile.get() ) return;
+
+	pLock.Unlock();
 
 	const DWORD nCount = pFragFile->GetCount();
 
