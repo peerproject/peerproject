@@ -1,7 +1,7 @@
 ﻿//
 // CtrlIRCFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -207,7 +207,7 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	// Create "Status" tab
 	LoadString( m_sStatus, IDS_TIP_STATUS );
-	m_sStatus.Remove( ':' );
+	m_sStatus.Remove( L':' );
 	AddTab( m_sStatus, ID_KIND_CLIENT );
 
 	// Initial Text
@@ -519,7 +519,7 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 		rc.Width(), EDITBOX_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 	rc.bottom -= EDITBOX_HEIGHT;
 	m_wndView.SetWindowPos( NULL, rc.left, rc.top,
-		rc.Width(), rc.Height() - SEPERATOR_HEIGHT - SMALLHEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
+		rc.Width(), rc.Height() - SEPARATOR_HEIGHT - SMALLHEADER_HEIGHT, SWP_NOZORDER|SWP_SHOWWINDOW );
 	if ( nType != SIZE_BARSLIDE )
 		Invalidate();
 	if ( m_wndTab.GetItemCount() > 0 )
@@ -571,8 +571,8 @@ void CIRCFrame::OnPaint()
 
 	rcComponent.right = rcClient.right;
 	rcComponent.left = rcClient.left + Settings.Skin.SidebarWidth;
-	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight - EDITBOX_HEIGHT - SMALLHEADER_HEIGHT - SEPERATOR_HEIGHT;
-	rcComponent.bottom = rcComponent.top + SEPERATOR_HEIGHT;
+	rcComponent.top = rcClient.bottom - Settings.Skin.ToolbarHeight - EDITBOX_HEIGHT - SMALLHEADER_HEIGHT - SEPARATOR_HEIGHT;
+	rcComponent.bottom = rcComponent.top + SEPARATOR_HEIGHT;
 	dc.FillSolidRect( rcComponent.left, rcComponent.top, 1,
 		rcComponent.Height(), Colors.m_crSysBtnFace );
 	dc.FillSolidRect( rcComponent.left + 1, rcComponent.top, 1,
@@ -633,6 +633,7 @@ void CIRCFrame::OnContextMenu(CWnd* pWnd, CPoint point)
 		{
 			SetSelectedUser( nIndex );
 			Skin.TrackPopupMenu( L"CIRCUserList", point );
+			return;
 		}
 	}
 	if ( pWnd->m_hWnd == m_wndTab.m_hWnd )
@@ -799,7 +800,7 @@ void CIRCFrame::OnIrcChanCmdSave()
 {
 	CFile pFile;
 	if ( ! pFile.Open( Settings.General.DataPath + L"ChatChanlist.dat",
-		CFile::modeWrite | CFile::modeCreate ) )
+		 CFile::modeWrite | CFile::modeCreate ) )
 		return;
 
 	CListCtrl* pChannelList = &(m_wndPanel.m_boxChans.m_wndChanList);
@@ -2440,7 +2441,7 @@ void CIRCFrame::OnClickTab(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 	TabClick();
 }
 
-// Why? User list is sorted automatically...
+// Obsolete. User list is sorted automatically.
 //void CIRCFrame::SortUserList()
 //{
 //	int nCmpResult, nBiggest, nUser1, nUser2;
@@ -2570,15 +2571,11 @@ void CIRCFrame::OnRichCursorMove(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 		pNotify->pResult = (LRESULT*)theApp.LoadCursor( IDC_HAND );
 	}
 	else if ( strText.GetLength() > 12 && (
-		strText.Left( 4 ) == L"www." ||
-		strText.Left( 7 ) == L"http://" ||
-		strText.Left( 8 ) == L"https://" ||
-		strText.Left( 7 ) == L"magnet:" ||
-		strText.Left( 4 ) == L"ed2k:" ||
-		strText.Left( 7 ) == L"HTTP://" ||
-		strText.Left( 4 ) == L"WWW." ||
-		strText.Left( 7 ) == L"MAGNET:" ||
-		strText.Left( 4 ) == L"ED2K:" ||
+		StartsWith( strText, _P( L"www." ) ) ||
+		StartsWith( strText, _P( L"http://" ) ) ||
+		StartsWith( strText, _P( L"https://" ) ) ||
+		StartsWith( strText, _P( L"magnet:" ) ) ||
+		StartsWith( strText, _P( L"ed2k:" ) ) ||
 		strText.Mid( 1, 7 ) == L"http://" ||
 		strText.Mid( 1, 4 ) == L"www." ) )
 	{
@@ -2640,13 +2637,11 @@ void CIRCFrame::OnRichDblClk(NMHDR* /*pNMHDR*/, LRESULT* pResult)
 
 		theApp.InternalURI( strText );
 	}
-	else if ( strText.Left( 7 ) == L"magnet:" ||
-		strText.Left( 5 ) == L"ed2k:" ||
-		strText.Left( 3 ) == L"g2:" ||
-		strText.Left( 9 ) == L"gnutella:" ||
-		strText.Left( 6 ) == L"dchub:" ||
-		strText.Left( 7 ) == L"MAGNET:" ||
-		strText.Left( 5 ) == L"ED2K:" )
+	else if ( StartsWith( strText, _P( L"magnet:" ) ) ||
+		StartsWith( strText, _P( L"ed2k:" ) ) ||
+		StartsWith( strText, _P( L"g2:" ) ) ||
+		StartsWith( strText, _P( L"gnutella:" ) ) ||
+		StartsWith( strText, _P( L"dchub:" ) ) )
 	{
 		theApp.InternalURI( strText );
 	}
@@ -2912,8 +2907,8 @@ HRESULT CIRCTabCtrl::DrawThemesPart(HDC dc, int nPartID, int nStateID, LPRECT pr
 {
 	HRESULT hr = E_FAIL;
 	if ( m_hTheme != NULL &&
-		theApp.m_pfnIsThemeActive && theApp.m_pfnIsThemeActive() &&
-		theApp.m_pfnDrawThemeBackground )
+		 theApp.m_pfnIsThemeActive && theApp.m_pfnIsThemeActive() &&
+		 theApp.m_pfnDrawThemeBackground )
 	{
 		hr = theApp.m_pfnDrawThemeBackground( m_hTheme, dc, nPartID, nStateID, prcBox, NULL );
 	}
@@ -3069,7 +3064,7 @@ void CIRCTabCtrl::DrawTabItem(HDC dc, int nItem, const RECT& rcItem, UINT /*flag
 //	SetItem( nItem, &tci );
 //	RedrawWindow();
 //}
-//
+
 //COLORREF CIRCTabCtrl::GetTabColor(int nItem)	// Highlight or Normal Text?
 //{
 //	TC_ITEM tci = { TCIF_PARAM };
@@ -3196,6 +3191,7 @@ int CIRCChannelList::GetCount(int nType) const
 	if ( nType ==  1 ) return m_nCountUserDefined;
 	return -1;
 }
+
 void CIRCChannelList::RemoveAll(int nType)
 {
 	if ( nType == -1 )

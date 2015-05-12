@@ -1,7 +1,7 @@
 //
 // CoolInterface.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -37,6 +37,7 @@ public:
 	CFont		m_fntUnder;			// system.plain + underline
 	CFont		m_fntCaption;		// panel.caption
 	CFont		m_fntNavBar;		// navbar.caption
+	CFont		m_fntNavBarActive;	// navbar.selected
 	CFont		m_fntRichDefault;	// richdoc.default
 	CFont		m_fntRichHeading;	// richdoc.heading
 

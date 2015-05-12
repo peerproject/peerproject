@@ -1,7 +1,7 @@
 //
 // MiniUPnP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2014
+// This file is part of PeerProject (peerproject.org) © 2014-2015
 // Portions copyright Shareaza Development Team, 2014.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -33,6 +33,7 @@
 static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
+
 
 CMiniUPnP::CMiniUPnP()
 	: m_nExternalTCPPort	( 0 )
@@ -138,7 +139,10 @@ void CMiniUPnP::OnRun()
 						CStringA sPort;
 						sPort.Format( "%u", nPort );
 
-						result = UPNP_AddPortMapping( m_sControlURL, m_sServiceType, sPort, sPort, internalIPAddress, CLIENT_NAME_CHAR, "TCP", NULL, NULL );
+						CString strInfo;
+						strInfo.Format( L"%s at %s:%u", CLIENT_NAME L" TCP", (LPCTSTR)CA2T( internalIPAddress ), nPort );
+
+						result = UPNP_AddPortMapping( m_sControlURL, m_sServiceType, sPort, sPort, internalIPAddress, (LPCSTR)CT2A( strInfo ), "TCP", NULL, NULL );
 						if ( result == UPNPCOMMAND_SUCCESS )
 						{
 							char sRealPort[ 6 ] = {};
@@ -148,7 +152,9 @@ void CMiniUPnP::OnRun()
 								m_nExternalTCPPort = (WORD)atoi( sRealPort );
 								theApp.Message( MSG_DEBUG, L"UPnP successfully mapped TCP port %u.", m_nExternalTCPPort );
 
-								result = UPNP_AddPortMapping( m_sControlURL, m_sServiceType, sPort, sPort, internalIPAddress, CLIENT_NAME_CHAR, "UDP", NULL, NULL );
+								strInfo.Format( L"%s at %s:%u", CLIENT_NAME L" UDP", (LPCTSTR)CA2T( internalIPAddress ), nPort );
+
+								result = UPNP_AddPortMapping( m_sControlURL, m_sServiceType, sPort, sPort, internalIPAddress, (LPCSTR)CT2A( strInfo ), "UDP", NULL, NULL );
 								if ( result == UPNPCOMMAND_SUCCESS )
 								{
 									*sRealPort = '\0';

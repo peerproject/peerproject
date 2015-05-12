@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -346,22 +346,9 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 	CString str;
 	pFocus->GetWindowText( str );
 
-	if ( OpenClipboard() )
+	if ( theApp.GetClipboard( str ) )
 	{
-		if ( HGLOBAL hData = GetClipboardData( CF_UNICODETEXT ) )
-		{
-			size_t nData = GlobalSize( hData );
-			LPVOID pData = GlobalLock( hData );
-
-			LPTSTR pszData = str.GetBuffer( (int)( nData + 1 ) / 2 + 1 );
-			CopyMemory( pszData, pData, nData );
-			pszData[ ( nData + 1 ) / 2 ] = 0;
-			str.ReleaseBuffer();
-			GlobalUnlock( hData );
-		}
-
-		CloseClipboard();
-		str.Trim( L" \t\r\n" );
+		str.Trim( L" \t\r\n\"" );
 
 		if ( str.GetLength() > 16 && str.Find( L"/255." ) < 6 )
 			return TRUE;	// Assume bad string, but should handle ip+mask too

@@ -1,7 +1,7 @@
 //
 // XML.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,7 +56,7 @@ public:
 	void			SetName(LPCTSTR pszValue);
 	BOOL			IsNamed(LPCTSTR pszName) const;
 	CString			GetValue() const;
-	void			SetValue(LPCTSTR pszValue);
+	void			SetValue(const CString& strValue);
 	static void		UniformString(CString& str);
 
 	friend class	CXMLElement;

@@ -1,7 +1,7 @@
 //
 // Images.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2014
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -1539,7 +1539,7 @@ BOOL CImages::DrawButtonState(CDC* pDC, const CRect* rc, const int nResource)
 	{
 	case IMAGE_BANNER:
 		if ( m_nBanner < 2 ) return FALSE;
-		return DrawButton(pDC, rc, &m_bmBanner, &m_bmBannerEdge);
+		return DrawButton( pDC, rc, &m_bmBanner, &m_bmBannerEdge );
 	case IMAGE_DIALOG:
 		return DrawButton( pDC, rc, &m_bmDialog );		// ToDo: m_bmDialogEdge?
 	case IMAGE_DIALOGPANEL:

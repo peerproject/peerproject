@@ -3,32 +3,10 @@ ___________________________
 
 
 0. This sourcecode package is self-contained, no setup required.  Only Microsoft Visual Studio is supported.
-	- http://www.visualstudio.com/downloads
 
 
-1. Install Visual Studio Community  (No Cost)
+1. Install latest Visual Studio Community at no cost, if needed.
 	- http://www.visualstudio.com/products/visual-studio-community-vs
-
-   OR Install Visual Studio 2015
-	- http://www.microsoft.com/download/details.aspx?id=44934  (Preview)
-
-   OR Install Visual Studio 2013
-	- http://www.microsoft.com/download/details.aspx?id=44916  (Trial)
-
-   OR Install Visual Studio 2012
-	- http://www.microsoft.com/download/details.aspx?id=30678  (Trial)
-	- http://go.microsoft.com/?linkid=9821199  (Update)
-
-   OR Install Visual Studio 2010
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=26bae65f-b0df-4081-ae6e-1d828993d4d0  (Trial)
-	- http://www.microsoft.com/download/details.aspx?id=23691  (Service Pack)
-
-   OR Install Visual Studio 2008 SP1
-	- http://www.microsoft.com/downloads/details.aspx?FamilyID=83c3a1ec-ed72-4a79-8961-25635db0192b  (Trial)
-	- http://www.microsoft.com/download/details.aspx?id=10986  (Service Pack)
-	- http://www.microsoft.com/download/details.aspx?id=3138   (Win7 SDK)
-
-   NOTE: Visual Studio Express (C++/Desktop) is not supported for builds
 
 
 2. Locate this complete PeerProject sourcecode set.
@@ -39,7 +17,7 @@ ___________________________
 
 3. Build the project
 	- Open \Visual Studio\ folder
-	- Click SetVS201X.bat file as needed to update project files for version
+	- Click SetVS201X.bat file as needed to update project files for earlier versions
 	- Open PeerProject.sln file and click "Build Solution"
 
 
@@ -51,7 +29,7 @@ PeerProject License Notes:
 _________________________
 
 
-0. This sourcecode package contains files under many licenses, read them.
+0. This sourcecode package contains files under several permissive licenses, read them.
 
 
 1. Code is GPL/AGPLv3, except where noted otherwise.
@@ -67,7 +45,7 @@ _________________________
 
 4. COMMERCIAL USE OF THIS SOURCEPACKAGE AS-IS IS NOT PERMITTED.
 	- Some Non-GPL "aggregate" resources do not provide for normal GPL-compliant commercial usage.
-	- Most Images and LibGFL.dll graphic library must first be removed! Etc.
+	- Most Images and LibGFL.dll graphic library must first be removed, for example.
 
 
 PeerProject is copyright PeerProject Development Team. (peerproject.org)

@@ -291,7 +291,19 @@ public:
 
 	inline bool EnoughServers(PROTOCOLID nProtocol) const
 	{
-		return ( ForProtocol( nProtocol )->CountHosts( TRUE ) > 1 );	// 0 ?
+		switch ( nProtocol )
+		{
+		case PROTOCOL_G2:
+			return Gnutella2.CountHosts( TRUE ) > 25;
+		case PROTOCOL_G1:
+			return Gnutella1.CountHosts( TRUE ) > 20;
+		case PROTOCOL_ED2K:
+			return eDonkey.CountHosts( TRUE ) > 0;
+		case PROTOCOL_DC:
+			return DC.CountHosts( TRUE ) > 0;
+		default:
+			return true;	// ( ForProtocol( nProtocol )->CountHosts( TRUE ) > 0 );
+		}
 	}
 
 	inline CHostCacheList* ForProtocol(PROTOCOLID nProtocol)

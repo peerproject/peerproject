@@ -1,7 +1,7 @@
 //
 // Schema.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -276,7 +276,7 @@ BOOL CSchema::LoadSchema(LPCTSTR pszFile)
 	return bResult;
 }
 
-BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
+BOOL CSchema::LoadPrimary(const CXMLElement* pRoot, const CXMLElement* pType)
 {
 	if ( ! pRoot || ! pType ) return FALSE;
 
@@ -312,7 +312,7 @@ BOOL CSchema::LoadPrimary(CXMLElement* pRoot, CXMLElement* pType)
 	return TRUE;
 }
 
-CXMLElement* CSchema::GetType(CXMLElement* pRoot, LPCTSTR pszName) const
+CXMLElement* CSchema::GetType(const CXMLElement* pRoot, LPCTSTR pszName) const
 {
 	if ( ! pszName || ! *pszName ) return NULL;
 
@@ -350,7 +350,7 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 
 	for ( POSITION pos = pRoot->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pElement = pRoot->GetNextElement( pos );
+		const CXMLElement* pElement = pRoot->GetNextElement( pos );
 
 		if ( pElement->IsNamed( L"object" ) )
 		{
@@ -423,11 +423,11 @@ BOOL CSchema::LoadDescriptor(LPCTSTR pszFile)
 	return TRUE;
 }
 
-void CSchema::LoadDescriptorTitles(CXMLElement* pElement)
+void CSchema::LoadDescriptorTitles(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pTitle = pElement->GetNextElement( pos );
+		const CXMLElement* pTitle = pElement->GetNextElement( pos );
 
 		if ( pTitle->IsNamed( L"title" ) )
 		{
@@ -444,11 +444,11 @@ void CSchema::LoadDescriptorTitles(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorIcons(CXMLElement* pElement)
+void CSchema::LoadDescriptorIcons(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pIcon = pElement->GetNextElement( pos );
+		const CXMLElement* pIcon = pElement->GetNextElement( pos );
 
 		if ( pIcon->IsNamed( L"icon" ) )
 		{
@@ -459,13 +459,13 @@ void CSchema::LoadDescriptorIcons(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorMembers(CXMLElement* pElement)
+void CSchema::LoadDescriptorMembers(const CXMLElement* pElement)
 {
 	BOOL bPrompt = FALSE;
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pDisplay = pElement->GetNextElement( pos );
+		const CXMLElement* pDisplay = pElement->GetNextElement( pos );
 
 		if ( pDisplay->IsNamed( L"member" ) )
 		{
@@ -487,11 +487,11 @@ void CSchema::LoadDescriptorMembers(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorExtends(CXMLElement* pElement)
+void CSchema::LoadDescriptorExtends(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pExtend = pElement->GetNextElement( pos );
+		const CXMLElement* pExtend = pElement->GetNextElement( pos );
 
 		if ( pExtend->IsNamed( L"schema" ) )
 		{
@@ -502,11 +502,11 @@ void CSchema::LoadDescriptorExtends(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorContains(CXMLElement* pElement)
+void CSchema::LoadDescriptorContains(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pExtend = pElement->GetNextElement( pos );
+		const CXMLElement* pExtend = pElement->GetNextElement( pos );
 
 		if ( pExtend->IsNamed( L"object" ) )
 		{
@@ -520,11 +520,11 @@ void CSchema::LoadDescriptorContains(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
+void CSchema::LoadDescriptorTypeFilter(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pType = pElement->GetNextElement( pos );
+		const CXMLElement* pType = pElement->GetNextElement( pos );
 
 		if ( pType->GetName().CompareNoCase( L"type" ) == 0 )
 		{
@@ -538,13 +538,13 @@ void CSchema::LoadDescriptorTypeFilter(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorBitprintsImport(CXMLElement* pElement)
+void CSchema::LoadDescriptorBitprintsImport(const CXMLElement* pElement)
 {
 	m_sBitprintsTest = pElement->GetAttributeValue( L"testExists", NULL );
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pBitprints = pElement->GetNextElement( pos );
+		const CXMLElement* pBitprints = pElement->GetNextElement( pos );
 
 		if ( pBitprints->GetName().CompareNoCase( L"mapping" ) == 0 )
 		{
@@ -555,11 +555,11 @@ void CSchema::LoadDescriptorBitprintsImport(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
+void CSchema::LoadDescriptorHeaderContent(const CXMLElement* pElement)
 {
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pXML = pElement->GetNextElement( pos );
+		const CXMLElement* pXML = pElement->GetNextElement( pos );
 
 		BOOL bLanguage = pXML->GetAttributeValue( L"language" ).
 			CompareNoCase( Settings.General.Language ) == 0;
@@ -577,13 +577,13 @@ void CSchema::LoadDescriptorHeaderContent(CXMLElement* pElement)
 	}
 }
 
-void CSchema::LoadDescriptorViewContent(CXMLElement* pElement)
+void CSchema::LoadDescriptorViewContent(const CXMLElement* pElement)
 {
 	m_sLibraryView = pElement->GetAttributeValue( L"preferredView" );
 
 	for ( POSITION pos = pElement->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pXML = pElement->GetNextElement( pos );
+		const CXMLElement* pXML = pElement->GetNextElement( pos );
 
 		BOOL bLanguage = pXML->GetAttributeValue( L"language" ).
 			CompareNoCase( Settings.General.Language ) == 0;
@@ -654,8 +654,7 @@ CString CSchema::GetContainedURI(int nType) const
 		if ( pChild->m_nType == nType ) return pChild->m_sURI;
 	}
 
-	CString strURI;
-	return strURI;
+	return CString();
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -793,7 +792,7 @@ CString CSchema::GetVisibleWords(CXMLElement* pXML) const
 
 			if ( ! strMember.IsEmpty() )
 			{
-				if ( ! str.IsEmpty() ) str += ' ';
+				if ( ! str.IsEmpty() ) str += L' ';
 				str += strMember;
 			}
 		}
@@ -826,7 +825,7 @@ void CSchema::ResolveTokens(CString& str, CXMLElement* pXML) const
 //////////////////////////////////////////////////////////////////////
 // CSchemaBitprints Bitprints Map
 
-BOOL CSchemaBitprints::Load(CXMLElement* pXML)
+BOOL CSchemaBitprints::Load(const CXMLElement* pXML)
 {
 	m_sFrom	= pXML->GetAttributeValue( L"from", NULL );
 	m_sTo	= pXML->GetAttributeValue( L"to", NULL );

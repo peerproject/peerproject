@@ -1,7 +1,7 @@
 //
 // SkinWindow.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -58,6 +58,7 @@ public:
 	UINT		OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable = FALSE);
 	BOOL		OnNcActivate(CWnd* pWnd, BOOL bActive);
 	void		OnNcPaint(CWnd* pWnd);
+	void		OnNcMouseLeave(CWnd* pWnd);
 	void		OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint point);
 	BOOL		OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point);
 	BOOL		OnNcLButtonUp(CWnd* pWnd, UINT nHitTest, CPoint point);

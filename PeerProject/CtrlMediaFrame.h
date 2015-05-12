@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -112,6 +112,8 @@ private:
 	BOOL	IsDisplayMeta(CMetaItem* pItem);
 
 protected:
+	static CMediaFrame*	m_wndMediaFrame;
+
 	IMediaPlayer*	m_pPlayer;		// CComQIPtr< IMediaPlayer > (Shareaza r8522 for .exe)
 	MediaState		m_nState;
 	LONGLONG		m_nLength;

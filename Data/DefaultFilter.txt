@@ -13,6 +13,8 @@ urn:sha1:RBBBJQZCETSCM3ZV6RBS4QJFMHD3BURO
 0.0.0.0-224.255.255.255		Sample range ignored (Whitespace comment)
 
 # Spam:
+# 2015
+66.212.143.109	BMI
 # 2014
 2.9.7.151
 2.90.31.142

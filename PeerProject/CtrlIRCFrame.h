@@ -29,7 +29,7 @@
 // IRC Window Dimensions
 // Settings.Skin.HeaderbarHeight		64
 #define TABBAR_HEIGHT					22
-#define SEPERATOR_HEIGHT				3
+#define SEPARATOR_HEIGHT				3
 #define SMALLHEADER_HEIGHT				20
 #define EDITBOX_HEIGHT					22
 // Settings.Skin.ToolbarHeight			28

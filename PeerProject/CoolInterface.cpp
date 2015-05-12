@@ -1,7 +1,7 @@
 //
 // CoolInterface.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -635,6 +635,7 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 	if ( m_fntBoldItalic.m_hObject )	m_fntBoldItalic.DeleteObject();
 	if ( m_fntCaption.m_hObject )		m_fntCaption.DeleteObject();
 	if ( m_fntNavBar.m_hObject )		m_fntNavBar.DeleteObject();
+	if ( m_fntNavBarActive.m_hObject )	m_fntNavBarActive.DeleteObject();
 	if ( m_fntRichDefault.m_hObject )	m_fntRichDefault.DeleteObject();
 	if ( m_fntRichHeading.m_hObject )	m_fntRichHeading.DeleteObject();
 
@@ -663,6 +664,10 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
 
 	m_fntNavBar.CreateFont( -nSize - 2, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
+		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
+		DEFAULT_PITCH|FF_DONTCARE, pszFace );
+
+	m_fntNavBarActive.CreateFont( -nSize - 2, 0, 0, 0, FW_BOLD, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, theApp.m_nFontQuality,
 		DEFAULT_PITCH|FF_DONTCARE, pszFace );
 

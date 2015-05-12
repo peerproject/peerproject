@@ -1,7 +1,7 @@
 //
 // Handshakes.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -374,8 +374,9 @@ void CHandshakes::RunStableUpdate()
 		return;
 
 	// If there's no record yet of when we first connected, set the current time.
-	if ( m_tStableTime == 0 )
-		m_tStableTime = (DWORD)time( NULL );	// The function time( NULL ) resolves to the number of seconds since 1970
+	// (time( NULL ) resolves to number of seconds since 1970)
+	const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+	if ( ! m_tStableTime || tNow < m_tStableTime ) m_tStableTime = tNow;
 
 	// Update the discovery services (do)
 	DiscoveryServices.Update();

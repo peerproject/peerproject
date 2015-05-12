@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Polish Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.1.2.7) -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -18,7 +18,7 @@
 	author="Brov, michalg17, Xzbeat"
 	updatedBy="Xzbeat"
 	description="PeerProject Default Polish Skin File"
-	link="http://www.myservice.pl/"
+	link="myservice.pl"
 	email="Xzbeat(at)gmail.com"
 	version="1.0.0.0"
 	type="Language"
@@ -52,13 +52,13 @@
 	</toolbar>
 	<toolbar name="CMainWnd.Windowed">
 		<button id="ID_NETWORK_CONNECT" text="Połącz"/>
-		<button id="ID_NETWORK_DISCONNECT" text="Odłącz"/>
+		<button id="ID_NETWORK_DISCONNECT"/>
 		<separator/>
 		<button id="ID_TAB_HOME"/>
 		<button id="ID_VIEW_SYSTEM"/>
-		<button id="ID_VIEW_NEIGHBOURS" text="Sieć"/>
-		<button id="ID_VIEW_DOWNLOADS" text="Pobierania"/>
-		<button id="ID_VIEW_UPLOADS" text="Wysyłania"/>
+		<button id="ID_VIEW_NEIGHBOURS"/>
+		<button id="ID_VIEW_DOWNLOADS"/>
+		<button id="ID_VIEW_UPLOADS"/>
 		<button id="ID_VIEW_LIBRARY"/>
 		<button id="ID_VIEW_MEDIA"/>
 		<button id="ID_TAB_IRC"/>
@@ -345,8 +345,8 @@
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
 		<rightAlign/>
-		<button id="ID_IRC_CONNECT" text="Połącz" tip="Connect to IRC"/>
-		<button id="ID_IRC_DISCONNECT" text="Rozłącz" tip="Disconnect from IRC"/>
+		<button id="ID_IRC_CONNECT" text="Połącz" tip="Połącz z IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Rozłącz" tip="Rozłącz z IRC"/>
 		<separator/>
 		<button id="ID_IRC_SETTINGS" text="Ustawienia" tip="Configure IRC Settings"/>
 	</toolbar>
@@ -375,8 +375,36 @@
 		<separator/>
 		<button id="ID_NEIGHBOURS_SETTINGS" text="Ustawienia"/>
 	</toolbar>
-	<!-- SECURITY WINDOW Missing -->
-	<!-- SCHEDULER WINDOW Missing -->
+	<!-- SECURITY WINDOW -->
+	<toolbar name="CSecurityWnd">
+		<button id="ID_SECURITY_ADD" text="Dodaj Regułę"/>
+		<separator/>
+		<button id="ID_SECURITY_EDIT" text="Edytuj Regułę"/>
+		<button id="ID_SECURITY_REMOVE" text="Usuń Regułę"/>
+		<separator/>
+		<button id="ID_SECURITY_MOVE_UP" text="Przenieś w gór"/>
+		<button id="ID_SECURITY_MOVE_DOWN" text="Przenieś w dół"/>
+		<rightAlign/>
+		<button id="ID_SECURITY_RESET" text="Zresetuj Hits"/>
+		<separator/>
+		<button id="ID_SECURITY_IMPORT" text="Importuj Listę"/>
+		<button id="ID_SECURITY_EXPORT" text="Eksportuj Listę"/>
+	</toolbar>
+	<!-- SCHEDULER WINDOW -->
+	<toolbar name="CSchedulerWnd">
+		<button id="ID_SCHEDULER_ADD" text="Dodaj Zadanie"/>
+		<separator/>
+		<button id="ID_SCHEDULER_EDIT" text="Edytuj Zadanie"/>
+		<button id="ID_SCHEDULER_REMOVE" text="Usuń Zadanie"/>
+		<separator/>
+		<button id="ID_SCHEDULER_ACTIVATE" text="Zaplanuj"/>
+		<button id="ID_SCHEDULER_DEACTIVATE" text="Odwołaj"/>
+		<rightAlign/>
+		<button id="ID_SCHEDULER_REMOVE_ALL" text="Usuń Wszystkie"/>
+		<separator/>
+		<button id="ID_SCHEDULER_IMPORT" text="Importuj Listę"/>
+		<button id="ID_SCHEDULER_EXPORT" text="Eksportuj Listę"/>
+	</toolbar>
 	<!-- HIT MONITOR WINDOW -->
 	<toolbar name="CHitMonitorWnd">
 		<button id="ID_SEARCH_DOWNLOAD" text="Pobierz"/>
@@ -401,6 +429,17 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
+	</toolbar>
+	<!-- IRC WINDOW -->
+	<toolbar name="CIRCFrame">
+		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
+		<separator/>
+		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
+		<rightAlign/>
+		<button id="ID_IRC_CONNECT" text="Połącz" tip="Połącz z IRC"/>
+		<button id="ID_IRC_DISCONNECT" text="Rozłącz" tip="Rozłącz z IRC"/>
+		<separator/>
+		<button id="ID_IRC_SETTINGS" text="Ustawienia" tip="Konfiguruje ustawienia IRC"/>
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatWnd">
@@ -434,7 +473,7 @@
 		<item id="ID_MOVETAB_LEFT" text="Przesuń w lewo"/>
 		<item id="ID_MOVETAB_RIGHT" text="Przenieś w prawo"/>
 		<separator/>
-		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
+		<item id="ID_CHILD_MAXIMISE" text="_Pełny ekran"/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
 		<item id="ID_CHILD_MINIMISE" text="_Minimise"/>
 		<separator/>
@@ -501,6 +540,7 @@
 				<item id="ID_VIEW_LIBRARY" text="Zasoby" shortcut="F5"/>
 				<item id="ID_VIEW_MEDIA" text="Media" shortcut="F6"/>
 				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Harmonogram" shortcut="Ctrl+F7"/>
 				<item id="ID_VIEW_SECURITY" text="Bezpieczeństwo" shortcut="F7"/>
 				<item id="ID_VIEW_HOSTS" text="Cache hostów" shortcut="F8"/>
 				<item id="ID_VIEW_DISCOVERY" text="Discovery" shortcut="F9"/>
@@ -538,11 +578,123 @@
 					<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
 				</menu>
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="O programie..."/>
 			</menu>
 			<item id="ID_NETWORK_EXIT" text="_Zakończ"/>
+		</menu>
+	</menu>
+	<menu name="CMainWnd.Tabbed" type="bar">
+		<menu text="_Sieć">
+			<item id="ID_NETWORK_CONNECT" text="_Połącz" shortcut="Ctrl+G"/>
+			<item id="ID_NETWORK_DISCONNECT" text="_Rozłącz"/>
+			<separator/>
+			<menu text="Choose _Networks">
+				<item id="ID_NETWORK_G2" text="Połącz z Gnutella_2"/>
+				<item id="ID_NETWORK_G1" text="Połącz z _Gnutella"/>
+				<item id="ID_NETWORK_ED2K" text="Połącz z _eDonkey"/>
+				<item id="ID_NETWORK_DC" text="Połącz z _DC++"/>
+				<item id="ID_NETWORK_BT" text="Połącz z _BitTorrent"/>
+			</menu>
+			<separator/>
+			<item id="ID_NETWORK_CONNECT_TO" text="Connect _To..." shortcut="Ctrl+T"/>
+			<item id="ID_NETWORK_BROWSE_TO" text="_Browse User..."/>
+			<item id="ID_NETWORK_CHAT_TO" text="Chat with _User..."/>
+			<separator/>
+			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
+			<item id="ID_NETWORK_EXIT" text="_Zakończ"/>
+		</menu>
+		<menu text="_Widok">
+			<item id="ID_TAB_HOME" text="_Home"/>
+			<item id="ID_TAB_SEARCH" text="_Szukaj"/>
+			<item id="ID_TAB_TRANSFERS" text="_Pobierania"/>
+			<item id="ID_TAB_NETWORK" text="Sieć"/>
+			<item id="ID_TAB_LIBRARY" text="_Zasoby"/>
+			<item id="ID_TAB_MEDIA" text="_Media Player"/>
+			<item id="ID_TAB_IRC" text="IRC _Czat"/>
+			<separator/>
+			<item id="ID_VIEW_SECURITY" text="Bezpieczeństwo"/>
+			<item id="ID_VIEW_SCHEDULER" text="Harmonogram"/>
+			<item id="ID_VIEW_HOSTS" text="H_ost Cache"/>
+			<separator/>
+			<menu text="A_dvanced">
+				<item id="ID_TAB_HOME" text="_Home Tab" shortcut="Alt-Home"/>
+				<item id="ID_TAB_IRC" text="IRC _Chatrooms" shortcut="F12"/>
+				<item id="ID_VIEW_DOWNLOADS" text="_Downloads" shortcut="F3"/>
+				<item id="ID_VIEW_UPLOADS" text="_Wysyłania" shortcut="F4"/>
+				<item id="ID_VIEW_LIBRARY" text="_Library" shortcut="F5"/>
+				<item id="ID_VIEW_MEDIA" text="_Mediaplayer" shortcut="F6"/>
+				<separator/>
+				<item id="ID_VIEW_SCHEDULER" text="Harmonogram" shortcut="Ctrl+F7"/>
+				<item id="ID_VIEW_SECURITY" text="Bezpieczeństwo" shortcut="F7"/>
+				<item id="ID_VIEW_HOSTS" text="H_ost Cache" shortcut="F8"/>
+				<item id="ID_VIEW_DISCOVERY" text="Disco_very" shortcut="F9"/>
+				<item id="ID_VIEW_TRAFFIC" text="_Graph" shortcut="F10"/>
+				<item id="ID_VIEW_SYSTEM" text="S_ystem" shortcut="F11"/>
+				<item id="ID_VIEW_NEIGHBOURS" text="N_eighbors" shortcut="Ctrl+F11"/>
+				<separator/>
+				<item id="ID_VIEW_PACKETS" text="_Packet Dump" shortcut="Ctrl+F1"/>
+				<item id="ID_VIEW_SEARCH_MONITOR" text="Se_arch Monitor" shortcut="Ctrl+F2"/>
+				<item id="ID_VIEW_RESULTS_MONITOR" text="H_it Monitor" shortcut="Ctrl+F3"/>
+				<item id="ID_TAB_SEARCH" text="New _Szukaj" shortcut="Ctrl-S"/>
+			</menu>
+			<separator/>
+			<item id="ID_VIEW_BASIC" text="Tryb _Basic"/>
+			<item id="ID_VIEW_TABBED" text="Tryb zaawansowany"/>
+			<item id="ID_VIEW_WINDOWED" text="Tryb _Windowed"/>
+		</menu>
+		<menu text="_Narzędzia">
+			<item id="ID_LIBRARY_FOLDERS" text="Udostępnij pliki..."/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open completed download folder"/>
+			<separator/>
+			<item id="ID_TOOLS_DOWNLOAD" text="_Pobierz plik/Torrent..."/>
+			<item id="ID_TOOLS_SEEDTORRENT" text="_Seed New Torrent..."/>
+			<item id="ID_TOOLS_CREATETORRENT" text="_Create New .Torrent..."/>
+			<item id="ID_IMPORT_DOWNLOADS" text="_Import eMule Partials..."/>
+			<separator/>
+			<item id="ID_TOOLS_LANGUAGE" text="Wybierz język..."/>
+			<item id="ID_TOOLS_SKIN" text="Wybierz skórkę..."/>
+			<separator/>
+			<item id="ID_TOOLS_PROFILE" text="Edytuj mój profil..."/>
+			<item id="ID_TOOLS_WIZARD" text="Kreator SzybkiegoStartu..."/>
+			<separator/>
+			<item id="ID_TOOLS_SETTINGS" text="_Ustawienia..."/>
+		</menu>
+		<menu text="_Window">
+			<item id="ID_WINDOW_NAVBAR" text="Show _Navigation Bar"/>
+			<item id="ID_WINDOW_TOOLBAR" text="Show _Tool Bar"/>
+			<separator/>
+			<item id="ID_WINDOW_TABBAR" text="Show Tab _Bar"/>
+			<item id="ID_WINDOW_MONITOR" text="Show _Monitor"/>
+			<item id="ID_WINDOW_REMOTE" text="Pokaż _Remote"/>
+		</menu>
+		<menu text="_Pomoc">
+			<item id="ID_HELP_FAQ" text="PeerProject _FAQ"/>
+			<item id="ID_HELP_TEST" text="_Connection Test"/>
+			<separator/>
+			<menu text="_Guides">
+				<item id="ID_HELP_GUIDE" text="PeerProject _Users Guide"/>
+				<item id="ID_HELP_ROUTER" text="_Router Help"/>
+				<item id="ID_HELP_SECURITY" text="_Security Help"/>
+				<item id="ID_HELP_CODEC" text="_Codec Help"/>
+			</menu>
+			<separator/>
+			<menu text="_Websites">
+				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Site"/>
+				<separator/>
+				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
+				<item id="ID_HELP_FORUMS_LOCAL" text="_Polish Language Forum"/> <!--Localized-->
+				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
+				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
+				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<item id="ID_HELP_TEST" text="_Connection Test"/>
+			</menu>
+			<separator/> <!--
+			<item id="ID_HELP_VERSION_CHECK" text="Sprawdź czy jest nowa wersja"/>
+			<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
+			<separator/> -->
+			<item id="ID_HELP_ABOUT" text="_O PeerProject..."/>
 		</menu>
 	</menu>
 	<menu name="CMainWnd.Basic" type="bar">
@@ -551,7 +703,7 @@
 			<separator/>
 			<item id="ID_NETWORK_G2" text="Połącz z Gnutella2"/>
 			<item id="ID_NETWORK_G1" text="Połącz z Gnutella"/>
-			<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey2000"/>
+			<item id="ID_NETWORK_ED2K" text="Połącz z eDonkey"/>
 			<separator/>
 			<item id="ID_NETWORK_AUTO_CLOSE" text="Zakończ po pobieraniu"/>
 			<item id="ID_NETWORK_EXIT" text="Zakończ"/>
@@ -599,7 +751,7 @@
 			</menu>
 			<separator/>
 			<menu text="Strony www">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Forum PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
@@ -683,7 +835,7 @@
 			</menu>
 			<separator/>
 			<menu text="Strony www">
-				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
+				<item id="ID_HELP_HOMEPAGE" text="PeerProject.org"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Forum PeerProject"/>
 				<!-- <item id="ID_HELP_UPDATE" text="Najświeższe wiadomości"/>
@@ -715,8 +867,10 @@
 		<item id="ID_TAB_SEARCH" text="Szukaj"/>
 		<item id="ID_TAB_TRANSFERS" text="Transfery"/>
 		<item id="ID_TAB_NETWORK" text="Sieć"/>
+		<item id="ID_TAB_IRC" text="IRC _Czat"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Bezpieczeństwo"/>
+		<item id="ID_VIEW_SCHEDULER" text="Harmonogram"/>
 		<item id="ID_VIEW_HOSTS" text="Cache hostów"/>
 		<item id="ID_VIEW_DISCOVERY" text="Discovery"/>
 		<item id="ID_VIEW_TRAFFIC" text="Wykres"/>
@@ -736,6 +890,7 @@
 		<item id="ID_VIEW_MEDIA" text="Media"/>
 		<separator/>
 		<item id="ID_VIEW_SECURITY" text="Bezpieczeństwo"/>
+		<item id="ID_VIEW_SCHEDULER" text="Harmonogram"/>
 		<item id="ID_VIEW_HOSTS" text="Cache hostów"/>
 		<item id="ID_VIEW_DISCOVERY" text="Discovery"/>
 		<item id="ID_VIEW_TRAFFIC" text="Wykres"/>
@@ -1344,6 +1499,8 @@
 			<item id="ID_NEIGHBOURS_VIEW_ALL" text="Pokaż wszystkie pakiety"/>
 			<item id="ID_NEIGHBOURS_VIEW_INCOMING" text="Pokaż przychodzące pakiety"/>
 			<item id="ID_NEIGHBOURS_VIEW_OUTGOING" text="Pokaż wychodzące pakiety"/>
+			<separator/>
+			<item id="ID_VIEW_TRAFFIC" text="Advanced _Graph"/>
 		</menu>
 	</menu>
 	<!-- SEARCH MONITOR WINDOW -->
@@ -1352,6 +1509,8 @@
 		<separator/>
 		<item id="ID_SEARCHMONITOR_PAUSE" text="Wstrzymaj wyświetlanie"/>
 		<item id="ID_SEARCHMONITOR_CLEAR" text="Wyczyść bufor"/>
+		<separator/>
+		<item id="ID_SECURITY_BAN" text="_Ban End User"/>
 	</menu>
 	<!-- GRAPH/TRAFFIC WINDOW -->
 	<menu name="CTrafficWnd">
@@ -1385,6 +1544,21 @@
 		<separator/>
 		<item id="ID_SECURITY_EDIT" text="Właściwości"/>
 	</menu>
+	<!-- SCHEDULER WINDOW -->
+	<menu name="CSchedulerWnd">
+		<item id="ID_SCHEDULER_ADD" text="_Dodaj Scheduled Task"/>
+		<separator/>
+		<item id="ID_SCHEDULER_EDIT" text="_Edit"/>
+		<item id="ID_SCHEDULER_REMOVE" text="_Usuń"/>
+		<separator/>
+		<item id="ID_SCHEDULER_ACTIVATE" text="Akceptuj"/>
+		<item id="ID_SCHEDULER_DEACTIVATE" text="Odmawiaj"/>
+		<separator/>
+		<item id="ID_SCHEDULER_IMPORT" text="_Importuj..."/>
+		<item id="ID_SCHEDULER_EXPORT" text="E_ksportuj..."/>
+		<separator/>
+		<item id="ID_SCHEDULER_REMOVE_ALL" text="Usuń All"/>
+	</menu>
 	<!-- DISCOVERY SERVICES WINDOW -->
 	<menu name="CDiscoveryWnd">
 		<item id="ID_DISCOVERY_ADD" text="Dodaj serwis..."/>
@@ -1396,8 +1570,8 @@
 		<item id="ID_DISCOVERY_ADVERTISE" text="Ogłaszaj"/>
 		<item id="ID_DISCOVERY_BROWSE" text="Przeglądaj statystyki"/>
 		<separator/>
-		<item id="ID_DISCOVERY_GNUTELLA" text="Pokaż Bootstrap'y"/>
 		<item id="ID_DISCOVERY_WEBCACHE" text="Pokaż GWebCache'e"/>
+		<item id="ID_DISCOVERY_GNUTELLA" text="Pokaż Bootstrap'y"/>
 		<item id="ID_DISCOVERY_SERVERLIST" text="Pokaż Server.met'y"/>
 		<item id="ID_DISCOVERY_BLOCKED" text="Pokaż Zablokowany"/>
 	</menu>
@@ -1599,10 +1773,10 @@
 				<newline gap="8"/>
 			</group>
 			<group id="3">
-				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknij tutaj, aby przyspieszyć hash'owanie</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknij tutaj, aby przyspieszyć hashowanie</link>
 			</group>
 			<group id="4">
-				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknij tutaj, aby spowolnić hash'owanie</link>
+				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknij tutaj, aby spowolnić hashowanie</link>
 			</group>
 		</para>
 	</document>
@@ -1667,7 +1841,7 @@
 		<link target="page:CMediaSettingsPage" format="b">Odtwarzacz:</link>
 		<text>&#160;Kiedy i gdzie używać wbudowanego Odtwarzacza.</text>
 		<newline gap="10"/>
-		<link target="page:CIRCSettingsPage" format="b">Chat:</link>
+		<link target="page:CIRCSettingsPage" format="b">Czat:</link>
 		<text>&#160;IRC chatroom connection settings and display options.</text>
 		<newline gap="10"/>
 		<link target="page:CCommunitySettingsPage" format="b">Społeczność:</link>
@@ -1742,20 +1916,39 @@
 			<icon res="207"/><gap size="5"/>
 			<link id="ContactYahoo"/>
 		</group>
+		<group id="43">
+			<newline gap="1"/>
+			<icon res="204"/>
+			<gap size="5"/>
+			<link id="ContactAOL"/>
+		</group>
 		<group id="42">
 			<newline gap="1"/>
 			<icon res="205"/><gap size="5"/>
 			<link id="ContactICQ"/>
 		</group>
-		<group id="43">
-			<newline gap="1"/>
-			<icon res="204"/><gap size="5"/>
-			<link id="ContactAOL"/>
-		</group>
 		<group id="45">
 			<newline gap="1"/>
-			<icon res="204"/><gap size="5"/>
+			<icon res="208"/><gap size="5"/>
 			<link id="ContactJabber"/>
+		</group>
+		<group id="46">
+			<newline gap="1"/>
+			<icon res="209"/>
+			<gap size="5"/>
+			<link id="ContactTwitter"/>
+		</group>
+		<group id="47">
+			<newline gap="1"/>
+			<icon res="210"/>
+			<gap size="5"/>
+			<link id="ContactFacebook"/>
+		</group>
+		<group id="48">
+			<newline gap="1"/>
+			<icon res="212"/>
+			<gap size="5"/>
+			<link id="ContactPeerProjectOrg"/>
 		</group>
 		<group id="5">
 			<newline gap="8" indent="0"/>
@@ -2097,7 +2290,7 @@
 	<tip id="ID_DOWNLOADS_MOVE_UP" message="Przenieś zaznaczone pobieranie (pobierania) na górę listy priorytetów."/>
 	<tip id="ID_DOWNLOADS_PAUSE" message="Zatrzymaj zaznaczone pobieranie (pobierania)."/>
 	<tip id="ID_DOWNLOADS_RATE" message="Oceń zaznaczone pobieranie."/>
-	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Download preview image for the selected download."/>
+	<tip id="ID_DOWNLOADS_REMOTE_PREVIEW" message="Pobierz obraz podgladu zaznaczonego pobierania."/>
 	<tip id="ID_DOWNLOADS_RESUME" message="Wznów zaznaczone pobieranie (pobierania)."/>
 	<tip id="ID_DOWNLOADS_SETTINGS" message="Skonfiguruj ustawienia pobierania..."/>
 	<tip id="ID_DOWNLOADS_SHARE" message="Dziel się tym częściowo pobranym plikiem z innymi użytkownikami."/>
@@ -2115,6 +2308,8 @@
 	<tip id="ID_HELP_HOMEPAGE" message="Odwiedź stronę PeerProject.org."/>
 	<tip id="ID_HELP_SECURITY" message="Pomóż ochraniać swój system przed wrogimi programami."/>
 	<tip id="ID_HELP_UPDATE" message="Sprawdź dla nowości i aktualizacji."/>
+	<tip id="ID_HELP_VERSION_CHECK" message="Sprawdź czy jest nowa wersja."/>
+	<tip id="ID_HELP_TEST" message="Uruchom test połączenia internetowego."/>
 	<tip id="ID_HELP_WEB_1" message="Odwiedź tą stronę"/>
 	<tip id="ID_HELP_WEB_2" message="Odwiedź tą stronę"/>
 	<tip id="ID_HELP_WEB_3" message="Odwiedź tą stronę"/>
@@ -2207,14 +2402,16 @@
 	<tip id="ID_MEDIA_SELECT" message="Wybierz i odtwórz plik."/>
 	<tip id="ID_MEDIA_SETTINGS" message="Pokaż stronę ustawienia multimediów..."/>
 	<tip id="ID_MEDIA_SIZE_DISTORT" message="Rozciągnij obraz aby wypełnić okno, potencjalnie rozmazując obraz."/>
-	<tip id="ID_MEDIA_SIZE_FILL" message="Wbierz najlepszy rozmiar dla obrazu bazujący na jego aspect ratio."/>
-	<tip id="ID_MEDIA_SIZE_ONE" message="Pokaż obraz w jego orginalnej wielkości."/>
+	<tip id="ID_MEDIA_SIZE_FILL" message="Wybierz najlepszy rozmiar dla obrazu bazujący na jego aspect ratio."/>
+	<tip id="ID_MEDIA_SIZE_ONE" message="Pokaż obraz w jego oryginalnej wielkości."/>
 	<tip id="ID_MEDIA_SIZE_HALF" message="Pokaż obraz potrójnie powiększony w stosunku do orginału."/>
 	<tip id="ID_MEDIA_SIZE_TWO" message="Pokaż obraz podwójnie powiększony w stosunku do orginału."/>
 	<tip id="ID_MEDIA_STATUS" message="Pokaż lub ukryj pasek statusu multimediów."/>
 	<tip id="ID_MEDIA_STOP" message="Zatrzymaj odtwarzanie pliku." tip="Zatrzymaj"/>
 	<tip id="ID_MEDIA_VIS" message="Wybierz wtyczkę wizualizacji audio..."/>
 	<tip id="ID_MEDIA_ZOOM" message="Ustaw zoom i aspect ratio obrazu."/>
+	<tip id="ID_MUSICBRAINZ_ALBUMS" message="Pokaż wszystkie albumy tego wykonawcy."/>
+	<tip id="ID_MUSICBRAINZ_MATCHES" message="Szukaj innych kopii zaznaczonego pliku."/>
 	<tip id="ID_MONITOR_CLOSE" message="Zamknij okno monitora."/>
 	<tip id="ID_NEIGHBOURS_CHAT" message="Otwórz sesje czatu z wybranym użytkownikiem."/>
 	<tip id="ID_NEIGHBOURS_URI" message="Skopjuj adres URI aby dostać siędo określonego hosta."/>
@@ -2232,7 +2429,7 @@
 	<tip id="ID_NETWORK_ED2K" message="Podłącz sie do sieci eDonkey2000."/>
 	<tip id="ID_NETWORK_DC" message="Podłącz sie do sieci DC++."/>
 	<tip id="ID_NETWORK_BT" message="Podłącz sie do sieci BitTorrent."/>
-	<tip id="ID_NETWORK_G1" message="Podłącz się do orginalnej sieci Gnutella."/>
+	<tip id="ID_NETWORK_G1" message="Podłącz się do oryginalnej sieci Gnutella."/>
 	<tip id="ID_NETWORK_G2" message="Podłącz się do sieci Gnutella2 (Zalecane)."/>
 	<tip id="ID_NETWORK_SEARCH" message="Rozpocznij nowe przeszukiwanie sieci..."/>
 	<tip id="ID_SEARCH_CHAT" message="Otwórz sesje czatu z wybranym użytkownikiem."/>
@@ -2260,8 +2457,8 @@
 	<tip id="ID_SECURITY_EDIT" message="Edytuj zasade bezpieczeństwa..."/>
 	<tip id="ID_SECURITY_EXPORT" message="Eksportuj wybraną zasadę bezpieczeństwa do pliku..."/>
 	<tip id="ID_SECURITY_IMPORT" message="Importuj Zasady bezpieczeństwa z pliku..."/>
-	<tip id="ID_SECURITY_MOVE_DOWN" message="Move the selected security rules down the precedence list."/>
-	<tip id="ID_SECURITY_MOVE_UP" message="Move the selected security rules up the precedence list."/>
+	<tip id="ID_SECURITY_MOVE_DOWN" message="Przesuń zaznaczone reguły bezpieczeństwa w dół na liście pierwszeństwa."/>
+	<tip id="ID_SECURITY_MOVE_UP" message="Przesuń zaznaczone reguły bezpieczeństwa w górę na liście pierwszeństwa."/>
 	<tip id="ID_SECURITY_POLICY_ACCEPT" message="Ustaw domyślnie aby zezwalać na łączenie z wszystkimi hostami"/>
 	<tip id="ID_SECURITY_POLICY_DENY" message="Ustaw domyślnie aby zabraniać łączenia z wszystkimi hostami."/>
 	<tip id="ID_SECURITY_REMOVE" message="Usuń wybraną zasadę bezpieczeństwa."/>
@@ -2273,7 +2470,7 @@
 	<tip id="ID_SCHEDULER_EXPORT" message="Eksportuj wybraną zasadę bezpieczeństwa do pliku..."/>
 	<tip id="ID_SCHEDULER_IMPORT" message="Importuj Zasady bezpieczeństwa z pliku..."/>
 	<tip id="ID_SCHEDULER_REMOVE" message="Usuń zaznaczone pobieranie (pobierania) z listy."/>
-	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Delete all scheduled tasks."/>
+	<tip id="ID_SCHEDULER_REMOVE_ALL" message="Usuń wszystkie zaplanowane zadania."/>
 	<tip id="ID_SYSTEM_CLEAR" message="Wyczyść log statusu."/>
 	<tip id="ID_SYSTEM_TIMESTAMP" message="Zapisuj znacznik czasu dla każdej linijki."/>
 	<tip id="ID_SYSTEM_VERBOSE" message="Pokaż dokładny log aktywności systemu."/>
@@ -2304,7 +2501,7 @@
 	<tip id="ID_TRANSFERS_DISCONNECT" message="Wyłącz wybrane transfery ściągania."/>
 	<tip id="ID_TRANSFERS_FORGET" message="Wyłacz i zapomnij o wybranych żródłach."/>
 	<tip id="ID_TRAY_OPEN" message="Otwórz okno PeerProject."/>
-	<tip id="ID_UPLOADS_AUTO_CLEAR" message="Automatycznie wyczyść liste z transferów które zostały zakończone."/>
+	<tip id="ID_UPLOADS_AUTO_CLEAR" message="Automatycznie wyczyść listę z transferów które zostały zakończone."/>
 	<tip id="ID_UPLOADS_CHAT" message="Otwórz sesje chat z wybranym Użytkownikiem."/>
 	<tip id="ID_UPLOADS_CLEAR" message="Wyczyść wybrany upload z listy."/>
 	<tip id="ID_UPLOADS_CLEAR_COMPLETED" message="Wyczyść zakończone uploady."/>
@@ -2321,7 +2518,7 @@
 	<tip id="ID_UPLOADS_PRIORITY" message="Priorytet."/>
 	<tip id="ID_VIEW_BASIC" message="Użyj PeerProject w normalnym trybie."/>
 	<tip id="ID_VIEW_DISCOVERY" message="Pokaż lub ukryj okno usług DISCOVERY."/>
-	<tip id="ID_VIEW_DOWNLOADS" message="Pokaż lub uryj okno pobierania."/>
+	<tip id="ID_VIEW_DOWNLOADS" message="Pokaż lub ukryj okno pobierania."/>
 	<tip id="ID_VIEW_HOSTS" message="Pokaż lub ukryj okna Cache-a Hostów."/>
 	<tip id="ID_VIEW_LIBRARY" message="Pokaż lub ukryj okno biblioteki."/>
 	<tip id="ID_VIEW_MEDIA" message="Pokaż lub ukryj okno odtwarzacza."/>
@@ -2330,6 +2527,7 @@
 	<tip id="ID_VIEW_RESULTS_MONITOR" message="Pokaż lub ukryj okno Monitora trafień."/>
 	<tip id="ID_VIEW_SEARCH_MONITOR" message="Pokaż lub ukryj okno monitora szukania."/>
 	<tip id="ID_VIEW_SECURITY" message="Pokaż lub ukryj okno Zabezpieczenia."/>
+	<tip id="ID_VIEW_SCHEDULER" message="Pokaż lub ukryj okno HARMONOGRAMU ZADAŃ."/>
 	<tip id="ID_VIEW_SYSTEM" message="Pokaż lub ukryj okno System."/>
 	<tip id="ID_VIEW_TABBED" message="Używaj PeerProject w trybie zakładkowym."/>
 	<tip id="ID_VIEW_TRAFFIC" message="Pokaż lub ukryj okno wykresu."/>
@@ -2340,10 +2538,11 @@
 	<tip id="ID_WINDOW_NAVBAR" message="Pokaż lub ukryj pasek nawigacyjny."/>
 	<tip id="ID_WINDOW_REMOTE" message="Pokaż lub ukryj Zdalny dostęp PeerProject"/>
 	<tip id="ID_WINDOW_TABBAR" message="Pokaż lub ukryj pasek okien."/>
-	<tip id="ID_WINDOW_TILE_HORZ" message="Arrange open windows as horizontal, non-overlapping tiles."/>
-	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
+	<tip id="ID_WINDOW_TILE_HORZ" message="Rozmieść otwarte okna poziomo, nie zasłaniając tytułów."/>
+	<tip id="ID_WINDOW_TILE_VERT" message="Rozmieść otwarte okna pionowo, nie zasłaniając tytułów."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Pokaż lub ukryj pasek narzędzi."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Wybierz usługę web aby uzyskać więcej informacji o zaznaczonym pliku."/>
+	<tip id="ID_WEBSERVICES_MUSICBRAINZ" message="Szukaj inny utworów wykonawcy używając usługi MusicBrainz."/>
 	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Szukaj informacji o pliku używając usługi ShareMonkey."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Dopasuj rozmiar obrazka (image) aby był odpowiedni do okna."/>
@@ -2373,27 +2572,32 @@
 	<string id="WINDOW_UPLOADS" value="Wysyłania"/>
 	<string id="WINDOW_LIBRARY" value="Biblioteka(Zasoby)"/>
 	<string id="WINDOW_TRAFFIC" value="Wykres"/>
-	<string id="WINDOW_CHAT" value="Czat"/>
 	<string id="WINDOW_SECURITY" value="Bezpieczeństwo"/>
 	<string id="WINDOW_SCHEDULER" value="Harmonogram"/>
 	<string id="WINDOW_DISCOVERY" value="Serwisy Discovery"/>
 	<string id="WINDOW_BROWSEHOST" value="Przeglądaj"/>
 	<string id="WINDOW_MEDIA" value="Odtwarzacz"/>
-	<!--string id="WINDOW_HELP" value="Pomoc PeerProject"-->
 	<string id="WINDOW_IRC" value="Czat PeerProject"/>
+	<string id="WINDOW_CHAT" value="Czat"/>
+	<!--string id="WINDOW_HELP" value="Pomoc PeerProject"-->
 	<string id="20001" value="Tak"/>
 	<string id="20002" value="Nie"/>
 	<string id="20003" value="OK"/>
 	<string id="20004" value="Anuluj"/>
 	<string id="20005" value="&amp;Wstecz"/>
 	<string id="20006" value="&amp;Następny"/>
+	<string id="20007" value="Kontynuuj"/>
 	<string id="20008" value="Zamknij"/>
 	<string id="20009" value="z"/> <!-- 1 of 10 -->
 	<string id="20010" value="Wszystko"/>
 	<string id="20011" value="Auto"/>
-	<string id="20012" value="do potrzeb"/> <!-- oryg.: "Custom" ? -->
+	<string id="20012" value="do potrzeb"/> <!-- "Custom" -->
 	<string id="20013" value="Domyślnie"/>
-	<string id="20014" value="Finisz"/> <!-- oryg.: "Finish" ? -->
+	<string id="20014" value="Finisz"/>
+	<string id="20015" value="Ignoruj"/>
+	<string id="20016" value="Powtórz"/>
+	<string id="20017" value="Przerwij"/>
+	<string id="20018" value="Spróbuj Ponownie"/>
 	<string id="20019" value="Proszę czekać..."/>
 	<string id="20020" value="Plik"/>
 	<string id="20021" value="Pliki"/>
@@ -2450,7 +2654,7 @@
 	<string id="20126" value="BitTorrentowe sparowanie z %s zostało porzucone."/>
 	<string id="20127" value="Połączenie BitTorrent z %s zosatało porzucone."/>
 	<string id="20128" value="Powitanie BitTorrentowe z %s zostało porzucone."/>
-	<string id="20129" value="BitTorrent coupling z %s nie zaakceptowane, połączenie do tego klienta już istnieje."/>
+	<string id="20129" value="Parowanie BitTorrent z %s nie zaakceptowane, połączenie do tego klienta już istnieje."/>
 	<!-- Missing Torrent Strings -->
 	<string id="20140" value="Błąd (za)kodowania"/>
 	<string id="20141" value="Prywatny torrent"/>
@@ -2464,7 +2668,7 @@
 	<string id="20166" value="Połączony z %s, handshaking..."/>
 	<string id="20167" value="Inicjalizacja połączenia z %s..."/>
 	<string id="20168" value="Connecting to %s for chat..."/>
-	<string id="20169" value="Unable to connect to host %s."/>
+	<string id="20169" value="Unable to połącz z host %s."/>
 	<string id="20170" value="Połączenie zostało utracone."/>
 	<string id="20171" value="Połączenie do %s zostało utracone."/>
 	<string id="20172" value="Handshake failed, host may not support chatting."/>
@@ -2487,8 +2691,8 @@
 	<string id="20189" value="Received an unknown response: %s"/>
 	<string id="20190" value="Nie jesteś połączony."/>
 	<string id="20191" value="Unrecognised command &quot;%s&quot;."/>
-	<string id="20196" value="This template does not have any customizations."/>
-	<string id="20197" value="This template is invalid."/>
+	<string id="20196" value="Ten szablon nie zawiera jakichkolwiek dostosowań."/>
+	<string id="20197" value="Ten szablon jest nieprawidłowy."/>
 	<string id="20199" value="(zamykanie po zakończeniu transferów)"/>
 	<string id="20207" value="Czy jesteś pewien(a), że chcesz anulować/abort wszystkie pobierania w tej grupie?"/>
 	<string id="20222" value="Wpisałeś wartośc hasha %s, jednakże jest on nieprawidłowa. Proszę sprawdzić i spróbować ponownie."/>
@@ -2662,7 +2866,7 @@
 	<string id="20562" value="Dodano regułę bezpieczeństwa, która blokuje %s."/>
 	<string id="20563" value="Ten adres %s jest już zablokowany przez twoje reguły zabezbieczeń."/>
 	<string id="20564" value="Startuje jądro PeerProjecty..."/>
-	<string id="20565" value="Używasz narzędzia Scheduler w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
+	<string id="20565" value="Używasz narzędzia Harmonogram w trybie 'tylko G2' mode. Czy chciałbyś wyłączyć ten tryb, żeby wszystkie aktywne sieci pozostały połączone?"/>
 	<string id="20566" value="Po 10 próbach mapowanie UPnP portu nie powiodło się."/>
 	<string id="20598" value="Czy jesteś pewny, że chcesz usunąć zaznaczone reguły bezpieczeństwa?"/>
 	<!-- Missing Scheduler/Security Strings -->
@@ -2724,6 +2928,8 @@
 	<string id="20682" value="Zdalny dostęp jest wyłączony."/>
 	<string id="20684" value="http://%s:%i/remote - Musisz wybrać nazwę użytkownika i hasło."/>
 	<string id="20685" value="Unable to accept connections, URL unavailable."/>
+	<string id="20690" value="Ładowanie skórki: %s"/>
+	<string id="20691" value="Błąd ładowania skórki: %s. Element: %s"/>
 	<string id="20692" value="Czy jesteś pewien że chcesz usunąć skórę &quot;%s&quot; ? Ta operacja jest nieodwracalna."/>
 	<string id="20699" value="&amp;Schematy"/>	<!-- wzorce? wyszukiwania? Schema - schematy? -->
 	<string id="20700" value="%s do : %s z (Pob:%I64i/Wys:%I64i)"/>
@@ -3016,7 +3222,7 @@
 		<control caption="Używaj PeerProject aby otwierała te rodzaje linków:"/>
 		<control caption="Magnet (magnet:)"/>
 		<control caption="Gnutella (gnutella:)"/>
-		<control caption="eDonkey2000 (ed2k:)"/>
+		<control caption="eDonkey (ed2k:)"/>
 		<control caption="Piolet (mp2p:)"/>
 		<control caption="DC++ (dchub:)"/>
 		<control caption="BitTorrent (.torrent)"/>
@@ -3114,7 +3320,7 @@
 		<control caption="Pokaż Gnutella2 (G2)"/>
 		<control caption="Skonfiguruj Gnutella2"/>
 		<control caption="Sieć Gnutella:"/>
-		<control caption="Pomimo, że Oryginalną Gnutella nie ma tylu funkcjonalności co Gnutella2, ani tylu plików co eDonkey, to nadal pozostaje wartościowym źródłem plików/zasobów."/>
+		<control caption="Pomimo, że oryginalną Gnutella nie ma tylu funkcjonalności co Gnutella2, ani tylu plików co eDonkey, to nadal pozostaje wartościowym źródłem plików/zasobów."/>
 		<control caption="Pokaż Gnutellą (G1)"/>
 		<control caption="Skonfiguruj Gnutella1"/>
 		<control caption="Sieć eDonkey:"/>
@@ -3147,7 +3353,7 @@
 		<control caption="Zawsze włączaj się do Gnutella"/>
 		<control caption="Tryb:"/>
 		<control caption="Optymalny|Liść|Ultrapeer"/>
-		<control caption="Połączenia G_1:"/>
+		<control caption="Połączenia _Gnutella:"/>
 		<control caption="Liść z Ultrapeer'ami:"/>
 		<control/>
 		<control/>
@@ -3274,7 +3480,7 @@
 		<control/>
 		<control caption="Pliki oznaczone:"/>
 		<control caption="Popular|Release"/>
-		<control caption="Dopasuj nazwę pliku:"/><!-- ?? "Filename match:" -->
+		<control caption="Dopasuj nazwę pliku:"/>	<!-- ?? "Filename match:" -->
 		<control/>
 		<control caption="Protokoły:"/>
 		<control/>
@@ -3337,7 +3543,7 @@
 		<control caption="PeerProject uniwersalną aplikacją do wymiany plików, która może jednocześnie łączyć się z wieloma sieciami P2P. Tutaj możesz wybrać do których sieci PeerProject ma włączyć. Zauważ, że zawsze możesz później wybrać inne sieci."/>
 		<control caption="Połącz z Gnutella2 (Gorąco Zalecane)"/>
 		<control caption="Gnutella2 jest sztandarową siecią PeerProjecty, oferuje więcej możliwości i lepsze działanie niż jakakolwiek inna sieć P2P."/>
-		<control caption="Połącz z Oryginalną Gnutellą"/>
+		<control caption="Połącz z oryginalną Gnutellą"/>
 		<control caption="Oryginalna Gnutella ma mniej możliwości niż Gnutella2 i ma mniej plików niż eDonkey, jednak pozostaje cennym zasobem."/>
 		<control caption="Połącz z eDonkey"/>
 		<control caption="Sieć eDonkey jest popularną siecią opartą na serwerach. Nie ma takich możliwości jak Gnutella2, jednak eDonkey ma pokaźną kolekcję plików."/>
@@ -3363,7 +3569,7 @@
 		<control/>
 		<control caption="Dodaj..."/>
 		<control caption="Usuń"/>
-		<control caption="OSTRZEŻENIE: Rozpowszechnianie nielegalnych zawartości jest niedozwolone."/>
+		<control caption="Ostrzeżenie: Rozpowszechnianie nielegalnych zawartości jest niedozwolone."/>
 	</dialog>
 	<dialog name="CFolderScanDlg" cookie="StStStStStStBu" caption="Skanowanie Folderu...">
 		<control/>
@@ -3384,8 +3590,8 @@
 		<control caption="Pokaż uproszczone paseki postępu pobierania."/>
 		<control caption="Wybierz skórkę:"/>
 		<control caption="No Change"/>
-		<control caption="Windows Skin"/>
-		<control caption="Dark Skin"/>
+		<control caption="Windows Skórkę"/>
+		<control caption="Dark Skórkę"/>
 		<control caption=""/>
 	</dialog>
 	<dialog name="CWizardProfilePage" cookie="StStEdStCoCoStCoStCoStEd" caption="Witaj w PeerProjecte (7/8)">
@@ -3437,7 +3643,7 @@
 		<control caption="|Mężczyzna|Kobieta"/>
 		<control/>
 		<control caption="Info:"/>
-		<control caption="{n}G2 (PeerProject / Shareaza)"/>
+		<control caption="{n}G2 (PeerProject/Shareaza)"/>
 		<control caption="_Zastosuj:"/>
 		<control caption="Pozwól innym na przeglądanie mojego profilu"/>
 	</dialog>
@@ -3518,7 +3724,7 @@
 	</dialog>
 	<dialog name="CLanguageDlg" cookie="" caption="Wybierz Język">
 	</dialog>
-	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Połącz z|Przeglądaj Hosta|Chat with User">
+	<dialog name="CConnectToDlg" cookie="BuCoEdBuCoBuBuBu" caption="Połącz z|Przeglądaj Hosta|Czat with User">
 		<control caption="Inicjuj nowe połączenie z hostem lub serwerem:|Przeglądaj tego hosta:|Message this user:"/>
 		<control/>
 		<control/>
@@ -3763,7 +3969,7 @@
 		<control caption="Enable G2 Only"/>
 		<control caption="Set Event Time"/>
 		<control caption="Specified days"/>
-		<control caption="One day only"/>
+		<control caption="One-time only"/>
 		<control/>
 		<control/>
 		<control caption="Poniedziałek"/>
@@ -3851,7 +4057,7 @@
 		<control caption="Niestety wiele innych programów przychodzi z nieporządanym adwarem or spywarem, zatem jeśli widzisz coś podejrzanego you may wish to sprawdzić swój komputer oprogramowaniem likwidującym reklamy i szpiegów."/>
 		<control caption="Nie wolno zmuszać Cię do płacenia jakichkolwiek pieniędzy za otrzymanie PeerProjecty. Kazdy zawsze może darmowowo pobrać PeerProject ze strony http://PeerProject.org/. Jeśli zapłaciłeś komuś pieniądze za PeerProject, powinieneś żądać natychmiastowego zwrotu tych nienależnych temu komuś pieniędzy, aż do skutku."/>
 		<control caption="PeerProject szanuje swoich użytkowników."/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="Zamknij"/>
 	</dialog>
 	<dialog name="CPromoteDlg" cookie="StStStStStStBu" caption="Spread the Word">
@@ -3860,7 +4066,7 @@
 		<control caption="Niestety, wielu wymieniających pliki nie wie co traci."/>
 		<control caption="Jeśli znasz kogoś kto chciałby PeerProject, whether they're a new user or someone still putting up with an inferior product, dlaczego by nie powiadomić ich, że jest lepsza alternatywa?"/>
 		<control caption="Są szanse, że będą Ci wdzięczni za poratowanie."/>
-		<control caption="http://PeerProject.org/"/>
+		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
 	<dialog name="CExistingFileDlg" cookie="StStStStBuBuBuBuBuStSt" caption="Plik istnieje">
@@ -3874,7 +4080,7 @@
 		<control caption="OK"/>
 		<control caption="Anuluj"/>
 		<control caption="Już sciągnąłeś ten plik ale go usunąłeś. co chciałbyś zrobić?"/>
-		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Ostrzeżenie: Wykryto zduplikowane pliki. Jakiś złośliwy software mógł zainfekować Twoją Bibliotekę. Upewnij się, że to Ty pobrałeś ten plik lub umieściłeś go ręcznie. W kazdym innym wypadku, zamknij PeerProject i przeskanuj swój komputer programem antywirusowym."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="To jest pierwszy raz kiedy kliknąłeś przycisk zamykania PeerProject. Wybierz co PeerProject ma zrobic gdy będziesz klikać na ten przycisk:"/>
@@ -3885,7 +4091,7 @@
 		<control caption="Anuluj"/>
 	</dialog>
 	<dialog name="CUpdateServersDlg" cookie="StEdmsBuBu" caption="Download Server List File">
-		<control caption="Możesz pobrać plik server.met eDonkeya z sieci web aby odświeżyć swoją lokalną liste serwerów eD2k."/>
+		<control caption="Możesz pobrać plik server.met eDonkeya z sieci web aby odświeżyć swoją lokalną listę serwerów eD2k."/>
 		<control/>
 		<control/>
 		<control caption="OK"/>
@@ -4124,12 +4330,12 @@
 		<column from="Address" to="Adres"/>
 		<column from="Port" to="Port"/>
 		<column from="Last Seen" to="Ostatnio widziany"/>
-		<column from="Client" to="Klient"/>
-		<column from="Name" to="Nazwa"/>
-		<column from="Description" to="Opis"/>
 		<column from="Failures" to="Niepowodzeń"/>
 		<column from="CurUsers" to="Akt Użytkowników"/>
 		<column from="MaxUsers" to="Max użytkowników"/>
+		<column from="Name" to="Nazwa"/>
+		<column from="Description" to="Opis"/>
+		<column from="Client" to="Klient"/>
 		<column from="Country" to="Kraj"/>
 	</list>
 	<list name="CDiscoveryWnd">
@@ -4208,6 +4414,7 @@
 		<column from="Filename" to="Nazwa pliku"/>
 		<column from="Size" to="Rozmiar"/>
 		<column from="Status" to="Wielkość"/>
+		<column from="Index" to=""/>
 	</list>
 	<list name="CTorrentTrackerList">
 		<column from="Tracker" to=""/>

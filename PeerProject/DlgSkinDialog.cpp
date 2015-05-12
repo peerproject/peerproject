@@ -1,7 +1,7 @@
 //
 // DlgSkinDialog.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -48,6 +48,7 @@ BEGIN_MESSAGE_MAP(CSkinDialog, CDialog)
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_NCMOUSEMOVE()
+	ON_WM_NCMOUSELEAVE()
 	ON_WM_HELPINFO()
 //	ON_WM_UPDATEUISTATE()	// Alt-keypress
 	ON_MESSAGE(WM_SETTEXT, &CSkinDialog::OnSetText)
@@ -57,7 +58,7 @@ END_MESSAGE_MAP()
 /////////////////////////////////////////////////////////////////////////////
 // CSkinDialog dialog
 
-CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent, BOOL bAutoBanner)
+CSkinDialog::CSkinDialog(UINT nResID, CWnd* pParent /*NULL*/, BOOL bAutoBanner /*TRUE*/)
 	: CDialog		( nResID, pParent )
 	, m_pSkin		( NULL )
 	, m_bAutoBanner	( bAutoBanner )
@@ -68,7 +69,7 @@ void CSkinDialog::DoDataExchange(CDataExchange* pDX)
 {
 	CDialog::DoDataExchange(pDX);
 
-//	if ( m_oBanner.m_hWnd ) DDX_Control(pDX, IDC_BANNER, m_oBanner);
+	if ( m_oBanner.m_hWnd ) DDX_Control(pDX, IDC_BANNER, m_oBanner);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -106,16 +107,14 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		// Resize window
 		CRect rcWindow;
 		GetWindowRect( &rcWindow );
-		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() - Skin.m_nBanner,
-			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
+		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() - Skin.m_nBanner, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 	}
 	else if ( bEnable && ! m_oBanner.m_hWnd && Images.m_bmBanner.m_hObject )
 	{
 		// Resize window
 		CRect rcWindow;
 		GetWindowRect( &rcWindow );
-		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + Skin.m_nBanner,
-			SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
+		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + Skin.m_nBanner, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 
 		// Move all controls down
 		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ;
@@ -135,8 +134,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 			rcBanner.left -= Images.m_bmBanner.GetBitmapDimension().cx - rcBanner.Width();
 		rcBanner.right = rcBanner.left + Images.m_bmBanner.GetBitmapDimension().cx;
 		rcBanner.bottom = rcBanner.top + Skin.m_nBanner;
-		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE |
-			SS_BITMAP | SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
+		VERIFY( m_oBanner.Create( NULL, WS_CHILD | WS_VISIBLE | SS_BITMAP | SS_REALSIZEIMAGE, rcBanner, this, IDC_BANNER ) );
 		m_oBanner.SetBitmap( (HBITMAP)Images.m_bmBanner.m_hObject );
 	}
 }
@@ -189,8 +187,7 @@ BOOL CSkinDialog::SkinMe(LPCTSTR pszSkin, UINT nIcon, BOOL bLanguage)
 
 	CalcWindowRect( &rc );
 	SetWindowRgn( NULL, FALSE );
-	SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(),
-		SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
+	SetWindowPos( NULL, 0, 0, rc.Width(), rc.Height(), SWP_NOMOVE|SWP_NOZORDER|SWP_NOACTIVATE|SWP_FRAMECHANGED );
 
 	if ( m_pSkin )
 		m_pSkin->OnSize( this );
@@ -265,6 +262,11 @@ void CSkinDialog::OnNcMouseMove(UINT nHitTest, CPoint point)
 	CDialog::OnNcMouseMove( nHitTest, point );
 }
 
+void CSkinDialog::OnNcMouseLeave()
+{
+	if ( m_pSkin ) m_pSkin->OnNcMouseLeave( this );
+}
+
 void CSkinDialog::OnSize(UINT nType, int cx, int cy)
 {
 	if ( m_pSkin ) m_pSkin->OnSize( this );
@@ -292,7 +294,7 @@ BOOL CSkinDialog::OnEraseBkgnd(CDC* pDC)
 
 	CRect rc;
 	GetClientRect( &rc );
-	rc.top = Skin.m_nBanner;
+	rc.top += Skin.m_nBanner;
 
 	if ( Images.m_bmDialog.m_hObject )
 		CoolInterface.DrawWatermark( pDC, &rc, &Images.m_bmDialog );

@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1686,7 +1686,7 @@ CMainWnd* CPeerProjectApp::SafeMainWnd() const
 
 void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FALSE*/)
 {
-	if ( ! AfxGetMainWnd()->OpenClipboard() ) return;
+	if ( ! m_pMainWnd || ! m_pMainWnd->OpenClipboard() ) return;
 
 	EmptyClipboard();
 
@@ -1704,7 +1704,7 @@ void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FAL
 
 				if ( bShowTray )
 				{
-					CString str = strText.GetLength() > 180 ? strText.Left( 180 ) : strText;
+					CString str = strText.Left( 180 );
 					int nBreak = str.GetLength() > 80 ? str.Find( L":" ) : 0;
 					if ( nBreak > 1 && nBreak < 20 )
 						str = L"(" + strText.Left( nBreak + 1 ) + L")";
@@ -1715,6 +1715,30 @@ void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FAL
 	}
 
 	CloseClipboard();
+}
+
+BOOL CPeerProjectApp::GetClipboard(CString& strText)
+{
+	if ( ! m_pMainWnd || ! m_pMainWnd->OpenClipboard() )
+		return FALSE;
+
+	if ( HGLOBAL hData = GetClipboardData( CF_UNICODETEXT ) )
+	{
+		size_t nData = GlobalSize( hData );
+		LPVOID pData = GlobalLock( hData );
+
+		LPTSTR pszData = strText.GetBuffer( (int)( nData + 1 ) / 2 + 1 );
+		CopyMemory( pszData, pData, nData );
+		pszData[ ( nData + 1 ) / 2 ] = 0;
+		strText.ReleaseBuffer();
+		GlobalUnlock( hData );
+
+		CloseClipboard();
+		return strText.GetLength() > 0;
+	}
+
+	CloseClipboard();
+	return FALSE;
 }
 
 bool CPeerProjectApp::IsLogDisabled(WORD nType) const
@@ -2645,8 +2669,8 @@ CString CPeerProjectApp::GetProgramFilesFolder64() const
 	}
 
 	// 32-bit way
-	DWORD nRes = ExpandEnvironmentStrings( L"%ProgramW6432%", strProgramFiles.GetBuffer( MAX_PATH ), MAX_PATH );
-	strProgramFiles.ReleaseBuffer( nRes );
+	ExpandEnvironmentStrings( L"%ProgramW6432%", strProgramFiles.GetBuffer( MAX_PATH ), MAX_PATH );
+	strProgramFiles.ReleaseBuffer();
 	strProgramFiles.Trim();
 	strProgramFiles.TrimRight( L"\\" );
 	if ( ! strProgramFiles.IsEmpty() )

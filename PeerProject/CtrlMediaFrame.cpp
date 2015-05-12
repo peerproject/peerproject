@@ -1,7 +1,7 @@
 //
 // CtrlMediaFrame.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -73,6 +73,8 @@ static char THIS_FILE[] = __FILE__;
 
 #endif // WM_APPCOMMAND
 
+
+CMediaFrame* CMediaFrame::m_wndMediaFrame = NULL;
 
 IMPLEMENT_DYNAMIC(CMediaFrame, CWnd)
 
@@ -172,18 +174,19 @@ CMediaFrame::~CMediaFrame()
 
 CMediaFrame* CMediaFrame::GetMediaFrame()
 {
-	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
-	{
-		if ( CMediaWnd* pMediaWnd = static_cast< CMediaWnd* >( pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) ) )
-		{
-			if ( CMediaFrame* pMediaFrame = static_cast< CMediaFrame* >( pMediaWnd->GetWindow( GW_CHILD ) ) )
-			{
-				ASSERT_KINDOF( CMediaFrame, pMediaFrame );
-				return pMediaFrame;
-			}
-		}
-	}
-	return NULL;
+//	if ( CMainWnd* pMainWnd = theApp.SafeMainWnd() )
+//	{
+//		if ( CMediaWnd* pMediaWnd = static_cast< CMediaWnd* >( pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CMediaWnd) ) ) )
+//		{
+//			if ( CMediaFrame* pMediaFrame = static_cast< CMediaFrame* >( pMediaWnd->GetWindow( GW_CHILD ) ) )
+//			{
+//				ASSERT_KINDOF( CMediaFrame, pMediaFrame );
+//				return pMediaFrame;
+//			}
+//		}
+//	}
+
+	return m_wndMediaFrame;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -192,13 +195,14 @@ CMediaFrame* CMediaFrame::GetMediaFrame()
 BOOL CMediaFrame::Create(CWnd* pParentWnd)
 {
 	CRect rect;
-	return CWnd::Create( NULL, L"CMediaFrame", WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN,
-		rect, pParentWnd, 0, NULL );
+	return CWnd::Create( NULL, L"CMediaFrame", WS_CHILD|WS_VISIBLE|WS_CLIPCHILDREN, rect, pParentWnd, 0, NULL );
 }
 
 int CMediaFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 {
 	if ( CWnd::OnCreate( lpCreateStruct ) == -1 ) return -1;
+
+	m_wndMediaFrame = this;
 
 	CRect rectDefault;
 	SetOwner( GetParent() );
@@ -274,6 +278,8 @@ void CMediaFrame::OnDestroy()
 	Cleanup();
 
 	EnableScreenSaver();
+
+	m_wndMediaFrame = NULL;
 
 	CWnd::OnDestroy();
 }

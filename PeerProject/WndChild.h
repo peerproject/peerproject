@@ -1,7 +1,7 @@
 //
 // WndChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -49,7 +49,7 @@ public:
 
 private:
 	CMainWnd*		m_pMainWndCache;
-	static CChildWnd*	m_pCmdMsg;
+	static CChildWnd* m_pCmdMsg;
 	CString			m_sCaption;
 
 protected:
@@ -101,6 +101,7 @@ protected:
 	afx_msg void	OnNcCalcSize(BOOL bCalcValidRects, NCCALCSIZE_PARAMS FAR* lpncsp);
 	afx_msg BOOL	OnNcActivate(BOOL bActive);
 	afx_msg LRESULT	OnNcHitTest(CPoint point);
+	afx_msg void	OnNcMouseLeave();
 	afx_msg void	OnNcMouseMove(UINT nHitTest, CPoint point);
 	afx_msg void	OnNcLButtonDblClk(UINT nHitTest, CPoint point);
 	afx_msg void	OnNcLButtonDown(UINT nHitTest, CPoint point);

@@ -1,7 +1,7 @@
 //
 // Settings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -505,7 +505,7 @@ void CSettings::Load()
 	Add( L"BitTorrent", L"ConnectThrottle", &BitTorrent.ConnectThrottle, 6*60, 1, 0, 60*60, L" s" );	// DHT
 	Add( L"BitTorrent", L"DefaultTracker", &BitTorrent.DefaultTracker, L"http://tracker.publicbt.com/announce" );
 	Add( L"BitTorrent", L"DefaultTrackerPeriod", &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, L" m" );
-	Add( L"BitTorrent", L"DownloadConnections", &BitTorrent.DownloadConnections, 40, 1, 1, 800 );
+	Add( L"BitTorrent", L"DownloadConnections", &BitTorrent.DownloadConnections, 40, 1, 1, 999 );
 	Add( L"BitTorrent", L"DownloadTorrents", &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );
 	Add( L"BitTorrent", L"EnableDHT", &BitTorrent.EnableDHT, true );
 	Add( L"BitTorrent", L"EnablePromote", &BitTorrent.EnablePromote, true );
@@ -576,9 +576,10 @@ void CSettings::Load()
 	Add( L"Downloads", L"StaggardStart", &Downloads.StaggardStart, false );
 	Add( L"Downloads", L"StarveGiveUp", &Downloads.StarveGiveUp, 3, 1, 3, 120, L" h" );
 	Add( L"Downloads", L"StarveTimeout", &Downloads.StarveTimeout, 30*60*1000, 60*1000, 20, 24*60, L" m" );
-	Add( L"Downloads", L"VerifyED2K", &Downloads.VerifyED2K, true );
 	Add( L"Downloads", L"VerifyFiles", &Downloads.VerifyFiles, true );
+	Add( L"Downloads", L"VerifyED2K", &Downloads.VerifyED2K, true );
 	Add( L"Downloads", L"VerifyTiger", &Downloads.VerifyTiger, true );
+	Add( L"Downloads", L"VerifyTorrent", &Downloads.VerifyTorrent, true );
 	Add( L"Downloads", L"NoRandomFragments", &Downloads.NoRandomFragments, false );	// ToDo: Streaming Download and Rarest Piece Selection
 	Add( L"Downloads", L"WebHookEnable", &Downloads.WebHookEnable, false );
 	Add( L"Downloads", L"WebHookExtensions", &Downloads.WebHookExtensions, L"|zip|zipx|7z|rar|r0|ace|z|gz|tgz|tar|arj|lzh|sit|hqx|fml|grs|cbr|cbz|aac|mp3|mp4|mkv|iso|msi|exe|bin|psk|" );
@@ -964,7 +965,7 @@ void CSettings::OnChangeConnectionSpeed()
 		Downloads.MaxFileTransfers		= 100;
 		Downloads.MaxConnectingSources	= 100;
 		Downloads.MaxFileSearches		= 6;
-		Downloads.SourcesWanted			= 800;
+		Downloads.SourcesWanted			= 999;
 		Search.GeneralThrottle			= 100;
 
 		Gnutella1.NumHubs				= 4;

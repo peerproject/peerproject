@@ -1,7 +1,7 @@
 //
 // DlgDownloadMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -178,19 +178,20 @@ BOOL CDownloadMonitorDlg::OnInitDialog()
 	pMenu->InsertMenu( 0, MF_BYPOSITION|MF_SEPARATOR, ID_SEPARATOR );
 	pMenu->InsertMenu( 0, MF_BYPOSITION|MF_STRING, SC_NEXTWINDOW, L"&Always on Top" );
 
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	//CSingleLock pLock( &Transfers.m_pSection );
+	//if ( SafeLock( pLock ) )
+	//{
+	//	m_sName = m_pDownload->m_sName;
+	//	bTorrent = ( Downloads.Check( m_pDownload ) && m_pDownload->IsTorrent() &&
+	//		( m_pDownload->IsMultiFileTorrent() || ! IsValidExtension( m_sName ) ) );
+	//	pLock.Unlock();
+	//}
 
-	if ( Downloads.Check( m_pDownload ) )
-	{
-		m_sName = m_pDownload->m_sName;
-		m_wndFile.SetWindowText( m_sName );
-		if ( m_pDownload->IsTorrent() && ( m_pDownload->IsMultiFileTorrent() || ! IsValidExtension( m_sName ) ) )
-			m_wndIcon.SetIcon( CoolInterface.ExtractIcon( IDI_MULTIFILE, FALSE, LVSIL_NORMAL ) );
-		else
-			m_wndIcon.SetIcon( ShellIcons.ExtractIcon( ShellIcons.Get( m_sName, 32 ), 32 ) );
-	}
-
-	pLock.Unlock();
+	m_wndFile.SetWindowText( m_sName );
+	if ( m_pDownload->IsTorrent() && ( m_pDownload->IsMultiFileTorrent() || ! IsValidExtension( m_sName ) ) )
+		m_wndIcon.SetIcon( CoolInterface.ExtractIcon( IDI_MULTIFILE, FALSE, LVSIL_NORMAL ) );
+	else
+		m_wndIcon.SetIcon( ShellIcons.ExtractIcon( ShellIcons.Get( m_sName, 32 ), 32 ) );
 
 	m_pGraph = new CLineGraph();
 	m_pItem  = new CGraphItem( 0, 1.0f, Colors.m_crMonitorGraphLine );	// RGB( 252, 20, 10 )
@@ -308,24 +309,12 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR nIDEvent)
 	// Update file name if it was changed from the Advanced Edit dialog
 	Update( &m_wndFile, m_pDownload->m_sName );
 
-	if ( m_pDownload->IsStarted() )
-	{
-		if ( Settings.General.LanguageRTL )
-		{
-			strText.Format( L"%s %s %.2f%%",
-				(LPCTSTR)m_pDownload->m_sName, (LPCTSTR)strOf, m_pDownload->GetProgress() );
-		}
-		else
-		{
-			strText.Format( L"%.2f%% %s %s",
-				m_pDownload->GetProgress(), (LPCTSTR)strOf, (LPCTSTR)m_pDownload->m_sName );
-		}
-	}
+	if ( ! m_pDownload->IsStarted() )
+		strText.Format( L"%s", (LPCTSTR)m_pDownload->m_sName );
+	else if ( Settings.General.LanguageRTL )
+		strText.Format( L"%s %s %.2f%%", (LPCTSTR)m_pDownload->m_sName, (LPCTSTR)strOf, m_pDownload->GetProgress() );
 	else
-	{
-		strText.Format( L"%s",
-			(LPCTSTR)m_pDownload->m_sName );
-	}
+		strText.Format( L"%.2f%% %s %s", m_pDownload->GetProgress(), (LPCTSTR)strOf, (LPCTSTR)m_pDownload->m_sName );
 
 	Update( this, strText );
 
@@ -360,9 +349,9 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR nIDEvent)
 		return;
 	}
 
-	int nSourceCount	= m_pDownload->GetSourceCount();
-	int nTransferCount	= m_pDownload->GetTransferCount();
 	CString strAction;
+	const int nSourceCount   = bCompleted ? 0 : m_pDownload->GetSourceCount();
+	const int nTransferCount = bCompleted ? 0 : m_pDownload->GetTransferCount();
 
 	if ( bCompleted )
 	{
@@ -530,17 +519,16 @@ void CDownloadMonitorDlg::OnTimer(UINT_PTR nIDEvent)
 
 void CDownloadMonitorDlg::Update(CWnd* pWnd, LPCTSTR pszText)
 {
-	CString strOld;
-	pWnd->GetWindowText( strOld );
-	if ( strOld != pszText )
+	CString str;
+	pWnd->GetWindowText( str );
+	if ( str != pszText )
 		pWnd->SetWindowText( pszText );
 }
 
 void CDownloadMonitorDlg::Update(CWnd* pWnd, BOOL bEnabled)
 {
-	if ( pWnd->IsWindowEnabled() == bEnabled )
-		return;
-	pWnd->EnableWindow( bEnabled );
+	if ( pWnd->IsWindowEnabled() != bEnabled )
+		pWnd->EnableWindow( bEnabled );
 }
 
 void CDownloadMonitorDlg::OnPaint()
@@ -612,7 +600,7 @@ void CDownloadMonitorDlg::OnDownloadAction()	// OnDownloadStop/OnDownloadLaunch
 	if ( m_pDownload->IsStarted() )
 	{
 		CString strFormat, strPrompt;
-		::LoadString( strFormat, IDS_DOWNLOAD_CONFIRM_CLEAR );
+		LoadString( strFormat, IDS_DOWNLOAD_CONFIRM_CLEAR );
 		strPrompt.Format( strFormat, (LPCTSTR)m_pDownload->m_sName );
 
 		pLock.Unlock();
@@ -695,7 +683,7 @@ LRESULT CDownloadMonitorDlg::OnTray(WPARAM /*wParam*/, LPARAM lParam)
 
 HBRUSH CDownloadMonitorDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	HBRUSH hbr = CSkinDialog::OnCtlColor(pDC, pWnd, nCtlColor);
+	HBRUSH hbr = CSkinDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 
 	if ( pWnd == &m_wndFile )
 		pDC->SelectObject( &theApp.m_gdiFontBold );
@@ -714,7 +702,13 @@ void CDownloadMonitorDlg::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 	CDownloadsWnd* pDownWnd = (CDownloadsWnd*)pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CDownloadsWnd) );
 	if ( ! pDownWnd ) return;
 
+	CSingleLock pLock( &Transfers.m_pSection );
+
+	if ( ! pLock.Lock( 250 ) || ! Downloads.Check( m_pDownload ) ) return;
+
 	pDownWnd->Select( m_pDownload );
+
+	pLock.Unlock();
 
 	const BOOL bCompleted = m_pDownload->IsCompleted();
 

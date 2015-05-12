@@ -830,6 +830,8 @@ void CDownloadsCtrl::MoveToTop()
 		CDownload* pDownload = Downloads.GetNext( pos );
 		if ( pDownload->m_bSelected )
 			Downloads.Move( pDownload, -2 );
+		if ( ! pDownload->IsTrying() )
+			pDownload->Resume();
 	}
 	// Workaround to Correct Order
 	for ( POSITION pos = Downloads.GetIterator() ; pos ; )
@@ -839,6 +841,7 @@ void CDownloadsCtrl::MoveToTop()
 		Downloads.Move( pDownload, -2 );
 	}
 
+	pLock.Unlock();		// Lock as needed
 	SelectTo( 0 );
 }
 
@@ -2203,10 +2206,10 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 				else if ( pSource != NULL && pSource->m_bSelected )
 					m_pDeselect2 = pSource;
 			}
-			else if ( nFlags & MK_RBUTTON )
-			{
-				DeselectAll();
-			}
+		//	else if ( nFlags & MK_RBUTTON )
+		//	{
+		//		DeselectAll();
+		//	}
 		//	else if ( pDownload != NULL && ! pDownload->m_bSelected )
 		//	{
 		//		m_pDownloadsData[ nIndex ].bSelected = TRUE;
@@ -2230,6 +2233,7 @@ void CDownloadsCtrl::OnLButtonDown(UINT nFlags, CPoint point)
 
 void CDownloadsCtrl::OnRButtonDown(UINT nFlags, CPoint point)
 {
+	m_wndTip.Hide();
 	OnLButtonDown( nFlags, point );
 	CWnd::OnRButtonDown( nFlags, point );
 }
@@ -2309,16 +2313,16 @@ void CDownloadsCtrl::OnRButtonUp(UINT nFlags, CPoint point)
 {
 	m_bDragStart = m_bDragActive = FALSE;
 
-	if ( m_pDeselect1 != NULL )
-	{
-		DeselectAll( m_pDeselect1 );
-		m_pDeselect1 = NULL;
-	}
-	else if ( m_pDeselect2 != NULL )
-	{
-		DeselectAll( NULL, m_pDeselect2 );
-		m_pDeselect2 = NULL;
-	}
+//	if ( m_pDeselect1 != NULL )
+//	{
+//		DeselectAll( m_pDeselect1 );
+//		m_pDeselect1 = NULL;
+//	}
+//	else if ( m_pDeselect2 != NULL )
+//	{
+//		DeselectAll( NULL, m_pDeselect2 );
+//		m_pDeselect2 = NULL;
+//	}
 
 	CWnd::OnRButtonUp( nFlags, point );
 }

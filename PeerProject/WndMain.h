@@ -1,7 +1,7 @@
 //
 // WndMain.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -119,6 +119,7 @@ protected:
 	afx_msg void OnNcPaint();
 	afx_msg BOOL OnNcActivate(BOOL bActive);
 	afx_msg LRESULT OnNcHitTest(CPoint point);
+	afx_msg void OnNcMouseLeave();
 	afx_msg void OnNcMouseMove(UINT nHitTest, CPoint point);
 	afx_msg void OnNcLButtonDown(UINT nHitTest, CPoint point);
 	afx_msg void OnNcLButtonUp(UINT nHitTest, CPoint point);
@@ -178,7 +179,7 @@ protected:
 //	afx_msg void OnHelpScheduler();
 	afx_msg void OnHelpCodec();
 	afx_msg void OnHelpDonate();
-	afx_msg void OnHelpFakeShareaza();
+//	afx_msg void OnHelpFakeShareaza();
 	afx_msg void OnWindowCascade();
 	afx_msg void OnToolsWizard();
 	afx_msg void OnTrayOpen();

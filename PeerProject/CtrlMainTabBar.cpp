@@ -1,7 +1,7 @@
 //
 // CtrlMainTabBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -593,27 +593,27 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 
 	if ( bDown )
 	{
-		crNavBarText = Colors.m_crNavBarTextDown != CLR_NONE ? Colors.m_crNavBarTextDown : Colors.m_crNavBarText ;
-		crNavBarShadow = Colors.m_crNavBarShadowDown != CLR_NONE ? Colors.m_crNavBarShadowDown : Colors.m_crNavBarShadow ;
-		crNavBarOutline = Colors.m_crNavBarOutlineDown != CLR_NONE ? Colors.m_crNavBarOutlineDown : Colors.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextDown != CLR_NONE ? Colors.m_crNavBarTextDown : Colors.m_crNavBarText;
+		crNavBarShadow = Colors.m_crNavBarShadowDown != CLR_NONE ? Colors.m_crNavBarShadowDown : Colors.m_crNavBarShadow;
+		crNavBarOutline = Colors.m_crNavBarOutlineDown != CLR_NONE ? Colors.m_crNavBarOutlineDown : Colors.m_crNavBarOutline;
 	}
 	else if ( m_bSelected )
 	{
-		crNavBarText = Colors.m_crNavBarTextChecked != CLR_NONE ? Colors.m_crNavBarTextChecked : Colors.m_crNavBarText ;
-		crNavBarShadow = Colors.m_crNavBarShadowChecked != CLR_NONE ? Colors.m_crNavBarShadowChecked : Colors.m_crNavBarShadow ;
-		crNavBarOutline = Colors.m_crNavBarOutlineChecked != CLR_NONE ? Colors.m_crNavBarOutlineChecked : Colors.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextChecked != CLR_NONE ? Colors.m_crNavBarTextChecked : Colors.m_crNavBarText;
+		crNavBarShadow = Colors.m_crNavBarShadowChecked != CLR_NONE ? Colors.m_crNavBarShadowChecked : Colors.m_crNavBarShadow;
+		crNavBarOutline = Colors.m_crNavBarOutlineChecked != CLR_NONE ? Colors.m_crNavBarOutlineChecked : Colors.m_crNavBarOutline;
 	}
 	else if ( bHover )
 	{
-		crNavBarText = Colors.m_crNavBarTextHover != CLR_NONE ? Colors.m_crNavBarTextHover : Colors.m_crNavBarText ;
-		crNavBarShadow = Colors.m_crNavBarShadowHover != CLR_NONE ? Colors.m_crNavBarShadowHover : Colors.m_crNavBarShadow ;
-		crNavBarOutline = Colors.m_crNavBarOutlineHover != CLR_NONE ? Colors.m_crNavBarOutlineHover : Colors.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextHover != CLR_NONE ? Colors.m_crNavBarTextHover : Colors.m_crNavBarText;
+		crNavBarShadow = Colors.m_crNavBarShadowHover != CLR_NONE ? Colors.m_crNavBarShadowHover : Colors.m_crNavBarShadow;
+		crNavBarOutline = Colors.m_crNavBarOutlineHover != CLR_NONE ? Colors.m_crNavBarOutlineHover : Colors.m_crNavBarOutline;
 	}
 	else if ( Colors.m_crNavBarTextUp != CLR_NONE )
 	{
-		crNavBarText = Colors.m_crNavBarTextUp ;
-		crNavBarShadow = Colors.m_crNavBarShadowUp != CLR_NONE ? Colors.m_crNavBarShadowUp : Colors.m_crNavBarShadow ;
-		crNavBarOutline = Colors.m_crNavBarOutlineUp != CLR_NONE ? Colors.m_crNavBarOutlineUp : Colors.m_crNavBarOutline ;
+		crNavBarText = Colors.m_crNavBarTextUp;
+		crNavBarShadow = Colors.m_crNavBarShadowUp != CLR_NONE ? Colors.m_crNavBarShadowUp : Colors.m_crNavBarShadow;
+		crNavBarOutline = Colors.m_crNavBarOutlineUp != CLR_NONE ? Colors.m_crNavBarOutlineUp : Colors.m_crNavBarOutline;
 	}
 
 	if ( Settings.General.LanguageRTL )
@@ -623,14 +623,16 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 
 	rcTarget.top += Skin.m_ptNavBarOffset.y;
 
-	CFont* pOldFont = pDstDC->SelectObject( &CoolInterface.m_fntNavBar );
+	CFont* pOldFont = pDstDC->SelectObject( ( m_bSelected || bHover ) ? &CoolInterface.m_fntNavBarActive : &CoolInterface.m_fntNavBar );
+
 	pDstDC->SetBkMode( TRANSPARENT );
+
 	if ( crNavBarOutline != CLR_NONE )
 	{
 		pDstDC->SetTextColor( crNavBarOutline );
 		for ( int x = -1 ; x < 2 ; x++ )
 		{
-			for ( int y = -1 ; y < 2 ; y ++ )
+			for ( int y = -1 ; y < 2 ; y++ )
 			{
 				if ( x || y )
 					pDstDC->DrawText( m_sTitle, rcTarget + CPoint( x, y ),
@@ -650,6 +652,7 @@ void CMainTabBarCtrl::TabItem::Paint(CDC* pDstDC, CDC* pSrcDC, const CPoint& ptO
 		pDstDC->DrawText( m_sTitle, rcTarget,
 			DT_CENTER | DT_SINGLELINE | DT_VCENTER | DT_NOCLIP );
 	}
+
 	pDstDC->SelectObject( pOldFont );
 }
 

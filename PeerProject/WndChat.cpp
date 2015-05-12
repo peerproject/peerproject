@@ -344,6 +344,7 @@ void CChatWnd::AddText(bool bAction, bool bOutgoing, LPCTSTR pszNick, LPCTSTR ps
 
 	CString str;
 	str.Format( bAction ? L"* %s " : L"<%s> ", pszNick );
+
 	m_pContent.Add( retText, str, NULL, retfBold | retfColor )->m_cColor
 		= ( bOutgoing ? Colors.m_crChatIn : Colors.m_crChatOut );
 
@@ -550,6 +551,7 @@ void CChatWnd::OnDestroy()
 	CChildWnd::OnDestroy();
 	//CPanelWnd::OnDestroy();
 }
+
 void CChatWnd::OnContextMenu(CWnd* /*pWnd*/, CPoint point)
 {
 	Skin.TrackPopupMenu( CString( GetRuntimeClass()->m_lpszClassName ), point );
@@ -1003,8 +1005,7 @@ void CChatWnd::DeleteAllUsers()
 //			return TRUE;
 //	}
 //
-//	return CPanelWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
-//
+////return CPanelWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
 //	return CChildWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
 //}
 

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default English Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -91,7 +91,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -102,7 +102,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -116,7 +116,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="75"/>
 		<separator/>
@@ -136,7 +136,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Download File"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
@@ -148,7 +148,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Refresh"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chat User"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
@@ -167,7 +167,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Show Monitor"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -182,7 +182,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Status Monitor"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Add Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
@@ -194,7 +194,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -207,7 +207,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat User"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filters"/>
@@ -231,7 +231,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Share Files..."/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -240,7 +240,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Create Group..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Delete Group"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -250,7 +250,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Open or Play"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Add to Playlist"/>
 		<separator/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -266,7 +266,7 @@
 		<button id="ID_LIBRARY_MOVE"/>
 		<button id="ID_LIBRARY_COPY"/>
 		<button id="ID_LIBRARY_DELETE"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -277,7 +277,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Add to Playlist"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play All"/>
 		<separator/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -289,7 +289,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Details"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -299,7 +299,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -317,7 +317,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Open File"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Previous"/>
 		<button id="ID_MEDIA_NEXT" text="Next"/>
 		<separator/>
@@ -340,7 +340,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -349,7 +349,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_MEDIA_CLEAR" text="Clear"/>
 		<button id="ID_MEDIA_SAVE" text="Save"/>
 		<button id="ID_MEDIA_OPEN" text="Open"/>
@@ -358,7 +358,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -370,7 +370,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Disconnect"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Ban Host"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -388,7 +388,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Move Up"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Move Down"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SECURITY_RESET" text="Reset Hits"/>
 		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Import List"/>
@@ -416,7 +416,7 @@
 		<button id="ID_HITMONITOR_SEARCH" text="Re-Query"/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pause"/>
 		<button id="ID_SEARCH_CLEAR" text="Clear"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
@@ -431,7 +431,7 @@
 		<button id="ID_DISCOVERY_ADVERTISE" text="Advertise"/>
 		<separator/>
 		<button id="ID_DISCOVERY_BROWSE" text="Statistics Page"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
 		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
@@ -442,7 +442,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Remove"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -456,7 +456,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
 		<separator/>
@@ -473,7 +473,7 @@
 		<button id="ID_CHAT_BROWSE" text="Browse User"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
 		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
-			<rightAlign/>
+		<rightAlign/>
 		<button id="ID_CHAT_CONNECT" text="Connect" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
 	</toolbar>
@@ -503,7 +503,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Best Fit"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Refresh"/>
-			<rightAlign/>
+		<rightAlign/>
 		<button id="PluginID_ImageViewer_Close" text="Close"/>
 	</toolbar>
 </toolbars>
@@ -997,7 +997,6 @@
 			<item id="ID_VIEW_NEIGHBOURS" text="_Neighbors"/>
 			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
 			<item id="ID_VIEW_SECURITY" text="_Security"/>
-			<item id="ID_VIEW_SCHEDULER" text="Schedule_r"/>
 			<item id="ID_VIEW_HOSTS" text="_Host Cache"/>
 		</menu>
 	</menu>
@@ -2426,7 +2425,7 @@
 		<text>The PeerProject 'incomplete' folder also should not be shared directly.</text>
 	</document>
 </documents>
-<!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
+<!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
 <commandTips>
 	<tip id="ID_BROWSE_FILES" message="View the user's shared files"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Browse the selected user's profile and shared files."/>
@@ -2744,6 +2743,7 @@
 	<tip id="ID_VIEW_RESULTS_MONITOR" message="Show or hide the HIT MONITOR window."/>
 	<tip id="ID_VIEW_SEARCH_MONITOR" message="Show or hide the SEARCH MONITOR window."/>
 	<tip id="ID_VIEW_SECURITY" message="Show or hide the SECURITY window."/>
+	<tip id="ID_VIEW_SCHEDULER" message="Show or hide the SCHEDULER window."/>
 	<tip id="ID_VIEW_SYSTEM" message="Show or hide the SYSTEM window."/>
 	<tip id="ID_VIEW_TABBED" message="Use PeerProject in standard Tabbed mode. (Home, Search, Transfers, Network, Library, Media)"/>
 	<tip id="ID_VIEW_TRAFFIC" message="Show or hide a GRAPH window."/>
@@ -2758,6 +2758,7 @@
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Show or hide the toolbar."/>
 	<tip id="ID_WEBSERVICES_LIST" message="Choose the web service to get more information about the selected file."/>
+	<tip id="ID_WEBSERVICES_MUSICBRAINZ" message="Search for the same artist songs using MusicBrainz service."/>
 	<!--tip id="ID_WEBSERVICES_SHAREMONKEY" message="Search for the file infomation using ShareMonkey service."-->
 	<!-- PLUGIN TIPS -->
 	<tip id="PluginID_ImageViewer_BestFit" message="Resize the image to fit within the window."/>
@@ -3024,7 +3025,7 @@
 	<string id="20290" value="Download host %s responded with a different, but useful range (%I64i-%I64i) of &quot;%s&quot;."/>
 	<string id="20291" value="Received an unnecessary push connection from %s."/>
 	<string id="20292" value="Dropping source %s (%s) for sending corrupted parts of &quot;%s&quot; (%I64i-%I64i)."/>
-	<string id="20293" value="WARNING: Download &quot;%s&quot; failed verification, it may not be the file you intended to download."/>
+	<string id="20293" value="Warning: Download &quot;%s&quot; failed verification, it may not be the file you intended to download."/>
 	<string id="20294" value="Successfully verified download &quot;%s&quot;."/>
 	<string id="20295" value="Download host %s's version of &quot;%s&quot; has a different URN, aborting."/>
 	<string id="20296" value="Download host %s responded with a useless byte range of &quot;%s&quot;, pending."/>
@@ -4564,7 +4565,7 @@
 		<control caption="Hope you've enjoyed using PeerProject so far, it strives to be the best true file sharing software available."/>
 		<control caption="Unfortunately, a lot of potential filesharers don't know what they're missing."/>
 		<control caption="If you know someone who might like PeerProject, whether a new user or still using older software, let them know there is a better alternative. And Thanks."/>
-		<control caption="{This is the last welcome message you will see.}"/>
+		<control caption="(This is the last welcome message you will see.)"/>
 		<control caption="http://PeerProject.org"/>
 		<control caption="OK"/>
 	</dialog>
@@ -4579,7 +4580,7 @@
 		<control caption="OK"/>
 		<control caption="Cancel"/>
 		<control caption="You have downloaded and deleted this file before. What would you like to do?"/>
-		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
 	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like PeerProject to take when clicking the close button from now on:"/>

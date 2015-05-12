@@ -1,7 +1,7 @@
 //
 // SkinWindow.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-20078.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -664,25 +664,25 @@ UINT CSkinWindow::OnNcHitTest(CWnd* pWnd, CPoint point, BOOL bResizable)
 		if ( point.x < rc.left + m_rcResize.left )
 		{
 			if ( point.y < rc.top + m_rcResize.top ) return HTTOPLEFT;
-			else if ( point.y >= rc.bottom - m_rcResize.bottom ) return HTBOTTOMLEFT;
-			else return HTLEFT;
+			if ( point.y >= rc.bottom - m_rcResize.bottom ) return HTBOTTOMLEFT;
+			return HTLEFT;
 		}
 		else if ( point.x >= rc.right - m_rcResize.right )
 		{
 			if ( point.y < rc.top + m_rcResize.top ) return HTTOPRIGHT;
-			else if ( point.y >= rc.bottom - m_rcResize.bottom ) return HTBOTTOMRIGHT;
-			else return HTRIGHT;
+			if ( point.y >= rc.bottom - m_rcResize.bottom ) return HTBOTTOMRIGHT;
+			return HTRIGHT;
 		}
 		else if ( point.y < rc.top + m_rcResize.top )
 		{
 			if ( point.x < rc.left + m_rcResize.left ) return HTTOPLEFT;
-			else if ( point.x >= rc.right - m_rcResize.right ) return HTTOPRIGHT;
+			if ( point.x >= rc.right - m_rcResize.right ) return HTTOPRIGHT;
 			return HTTOP;
 		}
 		else if ( point.y >= rc.bottom - m_rcResize.bottom )
 		{
 			if ( point.x < rc.left + m_rcResize.left ) return HTBOTTOMLEFT;
-			else if ( point.x >= rc.right - m_rcResize.right ) return HTBOTTOMRIGHT;
+			if ( point.x >= rc.right - m_rcResize.right ) return HTBOTTOMRIGHT;
 			return HTBOTTOM;
 		}
 	}
@@ -783,36 +783,48 @@ void CSkinWindow::OnNcMouseMove(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 	int nAnchor = 0;
 	switch ( nHitTest )
 	{
+	case HTCLOSE:
+		nAnchor = SKINANCHOR_CLOSE;
+		break;
 	case HTMINBUTTON:
 		nAnchor = SKINANCHOR_MINIMISE;
 		break;
 	case HTMAXBUTTON:
 		nAnchor = SKINANCHOR_MAXIMISE;
 		break;
-	case HTCLOSE:
-		nAnchor = SKINANCHOR_CLOSE;
+	case HTMENU:
+		nAnchor = SKINANCHOR_MENU;
 		break;
 	case HTSYSMENU:
 		nAnchor = SKINANCHOR_SYSTEM;
-		break;
-	case HTMENU:
-		nAnchor = SKINANCHOR_MENU;
 		break;
 	//case HTOBJECT:
 	//	nAnchor = SKINANCHOR_CUSTOM;
 	//	break;
 	}
 
+	BOOL bUpdate = ( m_nHoverAnchor != nAnchor );
+
 	if ( m_nDownAnchor && m_nDownAnchor != nAnchor )
 	{
 		if ( ( GetAsyncKeyState( VK_LBUTTON ) & 0x8000 ) == 0 )
 			m_nDownAnchor = 0;
 		nAnchor = 0;
+		bUpdate = TRUE;
 	}
 
 	m_nHoverAnchor = nAnchor;
 
+	if ( ! bUpdate )
+		return;
+
 	Paint( pWnd );
+
+	TRACKMOUSEEVENT tme = {0};
+	tme.cbSize = sizeof(TRACKMOUSEEVENT);
+	tme.dwFlags = TME_LEAVE | TME_NONCLIENT | ( nAnchor ? 0 : TME_CANCEL );
+	tme.hwndTrack = pWnd->m_hWnd;
+	TrackMouseEvent( &tme );
 }
 
 BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
@@ -906,26 +918,27 @@ BOOL CSkinWindow::OnNcLButtonDown(CWnd* pWnd, UINT nHitTest, CPoint point)
 
 BOOL CSkinWindow::OnNcLButtonUp(CWnd* pWnd, UINT /*nHitTest*/, CPoint /*point*/)
 {
-	if ( m_nDownAnchor )
+	if ( ! m_nDownAnchor )
+		return FALSE;
+
+	if ( m_nDownAnchor == m_nHoverAnchor )
 	{
-		if ( m_nDownAnchor == m_nHoverAnchor )
+		switch ( m_nDownAnchor )
 		{
-			switch ( m_nDownAnchor )
-			{
-			case SKINANCHOR_MINIMISE:
-				pWnd->PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
-				break;
-			case SKINANCHOR_MAXIMISE:
-				pWnd->PostMessage( WM_SYSCOMMAND, pWnd->IsZoomed() ? SC_RESTORE : SC_MAXIMIZE );
-				break;
-			case SKINANCHOR_CLOSE:
-				pWnd->PostMessage( WM_SYSCOMMAND, SC_CLOSE );
-				break;
-			}
+		case SKINANCHOR_MINIMISE:
+			pWnd->PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
+			break;
+		case SKINANCHOR_MAXIMISE:
+			pWnd->PostMessage( WM_SYSCOMMAND, pWnd->IsZoomed() ? SC_RESTORE : SC_MAXIMIZE );
+			break;
+		case SKINANCHOR_CLOSE:
+			pWnd->PostMessage( WM_SYSCOMMAND, SC_CLOSE );
+			break;
 		}
-		m_nHoverAnchor = 0;
-		m_nDownAnchor = 0;
 	}
+
+	m_nHoverAnchor = 0;
+	m_nDownAnchor = 0;
 
 	Paint( pWnd );
 
@@ -941,6 +954,16 @@ BOOL CSkinWindow::OnNcLButtonDblClk(CWnd* pWnd, UINT nHitTest, CPoint /*point*/)
 	}
 
 	return FALSE;
+}
+
+void CSkinWindow::OnNcMouseLeave(CWnd* pWnd)
+{
+	if ( ! m_nHoverAnchor )
+		return;
+
+	m_nHoverAnchor = 0;
+
+	Paint( pWnd );
 }
 
 //////////////////////////////////////////////////////////////////////

@@ -1,7 +1,7 @@
 //
 // SchemaChild.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -20,8 +20,8 @@
 
 #include "Schema.h"
 
-class CSchemaChildMap;
 class CXMLElement;
+class CSchemaChildMap;
 
 
 class CSchemaChild
@@ -35,11 +35,11 @@ public:
 	CString		m_sURI;
 	int			m_nType;
 
-	CList< CSchemaChildMap* >	m_pMap;
+	CList< const CSchemaChildMap* >	m_pMap;
 
-	BOOL		Load(CXMLElement* pXML);
+	BOOL		Load(const CXMLElement* pXML);
+	BOOL		MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote = FALSE, BOOL bAggressive = FALSE) const;
 	void		Clear();
-	BOOL		MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote = FALSE, BOOL bAggressive = FALSE);
 };
 
 
@@ -47,12 +47,12 @@ class CSchemaChildMap
 {
 public:
 	CSchemaChildMap();
-	virtual ~CSchemaChildMap();
+//	virtual ~CSchemaChildMap();
 
 public:
 	BOOL		m_bIdentity;
 	CString		m_sLocal;
 	CString		m_sRemote;
 
-	BOOL		Load(CXMLElement* pXML);
+	BOOL		Load(const CXMLElement* pXML);
 };

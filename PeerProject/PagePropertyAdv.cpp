@@ -1,7 +1,7 @@
 //
 // PagePropertyAdv.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2006.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -196,14 +196,15 @@ HBRUSH CPropertyPageAdv::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 IMPLEMENT_DYNAMIC(CPropertySheetAdv, CPropertySheet)
 
 BEGIN_MESSAGE_MAP(CPropertySheetAdv, CPropertySheet)
+	ON_WM_NCPAINT()
 	ON_WM_NCCALCSIZE()
 	ON_WM_NCHITTEST()
 	ON_WM_NCACTIVATE()
-	ON_WM_NCPAINT()
 	ON_WM_NCLBUTTONDOWN()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCLBUTTONDBLCLK()
 	ON_WM_NCMOUSEMOVE()
+	ON_WM_NCMOUSELEAVE()
 	ON_WM_SIZE()
 //	ON_WM_ERASEBKGND()
 	ON_WM_HELPINFO()
@@ -307,6 +308,11 @@ void CPropertySheetAdv::OnNcMouseMove(UINT nHitTest, CPoint point)
 {
 	if ( m_pSkin ) m_pSkin->OnNcMouseMove( this, nHitTest, point );
 	CPropertySheet::OnNcMouseMove( nHitTest, point );
+}
+
+void CPropertySheetAdv::OnNcMouseLeave()
+{
+	if ( m_pSkin ) m_pSkin->OnNcMouseLeave( this );
 }
 
 void CPropertySheetAdv::OnSize(UINT nType, int cx, int cy)

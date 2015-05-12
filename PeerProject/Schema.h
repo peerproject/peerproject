@@ -1,7 +1,7 @@
 //
 // Schema.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -100,19 +100,19 @@ protected:
 	CStringBoolMap	m_pTypeFilters;
 	CString			m_sURI;
 
-	CXMLElement*	GetType(CXMLElement* pRoot, LPCTSTR pszName) const;
+	CXMLElement*	GetType(const CXMLElement* pRoot, LPCTSTR pszName) const;
 	BOOL			LoadSchema(LPCTSTR pszFile);
-	BOOL			LoadPrimary(CXMLElement* pRoot, CXMLElement* pType);
+	BOOL			LoadPrimary(const CXMLElement* pRoot, const CXMLElement* pType);
 	BOOL			LoadDescriptor(LPCTSTR pszFile);
-	void			LoadDescriptorTitles(CXMLElement* pElement);
-	void			LoadDescriptorIcons(CXMLElement* pElement);
-	void			LoadDescriptorMembers(CXMLElement* pElement);
-	void			LoadDescriptorTypeFilter(CXMLElement* pElement);
-	void			LoadDescriptorExtends(CXMLElement* pElement);
-	void			LoadDescriptorContains(CXMLElement* pElement);
-	void			LoadDescriptorBitprintsImport(CXMLElement* pElement);
-	void			LoadDescriptorHeaderContent(CXMLElement* pElement);
-	void			LoadDescriptorViewContent(CXMLElement* pElement);
+	void			LoadDescriptorTitles(const CXMLElement* pElement);
+	void			LoadDescriptorIcons(const CXMLElement* pElement);
+	void			LoadDescriptorMembers(const CXMLElement* pElement);
+	void			LoadDescriptorTypeFilter(const CXMLElement* pElement);
+	void			LoadDescriptorExtends(const CXMLElement* pElement);
+	void			LoadDescriptorContains(const CXMLElement* pElement);
+	void			LoadDescriptorBitprintsImport(const CXMLElement* pElement);
+	void			LoadDescriptorHeaderContent(const CXMLElement* pElement);
+	void			LoadDescriptorViewContent(const CXMLElement* pElement);
 	BOOL			LoadIcon();
 
 // Inlines
@@ -207,5 +207,5 @@ public:
 	CString		m_sTo;
 	double		m_nFactor;
 
-	BOOL		Load(CXMLElement* pXML);
+	BOOL		Load(const CXMLElement* pXML);
 };

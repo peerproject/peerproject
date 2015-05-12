@@ -1,7 +1,7 @@
 //
 // QuerySearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -425,7 +425,7 @@ CG2Packet* CQuerySearch::ToG2Packet(SOCKADDR_IN* pUDP, DWORD nKey) const
 			( m_bWantCOM ? 4 : 0 ) + ( m_bWantPFS ? 4 : 0 ) );
 
 		if ( m_bWantURL ) pPacket->WriteString( "URL" );
-		if ( m_bWantDN ) pPacket->WriteString( "DN" );
+		if ( m_bWantDN )  pPacket->WriteString( "DN" );
 		if ( m_bWantXML ) pPacket->WriteString( "MD" );
 		if ( m_bWantCOM ) pPacket->WriteString( "COM" );
 		if ( m_bWantPFS ) pPacket->WriteString( "PFS" );
@@ -1766,8 +1766,13 @@ BOOL CQuerySearch::NumberMatch(const CString& strValue, const CString& strRange)
 
 void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 {
-	m_sSearch.Trim();
+	// Clear QueryStrings.
+	m_sPosKeywords.Empty();
+	m_sG2Keywords.Empty();
+
 	ToLower( m_sSearch );
+	m_sSearch.Trim();
+	if ( m_sSearch.GetLength() < 3 ) return;
 
 	// Parse "download-like" searches
 	if ( 0 == _tcsncmp( m_sSearch, L"magnet:?", 8 ) )
@@ -1793,7 +1798,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 	}
 
 	// Parse searches started from (multiple) URN string(s)
-	while ( 0 == _tcsncmp( m_sSearch, L"urn:", 4 ) )
+	while ( 0 == _tcsncmp( m_sSearch, _P( L"urn:" ) ) )
 	{
 		BOOL bHash = FALSE;
 		if ( ! m_oSHA1 )
@@ -1870,14 +1875,10 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 
 	// Build m_sPosKeywords/m_sG2Keywords from m_oWords/m_oNegWords
 
-	// Clear QueryStrings.
-	m_sPosKeywords.Empty();
-	m_sG2Keywords.Empty();
-
 	// Create string with positive keywords.
 	for ( const_iterator pWord = begin() ; pWord != end() ; ++pWord )
 	{
-		m_sPosKeywords.Append( pWord->first, int(pWord->second) );
+		m_sPosKeywords.Append( pWord->first, int( pWord->second ) );
 		m_sPosKeywords += L' ';
 	}
 
@@ -1888,7 +1889,7 @@ void CQuerySearch::BuildWordList(bool bExpression, bool /*bLocal*/ )
 	for ( const_iterator pWord = beginNeg() ; pWord != endNeg() ; ++pWord )
 	{
 		m_sG2Keywords += L'-';
-		m_sG2Keywords.Append( pWord->first, int(pWord->second) );
+		m_sG2Keywords.Append( pWord->first, int( pWord->second ) );
 		m_sG2Keywords += L' ';
 	}
 	m_sG2Keywords.TrimRight();		// Trim off extra space char at the end of string.
@@ -2012,11 +2013,14 @@ void CQuerySearch::SearchHelp()
 	static int nLastSearchHelp = 0;
 	switch ( ++nLastSearchHelp )
 	{
-	case 1:  CHelpDlg::Show( L"SearchHelp.BadSearch1" );
+	case 1:
+		CHelpDlg::Show( L"SearchHelp.BadSearch1" );
 		break;
-	case 2:  CHelpDlg::Show( L"SearchHelp.BadSearch2" );
+	case 2:
+		CHelpDlg::Show( L"SearchHelp.BadSearch2" );
 		break;
-	default: CHelpDlg::Show( L"SearchHelp.BadSearch3" );
+	default:
+		CHelpDlg::Show( L"SearchHelp.BadSearch3" );
 		nLastSearchHelp = 0;
 	}
 }

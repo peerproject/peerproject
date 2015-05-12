@@ -1,7 +1,7 @@
 //
 // SchemaChild.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -34,9 +34,9 @@ static char THIS_FILE[] = __FILE__;
 // CSchemaChild construction
 
 CSchemaChild::CSchemaChild(CSchemaPtr pSchema)
+	: m_pSchema	( pSchema )
+	, m_nType	( CSchema::stFile )
 {
-	m_pSchema	= pSchema;
-	m_nType		= CSchema::stFile;
 }
 
 CSchemaChild::~CSchemaChild()
@@ -47,7 +47,7 @@ CSchemaChild::~CSchemaChild()
 //////////////////////////////////////////////////////////////////////
 // CSchemaChild load
 
-BOOL CSchemaChild::Load(CXMLElement* pXML)
+BOOL CSchemaChild::Load(const CXMLElement* pXML)
 {
 	m_sURI = pXML->GetAttributeValue( L"location" );
 	if ( m_sURI.IsEmpty() ) return FALSE;
@@ -63,7 +63,7 @@ BOOL CSchemaChild::Load(CXMLElement* pXML)
 
 	for ( POSITION pos = pXML->GetElementIterator() ; pos ; )
 	{
-		CXMLElement* pElement = pXML->GetNextElement( pos );
+		const CXMLElement* pElement = pXML->GetNextElement( pos );
 
 		if ( pElement->IsNamed( L"identity" ) ||
 			 pElement->IsNamed( L"shared" ) )
@@ -100,7 +100,7 @@ void CSchemaChild::Clear()
 //////////////////////////////////////////////////////////////////////
 // CSchemaChild member copy
 
-BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote, BOOL bAggressive)
+BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bToRemote, BOOL bAggressive) const
 {
 	if ( ! pLocal || ! pRemote ) return FALSE;
 
@@ -108,7 +108,7 @@ BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bT
 
 	for ( POSITION pos = m_pMap.GetHeadPosition() ; pos ; )
 	{
-		CSchemaChildMap* pMap		= m_pMap.GetNext( pos );
+		const CSchemaChildMap* pMap	= m_pMap.GetNext( pos );
 		CXMLAttribute* pAttribute1	= NULL;
 		CXMLAttribute* pAttribute2	= NULL;
 
@@ -147,17 +147,18 @@ BOOL CSchemaChild::MemberCopy(CXMLElement* pLocal, CXMLElement* pRemote, BOOL bT
 // CSchemaChildMap construction
 
 CSchemaChildMap::CSchemaChildMap()
+	: m_bIdentity ( FALSE )
 {
 }
 
-CSchemaChildMap::~CSchemaChildMap()
-{
-}
+//CSchemaChildMap::~CSchemaChildMap()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CSchemaChildMap operation
 
-BOOL CSchemaChildMap::Load(CXMLElement* pXML)
+BOOL CSchemaChildMap::Load(const CXMLElement* pXML)
 {
 	if ( pXML->IsNamed( L"identity" ) )
 		m_bIdentity = TRUE;

@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -63,7 +63,6 @@ CDownloadWithTorrent::CDownloadWithTorrent()
 	, m_bTorrentEndgame		( false )
 	, m_bTorrentTrackerError ( FALSE )
 
-	, m_pTorrentBlock		( NULL )
 	, m_nTorrentBlock		( 0 )
 	, m_nTorrentSize		( 0 )
 	, m_nTorrentSuccess		( 0 )
@@ -87,9 +86,6 @@ CDownloadWithTorrent::~CDownloadWithTorrent()
 	m_pPeerID.clear();
 
 	CloseTorrentUploads();
-
-	delete [] m_pTorrentBlock;
-	m_pTorrentBlock = NULL;
 }
 
 bool CDownloadWithTorrent::IsSeeding() const
@@ -172,7 +168,8 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 	if ( ar.IsStoring() )
 	{
 		ar << m_nTorrentSuccess;
-		ar.Write( m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
+		if ( m_pTorrentBlock )	//  || nVersion < 1020
+			ar.Write( m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
 		ar << BOOL( m_bSeeding && Settings.BitTorrent.AutoSeed );
 	}
 	else // Loading
@@ -181,8 +178,14 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		m_nTorrentBlock	= m_pTorrent.m_nBlockCount;
 
 		ar >> m_nTorrentSuccess;
-		m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
-		ReadArchive( ar, m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
+		m_pTorrentBlock.Free();
+		if ( m_nTorrentBlock )
+		{
+			m_pTorrentBlock.Attach( new BYTE[ m_nTorrentBlock ] );
+			memset( m_pTorrentBlock, TRI_UNKNOWN, m_nTorrentBlock );
+			ReadArchive( ar, m_pTorrentBlock, sizeof( BYTE ) * m_nTorrentBlock );
+		}
+
 		ar >> m_bSeeding;
 
 		//if ( nVersion < 41 )
@@ -194,8 +197,6 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 
 		GenerateTorrentDownloadID();
 
-		m_oBTH = m_pTorrent.m_oBTH;
-		m_bBTHTrusted = true;
 		if ( ! m_oTiger && m_pTorrent.m_oTiger )
 		{
 			m_oTiger = m_pTorrent.m_oTiger;
@@ -215,6 +216,11 @@ void CDownloadWithTorrent::Serialize(CArchive& ar, int nVersion)
 		{
 			m_oMD5 = m_pTorrent.m_oMD5;
 			m_bMD5Trusted = true;
+		}
+		if ( ! m_oBTH && m_pTorrent.m_oBTH )
+		{
+			m_oBTH = m_pTorrent.m_oBTH;
+			m_bBTHTrusted = true;
 		}
 
 		// Convert old Shareaza multifile torrents (Shareaza < 2.4.0.4)
@@ -333,42 +339,54 @@ BOOL CDownloadWithTorrent::SetTorrent(const CBTInfo* pTorrent)
 		m_pTorrent = *pTorrent;
 	}
 
-	m_oBTH = m_pTorrent.m_oBTH;
-	m_bBTHTrusted = true;
+	if ( ! m_pTorrent.m_sName.IsEmpty() )
+		Rename( m_pTorrent.m_sName );
 
 	if ( m_pTorrent.m_nSize != SIZE_UNKNOWN )
 		m_nSize = m_pTorrent.m_nSize;
 
-	if ( ! m_pTorrent.m_sName.IsEmpty() )
-		Rename( m_pTorrent.m_sName );
+	if ( m_pTorrent.m_nBlockSize )
+		m_nTorrentSize = m_pTorrent.m_nBlockSize;
+
+	if ( m_pTorrent.m_nBlockCount )
+	{
+		m_nTorrentBlock = m_pTorrent.m_nBlockCount;
+
+		m_pTorrentBlock.Free();
+		m_pTorrentBlock.Attach( new BYTE[ m_nTorrentBlock ] );
+		memset( m_pTorrentBlock, TRI_UNKNOWN, m_nTorrentBlock );
+	}
 
 	if ( m_pTorrent.m_oTiger )
 	{
 		m_oTiger = m_pTorrent.m_oTiger;
 		m_bTigerTrusted = true;
 	}
+
 	if ( m_pTorrent.m_oSHA1 )
 	{
 		m_oSHA1 = m_pTorrent.m_oSHA1;
 		m_bSHA1Trusted = true;
 	}
+
 	if ( m_pTorrent.m_oED2K )
 	{
 		m_oED2K = m_pTorrent.m_oED2K;
 		m_bED2KTrusted = true;
 	}
+
 	if ( m_pTorrent.m_oMD5 )
 	{
 		m_oMD5 = m_pTorrent.m_oMD5;
 		m_bMD5Trusted = true;
 	}
 
-	m_nTorrentSize	= m_pTorrent.m_nBlockSize;
-	m_nTorrentBlock	= m_pTorrent.m_nBlockCount;
+	if ( m_pTorrent.m_oBTH )
+	{
+		m_oBTH = m_pTorrent.m_oBTH;
+		m_bBTHTrusted = true;
+	}
 
-	delete [] m_pTorrentBlock;
-	m_pTorrentBlock = new BYTE[ m_nTorrentBlock ];
-	memset( m_pTorrentBlock, TRI_UNKNOWN, m_nTorrentBlock );
 	m_nTorrentSuccess = 0;
 
 	if ( CreateDirectory( Settings.Downloads.TorrentPath ) )
@@ -769,7 +787,8 @@ void CDownloadWithTorrent::OnFinishedTorrentBlock(DWORD nBlock)
 
 CBTPacket* CDownloadWithTorrent::CreateBitfieldPacket()
 {
-	ASSERT( IsTorrent() );
+	if ( ! m_pTorrentBlock )
+		return NULL;
 
 	CBTPacket* pPacket = CBTPacket::New( BT_PACKET_BITFIELD );
 	int nCount = 0;

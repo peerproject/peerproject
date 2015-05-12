@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -2298,6 +2298,7 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					Font[ L"system.bold" ]		= 'b';
 					Font[ L"panel.caption" ]	= 'p';
 					Font[ L"navbar.caption" ]	= 'n';
+					Font[ L"navbar.selected" ]	= 's';
 					Font[ L"richdoc.default" ]	= 'r';
 					Font[ L"rich.default" ]		= 'r';
 					Font[ L"richdoc.heading" ]	= 'h';
@@ -2318,6 +2319,9 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				case 'n':	// navbar.caption
 					pFont = &CoolInterface.m_fntNavBar;
 					break;
+				case 's':	// navbar.selected
+					pFont = &CoolInterface.m_fntNavBarActive;
+					break;
 				case 'r':	// richdoc.default, rich.default
 					pFont = &CoolInterface.m_fntRichDefault;
 					bRichDefault = true;
@@ -2336,17 +2340,20 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 				if ( strFace.IsEmpty() )
 					strFace = Settings.Fonts.DefaultFont;
 
-				if ( strWeight.CompareNoCase( L"bold" ) == 0 )
-					strWeight = L"700";
-				else if ( strWeight.IsEmpty() || strWeight.CompareNoCase( L"normal" ) == 0 )
+				if ( strWeight.IsEmpty() || strWeight.CompareNoCase( L"normal" ) == 0 )
 					strWeight = L"400";
+				else if ( strWeight.CompareNoCase( L"bold" ) == 0 )
+					strWeight = L"700";
+				else if ( strWeight.CompareNoCase( L"extrabold" ) == 0 )
+					strWeight = L"900";
 
-				int nFontSize = Settings.Fonts.DefaultSize, nFontWeight = FW_NORMAL;
+				int nFontSize = Settings.Fonts.DefaultSize;
+				int nFontWeight = FW_NORMAL;
 
 				if ( strSize.GetLength() && _stscanf( strSize, L"%i", &nFontSize ) != 1 )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [size] attribute in [font] element", pXML->ToString() );
 
-				if ( strWeight.GetLength() > 2 && _stscanf( strWeight, L"%i", &nFontWeight ) != 1 )
+				if ( strWeight.GetLength() && _stscanf( strWeight, L"%i", &nFontWeight ) != 1 )
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [weight] attribute in [font] element", pXML->ToString() );
 
 				pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, FALSE, FALSE,
@@ -2359,15 +2366,15 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, FALSE, TRUE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
+						DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+						theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 
 					pFont = &CoolInterface.m_fntItalic;
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
+						DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+						theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
 				else if ( strName.CompareNoCase( L"system.bold" ) == 0 )
 				{
@@ -2375,8 +2382,8 @@ BOOL CSkin::LoadFonts(CXMLElement* pBase, const CString& strPath)
 					if ( pFont->m_hObject ) pFont->DeleteObject();
 
 					pFont->CreateFont( -nFontSize, 0, 0, 0, nFontWeight, TRUE, FALSE, FALSE,
-							DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
-							theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
+						DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+						theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, strFace );
 				}
 			}
 		}

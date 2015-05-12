@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -103,8 +103,8 @@ IMPLEMENT_DYNCREATE(CMainWnd, CMDIFrameWnd)
 BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_CREATE()
 	ON_WM_CLOSE()
-	ON_WM_MEASUREITEM()
 	ON_WM_DRAWITEM()
+	ON_WM_MEASUREITEM()
 	ON_WM_INITMENUPOPUP()
 	ON_WM_SYSCOLORCHANGE()
 	ON_WM_CONTEXTMENU()
@@ -117,6 +117,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_NCPAINT()
 	ON_WM_NCACTIVATE()
 	ON_WM_NCMOUSEMOVE()
+	ON_WM_NCMOUSELEAVE()
 	ON_WM_NCLBUTTONDOWN()
 	ON_WM_NCLBUTTONUP()
 	ON_WM_NCLBUTTONDBLCLK()
@@ -179,7 +180,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_COMMAND(ID_HELP_ABOUT, OnHelpAbout)
 	ON_COMMAND(ID_HELP_VERSION_CHECK, OnHelpVersionCheck)
 	ON_COMMAND(ID_HELP_HOMEPAGE, OnHelpHomepage)
-	ON_COMMAND(ID_HELP_FAKESHAREAZA, OnHelpFakeShareaza)
+//	ON_COMMAND(ID_HELP_FAKESHAREAZA, OnHelpFakeShareaza)
 	ON_COMMAND(ID_HELP_WEB_1, OnHelpWeb1)
 	ON_COMMAND(ID_HELP_WEB_2, OnHelpWeb2)
 	ON_COMMAND(ID_HELP_WEB_3, OnHelpWeb3)
@@ -3065,20 +3066,20 @@ void CMainWnd::OnHelpPromote()
 	}
 }
 
-void CMainWnd::OnHelpFakeShareaza()
-{
-	if ( Settings.General.LanguageDefault )
-	{
-		ShellExecute( GetSafeHwnd(), L"open", L"http://fakeshareaza.com",		// ToDo: Update URL
-		NULL, NULL, SW_SHOWNORMAL );
-	}
-	else
-	{
-		ShellExecute( GetSafeHwnd(), L"open",
-		L"http://translate.google.com/translate?u=fakeshareaza.com&hl=en&tl=" + Settings.General.Language.Left(2),
-		NULL, NULL, SW_SHOWNORMAL );
-	}
-}
+//void CMainWnd::OnHelpFakeShareaza()
+//{
+//	if ( Settings.General.LanguageDefault )
+//	{
+//		ShellExecute( GetSafeHwnd(), L"open", L"http://fakeshareaza.com",		// ToDo: Update URL
+//		NULL, NULL, SW_SHOWNORMAL );
+//	}
+//	else
+//	{
+//		ShellExecute( GetSafeHwnd(), L"open",
+//		L"http://translate.google.com/translate?u=fakeshareaza.com&hl=en&tl=" + Settings.General.Language.Left(2),
+//		NULL, NULL, SW_SHOWNORMAL );
+//	}
+//}
 
 /////////////////////////////////////////////////////////////////////////////
 // CMainWnd skin forwarding
@@ -3132,6 +3133,12 @@ void CMainWnd::OnNcMouseMove(UINT nHitTest, CPoint point)
 		m_pSkin->OnNcMouseMove( this, nHitTest, point );
 
 	CMDIFrameWnd::OnNcMouseMove( nHitTest, point );
+}
+
+void CMainWnd::OnNcMouseLeave()
+{
+	if ( m_pSkin )
+		m_pSkin->OnNcMouseLeave( this );
 }
 
 void CMainWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)

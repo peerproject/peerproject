@@ -1,6 +1,5 @@
 M http://webcache.peerproject.org/
 M http://cache.w3-hidden.cc/
-M http://gweb.dwbo.nl/
 M http://gwctest.zapto.org:1337/
 M http://tenafly5k.com/gwc/skulls.php
 # http://fascination77.free.fr/cachechu/
@@ -64,6 +63,7 @@ H http://publichublist.com/?do=hublist.xml.bz2
 X http://gwebcache.spearforensics.com/
 X http://www.myfoxy.net/gwc/cgi-bin/fc
 X http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
+X http://gweb.dwbo.nl/
 
 #
 # Last updated Dec 2014

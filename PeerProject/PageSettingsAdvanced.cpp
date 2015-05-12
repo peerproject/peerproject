@@ -1,7 +1,7 @@
 //
 // PageSettingsAdvanced.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -31,6 +31,8 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+#define EDIT_TOKEN L'•'
+
 IMPLEMENT_DYNCREATE(CAdvancedSettingsPage, CSettingsPage)
 
 BEGIN_MESSAGE_MAP(CAdvancedSettingsPage, CSettingsPage)
@@ -43,6 +45,7 @@ BEGIN_MESSAGE_MAP(CAdvancedSettingsPage, CSettingsPage)
 	ON_EN_CHANGE(IDC_MESSAGE, &CAdvancedSettingsPage::OnChangeValue)
 	ON_CBN_SELCHANGE(IDC_FONT, &CAdvancedSettingsPage::OnChangeValue)
 END_MESSAGE_MAP()
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CAdvancedSettingsPage property page
@@ -127,6 +130,7 @@ void CAdvancedSettingsPage::AddSettings()
 		}
 	}
 }
+
 void CAdvancedSettingsPage::CommitAll()
 {
 	const int nCount = m_wndList.GetItemCount();
@@ -152,13 +156,18 @@ void CAdvancedSettingsPage::UpdateAll()
 
 void CAdvancedSettingsPage::UpdateListItem(int nItem)
 {
+	if ( nItem < 0 )
+		return;
+
 	EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
+
 	CString strValue;
 
 	if ( pItem->m_pItem->m_pBool )
 	{
 		ASSERT( pItem->m_pItem->m_nScale == 1 &&
-			pItem->m_pItem->m_nMin == 0 && pItem->m_pItem->m_nMax == 1 );
+			pItem->m_pItem->m_nMin == 0 &&
+			pItem->m_pItem->m_nMax == 1 );
 		strValue = pItem->m_bValue ? L"True" : L"False";
 	}
 	else if ( pItem->m_pItem->m_pDword )
@@ -177,19 +186,20 @@ void CAdvancedSettingsPage::UpdateListItem(int nItem)
 	}
 
 	m_wndList.SetItemText( nItem, 1, strValue );
+
 	if ( pItem->IsDefault() )
 	{
-		if ( pItem->m_sName.Right( 1 ) == L"*" )
+		if ( pItem->m_sName.Right( 1 ) == EDIT_TOKEN )	// "•"
 		{
-			pItem->m_sName.TrimRight( L"*" );
+			pItem->m_sName.TrimRight( EDIT_TOKEN );		// "•"
 			m_wndList.SetItemText( nItem, 0, pItem->m_sName );
 		}
 	}
 	else
 	{
-		if ( pItem->m_sName.Right( 1 ) != L"*" )
+		if ( pItem->m_sName.Right( 1 ) != EDIT_TOKEN )	// "•"
 		{
-			pItem->m_sName += L"*";
+			pItem->m_sName += EDIT_TOKEN;	// "•"
 			m_wndList.SetItemText( nItem, 0, pItem->m_sName );
 		}
 	}
@@ -229,7 +239,7 @@ void CAdvancedSettingsPage::UpdateInputArea()
 
 	if ( nItem >= 0 )
 	{
-		const EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
+		const EditItem* pItem = (const EditItem*)m_wndList.GetItemData( nItem );
 
 		const BOOL bEnable = pItem->m_pItem->m_nType != CSettings::setReadOnly;
 
@@ -364,7 +374,7 @@ bool CAdvancedSettingsPage::IsModified() const
 	const int nCount = m_wndList.GetItemCount();
 	for ( int nItem = 0 ; nItem < nCount ; nItem++ )
 	{
-		const EditItem* pItem = (EditItem*)m_wndList.GetItemData( nItem );
+		const EditItem* pItem = (const EditItem*)m_wndList.GetItemData( nItem );
 		if ( pItem->IsModified() )
 			return true;
 	}
@@ -390,7 +400,7 @@ CAdvancedSettingsPage::EditItem::EditItem(const CSettings::Item* pItem)
 	m_sName += L".";
 	m_sName += pItem->m_szName;
 	if ( ! IsDefault() )
-		m_sName += L"*";
+		m_sName += EDIT_TOKEN;	// "•"
 }
 
 void CAdvancedSettingsPage::EditItem::Update()

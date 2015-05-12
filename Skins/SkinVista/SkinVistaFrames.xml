@@ -2,10 +2,10 @@
 <skin xmlns="http://schemas.peerproject.org/Skin.xsd" version="1.0">
 
 <manifest
- name="SkinSeven [Frames]"
+ name="SkinSeven Frames"
  author="SkinVista"
  icon=""
- description="Add Windows Vista/7 Style Window Frames"
+ description="Add Windows 7/Vista Style Window Frames"
  link="http://PeerProject.org"
  email="Contact(at)PeerProject.org"
  license="Persistent Public Domain (PPD)"

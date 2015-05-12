@@ -1,7 +1,7 @@
 //
 // Handshakes.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,7 +66,10 @@ public:
 	// The time at least one has been connected (seconds)
 	inline DWORD GetStableTime() const
 	{
-		return m_tStableTime ? ( static_cast< DWORD >( time( NULL ) ) - m_tStableTime ) : 0;
+		if ( ! m_tStableTime ) return 0;
+		const DWORD tNow = static_cast< DWORD >( time( NULL ) );
+		if ( tNow < m_tStableTime ) return 0;
+		return tNow - m_tStableTime;
 	}
 };
 

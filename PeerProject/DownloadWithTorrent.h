@@ -1,7 +1,7 @@
 //
 // DownloadWithTorrent.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -52,7 +52,7 @@ protected:
 	DWORD			m_nTorrentBlock;
 	DWORD			m_nTorrentSuccess;
 	DWORD			m_nTorrentSize;
-	BYTE*			m_pTorrentBlock;
+	CAutoVectorPtr< BYTE >	m_pTorrentBlock;
 private:
 	DWORD			m_tTorrentChoke;
 	CList< CUploadTransferBT* >	m_pTorrentUploads;

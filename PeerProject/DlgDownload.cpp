@@ -1,7 +1,7 @@
 //
 // DlgDownload.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -66,28 +66,14 @@ BOOL CDownloadDlg::OnInitDialog()
 
 	SkinMe( L"CDownloadDlg", IDR_DOWNLOADSFRAME );
 
-	if ( OpenClipboard() )
+	if ( theApp.GetClipboard( m_sURL ) )
 	{
-		if ( HGLOBAL hData = GetClipboardData( CF_UNICODETEXT ) )
-		{
-			size_t nData = GlobalSize( hData );
-			LPVOID pData = GlobalLock( hData );
+		m_sURL.Trim( L" \t\r\n\"" );
 
-			LPTSTR pszData = m_sURL.GetBuffer( (int)( nData + 1 ) / 2 + 1 );
-			CopyMemory( pszData, pData, nData );
-			pszData[ ( nData + 1 ) / 2 ] = 0;
-			m_sURL.ReleaseBuffer();
-			GlobalUnlock( hData );
-		}
-
-		CloseClipboard();
+		CPeerProjectURL pURL;
+		if ( ! pURL.Parse( m_sURL, m_pURLs ) )
+			m_sURL.Empty();
 	}
-
-	m_sURL.Trim( L" \t\r\n" );
-
-	CPeerProjectURL pURL;
-	if ( ! pURL.Parse( m_sURL, m_pURLs ) )
-		m_sURL.Empty();
 
 	UpdateData( FALSE );
 	OnChangeURL();

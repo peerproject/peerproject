@@ -1,7 +1,7 @@
 //
 // SchemaMember.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -79,7 +79,7 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 
 	if ( pBase != NULL )
 	{
-		if ( CXMLElement* pElement = pBase->GetElementByName( m_sName ) )
+		if ( const CXMLElement* pElement = pBase->GetElementByName( m_sName ) )
 			strValue = pElement->GetValue();
 		else
 			strValue = pBase->GetAttributeValue( m_sName, pszDefault );
@@ -142,8 +142,10 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 		{
 			float nMinutes = 0;
 			if ( _stscanf( strValue, L"%f", &nMinutes ) == 1 )
-				strValue.Format( L"%.2u:%.2u:%.2u", (DWORD)nMinutes / 60,
-					(DWORD)nMinutes % 60, (DWORD)( ( nMinutes - (DWORD)nMinutes ) * 60 ) );
+			{
+				DWORD nSeconds = (DWORD)roundf( nMinutes * 60 );
+				strValue.Format( L"%.2u:%.2u:%.2u", nSeconds / 3600, ( nSeconds / 60 ) % 60, nSeconds % 60 );
+			}
 			else
 				strValue = ( pszDefault ? pszDefault : L"" );
 		}
@@ -157,10 +159,12 @@ CString CSchemaMember::GetValueFrom(const CXMLElement* pBase, LPCTSTR pszDefault
 		}
 		else if ( m_nFormat == smfBitrate )
 		{
-			BOOL bVariable = _tcschr( strValue, '~' ) != NULL;
 			DWORD nBitrate = 0;
 			if ( _stscanf( strValue, L"%lu", &nBitrate ) == 1 )
+			{
+				BOOL bVariable = _tcschr( strValue, '~' ) != NULL;
 				strValue.Format( bVariable ? L"%luk~" : L"%luk", nBitrate );
+			}
 			else
 				strValue = ( pszDefault ? pszDefault : L"" );
 		}
@@ -202,7 +206,7 @@ void CSchemaMember::SetValueTo(CXMLElement* pBase, LPCTSTR pszValue)
 //////////////////////////////////////////////////////////////////////
 // CSchemaMember load schema
 
-BOOL CSchemaMember::LoadSchema(CXMLElement* pRoot, CXMLElement* pElement)
+BOOL CSchemaMember::LoadSchema(const CXMLElement* pRoot, const CXMLElement* pElement)
 {
 	m_bElement = pElement->GetName().CompareNoCase( L"element" ) == 0;
 
@@ -230,14 +234,14 @@ BOOL CSchemaMember::LoadSchema(CXMLElement* pRoot, CXMLElement* pElement)
 
 	if ( ! m_sType.IsEmpty() )
 	{
-		CXMLElement* pType = m_pSchema->GetType( pRoot, m_sType );
+		const CXMLElement* pType = m_pSchema->GetType( pRoot, m_sType );
 		return pType ? LoadType( pType ) : TRUE;
 	}
 
 	return FALSE;
 }
 
-BOOL CSchemaMember::LoadType(CXMLElement* pType)
+BOOL CSchemaMember::LoadType(const CXMLElement* pType)
 {
 	CString strName = pType->GetName();
 
@@ -276,7 +280,7 @@ BOOL CSchemaMember::LoadType(CXMLElement* pType)
 //////////////////////////////////////////////////////////////////////
 // CSchemaMember load descriptor
 
-BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
+BOOL CSchemaMember::LoadDescriptor(const CXMLElement* pXML)
 {
 	CString strSearch = pXML->GetAttributeValue( L"search" );
 
@@ -320,7 +324,7 @@ BOOL CSchemaMember::LoadDescriptor(CXMLElement* pXML)
 	return TRUE;
 }
 
-BOOL CSchemaMember::LoadDisplay(CXMLElement* pDisplay)
+BOOL CSchemaMember::LoadDisplay(const CXMLElement* pDisplay)
 {
 	CString strFormat	= pDisplay->GetAttributeValue( L"format" );
 	CString strWidth	= pDisplay->GetAttributeValue( L"columnWidth" );

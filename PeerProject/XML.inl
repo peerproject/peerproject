@@ -1,7 +1,7 @@
 //
 // XML.inl
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -77,9 +77,9 @@ inline CString CXMLNode::GetValue() const
 	return m_sValue;
 }
 
-inline void CXMLNode::SetValue(LPCTSTR pszValue)
+inline void CXMLNode::SetValue(const CString& strValue)
 {
-	m_sValue = pszValue;
+	m_sValue = strValue;
 }
 
 //////////////////////////////////////////////////////////////////////

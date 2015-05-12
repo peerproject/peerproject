@@ -1,5 +1,5 @@
 /*
-** sqlite3.h  (3.8.8) (Dec.2014)
+** sqlite3.h  (3.8.8) (Jan.2015)
 **
 ** This file is part of PeerProject (peerproject.org) © 2008-2014
 ** The original author disclaimed copyright to this source code.
@@ -86,7 +86,7 @@ extern "C" {
 
 #define SQLITE_VERSION        "3.8.8"
 #define SQLITE_VERSION_NUMBER 3008008
-#define SQLITE_SOURCE_ID      "2014-12-31 14:18:48 cf48eb608af9102a8def2a5b7f5f7b348548116f"
+#define SQLITE_SOURCE_ID      "2015-01-20 16:51:25 f73337e3e289915a76ca96e7a05a1a8d4e890d55"
 
 /*
 ** Run-Time Library Version Numbers
@@ -534,6 +534,7 @@ struct sqlite3_mem_methods {
 #define SQLITE_CONFIG_MMAP_SIZE    22  /* sqlite3_int64, sqlite3_int64 */
 #define SQLITE_CONFIG_WIN32_HEAPSIZE      23  /* int nByte */
 #define SQLITE_CONFIG_PCACHE_HDRSZ        24  /* int *psz */
+#define SQLITE_CONFIG_PMASZ               25  /* unsigned int szPma */
 
 /*
 ** Database Connection Configuration Options

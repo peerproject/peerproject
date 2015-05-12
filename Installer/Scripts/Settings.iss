@@ -1,15 +1,15 @@
 ; This sub-script lists extra PeerProject settings that should be written at installation time
 
 [Registry]
-; Enable SkinVista Theme (SkinEight)
+; Enable Defualt Theme (SkinVista)
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinEightAlt.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinEight|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinEightAltFrames.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinEight|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\ListStates"; ValueType: dword; ValueName: "CNeighboursWnd.Sort"; ValueData: 9 ;			Flags: createvalueifdoesntexist uninsdeletekey
 
-; Set SkinVista Menubar
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Summary"; ValueType: dword; ValueName: "Bars";  ValueData: 7 ;			Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar0"; ValueType: dword; ValueName: "BarID";  ValueData: $0000E801 ;		Flags: createvalueifdoesntexist uninsdeletekey
+; Set Menubar (SkinVista)
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Summary"; ValueType: dword; ValueName: "Bars"; ValueData: 7 ;			Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar0"; ValueType: dword; ValueName: "BarID"; ValueData: $0000E801 ;		Flags: createvalueifdoesntexist uninsdeletekey
 
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar1"; ValueType: dword; ValueName: "Bars";  ValueData: 9 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar1"; ValueType: dword; ValueName: "BarID"; ValueData: $0000E81B ;		Flags: createvalueifdoesntexist uninsdeletekey
@@ -77,7 +77,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; Va
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Bar#0"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Bar#1"; ValueData: $0000E813 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Bar#2"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Horz"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Horz";  ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "Floating"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "XPos"; ValueData: $00000057 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar7"; ValueType: dword; ValueName: "YPos"; ValueData: $00000018 ;		Flags: createvalueifdoesntexist uninsdeletekey
@@ -87,7 +87,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; Va
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Bar#0"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Bar#1"; ValueData: $0000E813 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Bar#2"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Horz"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Horz";  ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "Floating"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "XPos"; ValueData: $00000057 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar8"; ValueType: dword; ValueName: "YPos"; ValueData: $00000019 ;		Flags: createvalueifdoesntexist uninsdeletekey
@@ -97,7 +97,7 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; Va
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Bar#0"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Bar#1"; ValueData: $0000E810 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Bar#2"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Horz"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Horz";  ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "Floating"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "XPos"; ValueData: $0000003B ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar9"; ValueType: dword; ValueName: "YPos"; ValueData: $0000023E ;		Flags: createvalueifdoesntexist uninsdeletekey
@@ -107,19 +107,19 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Bar#0"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Bar#1"; ValueData: $0000E812 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Bar#2"; ValueData: 0 ;			Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Horz"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Horz";  ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "Floating"; ValueData: 1 ;			Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "XPos"; ValueData: $00000050 ;		Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; ValueType: dword; ValueName: "YPos"; ValueData: $000002CB ;		Flags: createvalueifdoesntexist uninsdeletekey
 
+; Set Defaults
+Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.publicbt.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "http://tracker.istole.it/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "udp://open.demonii.com:1337"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword; ValueName: "Count"; ValueData: 3; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Disable extensions for plugins that have trouble (?)
 ; For image services plugin we need to add extensions required for the first run
 ; Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Plugins"; ValueType: string; ValueName: "{C9314782-CB91-40B8-B375-F631FF30C1C8}"; ValueData: "|-.pdf||.bmp||.png||.jpg|"; Flags: createvalueifdoesntexist uninsdeletekey
-
-; Set Defaults
-Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "http://tracker.publicbt.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.istole.it/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "udp://tracker.openbittorrent.com:80/announce" ;  Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword;  ValueName: "Count"; ValueData: 3 ;  Flags: createvalueifdoesntexist uninsdeletekey

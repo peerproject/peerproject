@@ -63,10 +63,10 @@ public:
 	CString		GetValueFrom(const CXMLElement* pElement, LPCTSTR pszDefault = NULL, BOOL bFormat = FALSE, BOOL bNoValidation = FALSE) const;
 	void		SetValueTo(CXMLElement* pBase, LPCTSTR pszValue);
 protected:
-	BOOL		LoadSchema(CXMLElement* pRoot, CXMLElement* pElement);
-	BOOL		LoadType(CXMLElement* pType);
-	BOOL		LoadDescriptor(CXMLElement* pXML);
-	BOOL		LoadDisplay(CXMLElement* pXML);
+	BOOL		LoadSchema(const CXMLElement* pRoot, const CXMLElement* pElement);
+	BOOL		LoadType(const CXMLElement* pType);
+	BOOL		LoadDescriptor(const CXMLElement* pXML);
+	BOOL		LoadDisplay(const CXMLElement* pXML);
 
 	friend class CSchema;
 

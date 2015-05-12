@@ -1,7 +1,7 @@
 //
 // PeerProject.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,10 +23,10 @@
 
 class CBuffer;
 class CDatabase;
-class CPeerProjectFile;
 class CMainWnd;
 class CPacketWnd;
 class CSplashDlg;
+class CPeerProjectFile;
 
 
 class __declspec(novtable) CLogMessage
@@ -180,6 +180,7 @@ public:
 	void			LogMessage(const CString& strLog);
 
 	void			SetClipboard(const CString& strText, BOOL bShowTray = FALSE);	// Copy text to Windows clipboard
+	BOOL			GetClipboard(CString& strText);									// Copy text from Windows clipboard
 
 	void			ShowStartupText();
 	void			SplashStep(LPCTSTR pszMessage = NULL, int nMax = 0, bool bClosing = false);
@@ -401,9 +402,9 @@ const LPCTSTR RT_GZIP = L"GZIP";
 #define WIN_VISTA				600				// 6.0
 #define WIN_VISTA_SP2			602				// 6.0.sp2
 #define WIN_7					610				// 6.1
-#define WIN_8					620				// 6.2
+#define WIN_8					620				// 6.2 (or higher)
 #define WIN_8_1					630				// 6.3
-#define WIN_10					640				// 6.4
+#define WIN_10					640				// 6.4 (not given)
 
 // Log severity (log level) (.IDL)
 //#define MSG_SEVERITY_MASK		0x000f
