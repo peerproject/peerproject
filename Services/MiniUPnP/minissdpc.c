@@ -2,7 +2,7 @@
 /* Project : miniupnp
  * Web : http://miniupnp.free.fr/
  * Author : Thomas BERNARD
- * copyright (c) 2005-2014 Thomas Bernard
+ * copyright (c) 2005-2015 Thomas Bernard
  * This software is subject to the conditions detailed in the
  * provided LICENCE file. */
 
@@ -47,14 +47,59 @@ getDevicesFromMiniSSDPD(const char * devtype, const char * socketpath)
 {
 	struct UPNPDev * tmp;
 	struct UPNPDev * devlist = NULL;
-	unsigned char buffer[4*1024];	/* is that enough ? */
+	unsigned char buffer[256];
 	ssize_t n;
 	unsigned char * p;
 	unsigned char * url;
-	unsigned int i;
+	unsigned int bufferindex;
+	unsigned int i, ndev;
 	unsigned int urlsize, stsize, usnsize, l;
 	int s;
 	struct sockaddr_un addr;
+#ifdef MINIUPNPC_SET_SOCKET_TIMEOUT
+	struct timeval timeout;
+#endif /* #ifdef MINIUPNPC_SET_SOCKET_TIMEOUT */
+
+/* macros used to read from unix socket */
+#define READ_BYTE_BUFFER(c) \
+	if(bufferindex >= n) { \
+		n = read(s, buffer, sizeof(buffer)); \
+		if(n<=0) break; \
+		bufferindex = 0; \
+	} \
+	c = buffer[bufferindex++];
+
+#ifndef MIN
+#define MIN(a, b) (((a) < (b)) ? (a) : (b))
+#endif /* MIN */
+
+#define READ_COPY_BUFFER(dst, len) \
+	for(l = len, p = (unsigned char *)dst; l > 0; ) { \
+		unsigned int lcopy; \
+		if(bufferindex >= n) { \
+			n = read(s, buffer, sizeof(buffer)); \
+			if(n<=0) break; \
+			bufferindex = 0; \
+		} \
+		lcopy = MIN(l, (n - bufferindex)); \
+		memcpy(p, buffer + bufferindex, lcopy); \
+		l -= lcopy; \
+		p += lcopy; \
+		bufferindex += lcopy; \
+	}
+
+#define READ_DISCARD_BUFFER(len) \
+	for(l = len; l > 0; ) { \
+		unsigned int lcopy; \
+		if(bufferindex >= n) { \
+			n = read(s, buffer, sizeof(buffer)); \
+			if(n<=0) break; \
+			bufferindex = 0; \
+		} \
+		lcopy = MIN(l, (n - bufferindex)); \
+		l -= lcopy; \
+		bufferindex += lcopy; \
+	}
 
 	s = socket(AF_UNIX, SOCK_STREAM, 0);
 	if(s < 0)
@@ -63,9 +108,24 @@ getDevicesFromMiniSSDPD(const char * devtype, const char * socketpath)
 		perror("socket(unix)");
 		return NULL;
 	}
+#ifdef MINIUPNPC_SET_SOCKET_TIMEOUT
+	/* setting a 3 seconds timeout */
+	timeout.tv_sec = 3;
+	timeout.tv_usec = 0;
+	if(setsockopt(s, SOL_SOCKET, SO_RCVTIMEO, &timeout, sizeof(struct timeval)) < 0)
+	{
+		perror("setsockopt");
+	}
+	timeout.tv_sec = 3;
+	timeout.tv_usec = 0;
+	if(setsockopt(s, SOL_SOCKET, SO_SNDTIMEO, &timeout, sizeof(struct timeval)) < 0)
+	{
+		perror("setsockopt");
+	}
+#endif /* #ifdef MINIUPNPC_SET_SOCKET_TIMEOUT */
 	addr.sun_family = AF_UNIX;
 	strncpy(addr.sun_path, socketpath, sizeof(addr.sun_path));
-	/* TODO : check if we need to handle the EINTR */
+	/* TODO: check if we need to handle the EINTR */
 	if(connect(s, (struct sockaddr *)&addr, sizeof(struct sockaddr_un)) < 0)
 	{
 		/*syslog(LOG_WARNING, "connect(\"%s\"): %m", socketpath);*/
@@ -86,6 +146,10 @@ getDevicesFromMiniSSDPD(const char * devtype, const char * socketpath)
 	if(p + stsize > buffer + sizeof(buffer))
 	{
 		/* devtype is too long ! */
+#ifdef DEBUG
+		fprintf(stderr, "devtype is too long ! stsize=%u sizeof(buffer)=%u\n",
+				stsize, (unsigned)sizeof(buffer));
+#endif /* DEBUG */
 		close(s);
 		return NULL;
 	}
@@ -105,35 +169,66 @@ getDevicesFromMiniSSDPD(const char * devtype, const char * socketpath)
 		close(s);
 		return NULL;
 	}
-	p = buffer + 1;
-	for(i = 0; i < buffer[0]; i++)
+	ndev = buffer[0];
+	bufferindex = 1;
+	for(i = 0; i < ndev; i++)
 	{
-		if(p+2>=buffer+sizeof(buffer))
+		DECODELENGTH_READ(urlsize, READ_BYTE_BUFFER);
+		if(n<=0) {
 			break;
-		DECODELENGTH(urlsize, p);
-		if(p+urlsize+2>=buffer+sizeof(buffer))
+		}
+#ifdef DEBUG
+		printf("  urlsize=%u", urlsize);
+#endif /* DEBUG */
+		url = malloc(urlsize);
+		if(url == NULL) {
 			break;
-		url = p;
-		p += urlsize;
-		DECODELENGTH(stsize, p);
-		if(p+stsize+2>=buffer+sizeof(buffer))
+		}
+		READ_COPY_BUFFER(url, urlsize);
+		if(n<=0) {
+			free(url);
 			break;
+		}
+		DECODELENGTH_READ(stsize, READ_BYTE_BUFFER);
+		if(n<=0) {
+			free(url);
+			break;
+		}
+#ifdef DEBUG
+		printf("   stsize=%u", stsize);
+#endif /* DEBUG */
 		tmp = (struct UPNPDev *)malloc(sizeof(struct UPNPDev)+urlsize+stsize);
+		if(tmp == NULL) {
+			free(url);
+			break;
+		}
 		tmp->pNext = devlist;
 		tmp->descURL = tmp->buffer;
 		tmp->st = tmp->buffer + 1 + urlsize;
 		memcpy(tmp->buffer, url, urlsize);
 		tmp->buffer[urlsize] = '\0';
-		memcpy(tmp->buffer + urlsize + 1, p, stsize);
-		p += stsize;
-		tmp->buffer[urlsize+1+stsize] = '\0';
-		devlist = tmp;
-		/* added for compatibility with recent versions of MiniSSDPd
-		 * >= 2007/12/19 */
-		DECODELENGTH(usnsize, p);
-		p += usnsize;
-		if(p>buffer + sizeof(buffer))
+		free(url);
+		url = NULL;
+		READ_COPY_BUFFER(tmp->buffer + urlsize + 1, stsize);
+		if(n<=0) {
+			free(tmp);
 			break;
+		}
+		tmp->buffer[urlsize+1+stsize] = '\0';
+		tmp->scope_id = 0;	/* default value. scope_id is not available with MiniSSDPd */
+		devlist = tmp;
+		/* added for compatibility with recent versions of MiniSSDPd >= 2007/12/19 */
+		DECODELENGTH_READ(usnsize, READ_BYTE_BUFFER);
+		if(n<=0) {
+			break;
+		}
+#ifdef DEBUG
+		printf("   usnsize=%u\n", usnsize);
+#endif /* DEBUG */
+		READ_DISCARD_BUFFER(usnsize);
+		if(n<=0) {
+			break;
+		}
 	}
 	close(s);
 	return devlist;

@@ -1,7 +1,7 @@
 //
 // SchemaMember.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -26,9 +26,14 @@ class CSchemaMember
 {
 public:
 	CSchemaMember(CSchema* pSchema);
-	virtual ~CSchemaMember();
+	//virtual ~CSchemaMember();
 
 public:
+	enum Format
+	{
+		smfNone, smfTimeMMSS, smfBitrate, smfFrequency, smfTimeHHMMSSdec
+	};
+
 	CSchema*	m_pSchema;
 	CString		m_sName;
 	CString		m_sType;
@@ -47,7 +52,7 @@ public:
 	int			m_nMaxLength;
 
 	BOOL		m_bPrompt;
-	int			m_nFormat;
+	Format		m_nFormat;
 	int			m_nColumnWidth;
 	int			m_nColumnAlign;
 
@@ -62,6 +67,7 @@ public:
 	INT_PTR		GetItemCount() const { return m_pItems.GetCount(); }
 	CString		GetValueFrom(const CXMLElement* pElement, LPCTSTR pszDefault = NULL, BOOL bFormat = FALSE, BOOL bNoValidation = FALSE) const;
 	void		SetValueTo(CXMLElement* pBase, LPCTSTR pszValue);
+
 protected:
 	BOOL		LoadSchema(const CXMLElement* pRoot, const CXMLElement* pElement);
 	BOOL		LoadType(const CXMLElement* pType);
@@ -75,7 +81,13 @@ private:
 	CSchemaMember& operator=(const CSchemaMember&);
 };
 
-enum
-{
-	smfNone, smfTimeMMSS, smfBitrate, smfFrequency, smfTimeHHMMSSdec
-};
+
+//#ifdef WIN64
+//
+//template<>
+//AFX_INLINE UINT AFXAPI HashKey( CSchemaMemberPtr key )
+//{
+//	return HashKey< __int64 >( (__int64)key );
+//}
+//
+//#endif // WIN64

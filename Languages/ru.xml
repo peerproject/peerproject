@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Russian Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -86,7 +86,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Фильтр:" tip="Введите фильтрующие слова"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -97,7 +97,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Фильтр:" tip="Введите фильтрующие слова"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -111,7 +111,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить"/>
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Фильтр:" tip="Введите фильтрующие слова"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -130,7 +130,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Загрузить файл"/>
 		<button id="ID_SEARCH_CHAT" text="Чат"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Фильтр:" tip="Введите фильтрующие слова"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -142,7 +142,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Обновить"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Чат"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Фильтр:" tip="Введите фильтрующие слова"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -161,7 +161,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -176,7 +176,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Свойства"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Монитор"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Начать загрузку..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
 		<separator/>
@@ -186,7 +186,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_UPLOADS_CHAT" text="Чат"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -199,7 +199,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_UPLOADS_CHAT" text="Чат"/>
 		<button id="ID_SECURITY_BAN" text="Блокировать"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Очистить от завершенных"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Фильтр"/>
@@ -223,7 +223,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Общий доступ..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -232,7 +232,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Создать альбом..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Удалить альбом"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -241,7 +241,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Добавить в список"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -258,7 +258,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Переместить"/>
 		<button id="ID_LIBRARY_COPY" text="Копировать"/>
 		<button id="ID_LIBRARY_DELETE" text="Удалить"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -268,7 +268,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Открыть"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Добавить в список"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить альбом в список"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -281,7 +281,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Свойства"/>
 		<button id="ID_WEBSERVICES_LIST" text="Сервис"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -291,7 +291,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Добавить альбом в список"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Загрузить все файлы"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Найти:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -309,7 +309,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Открыть файл"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Предыдущий"/>
 		<button id="ID_MEDIA_NEXT" text="Следующий"/>
 		<separator/>
@@ -332,7 +332,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -341,7 +341,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Убрать"/>
 		<button id="ID_MEDIA_SAVE" text="Сохранить"/>
 	</toolbar>
@@ -350,7 +350,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Чат" tip="Post Комментарии"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Закрыть" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Подключиться" tip="Подключиться к IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Отключиться" tip="Отключиться от IRC"/>
 		<separator/>
@@ -360,7 +360,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Просмотр хоста"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Чат"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -374,7 +374,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Отключиться"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Блокировать"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -390,7 +390,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="вверх"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="спускать"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="Reset Hits"/>
 		<button id="ID_SECURITY_IMPORT" text="Импорт"/>
 		<button id="ID_SECURITY_EXPORT" text="Экспорт"/>
@@ -404,7 +404,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Включить"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Выключить"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="Удалить Всё"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Импорт"/>
@@ -417,7 +417,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Пауза"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Убрать"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Фильтр:" tip="Введите слова для фильтрации результатов"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Ещё..."/>
@@ -428,7 +428,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Подключиться"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Отключиться"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Удалить"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="кластер"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="кэш "/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="кэш "/>
@@ -476,7 +476,7 @@
 		<button id="PluginID_ImageViewer_FullSize" text="Оригинальный размер"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Обновить"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Закрыть"/>
 	</toolbar>
 </toolbars>
@@ -598,7 +598,7 @@
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
 				<item id="ID_HELP_UPDATE" text="Последние новости"/> <!--
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>	<!--
 				<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
 				<item id="ID_HELP_DONATE" text="_Пожертвования"/>
@@ -701,8 +701,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Последние новости"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
@@ -772,7 +772,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Последние новости"/> -->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
@@ -864,8 +864,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Форумы PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Форумы Pусский"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Последние новости"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Последние новости"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Проверить новую _версию"/>
@@ -2262,10 +2262,9 @@
 		<text format="b">Перефразируйте Ваш запрос</text>
 		<newline gap="8"/>
 		<text>Ваш запрос плохо сформатирован, и он может работать неправильно. Для того, чтобы смогли начать поиск,
-		 Вы должны использовать минимальное число правильных букв/знаков.</text>
+		Вы должны использовать минимальное число правильных букв/знаков.</text>
 		<newline gap="8"/>
-		<text>Если в Вашем запросе имеются тип файла или цифры, Вы толжны указать дополнительные условия тоже.
-		</text>
+		<text>Если в Вашем запросе имеются тип файла или цифры, Вы толжны указать дополнительные условия тоже.</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Перефразируйте Ваш запрос</text>

@@ -102,7 +102,15 @@ getHTTPResponse(int s, int * size)
 			int colon=0;
 			int valuestart=0;
 			if(header_buf_used + n > header_buf_len) {
-				header_buf = realloc(header_buf, header_buf_used + n);
+				char * tmp = realloc(header_buf, header_buf_used + n);
+				if(tmp == NULL) {
+					/* memory allocation error */
+					free(header_buf);
+					free(content_buf);
+					*size = -1;
+					return NULL;
+				}
+				header_buf = tmp;
 				header_buf_len = header_buf_used + n;
 			}
 			memcpy(header_buf + header_buf_used, buf, n);
@@ -237,13 +245,21 @@ getHTTPResponse(int s, int * size)
 					bytestocopy = ((int)chunksize < (n - i))?chunksize:(unsigned int)(n - i);
 					if((content_buf_used + bytestocopy) > content_buf_len)
 					{
+						char * tmp;
 						if(content_length >= (int)(content_buf_used + bytestocopy)) {
 							content_buf_len = content_length;
 						} else {
 							content_buf_len = content_buf_used + bytestocopy;
 						}
-						content_buf = (char *)realloc((void *)content_buf,
-													  content_buf_len);
+						tmp = realloc(content_buf, content_buf_len);
+						if(tmp == NULL) {
+							/* memory allocation error */
+							free(content_buf);
+							free(header_buf);
+							*size = -1;
+							return NULL;
+						}
+						content_buf = tmp;
 					}
 					memcpy(content_buf + content_buf_used, buf + i, bytestocopy);
 					content_buf_used += bytestocopy;
@@ -261,13 +277,21 @@ getHTTPResponse(int s, int * size)
 				}
 				if(content_buf_used + n > content_buf_len)
 				{
+					char * tmp;
 					if(content_length >= (int)(content_buf_used + n)) {
 						content_buf_len = content_length;
 					} else {
 						content_buf_len = content_buf_used + n;
 					}
-					content_buf = (char *)realloc((void *)content_buf,
-												  content_buf_len);
+					tmp = realloc(content_buf, content_buf_len);
+					if(tmp == NULL) {
+						/* memory allocation error */
+						free(content_buf);
+						free(header_buf);
+						*size = -1;
+						return NULL;
+					}
+					content_buf = tmp;
 				}
 				memcpy(content_buf + content_buf_used, buf, n);
 				content_buf_used += n;

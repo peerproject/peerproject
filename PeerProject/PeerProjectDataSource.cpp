@@ -1,7 +1,7 @@
 //
 // PeerProjectDataSource.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -236,6 +236,7 @@ protected:
 
 	DECLARE_INTERFACE_MAP()
 };
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectDataSource
@@ -1315,9 +1316,9 @@ void CPeerProjectDataSource::GetTotalLength(const CLibraryList* pList, size_t& s
 			{
 				if ( ! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
-					CLibraryListPtr pList( new CLibraryList() );
-					pAlbum->GetFileList( pList, TRUE );
-					GetTotalLength( pList, size_HDROP, size_Archive, size_Files, FALSE );
+					CLibraryListPtr pNewList( new CLibraryList() );
+					pAlbum->GetFileList( pNewList, TRUE );
+					GetTotalLength( pNewList, size_HDROP, size_Archive, size_Files, FALSE );
 
 					size_Archive++;
 				}
@@ -1426,9 +1427,9 @@ void CPeerProjectDataSource::FillBuffer(const CLibraryList* pList, LPTSTR& buf_H
 			{
 				if ( ! CheckURI( pAlbum->m_sSchemaURI, CSchema::uriGhostFolder ) )
 				{
-					CLibraryListPtr pList( new CLibraryList() );
-					pAlbum->GetFileList( pList, TRUE );
-					FillBuffer( pList, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pAlbum->m_oGUID );
+					CLibraryListPtr pNewList( new CLibraryList() );
+					pAlbum->GetFileList( pNewList, TRUE );
+					FillBuffer( pNewList, buf_HDROP, buf_Archive, buf_Files, buf_Text, FALSE, pAlbum->m_oGUID );
 					pAlbum->Serialize( buf_Archive, LIBRARY_SER_VERSION );
 				}
 			}

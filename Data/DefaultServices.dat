@@ -2,9 +2,8 @@ M http://webcache.peerproject.org/
 M http://cache.w3-hidden.cc/
 M http://gwctest.zapto.org:1337/
 M http://tenafly5k.com/gwc/skulls.php
+M http://gweb2.4octets.co.uk/gwc.php
 # http://fascination77.free.fr/cachechu/
-# http://gweb2.4octets.co.uk/gwc.php
-# http://gwebcache.ns1.net/
 
 2 http://cache.trillinux.org/g2/bazooka.php
 2 http://dkac.trillinux.org/dkac/dkac.php
@@ -57,7 +56,9 @@ D http://upd.emule-security.org/server.met
 D http://www.emule-server.de/server.met/max/server.met
 
 H http://dchublist.com/hublist.xml.bz2
-H http://publichublist.com/?do=hublist.xml.bz2
+H http://dchublist.ru/hublist.xml.bz2
+H http://www.hublista.hu/hublist.xml.bz2
+# http://publichublist.com/?do=hublist.xml.bz2
 # http://openhublist.org
 
 X http://gwebcache.spearforensics.com/
@@ -66,7 +67,7 @@ X http://gwc.gofoxy.net:2108/gwc/cgi-bin/fc
 X http://gweb.dwbo.nl/
 
 #
-# Last updated Dec 2014
+# Last updated Oct 2015
 #
 # A letter and space must precede each link to indicate the type of service:
 # X = Banned,  M = Multinetwork gwebcache,

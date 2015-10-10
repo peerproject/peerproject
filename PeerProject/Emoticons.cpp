@@ -1,7 +1,7 @@
 //
 // Emoticons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -366,13 +366,13 @@ BOOL CEmoticons::LoadXML(LPCTSTR pszFile)
 		CRect rc( 0, 0, 0, 0 );
 
 		strValue = pSource->GetAttributeValue( L"left", L"0" );
-		_stscanf( strValue, L"%i", &rc.left );
+		_stscanf( strValue, L"%li", &rc.left );
 		strValue = pSource->GetAttributeValue( L"top", L"0" );
-		_stscanf( strValue, L"%i", &rc.top );
+		_stscanf( strValue, L"%li", &rc.top );
 		strValue = pSource->GetAttributeValue( L"right", L"0" );
-		_stscanf( strValue, L"%i", &rc.right );
+		_stscanf( strValue, L"%li", &rc.right );
 		strValue = pSource->GetAttributeValue( L"bottom", L"0" );
-		_stscanf( strValue, L"%i", &rc.bottom );
+		_stscanf( strValue, L"%li", &rc.bottom );
 
 		BOOL bButton = pEmoticon->GetAttributeValue( L"button" ).CompareNoCase( L"yes" ) == 0;
 

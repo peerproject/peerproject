@@ -1,7 +1,7 @@
 //
 // DlgSplash.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -30,11 +30,11 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-IMPLEMENT_DYNAMIC(CSplashDlg, CDialog)
+//IMPLEMENT_DYNAMIC(CSplashDlg, CDialog)
 
 BEGIN_MESSAGE_MAP(CSplashDlg, CDialog)
 	ON_WM_PAINT()
-	ON_MESSAGE(WM_PRINTCLIENT, OnPrintClient)
+	ON_WM_QUERYENDSESSION()
 END_MESSAGE_MAP()
 
 //#ifndef WS_EX_LAYERED		// Win9x
@@ -50,6 +50,16 @@ END_MESSAGE_MAP()
 #define SPLASH_WIDTH		530
 #define SPLASH_HEIGHT		236
 
+#define COLOR_DEFAULT		RGB( 160, 50, 4 )
+#define COLOR_TEXT			RGB( 255, 255, 255 )
+#define COLOR_TEXT_SHADOW	RGB( 40, 10, 0 )
+#define COLOR_TEXT_FADE		RGB( 120, 40, 10 )
+#define COLOR_BAR_UPPEREDGE	RGB( 0x60, 0x40, 0 )
+#define COLOR_BAR_LOWEREDGE	RGB( 0x20, 0, 0 )
+#define COLOR_BAR_FILL		RGB( 0x30, 0x20, 0 )
+#define COLOR_BAR_PROGRESS	RGB( 244, 140, 10 )
+
+CBitmap CSplashDlg::m_bmSplash;		// Static
 
 /////////////////////////////////////////////////////////////////////////////
 // CSplashDlg construction
@@ -63,12 +73,15 @@ CSplashDlg::CSplashDlg(int nMax, bool bClosing)
 	, m_bClosing	( bClosing )
 	, m_sState		( Settings.SmartAgent() )	//  Was theApp.m_sSmartAgent
 {
+	if ( ! m_bmSplash.m_hObject )
+		m_bmSplash.Attach( CImageFile::LoadBitmapFromFile( Settings.General.DataPath + L"Splash.png" ) );
+
 	Create( IDD, GetDesktopWindow() );
 }
 
-CSplashDlg::~CSplashDlg()
-{
-}
+//CSplashDlg::~CSplashDlg()
+//{
+//}
 
 void CSplashDlg::DoDataExchange(CDataExchange* pDX)
 {
@@ -87,23 +100,19 @@ BOOL CSplashDlg::OnInitDialog()
 
 	SetWindowText( m_sState );
 
-	CClientDC dcScreen( this );
-
-	//m_bmSplash.Attach( CImageFile::LoadBitmapFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) );
-
-	CImageFile pFile;
-	if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )	// Settings.General.DataPath ?
-	{
-		pFile.EnsureRGB();
-		HBITMAP bmHandle = pFile.CreateBitmap();
-		m_bmSplash.Attach( bmHandle );
-	}
-	else if ( pFile.LoadFromResource( AfxGetResourceHandle(), IDR_LARGE_LOGO, RT_PNG ) )
-	{
-		// ToDo: Built-in media splash currently works as fallback, but this should be commented out if changed. (Note flat-color otherwise)
-		HBITMAP bmHandle = pFile.CreateBitmap();
-		m_bmSplash.Attach( bmHandle );
-	}
+	//CImageFile pFile;
+	//if ( pFile.LoadFromFile( Settings.General.Path + L"\\Data\\Splash.png" ) )	// Settings.General.DataPath ?
+	//{
+	//	pFile.EnsureRGB();
+	//	HBITMAP bmHandle = pFile.CreateBitmap();
+	//	m_bmSplash.Attach( bmHandle );
+	//}
+	//else if ( pFile.LoadFromResource( AfxGetResourceHandle(), IDR_LARGE_LOGO, RT_PNG ) )
+	//{
+	//	// ToDo: Built-in media splash currently works as fallback, but this should be commented out if changed. (Note flat-color otherwise)
+	//	HBITMAP bmHandle = pFile.CreateBitmap();
+	//	m_bmSplash.Attach( bmHandle );
+	//}
 
 	if ( m_bmSplash.m_hObject )
 	{
@@ -115,10 +124,6 @@ BOOL CSplashDlg::OnInitDialog()
 			m_nHeight = bmInfo.bmHeight;
 		}
 	}
-
-	m_bmBuffer.CreateCompatibleBitmap( &dcScreen, m_nWidth, m_nHeight );
-	m_dcBuffer1.CreateCompatibleDC( &dcScreen );
-	m_dcBuffer2.CreateCompatibleDC( &dcScreen );
 
 	SetWindowPos( NULL, 0, 0, m_nWidth, m_nHeight, SWP_NOMOVE );
 	CenterWindow();
@@ -132,6 +137,15 @@ BOOL CSplashDlg::OnInitDialog()
 	return TRUE;
 }
 
+BOOL CSplashDlg::OnQueryEndSession()
+{
+	UpdateWindow();
+
+	CDialog::OnQueryEndSession();
+
+	return FALSE;
+}
+
 void CSplashDlg::Step(LPCTSTR pszText)
 {
 	// Check if m_nMax was set high enough during construction to allow another step to take place
@@ -140,6 +154,9 @@ void CSplashDlg::Step(LPCTSTR pszText)
 	m_nPos ++;
 	m_sState.Format( m_bClosing ? L"%s..." : L"Starting %s...", pszText );
 	SetWindowText( m_sState );
+
+	if ( theApp.m_pfnShutdownBlockReasonCreate )	// Vista+
+		theApp.m_pfnShutdownBlockReasonCreate( m_hWnd, m_sState );
 
 	CClientDC dc( this );
 	DoPaint( &dc );
@@ -170,26 +187,20 @@ void CSplashDlg::Hide(BOOL bAbort)
 		// Check if m_nMax was set too high during construction, or if not enough steps were run
 		//ASSERT( m_nPos == m_nMax );
 
-		m_sState = L"Ready";
+		LoadString( m_sState, AFX_IDS_IDLEMESSAGE );	// "Ready"
 		SetWindowText( m_sState );
 		Invalidate();
 
 		// MFC Windows transition effect  (Fade, etc.)
-		AnimateWindow( 180, AW_HIDE|AW_BLEND );
+		//if ( GetSystemMetrics( SM_REMOTESESSION ) == 0 )	// Why?
+			AnimateWindow( 180, AW_HIDE|AW_BLEND );
 	}
+
+	if ( theApp.m_pfnShutdownBlockReasonDestroy )		// Vista+
+		theApp.m_pfnShutdownBlockReasonDestroy( m_hWnd );
 
 	::DestroyWindow( m_hWnd );
 	delete this;
-}
-
-LRESULT CSplashDlg::OnPrintClient(WPARAM wParam, LPARAM /*lParam*/)
-{
-	LRESULT lResult = Default();
-
-	CDC* pDC = CDC::FromHandle( (HDC)wParam );
-	DoPaint( pDC );
-
-	return lResult;
 }
 
 void CSplashDlg::OnPaint()
@@ -200,47 +211,57 @@ void CSplashDlg::OnPaint()
 
 void CSplashDlg::DoPaint(CDC* pDC)
 {
-	CBitmap* pOld1 = (CBitmap*)m_dcBuffer1.SelectObject( &m_bmSplash );
-	CBitmap* pOld2 = (CBitmap*)m_dcBuffer2.SelectObject( &m_bmBuffer );
+	CDC dcSplash;		// Was m_dcBuffer1
+	dcSplash.CreateCompatibleDC( pDC );
+	CBitmap* pOld1 = (CBitmap*)dcSplash.SelectObject( &m_bmSplash );
+
+	CDC dcMemory;		// Was m_dcBuffer2
+	dcMemory.CreateCompatibleDC( pDC );
+
+	CBitmap bmBuffer;
+	bmBuffer.CreateCompatibleBitmap( pDC, m_nWidth, m_nHeight );
+	CBitmap* pOld2 = (CBitmap*)dcMemory.SelectObject( &bmBuffer );
+
+	dcMemory.BitBlt( 0, 0, m_nWidth, m_nHeight, &dcSplash, 0, 0, SRCCOPY );
 
 	if ( m_bmSplash.m_hObject )
-		m_dcBuffer2.BitBlt( 0, 0, m_nWidth, m_nHeight, &m_dcBuffer1, 0, 0, SRCCOPY );
+		dcMemory.BitBlt( 0, 0, m_nWidth, m_nHeight, &dcSplash, 0, 0, SRCCOPY );
 	else // Missing File
-		m_dcBuffer2.FillSolidRect( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, RGB( 160, 50, 4 ) );	// Default Splash Color
+		dcMemory.FillSolidRect( 0, 0, SPLASH_WIDTH, SPLASH_HEIGHT, COLOR_DEFAULT );	// Default Splash Color
 
-	CFont* pOld3 = (CFont*)m_dcBuffer2.SelectObject( &theApp.m_gdiFontBold );
-	m_dcBuffer2.SetBkMode( TRANSPARENT );
+	CFont* pOldFont = (CFont*)dcMemory.SelectObject( &theApp.m_gdiFontBold );
+	dcMemory.SetBkMode( TRANSPARENT );
 
 	CRect rc( 8, m_nHeight - 18, m_nWidth - 98, m_nHeight - 2 );		// Text Position
 	UINT nFormat = DT_LEFT|DT_SINGLELINE|DT_VCENTER|DT_NOPREFIX;
 
-	m_dcBuffer2.SetTextColor( RGB( 120, 40, 10 ) );						// Text Outline/Fade
+	dcMemory.SetTextColor( COLOR_TEXT_FADE );							// Text Outline/Fade
 	rc.left--;
 	rc.top += 2;
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 	rc.top -= 4;
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 	rc.left += 2;
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 	rc.left++;
 	rc.top += 5;
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 	rc.left--;
 	rc.top--;
-	m_dcBuffer2.SetTextColor( RGB( 40, 10, 0 ) );						// Text Outline/Shadow
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.SetTextColor( COLOR_TEXT_SHADOW );							// Text Outline/Shadow
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 	rc.left--;
 	rc.top -= 2;
 
-	m_dcBuffer2.SetTextColor( RGB( 255, 255, 255 ) );					// Text Color
-	m_dcBuffer2.DrawText( m_sState, &rc, nFormat );
+	dcMemory.SetTextColor( COLOR_TEXT );								// Text Color
+	dcMemory.DrawText( m_sState, &rc, nFormat );
 
-	m_dcBuffer2.SelectObject( pOld3 );
+	dcMemory.SelectObject( pOldFont );
 
 	rc.SetRect( m_nWidth - 90, m_nHeight - 14, m_nWidth - 8, m_nHeight - 5 );	// Progress Bar Position ( 440, 222, 522, 231 )
-	m_dcBuffer2.Draw3dRect( &rc, RGB( 0x60, 0x40, 0 ), RGB( 0x20, 0, 0 ) );
+	dcMemory.Draw3dRect( &rc, COLOR_BAR_UPPEREDGE, COLOR_BAR_LOWEREDGE );
 	rc.DeflateRect( 1, 1 );												// Progress Bar Outline
-	m_dcBuffer2.FillSolidRect( &rc, RGB( 0x30, 0x20, 0 ) ); 			// Progress Bar Background
+	dcMemory.FillSolidRect( &rc, COLOR_BAR_FILL ); 						// Progress Bar Background
 
 	int nOffset;
 	if ( Settings.General.LanguageRTL )
@@ -248,12 +269,11 @@ void CSplashDlg::DoPaint(CDC* pDC)
 	else
 		nOffset = 0;
 
-	CFragmentBar::DrawFragment( &m_dcBuffer2, &rc, m_nMax, nOffset, min( m_nPos, m_nMax ),
-		RGB( 244, 140, 10 ), TRUE );									// Progress Bar Color
-	m_dcBuffer2.SelectClipRgn( NULL );
+	CFragmentBar::DrawFragment( &dcMemory, &rc, m_nMax, nOffset, min( m_nPos, m_nMax ), COLOR_BAR_PROGRESS, TRUE );		// Progress Bar Color
+	dcMemory.SelectClipRgn( NULL );
 
-	pDC->BitBlt( 0, 0, m_nWidth, m_nHeight, &m_dcBuffer2, 0, 0, SRCCOPY );
+	pDC->BitBlt( 0, 0, m_nWidth, m_nHeight, &dcMemory, 0, 0, SRCCOPY );
 
-	m_dcBuffer2.SelectObject( pOld2 );
-	m_dcBuffer1.SelectObject( pOld1 );
+	dcMemory.SelectObject( pOld2 );
+	dcSplash.SelectObject( pOld1 );
 }

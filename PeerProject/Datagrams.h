@@ -1,7 +1,7 @@
 //
 // Datagrams.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,6 +18,14 @@
 
 #pragma once
 
+#define DATAGRAM_HASH_SIZE	32
+#define DATAGRAM_HASH_MASK	31
+
+#define SGP_TAG_1			"SGP"
+#define SGP_TAG_2			"GND"
+#define SGP_DEFLATE			0x01
+#define SGP_ACKNOWLEDGE		0x02
+
 #pragma pack(push,1)
 
 typedef struct
@@ -31,21 +39,16 @@ typedef struct
 
 #pragma pack(pop)
 
-#define SGP_TAG_1		"SGP"
-#define SGP_TAG_2		"GND"
-#define SGP_DEFLATE		0x01
-#define SGP_ACKNOWLEDGE	0x02
-
 typedef struct
 {
-	DWORD		nTotal;
-	DWORD		tLast;
-	DWORD		nMeasure;
-	DWORD		pHistory[24];
-	DWORD		pTimes[24];
-	DWORD		nPosition;
-	DWORD		tLastAdd;
-	DWORD		tLastSlot;
+	DWORD	nTotal;
+	DWORD	tLast;
+	DWORD	nMeasure;
+	DWORD	pHistory[24];
+	DWORD	pTimes[24];
+	DWORD	nPosition;
+	DWORD	tLastAdd;
+	DWORD	tLastSlot;
 } UDPBandwidthMeter;
 
 class CBuffer;
@@ -87,14 +90,14 @@ protected:
 	CDatagramIn*	m_pInputFree;
 	CDatagramIn*	m_pInputFirst;
 	CDatagramIn*	m_pInputLast;
-	CDatagramIn*	m_pInputHash[32];
+	CDatagramIn*	m_pInputHash[ DATAGRAM_HASH_SIZE ];
 
 	DWORD			m_nOutputBuffer;
 	CDatagramOut*	m_pOutputBuffer;
 	CDatagramOut*	m_pOutputFree;
 	CDatagramOut*	m_pOutputFirst;
 	CDatagramOut*	m_pOutputLast;
-	CDatagramOut*	m_pOutputHash[32];
+	CDatagramOut*	m_pOutputHash[ DATAGRAM_HASH_SIZE ];
 
 private:
 	// Buffer for current incoming UDP packet. It's global since

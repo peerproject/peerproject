@@ -1,7 +1,7 @@
 //
 // dht.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2012
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // Copyright (c) 2009-2011 by Juliusz Chroboczek
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -22,9 +22,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //
 
-#ifdef _MSC_VER
 #pragma once
-#endif
 
 //#define DHT_DEBUG		// Enable debug functions
 
@@ -70,7 +68,7 @@ void dht_hash(void *hash_return, int hash_size,
 			  const void *v2, int len2,
 			  const void *v3, int len3);
 int dht_random_bytes(void *buf, size_t size);
-int dht_sendto(int s, const char *buf, int len, int flags,
+int dht_sendto(int s, const void *buf, int len, int flags,
 			  const struct sockaddr *to, int tolen);
 //void dht_new_node(const unsigned char *id,
 //            const struct sockaddr *sa, int salen, int confirm);

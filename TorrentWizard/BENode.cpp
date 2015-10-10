@@ -299,7 +299,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 		{
 			LPCSTR pszKey = (LPCSTR)pNode[1];
 			size_t nKeyLength = strlen( pszKey );
-			sprintf( szBuffer, "%i:", nKeyLength );
+			sprintf( szBuffer, "%zu:", nKeyLength );
 			pBuffer->Print( szBuffer );
 			pBuffer->Print( pszKey );
 			(*pNode)->Encode( pBuffer );

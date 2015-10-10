@@ -52,9 +52,9 @@ CSchemaMember::CSchemaMember(CSchema* pSchema)
 {
 }
 
-CSchemaMember::~CSchemaMember()
-{
-}
+//CSchemaMember::~CSchemaMember()
+//{
+//}
 
 //////////////////////////////////////////////////////////////////////
 // CSchemaMember item access
@@ -348,7 +348,7 @@ BOOL CSchemaMember::LoadDisplay(const CXMLElement* pDisplay)
 	else if ( strFormat.CompareNoCase( L"frequency" ) == 0 )
 		m_nFormat = smfFrequency;
 
-	_stscanf( strWidth, L"%lu", &m_nColumnWidth );
+	_stscanf( strWidth, L"%i", &m_nColumnWidth );
 
 	if ( strAlign.CompareNoCase( L"left" ) == 0 )
 		m_nColumnAlign = LVCFMT_LEFT;

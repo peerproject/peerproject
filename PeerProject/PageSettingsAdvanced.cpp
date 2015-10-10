@@ -300,9 +300,9 @@ void CAdvancedSettingsPage::OnChangeValue()
 			DWORD nValue;
 			CString strValue;
 			m_wndValue.GetWindowText( strValue );
-			if ( _stscanf( strValue, L"%lu", &nValue ) != 1 )
+			if ( _stscanf( strValue, L"%lu", &nValue ) != 1 || nValue > pItem->m_pItem->m_nMax || nValue < pItem->m_pItem->m_nMin )
 				return;
-			pItem->m_nValue = max( pItem->m_pItem->m_nMin, min( pItem->m_pItem->m_nMax, nValue ) ) * pItem->m_pItem->m_nScale;
+			pItem->m_nValue = nValue * pItem->m_pItem->m_nScale;
 		}
 		else if ( pItem->m_pItem->m_pBool )
 		{

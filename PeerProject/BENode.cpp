@@ -1,7 +1,7 @@
 //
 // BENode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -327,7 +327,7 @@ void CBENode::Encode(CBuffer* pBuffer) const
 			{
 				LPCSTR pszKey = (LPCSTR)pNode[1];
 				size_t nKeyLength = strlen( pszKey );
-				pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%u:", (DWORD)nKeyLength ) );
+				pBuffer->Print( szBuffer, sprintf_s( szBuffer, _countof( szBuffer ), "%zu:", nKeyLength ) );
 				pBuffer->Print( pszKey, nKeyLength );
 				(*pNode)->Encode( pBuffer );
 			}

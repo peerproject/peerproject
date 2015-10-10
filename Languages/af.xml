@@ -4,7 +4,7 @@
 <!-- PeerProject Default Afrikaans Skin File -->
 <!-- Weergawe: 27 Oktober 2005 vir Shareaza 2.2.0.2 -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -86,7 +86,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Laai Af"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -97,7 +97,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -110,7 +110,7 @@
 		<separator/>
 		<button id="ID_SEARCH_DOWNLOAD" text="Laai Af"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -129,7 +129,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Laai Lêer Af"/>
 		<button id="ID_SEARCH_CHAT" text="Gesels met Gebruiker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -141,7 +141,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Verfris"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Gesels met Gebruiker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -160,7 +160,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Properties"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder Voltooide Aflaaie"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -175,7 +175,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Properties"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vertoon Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Voeg Aflaai/Torrent By..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Verwyder Voltooide Aflaaie"/>
 		<separator/>
@@ -185,7 +185,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_UPLOADS_CHAT" text="Gesels met Gebruiker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder Voltooide Oplaaie"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -198,7 +198,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_UPLOADS_CHAT" text="Gesels met Gebruiker"/>
 		<button id="ID_SECURITY_BAN" text="Verban Gebruiker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Verwyder Voltooide Oplaaie"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtreer"/>
@@ -222,7 +222,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Deel Lêers..."/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -231,7 +231,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Skep Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Verwyder Album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -241,7 +241,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Open of Speel"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Voeg by Medialys"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -257,7 +257,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Skuif"/>
 		<button id="ID_LIBRARY_COPY" text="Kopieer"/>
 		<button id="ID_LIBRARY_DELETE" text="Skrap"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -268,7 +268,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Voeg by Medialys"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Speel Album"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -281,7 +281,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Properties"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -291,7 +291,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Speel Volledige Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Laai Alle Lêers Af"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Soek:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -309,7 +309,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Open Lêer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Vorige"/>
 		<button id="ID_MEDIA_NEXT" text="Volgende"/>
 		<separator/>
@@ -332,7 +332,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -341,7 +341,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Verwyder"/>
 		<button id="ID_MEDIA_SAVE" text="Stoor"/>
 	</toolbar>
@@ -350,7 +350,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Kommentaar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Konnekteer" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Diskonnekteer" tip="Disconnect from IRC"/>
 		<separator/>
@@ -360,7 +360,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Blaai deur Gebruikersinligting"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Gesels met Gebruiker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -374,7 +374,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Diskonnekteer"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Verban Gasheer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -390,7 +390,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Vries"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Verwyder"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filtreer:" tip="Sleutel woorde in om resultate mee te filtreer"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Meer..."/>
@@ -401,7 +401,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Konnekteer Aan"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Diskonnekteer"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Verwyder"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Kasgeheue"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Kasgeheue"/>
@@ -435,7 +435,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Best Fit"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Refresh"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Sluit"/>
 	</toolbar>
 </toolbars>
@@ -557,8 +557,8 @@
 					<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 					<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
 					<separator/> -->
-					<!-- <item id="ID_HELP_UPDATE" text="Jongste nuus"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_UPDATE" text="Jongste nuus"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -658,8 +658,8 @@
 				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
 				<separator/> -->
-				<!-- <item id="ID_HELP_UPDATE" text="Jongste nuus"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Jongste nuus"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Oor PeerProject..."/>
@@ -728,7 +728,7 @@
 				<item id="ID_HELP_VERSION_CHECK" text="Check for new _version"/>
 				<item id="ID_HELP_DONATE" text="_Donate to PeerProject"/>
 				<separator/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Oor PeerProject..."/>
@@ -816,7 +816,7 @@
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
 				<item id="ID_HELP_UPDATE" text="Jongste nuus"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Oor PeerProject..."/>

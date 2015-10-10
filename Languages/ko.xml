@@ -3,7 +3,7 @@
 
 <!-- PeerProject Korean Language Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!--Machine Translated!-->
+<!-- Translation based on default en.xml r125 --> <!--Machine Translated!-->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -92,7 +92,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="파일 다운로드"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -103,7 +103,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -117,7 +117,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용"/>
 		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
 		<control id="IDC_FILTER_BOX" width="75"/>
 		<separator/>
@@ -137,7 +137,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="파일 다운로드"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="채팅 사용자에게"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필 :"/>
 		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
@@ -149,7 +149,7 @@
 		<button id="ID_BROWSE_REFRESH" text="새로고침"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="사용자"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
 		<control id="IDC_FILTER_BOX" width="90"/>
 		<separator/>
@@ -168,7 +168,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="세부 사항"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="모니터보기"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="지우기 완료"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -183,7 +183,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="세부 사항"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="상태 모니터"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="대상에 추가"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="지우기 정가"/>
 		<separator/>
@@ -195,7 +195,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_UPLOADS_CHAT" text="채팅 사용자에게"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="지우기 완료"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -208,7 +208,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat 사용자"/>
 		<button id="ID_SECURITY_BAN" text="반 장관은 사용자"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="지우기 정가"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="필터"/>
@@ -232,7 +232,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="파일을 공유..."/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -241,7 +241,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="그룹 만들기..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="그룹 삭제"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -251,7 +251,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="열기 또는 재생"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추"/>
 		<separator/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -267,7 +267,7 @@
 		<button id="ID_LIBRARY_MOVE"/>
 		<button id="ID_LIBRARY_COPY"/>
 		<button id="ID_LIBRARY_DELETE"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -278,7 +278,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="재생 목록에 추"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="전체 재생"/>
 		<separator/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -290,7 +290,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="메타 등록"/>
 		<button id="ID_WEBSERVICES_LIST" text="웹 서비스"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -300,7 +300,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="재생 전체 앨범"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="모든 파일 다운로드"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="찾기:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -318,7 +318,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="파일 열기"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="이전"/>
 		<button id="ID_MEDIA_NEXT" text="다음"/>
 		<separator/>
@@ -341,7 +341,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -350,7 +350,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="맑은"/>
 		<button id="ID_MEDIA_SAVE" text="저장"/>
 	</toolbar>
@@ -359,7 +359,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post 댓글"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="연결은" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="끊기" tip="Disconnect from IRC"/>
 		<separator/>
@@ -369,7 +369,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="찾아보기 사용자"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="채팅 사용자에게"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -381,7 +381,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="끊습니다"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="반 장관은 호스트"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -399,7 +399,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="위로 이동"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="아래로"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="재설정 조회수"/>
 		<button id="ID_SECURITY_IMPORT" text="가져오기 정가"/>
 		<button id="ID_SECURITY_EXPORT" text="내보내기 정가"/>
@@ -413,7 +413,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="재설정 조회수"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="가져오기"/>
@@ -426,7 +426,7 @@
 		<button id="ID_HITMONITOR_SEARCH" text="다시-쿼리"/>
 		<button id="ID_HITMONITOR_PAUSE" text="일시 중지"/>
 		<button id="ID_SEARCH_CLEAR" text="맑은"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="필터 :"/>
 		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
@@ -436,7 +436,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="에 연결하려면"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="끊습니다"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="제거"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="클러스터"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="캐시"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="캐시"/>
@@ -470,7 +470,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="가장 적합"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="새로고침"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="닫기"/>
 	</toolbar>
 </toolbars>
@@ -596,8 +596,8 @@
 					<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
 					<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
 					<item id="ID_HELP_DONATE" text="기부 PeerProject 로"/>
-					<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject 사이트 항목"/>
 				<separator/>
@@ -701,8 +701,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject스킨 사이트"/>
-				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
@@ -772,8 +772,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>
@@ -869,8 +869,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 포럼"/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject 스킨 사이트"/>
-				<!-- <item id="ID_HELP_UPDATE" text="최신 뉴스"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="최신 뉴스"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="새 버전에 대한 확인"/>

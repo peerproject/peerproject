@@ -26,7 +26,7 @@ class CXMLElement;
 
 typedef const CSchema* CSchemaPtr;
 
-#ifdef _WIN64
+#ifdef WIN64
 
 template<>
 AFX_INLINE UINT AFXAPI HashKey(CSchemaPtr key)

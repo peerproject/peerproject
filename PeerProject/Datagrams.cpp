@@ -1,7 +1,7 @@
 //
 // Datagrams.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,9 +41,6 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
-#define HASH_SIZE		32
-#define HASH_MASK		31
-
 #define METER_MINIMUM	100
 #define METER_LENGTH	24
 #define METER_PERIOD	2000
@@ -56,15 +53,35 @@ CDatagrams Datagrams;
 // CDatagrams construction
 
 CDatagrams::CDatagrams()
-	: m_hSocket 	( INVALID_SOCKET )
-	, m_bStable 	( FALSE )
-	, m_nSequence	( 0 )
-	, m_nInBandwidth ( 0 )
-	, m_nInFrags	( 0 )
-	, m_nInPackets	( 0 )
-	, m_nOutBandwidth ( 0 )
-	, m_nOutFrags	( 0 )
-	, m_nOutPackets	( 0 )
+	: m_hSocket 		( INVALID_SOCKET )
+	, m_bStable 		( FALSE )
+	, m_nSequence		( 0 )
+	, m_nInBandwidth	( 0 )
+	, m_nInFrags		( 0 )
+	, m_nInPackets		( 0 )
+	, m_nOutBandwidth	( 0 )
+	, m_nOutFrags		( 0 )
+	, m_nOutPackets		( 0 )
+	, m_pBufferBuffer	( NULL )
+	, m_nBufferBuffer	( 0 )
+	, m_pBufferFree		( NULL )
+	, m_nBufferFree		( 0 )
+	, m_pInputBuffer	( NULL )
+	, m_nInputBuffer	( 0 )
+	, m_pInputFree		( NULL )
+	, m_pInputFirst		( NULL )
+	, m_pInputLast		( NULL )
+	, m_pInputHash		( )
+	, m_pOutputBuffer	( NULL )
+	, m_nOutputBuffer	( 0 )
+	, m_pOutputFree		( NULL )
+	, m_pOutputFirst	( NULL )
+	, m_pOutputLast		( NULL )
+	, m_pOutputHash		( )
+	, m_mInput			( )
+	, m_mOutput			( )
+	, m_pReadBuffer		( )
+	, m_tLastWrite		( 0 )
 {
 	ZeroMemory( &m_mInput, sizeof( m_mInput ) );
 	ZeroMemory( &m_mOutput, sizeof( m_mOutput ) );
@@ -185,8 +202,8 @@ BOOL CDatagrams::Listen()
 		pDGO->m_pNextHash = ( nPos == 1 ) ? NULL : ( pDGO + 1 );
 	}
 
-	ZeroMemory( m_pInputHash,  sizeof( CDatagramIn* ) * HASH_SIZE );
-	ZeroMemory( m_pOutputHash, sizeof( CDatagramIn* ) * HASH_SIZE );
+	ZeroMemory( m_pInputHash,  sizeof( CDatagramIn* ) * DATAGRAM_HASH_SIZE );
+	ZeroMemory( m_pOutputHash, sizeof( CDatagramIn* ) * DATAGRAM_HASH_SIZE );
 
 	m_pInputFirst  = m_pInputLast  = NULL;
 	m_pOutputFirst = m_pOutputLast = NULL;
@@ -335,7 +352,7 @@ BOOL CDatagrams::Send(const SOCKADDR_IN* pHost, CPacket* pPacket, BOOL bRelease,
 				+ pHost->sin_port
 				+ pDG->m_nSequence ) & 0xff );
 
-	CDatagramOut** pHash = m_pOutputHash + ( nHash & HASH_MASK );
+	CDatagramOut** pHash = m_pOutputHash + ( nHash & DATAGRAM_HASH_MASK );
 
 	if ( *pHash ) (*pHash)->m_pPrevHash = &pDG->m_pNextHash;
 	pDG->m_pNextHash = *pHash;
@@ -821,7 +838,7 @@ BOOL CDatagrams::OnReceiveSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pHeade
 				+ pHost->sin_port
 				+ pHeader->nSequence ) & 0xff );
 
-	CDatagramIn** pHash = m_pInputHash + ( nHash & HASH_MASK );
+	CDatagramIn** pHash = m_pInputHash + ( nHash & DATAGRAM_HASH_MASK );
 
 	CDatagramIn* pDG = *pHash;
 	for ( ; pDG ; pDG = pDG->m_pNextHash )
@@ -937,7 +954,7 @@ BOOL CDatagrams::OnAcknowledgeSGP(const SOCKADDR_IN* pHost, const SGP_HEADER* pH
 				+ pHost->sin_port
 				+ pHeader->nSequence ) & 0xff );
 
-	CDatagramOut** pHash = m_pOutputHash + ( nHash & HASH_MASK );
+	CDatagramOut** pHash = m_pOutputHash + ( nHash & DATAGRAM_HASH_MASK );
 
 	for ( CDatagramOut* pDG = *pHash ; pDG ; pDG = pDG->m_pNextHash )
 	{

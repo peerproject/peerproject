@@ -38,21 +38,21 @@ int WINAPI wWinMain(HINSTANCE hInst, HINSTANCE hPrevInst, LPWSTR cmdParam, int c
 	szXML     = NULL;
 
 	if ( *cmdParam == 0 )
-		MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this tool.",L"PeerProject Skin Installer",MB_OK | MB_ICONINFORMATION);
-	else if ( ! wcscmp(cmdParam, L"/install") || ! wcscmp(cmdParam, L"/installsilent") )
+		MessageBox(NULL,L"PeerProject Skin Installer " VERSION L"\n\nDouble-click on a PeerProject Skin File (.psk) to use this tool.",L"PeerProject Skin Installer",MB_OK|MB_ICONINFORMATION);
+	else if ( ! _wcsicmp(cmdParam, L"/install") || ! _wcsicmp(cmdParam, L"/installsilent") )
 		rtn = CreateSkinKeys();
-	else if ( ! wcscmp(cmdParam, L"/uninstall") || ! wcscmp(cmdParam, L"/uninstallsilent") )
+	else if ( ! _wcsicmp(cmdParam, L"/uninstall") || ! _wcsicmp(cmdParam, L"/uninstallsilent") )
 		rtn = DeleteSkinKeys();
 	else
 		ExtractSkinFile(cmdParam);
 
 	// Free memory from globals
-	if (szName) free(szName);
-	if (szPath) free(szPath);
-	if (szVersion) free(szVersion);
-	if (szAuthor) free(szAuthor);
-	if (szUpdates) free(szUpdates);
-	if (szXML) free(szXML);
+	free(szName);
+	free(szPath);
+	free(szVersion);
+	free(szAuthor);
+	free(szUpdates);
+	free(szXML);
 
 	return rtn;
 }

@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -55,7 +55,7 @@
 
 // Warnings that are normally ON by default
 #pragma warning ( disable : 4350 )		// (Level 1)	behavior change: 'member1' called instead of 'member2'
-#pragma warning ( disable : 4351 )		// (Level 1)	new behavior: elements of array 'array' will be default initialized
+//#pragma warning ( disable : 4351 )	// (Level 1)	new behavior: elements of array 'array' will be default initialized
 #pragma warning ( disable : 4355 )		//				'this' : used in base member initializer list
 
 #pragma warning ( disable : 4244 )		// (Level 2)	'argument' : conversion from 'type1' to 'type2', possible loss of data
@@ -146,7 +146,9 @@
 #define _ATL_NO_COM_SUPPORT
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS
 
-#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+
+#if defined(_MSC_VER) && ( _MSC_VER < 1900 || _MSC_FULL_VER > 190022820 )
+#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+ (VS2015 RC error)
+#endif
 
 #define BOOST_USE_WINDOWS_H
 #define BOOST_DISABLE_ASSERTS
@@ -336,10 +338,34 @@ using augment::IUnknownImplementation;
 //typedef CString StringType;		// Previously for <Hashes>
 
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
+//template<>
+//AFX_INLINE UINT AFXAPI HashKey(const CString& key)
+//{
+//	return HashKey<LPCTSTR>( key );
+//}
+
 template<>
-AFX_INLINE UINT AFXAPI HashKey(const CString& key)
+AFX_INLINE UINT AFXAPI HashKey(const CStringW& key)
 {
-	return HashKey<LPCTSTR>( key );
+	UINT nHash = 0;
+	const wchar_t* pszKey = key;
+	for ( int nSize = key.GetLength() ; nSize ; ++pszKey, --nSize )
+	{
+		nHash = ( nHash << 5 ) + nHash + *pszKey;
+	}
+	return nHash;
+}
+
+template<>
+AFX_INLINE UINT AFXAPI HashKey(const CStringA& key)
+{
+	UINT nHash = 0;
+	const char* pszKey = key;
+	for ( int nSize = key.GetLength() ; nSize ; ++pszKey, --nSize )
+	{
+		nHash = ( nHash << 5 ) + nHash + *pszKey;
+	}
+	return nHash;
 }
 
 template<>
@@ -354,7 +380,7 @@ AFX_INLINE BOOL AFXAPI CompareElements(const IN_ADDR* pElement1, const IN_ADDR* 
 	return pElement1->s_addr == pElement2->s_addr;
 }
 
-#ifdef _WIN64
+#ifdef WIN64
 
 template<>
 AFX_INLINE UINT AFXAPI HashKey(void* key)

@@ -1,7 +1,7 @@
 //
 // Connection.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -700,8 +700,8 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 		if ( ! m_bInitiated && nColon > 0 )
 		{
 			// Read the number after the colon into nPort
-			int nPort = protocolPorts[ PROTOCOL_G1 ];	// Start out nPort as the default value, 6346
-			if ( _stscanf( strValue.Mid( nColon + 1 ), L"%lu", &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
+			WORD nPort = protocolPorts[ PROTOCOL_G1 ];	// Start out nPort as the default value, 6346
+			if ( _stscanf( strValue.Mid( nColon + 1 ), L"%hu", &nPort ) == 1 && nPort != 0 )		// Make sure 1 number was found, and isn't 0
 			{
 				// Save the found port number in m_pHost
 				m_pHost.sin_port = htons( u_short( nPort ) );	// Convert Windows little endian to big for the Internet with htons
@@ -710,13 +710,15 @@ BOOL CConnection::OnHeaderLine(CString& strHeader, CString& strValue)
 	}
 	else if ( strHeader.CompareNoCase( L"Accept" ) == 0 )
 	{
-		if ( _tcsistr( strValue, L"application/x-gnutella-packets" ) &&
-			m_nProtocol != PROTOCOL_G2 )
-			m_nProtocol = PROTOCOL_G1;
-		if ( _tcsistr( strValue, L"application/x-gnutella2" ) ||
-			 _tcsistr( strValue, L"application/x-shareaza" ) ||
-			 _tcsistr( strValue, L"application/x-peerproject" ) )
-			m_nProtocol = PROTOCOL_G2;
+		if ( m_nProtocol != PROTOCOL_G2 )
+		{
+			if ( _tcsistr( strValue, L"application/x-gnutella-packets" ) )
+				m_nProtocol = PROTOCOL_G1;
+			if ( _tcsistr( strValue, L"application/x-gnutella2" ) ||
+				 _tcsistr( strValue, L"application/x-shareaza" ) ||
+				 _tcsistr( strValue, L"application/x-peerproject" ) )
+				m_nProtocol = PROTOCOL_G2;
+		}
 	}
 
 	// Have ReadHeaders keep going

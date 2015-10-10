@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -85,7 +85,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega arxiu"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Explora usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -96,7 +96,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Explora"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -110,7 +110,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega"/>
 		<button id="ID_BROWSE_LAUNCH" text="Explora l'usuari"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrar resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -129,7 +129,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Descarrega l&apos;arxiu"/>
 		<button id="ID_SEARCH_CHAT" text="Parlar amb Usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtra els resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -141,7 +141,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Actualitza"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Xat amb l'usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtra els resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -160,7 +160,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informació"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra el monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Afegeix descàrrega/torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Neteja els completats"/>
 	</toolbar>
@@ -176,7 +176,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informació"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostra el monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Descarregar Arxiu..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="_Netejar Completats"/>
 		<separator/>
@@ -186,7 +186,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Explora l'usuari"/>
 		<button id="ID_UPLOADS_CHAT" text="Parlar amb l'usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Neteja els completats"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -199,7 +199,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Explora l'usuari"/>
 		<button id="ID_UPLOADS_CHAT" text="Parla amb l'usuari"/>
 		<button id="ID_SECURITY_BAN" text="Bloca a l'usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Neteja els completats"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtre"/>
@@ -223,7 +223,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryHomeView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Comparteix arxius..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -232,7 +232,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Crea un àlbum..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Esborra un àlbum"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -241,7 +241,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Obre o reprodueix"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -256,7 +256,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Mou"/>
 		<button id="ID_LIBRARY_COPY" text="Copia"/>
 		<button id="ID_LIBRARY_DELETE" text="Esborra"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -266,7 +266,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Obre o reprodueix"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Afegeix a la llista de reproducció"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reprodueix àlbum"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -278,7 +278,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reprodueix l'àlbum"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Propietats"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -288,7 +288,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Reprodueix l'àlbum complet"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Descarrega tots els arxius"/>
-		<rightAlign/>
+		<rightalign/>
 		<separator/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Cerca:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
@@ -307,7 +307,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Obre arxiu"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Anterior"/>
 		<button id="ID_MEDIA_NEXT" text="Següent"/>
 		<separator/>
@@ -330,7 +330,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -339,7 +339,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Neteja"/>
 		<button id="ID_MEDIA_SAVE" text="Enregistra"/>
 	</toolbar>
@@ -348,7 +348,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Comentaris"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Cerrar" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Connectar" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Desconnectar" tip="Disconnect from IRC"/>
 		<separator/>
@@ -358,7 +358,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Explora usuari"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Parla amb l'usuari"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -370,7 +370,7 @@
 		<button id="ID_NEIGHBOURS_DISCNNECT" text="Desconnectar"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Bloca"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -388,7 +388,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Atura"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Neteja"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filter:" tip="Filtra els resultats amb"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Més..."/>
@@ -399,7 +399,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Connectar a"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconnecta"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Esborra"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Clúster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Caxè"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Caxè"/>
@@ -433,7 +433,7 @@
 		<button id="PluginID_ImageViewer_FullSize" text="Mida actual"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Actualitza"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Tanca"/>
 	</toolbar>
 </toolbars>
@@ -557,8 +557,8 @@
 				<separator/>
 				<menu text="_Llocs Web">
 					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-					<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -661,8 +661,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -730,8 +730,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="Lloc web de _PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Darreres notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -822,8 +822,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums del _PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Darreres notícies"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Quant a PeerProject..."/>
@@ -3267,10 +3267,10 @@
 	<string id="20897" value="Aquesta carpeta ja està compartida com part de:\n\n%s"/>
 	<string id="20898" value="No has especificat cap carpeta per a compartir. Recorda que la qualitat de la Xarxa està basada a la quantitat d'arxius que els demés comparteixen, per tant si comparteixes les teves carpetes, la Xarxa tindrà més contingut. ¿Estàs segur(a) de no compartir les teves carpetes?"/>
 	<string id="20899" value="anys"/>
-	<!-- string value="Informació del Torrent"-->
-	<!-- string value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
-	<!-- string value="L'arxiu &quot;%s&quot; ja està en La meva Col·lecció. ¿Vols descarregar-lo de totes formes?"-->
-	<!-- string id="17500" value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
+	<!--string value="Informació del Torrent"-->
+	<!--string value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
+	<!--string value="L'arxiu &quot;%s&quot; ja està en La meva Col·lecció. ¿Vols descarregar-lo de totes formes?"-->
+	<!--string id="17500" value="El Tracker no respongué. Reintentant l'anunci (%i de %i)"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>

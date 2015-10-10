@@ -1,7 +1,7 @@
 //
 // Strings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2014
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,8 +21,8 @@
 #include <set>
 
 // Produce 2 comma-separated arguments: string itself, and string length (without null terminator)	_P( L"Text" ) = L"Text",4
-#define _P(x) (x), ((sizeof(x))/sizeof((x)[0])-1)
-#define _PT(x) ( _T(x) ), ( (sizeof(_T(x)))/sizeof((_T(x))[0]) - 1 )
+#define _P(x)	(x),(_countof(x)-1)
+#define _PT(x)	_P(_T(x))
 
 #define IsSpace(ch)	( (ch) == L' ' || (ch) == L'\t' || (ch) == L'\r' || (ch) == L'\n' )
 

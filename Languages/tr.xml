@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -84,7 +84,7 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="İndir"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -95,7 +95,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -109,7 +109,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="İndirme"/>
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -128,7 +128,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Dosya İndir"/>
 		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -140,7 +140,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Yenile"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Sohbet"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtre:" tip="Filtrelenen sonuçlarla bazı kelime türleri"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -159,7 +159,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -174,7 +174,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Torrent Bilgisi"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Ekranı Göster"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="İndir/Torrent Ekle..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
 		<separator/>
@@ -184,7 +184,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_UPLOADS_CHAT" text="Sohbet"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -197,7 +197,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_UPLOADS_CHAT" text="Sohbet"/>
 		<button id="ID_SECURITY_BAN" text="Kullanıcı Engelle"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Temizleme Tamamlandı"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtre"/>
@@ -221,7 +221,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Dosya Paylaşımı..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -230,7 +230,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Albüm Oluştur..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Albüm Sil"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -240,7 +240,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Aç/Oynat"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -256,7 +256,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Taşı"/>
 		<button id="ID_LIBRARY_COPY" text="Kopyala"/>
 		<button id="ID_LIBRARY_DELETE" text="Sil"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -267,7 +267,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Oynatma Listesine Ekle"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Albüm Oynat"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -279,7 +279,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Özellikler"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Servisleri"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -289,7 +289,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tüm Albümü Oynat"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Tüm Dosyaları İndir"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Bul:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -307,7 +307,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Dosya Aç"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Önceki"/>
 		<button id="ID_MEDIA_NEXT" text="Sonraki"/>
 		<separator/>
@@ -330,7 +330,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -339,7 +339,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Temizle"/>
 		<button id="ID_MEDIA_SAVE" text="Kaydet"/>
 	</toolbar>
@@ -348,7 +348,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Sohbet" tip="Post Yorumlar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Bağlan" tip="IRC'ye Bağlan"/>
 		<button id="ID_IRC_DISCONNECT" text="Bağlantı kes" tip="IRC'den çık"/>
 		<separator/>
@@ -358,7 +358,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Kullanıcı Ara"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Sohbet"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -372,7 +372,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Bağlantı Kes"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Yasaklı Host"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -388,7 +388,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Duraklat"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Temizle"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filtre:" tip="Filtrede Sorgulanmış Kelimeler"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Dahası..."/>
@@ -399,7 +399,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Bağlan"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Bağlantı Kes"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Ayrıl"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kümesi"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Bellek"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Bellek"/>
@@ -447,7 +447,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Ekrana Uy"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Tazele"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Kapat"/>
 	</toolbar>
 </toolbars>
@@ -666,8 +666,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
@@ -735,8 +735,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri _Kontrol Et"/>
@@ -826,8 +826,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Son Haberler"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Güncellemeleri Kontrol Et"/>
@@ -1630,10 +1630,10 @@
 		<newline gap="0"/>
 		<group id="1">
 			<icon res="136" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">BAĞLANTI AL</heading>
+			<heading align="middle">Bağlantı Al</heading>
 			<newline gap="8" indent="42"/>
-			<text>PeerProject'ya hoşgeldiniz! &#160;Şimdilik ağa bağlı değilsiniz. &#160;</text>
-			<link target="command:ID_NETWORK_CONNECT">Başlamak için buraya tıklayın!</link>
+			<text>PeerProject'ya hoşgeldiniz. &#160;Şimdilik ağa bağlı değilsiniz. &#160;</text>
+			<link target="command:ID_NETWORK_CONNECT">Başlamak için buraya tıklayın.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="2">
@@ -1643,7 +1643,7 @@
 			<anchor id="SearchBox" width="256" height="80"/>
 			<newline gap="14" indent="0"/>
 			<icon res="122" width="32" height="32" target="command:ID_TOOLS_DOWNLOAD"/><gap size="8"/>
-			<heading align="middle">İNDİRMEYE BAŞLA</heading>
+			<heading align="middle">İndirmeye Başla</heading>
 			<newline gap="8" indent="42"/>
 			<link target="command:ID_TOOLS_DOWNLOAD" format="bu">Buraya tıklayıp</link>
 			<text>&#160; yeni bir dosya ya da torrent indirmeye başlayın.</text>
@@ -1656,16 +1656,16 @@
 		</group>
 		<group id="3">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">GÜNCELLEMEYİ BİLDİR</heading>
+			<heading align="middle">Güncelleneyi Bildir</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
 			<newline gap="6"/>
-			<link target="command:upgrade">Güncelleme için tıklayınız!</link>
+			<link target="command:upgrade">Güncelleme için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="4">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">Uyari: GÜVENLİK DUVARI AÇIK</heading>
+			<heading align="middle">Uyari: Güvenlik Duvari Açik</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu tespit etti ve internetten gelecek olan bağlantıları alamazsınız. &#160;</text>
 			<text color="FF0000" format="b">Bu düşük performansla download etmenize neden olur.</text>
@@ -1675,7 +1675,7 @@
 		</group>
 		<group id="6">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Uyari: TCP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
+			<heading align="middle">Uyari: TCP Portunuz Güvenlik Duvari Arkasinda</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
 			TCP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
@@ -1686,7 +1686,7 @@
 		</group>
 		<group id="7">
 			<icon res="180" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">Uyari: UDP PORTUNUZ GÜVENLİK DUVARI ARKASINDA</heading>
+			<heading align="middle">Uyari: UDP Portunuz Güvenlik Duvari Arkasinda</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject sizin bir güvenlik duvarının ya da NAT yönlendiricinin arkasında olduğunuzu ve İnternet'ten
 			UDP bağlantılarını alamayacağınızı tespit etti. &#160;</text>
@@ -1721,14 +1721,14 @@
 		<newline gap="18" indent="0"/>
 		<icon res="122" width="32" height="32" target="command:shell:downloads"/>
 		<gap size="8"/>
-		<heading align="middle">İNDİRMELERİM</heading>
+		<heading align="middle">İndirmelerim</heading>
 		<newline gap="8" indent="42"/>
 		<text>İndirmeler klasörünü açmak için</text>
 		<link target="command:shell:downloads">Tıklayın</link>
 		<newline gap="18" indent="0"/>
 		<group id="5">
 			<icon res="120" width="32" height="32"/><gap size="8"/>
-			<heading align="middle">UZAKTAN ERİŞİM ETKİN</heading>
+			<heading align="middle">Uzaktan Erişim Etkin</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject uzaktan erişim etkindir. PeerProject kontrolü web tarayıcınızda kullanır:</text>
 			<newline gap="6"/>
@@ -2043,8 +2043,7 @@
 		<newline gap="8"/>
 		<text>PeerProject İndirmeyi otomatik olarak durdurdu çünkü sabit diskiniz dolu olabilir ya da dosya yazılamıyor.
 		Eğer indirmeye devam etmek istiyorsanız sabit diskinizde boş alan oluşturun ya da dosyanın tam ulaşılabilir
-		olduğuna emin olun ve indirmeye devam edin.
-		</text>
+		olduğuna emin olun ve indirmeye devam edin.</text>
 	</document>
 	<document name="DownloadHelp.Verifying">
 		<text format="b">İndirme Doğrulanıyor</text>
@@ -2053,10 +2052,9 @@
 		Eğer hasarlı bir parça bulunursa, PeerProject bunu otomatik olarak tamir edecek.</text>
 	</document>
 	<document name="DownloadHelp.Downloading">
-		<text format="b">İndirim Etkin!</text>
+		<text format="b">İndirim Etkin.</text>
 		<newline gap="8"/>
-		<text>İndirme şu an devam ediyor. Eğer İndirim çok yavaşsa, daha fazla kaynak için
-		</text>
+		<text>İndirme şu an devam ediyor. Eğer İndirim çok yavaşsa, daha fazla kaynak için</text>
 		<text format="b"> Daha Fazla Kaynak Bul</text><text> butonunu tıklayın. Eğer hızınız artmıyorsa
 		indirdiğiniz kullanıcının aktarım hız limiti yeterli olmayabilir
 		indirim hızınız zamanla artacaktır.</text>
@@ -2073,16 +2071,16 @@
 		<text format="b">İndirim Sırada</text>
 		<newline gap="8"/>
 		<text>Bu indirme başka bir indirmenizin tamamlanmasını bekliyor.
-		  Mevcut bant genişliğinizin iyi bir şekilde paylaşılmasını sağlamak için belirli
-		  bir zaman da aktif olan Indirme limit sayınızı ayarlayın.
-		  PeerProject ayarlarını Araçlar aracılığıyla değiştirebilirsiniz.
-		  Alternatif olarak devam et komutuyla indirmeyi başlatabilirsiniz.</text>
+		Mevcut bant genişliğinizin iyi bir şekilde paylaşılmasını sağlamak için belirli
+		bir zaman da aktif olan Indirme limit sayınızı ayarlayın.
+		PeerProject ayarlarını Araçlar aracılığıyla değiştirebilirsiniz.
+		Alternatif olarak devam et komutuyla indirmeyi başlatabilirsiniz.</text>
 	</document>
 	<document name="DownloadHelp.Searching">
 		<text format="b">İndirme Arama</text>
 		<newline gap="8"/>
 		<text>Bu indirme için bilinmeyen kaynaklar var, PeerProject yeni kaynaklar için tüm bağlı P2P ağlarını arıyor. Kaynaklar bulundu, indirme otomatik başlayacaktır.
-		 PeerProject kaynakları otomatik arar, yine de </text>
+		PeerProject kaynakları otomatik arar, yine de </text>
 		<text format="b"> Daha Fazla Kaynak Bul</text><text> komutunu kullanarak işe hız verebilirsiniz.</text>
 		<newline gap="8"/>
 		<text>Maalesef aradığınız dosyaya sahip olan kimse online durumda değil.
@@ -2181,7 +2179,7 @@
 		<text format="b">Lütfen anlamlı sözcüklerle arayın</text>
 		<newline gap="8"/>
 		<text>Bu arama kalitesiz formattadır ve doğru görev yapamayabilir.
-	Aramalar olanaklı birkaç terim içermelidir ve bir şema(mesela dosya türü) belirtilmelidir.
+		Aramalar olanaklı birkaç terim içermelidir ve bir şema(mesela dosya türü) belirtilmelidir.
 		Ayrıca, aramalar sadece sayılar ve olumsuz terimlerle sınırlı kalmamalıdır ve bitmiş genel sorgulardan kaçınılmalıdır.</text>
 		<newline gap="8"/>
 		<text>Ağdaki birçok istemci örneğin mp3 dosyalarının tümü için bir aramayı görmezlikten gelecektir. Çünkü yeterince kesin değildir ve çok fazla sonuç oluşturacaktır.</text>
@@ -2190,10 +2188,10 @@
 		<text format="b">Lütfen anlamlı sözcüklerle arayın</text>
 		<newline gap="8"/>
 		<text>Bu arama uygun biçimde işlemek için yeterli terimi içermez.
-		 Tüm aramalar başlayabilmek için geçerli alfabetik karakterlerden en az birine ihtiyaç duyar.</text>
+		Tüm aramalar başlayabilmek için geçerli alfabetik karakterlerden en az birine ihtiyaç duyar.</text>
 		<newline gap="8"/>
 		<text> Genel dosya kapsamları (ve numaraları) aratıldığında, aramayı yaratıyorken iyi olarak diğer şarta girebilirsin.
-		 Noktalama ve özel sembollar aramalarda kullanılmazlar, sadece metin girin.</text>
+		Noktalama ve özel sembollar aramalarda kullanılmazlar, sadece metin girin.</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Lütfen anlamlı sözcüklerle arayın</text>
@@ -2201,7 +2199,7 @@
 		<text>Bu arama sadece ortak dosyaları kapsayan içerikleri gösterir, ya da aranabilen kelime yoktur.</text>
 		<newline gap="8"/>
 		<text>Arama oluşturmada sıkıntı çekiyorsanız tamamıyla bir web araştırmaya benzer olduğunu akılda tutun.
-		 Belirli terim ya da deyimler en iyi nadir adlar, başlıklar ve anahtar kelimelerdir.</text>
+		Belirli terim ya da deyimler en iyi nadir adlar, başlıklar ve anahtar kelimelerdir.</text>
 		<newline gap="8"/>
 		<text>General terimler verimli bir şekilde aranamazlar ve kalitesiz arama performansı kadar aramalar sırasında yüksek bandgenişliği kullanır.</text>
 		<newline gap="8"/>

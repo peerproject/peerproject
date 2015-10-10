@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Norwegian Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -84,7 +84,7 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -94,7 +94,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -108,7 +108,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Nedlasting"/>
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -126,7 +126,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Last ned fil"/>
 		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -138,7 +138,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Oppdater"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Snakk med bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -157,7 +157,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -172,7 +172,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Vis monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Legg til nedlasting/torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 		<separator/>
@@ -182,7 +182,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_UPLOADS_CHAT" text="Snakk med bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -195,7 +195,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_UPLOADS_CHAT" text="Snakk med bruker"/>
 		<button id="ID_SECURITY_BAN" text="Blokker bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Fjern ferdige"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtrer"/>
@@ -219,7 +219,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Del filer..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -228,7 +228,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Ny mappe"/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Slett mappe"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -237,7 +237,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -252,7 +252,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Flytt"/>
 		<button id="ID_LIBRARY_COPY" text="Kopier"/>
 		<button id="ID_LIBRARY_DELETE" text="Slett"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -262,7 +262,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Åpne / spill av"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Legg til spilleliste"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -274,7 +274,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -284,7 +284,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spill av..."/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Last ned alle filene"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Søk:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -302,7 +302,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Åpne fil"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Tilbake"/>
 		<button id="ID_MEDIA_NEXT" text="Neste"/>
 		<separator/>
@@ -325,7 +325,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -334,7 +334,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Oppdater"/>
 		<button id="ID_MEDIA_SAVE" text="Lagre"/>
 	</toolbar>
@@ -343,7 +343,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Kommentarer"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Koble til" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Koble fra" tip="Disconnect from IRC"/>
 		<separator/>
@@ -353,7 +353,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Utforsk bruker"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat med bruker"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -367,7 +367,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Koble fra"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Blokker vert"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -383,7 +383,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pause"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Fjern"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filtrer" tip="Skriv inn ord som du vil filtrere ut"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer..."/>
@@ -394,7 +394,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Koble til"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Koble fra"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Fjern"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -534,8 +534,8 @@
 				<menu text="Nettsider">
 					<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
 					<separator/>
-					<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_UPDATE" text="Siste nytt"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -599,8 +599,8 @@
 			<separator/>
 			<menu text="Nettsider">
 				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Siste nytt"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 			<separator/>
@@ -684,8 +684,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Siste nytt"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Siste nytt"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="Om PeerProject..."/>
@@ -1110,8 +1110,8 @@
 		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="Egenskaper"/>
 	</menu>
 	<menu name="CLibraryHistoryPanel">
-		<item id="ID_LIBRARY_CLEAR_HISTORY" text="Clear from _History"/>
-		<item id="ID_LIBRARY_CLEAR_HISTORY_ALL" text="Fjern _alle""/>
+		<item id="ID_LIBRARY_CLEAR_HISTORY" text="Klart fra historien"/>
+		<item id="ID_LIBRARY_CLEAR_HISTORY_ALL" text="Fjern alle"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">

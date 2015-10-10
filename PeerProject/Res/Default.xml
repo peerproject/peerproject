@@ -64,7 +64,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="80"/>
 		<separator/>
@@ -75,7 +75,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="80"/>
 		<separator/>
@@ -89,7 +89,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="75"/>
 		<separator/>
@@ -109,7 +109,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Download File"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="90"/>
 		<separator/>
@@ -121,7 +121,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Refresh"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chat User"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="90"/>
 		<separator/>
@@ -140,7 +140,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Show Monitor"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -155,7 +155,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Details"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Status Monitor"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Add Download"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
@@ -167,7 +167,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear Completed"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -180,7 +180,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_UPLOADS_CHAT" text="Chat User"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Clear List"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filters"/>
@@ -204,7 +204,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Share Files..."/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -213,7 +213,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Create Group..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Delete Group"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -223,7 +223,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Open or Play"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Add to Playlist"/>
 		<separator/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -239,7 +239,7 @@
 		<button id="ID_LIBRARY_MOVE"/>
 		<button id="ID_LIBRARY_COPY"/>
 		<button id="ID_LIBRARY_DELETE"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -250,7 +250,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Add to Playlist"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play All"/>
 		<separator/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -262,7 +262,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Details"/>
 		<button id="ID_WEBSERVICES_LIST" text="Web Services"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="110" width="90"/>
 		<separator/>
@@ -272,7 +272,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Play Album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Download All"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Find:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -290,7 +290,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Open File"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Previous"/>
 		<button id="ID_MEDIA_NEXT" text="Next"/>
 		<separator/>
@@ -313,7 +313,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -322,7 +322,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Clear"/>
 		<button id="ID_MEDIA_SAVE" text="Save"/>
 		<button id="ID_MEDIA_OPEN" text="Open"/>
@@ -331,7 +331,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Browse User"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chat to User"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -343,7 +343,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Disconnect"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Ban Host"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -361,7 +361,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Move Up"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Move Down"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="Reset Hits"/>
 		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Import List"/>
@@ -376,7 +376,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="Remove All"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Import List"/>
@@ -389,7 +389,7 @@
 		<button id="ID_HITMONITOR_SEARCH" text="Re-Query"/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pause"/>
 		<button id="ID_SEARCH_CLEAR" text="Clear"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter :"/>
 		<control id="112" width="100"/>
 	</toolbar>
@@ -404,7 +404,7 @@
 		<button id="ID_DISCOVERY_ADVERTISE" text="Advertise"/>
 		<separator/>
 		<button id="ID_DISCOVERY_BROWSE" text="Statistics Page"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
 		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
@@ -415,7 +415,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Connect To"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Disconnect"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Remove"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -429,7 +429,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Your Comments"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Leave Current Channel Window"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Connect" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Disconnect from IRC"/>
 		<separator/>
@@ -445,8 +445,8 @@
 		<separator/>
 		<button id="ID_CHAT_BROWSE" text="Browse User"/>
 		<button id="ID_CHAT_PRIORITY" text="Grant Priority"/>
-		<!-- <button id="ID_CHAT_SEND_FILE" text="Send File"/> -->
-			<rightAlign/>
+		<!--button id="ID_CHAT_SEND_FILE" text="Send File"-->
+		<rightalign/>
 		<button id="ID_CHAT_CONNECT" text="Connect" visible="false"/>
 		<button id="ID_CHAT_DISCONNECT" text="Disconnect"/>
 	</toolbar>
@@ -488,16 +488,16 @@
 	<menu name="CTabBar">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--item id="ID_MOVETAB_FIRST" text="Move Tab _First"-->
+		<!--item id="ID_MOVETAB_LAST" text="Move Tab L_ast"-->
 		<separator/>
 		<item id="ID_CHILD_CLOSE" text="_Close Window"/>
 	</menu>
 	<menu name="CTabBar.Child">
 		<item id="ID_MOVETAB_LEFT" text="Move Tab _Left"/>
 		<item id="ID_MOVETAB_RIGHT" text="Move Tab _Right"/>
-		<!--<item id="ID_MOVETAB_FIRST" text="Move Tab _First"/>-->
-		<!--<item id="ID_MOVETAB_LAST" text="Move Tab L_ast"/>-->
+		<!--item id="ID_MOVETAB_FIRST" text="Move Tab _First"-->
+		<!--item id="ID_MOVETAB_LAST" text="Move Tab L_ast"-->
 		<separator/>
 		<item id="ID_CHILD_MAXIMISE" text="_Full Screen"/>
 		<item id="ID_CHILD_RESTORE" text="_Restore"/>
@@ -1014,8 +1014,8 @@
 			<item id="ID_HOSTCACHE_G1_CACHE" text="_Gnutella Cache"/>
 			<item id="ID_HOSTCACHE_ED2K_CACHE" text="_eDonkey Servers"/>
 			<item id="ID_HOSTCACHE_DC_CACHE" text="DC++ _Hubs"/>
-		<!--	<item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"/> -->
-		<!--	<item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"/> -->
+			<!--item id="ID_HOSTCACHE_BT_CACHE" text="_BitTorrent Cache"-->
+			<!--item id="ID_HOSTCACHE_KAD_CACHE" text="_Kademlia Cache"-->
 		</menu>
 		<separator/>
 		<item id="ID_HOSTCACHE_IMPORT" text="_Import MET/Hublist File..."/>

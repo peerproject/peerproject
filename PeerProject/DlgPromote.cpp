@@ -1,7 +1,7 @@
 //
 // DlgPromote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2010,2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -62,19 +62,17 @@ BOOL CPromoteDlg::OnInitDialog()
 
 HBRUSH CPromoteDlg::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 {
-	HBRUSH hbr = (HBRUSH)CSkinDialog::OnCtlColor( pDC, pWnd, nCtlColor );
-
 	if ( pWnd == &m_wndTitle )
 	{
 		pDC->SelectObject( &theApp.m_gdiFontBold );
 	}
 	else if ( pWnd == &m_wndWeb )
 	{
-		pDC->SetTextColor(  Colors.m_crTextLink );
+		pDC->SetTextColor( Colors.m_crTextLink );
 		pDC->SelectObject( &theApp.m_gdiFontLine );
 	}
 
-	return hbr;
+	return CSkinDialog::OnCtlColor( pDC, pWnd, nCtlColor );
 }
 
 BOOL CPromoteDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
@@ -91,7 +89,7 @@ BOOL CPromoteDlg::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 		return TRUE;
 	}
 
-	return CSkinDialog::OnSetCursor(pWnd, nHitTest, message);
+	return CSkinDialog::OnSetCursor( pWnd, nHitTest, message );
 }
 
 void CPromoteDlg::OnLButtonUp(UINT nFlags, CPoint point)
@@ -103,11 +101,7 @@ void CPromoteDlg::OnLButtonUp(UINT nFlags, CPoint point)
 	ScreenToClient( &rc );
 
 	if ( rc.PtInRect( point ) )
-	{
-		const CString strWebSite( WEB_SITE );
-
 		ShellExecute( GetSafeHwnd(), L"open",
-			strWebSite + L"?Version=" + theApp.m_sVersion,
+			CString( WEB_SITE ) + L"?Version=" + theApp.m_sVersion,
 			NULL, NULL, SW_SHOWNORMAL );
-	}
 }

@@ -1,7 +1,7 @@
 //
 // LiveList.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -239,7 +239,7 @@ void CLiveItem::Format(int nColumn, LPCTSTR pszFormat, ...)
 	va_list pArgs;
 
 	va_start( pArgs, pszFormat );
-	_vsntprintf( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), pszFormat, pArgs );
+	_vsntprintf_s( szBuffer, sizeof( szBuffer ) / sizeof( TCHAR ), pszFormat, pArgs );
 	szBuffer[ sizeof( szBuffer ) / sizeof( TCHAR ) - 1 ] = 0;
 	va_end( pArgs );
 
@@ -368,7 +368,6 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 //	ASSERT_VALID( this );
 //	ASSERT_VALID( pCtrl );
 //
-//	BOOL bModified = FALSE;
 //	LV_FINDINFO pFind = {};
 //	pFind.flags  = LVFI_PARAM;
 //	pFind.lParam = nParam;
@@ -383,15 +382,13 @@ BOOL CLiveItem::Update(CListCtrl* pCtrl, int nItem, int nColumns)
 //	if ( ! pCtrl->GetItem( &pItem ) ) return FALSE;
 //
 //	if ( pItem.iImage != nImageIndex )
-//		bModified = TRUE;
-//
-//	if ( bModified )
 //	{
 //		pItem.iImage = nImageIndex;
 //		pCtrl->SetItem( &pItem );
+//		return TRUE;
 //	}
 //
-//	return bModified;
+//	return FALSE;
 //}
 
 
@@ -414,16 +411,9 @@ void CLiveList::Sort(CListCtrl* pCtrl, int nColumn, BOOL bGraphic)
 	else
 	{
 		if ( nColumn == abs( nOldColumn ) - 1 )
-		{
-			if ( nOldColumn > 0 )
-				nColumn = 0 - nOldColumn;
-			else
-				nColumn = 0;
-		}
+			nColumn = nOldColumn ? 0 - nOldColumn : 0;
 		else
-		{
 			nColumn++;
-		}
 
 		SetWindowLongPtr( pCtrl->GetSafeHwnd(), GWLP_USERDATA, nColumn );
 	}

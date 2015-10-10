@@ -1,7 +1,7 @@
 //
 // Skin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -47,7 +47,7 @@ public:
 	static BOOL LoadColor(CXMLElement* pXML, LPCTSTR pszName, COLORREF* pColor);
 	static COLORREF	GetColor(CString sColor);
 protected:
-	void		ApplyRecursive(LPCTSTR pszPath);
+	void		ApplyRecursive(LPCTSTR pszPath = NULL);
 	void		CreateDefault();
 	void		CreateDefaultColors();
 

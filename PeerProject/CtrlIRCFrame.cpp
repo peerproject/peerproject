@@ -752,6 +752,7 @@ void CIRCFrame::OnIrcUserCmdWhois()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/whois " + RemoveModeOfNick( strUser ) );
 }
 
@@ -759,6 +760,7 @@ void CIRCFrame::OnIrcUserCmdOp()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" +o " + RemoveModeOfNick( strUser ) );
 }
 
@@ -766,59 +768,15 @@ void CIRCFrame::OnIrcUserCmdDeop()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" -o " + RemoveModeOfNick( strUser ) );
-}
-
-void CIRCFrame::OnIrcChanCmdOpen()
-{
-	CString strPath = Settings.General.DataPath + L"ChatChanlist.dat";
-
-	CFile pFile;
-	if ( ! pFile.Open( strPath, CFile::modeRead ) ) return;
-
-	CBuffer pBuffer;
-	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
-	pBuffer.m_nLength = (DWORD)pFile.GetLength();
-	pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength );
-	pFile.Close();
-
-	CString strItem;
-	while ( pBuffer.ReadLine( strItem ) )
-	{
-		strItem.Trim();
-
-		if ( strItem.GetLength() && strItem.GetAt( 0 ) == L'#' )
-		{
-			CListCtrl& wndChanList = m_wndPanel.m_boxChans.m_wndChanList;
-			m_pChanList.AddChannel( strItem.Mid( 1 ), strItem, TRUE );
-			wndChanList.InsertItem( wndChanList.GetItemCount(), strItem.Mid( 1 ) );
-		}
-	}
-}
-
-void CIRCFrame::OnIrcChanCmdSave()
-{
-	CFile pFile;
-	if ( ! pFile.Open( Settings.General.DataPath + L"ChatChanlist.dat",
-		 CFile::modeWrite | CFile::modeCreate ) )
-		return;
-
-	CListCtrl* pChannelList = &(m_wndPanel.m_boxChans.m_wndChanList);
-	for ( int nIndex = 0 ; nIndex < pChannelList->GetItemCount() ; nIndex++ )
-	{
-		int nChanListIndex = m_pChanList.GetIndexOfDisplay( pChannelList->GetItemText( nIndex, 0 ) );
-		if ( nChanListIndex != -1 && m_pChanList.GetType( m_pChanList.GetDisplayOfIndex( nChanListIndex ) ) )
-		{
-			CT2A pszFile( m_pChanList.GetNameOfIndex( nChanListIndex ) + L"\r\n" );
-			pFile.Write( (LPCSTR)pszFile, (DWORD)strlen( pszFile ) );
-		}
-	}
 }
 
 void CIRCFrame::OnIrcUserCmdVoice()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" +v " + RemoveModeOfNick( strUser ) );
 }
 
@@ -831,6 +789,7 @@ void CIRCFrame::OnIrcUserCmdBan()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" +b " + RemoveModeOfNick( strUser ) );
 }
 
@@ -838,6 +797,7 @@ void CIRCFrame::OnIrcUserCmdUnban()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" -b " + RemoveModeOfNick( strUser ) );
 }
 
@@ -845,6 +805,7 @@ void CIRCFrame::OnIrcUserCmdKick()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/kick " + GetTabText() + L" " + RemoveModeOfNick( strUser ) );
 }
 
@@ -852,6 +813,7 @@ void CIRCFrame::OnIrcUserCmdKickWhy()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	CIrcInputDlg dlg( this, 1, TRUE );	// 1 = select the second caption
 	if ( dlg.DoModal() != IDOK ) return;
 	OnLocalText( L"/kick " + GetTabText() + L" " + RemoveModeOfNick( strUser ) + L" " + dlg.m_sAnswer );
@@ -861,6 +823,7 @@ void CIRCFrame::OnIrcUserCmdBanKick()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" +b " + RemoveModeOfNick( strUser ) );
 	OnLocalText( L"/kick " + GetTabText() + L" " + RemoveModeOfNick( strUser ) );
 }
@@ -869,6 +832,7 @@ void CIRCFrame::OnIrcUserCmdBanKickWhy()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	CIrcInputDlg dlg( this, 1, FALSE );	// 1 = select the second caption
 	if ( dlg.DoModal() != IDOK ) return;
 	OnLocalText( L"/mode " + GetTabText() + L" +b " + RemoveModeOfNick( strUser ) );
@@ -879,6 +843,7 @@ void CIRCFrame::OnIrcUserCmdDevoice()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/mode " + GetTabText() + L" -v " + RemoveModeOfNick( strUser ) );
 }
 
@@ -886,6 +851,7 @@ void CIRCFrame::OnIrcUserCmdIgnore()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/SILENCE +" + RemoveModeOfNick( strUser ) );
 }
 
@@ -893,6 +859,7 @@ void CIRCFrame::OnIrcUserCmdUnignore()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/SILENCE -" + RemoveModeOfNick( strUser ) );
 }
 
@@ -900,6 +867,7 @@ void CIRCFrame::OnIrcUserCmdTime()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/PRIVMSG " + RemoveModeOfNick( strUser ) + L" :\x01TIME\x01" );
 }
 
@@ -907,6 +875,7 @@ void CIRCFrame::OnIrcUserCmdVersion()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/PRIVMSG " + RemoveModeOfNick( strUser ) + L" :\x01VERSION\x01" );
 }
 
@@ -914,7 +883,54 @@ void CIRCFrame::OnIrcUserCmdBrowse()
 {
 	CString strUser = GetSelectedUser();
 	if ( strUser.IsEmpty() ) return;
+
 	OnLocalText( L"/PRIVMSG " + RemoveModeOfNick( strUser ) + L" :\x01USERINFO\x01" );
+}
+
+void CIRCFrame::OnIrcChanCmdOpen()
+{
+	CString strPath = Settings.General.DataPath + L"ChatChanlist.dat";
+
+	CFile pFile;
+	if ( ! pFile.Open( strPath, CFile::modeRead ) ) return;
+
+	CBuffer pBuffer;
+	pBuffer.EnsureBuffer( (DWORD)pFile.GetLength() );
+	pBuffer.m_nLength = (DWORD)pFile.GetLength();
+	pFile.Read( pBuffer.m_pBuffer, pBuffer.m_nLength);
+	pFile.Close();
+
+	CString strItem;
+	while ( pBuffer.ReadLine(strItem) )
+	{
+		strItem.Trim();
+
+		if ( strItem.GetLength() && strItem.GetAt(0) == L'#' )
+		{
+			CListCtrl& wndChanList = m_wndPanel.m_boxChans.m_wndChanList;
+			m_pChanList.AddChannel( strItem.Mid(1), strItem, TRUE );
+			wndChanList.InsertItem( wndChanList.GetItemCount(), strItem.Mid(1) );
+		}
+	}
+}
+
+void CIRCFrame::OnIrcChanCmdSave()
+{
+	CFile pFile;
+	if ( ! pFile.Open( Settings.General.DataPath + L"ChatChanlist.dat",
+		CFile::modeWrite | CFile::modeCreate ) )
+		return;
+
+	CListCtrl* pChannelList = &(m_wndPanel.m_boxChans.m_wndChanList);
+	for ( int nIndex = 0; nIndex < pChannelList->GetItemCount(); nIndex++ )
+	{
+		int nChanListIndex = m_pChanList.GetIndexOfDisplay( pChannelList->GetItemText( nIndex, 0 ) );
+		if ( nChanListIndex != -1 && m_pChanList.GetType( m_pChanList.GetDisplayOfIndex( nChanListIndex ) ) )
+		{
+			CT2A pszFile( m_pChanList.GetNameOfIndex( nChanListIndex ) + L"\r\n" );
+			pFile.Write( (LPCSTR)pszFile, (DWORD)strlen( pszFile ) );
+		}
+	}
 }
 
 void CIRCFrame::OnUpdateIrcSendText(CCmdUI* pCmdUI)
@@ -1049,8 +1065,9 @@ CString CIRCFrame::GetTabText(int nTabIndex) const
 
 void CIRCFrame::OnLocalText(LPCTSTR pszText)
 {
-	CString strMessage = pszText, strSend, strBufferMsg, strStatusMsg;
+	CString strMessage( pszText ), strSend, strBufferMsg, strStatusMsg;
 	if ( strMessage.IsEmpty() ) return; 	// Crash prevention.  ToDo: Fix properly
+
 	CString strTabTitle = GetTabText();
 	BOOL bMeMsg = FALSE;	// /me Action
 
@@ -1787,7 +1804,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		}
 	case ID_MESSAGE_CHANNEL_NOTICE:
 		{
-			oNewMessage.Add( L"-" + m_pWords.GetAt( 0 ) + L" - " + GetStringAfterParsedItem ( 8 ), m_pWords.GetAt( 6 ), ID_COLOR_NOTICE );
+			oNewMessage.Add( L"-" + m_pWords.GetAt( 0 ) + L" - " + GetStringAfterParsedItem( 8 ), m_pWords.GetAt( 6 ), ID_COLOR_NOTICE );
 			return;
 		}
 	case ID_MESSAGE_CLIENT_INVITE:
@@ -1819,7 +1836,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			m_wndTab.GetItem( nTab, &item );
 			strChannelName.ReleaseBuffer();
 
-			oNewMessage.Add( L"-" + m_pWords.GetAt( 0 ) + L"- " + GetStringAfterParsedItem ( 7 ), strChannelName, ID_COLOR_NOTICE );
+			oNewMessage.Add( L"-" + m_pWords.GetAt( 0 ) + L"- " + GetStringAfterParsedItem( 7 ), strChannelName, ID_COLOR_NOTICE );
 			return;
 		}
 	case ID_MESSAGE_USER_CTCPTIME:
@@ -1843,10 +1860,14 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 	case ID_MESSAGE_USER_CTCPVERSION:
 		{
 			CString strReply;
-			strReply.Format( L"/NOTICE %s :\x01VERSION %s:%s:Microsoft Windows %u.%u\x01",
+			strReply.Format( L"/NOTICE %s :\x01VERSION %s:%s:Microsoft Windows %s\x01",
 				(LPCTSTR)m_pWords.GetAt( 0 ), CLIENT_NAME,
-				(LPCTSTR)theApp.m_sVersionLong,
-				Windows.dwMajorVersion, Windows.dwMinorVersion );
+				(LPCTSTR)theApp.m_sVersionLong, 
+				theApp.m_nWinVer < WIN_VISTA ? L"XP" :
+				theApp.m_nWinVer < WIN_7 ? L"Vista" :
+				theApp.m_nWinVer < WIN_8 ? L"7" :
+				theApp.m_nWinVer < WIN_10 ? L"8" :
+				theApp.m_nWinVer == WIN_10 ? L"10" : L"10+" );
 			OnLocalText( strReply );
 			oNewMessage.Add( L"•" + m_pWords.GetAt( 0 ) + L" VERSIONed you.", m_sStatus, ID_COLOR_SERVERMSG );
 			return;
@@ -1865,7 +1886,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		}
 	case ID_MESSAGE_SERVER_NOTICE:
 		{
-			oNewMessage.Add( GetStringAfterParsedItem ( FindParsedItem( L":", 2 ) ) + L" (" + m_pWords.GetAt( 2 ) + L")", m_sStatus, ID_COLOR_NOTICE );
+			oNewMessage.Add( GetStringAfterParsedItem( FindParsedItem( L":", 2 ) ) + L" (" + m_pWords.GetAt( 2 ) + L")", m_sStatus, ID_COLOR_NOTICE );
 			return;
 		}
 	case ID_MESSAGE_CHANNEL_LIST:
@@ -1919,7 +1940,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 		{
 			CString strChannelName = m_pWords.GetAt( 3 );
 			m_pContent.Clear();
-			oNewMessage.Add( L"•Topic is:  " + GetStringAfterParsedItem ( 4 ), strChannelName, ID_COLOR_TOPIC );
+			oNewMessage.Add( L"•Topic is:  " + GetStringAfterParsedItem( 4 ), strChannelName, ID_COLOR_TOPIC );
 			return;
 		}
 	case ID_MESSAGE_CHANNEL_TOPICSETBY:
@@ -2001,7 +2022,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 	case ID_MESSAGE_CHANNEL_QUIT:
 		{
 			CString strNick = m_pWords.GetAt( 0 );
-			CString strUserMsg = GetStringAfterParsedItem ( 6 );
+			CString strUserMsg = GetStringAfterParsedItem( 6 );
 			for ( int nTab = 1 ; nTab < m_nBufferCount ; nTab++ )
 			{
 				int nListUser = FindInList( strNick, 0, nTab );

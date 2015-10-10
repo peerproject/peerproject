@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Brazilian Portuguese Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -85,7 +85,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -96,7 +96,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -110,7 +110,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar"/>
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -129,7 +129,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Baixar Arquivo"/>
 		<button id="ID_SEARCH_CHAT" text="Conversar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -141,7 +141,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Atualizar"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Conversar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com elas"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -160,7 +160,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_FILTER_MENU" text="Filtrar"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -175,7 +175,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Propriedades"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Mostrar Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Adicionar Download/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Limpar"/>
 		<separator/>
@@ -185,7 +185,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_UPLOADS_CHAT" text="Conversar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -198,7 +198,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_UPLOADS_CHAT" text="Conversar"/>
 		<button id="ID_SECURITY_BAN" text="Banir Usuário"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Limpar"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtrar"/>
@@ -222,7 +222,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Compartilhar Arquivos..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -231,7 +231,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Criar Álbum..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Apagar Álbum"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -240,7 +240,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -257,7 +257,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Mover"/>
 		<button id="ID_LIBRARY_COPY" text="Copiar"/>
 		<button id="ID_LIBRARY_DELETE" text="Apagar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -267,7 +267,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Abrir/Tocar"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Adicionar a Lista"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tocar Álbum"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -280,7 +280,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Propriedades"/>
 		<button id="ID_WEBSERVICES_LIST" text="Serviços da Web"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -290,7 +290,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Tocar o Álbum Todo"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Baixar Todos Os Arquivos"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Achar:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -308,7 +308,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Abrir Arquivo"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Anterior"/>
 		<button id="ID_MEDIA_NEXT" text="Próxima"/>
 		<separator/>
@@ -331,7 +331,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -340,7 +340,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Limpar"/>
 		<button id="ID_MEDIA_SAVE" text="Salvar"/>
 	</toolbar>
@@ -349,7 +349,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Conversar" tip="Post Comentários"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Fechar" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Conectar" tip="Conectar ao IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Desconectar" tip="Desconectar do IRC"/>
 		<separator/>
@@ -359,7 +359,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Navegar"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Conversar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -373,7 +373,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Desconectar"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Banir Host"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -391,7 +391,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Mover pra Cima"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Mover pra Baixo"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="Resetar a Hits"/>
 		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="Importar a Lista"/>
@@ -406,7 +406,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activater"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivater"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="Remover Todos"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Importar"/>
@@ -419,7 +419,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pausar"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Limpar"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filtro:" tip="Digite algumas palavras para filtrar os resultados com"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mais..."/>
@@ -435,7 +435,7 @@
 		<button id="ID_DISCOVERY_ADVERTISE" text="Anunciar"/>
 		<separator/>
 		<button id="ID_DISCOVERY_BROWSE" text="Estatísticas"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
 		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
@@ -446,7 +446,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Conectar na"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Desconectar"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Remover"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -494,7 +494,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Melhor Encaixe"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Atualizar"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Fechar"/>
 	</toolbar>
 </toolbars>
@@ -717,7 +717,7 @@
 				<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
 				<!-- <item id="ID_HELP_DONATE" text="_Doar para o Projeto PeerProject."/>
 				<item id="ID_HELP_WEB_SKINS" text="PeerProject S_kins"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<item id="ID_HELP_HOMEPAGE" text="_Site do PeerProject"/>
 			<separator/>
@@ -877,7 +877,7 @@
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Foro de Português"/>
 				<!-- <separator/>
 				<item id="ID_HELP_UPDATE" text="Últimas notícias"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="Procurar nova _versão"/>
@@ -1678,10 +1678,10 @@
 	<document name="CHomeViewCtrl" leftMargin="20" topMargin="0">
 	  <styles>
 		<style name="default">
-		  <font size="13"/>
+			<font size="13"/>
 		</style>
 		<style name="heading">
-		  <font face="Segoe UI" size="18" weight="400"/>
+			<font face="Segoe UI" size="18" weight="400"/>
 		</style>
 	  </styles>
 	  <anchor id="Header" width="32" height="152"/>
@@ -1730,7 +1730,7 @@
 		<heading align="middle">Aviso: Vocé Está Sob Firewall</heading>
 		<newline gap="8" indent="42"/>
 		<text color="FF0000">O PeerProject detectou que você está atrás de um roteador NAT ou firewall,
-		  e está incapacitado de receber conexões da internet. &#160;</text>
+		e está incapacitado de receber conexões da internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar uma performance pobre no download e na busca.</text>
 		<newline gap="6"/>
 		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
@@ -1743,7 +1743,7 @@
 		<heading align="middle">Aviso: Sua Porta TCP Está Atrás De Um Firewall</heading>
 		<newline gap="8" indent="42"/>
 		<text color="FF0000">O PeerProject detectou que você está atrás de um roteador NAT ou firewall,
-		  e está incapacitado de receber conexões TCP da Internet. &#160;</text>
+		e está incapacitado de receber conexões TCP da Internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar uma performance pobre de download.</text>
 		<newline gap="6"/>
 		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>
@@ -1756,7 +1756,7 @@
 		<heading align="middle">Aviso: Sua Porta UDP Está Atrás De Um Firewall</heading>
 		<newline gap="8" indent="42"/>
 		<text color="FF0000">O PeerProject detectou que você está atrás de um roteador NAT ou firewall,
-		  e está incapacitado de receber mensagens UDP da Internet. &#160;</text>
+		e está incapacitado de receber mensagens UDP da Internet. &#160;</text>
 		<text color="FF0000" format="b">Isto pode causar performance pobre na busca.</text>
 		<newline gap="6"/>
 		<link target="command:ID_TOOLS_WIZARD">Enable Plug'n'Play port forwarding</link>

@@ -1,7 +1,7 @@
 //
 // VendorCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -34,12 +34,12 @@ public:
 	// Lookup 4-bytes vendor code (ASCII without terminating null)
 	inline CVendor* Lookup(LPCSTR pszCode) const
 	{
-		ASSERT( pszCode );
 		if ( pszCode )
 		{
-			WCHAR szCode[5] = { pszCode[0], pszCode[1], pszCode[2], pszCode[3], 0 };
+			WCHAR szCode[5] = { (WCHAR)pszCode[0], (WCHAR)pszCode[1], (WCHAR)pszCode[2], (WCHAR)pszCode[3], 0 };
 			return Lookup( szCode );
 		}
+		ASSERT( pszCode );
 		return NULL;
 	}
 
@@ -61,7 +61,7 @@ public:
 
 	BOOL		Load(); 								// Load data from Vendors.xml
 	CVendor*	LookupByName(LPCTSTR pszName) const;	// Lookup by code or by name
-	bool		IsExtended(LPCTSTR pszCode) const;		// Is specified vendor a PeerProject/Shareaza-powered vendor?
+	bool		IsExtended(LPCTSTR pszCode) const;		// Is specified vendor PeerProject/Shareaza-powered?
 
 protected:
 	CMap< CString, const CString&, CVendor*, CVendor* > m_pCodeMap;		// Vendor code map
@@ -85,7 +85,7 @@ public:
 	CString		m_sLink;
 	bool		m_bChatFlag;
 	bool		m_bBrowseFlag;
-	bool		m_bExtended;		// PeerProject/Shareaza-powered
+	bool		m_bExtended;							// PeerProject/Shareaza-powered
 
 protected:
 	BOOL		LoadFrom(CXMLElement* pXML);

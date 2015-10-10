@@ -1,7 +1,7 @@
 //
 // QueryHit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1588,11 +1588,11 @@ void CQueryHit::ReadEDPacket(CEDPacket* pPacket, const SOCKADDR_IN* pServer, BOO
 				DWORD nSecs = 0, nMins = 0, nHours = 0;
 
 				if ( pTag.m_sValue.GetLength() < 3 )
-					_stscanf( pTag.m_sValue, L"%i", &nSecs );
+					_stscanf( pTag.m_sValue, L"%lu", &nSecs );
 				else if ( pTag.m_sValue.GetLength() < 6 )
-					_stscanf( pTag.m_sValue, L"%i:%i", &nMins, &nSecs );
+					_stscanf( pTag.m_sValue, L"%lu:%lu", &nMins, &nSecs );
 				else
-					_stscanf( pTag.m_sValue, L"%i:%i:%i", &nHours, &nMins, &nSecs );
+					_stscanf( pTag.m_sValue, L"%lu:%lu:%lu", &nHours, &nMins, &nSecs );
 
 				nLength = (nHours * 60 * 60) + (nMins * 60) + (nSecs);
 			}

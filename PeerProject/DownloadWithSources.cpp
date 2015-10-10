@@ -1,7 +1,7 @@
 //
 // DownloadWithSources.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -109,7 +109,7 @@ DWORD CDownloadWithSources::GetSourceCount(BOOL bNoPush, BOOL bSane) const
 	CQuickLock pLock( Transfers.m_pSection );
 
 	if ( ! bNoPush && ! bSane )
-		return GetCount();
+		return (DWORD)GetCount();
 
 	const DWORD tNow = GetTickCount();
 	DWORD nCount = 0;
@@ -780,12 +780,15 @@ CString CDownloadWithSources::GetSourceURLs(CList< CString >* pState, int nMaxim
 CString	CDownloadWithSources::GetTopFailedSources(int nMaximum, PROTOCOLID nProtocol)
 {
 	// Currently we return only the string for G1, in X-NAlt format
-	if ( nProtocol != PROTOCOL_G1 ) return CString();
+	if ( nProtocol != PROTOCOL_G1 )
+		return CString();
 
 	CString strSources, str;
 	CFailedSource* pResult = NULL;
 
-	CQuickLock pLock( Transfers.m_pSection );
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 150 ) )
+		return str;
 
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
 	{
@@ -838,7 +841,9 @@ BOOL CDownloadWithSources::OnQueryHits(const CQueryHit* pHits)
 
 void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength)
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 150 ) )
+		return;
 
 	for ( POSITION posSource = GetIterator() ; posSource ; )
 	{
@@ -855,7 +860,10 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 			else
 			{
 				theApp.Message( MSG_ERROR, IDS_DOWNLOAD_VERIFY_DROP,
-					(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ), (LPCTSTR)pSource->m_sServer, (LPCTSTR)m_sName, nOffset, nOffset + nLength - 1 );
+					(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ),
+					(LPCTSTR)pSource->m_sServer,
+					(LPCTSTR)m_sName,
+					nOffset, nOffset + nLength - 1 );
 				pSource->Remove( TRUE, FALSE );
 			}
 		}
@@ -867,7 +875,10 @@ void CDownloadWithSources::RemoveOverlappingSources(QWORD nOffset, QWORD nLength
 // from other users and negative votes compose 2/3 of the total number of votes.
 CFailedSource* CDownloadWithSources::LookupFailedSource(LPCTSTR pszUrl, bool bReliable)
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( ! oLock.Lock( 150 ) )
+		return NULL;
+
 	CFailedSource* pResult = NULL;
 
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
@@ -916,7 +927,7 @@ void CDownloadWithSources::AddFailedSource(const CDownloadSource* pSource, bool 
 
 void CDownloadWithSources::AddFailedSource(LPCTSTR pszUrl, bool bLocal, bool bOffline)
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	if ( LookupFailedSource( pszUrl ) == NULL )
 	{
@@ -941,7 +952,7 @@ void CDownloadWithSources::VoteSource(LPCTSTR pszUrl, bool bPositively)
 
 void CDownloadWithSources::ExpireFailedSources()
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	const DWORD tNow = GetTickCount();
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
@@ -964,7 +975,7 @@ void CDownloadWithSources::ExpireFailedSources()
 
 void CDownloadWithSources::ClearFailedSources()
 {
-	CQuickLock pLock( Transfers.m_pSection );
+	ASSUME_LOCK( Transfers.m_pSection );
 
 	for ( POSITION pos = m_pFailedSources.GetHeadPosition() ; pos ; )
 	{
@@ -1129,9 +1140,9 @@ int CDownloadWithSources::GetSourceColor()
 	BOOL bTaken[ SRC_COLORS ] = {};
 	unsigned int nFree = SRC_COLORS;
 
+	CSingleLock oLock( &Transfers.m_pSection );
+	if ( oLock.Lock( 150 ) )
 	{
-		CQuickLock pLock( Transfers.m_pSection );
-
 		for ( POSITION posSource = GetIterator() ; posSource ; )
 		{
 			CDownloadSource* pSource = GetNext( posSource );
@@ -1145,9 +1156,12 @@ int CDownloadWithSources::GetSourceColor()
 				}
 			}
 		}
+
+		oLock.Unlock();
 	}
 
-	if ( nFree == 0 ) return GetRandomNum( 0u, SRC_COLORS - 1 );
+	if ( nFree == 0 )
+		return GetRandomNum( 0u, SRC_COLORS - 1 );
 
 	nFree = GetRandomNum( 0u, nFree - 1 );
 
@@ -1155,7 +1169,8 @@ int CDownloadWithSources::GetSourceColor()
 	{
 		if ( bTaken[ nColor ] == FALSE )
 		{
-			if ( nFree-- == 0 ) return nColor;
+			if ( nFree-- == 0 )
+				return nColor;
 		}
 	}
 
@@ -1173,9 +1188,9 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 
 	if ( ar.IsStoring() )
 	{
-		DWORD_PTR nSources = GetCount();
+		DWORD_PTR nSources = (DWORD_PTR)GetCount();
 		if ( nSources > Settings.Downloads.SourcesWanted )
-			nSources = Settings.Downloads.SourcesWanted;
+			nSources = (DWORD_PTR)Settings.Downloads.SourcesWanted;	// Don't save more than 500 sources
 		ar.WriteCount( nSources );
 
 		for ( POSITION posSource = GetIterator() ; posSource && nSources ; nSources-- )
@@ -1193,7 +1208,7 @@ void CDownloadWithSources::Serialize(CArchive& ar, int nVersion)	// DOWNLOAD_SER
 		for ( DWORD_PTR nSources = ar.ReadCount() ; nSources ; nSources-- )
 		{
 			// Create new source
-			//CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );
+			//CDownloadSource* pSource = new CDownloadSource( (CDownload*)this );	// Obsolete
 			CAutoPtr< CDownloadSource > pSource( new CDownloadSource( static_cast< CDownload* >( this ) ) );
 			if ( ! pSource )
 				AfxThrowMemoryException();

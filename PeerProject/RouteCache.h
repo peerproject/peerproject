@@ -1,7 +1,7 @@
 //
 // RouteCache.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -18,6 +18,9 @@
 
 #pragma once
 
+#define ROUTE_HASH_SIZE		1024
+#define ROUTE_HASH_MASK		1023
+
 class CNeighbour;
 
 
@@ -27,10 +30,10 @@ public:
 	CRouteCacheItem();
 
 	CRouteCacheItem*	m_pNext;
-	DWORD				m_tAdded;
-	Hashes::Guid		m_oGUID;
 	const CNeighbour*	m_pNeighbour;
 	SOCKADDR_IN			m_pEndpoint;
+	Hashes::Guid		m_oGUID;
+	DWORD				m_tAdded;
 };
 
 
@@ -41,7 +44,7 @@ public:
 	virtual ~CRouteCacheTable();
 
 protected:
-	CRouteCacheItem*	m_pHash[1024];
+	CRouteCacheItem*	m_pHash[ ROUTE_HASH_SIZE ];
 	CRouteCacheItem*	m_pFree;
 	CRouteCacheItem*	m_pBuffer;
 	DWORD				m_nBuffer;
@@ -77,11 +80,11 @@ protected:
 	CRouteCacheTable*	m_pHistory;
 
 public:
-	void		SetDuration(DWORD nSeconds);
-	BOOL		Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour);
-	BOOL		Add(const Hashes::Guid& oGUID, const SOCKADDR_IN* pEndpoint);
-	void		Remove(CNeighbour* pNeighbour);
-	void		Clear();
+	void				SetDuration(DWORD nSeconds);
+	BOOL				Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour);
+	BOOL				Add(const Hashes::Guid& oGUID, const SOCKADDR_IN* pEndpoint);
+	void				Remove(CNeighbour* pNeighbour);
+	void				Clear();
 
 	CRouteCacheItem*	Add(const Hashes::Guid& oGUID, const CNeighbour* pNeighbour, const SOCKADDR_IN* pEndpoint, DWORD tAdded);
 	CRouteCacheItem*	Lookup(const Hashes::Guid& oGUID, CNeighbour** ppNeighbour = NULL, SOCKADDR_IN* pEndpoint = NULL);

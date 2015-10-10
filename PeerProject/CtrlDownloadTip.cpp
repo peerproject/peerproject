@@ -405,16 +405,16 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		{
 			strVolume.Format( L"( %.2f%% )  %s %s %s",
 				pDownload->GetProgress(),
-				Settings.SmartVolume( pDownload->m_nSize ),
-				strOf,
-				Settings.SmartVolume( pDownload->GetVolumeComplete() ) );
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_nSize ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( pDownload->GetVolumeComplete() ) );
 		}
 		else
 		{
 			strVolume.Format( L"%s %s %s   ( %.2f%% )",
-				Settings.SmartVolume( pDownload->GetVolumeComplete() ),
-				strOf,
-				Settings.SmartVolume( pDownload->m_nSize ),
+				(LPCTSTR)Settings.SmartVolume( pDownload->GetVolumeComplete() ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_nSize ),
 				pDownload->GetProgress() );
 		}
 	}
@@ -429,16 +429,16 @@ void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)
 		{
 			strTorrentUpload.Format( L"( %.2f%% )  %s %s %s",
 				pDownload->GetRatio(),
-				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
-				strOf,
-				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ) );
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ) );
 		}
 		else
 		{
 			strTorrentUpload.Format( L"%s %s %s   ( %.2f%% )",
-				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ),
-				strOf,
-				Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalUpload ),
+				(LPCTSTR)strOf,
+				(LPCTSTR)Settings.SmartVolume( pDownload->m_pTorrent.m_nTotalDownload ),
 				pDownload->GetRatio() );
 		}
 	}
@@ -746,19 +746,19 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownloadSource* pSource)
 	{
 		m_sName.Format( L"%lu@%s:%u",
 			pSource->m_pAddress.S_un.S_addr,
-			CString( inet_ntoa( pSource->m_pServerAddress ) ),
+			(LPCTSTR)CString( inet_ntoa( pSource->m_pServerAddress ) ),
 			pSource->m_nServerPort );
 	}
 	else if ( ! pSource->IsIdle() )	// Or an active transfer
 	{
 		m_sName.Format( L"%s:%u",
-			pSource->GetAddress(),
+			(LPCTSTR)pSource->GetAddress(),
 			ntohs( pSource->GetPort() ) );
 	}
 	else	// Or just queued
 	{
 		m_sName.Format( L"%s:%u",
-			CString( inet_ntoa( pSource->m_pAddress ) ),
+			(LPCTSTR)CString( inet_ntoa( pSource->m_pAddress ) ),
 			pSource->m_nPort );
 	}
 

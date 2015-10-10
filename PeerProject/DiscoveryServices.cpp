@@ -1,7 +1,7 @@
 //
 // DiscoveryServices.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -460,9 +460,12 @@ BOOL CDiscoveryServices::Load()
 			pFile.Abort();
 			pException->Delete();
 		}
+
+		pFile.Close();
 	}
 
-	pFile.Close();
+	if ( ! bSuccess )
+		theApp.Message( MSG_ERROR, L"[DiscoveryServices] Failed to load discovery service list: %s", strFile );
 
 	// Check we have the minimum number of services (in case of file corruption, etc)
 	if ( ! EnoughServices() )
@@ -471,12 +474,7 @@ BOOL CDiscoveryServices::Load()
 		Save();			// And save it
 	}
 
-	if ( bSuccess )
-		return TRUE;
-
-	theApp.Message( MSG_ERROR, L"[DiscoveryServices] Failed to load discovery service list: %s", strFile );
-
-	return FALSE;
+	return bSuccess;
 }
 
 BOOL CDiscoveryServices::Save()
@@ -1402,13 +1400,13 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 	else
 		strURL += L"?get=1&hostfile=1";
 
-	//	strURL += L"&support=1";					// GWC network and status - ToDo : Use this parameter's output to check GWCs for self-network support relay.
-	//	strURL += L"&info=1";					// Maintainer Info - ToDo : Use this parameter's output to add info (about maintainer etc.) into new Discovery window columns.
+	//	strURL += L"&support=1";					// GWC network and status - ToDo: Use this parameter's output to check GWCs for self-network support relay.
+	//	strURL += L"&info=1";					// Maintainer Info - ToDo: Use this parameter's output to add info (about maintainer etc.) into new Discovery window columns.
 
 	if ( m_nLastQueryProtocol == PROTOCOL_G2 )
 	{
 		strURL += L"&net=gnutella2&ping=1&pv=4";
-		strURL += L"&client="_T(VENDOR_CODE);	// Version number is combined with client parameter for spec2
+		strURL += L"&client=" _T(VENDOR_CODE);	// Version number is combined with client parameter for spec2
 		strURL += theApp.m_sVersion;
 	}
 	else
@@ -1655,7 +1653,7 @@ BOOL CDiscoveryServices::RunWebCacheGet(BOOL bCaches)
 					{
 						// "i|access|period|access period"
 						DWORD nAccessPeriod;
-						if ( _stscanf( oParts[ 3 ], L"%u", &nAccessPeriod ) == 1 )
+						if ( _stscanf( oParts[ 3 ], L"%lu", &nAccessPeriod ) == 1 )
 							m_pWebCache->m_nAccessPeriod = nAccessPeriod;
 					}
 				}
@@ -1804,7 +1802,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 			htons( Network.m_pHost.sin_port ),
 			Neighbours.GetCount( PROTOCOL_ANY, -1, ntLeaf ),
 			Network.GetStableTime(),
-			(m_nLastUpdateProtocol == PROTOCOL_G2) ? Settings.Gnutella2.NumLeafs : Settings.Gnutella1.NumLeafs );
+			( m_nLastUpdateProtocol == PROTOCOL_G2 ) ? Settings.Gnutella2.NumLeafs : Settings.Gnutella1.NumLeafs );
 	}
 
 	if ( m_pSubmit != NULL && Check( m_pSubmit, CDiscoveryService::dsWebCache ) )
@@ -1832,7 +1830,7 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 	if ( m_nLastUpdateProtocol == PROTOCOL_G2 )
 	{
 		strURL += L"&net=gnutella2";
-		strURL += L"&client="_T(VENDOR_CODE);	// Version number combined with client parameter for spec2
+		strURL += L"&client=" _T(VENDOR_CODE);	// Version number combined with client parameter for spec2
 		strURL += theApp.m_sVersion;				// "PEER1.0.0.0"
 	}
 	else
@@ -1912,11 +1910,11 @@ BOOL CDiscoveryServices::RunWebCacheUpdate()
 
 		if ( _tcsnicmp( strLine, L"i|access|period|", 16 ) == 0 )
 		{
-			_stscanf( (LPCTSTR)strLine + 16, L"%u", &m_pWebCache->m_nAccessPeriod );
+			_stscanf( (LPCTSTR)strLine + 16, L"%lu", &m_pWebCache->m_nAccessPeriod );
 		}
 		else if ( _tcsnicmp( strLine, L"i|update|period|", 16 ) == 0 )
 		{
-			_stscanf( (LPCTSTR)strLine + 16, L"%u", &m_pWebCache->m_nUpdatePeriod );
+			_stscanf( (LPCTSTR)strLine + 16, L"%lu", &m_pWebCache->m_nUpdatePeriod );
 		}
 	}
 

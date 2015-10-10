@@ -1,7 +1,7 @@
 //
 // SharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -136,11 +136,15 @@ CXMLElement* CLibraryFolder::CreateXML(CXMLElement* pRoot, BOOL bSharedOnly, Xml
 
 POSITION CLibraryFolder::GetFolderIterator() const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	return m_pFolders.GetStartPosition();
 }
 
 CLibraryFolder* CLibraryFolder::GetNextFolder(POSITION& pos) const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	CLibraryFolder* pOutput = NULL;
 	CString strName;
 	m_pFolders.GetNextAssoc( pos, strName, pOutput );
@@ -149,6 +153,8 @@ CLibraryFolder* CLibraryFolder::GetNextFolder(POSITION& pos) const
 
 CLibraryFolder* CLibraryFolder::GetFolderByName(LPCTSTR pszName) const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	CString strName( pszName );
 	ToLower( strName );
 
@@ -172,6 +178,8 @@ CLibraryFolder* CLibraryFolder::GetFolderByName(LPCTSTR pszName) const
 
 CLibraryFolder* CLibraryFolder::GetFolderByPath(const CString& strPath) const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	// Test for exact match
 	if ( m_sPath.CompareNoCase( strPath ) == 0 )
 		return const_cast< CLibraryFolder* >( this );
@@ -197,6 +205,8 @@ CLibraryFolder* CLibraryFolder::GetFolderByPath(const CString& strPath) const
 
 BOOL CLibraryFolder::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 {
+	//ASSUME_LOCK( Library.m_pSection );
+
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
 		CLibraryFolder* pCheck = GetNextFolder( pos );
@@ -210,7 +220,7 @@ BOOL CLibraryFolder::CheckFolder(CLibraryFolder* pFolder, BOOL bRecursive) const
 DWORD CLibraryFolder::GetFolderCount() const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	return (DWORD)m_pFolders.GetCount();
 }
@@ -221,7 +231,7 @@ DWORD CLibraryFolder::GetFolderCount() const
 POSITION CLibraryFolder::GetFileIterator() const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	return m_pFiles.GetStartPosition();
 }
@@ -229,7 +239,7 @@ POSITION CLibraryFolder::GetFileIterator() const
 CLibraryFile* CLibraryFolder::GetNextFile(POSITION& pos) const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	CLibraryFile* pOutput = NULL;
 	CString strName;
@@ -240,7 +250,7 @@ CLibraryFile* CLibraryFolder::GetNextFile(POSITION& pos) const
 CLibraryFile* CLibraryFolder::GetFile(LPCTSTR pszName) const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	CLibraryFile* pOutput = NULL;
 	CString strName( pszName );
@@ -251,7 +261,7 @@ CLibraryFile* CLibraryFolder::GetFile(LPCTSTR pszName) const
 DWORD CLibraryFolder::GetFileCount() const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	return (DWORD)m_pFiles.GetCount();
 }
@@ -282,7 +292,7 @@ DWORD CLibraryFolder::GetFileList(CLibraryList* pList, BOOL bRecursive) const
 DWORD CLibraryFolder::GetSharedCount(BOOL bRecursive) const
 {
 	ASSUME_LOCK( Library.m_pSection );
-	ASSERT_VALID( this );
+	//ASSERT_VALID( this );
 
 	DWORD nCount = 0;
 
@@ -391,7 +401,7 @@ void CLibraryFolder::Serialize(CArchive& ar, int nVersion)
 
 			pFolder->Serialize( ar, nVersion );
 
-			m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
+			m_pFolders.SetAt( pFolder->m_sNameLow, pFolder );
 
 			m_nFiles  += pFolder->m_nFiles;
 			m_nVolume += pFolder->m_nVolume;
@@ -428,8 +438,8 @@ void CLibraryFolder::PathToName()
 	int nPos = m_sName.ReverseFind( L'\\' );
 	if ( nPos >= 0 && nPos < m_sName.GetLength() - 1 )
 		m_sName = m_sName.Mid( nPos + 1 );
-	m_sNameLC = m_sName;
-	ToLower( m_sNameLC );
+	m_sNameLow = m_sName;
+	ToLower( m_sNameLow );
 }
 
 CString CLibraryFolder::GetRelativeName() const
@@ -475,10 +485,10 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 
 					if ( pFolder->m_sName.CompareNoCase( pFind.cFileName ) )
 					{
-						m_pFolders.RemoveKey( pFolder->m_sNameLC );
+						m_pFolders.RemoveKey( pFolder->m_sNameLow );
 						pFolder->OnDelete();
 						pFolder = new CLibraryFolder( this, m_sPath + L"\\" + pFind.cFileName );
-						m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
+						m_pFolders.SetAt( pFolder->m_sNameLow, pFolder );
 						m_nUpdateCookie++;
 						bChanged = TRUE;
 					}
@@ -486,7 +496,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 				else
 				{
 					pFolder = new CLibraryFolder( this, m_sPath + L"\\" + pFind.cFileName );
-					m_pFolders.SetAt( pFolder->m_sNameLC, pFolder );
+					m_pFolders.SetAt( pFolder->m_sNameLow, pFolder );
 					m_nUpdateCookie++;
 					bChanged = TRUE;
 				}
@@ -540,7 +550,7 @@ BOOL CLibraryFolder::ThreadScan(DWORD nScanCookie)
 			m_nFiles  -= pFolder->m_nFiles;
 			m_nVolume -= pFolder->m_nVolume;
 
-			m_pFolders.RemoveKey( pFolder->m_sNameLC );
+			m_pFolders.RemoveKey( pFolder->m_sNameLow );
 			pFolder->OnDelete();
 
 			bChanged = TRUE;
@@ -751,7 +761,7 @@ void CLibraryFolder::OnDelete(TRISTATE bCreateGhost)
 	{
 		POSITION pos = m_pFolders.GetStartPosition();
 		CLibraryFolder* pFolder = GetNextFolder( pos );
-		m_pFolders.RemoveKey( pFolder->m_sNameLC );
+		m_pFolders.RemoveKey( pFolder->m_sNameLow );
 		pFolder->OnDelete( bCreateGhost );
 	}
 

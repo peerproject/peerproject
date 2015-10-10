@@ -1,7 +1,7 @@
 //
 // CtrlLibraryView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -276,7 +276,7 @@ CLibraryFile* CLibraryView::GetNextSelectedFile(POSITION& posSel, BOOL bSharedOn
 {
 	while ( posSel )
 	{
-		DWORD_PTR nIndex = m_pSelection->GetNext( posSel );
+		DWORD nIndex = m_pSelection->GetNext( posSel );
 		if ( CLibraryFile* pFile = Library.LookupFile( nIndex, bSharedOnly, bAvailableOnly ) )
 			return pFile;
 	}

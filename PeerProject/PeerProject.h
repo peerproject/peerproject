@@ -100,7 +100,7 @@ public:
 	bool			m_bLimitedConnections;		// Networking is limited (XP SP2)
 	BOOL			m_bMenuWasVisible;			// For the menus in media player window
 	DWORD			m_nLastInput;				// Time of last input event (in secs) (Chat idling)
-	DWORD			m_nWinVer;					// Windows version major/minor/sp concatenation (WIN_2K = 500)
+	WORD			m_nWinVer;					// Windows version major/minor/sp concatenation (WIN_2K = 500)
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
@@ -129,6 +129,8 @@ public:
 	// User functions (Safe Vista+)
 	HINSTANCE		m_hUser32;
 	BOOL			(WINAPI *m_pfnChangeWindowMessageFilter)(UINT message, DWORD dwFlag);										// Vista+	ChangeWindowMessageFilter()  for InitInstance()
+	BOOL			(WINAPI *m_pfnShutdownBlockReasonCreate)(_In_ HWND hWnd, _In_ LPCWSTR pwszReason);
+	BOOL			(WINAPI *m_pfnShutdownBlockReasonDestroy)(_In_ HWND hWnd);
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
@@ -404,7 +406,8 @@ const LPCTSTR RT_GZIP = L"GZIP";
 #define WIN_7					610				// 6.1
 #define WIN_8					620				// 6.2 (or higher)
 #define WIN_8_1					630				// 6.3
-#define WIN_10					640				// 6.4 (not given)
+#define WIN_10					1000			// 10.0
+// Note any higher response requires application manifest update
 
 // Log severity (log level) (.IDL)
 //#define MSG_SEVERITY_MASK		0x000f

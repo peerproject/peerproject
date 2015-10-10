@@ -1,8 +1,8 @@
-/* $Id: miniupnpc.h,v 1.38 2014/11/17 09:41:33 nanard Exp $ */
+/* $Id: miniupnpc.h,v 1.41 2015/05/22 10:23:48 nanard Exp $ */
 /* Project: miniupnp
  * http://miniupnp.free.fr/
  * Author: Thomas Bernard
- * Copyright (c) 2005-2014 Thomas Bernard
+ * Copyright (c) 2005-2015 Thomas Bernard
  * This software is subject to the conditions detailed
  * in the LICENCE file provided within this distribution */
 
@@ -19,8 +19,8 @@
 #define UPNPDISCOVER_MEMORY_ERROR (-102)
 
 /* versions : */
-#define MINIUPNPC_VERSION	"1.9.20141120"
-#define MINIUPNPC_API_VERSION	12
+#define MINIUPNPC_VERSION		"1.9.20150624"
+#define MINIUPNPC_API_VERSION	13
 
 #ifdef __cplusplus
 extern "C" {
@@ -76,7 +76,8 @@ upnpDiscoverDevices(const char * const deviceTypes[],
 					int delay, const char * multicastif,
 					const char * minissdpdsock, int sameport,
 					int ipv6,
-					int * error);
+					int * error,
+					int searchalltypes);
 
 /* freeUPNPDevlist()
  * free list returned by upnpDiscover() */
@@ -119,6 +120,7 @@ UPNP_GetValidIGD(struct UPNPDev * devlist,
 
 /* UPNP_GetIGDFromUrl()
  * Used when skipping the discovery process.
+ * When succeding, urls, data, and lanaddr arguments are set.
  * return value :
  *   0 - Not ok
  *   1 - OK */

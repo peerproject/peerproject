@@ -503,7 +503,7 @@ void CSettings::Load()
 	Add( L"BitTorrent", L"BandwidthPercentage", &BitTorrent.BandwidthPercentage, 90, 1, 40, 99, L" %" );
 	Add( L"BitTorrent", L"ClearRatio", &BitTorrent.ClearRatio, 120, 1, 100, 999, L" %" );
 	Add( L"BitTorrent", L"ConnectThrottle", &BitTorrent.ConnectThrottle, 6*60, 1, 0, 60*60, L" s" );	// DHT
-	Add( L"BitTorrent", L"DefaultTracker", &BitTorrent.DefaultTracker, L"http://tracker.publicbt.com/announce" );
+	Add( L"BitTorrent", L"DefaultTracker", &BitTorrent.DefaultTracker, L"udp://tracker.openbittorrent.com:80/announce" );
 	Add( L"BitTorrent", L"DefaultTrackerPeriod", &BitTorrent.DefaultTrackerPeriod, 5*60000, 60000, 2, 120, L" m" );
 	Add( L"BitTorrent", L"DownloadConnections", &BitTorrent.DownloadConnections, 40, 1, 1, 999 );
 	Add( L"BitTorrent", L"DownloadTorrents", &BitTorrent.DownloadTorrents, 3, 1, 1, 12 );

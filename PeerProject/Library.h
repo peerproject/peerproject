@@ -1,7 +1,7 @@
 //
 // Library.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -75,8 +75,8 @@ public:
 	}
 
 	// Mark library as modified:
-	// bForce = false -Library has internal changes so it must be saved
-	// bForce = true -Library also has disk changes so it must be rescanned
+	// bForce = false	- Library has internal changes so it must be saved
+	// bForce = true	- Library also has disk changes so it must be rescanned
 	inline void Update(bool bForce = false)
 	{
 		InterlockedExchange( &m_nUpdateCookie, (LONG)GetTickCount() );
@@ -88,7 +88,7 @@ public:
 // File and Folder Operations
 public:
 	CAlbumFolder*	GetAlbumRoot();
-	CLibraryFile*	LookupFile(DWORD_PTR nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
+	CLibraryFile*	LookupFile(DWORD nIndex, BOOL bSharedOnly = FALSE, BOOL bAvailableOnly = FALSE) const;
 	void			AddFile(CLibraryFile* pFile);
 	void			RemoveFile(CLibraryFile* pFile);
 	void			CheckDuplicates(LPCTSTR pszMD5Hash) const;

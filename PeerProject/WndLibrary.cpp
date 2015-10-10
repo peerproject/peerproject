@@ -1,7 +1,7 @@
 //
 // WndLibrary.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -254,8 +254,10 @@ BOOL CLibraryWnd::OnCollection(LPCTSTR pszPath)
 				MsgBox( strMessage, MB_ICONINFORMATION );
 
 				oLock.Lock();
-				if ( CLibraryFolder* pLibFolder = LibraryFolders.GetFolder( Settings.Downloads.CollectionPath ) )
-					pLibFolder->Scan();
+				if ( CLibraryFolder* pCollectionFolder = LibraryFolders.GetFolder(Settings.Downloads.CollectionPath ) )
+				{
+					pCollectionFolder->Scan();
+				}
 				if ( CLibraryFile* pTargetFile1 = LibraryMaps.LookupFileByPath( strTarget, FALSE, TRUE ) )
 				{
 					// Re-mount the collection

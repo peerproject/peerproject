@@ -12,7 +12,6 @@ Requires #define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT
 
 Boost/MPL in MinMax.hpp
 boost::checked_delete in /Augment etc.
-boost::shared_ptr in StdAfx.h
 boost::ptr_list in LibraryTileView/LibraryTreeView
 boost::bind in LiveList & UPnPFinder
 

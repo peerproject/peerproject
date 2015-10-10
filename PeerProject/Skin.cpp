@@ -86,6 +86,11 @@ void CSkin::Apply()
 	CoolMenu.SetWatermark( GetWatermark( L"CCoolMenu" ) );
 
 	Plugins.OnSkinChanged();
+
+//#ifdef _DEBUG
+//	theApp.Message( MSG_INFO, L"Icons: 16px %i, 32px %i, 48px %i",
+//		CoolInterface.GetImageCount(LVSIL_SMALL), CoolInterface.GetImageCount(LVSIL_NORMAL), CoolInterface.GetImageCount(LVSIL_BIG) );
+//#endif
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -284,7 +289,7 @@ BOOL CSkin::SelectCaption(CString& strCaption, int nIndex)
 //////////////////////////////////////////////////////////////////////
 // CSkin recursive folder applicator
 
-void CSkin::ApplyRecursive(LPCTSTR pszPath)
+void CSkin::ApplyRecursive(LPCTSTR pszPath /*NULL*/)
 {
 	WIN32_FIND_DATA pFind;
 	HANDLE hSearch;
@@ -485,7 +490,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			else if ( pSub->GetAttributeValue( L"type" ).CompareNoCase( L"language" ) == 0 )
 			{
 				Settings.General.Language = pSub->GetAttributeValue( L"language", L"en" );
-				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( L"dir", L"ltr" ) == "rtl" );
+				Settings.General.LanguageRTL = ( pSub->GetAttributeValue( L"dir", L"ltr" ) == L"rtl" );
 				Settings.General.LanguageDefault = Settings.General.Language.Left(2) == L"en";
 				TRACE( L"Loading language: %s\r\n", Settings.General.Language );
 				TRACE( L"RTL: %d\r\n", Settings.General.LanguageRTL );
@@ -1026,7 +1031,7 @@ BOOL CSkin::LoadNavBar(CXMLElement* pBase)
 	CString strValue = pBase->GetAttributeValue( L"offset" );
 	if ( ! strValue.IsEmpty() )
 	{
-		if ( _stscanf( strValue, L"%i,%i", &m_ptNavBarOffset.x, &m_ptNavBarOffset.y ) != 2 )
+		if ( _stscanf( strValue, L"%li,%li", &m_ptNavBarOffset.x, &m_ptNavBarOffset.y ) != 2 )
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Bad [offset] attribute in [navbar] element", pBase->ToString() );
 	}
 
@@ -1182,40 +1187,36 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 		{
 			pBar->Add( ID_SEPARATOR );
 		}
-		else if ( pXML->IsNamed( L"rightalign" ) )
+		else if ( pXML->IsNamed( L"right" ) || pXML->IsNamed( L"rightalign" ) )
 		{
 			pBar->Add( UINT( ID_RIGHTALIGN ) );
 		}
 		else if ( pXML->IsNamed( L"control" ) )
 		{
-			UINT nWidth, nHeight = 0;
-			CString strTemp;
-
-			UINT nID = LookupCommandID( pXML );
-			if ( nID )
+			if ( UINT nID = LookupCommandID( pXML ) )
 			{
-				strTemp = pXML->GetAttributeValue( L"width" );
-				CCoolBarItem* pItem = NULL;
+				CString strTemp = pXML->GetAttributeValue( L"width" );
+				UINT nWidth, nHeight = 0;
 
-				if ( _stscanf( strTemp, L"%lu", &nWidth ) == 1 )
+				if ( _stscanf( strTemp, L"%u", &nWidth ) == 1 )
 				{
 					strTemp = pXML->GetAttributeValue( L"height" );
-					_stscanf( strTemp, L"%lu", &nHeight );
-					pItem = pBar->Add( nID, nWidth, nHeight );
-				}
+					_stscanf( strTemp, L"%u", &nHeight );
+					CCoolBarItem* pItem = pBar->Add( nID, nWidth, nHeight );
 
-				if ( pItem )
-				{
-					strTemp = pXML->GetAttributeValue( L"checked", L"false" );
-
-					if ( strTemp.CompareNoCase( L"true" ) == 0 )
+					if ( pItem )
 					{
-						pItem->m_bCheckButton = TRUE;
-						pItem->m_bEnabled = FALSE;
-					}
+						strTemp = pXML->GetAttributeValue( L"checked", L"false" );
 
-					strTemp = pXML->GetAttributeValue( L"text" );
-					pItem->SetText( strTemp );
+						if ( strTemp.CompareNoCase( L"true" ) == 0 )
+						{
+							pItem->m_bCheckButton = TRUE;
+							pItem->m_bEnabled = FALSE;
+						}
+
+						strTemp = pXML->GetAttributeValue( L"text" );
+						pItem->SetText( strTemp );
+					}
 				}
 			}
 			else
@@ -2249,7 +2250,7 @@ BOOL CSkin::LoadResourceMap(CXMLElement* pBase)
 			CString strTemp = pXML->GetAttributeValue( L"code" );
 			UINT nID;
 
-			if ( _stscanf( strTemp, L"%lu", &nID ) != 1 )
+			if ( _stscanf( strTemp, L"%u", &nID ) != 1 )
 				return FALSE;
 
 			CoolInterface.NameCommand( nID, pXML->GetAttributeValue( L"id" ) );
@@ -2936,7 +2937,7 @@ HBITMAP CSkin::LoadBitmap(const CString& strName)
 		return NULL;
 
 	UINT nID = 0;
-	if ( _stscanf( (LPCTSTR)strName + nPos + 1, L"%lu", &nID ) != 1 )
+	if ( _stscanf( (LPCTSTR)strName + nPos + 1, L"%u", &nID ) != 1 )
 		return NULL;
 
 	return CImageFile::LoadBitmapFromResource( nID, hInstance );

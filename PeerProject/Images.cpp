@@ -7,6 +7,8 @@
 
 // Dynamic Watermarks  (Common volatile skinned buttons etc.)
 
+#pragma warning ( disable : 4456 )	// Declaration hides previous local declaration
+
 #include "StdAfx.h"
 #include "Settings.h"
 #include "Images.h"

@@ -1,0 +1,6 @@
+5.30.5
+
+10.10.2015
+
+DLL Source:
+www.rarlab.com/rar/UnRARDLL.exe

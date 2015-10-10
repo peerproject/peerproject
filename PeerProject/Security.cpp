@@ -1,7 +1,7 @@
 //
 // Security.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1040,7 +1040,7 @@ BOOL CSecurity::Import(LPCTSTR pszFile)
 		{
 			strLine.Trim();
 			if ( strLine.IsEmpty() ) continue;
-			if ( strLine.GetAt( 0 ) == ';' ) continue;
+			if ( strLine.GetAt( 0 ) == L';' ) continue;
 
 			CSecureRule* pRule = new CSecureRule();
 
@@ -1774,7 +1774,7 @@ void CListLoader::OnRun()
 			strPath = Settings.General.DataPath + strPath;
 
 		CFile pFile;
-		if ( ! pFile.Open( (LPCTSTR)strPath, CFile::modeRead ) )		// .GetBuffer() ?
+		if ( ! pFile.Open( (LPCTSTR)strPath, CFile::modeRead ) )	// .GetBuffer() ?
 		{
 			m_pQueue.RemoveHead();
 			continue;
@@ -1803,18 +1803,19 @@ void CListLoader::OnRun()
 				strLine.TrimRight();
 
 				if ( strLine.GetLength() < 7 )
-					continue;									// Blank/Invalid line
+					continue;										// Blank/Invalid line
 
-				if ( strLine[ 0 ] == '#' )
+				if ( strLine[ 0 ] == L'#' )
 				{
 					if ( strLine[ strLine.GetLength() - 1 ] == L':' && strLine.Find( L"urn:" ) > 0 )
 						strURN = strLine.Mid( strLine.Find( L"urn:" ) );		// Default "# urn:type:"
-					continue;									// Comment line
+					continue;										// Comment line
 				}
 
-				if ( strLine[ 0 ] < '0' || strLine[ 0 ] > 'z' )	// Whitespace/Chars
-					continue;									// Invalid line
+				if ( strLine[ 0 ] < L'0' || strLine[ 0 ] > L'z' )	// Whitespace/Chars
+					continue;										// Invalid line
 
+				// Limit CPU:
 				if ( ++nCount % 10 == 0 )
 				{
 					if ( pRule->m_sComment.IsEmpty() )
@@ -1823,7 +1824,7 @@ void CListLoader::OnRun()
 						strCommentBase = pRule->m_sComment + L"  • %u";
 
 					pRule->m_sComment.Format( strCommentBase, nCount );
-					Sleep( 1 );		// Limit CPU
+					Sleep( 1 );
 				}
 
 				// Hashes:
@@ -1832,9 +1833,9 @@ void CListLoader::OnRun()
 				{
 					nPos = strLine.FindOneOf( L" \t" );
 					if ( nPos > 0 )
-						strLine.Truncate( nPos );				// Trim at whitespace (remove any trailing comments)
+						strLine.Truncate( nPos );					// Trim at whitespace (remove any trailing comments)
 					if ( ! strURN.IsEmpty() && ! StartsWith( strLine, _P( L"urn:" ) ) )
-						strLine = strURN + strLine;				// Default "urn:type:" prepended
+						strLine = strURN + strLine;					// Default "urn:type:" prepended
 					if ( strLine.GetLength() > 35 )
 						Security.SetHashMap( strLine, nIndex );
 					else
@@ -1846,27 +1847,27 @@ void CListLoader::OnRun()
 
 				nPos = strLine.ReverseFind( L':' );
 				if ( nPos > 0 )
-					strLine = strLine.Mid( nPos + 1 );			// Remove leading comment for some formats
+					strLine = strLine.Mid( nPos + 1 );				// Remove leading comment for some formats
 
-				nPos = strLine.FindOneOf( L" \t" );
+				nPos = strLine.FindOneOf( L"\t," );
 				if ( nPos > 0 )
-					strLine.Truncate( nPos );					// Trim at whitespace (remove any trailing comments)
+					strLine.Truncate( nPos );						// Trim at whitespace (remove any trailing comments)
 
-				if ( strLine.GetLength() < 7 || strLine.Find( L'.' ) < 1 )
+				if ( strLine.GetLength() < 7 || strLine[0] > L'9' || strLine.Find( L'.' ) < 1 )
 				{
 					nCount--;
 					continue;
 				}
 
-				nPos = strLine.Find( L'-' );					// Possible Range
-				if ( nPos < 0 )									// Single IP
+				nPos = strLine.Find( L'-' );						// Possible Range
+				if ( nPos < 0 )										// Single IP
 				{
 					Security.SetAddressMap( IPStringToDWORD( strLine, TRUE ), nIndex );
 					continue;
 				}
 
-				CString strFirst = strLine.Left( nPos );
-				CString strLast  = strLine.Mid( nPos + 1 );
+				CString strFirst = strLine.Left( nPos ).Trim();
+				CString strLast  = strLine.Mid( nPos + 1 ).Trim();
 
 				if ( strFirst == strLast )
 				{
@@ -1878,7 +1879,7 @@ void CListLoader::OnRun()
 				DWORD nFirst = IPStringToDWORD( strFirst, FALSE );
 				DWORD nLast  = IPStringToDWORD( strLast, FALSE );
 
-				if ( nFirst < 10 || nFirst >= 0xE0000000 )	// 0 or "0.0." or "224-255"
+				if ( nFirst < 10 || nFirst >= 0xE0000000 )			// 0 or "0.0." or "224-255"
 					continue;		// Redundant/Invalid
 
 				//if ( Network.IsReserved( (IN_ADDR*)nFirst ) )		// Crash

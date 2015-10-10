@@ -1,7 +1,7 @@
 //
 // Class.cpp : Implementation of CClass
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -186,13 +186,13 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 	// Add the plural <PeerProjectSkins> element
 	CComPtr< ISXMLElement > pPlural;
 	{
-		CComPtr< ISXMLElements > pElements;
-		if ( FAILED( pOutput->get_Elements( &pElements ) ) || pElements == NULL )
+		CComPtr< ISXMLElements > pOutputElements;
+		if ( FAILED( pOutput->get_Elements( &pOutputElements ) ) || pOutputElements == NULL )
 		{
 			pFile->Delete();
 			return FALSE;
 		}
-		pElements->Create( CComBSTR( L"PeerProjectSkins" ), &pPlural );	// "PeerProjectPackages" requires schema xml
+		pOutputElements->Create( CComBSTR( L"PeerProjectSkins" ), &pPlural );	// "PeerProjectPackages" requires schema xml
 	}
 
 	// Add xsi:noNamespaceSchemaLocation="http://schemas.peerproject.org/Skin.xsd"
@@ -210,9 +210,9 @@ BOOL CSkinScan::ScanFile(LPCSTR pszXML, ISXMLElement* pOutput)
 	// Detach <manifest> from the file document and add it to the output XML document
 	pManifest->Detach();
 	{
-		CComPtr< ISXMLElements > pElements;
-		pPlural->get_Elements( &pElements );
-		pElements->Attach( pManifest );
+		CComPtr< ISXMLElements > pPluralElements;
+		pPlural->get_Elements( &pPluralElements );
+		pPluralElements->Attach( pManifest );
 	}
 
 	pFile->Delete();

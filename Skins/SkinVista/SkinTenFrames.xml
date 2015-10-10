@@ -28,13 +28,13 @@
  <part name="TopRight"		rect="141,0,139,33"/>
  <part name="Left"		rect="0,4,1,24"/>
  <part name="Right"		rect="0,4,1,24"/>
- <part name="Bottom"		rect="0,32,60,1"/>
+ <part name="Bottom"		rect="40,2,20,1"/>
  <part name="TopLeftAlt" 	rect="0,33,50,33"/>
  <part name="TopAlt"		rect="40,33,20,33"/>
  <part name="TopRightAlt"	rect="141,33,139,33"/>
  <part name="LeftAlt"		rect="0,36,1,24"/>
  <part name="RightAlt"		rect="0,36,1,24"/>
- <part name="BottomAlt"		rect="0,65,60,1"/>
+ <part name="BottomAlt"		rect="40,35,20,1"/>
  <part name="MinimiseHover"	rect="38,69,46,30"/>
  <part name="MinimiseDown"	rect="159,69,46,30"/>
  <part name="MaximiseHover"	rect="66,69,46,30"/>
@@ -69,13 +69,13 @@
  <part name="TopRight"		rect="233,2,47,30"/>
  <part name="Left"		rect="0,2,1,30"/>
  <part name="Right"		rect="0,2,1,30"/>
- <part name="Bottom"		rect="0,32,60,1"/>
+ <part name="Bottom"		rect="40,2,20,1"/>
  <part name="TopLeftAlt" 	rect="0,35,8,30"/>
  <part name="TopAlt"		rect="40,35,20,30"/>
  <part name="TopRightAlt"	rect="233,35,47,30"/>
  <part name="LeftAlt"		rect="0,35,1,30"/>
  <part name="RightAlt"		rect="0,35,1,30"/>
- <part name="BottomAlt"		rect="0,64,60,1"/>
+ <part name="BottomAlt"		rect="40,35,20,1"/>
  <part name="CloseHover"	rect="112,69,46,30"/>
  <part name="CloseDown" 	rect="233,69,46,30"/>
 </parts>
@@ -100,13 +100,13 @@
  <part name="TopRight"		rect="48,2,93,30"/>
  <part name="Left"		rect="0,2,1,30"/>
  <part name="Right"		rect="0,2,1,30"/>
- <part name="Bottom"		rect="0,32,60,1"/>
+ <part name="Bottom"		rect="40,2,20,1"/>
  <part name="TopLeftAlt" 	rect="0,35,8,30"/>
  <part name="TopAlt"		rect="44,35,20,30"/>
  <part name="TopRightAlt"	rect="48,35,93,30"/>
  <part name="LeftAlt"		rect="0,35,1,30"/>
  <part name="RightAlt"		rect="0,35,1,30"/>
- <part name="BottomAlt"		rect="0,64,60,1"/>
+ <part name="BottomAlt"		rect="40,35,20,1"/>
  <part name="MinimiseHover"	rect="38,69,46,30"/>
  <part name="MinimiseDown"	rect="159,69,46,30"/>
  <part name="CloseHover"	rect="112,69,46,30"/>
@@ -134,13 +134,13 @@
  <part name="TopRight"		rect="141,2,139,30"/>
  <part name="Left"		rect="0,2,1,30"/>
  <part name="Right"		rect="0,2,1,30"/>
- <part name="Bottom"		rect="0,32,60,1"/>
+ <part name="Bottom"		rect="40,2,20,1"/>
  <part name="TopLeftAlt" 	rect="0,35,8,30"/>
  <part name="TopAlt"		rect="40,35,20,30"/>
  <part name="TopRightAlt"	rect="141,35,139,30"/>
  <part name="LeftAlt"		rect="0,35,1,30"/>
  <part name="RightAlt"		rect="0,35,1,30"/>
- <part name="BottomAlt"		rect="0,64,60,1"/>
+ <part name="BottomAlt"		rect="40,35,20,1"/>
  <part name="MinimiseHover"	rect="38,69,46,30"/>
  <part name="MinimiseDown"	rect="159,69,46,30"/>
  <part name="MaximiseHover"	rect="66,69,46,30"/>

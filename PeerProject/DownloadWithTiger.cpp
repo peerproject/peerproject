@@ -82,29 +82,28 @@ DWORD CDownloadWithTiger::GetVerifyLength(PROTOCOLID nProtocol, int nHash) const
 {
 	CQuickLock oLock( m_pTigerSection );
 
-	if ( nHash == HASH_NULL )
+	switch ( nHash )
 	{
+	case HASH_NULL:
 		if ( nProtocol == PROTOCOL_BT && m_pTorrentBlock )
 			return m_nTorrentSize;
 		if ( nProtocol == PROTOCOL_ED2K && m_pHashsetBlock )
 			return ED2K_PART_SIZE;
 		if ( m_pTigerBlock )
 			return m_nTigerSize;
-	}
-	else if ( nHash == HASH_TIGERTREE )
-	{
+		break;
+	case HASH_TIGERTREE:
 		if ( m_pTigerBlock )
 			return m_nTigerSize;
-	}
-	else if ( nHash == HASH_ED2K )
-	{
+		break;
+	case HASH_ED2K:
 		if ( m_pHashsetBlock )
 			return ED2K_PART_SIZE;
-	}
-	else if ( nHash == HASH_TORRENT )
-	{
+		break;
+	case HASH_TORRENT:
 		if ( m_pTorrentBlock )
 			return m_nTorrentSize;
+		break;
 	}
 
 	return 0;
@@ -910,7 +909,9 @@ Fragments::List CDownloadWithTiger::GetHashableFragmentList() const
 
 Fragments::List CDownloadWithTiger::GetWantedFragmentList() const
 {
-	CQuickLock oLock( m_pTigerSection );
+	CSingleLock oLock( &m_pTigerSection );
+	if ( ! oLock.Lock( 250 ) )
+		return Fragments::List( 0 );
 
 	const QWORD nNow = GetVolumeComplete();
 	if ( nNow != m_nWFLCookie || nNow == 0 )

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -84,7 +84,7 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned"/>
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -95,7 +95,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -109,7 +109,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned"/>
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -128,7 +128,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Ladda ned fil"/>
 		<button id="ID_SEARCH_CHAT" text="Chatta med användare"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -140,7 +140,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Uppdatera"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chatta med användare"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -159,7 +159,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Information"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rensa färdiga"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -174,7 +174,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Information"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Visa monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Lägg till nedladdning/Torrent…"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Rensa färdiga"/>
 		<separator/>
@@ -184,7 +184,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatta med användare"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Rensa färdiga"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -197,7 +197,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatta med användare"/>
 		<button id="ID_SECURITY_BAN" text="Utestäng användaren"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Rensa färdiga"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filter"/>
@@ -221,7 +221,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Dela ut filer…"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -230,7 +230,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Skapa album…"/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Radera album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -239,7 +239,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lägg till i spellista"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -255,7 +255,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Flytta"/>
 		<button id="ID_LIBRARY_COPY" text="Kopiera"/>
 		<button id="ID_LIBRARY_DELETE" text="Radera"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -265,7 +265,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Öppna eller spela upp"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lägg till i spellista"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -278,7 +278,7 @@
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Egenskaper"/>
 		<button id="ID_WEBSERVICES_LIST" text="Webbtjnster"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -288,7 +288,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Spela upp hela albumet"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Ladda ned alla filer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Sök:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -306,7 +306,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Öppna fil"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Föregående"/>
 		<button id="ID_MEDIA_NEXT" text="Nästa"/>
 		<separator/>
@@ -329,7 +329,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -338,7 +338,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Rensa"/>
 		<button id="ID_MEDIA_SAVE" text="Spara"/>
 	</toolbar>
@@ -347,7 +347,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Chatta" tip="Post Kommentarer"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Anslut" tip="Anslut till IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Koppla från" tip="Koppla ifrån IRC"/>
 		<separator/>
@@ -357,7 +357,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Visa användarens filer"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatta med användaren"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -371,7 +371,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Koppla från"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Utestäng värd"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -387,7 +387,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pausa"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Rensa"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filter:" tip="Skriv några ord för att filtrera resultatet"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Mer…"/>
@@ -398,7 +398,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Anslut till"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Koppla ifrån"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Radera"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Kluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -427,7 +427,7 @@
 		<button id="PluginID_ImageViewer_FullSize" text="Verklig storlek"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Uppdatera"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Stäng"/>
 	</toolbar>
 </toolbars>
@@ -550,8 +550,8 @@
 					<separator/>
 					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 					<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
-					<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<separator/>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
@@ -649,8 +649,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
@@ -718,8 +718,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="_Leta efter nya versioner"/>
@@ -809,8 +809,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny _version"/>
@@ -1241,8 +1241,8 @@
 		<item id="ID_LIBRARY_FOLDER_PROPERTIES" text="_Albumegenskaper"/>
 	</menu>
 	<menu name="CLibraryHistoryPanel">
-		<item id="ID_LIBRARY_CLEAR_HISTORY" text="Clear from _History"/>
-		<item id="ID_LIBRARY_CLEAR_HISTORY_ALL" text="Rensa _alla/>
+		<item id="ID_LIBRARY_CLEAR_HISTORY" text="Rensa från historien"/>
+		<item id="ID_LIBRARY_CLEAR_HISTORY_ALL" text="Rensa _alla"/>
 	</menu>
 	<!-- LIBRARY VIEWS -->
 	<menu name="CLibraryTileView">
@@ -1875,7 +1875,7 @@
 		<text format="b">Välkommen till PeerProjects inställningshanterare</text>
 		<newline gap="16"/>
 		<text>PeerProject inställningshanterare tillåter avancerade användare att fullständigt anpassa hur
-			PeerProject fungerar. Inställningar inom </text>
+		PeerProject fungerar. Inställningar inom </text>
 		<text format="b">Internet -</text>
 		<text>sektionen styr hur PeerProject förhåller sig till andra noder inom fildelningsnätverk.</text>
 		<newline gap="16" indent="16"/>
@@ -2164,12 +2164,12 @@
 		<text format="b">Uttryck din sökning på ett annat sätt</text>
 		<newline gap="8"/>
 		<text>Denna sökning är dåligt genomförd och kanske inte fungerar ordentligt.
-		 Sökningar bör inkludera flera villkor när det är möjligt och bör specifiera en filtyp.
-		 Vidare kan inte sökningar begränsas till nummer eller endast negativa
-		 villkor, och du bör undvika för generella nyckelord.</text>
+		Sökningar bör inkludera flera villkor när det är möjligt och bör specifiera en filtyp.
+		Vidare kan inte sökningar begränsas till nummer eller endast negativa
+		villkor, och du bör undvika för generella nyckelord.</text>
 		<newline gap="8"/>
 		<text> De flesta klienter på nätverket ignorerar en sökning efter
-		 alla filer av en viss filtyp, eftersom det inte är tillräckligt specifikt och skulle generera för många resultat.</text>
+		alla filer av en viss filtyp, eftersom det inte är tillräckligt specifikt och skulle generera för många resultat.</text>
 	</document>
 	<document name="SearchHelp.BadSearch2">
 		<text format="b">Uttryck din skning på ett annat sätt</text>
@@ -2178,7 +2178,7 @@
 		ett minimum av giltiga alfanumeriska tecken för att kunna starta.</text>
 		<newline gap="8"/>
 		<text>Medan vanliga filändelser (och nummer) kan såkas, måste du inkludera andra
-		 termer i din sökning. Skiljetecken och jokertecken används inte
+		termer i din sökning. Skiljetecken och jokertecken används inte
 		i sökningen, endast text du skriver.</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">
@@ -4398,7 +4398,7 @@
 		<control caption="Anteckningar:"/>
 	</dialog>
 	<dialog name="CDownloadEditPage" cookie="StBuStStStStBuStEdEdEdSyBuEdBuEdBuEdBuEdBuEd" caption="Generellt">
-		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer."/>
+		<control caption="Varning: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer."/>
 		<control caption="Filnamn och storlek:"/>
 		<control caption="Filnamn:"/>
 		<control caption="Fil:"/>
@@ -4422,7 +4422,7 @@
 		<control/>
 	</dialog>
 	<dialog name="CDownloadActionsPage" cookie="StStStStStStEdEdBuBuStStBu" caption="Åtgärder">
-		<control caption="VARNING: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer."/>
+		<control caption="Varning: Denna dialog tillhandahåller avancerade nedladdningsinställningar för avancerade användare. Felaktiga användning kan leda till korrupta filer."/>
 		<control caption="Glöm alla kända källor"/>
 		<control caption="Glöm nuvarande verifikationsstatus (och återverifiera)"/>
 		<control caption="Anta att filen är 100% färdig och återverifiera"/>

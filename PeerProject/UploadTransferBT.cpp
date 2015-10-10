@@ -1,7 +1,7 @@
 //
 // UploadTransferBT.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -227,8 +227,8 @@ BOOL CUploadTransferBT::OnRequest(CBTPacket* pPacket)
 		return FALSE;
 	}
 
-	if ( std::find_first_of( m_oRequested.begin(), m_oRequested.end(), m_oServed.begin(), m_oServed.end() )
-		!= m_oRequested.end() ) return TRUE;
+	if ( std::find_first_of( m_oRequested.begin(), m_oRequested.end(), m_oServed.begin(), m_oServed.end() ) != m_oRequested.end() )
+		return TRUE;
 
 	m_oRequested.push_back( Fragments::Fragment( nOffset, nOffset + nLength ) );
 
@@ -290,12 +290,12 @@ BOOL CUploadTransferBT::OpenFile()
 		// HACK: Open from disk (ToDo: Replace this with SeedTorrent in OnDownloadComplete)
 		if ( m_pClient->m_pDownload->IsSeeding() )
 		{
-			auto_ptr< CFragmentedFile > pFile( new CFragmentedFile );
-			if ( pFile.get() )
+			auto_ptr< CFragmentedFile > pSeedingFile( new CFragmentedFile );
+			if ( pSeedingFile.get() )
 			{
-				if ( pFile->Open( m_pClient->m_pDownload->m_pTorrent, FALSE ) )
+				if ( pSeedingFile->Open( m_pClient->m_pDownload->m_pTorrent, FALSE ) )
 				{
-					AttachFile( pFile );
+					AttachFile( pSeedingFile );
 					return TRUE;
 				}
 			}

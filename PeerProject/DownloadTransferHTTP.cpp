@@ -1,7 +1,7 @@
 //
 // DownloadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -958,20 +958,20 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 
 			int nPos = strValue.Find( L"position=" );
 			if ( nPos >= 0 )
-				_stscanf( strValue.Mid( nPos + 9 ), L"%u", &m_nQueuePos );
+				_stscanf( strValue.Mid( nPos + 9 ), L"%lu", &m_nQueuePos );
 
 			nPos = strValue.Find( L"length=" );
 			if ( nPos >= 0 )
-				_stscanf( strValue.Mid( nPos + 7 ), L"%u", &m_nQueueLen );
+				_stscanf( strValue.Mid( nPos + 7 ), L"%lu", &m_nQueueLen );
 
 			DWORD nLimit = 0;
 
 			nPos = strValue.Find( L"pollmin=" );
-			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%u", &nLimit ) == 1 )
+			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%lu", &nLimit ) == 1 )
 				m_nRetryDelay = max( m_nRetryDelay, nLimit * 1000 + 3000 );
 
 			nPos = strValue.Find( L"pollmax=" );
-			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%u", &nLimit ) == 1 )
+			if ( nPos >= 0 && _stscanf( strValue.Mid( nPos + 8 ), L"%lu", &nLimit ) == 1 )
 				m_nRetryDelay = min( m_nRetryDelay, nLimit * 1000 - 8000 );
 
 			nPos = strValue.Find( L"id=" );
@@ -995,7 +995,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'R':		// "Retry-After"
 		{
 			DWORD nLimit = 0;
-			if ( _stscanf( strValue, L"%u", &nLimit ) == 1 )
+			if ( _stscanf( strValue, L"%lu", &nLimit ) == 1 )
 				m_nRetryAfter = nLimit;
 		}
 		break;
@@ -1003,7 +1003,7 @@ BOOL CDownloadTransferHTTP::OnHeaderLine(CString& strHeader, CString& strValue)
 	case 'p':		// "X-PerHost" "X-Gnutella-maxSlotsPerHost"
 		{
 			DWORD nLimit = 0;
-			if ( _stscanf( strValue, L"%u", &nLimit ) != 1 )
+			if ( _stscanf( strValue, L"%lu", &nLimit ) != 1 )
 				Downloads.SetPerHostLimit( &m_pHost.sin_addr, nLimit );
 		}
 		break;

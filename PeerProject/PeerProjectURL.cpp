@@ -1,7 +1,7 @@
 //
 // PeerProjectURL.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -978,7 +978,7 @@ BOOL CPeerProjectURL::ParsePeerProjectHost(LPCTSTR pszURL, BOOL bBrowse, PROTOCO
 	int nPos = m_sName.Find( L':' );
 	if ( nPos >= 0 )
 	{
-		_stscanf( m_sName.Mid( nPos + 1 ), L"%i", &m_nPort );
+		_stscanf( m_sName.Mid( nPos + 1 ), L"%hu", &m_nPort );
 		m_sName = m_sName.Left( nPos );
 	}
 
@@ -1206,7 +1206,8 @@ BOOL CPeerProjectURL::ParseDonkeyFile(LPCTSTR pszURL)
 		CString strEDFTP;
 		strEDFTP.Format( L"ed2kftp://%s/%s/%I64u/", strPart, (LPCTSTR)m_oED2K.toString(), m_nSize );
 		SafeString( strEDFTP );
-		if ( ! m_sURL.IsEmpty() ) m_sURL += L", ";
+		if ( ! m_sURL.IsEmpty() )
+			m_sURL += L", ";
 		m_sURL += strEDFTP;
 	}
 
@@ -1223,7 +1224,7 @@ BOOL CPeerProjectURL::ParseDonkeyServer(LPCTSTR pszURL)
 	LPCTSTR pszPort = _tcschr( pszURL, '|' );
 	if ( pszPort == NULL ) return FALSE;
 
-	if ( _stscanf( pszPort + 1, L"%i", &m_nPort ) != 1 ) return FALSE;
+	if ( _stscanf( pszPort + 1, L"%hu", &m_nPort ) != 1 ) return FALSE;
 
 	m_sName = pszURL;
 	m_sName = m_sName.Left( static_cast< int >( pszPort - pszURL ) );
@@ -1231,7 +1232,7 @@ BOOL CPeerProjectURL::ParseDonkeyServer(LPCTSTR pszURL)
 	m_sName.Trim();
 	if ( m_sName.IsEmpty() ) return FALSE;
 
-	m_sAddress.Format( L"%s:%u", m_sName, m_nPort );
+	m_sAddress.Format( L"%s:%hu", m_sName, m_nPort );
 
 	m_nProtocol = PROTOCOL_ED2K;
 	m_nAction	= uriHost;

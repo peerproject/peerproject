@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -85,7 +85,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -96,7 +96,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -110,7 +110,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout"/>
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -129,7 +129,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Stáhnout soubor"/>
 		<button id="ID_SEARCH_CHAT" text="Pokec s uživatelem"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -141,7 +141,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Obnovit"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Pokec s uživatelem"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -159,7 +159,7 @@
 		<button id="ID_DOWNLOADS_PAUSE" text="Pozastavit stahování"/>
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -174,7 +174,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Vlastnosti"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Zobrazit monitorování"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Přidat stahování/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 		<separator/>
@@ -184,7 +184,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_UPLOADS_CHAT" text="Pokec s uživatelem"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -197,7 +197,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_UPLOADS_CHAT" text="Pokec s uživatelem"/>
 		<button id="ID_SECURITY_BAN" text="Blokovat uživatele"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Vymazat dokončené"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtr"/>
@@ -221,7 +221,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Sdílené soubory..."/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -230,7 +230,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Vytvořit album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Vymazat album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -239,7 +239,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Přidat do Playlistu"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -254,7 +254,7 @@
 		<button id="ID_LIBRARY_MOVE"/>	<!--text="Přesunout"-->
 		<button id="ID_LIBRARY_COPY"/>	<!--text="Kopírovat"-->
 		<button id="ID_LIBRARY_DELETE"/> <!--text="Vymazat"-->
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -264,7 +264,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Otevřít nebo přehrát"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Přidat do Playlistu"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Přehrát album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -276,7 +276,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Přehrát album"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Vlastnosti"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -286,7 +286,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Přehrát celé album"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Stáhnout všechny soubory"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Najít:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -304,7 +304,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Otevřít soubor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Předchozí"/>
 		<button id="ID_MEDIA_NEXT" text="Další"/>
 		<separator/>
@@ -327,7 +327,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -336,7 +336,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Smazat"/>
 		<button id="ID_MEDIA_SAVE" text="Uložit"/>
 	</toolbar>
@@ -345,7 +345,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Poznámky"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Připojit" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Odpojit" tip="Disconnect from IRC"/>
 		<separator/>
@@ -355,7 +355,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Prohlédnout uživatele"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Pokec s uživatelem"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -369,7 +369,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Odpojit"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Blokovat uživatele"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -385,7 +385,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pauza"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Smazat"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="Filtr:" tip="Zadejte určitá slova pro filtrování výsledků"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Více..."/>
@@ -396,7 +396,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Připojit se"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Nepřipojeno"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Odstranit"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -425,7 +425,7 @@
 		<button id="PluginID_ImageViewer_FullSize" text="Originál"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Obnovit"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Zavřít"/>
 	</toolbar>
 </toolbars>
@@ -546,7 +546,7 @@
 				<menu text="_Webové stránky">
 					<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 					<separator/>
-					<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+					<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
@@ -645,7 +645,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 			</menu>
 			<separator/>
@@ -714,8 +714,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
@@ -802,8 +802,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Poslední novinky"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="O progr_amu PeerProject..."/>
@@ -2162,7 +2162,7 @@
 		slova.</text>
 		<newline gap="8"/>
 		<text>Jestliže máte problém při vytváření hledání, mějte na paměti že to je docela podobné jako
-		 hledání na Webu. Přesné termíny nebo fráze jsou nejlepší - Přesný název, tituly a
+		hledání na Webu. Přesné termíny nebo fráze jsou nejlepší - Přesný název, tituly a
 		klíčová slova.</text>
 		<newline gap="8"/>
 		<text>Všeobecná slova nemohou být vyhledávaná moc efektivně, to může mít za následek málo
@@ -2196,8 +2196,7 @@
 		<newline gap="8"/>
 		<text>Adrešáře jako jsou Windows, Program Files a podobné obvykle neobsahují
 		soubory vhodné pro sdílení. Do těchto adresářů byste </text><text format="i"> neměli </text>
-		<text> ukládat zajímavé soubory ke sdílení. Vyberte prosím jiný adresář ke
-		sdílení.</text>
+		<text> ukládat zajímavé soubory ke sdílení. Vyberte prosím jiný adresář ke sdílení.</text>
 		<newline gap="8"/>
 		<text>Také složku PeerProject 'Incomplete'(nedokončené) by jste neměli sdílet přes
 		knihovnu, ta se pak pokouší načítat pracovní soubory, což může mít dopad na výkon.</text>
@@ -3249,9 +3248,9 @@
 	<string id="20897" value="Část složky je již sdílená jako další sdílený podadresář\n\n%s"/>
 	<string id="20898" value="Nezadali jste žádné složky ke sdílení. Opravdu nechcete nic sdílet?"/>
 	<string id="20899" value="rok starý"/>
-	<!-- string value="Informace o torrentu"-->
-	<!-- string value="Tracker neodpovídá- Opakuji spojení (%i z %i)"-->
-	<!-- string value="Soubor &quot;%s&quot; již máte ve vaší knihovně. Chcete ho znovu stahovat?"-->
+	<!--string value="Informace o torrentu"-->
+	<!--string value="Tracker neodpovídá- Opakuji spojení (%i z %i)"-->
+	<!--string value="Soubor &quot;%s&quot; již máte ve vaší knihovně. Chcete ho znovu stahovat?"-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>

@@ -1,7 +1,7 @@
 //
 // Extract.c
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2012
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 //
 // Portions of this page have been previously released into the public domain.
 // You are free to redistribute and modify it without any restrictions
@@ -32,7 +32,7 @@ void ExtractSkinFile(LPCTSTR szFile)
 	}
 
 	DialogBoxParam(GetModuleHandle(NULL), MAKEINTRESOURCE(IDD_MAIN), NULL, ExtractProc, (LPARAM)szRealFile);
-	// free(szRealFile);
+	//free(szRealFile);
 }
 
 void GetInstallDirectory()
@@ -109,7 +109,8 @@ int GetSkinFileCount(LPTSTR pszFile)
 	return gi.number_entry;
 }
 
-int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
+int ValidateSkin(LPTSTR pszFile, HWND hwndDlg)
+{
 	unz_global_info gi;
 	UINT i = 0;
 	int err, xmlFile = 0;
@@ -192,12 +193,12 @@ int ValidateSkin(LPTSTR pszFile, HWND hwndDlg) {
 
 			p = filename_withoutpath = fn_zip;
 			while ( (*p) != '\0' )
-    		{
-        		if ( (*p) == '/' || (*p) == '\\' )
-            	filename_withoutpath = p+1;
-        		p++;
-    		}
-			if ( szXML ) free(szXML);
+			{
+				if ( (*p) == '/' || (*p) == '\\' )
+				filename_withoutpath = p+1;
+				p++;
+			}
+			free(szXML);
 			szXML = (TCHAR*)GetUnicodeString(filename_withoutpath);
 		}
 		if ( (i+1) < gi.number_entry )
@@ -256,17 +257,17 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 	if ( err != UNZ_OK ) return 0;
 
 	wcscpy(prefix, skins_dir );
-    if ( skinType == typeLang )
+	if ( skinType == typeLang )
 	{
-    	wcscat(prefix, L"Languages\\");
+		wcscat(prefix, L"Languages\\");
 	}
-    else if ( !skinType )
+	else if ( !skinType )
 	{
-        wcscat(prefix, szPath);
-        // Create Directory for new skin
-        if ( !MakeDirectory((LPCTSTR)prefix) )
+		wcscat(prefix, szPath);
+		// Create Directory for new skin
+		if ( !MakeDirectory((LPCTSTR)prefix) )
 		{
-    		unzClose(ufile);
+			unzClose(ufile);
 			return 0;
 		}
 	}
@@ -276,12 +277,12 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 		err = unzGetCurrentFileInfo(ufile, &fi, fn_zip, sizeof(fn_zip), NULL, 0, NULL, 0);
 
 		zippedName = p = filename_withoutpath = (TCHAR*)GetUnicodeString(fn_zip);
-        while ( (*p) != '\0' )
-        {
-            if ( (*p) == '/' || (*p) == '\\' )
-                filename_withoutpath = p+1;
-            p++;
-        }
+		while ( (*p) != '\0' )
+		{
+			if ( (*p) == '/' || (*p) == '\\' )
+				filename_withoutpath = p+1;
+			p++;
+		}
 		SendDlgItemMessage(hwndDlg, IDC_PROGRESS, PBM_STEPIT, 0, 0);
 		{
 			TCHAR pb[MAX_PATH];
@@ -295,21 +296,21 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 			return 0;
 		}
 
-        if ( (*filename_withoutpath) != '\0' )
+		if ( (*filename_withoutpath) != '\0' )
 		{
-            if ( skinType == 1 )
+			if ( skinType == 1 )
 			{
-            	wcscpy(fn_fs, (LPCTSTR)prefix);
-                wcscat(fn_fs, filename_withoutpath);
-            }
-            else
+				wcscpy(fn_fs, (LPCTSTR)prefix);
+				wcscat(fn_fs, filename_withoutpath);
+			}
+			else
 			{
-            	wcscpy(fn_fs, (LPCTSTR)prefix);
-                wcscat(fn_fs, L"\\");
-                wcscat(fn_fs, filename_withoutpath);
-            }
+				wcscpy(fn_fs, (LPCTSTR)prefix);
+				wcscat(fn_fs, L"\\");
+				wcscat(fn_fs, filename_withoutpath);
+			}
 
-    		err = unzOpenCurrentFile(ufile);
+			err = unzOpenCurrentFile(ufile);
 			if ( err != UNZ_OK )
 			{
 				free(zippedName);
@@ -320,38 +321,38 @@ int ExtractSkin(LPTSTR pszFile, HWND hwndDlg)
 
 			if ( hFile == INVALID_HANDLE_VALUE )
 			{
-    			unzCloseCurrentFile(ufile);
-    			unzClose(ufile);
+				unzCloseCurrentFile(ufile);
+				unzClose(ufile);
 				free(zippedName);
-    			return 0;
-    		}
+				return 0;
+			}
 
-    		do
+			do
 			{
-    			err = unzReadCurrentFile(ufile, buf, sizeof(buf));
-    			if ( err < 0 )
+				err = unzReadCurrentFile(ufile, buf, sizeof(buf));
+				if ( err < 0 )
 				{
-    				unzCloseCurrentFile(ufile);
-    				unzClose(ufile);
+					unzCloseCurrentFile(ufile);
+					unzClose(ufile);
 					free(zippedName);
 					CloseHandle( hFile );
-    				return 0;
-    			}
-    			else if ( err > 0 )
+					return 0;
+				}
+				else if ( err > 0 )
 				{
-    				if ( WriteFile( hFile, (LPCVOID)buf, err, &nBytesWritten, NULL ) != TRUE ||
+					if ( ! WriteFile( hFile, (LPCVOID)buf, err, &nBytesWritten, NULL ) ||
 						err != (int)nBytesWritten )
 					{
-    					unzCloseCurrentFile(ufile);
-    					unzClose(ufile);
+						unzCloseCurrentFile(ufile);
+						unzClose(ufile);
 						free(zippedName);
 						CloseHandle( hFile );
-    					return 0;
-    				}
-    			}
-    		} while (err);
-    	}
-    	unzCloseCurrentFile(ufile);
+						return 0;
+					}
+				}
+			} while (err);
+		}
+		unzCloseCurrentFile(ufile);
 		CloseHandle( hFile );
 		hFile = INVALID_HANDLE_VALUE;
 

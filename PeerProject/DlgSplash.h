@@ -1,7 +1,7 @@
 //
 // DlgSplash.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -21,11 +21,11 @@
 
 class CSplashDlg : public CDialog
 {
-	DECLARE_DYNAMIC(CSplashDlg)
+	//DECLARE_DYNAMIC(CSplashDlg)
 
 public:
 	CSplashDlg(int nMax, bool bClosing);
-	virtual ~CSplashDlg();
+	//virtual ~CSplashDlg();
 
 	enum { IDD = IDD_SPLASH };
 
@@ -42,10 +42,7 @@ protected:
 	int			m_nHeight;
 	bool		m_bClosing;
 	CString		m_sState;
-	CBitmap		m_bmSplash;
-	CBitmap		m_bmBuffer;
-	CDC			m_dcBuffer1;
-	CDC			m_dcBuffer2;
+	static CBitmap m_bmSplash;
 
 	void		DoPaint(CDC* pDC);
 //	BOOL		(WINAPI *m_pfnAnimateWindow)(HWND, DWORD, DWORD);	// Legacy transition effects
@@ -54,7 +51,7 @@ protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 
 	afx_msg void OnPaint();
-	afx_msg LRESULT OnPrintClient(WPARAM wParam, LPARAM lParam);
+	afx_msg BOOL OnQueryEndSession();
 
 	DECLARE_MESSAGE_MAP()
 };

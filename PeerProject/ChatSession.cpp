@@ -1,7 +1,7 @@
 //
 // ChatSession.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1268,8 +1268,8 @@ BOOL CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 
 	if ( m_nProtocol == PROTOCOL_DC )
 	{
-		CSingleLock pLock( &Network.m_pSection );
-		if ( pLock.Lock( 250 ) )
+		CSingleLock pNetworkLock( &Network.m_pSection );
+		if ( pNetworkLock.Lock( 250 ) )
 		{
 			if ( CNeighbour* pClient = Neighbours.Get( m_pHost.sin_addr ) )
 			{
@@ -1293,6 +1293,7 @@ BOOL CChatSession::SendPrivateMessage(bool bAction, const CString& strText)
 				}
 			}
 		}
+
 		return FALSE;
 	}
 

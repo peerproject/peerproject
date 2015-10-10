@@ -1,7 +1,7 @@
 //
 // RichDocument.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -255,9 +255,9 @@ BOOL CRichDocument::LoadXML(CXMLElement* pBase, CMap< CString, const CString&, C
 		Skin.LoadColor( pBase, L"crHeading", &m_crHeading );
 
 		strTemp = pBase->GetAttributeValue( L"leftMargin" );
-		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, L"%i", &m_szMargin.cx );
+		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, L"%li", &m_szMargin.cx );
 		strTemp = pBase->GetAttributeValue( L"topMargin" );
-		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, L"%i", &m_szMargin.cy );
+		if ( ! strTemp.IsEmpty() ) _stscanf( strTemp, L"%li", &m_szMargin.cy );
 	}
 
 	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
@@ -442,13 +442,13 @@ BOOL CRichDocument::LoadXMLStyles(CXMLElement* pParent)
 			CString strSize = pFont->GetAttributeValue( L"size" );
 			if ( ! strSize.IsEmpty() )
 			{
-				if ( _stscanf( strSize, L"%i", &lf.lfHeight ) == 1 )
+				if ( _stscanf( strSize, L"%li", &lf.lfHeight ) == 1 )
 					lf.lfHeight = - lf.lfHeight;
 			}
 
 			CString strWeight = pFont->GetAttributeValue( L"weight" );
 			if ( ! strWeight.IsEmpty() )
-				_stscanf( strWeight, L"%i", &lf.lfWeight );
+				_stscanf( strWeight, L"%li", &lf.lfWeight );
 		}
 
 		CXMLElement* pColors = pXML->GetElementByName( L"colors" );

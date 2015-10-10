@@ -1,7 +1,7 @@
 //
 // LibraryFolders.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -786,7 +786,8 @@ void CLibraryFolders::Maintain()
 	{
 		GetNextFolder( pos )->Maintain( TRUE );
 	}
-#else	// VS2010+
+	return;
+#endif	// No IShellLibrary (VS2008)
 
 	// Update desktop.ini's only
 	if ( ! Settings.Library.UseWindowsLibrary || theApp.m_nWinVer < WIN_7 )
@@ -800,7 +801,8 @@ void CLibraryFolders::Maintain()
 
 	// Update Windows 7/8 Libraries too
 	CComPtr< IShellLibrary > pIShellLib;
-	pIShellLib.CoCreateInstance( CLSID_ShellLibrary );
+	if ( theApp.m_nWinVer >= WIN_7 && Settings.Library.UseWindowsLibrary )
+		pIShellLib.CoCreateInstance( CLSID_ShellLibrary );
 
 	for ( POSITION pos = GetFolderIterator() ; pos ; )
 	{
@@ -828,7 +830,6 @@ void CLibraryFolders::Maintain()
 		CComPtr< IShellItem > psiLibrary;
 		pIShellLib->SaveInKnownFolder( FOLDERID_UsersLibraries, CLIENT_NAME, LSF_OVERRIDEEXISTING, &psiLibrary );
 	}
-#endif	// IShellLibrary
 }
 
 //////////////////////////////////////////////////////////////////////

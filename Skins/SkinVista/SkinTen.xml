@@ -498,7 +498,7 @@
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
  <button id="ID_MEDIA_MUTE"/>
-   <rightAlign/>
+ <rightalign/>
  <!--control id="IDC_MEDIA_SPEED" width="70" height="24"-->
  <control id="IDC_MEDIA_VOLUME" width="70" height="24"/>
  <separator/>
@@ -518,7 +518,7 @@
  <button id="ID_MEDIA_PAUSE" visible="false"/>
  <button id="ID_MEDIA_NEXT"/>
  <button id="ID_MEDIA_MUTE"/>
-   <rightAlign/>
+ <rightalign/>
  <!--control id="115" width="70" height="24"-->
  <control id="116" width="70" height="24"/>
  <separator/>
@@ -531,7 +531,7 @@
 </toolbar>
 
 <toolbar name="CMediaList">
-   <rightAlign/>
+ <rightalign/>
  <button id="ID_MEDIA_ADD"/>
  <button id="ID_MEDIA_REMOVE"/>
  <button id="ID_MEDIA_CLEAR"/>
@@ -560,7 +560,7 @@
  <image id="ID_TOOLS_SETTINGS"/>
 </bitmap>
 
-<bitmap path="Ten\IconsMedia.png" mask="CLR_NONE">
+<bitmap path="IconsMedia.png" mask="CLR_NONE">
  <image id="ID_MEDIA_PLAY"/>
  <image id="ID_MEDIA_PAUSE"/>
  <image id="ID_MEDIA_STOP"/>
@@ -572,6 +572,13 @@
 	id5="ID_VIEW_SEARCH_MONITOR" id6="ID_HITMONITOR_SEARCH" id7="ID_VIEW_RESULTS_MONITOR" id8="ID_DOWNLOADS_SOURCES"/>
  <image />
  <image id="ID_TAB_HOME"/>
+</bitmap>
+
+<bitmap path="Ten\Ticks.png" mask="CLR_NONE">
+ <image id="150"/> <!--"IDI_OPENTICK"-->
+ <image id="151"/> <!--"IDI_OPENTICK_HOVER"-->
+ <image id="152"/> <!--"IDI_CLOSETICK"-->
+ <image id="153"/> <!--"IDI_CLOSETICK_HOVER"-->
 </bitmap>
 
 <bitmap path="Ten\Checked.png" mask="CLR_NONE">

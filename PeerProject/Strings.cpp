@@ -1,7 +1,7 @@
 //
 // Strings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2014
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -427,7 +427,7 @@ CString URLDecodeANSI(const TCHAR* __restrict pszInput)
 		{
 			if ( pszInput[ 1 ] == '#' )
 			{
-				if ( _stscanf_s( pszInput + 2, L"%lu;", &nHex ) == 1 && nHex > 0 )
+				if ( _stscanf_s( pszInput + 2, L"%i;", &nHex ) == 1 && nHex > 0 )
 				{
 					*pszOutput++ = (CHAR)nHex;
 					while ( *pszInput && *pszInput != ';' )
@@ -524,7 +524,7 @@ CString URLDecodeUnicode(const TCHAR* __restrict pszInput)
 		{
 			if ( pszInput[ 1 ] == '#' )
 			{
-				if ( _stscanf_s( pszInput + 2, L"%lu;", &nHex ) == 1 && nHex > 0 )
+				if ( _stscanf_s( pszInput + 2, L"%i;", &nHex ) == 1 && nHex > 0 )
 				{
 					*pszOutput++ = (CHAR)nHex;
 					while ( *pszInput && *pszInput != ';' )
@@ -1092,7 +1092,7 @@ CString Escape(const CString& strValue)
 		default:
 			if ( *pszValue < 32 || *pszValue > 127 )
 			{
-				pszXML += _stprintf_s( pszXML, 9, L"&#%lu;", *pszValue );
+				pszXML += _stprintf_s( pszXML, 9, L"&#%i;", *pszValue );
 				bChanged = true;
 				break;
 			}
@@ -1146,7 +1146,7 @@ CString Unescape(const TCHAR* __restrict pszXML, int nLength)
 				if ( pszXML >= pszNull || ! *pszXML || ! _istdigit( *pszXML ) ) break;
 
 				int nChar;
-				if ( _stscanf_s( pszXML, L"%lu;", &nChar ) == 1 )
+				if ( _stscanf_s( pszXML, L"%i;", &nChar ) == 1 )
 				{
 					*pszOut++ = (TCHAR)nChar;
 					while ( *pszXML && *pszXML != ';' ) pszXML++;

@@ -1,7 +1,7 @@
 //
 // DCNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2014
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -664,14 +664,11 @@ BOOL CDCNeighbour::OnLock(LPSTR szParams)
 			szUserAgent += 4;
 			m_sUserAgent = UTF8Decode( szUserAgent );
 		}
-		else
+		else if ( LPSTR szUserAgentAlt = strchr( szParams, ' ' ) )
 		{
 			// Bad way
-			if ( LPSTR szUserAgent = strchr( szParams, ' ' ) )
-			{
-				*szUserAgent++ = 0;
-				m_sUserAgent = UTF8Decode( szUserAgent );
-			}
+			*szUserAgentAlt++ = 0;
+			m_sUserAgent = UTF8Decode( szUserAgentAlt);
 		}
 
 		if ( m_nState < nrsHandshake2 )
@@ -684,7 +681,7 @@ BOOL CDCNeighbour::OnLock(LPSTR szParams)
 		{
 			if ( CDCPacket* pPacket = CDCPacket::New() )
 			{
-				pPacket->Write( _P(DC_HUB_SUPPORTS) );		// "$Supports ..."
+				pPacket->Write( _P( DC_HUB_SUPPORTS ) );		// "$Supports ..."
 				Send( pPacket );
 			}
 		}

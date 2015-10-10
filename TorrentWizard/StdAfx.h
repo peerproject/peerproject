@@ -1,7 +1,7 @@
 //
 // StdAfx.h
 //
-// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2014
+// This file is part of PeerProject Torrent Wizard (peerproject.org) © 2008-2015
 // Portions Copyright Shareaza Development Team, 2007.
 //
 // PeerProject Torrent Wizard is free software; you can redistribute it
@@ -55,7 +55,9 @@
 #define _ATL_NO_COM_SUPPORT					// Prevents ATL COM-related code
 #define _ATL_CSTRING_EXPLICIT_CONSTRUCTORS	// Makes certain ATL CString constructors explicit
 
-#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+
+#if defined(_MSC_VER) && ( _MSC_VER < 1900 || _MSC_FULL_VER > 190022820 )
+#define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+ (VS2015 RC error)
+#endif
 
 #include <sdkddkver.h>		// Setup versioning for Windows SDK/DDK
 #include <afxwin.h> 		// MFC core and standard components

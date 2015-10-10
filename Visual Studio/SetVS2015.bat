@@ -2,9 +2,9 @@
 @setLocal EnableExtensions EnableDelayedExpansion
 @echo off
 
-set "header1=Microsoft Visual Studio Solution File, Format Version 12.00"
+set "header1=Microsoft Visual Studio Solution File, Format Version 14.00"
 set "header2=# Visual Studio 2015"
-set "version=v130_xp"
+set "version=v140_xp"
 
 echo %header1%>>PeerProject.sln.temp
 echo %header2%>>PeerProject.sln.temp

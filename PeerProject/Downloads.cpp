@@ -1320,10 +1320,10 @@ void CDownloads::Save(BOOL bForce)
 void CDownloads::PurgeFiles()
 {
 	const CString strRoot = Settings.Downloads.IncompletePath + L"\\";
-	const CString strPath = strRoot + L"Preview *.*";		// Text defined in DlgFilePreview
+	const CString strPreview = strRoot + L"Preview *.*";		// Text defined in DlgFilePreview
 
 	WIN32_FIND_DATA pFind = {};
-	HANDLE hSearch = FindFirstFile( strPath, &pFind );
+	HANDLE hSearch = FindFirstFile( strPreview, &pFind );
 	if ( hSearch == INVALID_HANDLE_VALUE ) return;
 
 	do

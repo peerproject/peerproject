@@ -20,10 +20,10 @@
     <Filter Include="Source Files\Wizard">
       <UniqueIdentifier>{eeec26a8-276a-4ff9-92f3-0e73f968a100}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Hash algorithms">
+    <Filter Include="Source Files\Hash Algorithms">
       <UniqueIdentifier>{26ddb731-05f4-4008-9bcf-7dc3edd20e00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Hash algorithms\Policies">
+    <Filter Include="Source Files\Hash Algorithms\Policies">
       <UniqueIdentifier>{20084418-af21-4a04-a633-0a08490a354c}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Pages">
@@ -1905,7 +1905,7 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClCompile Include="MiniUPnP.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
     </ClCompile>
     <ClInclude Include="MinMax.hpp">
       <Filter>Header Files</Filter>

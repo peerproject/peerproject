@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -86,7 +86,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'utilisateur"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :" tip="Saisir des mots-clés pour filtrer les résultats"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -97,7 +97,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'utilisateur"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :" tip="Saisir des mots-clés pour filtrer les résultats"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -111,7 +111,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Télécharger"/>
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'utilisateur"/>
 		<button id="ID_SECURITY_BAN" text="Ban User"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :" tip="Saisir des mots-clés pour filtrer les résultats"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -131,7 +131,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Télécharger le fichier"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Discuter avec l'util."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :" tip="Saisir des mots-clés pour filtrer les résultats"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -143,7 +143,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Actualiser"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Discuter avec l'util."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :" tip="Saisir des mots-clés pour filtrer les résultats"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -162,7 +162,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info "/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Moniteur"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -177,7 +177,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info "/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Moniteur"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Ajouter un télécharg..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 		<separator/>
@@ -187,7 +187,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'utilisateur"/>
 		<button id="ID_UPLOADS_CHAT" text="Discuter avec l'util."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -200,7 +200,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'utilisateur"/>
 		<button id="ID_UPLOADS_CHAT" text="Discuter avec l'util."/>
 		<button id="ID_SECURITY_BAN" text="Bannir l'utilisateur."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Nettoyer terminés"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filtrer"/>
@@ -224,7 +224,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Partager des fichiers..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -233,7 +233,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Créer un album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Supprimer l'album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -244,7 +244,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Ajouter à la liste de lecture"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -261,7 +261,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Déplacer"/>
 		<button id="ID_LIBRARY_COPY" text="Copier"/>
 		<button id="ID_LIBRARY_DELETE" text="Supprimer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -273,7 +273,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lire l'album"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -287,7 +287,7 @@
 		<button id="ID_LIBRARY_PROPERTIES" text="Propriétés"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Services Web"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -297,7 +297,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Lire l'album complet"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Téléch. tous les fichiers"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Trouver :"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -315,7 +315,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Ouvrir le fichier"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Précédent"/>
 		<button id="ID_MEDIA_NEXT" text="Suivant"/>
 		<separator/>
@@ -338,7 +338,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -347,7 +347,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Nettoyer"/>
 		<button id="ID_MEDIA_SAVE" text="Sauvegarder"/>
 	</toolbar>
@@ -355,7 +355,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Parcourir l'util."/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Discuter avec l'util."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -369,7 +369,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Se déconnecter"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Bannir l'hôte"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -385,7 +385,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Monter d'un cran"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Descendre d'un cran"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="Remise à zéro"/>
 		<button id="ID_SECURITY_IMPORT" text="Importer Liste"/>
 		<button id="ID_SECURITY_EXPORT" text="Exporter Liste"/>
@@ -399,7 +399,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activer"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Désactiver"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="Tout Enlever"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Importer Liste"/>
@@ -413,7 +413,7 @@
 		<button id="ID_HITMONITOR_SEARCH" text="Re-Query"/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pause"/>
 		<button id="ID_SEARCH_CLEAR" text="Nettoyer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filtrer :"/>
 		<control id="IDC_FILTER_BOX" width="100"/>
 	</toolbar>
@@ -428,7 +428,7 @@
 		<button id="ID_DISCOVERY_ADVERTISE" text="Afficher"/>
 		<separator/>
 		<button id="ID_DISCOVERY_BROWSE" text="Page Statistiques"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_DISCOVERY_WEBCACHE" text="GWebCaches"/>
 		<button id="ID_DISCOVERY_GNUTELLA" text="Bootstraps"/>
 		<button id="ID_DISCOVERY_SERVERLIST" text="Server.met/Hublists"/>
@@ -439,21 +439,21 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Se connecter à"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Se déconnecter"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Supprimer"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Grappe"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_DC_CACHE" text="Cache"/>
-	<!--	<button id="ID_HOSTCACHE_BT_CACHE" text="Cache"/> -->
-	<!--	<button id="ID_HOSTCACHE_KAD_CACHE" text="Cache"/> -->
+		<!--button id="ID_HOSTCACHE_BT_CACHE" text="Cache"-->
+		<!--button id="ID_HOSTCACHE_KAD_CACHE" text="Cache"-->
 	</toolbar>
 	<!-- IRC WINDOW -->
 	<toolbar name="CIRCFrame">
 		<button id="ID_IRC_SENDTEXT" text="Discuter" tip="Post Commentaires"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Fermer" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Connexion" tip="Connexion au salon IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Disconnect" tip="Déconnexion du salon IRC"/>
 		<separator/>
@@ -500,7 +500,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Ajustement Optimal"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Rafraîchir"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Fermer"/>
 	</toolbar>
 </toolbars>
@@ -736,8 +736,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Rechercher des mises à jour"/>
@@ -904,8 +904,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
 			<item id="ID_HELP_VERSION_CHECK" text="_Rechercher des mises à jour"/>

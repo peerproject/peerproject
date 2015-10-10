@@ -1,7 +1,7 @@
 //
 // ShakeNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -747,14 +747,14 @@ BOOL CShakeNeighbour::OnHeaderLine(CString& strHeader, CString& strValue)
 			if ( nColon > 0 )	// There is a colon and it's not at the start of the text
 			{
 				// Save the default Gnutella port, 6346, in nPort to use it if we can't read the port number from the header value text
-				int nPort = protocolPorts[ PROTOCOL_G1 ];
+				WORD nPort = protocolPorts[ PROTOCOL_G1 ];
 
 				// Mid clips the strValue text from beyond the colon to the end
 				// _stscanf is like scanf, and %1u means read the text as a long unsigned number
 				// The If block makes sure that _stscanf successfully reads 1 item, and the number it read isn't 0
 				// Save the remote computer port number in the connection object's m_pHost member variable
 
-				if ( _stscanf( strValue.Mid( nColon + 1 ), L"%lu", &nPort ) == 1 && nPort != 0 )
+				if ( _stscanf( strValue.Mid( nColon + 1 ), L"%hu", &nPort ) == 1 && nPort > 0 )
 					m_pHost.sin_port = htons( u_short( nPort ) );		// Call htons to go from PC little-endian to Internet big-endian byte order
 			}
 		}

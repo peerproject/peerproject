@@ -1,7 +1,7 @@
 //
 // BTPacket.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -44,7 +44,14 @@ CDHT DHT;	// Services/MainlineDHT
 
 extern "C"
 {
+	// BitTorrentDHT
+	// Source:	https://github.com/jech/dht
+	// Info:	http://www.pps.univ-paris-diderot.fr/~jch/software/bittorrent/
+
 	#pragma warning(push,2)
+	#ifndef _CRT_SECURE_NO_WARNINGS
+		#define _CRT_SECURE_NO_WARNINGS
+	#endif
 	#include "BitTorrentDHT/dht.h"
 	#include "BitTorrentDHT/dht.c"
 	#pragma warning(pop)
@@ -83,7 +90,7 @@ extern "C"
 		return CryptGenRandom( theApp.m_hCryptProv, (DWORD)size, (BYTE*)buf ) ? 0 : -1;
 	}
 
-	int dht_sendto(int /*s*/, const char *buf, int len, int /*flags*/, const struct sockaddr *to, int tolen)
+	int dht_sendto(int /*s*/, const void *buf, int len, int /*flags*/, const struct sockaddr *to, int tolen)
 	{
 		if ( tolen != sizeof( SOCKADDR_IN ) )
 			return -1;	// IPv6 not supported

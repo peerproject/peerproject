@@ -381,7 +381,7 @@
 			<title language="en">Release Group</title>
 			<title language="af">Uitgewers Groep</title>
 			<title language="ca">Grup de publicació</title>
-			<title language="cz">Vydala skupina: </title>
+			<title language="cz">Vydala skupina</title>
 			<title language="de">Releasegruppe</title>
 			<title language="ee">Väljalaske Grupp</title>
 			<title language="es">Grupo de Lanzamiento</title>
@@ -409,7 +409,7 @@
 			<title language="en">Release Group Link</title>
 			<title language="af">Uitgewers Skakel</title>
 			<title language="ca">Drecera del publicador</title>
-			<title language="cz">Odkaz na vydavatele: </title>
+			<title language="cz">Odkaz na vydavatele</title>
 			<title language="de">Link der Releasegruppe</title>
 			<title language="ee">Väljalaske Grupi Link</title>
 			<title language="es">Link de Grupo</title>
@@ -518,12 +518,14 @@
 		<type extension="ct"/>
 		<type extension="cut"/>
 		<type extension="dib"/>
+		<type extension="dng"/>
 		<type extension="dwg"/>
 		<type extension="dwf"/>
 		<type extension="dxf"/>
 		<type extension="emf"/>
 		<type extension="eps"/>
 		<type extension="fla"/>
+		<type extension="flif"/>
 		<type extension="fpx"/>
 		<type extension="gif"/>
 		<type extension="hdp"/>

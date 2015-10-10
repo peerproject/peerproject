@@ -151,7 +151,7 @@ int MakeDirectory(LPCTSTR newdir)
 	{
 		buffer[len-1] = '\0';
 	}
-	if ( CreateDirectory((LPCTSTR)buffer, NULL) == TRUE )
+	if ( CreateDirectory((LPCTSTR)buffer, NULL) )
 	{
 		free(buffer);
 		return 1;

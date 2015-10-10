@@ -1,7 +1,7 @@
 //
 // UploadTransferHTTP.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -598,7 +598,7 @@ BOOL CUploadTransferHTTP::OnHeadersComplete()
 		DWORD nDepth	= 0;
 
 		if ( LPCTSTR pszDepth = _tcsistr( m_sRequest, L"depth=" ) )
-			_stscanf( pszDepth + 6, L"%i", &nDepth );
+			_stscanf( pszDepth + 6, L"%lu", &nDepth );
 
 		BOOL bHashset = ( _tcsistr( m_sRequest, L"ed2k=1" ) != NULL );
 

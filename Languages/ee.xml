@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -91,7 +91,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Tõmba"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõnad"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -102,7 +102,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõnad"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -116,7 +116,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Tõmba"/>
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõnad"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -135,7 +135,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Tõmba Fail"/>
 		<button id="ID_SEARCH_CHAT" text="Vestle kasutajaga"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõnad"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -147,7 +147,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Värskenda"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Vestle kasutajaga"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõnad"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -166,7 +166,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Puhasta Valmis"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -181,7 +181,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Info"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Lisa tõmbamine/Torrent..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Puhasta Valmis"/>
 		<separator/>
@@ -191,7 +191,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
 		<button id="ID_UPLOADS_CHAT" text="Vestle kasutajaga"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Puhasta Valmis"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -204,7 +204,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
 		<button id="ID_UPLOADS_CHAT" text="Vestle kasutajaga"/>
 		<button id="ID_SECURITY_BAN" text="Keela kasutaja"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Puhasta Valmis"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filter"/>
@@ -228,7 +228,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Jaga faile..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -237,7 +237,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Loo Album..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Kustuta Album"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -247,7 +247,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Ava"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Lisa Playlisti"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -263,7 +263,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Liiguta"/>
 		<button id="ID_LIBRARY_COPY" text="Kopeeri"/>
 		<button id="ID_LIBRARY_DELETE" text="Kustuta"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -274,7 +274,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="Lisa Playlisti"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Mängi Albumit"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -286,7 +286,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Mängi Albumit"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="Omadused"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -296,7 +296,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Mängi Tervet Albumit"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Tõmba kõik failid"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Otsi:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -314,7 +314,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Ava Fail"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Eelmine"/>
 		<button id="ID_MEDIA_NEXT" text="Järgmine"/>
 		<separator/>
@@ -337,7 +337,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -346,7 +346,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Puhasta"/>
 		<button id="ID_MEDIA_SAVE" text="Salvesta"/>
 	</toolbar>
@@ -355,7 +355,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="Post Kommentaarid"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Eemalda" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Ühenda" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Katkesta" tip="Disconnect from IRC"/>
 		<separator/>
@@ -365,7 +365,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Sirvi kasutajat"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Vestle kasutajaga"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -379,7 +379,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Katkesta ühendus"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Keela omanik"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey2000"/>
@@ -397,7 +397,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="Paus"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Puhasta"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Trüki märksõna"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 	</toolbar>
@@ -407,7 +407,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Ühenda"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Katkesta ühendus"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Eemalda"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -641,8 +641,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Latest news"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -707,8 +707,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Latest news"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -793,8 +793,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Latest news"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Latest news"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_PeerProjectst..."/>
@@ -1764,7 +1764,7 @@
 		<text format="b">Teretulemast PeerProject seadmehaldurisse</text>
 		<newline gap="16"/>
 		<text>PeerProject Seadehaldur lubab edasijõudnud kasutajal täielikult kohandada
-			PeerProject töötamist. Seaded </text>
+		PeerProject töötamist. Seaded </text>
 		<text format="b">Üldine </text>
 		<text>osas on seotud kasutusmugavusega.</text>
 		<newline gap="16" indent="16"/>
@@ -1793,7 +1793,7 @@
 		<text format="b">Teretulemast PeerProject seadehaldurisse</text>
 		<newline gap="16"/>
 		<text>PeerProject Seadehaldur lubab edasijõudnud kasutajal täielikult kohandada
-			PeerProject töötamist. Seaded </text>
+		PeerProject töötamist. Seaded </text>
 		<text format="b">Internet </text>
 		<text>osas, kontrollib kuidas PeerProject suhtleb teiste serveritega peer-to-peer võrgus.</text>
 		<newline gap="16" indent="16"/>
@@ -3157,11 +3157,11 @@
 	<string id="20897" value="Kaust mida jagad on juba jagatud, kui osa teisest kaustast:\n\n%s"/>
 	<string id="20898" value="Sa ei ole veel täpsustanud oma jagatavaid kausu. Oled kindel?"/>
 	<string id="20899" value="aastat vana"/>
-	<!-- string value="Torrenti Informatsioon"-->
-	<!-- string value="Jälitaja ei vastanud- Proovin uuesti (%i of %i)"-->
-	<!-- string id="16140" value="%s aeglane ühendus."-->
-	<!-- string id="16771" value="Sul juba on see fail &quot;%s&quot; raamatukogus. Kas tahad seda ikkagi tõmmata?"-->
-	<!-- string id="16801" value="Palun vali enne jätkamist oma Internetiühenduse tüüp."-->
+	<!--string value="Torrenti Informatsioon"-->
+	<!--string value="Jälitaja ei vastanud- Proovin uuesti (%i of %i)"-->
+	<!--string id="16140" value="%s aeglane ühendus."-->
+	<!--string id="16771" value="Sul juba on see fail &quot;%s&quot; raamatukogus. Kas tahad seda ikkagi tõmmata?"-->
+	<!--string id="16801" value="Palun vali enne jätkamist oma Internetiühenduse tüüp."-->
 </strings>
 <!-- Localized Dialog Text, "cookie" verifies that the skin matches current dialog -->
 <dialogs>
@@ -4041,7 +4041,8 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 		<control caption="Vali nimekirjast teema, seejärel vali milliseid pealkirju kuvada."/>
-	</dialog>	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
+	</dialog>
+	<dialog name="CShareManagerDlg" cookie="StSyBuBuBuBu" caption="Jagatud Kausta Haldur">
 		<control caption="See on nimekiri sinu Raamautukogus olevatest kaustadest. Sa võid vasakul asuvatest nuppudest lisada või kustutada kaustu. Kui lisad uue kausta siis seda jagatakse automaatselt teistega, aga sa saad selle soovi korral ka keelata, PeerProject Raamatukogust."/>
 		<control/>
 		<control caption="_Lisa..."/>

@@ -1,9 +1,7 @@
 ; *** Inno Setup 5.5.0+ German Messages (PeerProject: de)
 ;
 ; Original Author: Michael Reitz (innosetup@assimilate.de)
-; Contributors:    Peter Stadler(Peter.Stadler@univie.ac.at)
-;                  Roland Ruder (info@rr4u.de)
-;                  LaughingMan (puma.d@web.de)
+; Changes Author:  Peter Stadler (Peter.Stadler@univie.ac.at)
 ;
 ; Diese Übersetzung hält sich an die neue deutsche Rechtschreibung.
 
@@ -201,8 +199,8 @@ WizardPreparing=Vorbereitung der Installation
 PreparingDesc=Das Setup bereitet die Installation von [name] auf diesen Computer vor.
 PreviousInstallNotCompleted=Eine vorherige Installation/Deinstallation eines Programms wurde nicht abgeschlossen. Der Computer muss neu gestartet werden, um die Installation/Deinstallation zu beenden.%n%nStarten Sie das Setup nach dem Neustart Ihres Computers erneut, um die Installation von [name] durchzuführen.
 CannotContinue=Das Setup kann nicht fortfahren. Bitte klicken Sie auf "Abbrechen" zum Verlassen.
-ApplicationsFound=Die folgenden Anwendungen benutzen Dateien, die upgedated werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schließen.
-ApplicationsFound2=Die folgenden Anwendungen benutzen Dateien, die upgedated werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schließen. Nachdem die Installation fertiggestellt wurde, versucht Setup diese Anwendungen wieder zu starten.
+ApplicationsFound=Die folgenden Anwendungen benutzen Dateien, die aktualisiert werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schließen.
+ApplicationsFound2=Die folgenden Anwendungen benutzen Dateien, die aktualisiert werden müssen. Es wird empfohlen, Setup zu erlauben, diese Anwendungen zu schließen. Nachdem die Installation fertiggestellt wurde, versucht Setup diese Anwendungen wieder zu starten.
 CloseApplications=&Schließe automatisch die Anwendungen
 DontCloseApplications=&Schließe die Anwendungen nicht
 ErrorCloseApplications=Das Setup konnte nicht alle Anwendungen automatisch schließen. Es wird empfohlen, alle Anwendungen zu schließen, die Dateien benutzen, die vom Setup vor einer Fortsetzung aktualisiert werden müssen.
@@ -331,4 +329,4 @@ AssocFileExtension=&Registriere %1 mit der %2-Dateierweiterung
 AssocingFileExtension=%1 wird mit der %2-Dateierweiterung registriert...
 AutoStartProgramGroupDescription=Beginn des Setups:
 AutoStartProgram=Starte automatisch%1
-AddonHostProgramNotFound=%1 konnte im ausgwählten Ordner nicht gefunden werden.%n%nMöchten Sie dennoch fortfahren?
+AddonHostProgramNotFound=%1 konnte im ausgewählten Ordner nicht gefunden werden.%n%nMöchten Sie dennoch fortfahren?

@@ -236,6 +236,8 @@ CPeerProjectApp::CPeerProjectApp()
 
 	, m_hUser32					( NULL )
 	, m_pfnChangeWindowMessageFilter ( NULL )
+	, m_pfnShutdownBlockReasonCreate ( NULL )
+	, m_pfnShutdownBlockReasonDestroy ( NULL )
 	, m_pfnRegisterApplicationRestart ( NULL )
 
 	, m_hLibGFL					( NULL )
@@ -259,8 +261,7 @@ CPeerProjectApp::CPeerProjectApp()
 	BT_SetTerminate();
 //	BT_SetAppName( CLIENT_NAME );		// Below
 //	BT_SetAppVersion( m_sVersionLong );	// Below
-	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR |
-		BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
+	BT_SetFlags( BTF_INTERCEPTSUEF | BTF_SHOWADVANCEDUI | BTF_DESCRIBEERROR | BTF_DETAILEDMODE | BTF_ATTACHREPORT | BTF_EDITMAIL );
 	BT_SetSupportURL( L"http://peerproject.org" );
 	BT_SetSupportEMail( L"peerprojectreports@lists.sourceforge.net" );
 //	BT_SetSupportServer( L"http://bugtrap.peerproject.org/RequestHandler.aspx", 80 );
@@ -1571,6 +1572,8 @@ void CPeerProjectApp::InitResources()
 	if ( ( m_hUser32 = LoadLibrary( L"user32.dll" ) ) != NULL )
 	{
 		(FARPROC&)m_pfnChangeWindowMessageFilter = GetProcAddress( m_hUser32, "ChangeWindowMessageFilter" );			// Vista+	ChangeWindowMessageFilter() for below only
+		(FARPROC&)m_pfnShutdownBlockReasonCreate = GetProcAddress( m_hUser32, "ShutdownBlockReasonCreate" );			// Vista+	ShutdownBlockReasonCreate()
+		(FARPROC&)m_pfnShutdownBlockReasonDestroy = GetProcAddress( m_hUser32, "ShutdownBlockReasonDestroy" );			// Vista+	ShutdownBlockReasonDestroy()
 	}
 
 	// Windows Vista: Enable drag-n-drop and window control operations from application with lower security level
@@ -2052,7 +2055,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 //	const int nBreak = strURI.FindOneOf( L":" ) + 1;
 //	strURI = strURI.Left( 24 ).MakeLower();					// Most chars needed to determine protocol or command
 
-	if ( ! StartsWith( strURI, _P( L"command:" ) ) )			// Assume external URL if not internal command
+	if ( ! StartsWith( strURI, _P( L"command:" ) ) )		// Assume external URL if not internal command
 	{
 		if ( StartsWith( strURI, _P( L"magnet:" ) ) ||
 			StartsWith( strURI, _P( L"http://" ) ) ||
@@ -2100,14 +2103,14 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 			return TRUE;
 		}
 	}
-	else if ( _tcsnicmp( strURI, _P( L"command:shell:" ) ) == 0 ) 	// Assume "command:shell:downloads"
+	else if ( _tcsnicmp( strURI, _P( L"command:shell:" ) ) == 0 ) 		// Assume "command:shell:downloads"
 	{
 		ShellExecute( pMainWnd->GetSafeHwnd(), L"open",
 			Settings.Downloads.CompletePath, NULL, NULL, SW_SHOWNORMAL );
 		if ( strURI.Find( L":downloads", 12 ) > 1 )
 			return TRUE;
 	}
-	else if ( _tcsnicmp( strURI, _P( L"command:update" ) ) == 0 ) 	// Version notice "command:update"
+	else if ( _tcsnicmp( strURI, _P( L"command:update" ) ) == 0 ) 		// Version notice "command:update"
 	{
 		pMainWnd->PostMessage( WM_VERSIONCHECK, VC_CONFIRM );
 		return TRUE;
@@ -2146,7 +2149,7 @@ BOOL CPeerProjectApp::InternalURI(LPCTSTR pszURI)
 	//	}
 	//}
 
-	//else if ( _tcsnicmp( strURI, _P( L"page:" ) ) == 0 )			// "page:CSettingsPage" defined locally in PageSettingsRich
+	//else if ( _tcsnicmp( strURI, _P( L"page:" ) ) == 0 )				// "page:CSettingsPage" defined locally in PageSettingsRich
 
 	theApp.Message( MSG_ERROR, L"Unknown internal command:  %s", pszURI );
 	//ASSERT( FALSE );
@@ -3441,9 +3444,9 @@ BOOL SaveIcon(HICON hIcon, CBuffer& oBuffer, int colors)
 	};
 	ICONDIRENTRY ide =
 	{
-		( ( cx < 256 ) ? (BYTE)cx : 0 ),
-		( ( cx < 256 ) ? (BYTE)cx : 0 ),
-		( ( colors < 8 ) ? ( 1 << colors ) : 0 ),
+		(BYTE)( ( cx < 256 ) ? cx : 0 ),
+		(BYTE)( ( cx < 256 ) ? cx : 0 ),
+		(BYTE)( ( colors < 8 ) ? ( 1 << colors ) : 0 ),
 		0,
 		1,
 		(WORD)colors,

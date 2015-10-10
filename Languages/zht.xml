@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default en.xml r120 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -85,7 +85,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="下載"/>
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -96,7 +96,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -110,7 +110,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="下載"/>
 		<button id="ID_BROWSE_LAUNCH" text="調閱使用者"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -129,7 +129,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="下載檔案"/>
 		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -141,7 +141,7 @@
 		<button id="ID_BROWSE_REFRESH" text="重新整理"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="與使用者聊天"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -160,7 +160,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="顯示監視器"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除已完成下載"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -175,7 +175,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="資訊"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="顯示監視器"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="新增檔案下載/Torrent檔..."/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="清除已完成下載"/>
 		<separator/>
@@ -185,7 +185,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="清除已完成上傳"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -198,7 +198,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_UPLOADS_CHAT" text="與使用者聊天"/>
 		<button id="ID_SECURITY_BAN" text="封鎖該使用者"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="清除已完成上傳"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="過濾器"/>
@@ -222,7 +222,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="分享檔案..."/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -231,7 +231,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="新增專輯..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="刪除專輯"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -240,7 +240,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -255,7 +255,7 @@
 		<button id="ID_LIBRARY_MOVE" text="移動"/>
 		<button id="ID_LIBRARY_COPY" text="複製"/>
 		<button id="ID_LIBRARY_DELETE" text="刪除"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -265,7 +265,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="開啟或播放"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="新增至播放清單"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放專輯"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -277,7 +277,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放專輯"/>
 		<separator/>
 		<button id="ID_LIBRARY_PROPERTIES" text="屬性"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -287,7 +287,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="播放整個專輯"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="下載所有檔案"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="尋找"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -305,7 +305,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="開啟檔案"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="上一個"/>
 		<button id="ID_MEDIA_NEXT" text="下一個"/>
 		<separator/>
@@ -328,7 +328,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -337,7 +337,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="清除"/>
 		<button id="ID_MEDIA_SAVE" text="儲存"/>
 	</toolbar>
@@ -346,7 +346,7 @@
 		<button id="ID_IRC_SENDTEXT" text="發送" tip="Post 意見"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="关闭" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="連線" tip="Connect to IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="中斷連線" tip="Disconnect from IRC"/>
 		<separator/>
@@ -356,7 +356,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="瀏覽使用者"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="封鎖使用者"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -370,7 +370,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="中斷連線"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="封鎖主機"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -389,7 +389,7 @@
 		<button id="ID_SECURITY_MOVE_UP" text="上移"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="下移"/>
 		<separator/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="重置列表"/>
 		<separator/>
 		<button id="ID_SECURITY_IMPORT" text="导入列表"/>
@@ -404,7 +404,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="重置列表"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="导入列表"/>
@@ -417,7 +417,7 @@
 		<separator/>
 		<button id="ID_HITMONITOR_PAUSE" text="暫停"/>
 		<button id="ID_HITMONITOR_CLEAR" text="清除"/>
-		<rightAlign/>
+		<rightalign/>
 		<label text="過濾:" tip="請鍵入要過濾的關鍵字"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<button id="ID_SEARCH_FILTER_RAW" text="更多..."/>
@@ -428,7 +428,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="連線至"/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="中斷連線"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="移除"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="G2 叢集"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="G2 快取"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1 快取"/>
@@ -457,7 +457,7 @@
 		<button id="PluginID_ImageViewer_FullSize" text="实际大小"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="刷新"/>
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="关闭"/>
 	</toolbar>
 </toolbars>
@@ -577,7 +577,7 @@
 					<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 					<item id="ID_HELP_UPDATE" text="最新消息"/>
 					<!-- <separator/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
@@ -670,7 +670,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -734,7 +734,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -819,7 +819,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -1657,7 +1657,7 @@
 			<heading align="middle">警告! 你受到防火牆的保護</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject 偵測到你受到 NAT 路由器或是防火牆的保護,
-			 所以無法由網際網路接收到連線&#160;</text>
+			所以無法由網際網路接收到連線&#160;</text>
 			<text color="FF0000" format="b">這可能導致不良的下載效能.</text>
 			<newline gap="6"/>
 			<link target="command:ID_HELP_ROUTER">點選這裡學習如何設定您的路由器或是防火牆</link>

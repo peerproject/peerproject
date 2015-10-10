@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -84,7 +84,7 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -95,7 +95,7 @@
 		<separator/>
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -109,7 +109,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -128,7 +128,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="Downloaden"/>
 		<button id="ID_SEARCH_CHAT" text="Chatten"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -140,7 +140,7 @@
 		<button id="ID_BROWSE_REFRESH" text="Vernieuwen"/>
 		<separator/>
 		<button id="ID_SEARCH_CHAT" text="Chatten"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filter:" tip="Voer enkele woorden in om het resultaat met te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 		<separator/>
@@ -159,7 +159,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Eigenschappen"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -174,7 +174,7 @@
 		<separator/>
 		<button id="ID_DOWNLOADS_EDIT" text="Informatie"/>
 		<button id="ID_DOWNLOADS_MONITOR" text="Monitor tonen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_TOOLS_DOWNLOAD" text="Downloadlink invoegen"/>
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 		<separator/>
@@ -184,7 +184,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatten"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -197,7 +197,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<button id="ID_UPLOADS_CHAT" text="Chatten"/>
 		<button id="ID_SECURITY_BAN" text="Gebruiker verbannen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="Wis voltooide bestanden"/>
 		<separator/>
 		<button id="ID_UPLOADS_FILTER_MENU" text="Filter"/>
@@ -221,7 +221,7 @@
 	<!-- LIBRARY VIEWS -->
 	<toolbar name="CLibraryTileView.Physical">
 		<button id="ID_LIBRARY_FOLDERS" text="Bestanden delen..."/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -230,7 +230,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="Album maken..."/>
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="Album verwijderen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -239,7 +239,7 @@
 	<toolbar name="CLibraryFileView.Physical.Basic">
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -256,7 +256,7 @@
 		<button id="ID_LIBRARY_MOVE" text="Verplaatsen"/>
 		<button id="ID_LIBRARY_COPY" text="Kopiëren"/>
 		<button id="ID_LIBRARY_DELETE" text="Verwijderen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -266,7 +266,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="Openen of afspelen"/>
 		<button id="ID_LIBRARY_ENQUEUE" text="Toevoegen aan afspeellijst"/>
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -280,7 +280,7 @@
 		<button id="ID_LIBRARY_PROPERTIES" text="Informatie"/>
 		<separator/>
 		<button id="ID_WEBSERVICES_LIST" text="Paslaugos Internete"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -290,7 +290,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="Album afspelen"/>
 		<separator/>
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="Alle downloaden"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="Zoeken:"/>
 		<control id="IDC_SEARCH_BOX" width="90"/>
 		<separator/>
@@ -308,7 +308,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22"/>
 		<separator/>
 		<button id="ID_MEDIA_OPEN" text="Bestand openen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS" text="Vorige"/>
 		<button id="ID_MEDIA_NEXT" text="Volgende"/>
 		<separator/>
@@ -331,7 +331,7 @@
 		<button id="ID_MEDIA_FULLSCREEN"/>
 		<button id="ID_MEDIA_ZOOM"/>
 		<button id="ID_MEDIA_SETTINGS"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_PREVIOUS"/>
 		<button id="ID_MEDIA_NEXT"/>
 		<separator/>
@@ -340,7 +340,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD"/>
 		<button id="ID_MEDIA_REMOVE"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_MEDIA_CLEAR" text="Wissen"/>
 		<button id="ID_MEDIA_SAVE" text="Opslaan"/>
 	</toolbar>
@@ -349,7 +349,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Chatten" tip="Post Commentaar"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_IRC_CONNECT" text="Verbinden" tip="Verbinden met IRC"/>
 		<button id="ID_IRC_DISCONNECT" text="Verbreek" tip="Verbreek verbinding met IRC"/>
 		<separator/>
@@ -359,7 +359,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="Gebruiker bekijken"/>
 		<button id="ID_NEIGHBOURS_CHAT" text="Chatten"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -373,7 +373,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="Verbinding verbreken"/>
 		<separator/>
 		<button id="ID_SECURITY_BAN" text="Gastheer verbannen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_NETWORK_G2" text="Gnutella2"/>
 		<button id="ID_NETWORK_G1" text="Gnutella"/>
 		<button id="ID_NETWORK_ED2K" text="eDonkey"/>
@@ -389,7 +389,7 @@
 		<separator/>
 		<button id="ID_SECURITY_MOVE_UP" text="Verplaats Omhoog"/>
 		<button id="ID_SECURITY_MOVE_DOWN" text="Verplaats Omlaag"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SECURITY_RESET" text="Hits Herinitialiseren"/>
 		<button id="ID_SECURITY_IMPORT" text="Lijst Importeren"/>
 		<button id="ID_SECURITY_EXPORT" text="Lijst Exporteren"/>
@@ -403,7 +403,7 @@
 		<separator/>
 		<button id="ID_SCHEDULER_ACTIVATE" text="Activate"/>
 		<button id="ID_SCHEDULER_DEACTIVATE" text="Deactivate"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SCHEDULER_REMOVE_ALL" text="Herinitialiseren"/>
 		<separator/>
 		<button id="ID_SCHEDULER_IMPORT" text="Importeren"/>
@@ -416,7 +416,7 @@
 		<button id="ID_HITMONITOR_SEARCH" text="Heropvragen"/>
 		<button id="ID_HITMONITOR_PAUSE" text="Pauzeren"/>
 		<button id="ID_HITMONITOR_CLEAR" text="Wissen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_SEARCH_FILTER_RAW" text="Filteren:" tip="Geef een paar woorden op om het resultaat mee te filteren"/>
 		<control id="IDC_FILTER_BOX" width="80"/>
 	</toolbar>
@@ -426,7 +426,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="Verbinden met..."/>
 		<button id="ID_HOSTCACHE_DISCONNECT" text="Verbinding verbreken"/>
 		<button id="ID_HOSTCACHE_REMOVE" text="Verwijderen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="Cluster"/>
 		<button id="ID_HOSTCACHE_G2_CACHE" text="Cache"/>
 		<button id="ID_HOSTCACHE_G1_CACHE" text="Cache"/>
@@ -474,7 +474,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="Passende grootte"/>
 		<separator/>
 		<button id="PluginID_ImageViewer_Refresh" text="Vernieuwen"/>
-		<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="Sluiten"/>
 	</toolbar>
 </toolbars>
@@ -594,8 +594,8 @@
 				<menu text="_Websites">
 					<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-					<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+					<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -693,8 +693,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -760,8 +760,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -811,7 +811,7 @@
 			<item id="ID_LIBRARY_FOLDERS" text="_Bestanden delen..."/>
 			<item id="ID_TOOLS_DOWNLOAD" text="Downloadlink _invoegen..."/>
 			<item id="ID_IMPORT_DOWNLOADS" text="_Importeer gedeeltelijke eMule downloads..."/>
-			 <item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open mijn map met complete downloads"/>
+			<item id="ID_OPEN_DOWNLOADS_FOLDER" text="_Open mijn map met complete downloads"/>
 			<separator/>
 			<item id="ID_TOOLS_SKIN" text="Een _skin kiezen..."/>
 			<item id="ID_TOOLS_LANGUAGE" text="Een _taal kiezen..."/>
@@ -849,8 +849,8 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!-- <item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
@@ -1923,7 +1923,7 @@
 		<text format="b">Welkom bij PeerProject's instellingenbeheerder</text>
 		<newline gap="16"/>
 		<text>Met behulp van PeerProject's instellingenbeheerder kunnen ervaren gebruikers PeerProject volledig
-			naar hun eigen wensen aanpassen. De instellingen in de sectie </text>
+		naar hun eigen wensen aanpassen. De instellingen in de sectie </text>
 		<text format="b">Verkeer </text>
 		<text>regelen hoe PeerProject samenwerkt met andere nodes binnen de ondersteunde P2P netwerken.</text>
 		<newline gap="16" indent="16"/>
@@ -2240,12 +2240,10 @@
 	<document name="SearchHelp.BadSearch3">
 		<text format="b">Formuleer de zoekopdracht anders</text>
 		<newline gap="8"/>
-		<text>Deze zoekopdracht bevat blijkbaar enkel bekende bestandsextenties of geen opzoekbare
-		woorden.</text>
+		<text>Deze zoekopdracht bevat blijkbaar enkel bekende bestandsextenties of geen opzoekbare woorden.</text>
 		<newline gap="8"/>
 		<text>Als je moeilijkheden ondervindt bij het uitvoeren van zoekopdrachten, bedenk dat het gelijkaardig is
-		aan een internetzoekopdracht. Specifieke termen of zinnen zijn het best unieke namen, titels en
-		sleutelwoorden.</text>
+		aan een internetzoekopdracht. Specifieke termen of zinnen zijn het best unieke namen, titels en sleutelwoorden.</text>
 		<newline gap="8"/>
 		<text>Standaardtermen kunnen ook niet effeciënt gebruikt worden in zoekopdrachten en kunnen leiden tot slechte
 		zoekresultaten en hoog bandbreedteverbruik tijdens de zoekopdracht.</text>
@@ -2260,7 +2258,7 @@
 		of de filter uitschakelen.</text>
 		<newline gap="8"/>
 		<text>Om de filter uit te schakelen, ga naar Hulpmiddelen > PeerProject instellingen > Algemeen en vink de
-		 volwasseninhoud filter uit.</text>
+		volwasseninhoud filter uit.</text>
 	</document>
 	<!-- Share help documents -->
 	<document name="ShareHelp.AlreadyShared">

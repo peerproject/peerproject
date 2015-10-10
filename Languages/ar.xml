@@ -3,7 +3,7 @@
 
 <!-- PeerProject Arabic Language Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r125 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -87,7 +87,7 @@
 	<toolbar name="CSearchWnd.Panel.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل" />
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
@@ -99,7 +99,7 @@
 		<separator />
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign />
+		<rightalign />
 		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
@@ -113,7 +113,7 @@
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل" />
 		<button id="ID_BROWSE_LAUNCH" text="تصفح لمستخدم" />
 		<button id="ID_SECURITY_BAN" text="Ban"/>
-		<rightAlign />
+		<rightalign />
 		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
@@ -132,7 +132,7 @@
 	<toolbar name="CBrowseHostWnd.Basic">
 		<button id="ID_SEARCH_DOWNLOAD" text="تحميل الملف" />
 		<button id="ID_SEARCH_CHAT" text="محادثة المستخدم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
@@ -144,7 +144,7 @@
 		<button id="ID_BROWSE_REFRESH" text="تحديث" />
 		<separator />
 		<button id="ID_SEARCH_CHAT" text="محادثة المستخدم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_SEARCH_FILTER_RAW" text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<separator />
@@ -163,7 +163,7 @@
 		<separator />
 		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
 	</toolbar>
 	<toolbar name="CDownloadsWnd">
@@ -178,7 +178,7 @@
 		<separator />
 		<button id="ID_DOWNLOADS_EDIT" text="معلومات" />
 		<button id="ID_DOWNLOADS_MONITOR" text="إظهار الشاشة" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_TOOLS_DOWNLOAD" text="اضافة تحميل/Torrent..." />
 		<button id="ID_DOWNLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
 		<separator />
@@ -188,7 +188,7 @@
 	<toolbar name="CUploadsWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
 		<button id="ID_UPLOADS_CHAT" text="محادثة المستخدم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
 	</toolbar>
 	<toolbar name="CUploadsWnd">
@@ -201,7 +201,7 @@
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
 		<button id="ID_UPLOADS_CHAT" text="محادثة المستخدم" />
 		<button id="ID_SECURITY_BAN" text="حظر المضيف" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_UPLOADS_CLEAR_COMPLETED" text="تم اكمال المسح" />
 		<separator />
 		<button id="ID_UPLOADS_FILTER_MENU" text="فرز" />
@@ -226,7 +226,7 @@
 	<toolbar name="CLibraryTileView.Virtual">
 		<button id="ID_LIBRARY_FOLDER_NEW" text="إنشاء الألبوم..." />
 		<button id="ID_LIBRARY_ALBUM_DELETE" text="حذف الألبوم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -236,7 +236,7 @@
 		<button id="ID_LIBRARY_LAUNCH" text="فتح او تشغيل" />
 		<button id="ID_LIBRARY_ENQUEUE" text="اضافه الى قائمة التشغيل" />
 		<separator />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -253,7 +253,7 @@
 		<button id="ID_LIBRARY_MOVE" text="نقل" />
 		<button id="ID_LIBRARY_COPY" text="نسخ" />
 		<button id="ID_LIBRARY_DELETE" text="حذف" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -264,7 +264,7 @@
 		<button id="ID_LIBRARY_ENQUEUE" text="اضافه الى قائمة التشغيل" />
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="تشغيل الألبوم" />
 		<separator />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -277,7 +277,7 @@
 		<separator />
 		<button id="ID_LIBRARY_PROPERTIES" text="خصائص" />
 		<button id="ID_WEBSERVICES_LIST" text="خدمات ويب" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -287,7 +287,7 @@
 		<button id="ID_LIBRARY_FOLDER_ENQUEUE" text="تشغيل الألبوم كاملاً" />
 		<separator />
 		<button id="ID_LIBRARY_FOLDER_DOWNLOAD" text="تحميل كافة الملفات" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_LIBRARY_SEARCH_QUICK" text="بحث" />
 		<control id="IDC_SEARCH_BOX" width="90" />
 		<separator />
@@ -305,7 +305,7 @@
 		<control id="IDC_MEDIA_VOLUME" width="50" height="22" />
 		<separator />
 		<button id="ID_MEDIA_OPEN" text="فتح ملف" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_MEDIA_PREVIOUS" text="السابق" />
 		<button id="ID_MEDIA_NEXT" text="التالي" />
 		<separator />
@@ -328,7 +328,7 @@
 		<button id="ID_MEDIA_FULLSCREEN" />
 		<button id="ID_MEDIA_ZOOM" />
 		<button id="ID_MEDIA_VIS" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_MEDIA_PREVIOUS" />
 		<button id="ID_MEDIA_NEXT" />
 		<separator />
@@ -337,7 +337,7 @@
 	<toolbar name="CMediaList">
 		<button id="ID_MEDIA_ADD" />
 		<button id="ID_MEDIA_REMOVE" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_MEDIA_CLEAR" text="إزالة" />
 		<button id="ID_MEDIA_SAVE" text="حفظ" />
 	</toolbar>
@@ -346,7 +346,7 @@
 		<button id="ID_IRC_SENDTEXT" text="Send" tip="تعليقات"/>
 		<separator/>
 		<button id="ID_IRC_CLOSETAB" text="Close" tip="Exit Current Channel Window"/>
-		<rightAlign />
+		<rightalign />
 		<button id="ID_IRC_CONNECT" text="إتصال" tip="الإتصال بـ IRC" />
 		<button id="ID_IRC_DISCONNECT" text="قطع الإتصال" tip="قطع الإتصال من IRC" />
 		<separator/>
@@ -356,7 +356,7 @@
 	<toolbar name="CNeighboursWnd.Basic">
 		<button id="ID_BROWSE_LAUNCH" text="معلومات عن المستخدم" />
 		<button id="ID_NEIGHBOURS_CHAT" text="محادثة المستخدم" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
 		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
@@ -368,7 +368,7 @@
 		<button id="ID_NEIGHBOURS_DISCONNECT" text="قطع الإتصال" />
 		<separator />
 		<button id="ID_SECURITY_BAN" text="حظر مضيف" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_NETWORK_G2" text="Gnutella2" />
 		<button id="ID_NETWORK_G1" text="Gnutella" />
 		<button id="ID_NETWORK_ED2K" text="eDonkey" />
@@ -386,7 +386,7 @@
 		<separator />
 		<button id="ID_HITMONITOR_PAUSE" text="إيقاف مؤقت" />
 		<button id="ID_HITMONITOR_CLEAR" text="مسح" />
-		<rightAlign />
+		<rightalign />
 		<label text="فرز:" tip="بعض الكلمات لفرز النتائج مع" />
 		<control id="IDC_FILTER_BOX" width="80" />
 		<button id="ID_SEARCH_FILTER_RAW" text="المزيد..." />
@@ -397,7 +397,7 @@
 		<button id="ID_HOSTCACHE_CONNECT" text="الإتصال بـ" />
 		<button id="ID_HOSTCACHE_DISCONNECT" text="قطع الإتصال" />
 		<button id="ID_HOSTCACHE_REMOVE" text="إزالة" />
-		<rightAlign />
+		<rightalign />
 		<button id="ID_HOSTCACHE_G2_HORIZON" text="كتلة" />
 		<button id="ID_HOSTCACHE_G2_CACHE" text="مخزون مؤقت" />
 		<button id="ID_HOSTCACHE_G1_CACHE" text="مخزون مؤقت" />
@@ -445,7 +445,7 @@
 		<button id="PluginID_ImageViewer_BestFit" text="أفضل تناسب" />
 		<separator />
 		<button id="PluginID_ImageViewer_Refresh" text="تحديث" />
-			<rightAlign/>
+		<rightalign/>
 		<button id="PluginID_ImageViewer_Close" text="إغلاق" />
 	</toolbar>
 </toolbars>
@@ -568,7 +568,7 @@
 					<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 					<separator />
 					<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-					<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+					<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
 				<separator/>
@@ -668,7 +668,7 @@
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..."/>
@@ -736,8 +736,8 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject.org" />
 				<separator />
 				<item id="ID_HELP_FORUMS" text="_منتديات PeerProject" />
-				<!-- <item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!--item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator />
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject ..." />
@@ -833,7 +833,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _منتديات"/>
 				<item id="ID_HELP_UPDATE" text="آخر الأخبار"/>
-				<!-- <item id="ID_HELP_WEB_1" text="Zeropaid.com"/> -->
+				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator />
 			<item id="ID_HELP_ABOUT" text="_معلومات عن PeerProject..." />
@@ -2189,10 +2189,10 @@
 		<text format="b">الرجاء إعادة كتابة عبارة البحث</text>
 		<newline gap="8" />
 		<text>هذا البحث لا يحتوي شروط كافية . جميع عمليات البحث تحتاج
-			 إلى أقل عدد من الرموز الحرفية للعثور على نتائج لها</text>
+			إلى أقل عدد من الرموز الحرفية للعثور على نتائج لها</text>
 		<newline gap="8" />
 		<text>للبحث عن إمتدادات الملفات المشتركة
-			 (و الأعداد) يجب
+			(و الأعداد) يجب
 			أن تدخل شروط أخرى أيضا مثل الفواصل و علامات التنقيط و كلمات البدل</text>
 	</document>
 	<document name="SearchHelp.BadSearch3">

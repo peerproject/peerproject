@@ -1,7 +1,7 @@
 //
 // LocalSearch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -177,7 +177,7 @@ bool CLocalSearch::Execute(INT_PTR nMaximum, bool bPartial, bool bShared)
 bool CLocalSearch::ExecutePartialFiles(INT_PTR nMaximum, INT_PTR& nHits)
 {
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( ! pLock.Lock( 250 ) )
+	if ( ! pLock.Lock( 150 ) )
 		return false;
 
 	// Browse request, or no partials requested, or non Gnutella 2 request
@@ -273,7 +273,7 @@ void CLocalSearch::SendHits(const CList< T* >& oFiles)
 		if ( ! pPacket )
 			pPacket = CreatePacket();
 
-		AddHit( pPacket, pSchemas, oFiles.GetNext( pos ), nHits ++ );
+		AddHit( pPacket, pSchemas, oFiles.GetNext( pos ), nHits++ );
 
 		// Send full packet
 		if ( m_nProtocol == PROTOCOL_DC ||		// One hit per packet in DC++ protocol
@@ -322,7 +322,7 @@ void CLocalSearch::AddHit< CLibraryFile >(CPacket* pPacket, CSchemaMap& pSchemas
 	}
 }
 
-void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFile * pFile, int nIndex)
+void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFile* pFile, int nIndex)
 {
 	const QWORD nFileSize = pFile->GetSize();
 
@@ -432,7 +432,7 @@ void CLocalSearch::AddHitG1(CG1Packet* pPacket, CSchemaMap& pSchemas, CLibraryFi
 	}
 }
 
-void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibraryFile * pFile, int /*nIndex*/)
+void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CLibraryFile* pFile, int /*nIndex*/)
 {
 	// Pass 1: Calculate child group size
 	// Pass 2: Write the child packet
@@ -935,7 +935,7 @@ void CLocalSearch::AddHitG2(CG2Packet* pPacket, CSchemaMap& /*pSchemas*/, CDownl
 	while ( bCalculate );
 }
 
-void CLocalSearch::AddHitDC(CDCPacket* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload * /*pDownload*/, int /*nIndex*/)
+void CLocalSearch::AddHitDC(CDCPacket* /*pPacket*/, CSchemaMap& /*pSchemas*/, CDownload* /*pDownload*/, int /*nIndex*/)
 {
 	// ToDo: Add DC++ active-download hit packet
 }

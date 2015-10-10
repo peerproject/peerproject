@@ -1,7 +1,7 @@
 ; This sub-script lists extra PeerProject settings that should be written at installation time
 
 [Registry]
-; Enable Defualt Theme (SkinVista)
+; Enable Default Theme (SkinVista)
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinEightAlt.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinEight|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Skins"; ValueType: dword; ValueName: "SkinVista\SkinEightAltFrames.xml"; ValueData: "{ini:{param:SETTINGS|},Skins,SkinEight|1}"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\MediaPlayer"; ValueType: dword; ValueName: "ListSize"; ValueData: 139 ;				Flags: createvalueifdoesntexist uninsdeletekey
@@ -115,10 +115,10 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 ; Set Defaults
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "http://tracker.publicbt.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
-;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "http://tracker.istole.it/announce"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "udp://open.demonii.com:1337"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword; ValueName: "Count"; ValueData: 3; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "udp://open.demonii.com:1337"; Flags: createvalueifdoesntexist uninsdeletekey
+;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "http://tracker.publicbt.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "004.URL"; ValueData: "http://tracker.istole.it/announce"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword; ValueName: "Count"; ValueData: 2; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Disable extensions for plugins that have trouble (?)
 ; For image services plugin we need to add extensions required for the first run

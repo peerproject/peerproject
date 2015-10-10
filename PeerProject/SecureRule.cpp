@@ -1,7 +1,7 @@
 //
 // SecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2012-2014
+// This file is part of PeerProject (peerproject.org) © 2012-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -129,10 +129,10 @@ BOOL CSecureRule::Match(LPCTSTR pszContent) const
 		return FALSE;
 
 	if ( m_nType == srContentHash )	// urn:
-		return pszContent[3] == ':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
+		return pszContent[3] == L':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
 
 	if ( m_nType == srSizeType )	// size:
-		return pszContent[4] == ':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
+		return pszContent[4] == L':' && _tcsistr( pszContent, (LPCTSTR)m_pContent ) != NULL;
 
 	for ( LPCTSTR pszFilter = m_pContent ; *pszFilter ; )
 	{
@@ -164,7 +164,7 @@ BOOL CSecureRule::Match(const CPeerProjectFile* pFile) const
 			return FALSE;
 
 		LPCTSTR pszExt = PathFindExtension( (LPCTSTR)pFile->m_sName );
-		if ( *pszExt != '.' )
+		if ( *pszExt != L'.' )
 			return FALSE;
 		pszExt++;
 
@@ -383,7 +383,7 @@ CString CSecureRule::GetContentWords() const
 	for ( LPCTSTR pszFilter = m_pContent ; *pszFilter ; )
 	{
 		if ( ! strWords.IsEmpty() )
-			strWords += ' ';
+			strWords += L' ';
 		strWords += pszFilter;
 
 		pszFilter += _tcslen( pszFilter ) + 1;
@@ -463,7 +463,7 @@ void CSecureRule::Serialize(CArchive& ar, int /*nVersion*/)
 			//		{
 			//			CString strWord;
 			//			ar >> strWord;
-			//			strTemp += ' ' + strWord;
+			//			strTemp += L' ' + strWord;
 			//		}
 			//	}
 			//}
@@ -573,7 +573,7 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 		m_nType = srAddress;
 
 		strValue = pXML->GetAttributeValue( L"address" );
-		if ( _stscanf( strValue, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		if ( _stscanf( strValue, L"%i.%i.%i.%i", &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nIP[0] = (BYTE)x[0];
 			m_nIP[1] = (BYTE)x[1];
@@ -582,7 +582,7 @@ BOOL CSecureRule::FromXML(CXMLElement* pXML)
 		}
 
 		strValue = pXML->GetAttributeValue( L"mask" );
-		if ( _stscanf( strValue, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) == 4 )
+		if ( _stscanf( strValue, L"%i.%i.%i.%i", &x[0], &x[1], &x[2], &x[3] ) == 4 )
 		{
 			m_nMask[0] = (BYTE)x[0];
 			m_nMask[1] = (BYTE)x[1];
@@ -692,7 +692,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	CString strAddress = str.Left( nPos );
 	str = str.Mid( nPos + 1 );
 
-	if ( _stscanf( strAddress, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) != 4 )
+	if ( _stscanf( strAddress, L"%i.%i.%i.%i", &x[0], &x[1], &x[2], &x[3] ) != 4 )
 		return FALSE;
 
 	m_nIP[0] = (BYTE)x[0]; m_nIP[1] = (BYTE)x[1];
@@ -704,7 +704,7 @@ BOOL CSecureRule::FromGnucleusString(CString& str)
 	{
 		strAddress = strAddress.Mid( nPos + 1 );
 
-		if ( _stscanf( strAddress, L"%lu.%lu.%lu.%lu", &x[0], &x[1], &x[2], &x[3] ) != 4 )
+		if ( _stscanf( strAddress, L"%i.%i.%i.%i", &x[0], &x[1], &x[2], &x[3] ) != 4 )
 			return FALSE;
 
 		for ( int nByte = 0 ; nByte < 4 ; nByte++ )
@@ -867,7 +867,8 @@ void CSecureRule::ToList(CLiveList* pLiveList, int nCount, DWORD tNow) const
 	else if ( m_nExpire >= tNow )
 	{
 		const DWORD nTime = ( m_nExpire - tNow );
-		pItem->Format( COL_SECURITY_EXPIRES, L"%ud %uh %um", nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
+		pItem->Format( COL_SECURITY_EXPIRES, L"%ud %uh %um",
+			nTime / 86400u, (nTime % 86400u) / 3600u, ( nTime % 3600u ) / 60u );
 		//pItem->Format( COL_EXPIRES, L"%i:%.2i:%.2i", nTime / 3600, ( nTime % 3600 ) / 60, nTime % 60 );
 	}
 

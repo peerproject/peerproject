@@ -1,7 +1,7 @@
 //
 // LibraryBuilderInternals.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1491,7 +1491,7 @@ DWORD CLibraryBuilderInternals::GetBestLanguageId(LPVOID pBuffer)
 
 		DWORD nSublang = 0;
 		// Read the langid just after StringFileInfo block
-		swscanf_s( pLanguage, L"%4x%4x", &nLangCode, &nSublang );
+		swscanf_s( pLanguage, L"%4lx%4lx", &nLangCode, &nSublang );
 		nLangCode += ( nSublang << 16 );
 
 		return nLangCode;
@@ -3785,17 +3785,14 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		{
 			strLine = ReadPDFLine( hFile, false );
 			strLine.Trim();
-			if ( strLine.GetLength() != 18 || strLine.GetAt( 10 ) != ' ' )
+			if ( strLine.GetLength() != 18 || strLine.GetAt( 10 ) != L' ' )
 				return false;
-			if ( strLine.GetAt( 17 ) == 'n' )
+			if ( strLine.GetAt( 17 ) == L'n' )
 			{
 				LPCTSTR pszInt = strLine;
 				for ( ; *pszInt == '0' ; pszInt++ );
-				if ( *pszInt != 0 )
-				{
-					if ( _stscanf( pszInt, L"%lu", &pOffset[ nObjectNo ] ) != 1 )
-						return false;
-				}
+				if ( *pszInt != 0 && _stscanf( pszInt, L"%lu", &pOffset[ nObjectNo ] ) != 1 )
+					return false;
 			}
 		}
 		strLine = ReadPDFLine( hFile, false );
@@ -3814,7 +3811,7 @@ bool CLibraryBuilderInternals::ReadPDF(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 			strLine = ReadPDFLine( hFile, false, true );
 		while ( ! strLine.IsEmpty() )
 		{
-			int nData = strLine.Find( L" " );
+			int nData = strLine.Find( L' ' );
 			if ( nData > 0 )
 			{
 				CString strEntry = strLine.Left( nData );
@@ -4554,20 +4551,19 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 	CString strTemp;
 	TCHAR *pszBuffer = NULL;
 	UINT nCodePage = CP_ACP;
-	DWORD nCwc;
-	DWORD_PTR charSet = DEFAULT_CHARSET;
 	bool bHasTitle = false;
 
 	// Find default ANSI codepage for given LCID
 	DWORD nLength = GetLocaleInfo( nLCID, LOCALE_IDEFAULTANSICODEPAGE, NULL, 0 );
 	pszBuffer = (TCHAR*)LocalAlloc( LPTR, ( nLength + 1 ) * sizeof( TCHAR ) );
-	nCwc = GetLocaleInfo( nLCID, LOCALE_IDEFAULTANSICODEPAGE, pszBuffer, nLength );
+	DWORD nCwc = GetLocaleInfo( nLCID, LOCALE_IDEFAULTANSICODEPAGE, pszBuffer, nLength );
 	if ( nCwc > 0 )
 	{
+		DWORD charSet = DEFAULT_CHARSET;
 		strTemp = pszBuffer;
 		strTemp = strTemp.Left( nCwc - 1 );
-		_stscanf( strTemp, L"%lu", &charSet );
-		if ( TranslateCharsetInfo( (LPDWORD)charSet, &csInfo, TCI_SRCCODEPAGE ) )
+		_stscanf( strTemp, L"%lu", charSet );	// ToDo: Is this right?
+		if ( TranslateCharsetInfo( (LPDWORD)(DWORD_PTR)charSet, &csInfo, TCI_SRCCODEPAGE ) )
 			nCodePage = csInfo.ciACP;
 	}
 	SetFilePointer( hFile, nPos, NULL, FILE_BEGIN );
@@ -4603,8 +4599,6 @@ bool CLibraryBuilderInternals::ReadCHM(DWORD nIndex, HANDLE hFile, LPCTSTR pszPa
 		pszOutput[ nWide ] = 0;
 		strLine.ReleaseBuffer();
 		strLine.Trim();
-
-		int nPos;
 
 		switch ( nCount )
 		{
@@ -4723,9 +4717,7 @@ bool CLibraryBuilderInternals::ReadDJVU(DWORD nIndex, HANDLE hFile)
 			SetFilePointer( hFile, 4 * nFiles, NULL, FILE_CURRENT );
 
 		// BZZ-encoded
-		//for ( WORD i = 0; i < nFiles; ++i )
-		//{
-		//}
+		//for ( WORD i = 0; i < nFiles; ++i ){}
 
 		// ToDo: Implement DjVU-file correct page detection
 	}
@@ -4770,12 +4762,14 @@ bool CLibraryBuilderInternals::ReadDJVU(DWORD nIndex, HANDLE hFile)
 		strPages.Format( L"%u", nPages );
 		pXML->AddAttribute( L"pages", strPages );
 	}
+
 	if ( nWidth )
 	{
 		CString strWidth;
 		strWidth.Format( L"%u", nWidth );
 		pXML->AddAttribute( L"width", strWidth );
 	}
+
 	if ( nHeight )
 	{
 		CString strHeight;

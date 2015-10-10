@@ -1,7 +1,7 @@
 //
 // BitprintsDownloader.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -278,12 +278,11 @@ BOOL CBitprintsDownloader::ExecuteRequest()
 	TCHAR szStatusCode[32];
 	DWORD nStatusCode = 0, nStatusLen = 32;
 
-	if ( ! HttpQueryInfo( m_hRequest, HTTP_QUERY_STATUS_CODE, szStatusCode,
-		&nStatusLen, NULL ) )
+	if ( ! HttpQueryInfo( m_hRequest, HTTP_QUERY_STATUS_CODE, szStatusCode, &nStatusLen, NULL ) )
 		return FALSE;
 
-	if ( _stscanf( szStatusCode, L"%u", &nStatusCode ) != 1 ||
-		nStatusCode < 200 || nStatusCode > 299 )
+	if ( _stscanf( szStatusCode, L"%lu", &nStatusCode ) != 1 ||
+		 nStatusCode < 200 || nStatusCode > 299 )
 		return FALSE;
 
 	LPBYTE pResponse = NULL;

@@ -124,7 +124,8 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_WM_GETMINMAXINFO()
 	ON_WM_ENDSESSION()
 	ON_WM_MENUCHAR()
-	//ON_WM_COPYDATA()
+	ON_WM_COPYDATA()	// Note: Scheduler not implemented
+	ON_WM_QUERYENDSESSION()
 	ON_WM_POWERBROADCAST()
 	ON_WM_WINDOWPOSCHANGING()
 	ON_MESSAGE(WM_WINSOCK, OnWinsock)
@@ -667,6 +668,15 @@ void CMainWnd::RemoveSkin()
 	CFilePreviewDlg::OnSkinChange( FALSE );
 	m_wndRemoteWnd.RemoveSkin();
 	m_wndNavBar.RemoveSkin();
+}
+
+BOOL CMainWnd::OnQueryEndSession()
+{
+	UpdateWindow();
+
+	CMDIFrameWnd::OnQueryEndSession();
+
+	return FALSE;
 }
 
 void CMainWnd::OnEndSession(BOOL bEnding)

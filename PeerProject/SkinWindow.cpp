@@ -356,7 +356,7 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 			else if ( ! strRes.IsEmpty() )
 			{
 				UINT nResID = 0;
-				if ( _stscanf( strRes, L"%lu", &nResID ) != 1 )
+				if ( _stscanf( strRes, L"%u", &nResID ) != 1 )
 				{
 					theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown [res] attribute in [image] element", pGroup->ToString() );
 					continue;
@@ -439,9 +439,9 @@ BOOL CSkinWindow::Parse(CXMLElement* pBase, const CString& strPath)
 		else if ( pGroup->IsNamed( L"minimumSize" ) )
 		{
 			str = pGroup->GetAttributeValue( L"width" );
-			_stscanf( str, L"%i", &m_szMinSize.cx );
+			_stscanf( str, L"%li", &m_szMinSize.cx );
 			str = pGroup->GetAttributeValue( L"height" );
-			_stscanf( str, L"%i", &m_szMinSize.cy );
+			_stscanf( str, L"%li", &m_szMinSize.cy );
 		}
 		else
 			theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Unknown element in [windowSkin] element", pGroup->ToString() );

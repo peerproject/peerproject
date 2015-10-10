@@ -11,7 +11,7 @@
 #ifdef _WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
-#else
+#else /* _WIN32 */
 #include <unistd.h>
 //#if defined(__amigaos__) && !defined(__amigaos4__)
 //#define socklen_t int
@@ -81,9 +81,10 @@ receivedata(int socket,
 	}
 #endif	/* !defined(_WIN32) */
 #if MINIUPNPC_GET_SRC_ADDR
+	memset(&src_addr, 0, sizeof(src_addr));
 	n = recvfrom(socket, data, length, 0,
 				 (struct sockaddr *)&src_addr, &src_addr_len);
-#else
+#else	/* MINIUPNPC_GET_SRC_ADDR */
 	n = recv(socket, data, length, 0);
 #endif	/* MINIUPNPC_GET_SRC_ADDR */
 	if(n<0) {

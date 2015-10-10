@@ -1,7 +1,7 @@
 //
 // RichViewCtrl.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -121,7 +121,8 @@ BOOL CRichViewCtrl::IsModified() const
 
 void CRichViewCtrl::InvalidateIfModified()
 {
-	if ( m_pDocument != NULL && m_pDocument->m_nCookie != m_nCookie ) Invalidate();
+	if ( m_pDocument != NULL && m_pDocument->m_nCookie != m_nCookie )
+		Invalidate();
 }
 
 int CRichViewCtrl::FullHeightMove(int nX, int nY, int nWidth, BOOL bShow)
@@ -518,8 +519,8 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 	int nLeftPoint	= pRect->left;
 	int nWidth		= pRect->Width();
-	int nLineHeight	= 0;
 	int nAlign		= reaLeft;
+	int nLineHeight = 0;
 
 	CRichFragment* pFrag = NULL;
 	CList< CRichFragment* > pLine;
@@ -538,7 +539,7 @@ void CRichViewCtrl::Layout(CDC* pDC, CRect* pRect)
 
 			int nGap = 0, nIndent = 0;
 
-			if ( _stscanf( pElement->m_sText, L"%lu.%lu", &nGap, &nIndent ) == 2 )
+			if ( _stscanf( pElement->m_sText, L"%i.%i", &nGap, &nIndent ) == 2 )
 			{
 				nLeftPoint	= pRect->left + nIndent;
 				nWidth		= pRect->right - nIndent;

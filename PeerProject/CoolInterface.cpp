@@ -42,12 +42,12 @@ CCoolInterface::CCoolInterface()
 	m_czBuffer = CSize( 0, 0 );
 
 	// Experimental values
-	m_pNameMap.InitHashTable( 509 );
-	m_pImageMap16.InitHashTable( 347 );
-	//m_pImageMap24.InitHashTable( 347 );
-	m_pImageMap32.InitHashTable( 61 );
-	m_pImageMap48.InitHashTable( 61 );
-	m_pWindowIcons.InitHashTable( 61 );
+	m_pNameMap.InitHashTable( 580 );
+	m_pImageMap16.InitHashTable( 240 );
+	//m_pImageMap24.InitHashTable( 240 );
+	m_pImageMap32.InitHashTable( 20 );
+	m_pImageMap48.InitHashTable( 20 );
+	m_pWindowIcons.InitHashTable( 20 );
 }
 
 CCoolInterface::~CCoolInterface()
@@ -114,6 +114,10 @@ void CCoolInterface::NameCommand(UINT nID, LPCTSTR pszName)
 	//CQuickLock oLock( m_pSection );
 
 	m_pNameMap.SetAt( pszName, nID );
+
+//#ifdef _DEBUG
+//	theApp.Message( MSG_INFO, L"NameMap: %i", (int)m_pNameMap.GetCount() );
+//#endif
 }
 
 UINT CCoolInterface::NameToID(LPCTSTR pszName) const
@@ -689,10 +693,9 @@ BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 	if ( ! theApp.m_pfnSetWindowTheme )
 		return FALSE;	// Win2K
 
-	if ( bEnable )
-		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) );
-	else
-		return SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
+	return bEnable ?
+		SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) ) :
+		SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
 }
 
 void CCoolInterface::FixThemeControls(CWnd* pWnd, BOOL bForce /*=TRUE*/)
