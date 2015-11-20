@@ -176,6 +176,7 @@ public:
 protected:
 	BOOL		LoadNavBar(CXMLElement* pBase);
 	BOOL		LoadOptions(CXMLElement* pBase);
+	bool		LoadOptionBool(const CString str, bool bDefault = false);
 
 private:
 	CSkin(const CSkin&);

@@ -95,8 +95,7 @@ BOOL CSplashDlg::OnInitDialog()
 {
 	CDialog::OnInitDialog();
 
-//	if ( ! theApp.m_bIsWin2000 )
-//		SetClassLongPtr( GetSafeHwnd(), GCL_STYLE, GetClassLongPtr( GetSafeHwnd(), GCL_STYLE ) | CS_SAVEBITS | CS_DROPSHADOW );
+//	SetClassLongPtr( GetSafeHwnd(), GCL_STYLE, GetClassLongPtr( GetSafeHwnd(), GCL_STYLE ) | CS_SAVEBITS | CS_DROPSHADOW );
 
 	SetWindowText( m_sState );
 

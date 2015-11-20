@@ -1,7 +1,7 @@
 //
 // WizardSheet.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -41,6 +41,7 @@ static char THIS_FILE[] = __FILE__;
 #endif	// Debug
 
 #define CONTROLBAR_HEIGHT	44
+#define BUTTON_GAP			8
 
 /////////////////////////////////////////////////////////////////////////////
 // CWizardSheet
@@ -106,8 +107,7 @@ BOOL CWizardSheet::OnInitDialog()
 
 	CRect rc;
 	GetClientRect( &rc );
-
-	CString strMessage;
+	const int nCenter = rc.Width() / 2 + 1;		// Accomodate HighDPI
 
 	SetIcon( CoolInterface.ExtractIcon( IDR_MAINFRAME, FALSE ), FALSE );
 	SetFont( &theApp.m_gdiFont );
@@ -115,37 +115,41 @@ BOOL CWizardSheet::OnInitDialog()
 //	LoadString( IDS_WIZARD );
 //	SetWindowText( strMessage );
 
-	GetDlgItem( ID_WIZBACK )->GetWindowRect( &rc );
-	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 6 - rc.left, -1 );
-	GetDlgItem( ID_WIZBACK )->MoveWindow( &rc );
+	if ( GetDlgItem( IDCANCEL ) )
+	{
+		GetDlgItem( IDCANCEL )->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		rc.OffsetRect( ( nCenter - rc.Width() - BUTTON_GAP - ( rc.Width() / 2 ) ) - rc.left, -1 );
+		GetDlgItem( IDCANCEL )->MoveWindow( &rc );
+		GetDlgItem( IDCANCEL )->SetWindowText( LoadString( IDS_WIZARD_EXIT ) );
+	}
 
-	GetDlgItem( ID_WIZNEXT )->GetWindowRect( &rc );
-	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 88 - rc.left, -1 );
-	GetDlgItem( ID_WIZNEXT )->MoveWindow( &rc );
-
-	LoadString( strMessage, IDS_GENERAL_FINISH );
-	GetDlgItem( ID_WIZFINISH )->MoveWindow( &rc );
-	GetDlgItem( ID_WIZFINISH )->SetWindowText( strMessage );
-
-	LoadString( strMessage, IDS_GENERAL_BACK );
 	if ( GetDlgItem( ID_WIZBACK ) )
-		GetDlgItem( ID_WIZBACK )->SetWindowText( L"< " + strMessage );
-	LoadString( strMessage, IDS_GENERAL_NEXT );
+	{
+		GetDlgItem( ID_WIZBACK )->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		rc.OffsetRect( ( nCenter - ( rc.Width() / 2 ) ) - rc.left, -1 );
+		GetDlgItem( ID_WIZBACK )->MoveWindow( &rc );
+		GetDlgItem( ID_WIZBACK )->SetWindowText( L"< " + LoadString( IDS_GENERAL_BACK ) );
+	}
+
 	if ( GetDlgItem( ID_WIZNEXT ) )
-		GetDlgItem( ID_WIZNEXT )->SetWindowText( strMessage + L" >" );
+	{
+		GetDlgItem( ID_WIZNEXT )->GetWindowRect( &rc );
+		ScreenToClient( &rc );
+		rc.OffsetRect( ( nCenter + BUTTON_GAP + ( rc.Width() / 2 ) ) - rc.left, -1 );
+		GetDlgItem( ID_WIZNEXT )->MoveWindow( &rc );
+		GetDlgItem( ID_WIZNEXT )->SetWindowText( LoadString( IDS_GENERAL_NEXT ) + L" >" );
 
-	GetDlgItem( IDCANCEL )->GetWindowRect( &rc );
-	ScreenToClient( &rc );
-	rc.OffsetRect( 95 + 170 - rc.left, -1 );
-	GetDlgItem( IDCANCEL )->MoveWindow( &rc );
-	LoadString( strMessage, IDS_WIZARD_EXIT );
-	GetDlgItem( IDCANCEL )->SetWindowText( strMessage );
+		GetDlgItem( ID_WIZFINISH )->MoveWindow( &rc );
+		GetDlgItem( ID_WIZFINISH )->SetWindowText( LoadString( IDS_GENERAL_FINISH ) );
+	}
 
-	if ( GetDlgItem( IDHELP ) ) GetDlgItem( IDHELP )->ShowWindow( SW_HIDE );
-	// ATL_IDC_STATIC1?
-	if ( GetDlgItem( 0x3026 ) ) GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
+	if ( GetDlgItem( IDHELP ) )
+		GetDlgItem( IDHELP )->ShowWindow( SW_HIDE );
+
+	if ( GetDlgItem( 0x3026 ) )		// ATL_IDC_STATIC1?
+		GetDlgItem( 0x3026 )->ShowWindow( SW_HIDE );
 
 	//m_bmHeader.Attach( Skin.GetWatermark( L"Banner" ) );	// Use Images.m_bmBanner
 
@@ -327,7 +331,7 @@ void CWizardPage::StaticReplace(LPCTSTR pszSearch, LPCTSTR pszReplace)
 
 BOOL CWizardPage::IsConnectionCapable()
 {
-	return ( ! theApp.m_bLimitedConnections || Settings.General.IgnoreXPsp2 )	// The connection rate limiting (XPsp2) makes multi-network performance awful
+	return ( ! theApp.m_bLimitedConnections || Settings.General.IgnoreXPLimits )	// The connection rate limiting (XPsp2) makes multi-network performance awful
 		&& ( Settings.Connection.InSpeed > 256 )								// Must have a decent connection to be worth it. (Or extra traffic will slow downloads)
 		&& ( Settings.GetOutgoingBandwidth() > 16 );							// If your outbound bandwidth is too low, the ED2K ratio will throttle you anyway
 }

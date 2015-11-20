@@ -1,7 +1,7 @@
 //
 // CtrlIRCPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -91,10 +91,7 @@ int CIRCPanel::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_boxChans.Create( this, 200, L"Channels", IDR_CHANSFRAME );
 	m_boxUsers.Create( this, 200, L"Users", IDR_USERSFRAME );
 
-#ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-#endif
-		m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
+	m_boxUsers.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
 
 	m_pFont.Attach( theApp.m_gdiFontBold );
 	m_boxChans.m_wndChanList.SetFont( &m_pFont );

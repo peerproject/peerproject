@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -263,7 +263,7 @@ BOOL CLibraryTreeView::CollapseRecursive(CLibraryTreeItem* pItem)
 
 	for ( CLibraryTreeItem::iterator pChild = pItem->begin() ; pChild != pItem->end() ; ++pChild )
 	{
-		bChanged |= CollapseRecursive( &*pChild );
+		bChanged |= CollapseRecursive( &**pChild );
 	}
 
 	return bChanged;
@@ -354,14 +354,14 @@ BOOL CLibraryTreeView::SelectAll(CLibraryTreeItem* pParent, BOOL bInvalidate)
 
 	for ( CLibraryTreeItem::iterator pChild = pParent->begin() ; pChild != pParent->end() ; ++pChild )
 	{
-		if ( pChild->m_bSelected == FALSE )
+		if ( (*pChild)->m_bSelected == FALSE )
 		{
-			Select( &*pChild, TRI_TRUE, FALSE );
+			Select( &**pChild, TRI_TRUE, FALSE );
 			bChanged = TRUE;
 		}
 
-		if ( ! pChild->empty() && pChild->m_bExpanded )
-			bChanged |= SelectAll( &*pChild, FALSE );
+		if ( ! (*pChild)->empty() && (*pChild)->m_bExpanded )
+			bChanged |= SelectAll( &**pChild, FALSE );
 	}
 
 	if ( bInvalidate && bChanged && pParent == m_pRoot ) Invalidate();
@@ -378,14 +378,14 @@ BOOL CLibraryTreeView::DeselectAll(CLibraryTreeItem* pExcept, CLibraryTreeItem* 
 
 	for ( CLibraryTreeItem::iterator pChild = pParent->begin() ; pChild != pParent->end() ; ++pChild )
 	{
-		if ( &*pChild != pExcept && pChild->m_bSelected )
+		if ( &**pChild != pExcept && (*pChild)->m_bSelected )
 		{
-			Select( &*pChild, TRI_FALSE, FALSE );
+			Select( &**pChild, TRI_FALSE, FALSE );
 			bChanged = TRUE;
 		}
 
-		if ( ! pChild->empty() )
-			bChanged |= DeselectAll( pExcept, &*pChild, FALSE );
+		if ( ! (*pChild)->empty() )
+			bChanged |= DeselectAll( pExcept, &**pChild, FALSE );
 	}
 
 	if ( bInvalidate && bChanged && pParent == m_pRoot )
@@ -455,16 +455,16 @@ BOOL CLibraryTreeView::CleanItems(CLibraryTreeItem* pItem, DWORD nCookie, BOOL b
 
 	for ( CLibraryTreeItem::iterator pChild = pItem->begin() ; pChild != pItem->end() ; )
 	{
-		if ( pChild->m_nCleanCookie != nCookie )
+		if ( (*pChild)->m_nCleanCookie != nCookie )
 		{
-			if ( m_pFocus == &*pChild ) m_pFocus = NULL;
+			if ( m_pFocus == &**pChild ) m_pFocus = NULL;
 
-			if ( pChild->m_bSelected ) Select( &*pChild, TRI_FALSE, FALSE );
-			bChanged |= DeselectAll( NULL, &*pChild, FALSE );
+			if ( (*pChild)->m_bSelected ) Select( &**pChild, TRI_FALSE, FALSE );
+			bChanged |= DeselectAll( NULL, &**pChild, FALSE );
 
 			if ( bVisible )
 			{
-				m_nTotal -= pChild->treeSize();
+				m_nTotal -= (*pChild)->treeSize();
 				bChanged = TRUE;
 			}
 
@@ -495,12 +495,12 @@ CLibraryTreeItem* CLibraryTreeView::GetFolderItem(LPCVOID pSearch, CLibraryTreeI
 
 	for ( CLibraryTreeItem::iterator pChild = pParent->begin() ; pChild != pParent->end() ; ++pChild )
 	{
-		if ( pSearch == pChild->m_pPhysical || pSearch == pChild->m_pVirtual )
-			return &*pChild;
+		if ( pSearch == (*pChild)->m_pPhysical || pSearch == (*pChild)->m_pVirtual )
+			return &**pChild;
 
-		if ( ! pChild->empty() )
+		if ( ! (*pChild)->empty() )
 		{
-			CLibraryTreeItem* pFound = GetFolderItem( pSearch, &*pChild );
+			CLibraryTreeItem* pFound = GetFolderItem( pSearch, &**pChild );
 			if ( pFound ) return pFound;
 		}
 	}
@@ -655,12 +655,12 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 	if ( nChar == VK_HOME || ( nChar == VK_UP && m_pFocus == NULL ) )
 	{
 		if ( ! m_pRoot->empty() )
-			pTo = &*m_pRoot->begin();
+			pTo = &**m_pRoot->begin();
 	}
 	else if ( nChar == VK_END || ( nChar == VK_DOWN && m_pFocus == NULL ) )
 	{
 		if ( ! m_pRoot->empty() )
-			pTo = &*m_pRoot->rbegin();
+			pTo = &**m_pRoot->rbegin();
 	}
 	else if ( nChar == VK_UP && m_pFocus != NULL )
 	{
@@ -715,11 +715,11 @@ void CLibraryTreeView::OnKeyDown(UINT nChar, UINT /*nRepCnt*/, UINT /*nFlags*/)
 			{
 				if ( pStart != NULL )
 				{
-					if ( pStart == &*pChild ) pStart = NULL;
+					if ( pStart == &**pChild ) pStart = NULL;
 				}
-				else if ( toupper( pChild->m_sText.GetAt( 0 ) ) == (int)nChar )
+				else if ( toupper( (*pChild)->m_sText.GetAt( 0 ) ) == (int)nChar )
 				{
-					DeselectAll( m_pFocus = &*pChild, NULL, FALSE );
+					DeselectAll( m_pFocus = &**pChild, NULL, FALSE );
 					Select( m_pFocus, TRI_TRUE, FALSE );
 					Highlight( m_pFocus );
 					NotifySelection();
@@ -856,10 +856,9 @@ void CLibraryTreeView::OnPaint()
 
 	CFont* pOldFont = (CFont*)dc.SelectObject( &CoolInterface.m_fntNormal );
 
-	for ( CLibraryTreeItem::iterator pChild = m_pRoot->begin() ;
-			pChild != m_pRoot->end() && pt.y < rcClient.bottom ; ++pChild )
+	for ( CLibraryTreeItem::iterator pChild = m_pRoot->begin() ; pChild != m_pRoot->end() && pt.y < rcClient.bottom ; ++pChild )
 	{
-		Paint( dc, rcClient, pt, &*pChild );
+		Paint( dc, rcClient, pt, &**pChild );
 	}
 
 	dc.SelectObject( pOldFont );
@@ -898,7 +897,7 @@ void CLibraryTreeView::Paint(CDC& dc, CRect& rcClient, CPoint& pt, CLibraryTreeI
 
 		for ( CLibraryTreeItem::iterator pChild = pItem->begin() ; pChild != pItem->end() ; ++pChild )
 		{
-			Paint( dc, rcClient, pt, &*pChild );
+			Paint( dc, rcClient, pt, &**pChild );
 			if ( pt.y >= rcClient.bottom ) break;
 		}
 
@@ -916,10 +915,9 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(const POINT& point, RECT* pRect) con
 
 	CPoint pt( rcClient.left, rcClient.top - m_nScroll );
 
-	for ( CLibraryTreeItem::iterator pChild = m_pRoot->begin() ;
-			pChild != m_pRoot->end() && pt.y < rcClient.bottom ; ++pChild )
+	for ( CLibraryTreeItem::iterator pChild = m_pRoot->begin() ; pChild != m_pRoot->end() && pt.y < rcClient.bottom ; ++pChild )
 	{
-		CLibraryTreeItem* pItem = HitTest( rcClient, pt, &*pChild, point, pRect );
+		CLibraryTreeItem* pItem = HitTest( rcClient, pt, &**pChild, point, pRect );
 		if ( pItem ) return pItem;
 	}
 
@@ -953,7 +951,7 @@ CLibraryTreeItem* CLibraryTreeView::HitTest(CRect& rcClient, CPoint& pt, CLibrar
 
 		for ( CLibraryTreeItem::iterator pChild = pItem->begin() ; pChild != pItem->end() ; ++pChild )
 		{
-			if ( CLibraryTreeItem* pHitItem = HitTest( rcClient, pt, &*pChild, point, pRect ) )
+			if ( CLibraryTreeItem* pHitItem = HitTest( rcClient, pt, &**pChild, point, pRect ) )
 				return pHitItem;
 			if ( pt.y >= ( rcClient.bottom + (long)Settings.Skin.RowSize ) )
 				break;
@@ -977,7 +975,7 @@ BOOL CLibraryTreeView::GetRect(CLibraryTreeItem* pItem, RECT* pRect)
 
 	for ( CLibraryTreeItem::iterator pChild = m_pRoot->begin() ; pChild != m_pRoot->end() ; ++pChild )
 	{
-		if ( GetRect( pt, &*pChild, pItem, pRect ) ) return TRUE;
+		if ( GetRect( pt, &**pChild, pItem, pRect ) ) return TRUE;
 	}
 
 	return FALSE;
@@ -1009,7 +1007,7 @@ BOOL CLibraryTreeView::GetRect(CPoint& pt, CLibraryTreeItem* pItem, CLibraryTree
 
 		for ( CLibraryTreeItem::iterator pChild = pItem->begin() ; pChild != pItem->end() ; ++pChild )
 		{
-			if ( GetRect( pt, &*pChild, pFind, pRect ) ) return TRUE;
+			if ( GetRect( pt, &**pChild, pFind, pRect ) ) return TRUE;
 		}
 
 		pt.x -= 16;
@@ -1162,7 +1160,7 @@ struct CLibraryTreeItemCompare
 
 CLibraryTreeItem* CLibraryTreeItem::addItem(const CString& name)
 {
-	return &*m_oList.insert( std::upper_bound( begin(), end(), name, CLibraryTreeItemCompare() ), new CLibraryTreeItem( this, name ) );
+	return &**m_oList.insert( std::upper_bound( m_oList.begin(), m_oList.end(), name, CLibraryTreeItemCompare() ), new CLibraryTreeItem( this, name ) );		// No Boost::ptr_list
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1179,7 +1177,7 @@ CLibraryTreeItem* CLibraryTreeItem::addItem(const CString& name)
 //	CLibraryTreeItem** pChild = m_pList;
 //	for ( int nChild = m_nCount ; nChild ; nChild--, pChild++ )
 //	{
-//		if ( *pChild == pItem )
+//		if ( **pChild == pItem )
 //		{
 //			MoveMemory( pChild, pChild + 1, ( nChild - 1 ) * sizeof *pChild );
 //			m_nCount--;
@@ -1304,11 +1302,11 @@ BOOL CLibraryTreeView::UpdatePhysical(DWORD nSelectCookie)
 
 		for ( ; pChild != m_pRoot->end() ; ++pChild )
 		{
-			CLibraryFolder* pOld = pChild->m_pPhysical;
+			CLibraryFolder* pOld = (*pChild)->m_pPhysical;
 
 			if ( pOld == pFolder )
 			{
-				bChanged |= Update( pFolder, &*pChild, m_pRoot, TRUE, TRUE,
+				bChanged |= Update( pFolder, &**pChild, m_pRoot, TRUE, TRUE,
 					nCleanCookie, nSelectCookie, FALSE );
 				break;
 			}
@@ -1408,11 +1406,11 @@ BOOL CLibraryTreeView::Update(CLibraryFolder* pFolder, CLibraryTreeItem* pItem, 
 
 		for ( ; pChild != pItem->end() ; ++pChild )
 		{
-			CLibraryFolder* pOld = pChild->m_pPhysical;
+			CLibraryFolder* pOld = (*pChild)->m_pPhysical;
 
 			if ( pOld == pSub )
 			{
-				bChanged |= Update( pSub, &*pChild, pItem, bVisible, bShared,
+				bChanged |= Update( pSub, &**pChild, pItem, bVisible, bShared,
 					nCleanCookie, nSelectCookie, bRecurse );
 				break;
 			}
@@ -1510,11 +1508,11 @@ BOOL CLibraryTreeView::Update(CAlbumFolder* pFolder, CLibraryTreeItem* pItem, CL
 
 		for ( ; pChild != pItem->end() ; ++pChild )
 		{
-			CAlbumFolder* pOld = pChild->m_pVirtual;
+			CAlbumFolder* pOld = (*pChild)->m_pVirtual;
 
 			if ( pOld == pSub )
 			{
-				bChanged |= Update( pSub, &*pChild, pItem, bVisible,
+				bChanged |= Update( pSub, &**pChild, pItem, bVisible,
 					nCleanCookie, nSelectCookie );
 				break;
 			}
@@ -2162,7 +2160,7 @@ void CLibraryTreeView::OnSetFocus(CWnd* pOldWnd)
 
 	if ( ! m_pFocus && ! m_pRoot->empty() )
 	{
-		m_pFocus = &*m_pRoot->begin();
+		m_pFocus = &**m_pRoot->begin();
 		BOOL bChanged = Select( m_pFocus );
 		Highlight( m_pFocus );
 		if ( bChanged )

@@ -99,11 +99,14 @@ bool atoin(__in_bcount(nLen) const char* pszString, __in size_t nLen, __int64& n
 void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOOL bAddFirstEmpty = FALSE);
 #endif	// __AFXCOLL_H__
 
-// StartsWith("Hello world", _P( L"hello" )) is true
+// StartsWith("Hello World", _P( L"hello" )) is true
 BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 
-// EndsWith("Hello world", _P( L" world" )) is true
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen = 0);
+// EndsWith("Hello World", _P( L" world" )) is true
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+
+// IsText("Hello World", _P( L"hello world" )) is true
+BOOL IsText(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
 
 #ifdef __AFX_H__
 // Load all text from file (Unicode-compatible)

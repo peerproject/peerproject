@@ -94,13 +94,11 @@ public:
 	volatile bool	m_bInteractive;				// PeerProject begins initialization
 	volatile bool	m_bLive;					// PeerProject fully initialized
 	volatile bool	m_bClosing;					// PeerProject begins closing
-	bool			m_bIsServer;				// Is OS a Server version
-	bool			m_bIsWin2000;				// Is OS Windows 2000
-	bool			m_bIsVistaOrNewer;			// Is OS Vista/7 or newer
-	bool			m_bLimitedConnections;		// Networking is limited (XP SP2)
 	BOOL			m_bMenuWasVisible;			// For the menus in media player window
+	bool			m_bLimitedConnections;		// Networking is limited (XP SP2)
+	bool			m_bIsWinXP;					// Windows XP pre-Vista feature set  (Was inverse m_bIsVistaOrNewer)
+	WORD			m_nWinVer;					// Windows version major/minor/sp concatenation (WinXP = 512)
 	DWORD			m_nLastInput;				// Time of last input event (in secs) (Chat idling)
-	WORD			m_nWinVer;					// Windows version major/minor/sp concatenation (WIN_2K = 500)
 	HHOOK			m_hHookKbd;
 	HHOOK			m_hHookMouse;
 	UINT			m_nMouseWheel;				// System-defined number of lines to move with mouse wheel
@@ -111,17 +109,17 @@ public:
 	CAppCommandLineInfo m_cmdInfo;				// Command-line options
 
 	// Theme functions (Safe XP+)
-	HINSTANCE		m_hTheme;
-	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);														// WinXP+	SetWindowTheme() for CCoolInterface::EnableTheme()
-	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);																			// WinXP+	IsThemeActive()  for CIRCTabCtrl
-	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);																// WinXP+	OpenThemeData()  for CIRCTabCtrl
-	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);																		// WinXP+	CloseThemeData() for CIRCTabCtrl
-	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);						// WinXP+	DrawThemeBackground() for CIRCTabCtrl
+//	HINSTANCE		m_hTheme;
+//	HRESULT			(WINAPI *m_pfnSetWindowTheme)(HWND, LPCWSTR, LPCWSTR);														// WinXP+	SetWindowTheme() for CCoolInterface::EnableTheme()
+//	BOOL			(WINAPI *m_pfnIsThemeActive)(VOID);																			// WinXP+	IsThemeActive()  for CIRCTabCtrl
+//	HANDLE			(WINAPI *m_pfnOpenThemeData)(HWND, LPCWSTR);																// WinXP+	OpenThemeData()  for CIRCTabCtrl
+//	HRESULT			(WINAPI *m_pfnCloseThemeData)(HANDLE);																		// WinXP+	CloseThemeData() for CIRCTabCtrl
+//	HRESULT			(WINAPI *m_pfnDrawThemeBackground)(HANDLE, HDC, int, int, const RECT*, const RECT*);						// WinXP+	DrawThemeBackground() for CIRCTabCtrl
 //	HRESULT			(WINAPI *m_pfnEnableThemeDialogTexture)(HWND, DWORD);
 //	HRESULT			(WINAPI *m_pfnDrawThemeParentBackground)(HWND, HDC, RECT*);
 //	HRESULT			(WINAPI *m_pfnGetThemeBackgroundContentRect)(HANDLE, HDC, int, int, const RECT*, RECT*);
 //	HRESULT			(WINAPI *m_pfnDrawThemeText)(HANDLE, HDC, int, int, LPCWSTR, int, DWORD, DWORD, const RECT*);
-	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);												// WinXP+	GetThemeSysFont() for local InitResources()
+//	HRESULT			(WINAPI *m_pfnGetThemeSysFont)(HTHEME, int, __out LOGFONTW*);												// WinXP+	GetThemeSysFont() for local InitResources()
 
 	// Kernel functions (Safe Vista+)
 	HRESULT			(WINAPI *m_pfnRegisterApplicationRestart)(__in_opt PCWSTR pwzCommandline, __in DWORD dwFlags);				// Vista+	RegisterApplicationRestart() for InitInstance()
@@ -134,13 +132,13 @@ public:
 
 	// Shell functions (Safe Vista+)
 	HINSTANCE		m_hShell32;
-	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);	// Win2K+ ?	SHGetFolderPath()
+//	HRESULT			(WINAPI *m_pfnSHGetFolderPathW)(__reserved HWND hwnd, __in int csidl, __in_opt HANDLE hToken, __in DWORD dwFlags, __out_ecount(MAX_PATH) LPWSTR pszPath);	// Win2K+	SHGetFolderPath()  (Used directly, XP only)
 	HRESULT			(WINAPI *m_pfnSHGetKnownFolderPath)(__in REFKNOWNFOLDERID rfid, __in DWORD dwFlags, __in_opt HANDLE hToken, __deref_out PWSTR *ppszPath);		// Vista+	SHGetKnownFolderPath()
 	HRESULT			(WINAPI *m_pfnSHCreateItemFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in REFIID riid, __deref_out void **ppv);				// Win7+	SHCreateItemFromParsingName()
 	HRESULT			(WINAPI *m_pfnSHGetPropertyStoreFromParsingName)(__in PCWSTR pszPath, __in_opt IBindCtx *pbc, __in GETPROPERTYSTOREFLAGS flags, __in REFIID riid, __deref_out void **ppv);	// Vista+ SHGetPropertyStoreFromParsingName()
 	HRESULT			(WINAPI *m_pfnSHQueryUserNotificationState)(__in QUERY_USER_NOTIFICATION_STATE *state);						// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 	HRESULT			(WINAPI *m_pfnSetCurrentProcessExplicitAppUserModelID)(__in PCWSTR pszAppID);
-	HRESULT			(WINAPI *m_pfnSHGetImageList)(__in int iImageList, __in REFIID riid, __out void **ppv);						// WinXP+	SHGetImageList() for CShellIcons::Get()
+///	HRESULT			(WINAPI *m_pfnSHGetImageList)(__in int iImageList, __in REFIID riid, __out void **ppv);						// WinXP+	SHGetImageList() for CShellIcons::Get()  (Used directly)
 
 	// ShellWAPI functions (Safe IE6+)
 	HINSTANCE		m_hShlWapi;
@@ -210,7 +208,7 @@ public:
 	CString			GetAppDataFolder() const;
 	CString			GetLocalAppDataFolder() const;
 
-	CDatabase*		GetDatabase(int nType) const;					// Get SQLite (thumbs) database handler, must be freed by "delete" operator.
+	CDatabase*		GetDatabase(BYTE nType = 0) const;				// Get SQLite (thumbs) database handler, must be freed by "delete" operator (or auto_ptr).
 
 	void			OnRename(LPCTSTR strSource, LPCTSTR pszTarget = (LPCTSTR)1);	// pszTarget: 0 = delete file, 1 = release file.
 
@@ -383,11 +381,13 @@ __int32 GetRandomNum<__int32>(const __int32& min, const __int32& max);
 template <>
 __int64 GetRandomNum<__int64>(const __int64& min, const __int64& max);
 
-enum
+// Databases
+enum DatabasePath
 {
 	DB_DEFAULT,
 	DB_THUMBS,
 	DB_SECURITY,
+	DB_BLACKLIST,
 	DB_LAST
 };
 
@@ -397,16 +397,16 @@ const LPCTSTR RT_JPEG = L"JPEG";
 const LPCTSTR RT_GZIP = L"GZIP";
 
 // theApp.m_nWinVer (Add as needed)
-#define WIN_2K					500				// 5.0
+#define WIN_2K					500				// 5.0 (Unsupported)
 #define WIN_XP					510				// 5.1
 #define WIN_XP_SP2				512				// 5.1.sp2
 #define WIN_XP_64				520				// 5.2
 #define WIN_VISTA				600				// 6.0
 #define WIN_VISTA_SP2			602				// 6.0.sp2
 #define WIN_7					610				// 6.1
-#define WIN_8					620				// 6.2 (or higher)
+#define WIN_8					620				// 6.2
 #define WIN_8_1					630				// 6.3
-#define WIN_10					1000			// 10.0
+#define WIN_10					1000			// 10.0 (or higher)
 // Note any higher response requires application manifest update
 
 // Log severity (log level) (.IDL)
@@ -428,20 +428,21 @@ const LPCTSTR RT_GZIP = L"GZIP";
 // Event Messages
 #define WM_WINSOCK				(WM_APP+101)	// Winsock messages proxy to Network object (Used by WSAAsyncGetHostByName() function)
 #define WM_VERSIONCHECK			(WM_APP+102)	// Version check (WAPARM: VERSION_CHECK nCode, LPARAM: unused)
-#define WM_OPENCHAT				(WM_APP+103)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
-#define WM_TRAY					(WM_APP+104)	// Tray icon notification (WPARAM: unused, LPARAM: uMouseMessage)
-#define WM_URL					(WM_APP+105)	// Open URL (WPARAM: CShareazaURL* pURL, LPARAM: unused)
-#define WM_SKINCHANGED			(WM_APP+106)	// Skin change (WPARAM: unused, LPARAM: unused)
-#define WM_COLLECTION			(WM_APP+107)	// Open collection file (WPARAM: unused, LPARAM: LPTSTR szFilename)
+#define WM_SKINCHANGED			(WM_APP+104)	// Skin change (WPARAM: unused, LPARAM: unused)
+#define WM_TRAY					(WM_APP+105)	// Tray icon notification (WPARAM: unused, LPARAM: uMouseMessage)
+#define WM_URL					(WM_APP+106)	// Open URL (WPARAM: CShareazaURL* pURL, LPARAM: unused)
+#define WM_OPENCHAT				(WM_APP+107)	// Open chat window (WAPARM: CChatSession* pChat, LPARAM: unused)
 #define WM_OPENSEARCH			(WM_APP+108)	// Open new search (WPARAM: CQuerySearch* pSearch, LPARAM: unused)
-#define WM_LIBRARYSEARCH		(WM_APP+110)	// Start file library search (WPARAM: LPTSTR pszSearch, LPARAM: unused)
-#define WM_PLAYFILE				(WM_APP+111)	// Play file by media system (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_ENQUEUEFILE			(WM_APP+112)	// Enqueue file to media system (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_SETALPHA				(WM_APP+113)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
-#define WM_METADATA				(WM_APP+114)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
-#define WM_SANITY_CHECK			(WM_APP+115)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
-#define WM_NOWUPLOADING			(WM_APP+116)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
-#define WM_TORRENT				(WM_APP+118)	// Open torrent file (WPARAM: LPTSTR szFilename, LPARAM: unused)
+#define WM_LIBRARYSEARCH		(WM_APP+109)	// Start file library search (WPARAM: LPTSTR pszSearch, LPARAM: unused)
+#define WM_PLAYFILE				(WM_APP+110)	// Play file by media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_ENQUEUEFILE			(WM_APP+111)	// Enqueue file to media system (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_SETALPHA				(WM_APP+112)	// Increase/decrease main window transparency (WPARAM: 0 - to decrease or 1 - to increase, LPARAM: unused)
+#define WM_METADATA				(WM_APP+113)	// Set/clear library metapanel data & status message (WPARAM: CMetaPanel* pPanelData, LPARAM: LPCTSTR pszMessage)
+#define WM_SANITY_CHECK			(WM_APP+114)	// Run allsystem check against banned hosts (WPARAM: unused, LPARAM: unused)
+#define WM_NOWUPLOADING			(WM_APP+115)	// New upload notification (WPARAM: unused, LPARAM: CString* pFilename)
+#define WM_TORRENT				(WM_APP+116)	// Open torrent file (WPARAM: LPTSTR szFilename, LPARAM: unused)
+#define WM_COLLECTION			(WM_APP+117)	// Open collection file (WPARAM: unused, LPARAM: LPTSTR szFilename)
+#define WM_METALINK				(WM_APP+118)	// Open metalink file (WPARAM: unused, LPARAM: LPTSTR szFilename)
 #define WM_IMPORT				(WM_APP+119)	// Import hub list file (WPARAM: LPTSTR szFilename, LPARAM: unused)
 
 // WM_COPYDATA types - Note Windows scheduling not implemented.

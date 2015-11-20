@@ -23,9 +23,10 @@
 #include "Network.h"
 
 // MiniUPnPc library
-// Copyright (c) 2005-2014 Thomas Bernard
+// Copyright (c) 2005-2015 Thomas Bernard
 #include <MiniUPnP\miniupnpc.h>
 #include <MiniUPnP\upnpcommands.h>
+#include <MiniUPnP\upnpdev.h>
 #pragma comment( lib, "miniupnpc" )
 
 #ifdef _DEBUG
@@ -95,7 +96,7 @@ void CMiniUPnP::OnRun()
 	BOOL bSuccess = FALSE;
 
 	int error = 0;
-	if ( UPNPDev* pDevList = upnpDiscover( Settings.Connection.UPnPTimeout, NULL, NULL, 0, 0, &error ) )
+	if ( UPNPDev* pDevList = upnpDiscover( Settings.Connection.UPnPTimeout, NULL, NULL, UPNP_LOCAL_PORT_ANY, FALSE, 2, &error ) )
 	{
 		for ( UPNPDev* pDevice = pDevList; ! bSuccess && pDevice && IsThreadEnabled(); pDevice = pDevice->pNext )
 		{

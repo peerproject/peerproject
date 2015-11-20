@@ -1,7 +1,7 @@
 //
 // LibraryBuilder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -555,7 +555,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 
 	void* pBuffer = VirtualAlloc( NULL, MAX_HASH_BUFFER_SIZE, MEM_COMMIT, PAGE_READWRITE );
 
-	if ( theApp.m_bIsVistaOrNewer && ! m_bPriority )
+	if ( ! m_bPriority && ! theApp.m_bIsWinXP )
 		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_BEGIN );
 
 	DWORD nBlock;
@@ -615,7 +615,7 @@ bool CLibraryBuilder::HashFile(LPCTSTR szPath, HANDLE hFile)
 		nLength -= nBlock;
 	}
 
-	if ( theApp.m_bIsVistaOrNewer )
+	if ( ! theApp.m_bIsWinXP )
 		::SetThreadPriority( GetCurrentThread(), THREAD_MODE_BACKGROUND_END );
 
 	{

@@ -538,7 +538,7 @@ void CMediaFrame::OnPaint()
 			DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
 			theApp.m_nFontQuality, DEFAULT_PITCH|FF_DONTCARE, L"Segoe UI" };
 
-		if ( ! theApp.m_bIsVistaOrNewer )	// XP-Safe
+		if ( theApp.m_bIsWinXP )	// XP-Safe
 			_tcsncpy( pFont.lfFaceName, L"Tahoma", LF_FACESIZE );
 
 		m_pFontDefault.CreatePointFontIndirect( &pFont );
@@ -597,7 +597,9 @@ void CMediaFrame::PaintSplash(CDC& dc, CRect& /*rcBar*/)
 	{
 		m_bmLogo.m_hObject = Skin.GetWatermark( L"LargeLogo" );
 		if ( m_pPlayer && m_bmLogo.m_hObject )
+		{
 			m_pPlayer->SetLogoBitmap( m_bmLogo );
+		}
 		else
 		{
 			dc.FillSolidRect( &m_rcVideo, Colors.m_crMediaWindowBack );

@@ -176,10 +176,7 @@ int CIRCFrame::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndTab.Create( WS_CHILD | WS_VISIBLE | TCS_FLATBUTTONS | TCS_HOTTRACK | TCS_OWNERDRAWFIXED,
 		rectDefault, this, IDC_CHAT_TABS );
 
-#ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-#endif
-		m_wndTab.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop control flickering XP+
+	m_wndTab.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop control flickering XP+
 
 	FillChanList();
 	m_wndView.Create( WS_CHILD|WS_VISIBLE, rectDefault, this, IDC_CHAT_TEXT );
@@ -406,17 +403,17 @@ void CIRCFrame::SetFonts()
 	//			 ( txtMetric.tmPitchAndFamily & TMPF_TRUETYPE ) || txtMetric.tmCharSet < 2 )
 	//		{
 	//			int nMainChar = txtMetric.tmAscent - txtMetric.tmInternalLeading;
-	//			float nPercentage = (float)nMainChar / (float)txtMetric.tmAscent;
-	//			if ( nPercentage < 0.45 )
+	//			float fPercentage = (float)nMainChar / (float)txtMetric.tmAscent;
+	//			if ( fPercentage < 0.45 )
 	//			{
 	//				nMainChar = txtMetric.tmInternalLeading;
-	//				nPercentage = 1 - nPercentage;
+	//				fPercentage = 1 - fPercentage;
 	//			}
-	//			if ( nPercentage < 0.55 )
+	//			if ( fPercentage < 0.55 )
 	//				nHeight = (int)( 10.0f * 19.0f / txtMetric.tmAscent + 0.5 );
-	//			else if ( nPercentage > 0.85 )
+	//			else if ( fPercentage > 0.85 )
 	//				nHeight = (int)( 10.0f * 19.0f / txtMetric.tmHeight + 0.44 );
-	//			else if ( nPercentage > 0.69 )
+	//			else if ( fPercentage > 0.69 )
 	//				nHeight = (int)( 10.0f * 13.0f / (float)nMainChar + 0.1 );
 	//			else
 	//				nHeight = (int)( 10.0f * 13.0f / ( 16.0f / txtMetric.tmAscent * nMainChar ) + 0.5 );
@@ -529,11 +526,12 @@ void CIRCFrame::OnSize(UINT nType, int cx, int cy)
 void CIRCFrame::OnPaint()
 {
 	CPaintDC dc( this );
-	CRect rcClient;
-	GetClientRect( &rcClient );
 
 	dc.SetTextColor( Colors.m_crBannerText );
 	dc.SetBkMode( TRANSPARENT );
+
+	CRect rcClient;
+	GetClientRect( &rcClient );
 
 	CRect rcComponent;
 
@@ -589,8 +587,7 @@ void CIRCFrame::PaintHeader(CRect rcHeader, CDC &dc)
 	CRect rcClient;
 	GetWindowRect( &rcClient );
 	ScreenToClient( &rcClient );
-	if ( rcClient.IsRectEmpty() ) return;
-	if ( rcHeader.IsRectEmpty() ) return;
+	if ( rcClient.IsRectEmpty() || rcHeader.IsRectEmpty() ) return;
 
 	if ( m_bmBuffer.m_hObject != NULL )
 	{
@@ -1401,13 +1398,12 @@ void CIRCFrame::OnStatusMessage(LPCTSTR pszText, int nFlags)
 //		}
 //		else
 //		{
-//			strMsgTemp += pWordDivide.GetAt( nWord ) + " ";
+//			strMsgTemp += pWordDivide.GetAt( nWord ) + L" ";
 //		}
 //	}
 //	// Display here what left.
 //	pWordDivide.RemoveAll();
 //	strMsgTemp.Trim();
-//
 //	if ( ! strMsgTemp.IsEmpty() )
 //	{
 //		m_pContent.Add( retText, strMsgTemp.GetBuffer(), NULL, retfColor )->m_cColor = cRGB;
@@ -1862,7 +1858,7 @@ void CIRCFrame::ActivateMessageByID(CIRCNewMessage& oNewMessage, int nMessageTyp
 			CString strReply;
 			strReply.Format( L"/NOTICE %s :\x01VERSION %s:%s:Microsoft Windows %s\x01",
 				(LPCTSTR)m_pWords.GetAt( 0 ), CLIENT_NAME,
-				(LPCTSTR)theApp.m_sVersionLong, 
+				(LPCTSTR)theApp.m_sVersionLong,
 				theApp.m_nWinVer < WIN_VISTA ? L"XP" :
 				theApp.m_nWinVer < WIN_7 ? L"Vista" :
 				theApp.m_nWinVer < WIN_8 ? L"7" :
@@ -2896,8 +2892,8 @@ CIRCTabCtrl::CIRCTabCtrl()
 
 CIRCTabCtrl::~CIRCTabCtrl()
 {
-	if ( m_hTheme && theApp.m_pfnCloseThemeData )
-		theApp.m_pfnCloseThemeData( m_hTheme );
+	if ( m_hTheme )
+		CloseThemeData( m_hTheme );
 }
 
 int CIRCTabCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -2905,8 +2901,7 @@ int CIRCTabCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	if ( CTabCtrl::OnCreate( lpCreateStruct ) == -1 )
 		return -1;
 
-	if ( theApp.m_pfnOpenThemeData )
-		m_hTheme = theApp.m_pfnOpenThemeData( m_hWnd, L"Tab" );
+	m_hTheme = OpenThemeData( m_hWnd, L"Tab" );
 
 	return 0;
 }
@@ -2926,21 +2921,15 @@ int CIRCTabCtrl::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 HRESULT CIRCTabCtrl::DrawThemesPart(HDC dc, int nPartID, int nStateID, LPRECT prcBox)
 {
-	HRESULT hr = E_FAIL;
-	if ( m_hTheme != NULL &&
-		 theApp.m_pfnIsThemeActive && theApp.m_pfnIsThemeActive() &&
-		 theApp.m_pfnDrawThemeBackground )
-	{
-		hr = theApp.m_pfnDrawThemeBackground( m_hTheme, dc, nPartID, nStateID, prcBox, NULL );
-	}
-	return hr;
+	if ( IsThemeActive() )
+		return DrawThemeBackground( m_hTheme, dc, nPartID, nStateID, prcBox, NULL );
+
+	return (HRESULT)E_FAIL;
 }
 
 void CIRCTabCtrl::DrawTabThemed(HDC dc, int nItem, const RECT& rcItem, UINT flags)
 {
-	if ( m_hTheme == NULL ||
-		 theApp.m_pfnIsThemeActive == NULL || ! theApp.m_pfnIsThemeActive() ||
-		 theApp.m_pfnDrawThemeBackground == NULL )
+	if ( IsThemeActive() )
 	{
 		COLORREF crBack = Colors.m_crBackNormal;
 		COLORREF crBorder = Colors.m_crSysBtnFace;
@@ -3097,11 +3086,10 @@ BOOL CIRCTabCtrl::PreTranslateMessage(MSG* pMsg)
 {
 	if ( pMsg->message == WM_THEMECHANGED )
 	{
-		if ( m_hTheme && theApp.m_pfnCloseThemeData )
-			theApp.m_pfnCloseThemeData( m_hTheme );
+		if ( m_hTheme )
+			CloseThemeData( m_hTheme );
 
-		if ( theApp.m_pfnOpenThemeData )
-			m_hTheme = theApp.m_pfnOpenThemeData( m_hWnd, L"Tab" );
+		m_hTheme = OpenThemeData( m_hWnd, L"Tab" );
 
 		return TRUE;
 	}
@@ -3222,21 +3210,20 @@ void CIRCChannelList::RemoveAll(int nType)
 		m_bUserDefined.RemoveAll();
 		m_sChannelDisplayName.RemoveAll();
 		m_sChannelName.RemoveAll();
+		return;
 	}
-	else
+
+	for ( int nChannel = 0 ; nChannel < m_bUserDefined.GetCount() ; nChannel++ )
 	{
-		for ( int nChannel = 0 ; nChannel < m_bUserDefined.GetCount() ; nChannel++ )
+		if ( nType == 1 && m_bUserDefined.GetAt( nChannel ) ||
+			 nType == 0 && ! m_bUserDefined.GetAt( nChannel ) )
 		{
-			if ( m_bUserDefined.GetAt( nChannel ) && nType == 1 ||
-				! m_bUserDefined.GetAt( nChannel ) && nType == 0 )
-			{
-				m_nCount--;
-				if ( m_bUserDefined.GetAt( nChannel ) ) m_nCountUserDefined--;
-				m_bUserDefined.RemoveAt( nChannel );
-				m_sChannelDisplayName.RemoveAt( nChannel );
-				m_sChannelName.RemoveAt( nChannel );
-				nChannel--;
-			}
+			m_nCount--;
+			if ( m_bUserDefined.GetAt( nChannel ) ) m_nCountUserDefined--;
+			m_bUserDefined.RemoveAt( nChannel );
+			m_sChannelDisplayName.RemoveAt( nChannel );
+			m_sChannelName.RemoveAt( nChannel );
+			nChannel--;
 		}
 	}
 }

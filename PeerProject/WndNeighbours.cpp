@@ -1,7 +1,7 @@
 //
 // WndNeighbours.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -148,10 +148,7 @@ int CNeighboursWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 // Note: Workaround fix in LiveList for VS2012
 //#ifdef _USING_V110_SDK71_	// #if defined(_MSC_VER) && (_MSC_VER >= 1700)
-//  #ifndef WIN64
-//	if ( ! theApp.m_bIsWin2000 )
-//  #endif
-//		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop flicker XP+, CPU intensive (Only needed here when targeting VS2012)
+//	m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop flicker XP+, CPU intensive (Only needed here when targeting VS2012)
 //#endif
 
 	m_wndList.SetExtendedStyle( LVS_EX_DOUBLEBUFFER|LVS_EX_FULLROWSELECT|LVS_EX_HEADERDRAGDROP|LVS_EX_LABELTIP|LVS_EX_SUBITEMIMAGES );

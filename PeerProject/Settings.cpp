@@ -102,7 +102,7 @@ void CSettings::Load()
 	Add( L"Settings", L"CloseMode", &General.CloseMode, 0, 1, 0, 3 );
 	Add( L"Settings", L"FirstRun", &General.FirstRun, true, true );
 	Add( L"Settings", L"GUIMode", &General.GUIMode, GUI_TABBED );
-	Add( L"Settings", L"IgnoreXPsp2", &General.IgnoreXPsp2, false );
+	Add( L"Settings", L"IgnoreXPLimits", &General.IgnoreXPLimits, false );
 	Add( L"Settings", L"Language", &General.Language, L"en" );
 	Add( L"Settings", L"LanguageRTL", &General.LanguageRTL, false );
 	Add( L"Settings", L"LanguageDefault", &General.LanguageDefault, true );
@@ -144,7 +144,7 @@ void CSettings::Load()
 	Add( L"Interface", L"TipNeighbours", &Interface.TipNeighbours, true );
 	Add( L"Interface", L"TipMedia", &Interface.TipMedia, true );
 	Add( L"Interface", L"TipSearch", &Interface.TipSearch, true );
-	Add( L"Interface", L"TipShadow", &Interface.TipShadow, theApp.m_bIsWin2000 ? false : true );
+	Add( L"Interface", L"TipShadow", &Interface.TipShadow, true );
 	Add( L"Interface", L"Snarl", &Interface.Snarl, true );	// Use notifications (getsnarl.info)
 	Add( L"Interface", L"SearchWindowsLimit", &Interface.SearchWindowsLimit, 10, 1, 0, 50, L" windows" );
 	Add( L"Interface", L"BrowseWindowsLimit", &Interface.BrowseWindowsLimit, 12, 1, 0, 50, L" windows" );
@@ -177,9 +177,9 @@ void CSettings::Load()
 	Add( L"Toolbars", L"ShowRemote", &Toolbars.ShowRemote, true );
 	Add( L"Toolbars", L"ShowMonitor", &Toolbars.ShowMonitor, true );
 
-	Add( L"Fonts", L"DefaultFont", &Fonts.DefaultFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : L"Tahoma", false, setFont );
-	Add( L"Fonts", L"SystemLogFont", &Fonts.SystemLogFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : L"Tahoma", false, setFont );
-	Add( L"Fonts", L"PacketDumpFont", &Fonts.PacketDumpFont, theApp.m_bIsVistaOrNewer ? L"Consolas" : L"Lucida Console", false, setFont );
+	Add( L"Fonts", L"DefaultFont", &Fonts.DefaultFont, theApp.m_bIsWinXP ? L"Tahoma" : L"Segoe UI" , false, setFont );
+	Add( L"Fonts", L"SystemLogFont", &Fonts.SystemLogFont, theApp.m_bIsWinXP ? L"Tahoma" : L"Segoe UI", false, setFont );
+	Add( L"Fonts", L"PacketDumpFont", &Fonts.PacketDumpFont, theApp.m_bIsWinXP ? L"Lucida Console" : L"Consolas", false, setFont );
 	Add( L"Fonts", L"DefaultSize", &Fonts.DefaultSize, 11, 1, 9, 12, L" px" );
 
 	Add( L"Library", L"CreateGhosts", &Library.CreateGhosts, true );
@@ -612,17 +612,17 @@ void CSettings::Load()
 	Add( L"Uploads", L"ShareTiger", &Uploads.ShareTiger, true );
 	Add( L"Uploads", L"ThrottleMode", &Uploads.ThrottleMode, false );
 
-	Add( L"IRC", L"Colors[0]", &IRC.Colors[0], RGB(254,254,252) );	// ID_COLOR_CHATWINDOW
+	Add( L"IRC", L"Colors[0]", &IRC.Colors[0], RGB(254,254,252) );		// ID_COLOR_CHATWINDOW
 	Add( L"IRC", L"Colors[1]", &IRC.Colors[1], RGB(0,0,0) );			// ID_COLOR_TEXT
-	Add( L"IRC", L"Colors[2]", &IRC.Colors[2], RGB(40,40,40) );		// ID_COLOR_TEXTLOCAL
+	Add( L"IRC", L"Colors[2]", &IRC.Colors[2], RGB(40,40,40) );			// ID_COLOR_TEXTLOCAL
 	Add( L"IRC", L"Colors[3]", &IRC.Colors[3], RGB(10,140,10) );		// ID_COLOR_CHANNELACTION
-	Add( L"IRC", L"Colors[4]", &IRC.Colors[4], RGB(180,120,220) );	// ID_COLOR_ME
+	Add( L"IRC", L"Colors[4]", &IRC.Colors[4], RGB(180,120,220) );		// ID_COLOR_ME
 	Add( L"IRC", L"Colors[5]", &IRC.Colors[5], RGB(0,0,0) );			// ID_COLOR_MSG
 	Add( L"IRC", L"Colors[6]", &IRC.Colors[6], RGB(240,20,10) );		// ID_COLOR_NEWMSG
 	Add( L"IRC", L"Colors[7]", &IRC.Colors[7], RGB(10,20,240) );		// ID_COLOR_SERVERMSG
-	Add( L"IRC", L"Colors[8]", &IRC.Colors[8], RGB(200,100,120) );	// ID_COLOR_TOPIC
+	Add( L"IRC", L"Colors[8]", &IRC.Colors[8], RGB(200,100,120) );		// ID_COLOR_TOPIC
 	Add( L"IRC", L"Colors[9]", &IRC.Colors[9], RGB(240,20,10) );		// ID_COLOR_NOTICE
-	Add( L"IRC", L"Colors[10]", &IRC.Colors[10], RGB(200,30,30) );	// ID_COLOR_SERVERERROR
+	Add( L"IRC", L"Colors[10]", &IRC.Colors[10], RGB(200,30,30) );		// ID_COLOR_SERVERERROR
 	Add( L"IRC", L"Colors[11]", &IRC.Colors[11], RGB(230,230,230) );	// ID_COLOR_TABS
 	Add( L"IRC", L"Show", &IRC.Show, true );
 	Add( L"IRC", L"Nick", &IRC.Nick );
@@ -634,7 +634,7 @@ void CSettings::Load()
 	Add( L"IRC", L"Timestamp", &IRC.Timestamp, false );
 	Add( L"IRC", L"UserName", &IRC.UserName, L"PeerIRC" );
 	Add( L"IRC", L"RealName", &IRC.RealName, L"PeerIRC" );
-	Add( L"IRC", L"ScreenFont", &IRC.ScreenFont, theApp.m_bIsVistaOrNewer ? L"Segoe UI" : NULL, false, setFont );
+	Add( L"IRC", L"ScreenFont", &IRC.ScreenFont, theApp.m_bIsWinXP ? NULL : L"Segoe UI", false, setFont );
 	Add( L"IRC", L"FontSize", &IRC.FontSize, 12, 1, 6, 50, L" px" );
 	Add( L"IRC", L"OnConnect", &IRC.OnConnect, L"" );
 
@@ -774,8 +774,8 @@ void CSettings::Load()
 		MsgBox( IDS_SETTINGS_FILEPATH_NOT_SAME, MB_ICONEXCLAMATION );
 		// Downloads.IncompletePath = General.Path + L"\\Incomplete";
 
-	// UPnP is not supported on servers?
-	//if ( theApp.m_bIsServer )
+	// UPnP is not supported on servers? (Obsolete)
+	//if ( IsServer )
 	//{
 	//	Connection.EnableUPnP = false;
 	//	Connection.DeleteUPnPPorts = false;
@@ -897,7 +897,7 @@ void CSettings::SmartUpgrade()
 
 void CSettings::OnChangeConnectionSpeed()
 {
-	bool bLimited = theApp.m_bLimitedConnections && ! ( General.IgnoreXPsp2 || theApp.m_bIsVistaOrNewer );
+	bool bLimited = theApp.m_bLimitedConnections && ! ( ! theApp.m_bIsWinXP || General.IgnoreXPLimits );
 
 	if ( Connection.OutSpeed < 1000 && Uploads.ChunkSize > 512*1024 )
 		Uploads.ChunkSize				= 256*1024;
@@ -1142,13 +1142,12 @@ void CSettings::SaveList(LPCTSTR pszName, CListCtrl* pCtrl)
 
 BOOL CSettings::CheckStartup()
 {
-	BOOL bStartup;
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_QUERY_VALUE, &hKey )
-		!= ERROR_SUCCESS ) return FALSE;
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_QUERY_VALUE, &hKey ) != ERROR_SUCCESS )
+		return FALSE;
 
-	bStartup = ( RegQueryValueEx( hKey, L"PeerProject", NULL, NULL, NULL, NULL ) == ERROR_SUCCESS );
+	BOOL bStartup = ( RegQueryValueEx( hKey, L"PeerProject", NULL, NULL, NULL, NULL ) == ERROR_SUCCESS );
 
 	RegCloseKey( hKey );
 
@@ -1159,8 +1158,8 @@ void CSettings::SetStartup(BOOL bStartup)
 {
 	HKEY hKey;
 
-	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_ALL_ACCESS, &hKey )
-		!= ERROR_SUCCESS ) return;
+	if ( RegOpenKeyEx( HKEY_CURRENT_USER, L"SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", 0, KEY_ALL_ACCESS, &hKey ) != ERROR_SUCCESS )
+		return;
 
 	if ( bStartup )
 	{

@@ -1,7 +1,7 @@
 //
 // CtrlCoolBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -37,12 +37,12 @@ IMPLEMENT_DYNAMIC(CCoolBarCtrl, CControlBar)
 BEGIN_MESSAGE_MAP(CCoolBarCtrl, CControlBar)
 	ON_WM_CREATE()
 	ON_WM_DESTROY()
-	ON_WM_TIMER()
 	ON_WM_CTLCOLOR()
+	ON_WM_TIMER()
 	ON_WM_HSCROLL()
 	ON_WM_MOUSEMOVE()
-	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONUP()
+	ON_WM_LBUTTONDOWN()
 	ON_WM_LBUTTONDBLCLK()
 	ON_WM_RBUTTONDOWN()
 END_MESSAGE_MAP()
@@ -557,34 +557,32 @@ void CCoolBarCtrl::DoPaint(CDC* pDC)
 		if ( CoolInterface.DrawWatermark( pBuffer, &rc, &m_bmImage ) )
 		{
 			CalcInsideRect( rc, FALSE );
-			rc.left		-= m_cyTopBorder;
-			rc.top		-= m_cxLeftBorder;
-			rc.right	+= m_cyBottomBorder;
-			rc.bottom	+= m_cxRightBorder;
+			rc.left -= m_cyTopBorder;
+			rc.top -= m_cxLeftBorder;
+			rc.right += m_cyBottomBorder;
+			rc.bottom += m_cxRightBorder;
 
 			if ( rc.top < 2 )	// Library top bars workaround fix
 			{
 				rc.top += 2;
 				rc.bottom += 2;
 			}
-		}
-		else
-		{
-			DrawBorders( pBuffer, rc );
-		}
 
-		DoPaint( pBuffer, rc, TRUE );
+			DoPaint( pBuffer, rc, TRUE );
 
-		GetClientRect( &rc );
-		pDC->BitBlt( 0, 0, rc.Width(), rc.Height(), pBuffer, 0, 0, SRCCOPY );
-		pBuffer->SelectClipRgn( NULL );
+			GetClientRect( &rc );
+			pDC->BitBlt( 0, 0, rc.Width(), rc.Height(), pBuffer, 0, 0, SRCCOPY );
+			pBuffer->SelectClipRgn( NULL );
+
+			return;
+		}
 	}
-	else
-	{
+
+	// Unskinned
+	if ( Settings.Skin.MenuBorders )
 		DrawBorders( pDC, rc );
-		DoPaint( pDC, rc, FALSE );
-		pDC->FillSolidRect( &rc, Colors.m_crMidtone );
-	}
+	pDC->FillSolidRect( &rc, Colors.m_crMidtone );
+	DoPaint( pDC, rc, FALSE );
 }
 
 void CCoolBarCtrl::DoPaint(CDC* pDC, CRect& rcClient, BOOL bTransparent)
@@ -1139,7 +1137,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			else if ( bHot )
 				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_HOVER );		// "CCoolbar.Hover"
 			else if ( m_bChecked )
-				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_ACTIVE );		// "CCoolbar.Checked"
+				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_ACTIVE );	// "CCoolbar.Checked"
 			else
 				bSkinned = Images.DrawButtonState( pDC, &rc, TOOLBARBUTTON_DEFAULT );	// "CCoolbar.Up"
 		}
@@ -1150,7 +1148,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 			else if ( bHot )
 				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_HOVER );		// "CCoolMenuBar.Hover"
 			else if ( m_bChecked )
-				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_ACTIVE );		// "CCoolMenuBar.Checked"
+				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_ACTIVE );	// "CCoolMenuBar.Checked"
 			else
 				bSkinned = Images.DrawButtonState( pDC, &rc, MENUBARBUTTON_DEFAULT );	// "CCoolMenuBar.Up"
 		}
@@ -1166,8 +1164,8 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 
 		rc.DeflateRect( 0, 2 );
 
-		if ( ! bTransparent && ! bSkinned )
-			pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone ); 			// Potential hole with transparent button on non-skinned toolbar?
+	//	if ( ! bTransparent && ! bSkinned )
+	//		pDC->Draw3dRect( &rc, Colors.m_crMidtone, Colors.m_crMidtone ); 			// Potential hole with transparent button on non-skinned toolbar?
 
 		rc.DeflateRect( 1, 1 );
 	}
@@ -1196,7 +1194,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		else
 			crBackground = bDown && bHot ? Colors.m_crBackCheckSel : Colors.m_crBackSel;
 	}
-	else
+	else  // Unskinned item
 	{
 		if ( bTransparent )
 		{
@@ -1291,7 +1289,7 @@ void CCoolBarItem::Paint(CDC* pDC, CRect& rc, BOOL bDown, BOOL bHot, BOOL bMenuG
 		}
 	}
 
-	if ( crBackground != CLR_NONE && ! bSkinned )
+	if ( crBackground != CLR_NONE && ! bSkinned )		// ! bTransparent
 		pDC->FillSolidRect( &rc, crBackground );
 }
 

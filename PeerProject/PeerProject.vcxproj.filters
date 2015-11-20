@@ -1407,6 +1407,9 @@
     <None Include="Res\Locked.ico">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Res\Manifest.xml">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Res\Mail.ico">
       <Filter>Resource Files</Filter>
     </None>

@@ -720,10 +720,9 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 		CRect rcWnd;
 		SystemParametersInfo( SPI_GETWORKAREA, 0, rcWnd, 0 );
 
-		HMONITOR hMonitor = MonitorFromWindow( pWnd->GetSafeHwnd(),
-			MONITOR_DEFAULTTONEAREST );
+		HMONITOR hMonitor = MonitorFromWindow( pWnd->GetSafeHwnd(), MONITOR_DEFAULTTONEAREST );
 
-		MONITORINFO oMonitor = {0};
+		MONITORINFO oMonitor = { 0 };
 		oMonitor.cbSize = sizeof( MONITORINFO );
 		GetMonitorInfo( hMonitor, &oMonitor );
 
@@ -739,7 +738,7 @@ void CSkinWindow::OnSize(CWnd* pWnd)
 	{
 		SelectRegion( pWnd );				// Redraw = true
 	}
-	else if ( ! theApp.m_bIsWin2000 )
+	else
 	{
 		CRect rcWnd;
 

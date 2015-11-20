@@ -51,7 +51,7 @@
  <color name="Navbar.Text.Checked"			value="101010"/>
  <color name="Navbar.Shadow.Down"			value="101010"/>
  <color name="System.Base.Window"			value="FFFFFF"/>  <!--whitespace-->
- <color name="System.Base.Midtone"			value="E6E6E6"/>  <!--toolbars-->
+ <color name="System.Base.Midtone"			value="FFFFFF"/>  <!--toolbars-->
  <color name="System.Base.Text" 			value="1A100A"/>
  <color name="System.Base.HiText" 			value="000000"/>
  <color name="System.Base.HiBorder"			value="66A8E8"/>
@@ -184,7 +184,7 @@
  <image target="CMediaFrame.Toolbar"			path="Mediabar.png"/>
  <!--image target="CMediaList.Toolbar"			path="Ten\Toolbar.png"-->
  <image target="CDownloadTabBar"			path="Ten\DownloadgroupsBar.png"/>
- <!--image target="CDownloadsWnd.Toolbar"		path="Ten\ToolbarLt.png"/>
+ <!--image target="CDownloadsWnd.Toolbar"		path="Ten\ToolbarLt.png"-->
  <!--image target="CUploadsWnd.Toolbar" 		path="Ten\Toolbar.png"-->
  <!--image target="CPrivateChatWnd.Toolbar"		path="Ten\Toolbar.png"-->
  <!--image target="CBrowseHostWnd.Toolbar"		path="Ten\Toolbar.png"-->
@@ -312,7 +312,7 @@
  <image target="System.Progress.None"			path="Ten\ProgressNone.png"/>
  <image target="System.Progress.Shaded" 		path="Ten\ProgressNone.png"/>
  <image target="System.Tooltips"			path="Ten\ToolTip.png"/>
- <image target="System.Toolbars"			path="Ten\Toolbar.png"/>
+ <!--image target="System.Toolbars"			path="Ten\Toolbar.png"-->
 </images>
 
 <windowskins>
@@ -548,7 +548,7 @@
  <!--icon id="IDI_POINTER_ARROW_IN" path="PointerArrowIn.ico" types="16" rtf="0"-->
  <!--icon id="IDI_POINTER_ARROW_OUT" path="PointerArrowOut.ico" types="16" rtf="0"-->
  <!--icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtf="0"-->
- <icon id="WINDOW_NEIGHBOURS" path="Ten\IconConnection.ico" types="16" rtf="0"/>
+ <!--icon id="WINDOW_NEIGHBOURS" path="Ten\IconConnection.ico" types="16" rtf="0"-->
 </icons>
 
 <commandImages>

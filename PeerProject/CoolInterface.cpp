@@ -690,12 +690,11 @@ void CCoolInterface::CreateFonts(LPCTSTR pszFace, int nSize)
 
 BOOL CCoolInterface::EnableTheme(CWnd* pWnd, BOOL bEnable)
 {
-	if ( ! theApp.m_pfnSetWindowTheme )
-		return FALSE;	// Win2K
+	// Was theApp.m_pfnSetWindowTheme
 
 	return bEnable ?
-		SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) ) :
-		SUCCEEDED( theApp.m_pfnSetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
+		SUCCEEDED( SetWindowTheme( pWnd->GetSafeHwnd(), NULL, NULL ) ) :
+		SUCCEEDED( SetWindowTheme( pWnd->GetSafeHwnd(), L" ", L" " ) );
 }
 
 void CCoolInterface::FixThemeControls(CWnd* pWnd, BOOL bForce /*=TRUE*/)
@@ -896,11 +895,6 @@ BOOL CCoolInterface::DrawEx(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF cl
 //BOOL CCoolInterface::DrawIndirect(CDC* pDC, int nImage, POINT pt, SIZE sz, COLORREF clrBk, COLORREF clrFg, UINT nStyle, DWORD nState /*=ILS_ALPHA*/, DWORD nAlpha /*=200*/, int nImageListType /*=LVSIL_SMALL*/) const
 //{
 //	//CQuickLock oLock( m_pSection );
-//
-//#ifndef WIN64
-//	if ( theApp.m_bIsWin2000 )
-//		return DrawEx( pDC, nImage, pt, sz, clrBk, clrFg, nStyle, nImageListType );
-//#endif
 //
 //	//return m_pImages16.DrawIndirect( pDC, nImage, pt, sz, (POINT)(CPoint)0,
 //	//	nStyle, MERGECOPY, clrBk, clrFg, nState, nAlpha, clrFg );

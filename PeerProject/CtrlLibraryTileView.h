@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTileView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -68,34 +68,40 @@ public:
 	CLibraryTileView();
 
 protected:
-	typedef boost::ptr_list< CLibraryTileItem > Container;
-	typedef Container::iterator iterator;
-	typedef Container::const_iterator const_iterator;
-	typedef Container::reverse_iterator reverse_iterator;
-	typedef Container::const_reverse_iterator const_reverse_iterator;
+	typedef std::list< CLibraryTileItem* > PtrList;
+	typedef PtrList::iterator iterator;
+	typedef PtrList::const_iterator const_iterator;
+
+//	typedef boost::ptr_list< CLibraryTileItem > Container;
+//	typedef Container::iterator iterator;
+//	typedef Container::const_iterator const_iterator;
+//	typedef Container::reverse_iterator reverse_iterator;
+//	typedef Container::const_reverse_iterator const_reverse_iterator;
 
 	iterator               begin()        { return m_oList.begin(); }
 	const_iterator         begin()  const { return m_oList.begin(); }
 	iterator               end()          { return m_oList.end(); }
 	const_iterator         end()    const { return m_oList.end(); }
-	reverse_iterator       rbegin()       { return m_oList.rbegin(); }
-	const_reverse_iterator rbegin() const { return m_oList.rbegin(); }
-	reverse_iterator       rend()         { return m_oList.rend(); }
-	const_reverse_iterator rend()   const { return m_oList.rend(); }
+//	reverse_iterator       rbegin()       { return m_oList.rbegin(); }
+//	const_reverse_iterator rbegin() const { return m_oList.rbegin(); }
+//	reverse_iterator       rend()         { return m_oList.rend(); }
+//	const_reverse_iterator rend()   const { return m_oList.rend(); }
 
 	size_t size() const { return m_oList.size(); }
 	bool empty() const { return m_oList.empty(); }
 	iterator erase(iterator item) { return m_oList.erase( item ); }
 
-	CSize					m_szBlock;
-	int 					m_nColumns;
-	int 					m_nRows;
-	Container				m_oList;
-	int 					m_nScroll;
-	int 					m_nSelected;
+
+	PtrList					m_oList;
 	iterator				m_pFocus;
 	iterator				m_pFirst;
 	std::list< iterator >	m_oSelTile;
+
+	CSize					m_szBlock;
+	int 					m_nColumns;
+	int 					m_nRows;
+	int 					m_nScroll;
+	int 					m_nSelected;
 	BOOL					m_bDrag;
 	CPoint					m_ptDrag;
 
@@ -117,13 +123,15 @@ protected:
 	virtual CLibraryListItem DropHitTest(const CPoint& point) const;
 	virtual HBITMAP			CreateDragImage(const CPoint& ptMouse, CPoint& ptMiddle);
 
+	// For std::list sort, note not using boost::ptr_list
 	struct SortList : public std::binary_function<CLibraryTileItem, CLibraryTileItem, bool >
 	{
-		bool operator()(const CLibraryTileItem& lhs, const CLibraryTileItem& rhs) const
+		bool operator()(const CLibraryTileItem* lhs, const CLibraryTileItem* rhs) const
 		{
-			return _tcsicoll( lhs.GetTitle(), rhs.GetTitle() ) < 0;
+			return _tcsicoll( (*lhs).GetTitle(), (*rhs).GetTitle() ) < 0;
 		}
 	};
+
 	void				UpdateScroll();
 	void				ScrollBy(int nDelta);
 	void				ScrollTo(int nDelta);

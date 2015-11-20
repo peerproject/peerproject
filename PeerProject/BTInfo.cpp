@@ -889,8 +889,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 						}
 
 						// Check tracker is valid
-						if ( ! StartsWith( strTracker, L"http://", 7 ) &&
-							 ! StartsWith( strTracker, L"udp://", 6 ) )					// ToDo: Handle rare HTTPS etc?
+						if ( ! StartsWith( strTracker, _P( L"http://" ) ) &&
+							 ! StartsWith( strTracker, _P( L"udp://" ) ) )					// ToDo: Handle rare HTTPS etc?
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store unknown tracker for display (*https://)
 						else if ( IsDeadTracker( strTracker ) )
 							pBadTrackers.AddTail( BAD_TRACKER_TOKEN + strTracker );			// Store common dead trackers for display
@@ -964,17 +964,18 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			// Unescape if needed
 			if ( strTracker.Find( L"%3A", 2 ) > 2 )
 			{
-				strTracker.Replace( L"%3A", L":" );
 				strTracker.Replace( L"%2F", L"/" );
+				strTracker.Replace( L"%3A", L":" );
 			}
 
 			// Store it if it's valid. (Some torrents have invalid trackers)
-			if ( StartsWith( strTracker, L"http://", 7 ) ||
-				 StartsWith( strTracker, L"udp://", 6 ) )
+			if ( strTracker.GetLength() < 10 ||
+				 ( ! StartsWith( strTracker, _P( L"http://" ) ) &&	// (ToDo: Support https://)
+				   ! StartsWith( strTracker, _P( L"udp://" ) ) ) ||
+				 IsDeadTracker( strTracker ) )
 			{
-				// Catch common defunct trackers
-				if ( IsDeadTracker( strTracker ) )
-					strTracker = L"http://tracker.publicbt.com/announce";	// Settings.BitTorrent.DefaultTracker ?
+				// Catch unknown and common defunct trackers  (ToDo: Get Private tag first)
+				strTracker = Settings.BitTorrent.DefaultTracker;	// L"udp://tracker.openbittorrent.com:80/announce"
 
 				// Set the torrent to be a single-tracker torrent
 				m_nTrackerMode = tSingle;
@@ -982,18 +983,14 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 				// Backup tracker
 				//CBTTracker oTracker;
-				//oTracker.m_sAddress = L"http://tracker.publicbt.com/announce";
+				//oTracker.m_sAddress = Settings.BitTorrent.DefaultTracker;
 				//oTracker.m_nTier = 0;
 				//m_nTrackerMode = tMultiFinding;
 				//AddTracker( oTracker );
 			}
-			else
-			{
-				// Torrents should always have a valid announce node, other is unlikely.  Try public TCP tracker. (Should get Private tag first...)
-				strTracker = L"http://tracker.publicbt.com/announce";	// Settings.BitTorrent.DefaultTracker ?
-				SetTracker( strTracker );
-				m_nTrackerMode = tSingle;
-			}
+
+			SetTracker( strTracker );
+			m_nTrackerMode = tSingle;
 		}
 	}
 
@@ -1040,7 +1037,7 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 			}
 
 			// Ensure it's valid
-			if ( ! StartsWith( strURL, L"http://", 7 ) )
+			if ( ! StartsWith( strURL, _P( L"http://" ) ) )
 				strURL.Empty();
 			else if ( strURL.Right( 1 ) == L'/' && ! m_sName.IsEmpty() )
 				strURL += m_sName + L'/';
@@ -1380,7 +1377,8 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 	if ( ( m_nSize + m_nBlockSize - 1 ) / m_nBlockSize != m_nBlockCount )
 		return FALSE;
 
-	if ( ! CheckFiles() ) return FALSE;
+	if ( ! CheckFiles() )
+		return FALSE;
 
 	CSHA oSHA = pInfo->GetSHA1();
 	oSHA.GetHash( &m_oBTH[ 0 ] );
@@ -1407,11 +1405,13 @@ BOOL CBTInfo::LoadTorrentTree(const CBENode* pRoot)
 
 BOOL CBTInfo::IsDeadTracker(const CString& sTracker)
 {
-	// Known common defunct URLs, keep updated
+	// Known common defunct URLs, keep updated  (ToDo: Trackers.dat file?)
 	// ToDo: Check DNS headers too - http://bittorrent.org/beps/bep_0034.html
 	return
-		sTracker.Find( L"piratebay.org", 6 ) > 6 ||
-		sTracker.Find( L"denis.stalker.h3q.com", 5 ) > 5 ||
+		sTracker.Find( L"piratebay.org", 6 ) > 0 ||
+		sTracker.Find( L"publicbt.com", 6 ) > 0 ||
+		sTracker.Find( L"demonii.com", 6 ) > 0 ||
+		sTracker.Find( L"denis.stalker.h3q.com", 5 ) > 0 ||
 		( StartsWith( sTracker, _P( L"http://" ) ) &&
 			sTracker.Find( L".1337x.", 8 ) > 8 );
 }
@@ -1429,8 +1429,8 @@ BOOL CBTInfo::CheckFiles()
 		LPCTSTR pszPath = pBTFile->m_sPath;
 
 		if ( pszPath == NULL || *pszPath == 0 ) return FALSE;
-		if ( pszPath[1] == ':' ) return FALSE;
-		if ( *pszPath == '\\' || *pszPath == '/' ) return FALSE;
+		if ( pszPath[1] == L':' ) return FALSE;
+		if ( *pszPath == L'\\' || *pszPath == L'/' ) return FALSE;
 		if ( _tcsstr( pszPath, L"..\\" ) != NULL ) return FALSE;
 		if ( _tcsstr( pszPath, L"../" ) != NULL ) return FALSE;
 	}

@@ -1,7 +1,7 @@
 //
 // CtrlLibraryTreeView.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -151,34 +151,39 @@ public:
 
 protected:
 	CLibraryTreeItem* const m_pParent;
-	typedef boost::ptr_list< CLibraryTreeItem > Container;
-	Container m_oList;
+
+//	typedef boost::ptr_list< CLibraryTreeItem > Container;
+	typedef std::list< CLibraryTreeItem* > PtrList;
+	PtrList m_oList;
 
 public:
-	typedef Container::iterator iterator;
-	typedef Container::const_iterator const_iterator;
-	typedef Container::reverse_iterator reverse_iterator;
-	typedef Container::const_reverse_iterator const_reverse_iterator;
-
 	CLibraryTreeItem*       parent()       { return m_pParent; }
 	const CLibraryTreeItem* parent() const { return m_pParent; }
 
-	iterator               begin()        { return m_oList.begin(); }
-	const_iterator         begin()  const { return m_oList.begin(); }
-	iterator               end()          { return m_oList.end(); }
-	const_iterator         end()    const { return m_oList.end(); }
-	reverse_iterator       rbegin()       { return m_oList.rbegin(); }
-	const_reverse_iterator rbegin() const { return m_oList.rbegin(); }
-	reverse_iterator       rend()         { return m_oList.rend(); }
-	const_reverse_iterator rend()   const { return m_oList.rend(); }
+	typedef PtrList::iterator iterator;
+	typedef PtrList::reverse_iterator reverse_iterator;
 
-	size_t size() const { return m_oList.size(); }
+//	typedef Container::iterator iterator;
+//	typedef Container::const_iterator const_iterator;
+//	typedef Container::reverse_iterator reverse_iterator;
+//	typedef Container::const_reverse_iterator const_reverse_iterator;
+
+	iterator               begin()        { return m_oList.begin(); }
+//	const_iterator         begin()  const { return m_oList.begin(); }
+	iterator               end()          { return m_oList.end(); }
+//	const_iterator         end()    const { return m_oList.end(); }
+	reverse_iterator       rbegin()       { return m_oList.rbegin(); }
+//	const_reverse_iterator rbegin() const { return m_oList.rbegin(); }
+//	reverse_iterator       rend()         { return m_oList.rend(); }
+//	const_reverse_iterator rend()   const { return m_oList.rend(); }
+
+//	size_t size() const { return m_oList.size(); }
 	size_t treeSize() const
 	{
-		size_t result = size();
-		for ( const_iterator i = begin() ; i != end() ; ++i )
+		size_t result = m_oList.size();
+		for ( PtrList::const_iterator i = m_oList.begin() ; i != m_oList.end() ; ++i )
 		{
-			result += i->treeSize();
+			result += (*i)->treeSize();
 		}
 		return result;
 	}

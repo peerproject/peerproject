@@ -1,7 +1,7 @@
 //
 // WndHashProgressBar.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -80,8 +80,7 @@ void CHashProgressBar::Run()
 	{
 		try
 		{
-			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW, AfxRegisterWndClass( CS_SAVEBITS |
-				( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) ),
+			CreateEx( WS_EX_TOPMOST | WS_EX_TOOLWINDOW, AfxRegisterWndClass( CS_SAVEBITS | ( Settings.Interface.TipShadow ? CS_DROPSHADOW : 0 ) ),
 				L"PeerProject Hashing...", WS_POPUP, 0, 0, WINDOW_WIDTH, WINDOW_HEIGHT, NULL, 0 );
 		}
 		catch ( CResourceException* pEx )

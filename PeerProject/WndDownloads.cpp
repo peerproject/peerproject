@@ -1,7 +1,7 @@
 //
 // WndDownloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -213,10 +213,7 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndDownloads.Create( this, IDC_DOWNLOADS );
 
-#ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-#endif
-		m_wndDownloads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
+	m_wndDownloads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
 
 	LoadState( NULL, TRUE );
 
@@ -228,8 +225,8 @@ int CDownloadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_pDragList		= NULL;
 	m_pDragImage	= NULL;
-	m_hCursMove		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDR_MOVE : IDR_MOVE_XP );
-	m_hCursCopy		= AfxGetApp()->LoadCursor( theApp.m_bIsVistaOrNewer ? IDR_COPY : IDR_COPY_XP );
+	m_hCursMove		= AfxGetApp()->LoadCursor( theApp.m_bIsWinXP ? IDR_MOVE_XP : IDR_MOVE );
+	m_hCursCopy		= AfxGetApp()->LoadCursor( theApp.m_bIsWinXP ? IDR_COPY_XP : IDR_COPY );
 	m_tSel			= 0;
 
 	m_nMoreSourcesLimiter	= 8;

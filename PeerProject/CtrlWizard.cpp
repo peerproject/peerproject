@@ -1,7 +1,7 @@
 //
 // CtrlWizard.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -116,7 +116,7 @@ void CWizardCtrl::OnPaint()
 
 		for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 		{
-			float nFactor = 1;
+			float fFactor = 1;
 			CWnd* pControl	= m_pControls.GetAt( nControl );
 			if ( ! pControl->IsKindOf( RUNTIME_CLASS( CIconButtonCtrl ) ) )
 			{
@@ -125,8 +125,8 @@ void CWizardCtrl::OnPaint()
 				m_pItems.Lookup( strUINT, strValue );
 				if ( strValue.Right( 1 ) == "m" )	// Make more space for multipicker rows
 				{
-					nFactor = 1.5;
-					rcItem.bottom += (int)(m_nItemHeight * nFactor);
+					fFactor = 1.5;
+					rcItem.bottom += (int)(m_nItemHeight * fFactor);
 				}
 
 				dc.SetBkColor( Colors.m_crSchemaRow[ nRows & 1 ] );
@@ -134,14 +134,14 @@ void CWizardCtrl::OnPaint()
 				dc.ExtTextOut( rcItem.left + 6, rcItem.top + nOffsetY, ETO_OPAQUE|ETO_CLIPPED,
 					&rcItem, m_pCaptions.GetAt( nControl ), NULL );
 				// Draw file name for multipicker row
-				if ( nFactor != 1 )
+				if ( fFactor != 1 )
 				{
 					CRect rcFileName;
 					CString strFileName = m_pCaptions.GetAt( nControl + 1 );
 
 					rcFileName.CopyRect( &rcItem );
-					rcFileName.top += (int)(m_nItemHeight / 2 * nFactor) - 4;
-					rcFileName.bottom += (int)(m_nItemHeight / 2 * nFactor) - 4;
+					rcFileName.top += (int)(m_nItemHeight / 2 * fFactor) - 4;
+					rcFileName.bottom += (int)(m_nItemHeight / 2 * fFactor) - 4;
 					CSize size = dc.GetTextExtent( strFileName );
 					if ( size.cx > rcFileName.Width() - 24 - 12 )
 					{
@@ -155,7 +155,7 @@ void CWizardCtrl::OnPaint()
 						&rcFileName, strFileName, NULL );
 				}
 
-				rcItem.OffsetRect( 0, (int)(m_nItemHeight * nFactor) );
+				rcItem.OffsetRect( 0, (int)(m_nItemHeight * fFactor) );
 				nRows++;
 			}
 		}
@@ -378,9 +378,9 @@ BOOL CWizardCtrl::MakeControls(const CString& sXMLPath, CXMLElement* pBase, std:
 {
 	if ( pBase == NULL ) return FALSE;
 
-	CString strTemplatePath = sXMLPath.Left( sXMLPath.ReverseFind( L'\\' ) + 1 );
-	CString strOddTemplate  = LoadFile( strTemplatePath + m_sOddFilePath );
-	CString strEvenTemplate = LoadFile( strTemplatePath + m_sEvenFilePath );
+	const CString strTemplatePath = sXMLPath.Left( sXMLPath.ReverseFind( L'\\' ) + 1 );
+	const CString strOddTemplate  = LoadFile( strTemplatePath + m_sOddFilePath );
+	const CString strEvenTemplate = LoadFile( strTemplatePath + m_sEvenFilePath );
 
 	CXMLElement* pTemplate = pBase->GetElementByName( L"wizardtext", FALSE );
 	if ( ! pTemplate ) return FALSE;
@@ -395,11 +395,11 @@ BOOL CWizardCtrl::MakeControls(const CString& sXMLPath, CXMLElement* pBase, std:
 
 		// Collect only english and language specific data
 		if ( pLangGroup->IsNamed( L"text" ) &&
-			( strLang == Settings.General.Language || ( strLang == "en" && m_pControls.IsEmpty() ) ) )
+			( strLang == Settings.General.Language || ( Settings.General.LanguageDefault && m_pControls.IsEmpty() ) ) )		// strLang == "en"
 		{
 			// If english data loaded but language specific data found later,
 			// then empty controls, captions, and docs collections
-			if ( strLang != "en" ) Clear();
+			if ( ! Settings.General.LanguageDefault ) Clear();		// strLang != "en"
 
 			int nItemCount = 0;
 			for ( POSITION posLangGroup = pLangGroup->GetElementIterator() ; posLangGroup ; )
@@ -432,7 +432,7 @@ BOOL CWizardCtrl::MakeControls(const CString& sXMLPath, CXMLElement* pBase, std:
 							pEdit->SetWindowText( strText );
 
 							pControl = pEdit;
-							strText = pItem->GetAttributeValue( L"value" ) + ':';
+							strText = pItem->GetAttributeValue( L"value" ) + L':';
 
 							m_pCaptions.Add( strText );
 							m_pControls.Add( pControl );
@@ -521,7 +521,7 @@ void CWizardCtrl::Layout()
 	for ( INT_PTR nControl = 0 ; nControl < m_pControls.GetSize() ; nControl++ )
 	{
 		CWnd* pControl = m_pControls.GetAt( nControl );
-		float nFactor = 1;
+		float fFactor = 1;
 		CString strUINT, strValue;
 
 		if ( pControl->IsKindOf( RUNTIME_CLASS( CIconButtonCtrl ) ) )
@@ -529,14 +529,14 @@ void CWizardCtrl::Layout()
 			// Place on previous row
 			strUINT.Format( L"%d", IDC_WIZARD_CONTROL + nControl - 1 );
 			m_pItems.Lookup( strUINT, strValue );
-			if ( strValue.Right( 1 ) == "m" ) nFactor = 2;
+			if ( strValue.Right( 1 ) == "m" ) fFactor = 2;
 
 			rcNew.left = rcClient.right - 35;
 			rcNew.right = rcClient.right - 9;
-			rcNew.top = nTop - (int)(m_nItemHeight / 2 * nFactor) - 13;
-			rcNew.bottom = nTop - (int)(m_nItemHeight / 2 * nFactor) + 13;
+			rcNew.top = nTop - (int)(m_nItemHeight / 2 * fFactor) - 13;
+			rcNew.bottom = nTop - (int)(m_nItemHeight / 2 * fFactor) + 13;
 			bSameRow = TRUE;
-			nFactor = 1;
+			fFactor = 1;
 		}
 		else if ( m_nCaptionWidth )
 		{
@@ -547,7 +547,7 @@ void CWizardCtrl::Layout()
 				strUINT.Format( L"%d", IDC_WIZARD_CONTROL + nControl - 2 );
 				m_pItems.Lookup( strUINT, strValue );
 				if ( strValue.Right( 1 ) == "m" )	// Not the first multipicker row
-					nFactor = 1.5;
+					fFactor = 1.5;
 			}
 			rcNew.left		= m_nCaptionWidth;
 			rcNew.right		= rcClient.right - 40;
@@ -561,8 +561,8 @@ void CWizardCtrl::Layout()
 
 		if ( ! bSameRow )
 		{
-			pScroll.nMax += (int)(m_nItemHeight * nFactor);
-			nTop += (int)(m_nItemHeight * nFactor);
+			pScroll.nMax += (int)(m_nItemHeight * fFactor);
+			nTop += (int)(m_nItemHeight * fFactor);
 		}
 	}
 

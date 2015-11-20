@@ -1,7 +1,7 @@
 //
 // WndMonitor.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -494,12 +494,12 @@ void CRemoteWnd::PaintScaler(CDC* pDC)
 	if ( m_bsScalerTrack )
 	{
 		CRect rcTrack( &m_rcsScalerTrack ), rcPart;
-		float nPosition = 0;
+		float fPosition = 0;
 
 		if ( Settings.Live.BandwidthScaleIn > 100 )
-			nPosition = 1.0f;
+			fPosition = 1.0f;
 		else
-			nPosition = (float)Settings.Live.BandwidthScaleIn / 105.0f;
+			fPosition = (float)Settings.Live.BandwidthScaleIn / 105.0f;
 
 		if ( m_bsScalerTab )
 		{
@@ -507,7 +507,7 @@ void CRemoteWnd::PaintScaler(CDC* pDC)
 
 			if ( m_bScaler ) rcPart.OffsetRect( rcPart.Width(), 0 );
 
-			m_rcScalerTab.left		= rcTrack.left + (int)( nPosition * ( rcTrack.Width() - rcPart.Width() ) );
+			m_rcScalerTab.left		= rcTrack.left + (int)( fPosition * ( rcTrack.Width() - rcPart.Width() ) );
 			m_rcScalerTab.right		= m_rcScalerTab.left + rcPart.Width();
 			m_rcScalerTab.top		= rcTrack.top;
 			m_rcScalerTab.bottom	= rcTrack.top + rcPart.Height();
@@ -542,12 +542,12 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 	if ( m_bsMediaSeekTrack )
 	{
 		CRect rcTrack( &m_rcsMediaSeekTrack ), rcPart;
-		float nPosition = m_nMediaSeek;
-		if ( nPosition < 0 )
+		float fPosition = m_nMediaSeek;
+		if ( fPosition < 0 )
 		{
-			nPosition = 0;
+			fPosition = 0;
 			if ( CMediaFrame* pMediaFrame = CMediaFrame::GetMediaFrame() )
-				nPosition = pMediaFrame->GetPosition();
+				fPosition = pMediaFrame->GetPosition();
 		}
 
 		if ( m_bsMediaSeekTab )
@@ -557,7 +557,7 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 			if ( m_bMediaSeek || m_nMediaSeek >= 0 )
 				rcPart.OffsetRect( rcPart.Width(), 0 );
 
-			m_rcMediaSeekTab.left	= rcTrack.left + (int)( nPosition * ( rcTrack.Width() - rcPart.Width() ) );
+			m_rcMediaSeekTab.left	= rcTrack.left + (int)( fPosition * ( rcTrack.Width() - rcPart.Width() ) );
 			m_rcMediaSeekTab.right	= m_rcMediaSeekTab.left + rcPart.Width();
 			m_rcMediaSeekTab.top	= rcTrack.top;
 			m_rcMediaSeekTab.bottom	= rcTrack.top + rcPart.Height();
@@ -585,7 +585,7 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 
 	if ( m_bsMediaVolTrack )
 	{
-		float nPosition = (float)Settings.MediaPlayer.Volume;
+		float fPosition = (float)Settings.MediaPlayer.Volume;
 		CRect rcTrack( &m_rcsMediaVolTrack ), rcPart;
 
 		if ( m_bsMediaVolTab )
@@ -595,7 +595,7 @@ void CRemoteWnd::PaintMedia(CDC* pDC)
 			if ( m_bMediaVol || m_nMediaVol >= 0 )
 				rcPart.OffsetRect( rcPart.Width(), 0 );
 
-			m_rcMediaVolTab.left	= rcTrack.left + (int)( nPosition * ( rcTrack.Width() - rcPart.Width() ) );
+			m_rcMediaVolTab.left	= rcTrack.left + (int)( fPosition * ( rcTrack.Width() - rcPart.Width() ) );
 			m_rcMediaVolTab.right	= m_rcMediaVolTab.left + rcPart.Width();
 			m_rcMediaVolTab.top		= rcTrack.top;
 			m_rcMediaVolTab.bottom	= rcTrack.top + rcPart.Height();
@@ -983,13 +983,13 @@ void CRemoteWnd::TrackSeek()
 		GetCursorPos( &point );
 		ScreenToClient( &point );
 
-		float nPosition = (float)( point.x - rcTrack.left ) / (float)rcTrack.Width();
-		if ( nPosition < 0.0f ) nPosition = 0.0f;
-		if ( nPosition > 1.0f ) nPosition = 1.0f;
+		float fPosition = (float)( point.x - rcTrack.left ) / (float)rcTrack.Width();
+		if ( fPosition < 0.0f ) fPosition = 0.0f;
+		if ( fPosition > 1.0f ) fPosition = 1.0f;
 
-		if ( nPosition != m_nMediaSeek )
+		if ( fPosition != m_nMediaSeek )
 		{
-			m_nMediaSeek = nPosition;
+			m_nMediaSeek = fPosition;
 			Invalidate();
 		}
 	}
@@ -1031,13 +1031,13 @@ void CRemoteWnd::TrackVol()
 		GetCursorPos( &point );
 		ScreenToClient( &point );
 
-		float nPosition = (float)( point.x - rcTrack.left ) / (float)rcTrack.Width();
-		if ( nPosition < 0.0f ) nPosition = 0.0f;
-		if ( nPosition > 1.0f ) nPosition = 1.0f;
+		float fPosition = (float)( point.x - rcTrack.left ) / (float)rcTrack.Width();
+		if ( fPosition < 0.0f ) fPosition = 0.0f;
+		if ( fPosition > 1.0f ) fPosition = 1.0f;
 
-		if ( nPosition != m_nMediaVol )
+		if ( fPosition != m_nMediaVol )
 		{
-			m_nMediaVol = nPosition;
+			m_nMediaVol = fPosition;
 			pMediaFrame->SetVolume( m_nMediaVol );
 			Invalidate();
 		}

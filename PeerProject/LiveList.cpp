@@ -913,7 +913,7 @@ void CLiveListCtrl::Sort(int nColumn)
 	if ( nColumn )
 	{
 		std::stable_sort( m_pIndex.begin(), m_pIndex.end(),
-			boost::bind( CLiveList::Less, _1, _2, nColumn ) );
+			std::tr1::bind( CLiveList::Less, _1, _2, nColumn ) );	// Was boost::bind, std::bind but tr1 for VS2008
 	}
 
 	InvalidateRect( NULL );

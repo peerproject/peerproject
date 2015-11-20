@@ -672,13 +672,9 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Skin Option [Navbar] Failed", pXML->ToString() );
 			break;
 		case 'd':	// "DropMenu" or "SubMenu"
-			if ( strValue == L"true" )
+			if ( strValue.CompareNoCase( L"true" ) == 0 )
 				Settings.Skin.DropMenu = true;
-			else if ( strValue == L"false" )
-				Settings.Skin.DropMenu = false;
-			else if ( strValue == L"on" )
-				Settings.Skin.DropMenu = true;
-			else if ( strValue == L"off" )
+			else if ( strValue.CompareNoCase( L"false" ) == 0 )
 				Settings.Skin.DropMenu = false;
 			else if ( strValue == L"1" )
 				Settings.Skin.DropMenu = true;
@@ -694,46 +690,13 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				Settings.Skin.DropMenu = true;
 			break;
 		case 'b':	// "MenuBorders" or "MenubarBevel"
-			if ( strValue == L"true" )
-				Settings.Skin.MenuBorders = true;
-			else if ( strValue == L"false" )
-				Settings.Skin.MenuBorders = false;
-			else if ( strValue == L"on" )
-				Settings.Skin.MenuBorders = true;
-			else if ( strValue == L"off" )
-				Settings.Skin.MenuBorders = false;
-			else if ( strValue == L"1" )
-				Settings.Skin.MenuBorders = true;
-			else if ( strValue == L"0" )
-				Settings.Skin.MenuBorders = false;
+			Settings.Skin.MenuBorders = LoadOptionBool( strValue, Settings.Skin.MenuBorders );	// "true/false"
 			break;
 		case 'p':	// "MenuGripper" or "Grippers"
-			if ( strValue == L"true" )
-				Settings.Skin.MenuGripper = true;
-			else if ( strValue == L"false" )
-				Settings.Skin.MenuGripper = false;
-			else if ( strValue == L"on" )
-				Settings.Skin.MenuGripper = true;
-			else if ( strValue == L"off" )
-				Settings.Skin.MenuGripper = false;
-			else if ( strValue == L"1" )
-				Settings.Skin.MenuGripper = true;
-			else if ( strValue == L"0" )
-				Settings.Skin.MenuGripper = false;
+			Settings.Skin.MenuGripper = LoadOptionBool( strValue, Settings.Skin.MenuGripper );	// "true/false"
 			break;
 		case 'c':	// "RoundedSelect" or "HighlightChamfer"
-			if ( strValue == L"true" )
-				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == L"false" )
-				Settings.Skin.RoundedSelect = false;
-			else if ( strValue == L"on" )
-				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == L"off" )
-				Settings.Skin.RoundedSelect = false;
-			else if ( strValue == L"1" )
-				Settings.Skin.RoundedSelect = true;
-			else if ( strValue == L"0" )
-				Settings.Skin.RoundedSelect = false;
+			Settings.Skin.RoundedSelect = LoadOptionBool( strValue, Settings.Skin.RoundedSelect );	// "true/false"
 			break;
 		case 'm':	// "Menubar" or "Menubars"
 			if ( ! strHeight.IsEmpty() )
@@ -798,18 +761,7 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 				Settings.Skin.ButtonEdge = _wtoi(strValue);
 			break;
 		case 'f':	// "FrameEdge"
-			if ( strValue == L"true" )
-				Settings.Skin.FrameEdge = true;
-			else if ( strValue == L"false" )
-				Settings.Skin.FrameEdge = false;
-			else if ( strValue == L"on" )
-				Settings.Skin.FrameEdge = true;
-			else if ( strValue == L"off" )
-				Settings.Skin.FrameEdge = false;
-			else if ( strValue == L"1" )
-				Settings.Skin.FrameEdge = true;
-			else if ( strValue == L"0" )
-				Settings.Skin.FrameEdge = false;
+			Settings.Skin.FrameEdge = LoadOptionBool( strValue, Settings.Skin.FrameEdge );	// "true/false"
 			break;
 		case 'i':	// "IconGrid" or "LibraryTiles"
 			if ( ! strHeight.IsEmpty() )
@@ -836,6 +788,24 @@ BOOL CSkin::LoadOptions(CXMLElement* pBase)
 	}
 
 	return TRUE;
+}
+
+bool CSkin::LoadOptionBool(const CString str, bool bDefault /*false*/)
+{
+	if ( str.CompareNoCase( L"true" ) == 0 )
+		return true;
+	if ( str.CompareNoCase( L"false" ) == 0 )
+		return false;
+	if ( str == L"1" )
+		return true;
+	if ( str == L"0" )
+		return false;
+	if ( str == L"on" )
+		return true;
+	if ( str == L"off" )
+		return false;
+	theApp.Message( MSG_DEBUG, L"Unexpected skin option value: %s", (LPCTSTR)str );
+	return bDefault;
 }
 
 
@@ -1083,8 +1053,10 @@ BOOL CSkin::CreateToolBar(LPCTSTR pszName, CCoolBarCtrl* pBar)
 				pBar->SetWatermark( hBitmap );
 			else if ( HBITMAP hBitmap = GetWatermark( strClassName + L".Toolbar" ) )
 				pBar->SetWatermark( hBitmap );
-			else if ( HBITMAP hBitmap = GetWatermark( L"System.Toolbars" ) )		// ToDo: Images.m_bmToolbar
+			else if ( HBITMAP hBitmap = GetWatermark( L"System.Toolbars." + strClassName ) )
 				pBar->SetWatermark( hBitmap );
+			else if ( Images.m_bmToolbar.m_hObject )		// "System.Toolbars"
+				pBar->SetWatermark( (HBITMAP)Images.m_bmToolbar.m_hObject );
 
 			pBar->Copy( pBase );
 			return TRUE;
@@ -1202,8 +1174,8 @@ BOOL CSkin::CreateToolBar(CXMLElement* pBase)
 				{
 					strTemp = pXML->GetAttributeValue( L"height" );
 					_stscanf( strTemp, L"%u", &nHeight );
-					CCoolBarItem* pItem = pBar->Add( nID, nWidth, nHeight );
 
+					CCoolBarItem* pItem = pBar->Add( nID, nWidth, nHeight );
 					if ( pItem )
 					{
 						strTemp = pXML->GetAttributeValue( L"checked", L"false" );
@@ -2478,8 +2450,9 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		pXML->GetAttributeValue( L"res" ) +
 		pXML->GetAttributeValue( L"path" );
 
-	UINT nIconID = LookupCommandID( pXML, L"res" );
 	HINSTANCE hInstance( NULL );
+
+	UINT nIconID = LookupCommandID( pXML, L"res" );
 	if ( nIconID )
 		_stscanf( strPath, L"%p", &hInstance );
 
@@ -2490,13 +2463,14 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		return TRUE;	// Skip icon and load remaining skin
 	}
 
-	// Is this a RTL-enabled icon? (default: "0" - no)
-	const BOOL bRTL = Settings.General.LanguageRTL && pXML->GetAttributeValue( L"rtl", L"0" ) == L"1";
+	// Is this a RTL-enabled icon? (default: rtl="0" - no)
+	const BOOL bRTL = Settings.General.LanguageRTL && LoadOptionBool( pXML->GetAttributeValue( L"rtl", L"0" ) );
 
 	// Icon types (default: "16" - 16x16 icon only)
 	CString strTypes = pXML->GetAttributeValue( L"types", L"16" );
-	int curPos = 0;
 	CString strSize;
+	int curPos = 0;
+
 	while ( ! ( strSize = strTypes.Tokenize( L",", curPos ) ).IsEmpty() )
 	{
 		int cx = _tstoi( strSize );
@@ -2520,8 +2494,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		HICON hIcon = NULL;
 		if ( nIconID && hInstance )
 		{
-			hIcon = (HICON)LoadImage( hInstance, MAKEINTRESOURCE( nIconID ),
-				IMAGE_ICON, cx, cx, 0 );
+			hIcon = (HICON)LoadImage( hInstance, MAKEINTRESOURCE( nIconID ), IMAGE_ICON, cx, cx, 0 );
 		}
 		else if ( LoadIcon( strFile,
 			( ( nType == LVSIL_SMALL ) ? &hIcon : NULL ),
@@ -2530,6 +2503,7 @@ BOOL CSkin::LoadCommandIcon(CXMLElement* pXML, const CString& strPath)
 		{
 			m_pImages.SetAt( nID, strFile );
 		}
+
 		if ( hIcon )
 		{
 			if ( bRTL )
@@ -2591,9 +2565,9 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 			pFile.LoadFromResource( AfxGetResourceHandle(), nID, RT_PNG );
 		else
 			pFile.LoadFromFile( strFile );
-#ifndef WIN64
-		if ( theApp.m_bIsWin2000 ) pFile.EnsureRGB();
-#endif
+
+		//pFile.EnsureRGB();
+
 		hBitmap = pFile.CreateBitmap();
 	}
 	else
@@ -2609,6 +2583,7 @@ BOOL CSkin::LoadCommandBitmap(CXMLElement* pBase, const CString& strPath)
 
 	BOOL bResult = CoolInterface.Add( this, pBase, hBitmap, crMask );
 	DeleteObject( hBitmap );
+
 	if ( ! bResult )
 	{
 		theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed to add image", pBase->ToString() );

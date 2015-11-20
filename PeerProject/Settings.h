@@ -67,7 +67,7 @@ public:
 		CString		Language;
 		bool		LanguageRTL;			// Right-to-Left GUI
 		bool		LanguageDefault;		// Assume English
-		bool		IgnoreXPsp2;			// Ignore the presence of Windows XPsp2 limits
+		bool		IgnoreXPLimits;			// Ignore the presence of Windows XPsp2 limits  (Was IgnoreXPsp2)
 		bool		ItWasLimited;			// If user patches half-open connection limit change settings back to full speed
 		bool		DebugBTSources;			// Display received sources for BT download when seeding
 		bool		AlwaysOpenURLs;
@@ -120,7 +120,7 @@ public:
 		bool		MenuBorders;
 		bool		MenuGripper;
 		bool		RoundedSelect;
-		DWORD		FrameEdge;
+		bool		FrameEdge;
 		DWORD		ButtonEdge;
 		DWORD		MenubarHeight;
 		DWORD		ToolbarHeight;

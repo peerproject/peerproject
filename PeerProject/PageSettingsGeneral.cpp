@@ -1,7 +1,7 @@
 //
 // PageSettingsGeneral.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -152,10 +152,8 @@ BOOL CGeneralSettingsPage::OnInitDialog()
 	Settings.SetRange( &Settings.Interface.TipAlpha, m_wndTipAlpha );
 	m_wndTipAlpha.SetPos( Settings.Interface.TipAlpha );
 
-#ifndef WIN64
-	if ( theApp.m_bIsWin2000 )
-		GetDlgItem( IDC_TIP_SHADOW )->EnableWindow( FALSE );
-#endif
+	//if ( Win2000 )
+	//	GetDlgItem( IDC_TIP_SHADOW )->EnableWindow( FALSE );
 
 	UpdateData( FALSE );
 
@@ -217,7 +215,7 @@ void CGeneralSettingsPage::OnOK()
 	Settings.Interface.TipAlpha 		= m_wndTipAlpha.GetPos();
 
 	// Update DropShadow
-	if ( (BOOL)Settings.Interface.TipShadow != m_bTipShadow && ! theApp.m_bIsWin2000 )
+	if ( (BOOL)Settings.Interface.TipShadow != m_bTipShadow )
 	{
 		Settings.Interface.TipShadow	= m_bTipShadow == TRUE;
 		CCoolTipCtrl::m_hClass  = AfxRegisterWndClass( CS_SAVEBITS | ( m_bTipShadow ? CS_DROPSHADOW : 0 ) );

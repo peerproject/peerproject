@@ -1,7 +1,7 @@
 //
 // WndPanel.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -78,7 +78,7 @@ void CPanelWnd::OnSkinChange()
 
 void CPanelWnd::OnSize(UINT nType, int cx, int cy)
 {
-	if ( m_bPanelMode && ! m_pSkin && ! theApp.m_bIsWin2000 && ! IsIconic() )
+	if ( m_bPanelMode && ! m_pSkin && ! IsIconic() )
 	{
 		CRect rc;
 		GetWindowRect( &rc );

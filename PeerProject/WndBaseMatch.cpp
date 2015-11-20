@@ -1,7 +1,7 @@
 //
 // WndBaseMatch.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -159,10 +159,7 @@ int CBaseMatchWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 	m_wndList.Create( m_pMatches, this );
 //	m_wndList.ModifyStyle( 0, WS_TABSTOP );
 
-#ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-#endif
-		m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop rare flicker XP+, CPU intensive
+	m_wndList.ModifyStyleEx( 0, WS_EX_COMPOSITED );		// Stop rare flicker XP+, CPU intensive
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_CLIPSIBLINGS|WS_TABSTOP|WS_VISIBLE|CBRS_NOALIGN ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
@@ -212,8 +209,7 @@ void CBaseMatchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 
 	if ( m_wndList.HitTestHeader( point ) && m_wndList.m_pSchema != NULL )
 	{
-		CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_wndList.m_pSchema,
-			&m_wndList.m_pColumns );
+		CMenu* pMenu = CSchemaColumnsDlg::BuildColumnMenu( m_wndList.m_pSchema, &m_wndList.m_pColumns );
 
 		pMenu->AppendMenu( MF_SEPARATOR, ID_SEPARATOR, (LPCTSTR)NULL );
 		CString strText;
@@ -224,8 +220,8 @@ void CBaseMatchWnd::OnContextMenu(CWnd* pWnd, CPoint point)
 		m_pCoolMenu->AddMenu( pMenu, TRUE );
 		m_pCoolMenu->SetWatermark( Skin.GetWatermark( L"CCoolMenu" ) );
 
-		UINT nCmd = pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|
-			TPM_RETURNCMD, point.x, point.y, this );
+		UINT nCmd = pMenu->TrackPopupMenu( TPM_LEFTALIGN|TPM_LEFTBUTTON|TPM_RIGHTBUTTON|TPM_RETURNCMD,
+			point.x, point.y, this );
 
 		delete pMenu;
 		delete m_pCoolMenu;

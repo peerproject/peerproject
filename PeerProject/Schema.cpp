@@ -178,7 +178,7 @@ BOOL CSchema::Load(LPCTSTR pszFile)
 
 	// LoadIcon() causes bad registry reads (?)
 	// CCoolInterface::IsNewWindows() caused several reapeat ones.(?)
-	if ( theApp.m_bIsWin2000 || ! LoadIcon() )
+	if ( ! LoadIcon() )
 	{
 		m_sIcon = m_sIcon.Left( m_sIcon.GetLength() - 4 );
 		m_sIcon += L".Safe.ico";
@@ -691,17 +691,14 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix) const
 
 		if ( pMember->m_bNumeric )
 		{
-			float nNumber = 0.0f;
-			bool bValid = true;
-
-			if ( str.GetLength() && _stscanf( str, L"%f", &nNumber ) != 1 )
-				bValid = false;
-			if ( nNumber < pMember->m_nMinOccurs || nNumber > pMember->m_nMaxOccurs )
-				bValid = false;
-			if ( ! bValid )
+			float fNumber = 0.0f;
+			if ( ! str.IsEmpty() && _stscanf( str, L"%f", &fNumber ) != 1 )
 			{
-				if ( ! bFix ) return FALSE;
-				pMember->SetValueTo( pBody, L"" );
+				if ( fNumber < pMember->m_nMinOccurs || fNumber > pMember->m_nMaxOccurs )
+				{
+					if ( ! bFix ) return FALSE;
+					pMember->SetValueTo( pBody, L"" );
+				}
 			}
 		}
 		else if ( pMember->m_bYear )
@@ -716,7 +713,7 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix) const
 		else if ( pMember->m_bGUID )
 		{
 			Hashes::Guid tmp;
-			if ( !(Hashes::fromGuid( str, &tmp[ 0 ] ) && tmp.validate() ) )
+			if ( !( Hashes::fromGuid( str, &tmp[ 0 ] ) && tmp.validate() ) )
 			{
 				if ( ! bFix ) return FALSE;
 				pMember->SetValueTo( pBody, L"" );
@@ -727,7 +724,6 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix) const
 			if ( str.GetLength() > pMember->m_nMaxLength )
 			{
 				if ( ! bFix ) return FALSE;
-
 				str = str.Left( pMember->m_nMaxLength );
 				pMember->SetValueTo( pBody, str );
 			}
@@ -738,7 +734,8 @@ BOOL CSchema::Validate(CXMLElement* pXML, BOOL bFix) const
 				str = L"true";
 			else if ( str == L"0" || str.CompareNoCase( L"false" ) == 0 )
 				str = L"false";
-			else if ( ! bFix ) return FALSE;
+			else if ( ! bFix )
+				return FALSE;
 			pMember->SetValueTo( pBody, L"" );
 		}
 	}
@@ -766,7 +763,7 @@ CString CSchema::GetIndexedWords(CXMLElement* pXML) const
 			if ( ! strMember.IsEmpty() )
 			{
 				if ( str.IsEmpty() )
-					str += strMember;
+					str = strMember;
 				else
 					str += L' ' + strMember;
 			}
@@ -792,7 +789,8 @@ CString CSchema::GetVisibleWords(CXMLElement* pXML) const
 
 			if ( ! strMember.IsEmpty() )
 			{
-				if ( ! str.IsEmpty() ) str += L' ';
+				if ( ! str.IsEmpty() )
+					str += L' ';
 				str += strMember;
 			}
 		}
@@ -841,35 +839,35 @@ BOOL CSchemaBitprints::Load(const CXMLElement* pXML)
 //////////////////////////////////////////////////////////////////////
 // CSchema Common Schema URIs
 
-LPCTSTR CSchema::uriApplication 			= L"http://schemas.peerproject.org/Application.xsd";				// http://www.shareaza.com/schemas/application.xsd
-LPCTSTR CSchema::uriArchive					= L"http://schemas.peerproject.org/Archive.xsd";					// http://www.shareaza.com/schemas/archive.xsd
+LPCTSTR CSchema::uriApplication 			= L"http://schemas.peerproject.org/Application.xsd";			// http://www.shareaza.com/schemas/application.xsd
+LPCTSTR CSchema::uriArchive					= L"http://schemas.peerproject.org/Archive.xsd";				// http://www.shareaza.com/schemas/archive.xsd
 LPCTSTR CSchema::uriAudio					= L"http://schemas.peerproject.org/Audio.xsd";					// http://www.limewire.com/schemas/audio.xsd
 LPCTSTR CSchema::uriBook					= L"http://schemas.peerproject.org/Book.xsd";					// http://www.limewire.com/schemas/book.xsd
 LPCTSTR CSchema::uriImage					= L"http://schemas.peerproject.org/Image.xsd";					// http://www.shareaza.com/schemas/image.xsd
 LPCTSTR CSchema::uriVideo					= L"http://schemas.peerproject.org/Video.xsd";					// http://www.limewire.com/schemas/video.xsd
-LPCTSTR CSchema::uriROM 					= L"http://schemas.peerproject.org/ROM.xsd";						// http://www.shareaza.com/schemas/rom.xsd
+LPCTSTR CSchema::uriROM 					= L"http://schemas.peerproject.org/ROM.xsd";					// http://www.shareaza.com/schemas/rom.xsd
 LPCTSTR CSchema::uriDocument				= L"http://schemas.peerproject.org/Document.xsd";				// http://www.shareaza.com/schemas/wordProcessing.xsd
-LPCTSTR CSchema::uriSpreadsheet				= L"http://schemas.peerproject.org/Spreadsheet.xsd";				// http://www.shareaza.com/schemas/spreadsheet.xsd
+LPCTSTR CSchema::uriSpreadsheet				= L"http://schemas.peerproject.org/Spreadsheet.xsd";			// http://www.shareaza.com/schemas/spreadsheet.xsd
 LPCTSTR CSchema::uriPresentation			= L"http://schemas.peerproject.org/Presentation.xsd";			// http://www.shareaza.com/schemas/presentation.xsd
 LPCTSTR CSchema::uriCollection				= L"http://schemas.peerproject.org/Collection.xsd";				// http://www.shareaza.com/schemas/collection.xsd
 
-LPCTSTR CSchema::uriLibrary					= L"http://schemas.peerproject.org/LibraryRoot.xsd";				// http://www.shareaza.com/schemas/libraryRoot.xsd
+LPCTSTR CSchema::uriLibrary					= L"http://schemas.peerproject.org/LibraryRoot.xsd";			// http://www.shareaza.com/schemas/libraryRoot.xsd
 
 LPCTSTR CSchema::uriFolder					= L"http://schemas.peerproject.org/Folder.xsd";					// http://www.shareaza.com/schemas/folder.xsd
 LPCTSTR CSchema::uriCollectionsFolder		= L"http://schemas.peerproject.org/CollectionsFolder.xsd";		// http://www.shareaza.com/schemas/collectionsFolder.xsd
-LPCTSTR CSchema::uriFavoritesFolder			= L"http://schemas.peerproject.org/FavoritesFolder.xsd";			// http://www.shareaza.com/schemas/favouritesFolder.xsd
+LPCTSTR CSchema::uriFavoritesFolder			= L"http://schemas.peerproject.org/FavoritesFolder.xsd";		// http://www.shareaza.com/schemas/favouritesFolder.xsd
 LPCTSTR CSchema::uriSearchFolder			= L"http://schemas.peerproject.org/SearchFolder.xsd";			// http://www.shareaza.com/schemas/searchFolder.xsd
 
 LPCTSTR CSchema::uriAllFiles				= L"http://schemas.peerproject.org/AllFiles.xsd";				// http://www.shareaza.com/schemas/allFiles.xsd
 
-LPCTSTR CSchema::uriApplicationRoot			= L"http://schemas.peerproject.org/ApplicationRoot.xsd";			// http://www.shareaza.com/schemas/applicationRoot.xsd
+LPCTSTR CSchema::uriApplicationRoot			= L"http://schemas.peerproject.org/ApplicationRoot.xsd";		// http://www.shareaza.com/schemas/applicationRoot.xsd
 LPCTSTR CSchema::uriApplicationAll			= L"http://schemas.peerproject.org/ApplicationAll.xsd";			// http://www.shareaza.com/schemas/applicationAll.xsd
 
-LPCTSTR CSchema::uriArchiveRoot 			= L"http://schemas.peerproject.org/ArchiveRoot.xsd";				// http://www.shareaza.com/schemas/archiveRoot.xsd
+LPCTSTR CSchema::uriArchiveRoot 			= L"http://schemas.peerproject.org/ArchiveRoot.xsd";			// http://www.shareaza.com/schemas/archiveRoot.xsd
 LPCTSTR CSchema::uriArchiveAll				= L"http://schemas.peerproject.org/ArchiveAll.xsd";				// http://www.shareaza.com/schemas/archiveAll.xsd
 
 LPCTSTR CSchema::uriBookRoot				= L"http://schemas.peerproject.org/BookRoot.xsd";				// http://www.shareaza.com/schemas/bookRoot.xsd
-LPCTSTR CSchema::uriBookAll					= L"http://schemas.peerproject.org/BookAll.xsd";					// http://www.shareaza.com/schemas/bookAll.xsd
+LPCTSTR CSchema::uriBookAll					= L"http://schemas.peerproject.org/BookAll.xsd";				// http://www.shareaza.com/schemas/bookAll.xsd
 
 LPCTSTR CSchema::uriImageRoot				= L"http://schemas.peerproject.org/ImageRoot.xsd";				// http://www.shareaza.com/schemas/imageRoot.xsd
 LPCTSTR CSchema::uriImageAll				= L"http://schemas.peerproject.org/ImageAll.xsd";				// http://www.shareaza.com/schemas/imageAll.xsd
@@ -878,7 +876,7 @@ LPCTSTR CSchema::uriImageAlbum				= L"http://schemas.peerproject.org/ImageAlbum.
 LPCTSTR CSchema::uriMusicRoot				= L"http://schemas.peerproject.org/MusicRoot.xsd";				// http://www.shareaza.com/schemas/musicRoot.xsd
 LPCTSTR CSchema::uriMusicAll				= L"http://schemas.peerproject.org/MusicAll.xsd";				// http://www.shareaza.com/schemas/musicAll.xsd
 LPCTSTR CSchema::uriMusicAlbum				= L"http://schemas.peerproject.org/MusicAlbum.xsd";				// http://www.shareaza.com/schemas/musicAlbum.xsd
-LPCTSTR CSchema::uriMusicArtist				= L"http://schemas.peerproject.org/MusicArtist.xsd";				// http://www.shareaza.com/schemas/musicArtist.xsd
+LPCTSTR CSchema::uriMusicArtist				= L"http://schemas.peerproject.org/MusicArtist.xsd";			// http://www.shareaza.com/schemas/musicArtist.xsd
 LPCTSTR CSchema::uriMusicGenre				= L"http://schemas.peerproject.org/MusicGenre.xsd";				// http://www.shareaza.com/schemas/musicGenre.xsd
 LPCTSTR CSchema::uriMusicAlbumCollection	= L"http://schemas.peerproject.org/MusicAlbumCollection.xsd";	// http://www.shareaza.com/schemas/musicAlbumCollection.xsd
 LPCTSTR CSchema::uriMusicArtistCollection	= L"http://schemas.peerproject.org/MusicArtistCollection.xsd";	// http://www.shareaza.com/schemas/musicArtistCollection.xsd
@@ -887,18 +885,18 @@ LPCTSTR CSchema::uriMusicGenreCollection	= L"http://schemas.peerproject.org/Musi
 LPCTSTR CSchema::uriVideoRoot				= L"http://schemas.peerproject.org/VideoRoot.xsd";				// http://www.shareaza.com/schemas/videoRoot.xsd
 LPCTSTR CSchema::uriVideoAll				= L"http://schemas.peerproject.org/VideoAll.xsd";				// http://www.shareaza.com/schemas/videoAll.xsd
 LPCTSTR CSchema::uriVideoFilm				= L"http://schemas.peerproject.org/VideoFilm.xsd";				// http://www.shareaza.com/schemas/videoFilm.xsd
-LPCTSTR CSchema::uriVideoSeries				= L"http://schemas.peerproject.org/VideoSeries.xsd";				// http://www.shareaza.com/schemas/videoSeries.xsd
-LPCTSTR CSchema::uriVideoFilmCollection		= L"http://schemas.peerproject.org/VideoFilmCollection.xsd";		// http://www.shareaza.com/schemas/videoFilmCollection.xsd
+LPCTSTR CSchema::uriVideoSeries				= L"http://schemas.peerproject.org/VideoSeries.xsd";			// http://www.shareaza.com/schemas/videoSeries.xsd
+LPCTSTR CSchema::uriVideoFilmCollection		= L"http://schemas.peerproject.org/VideoFilmCollection.xsd";	// http://www.shareaza.com/schemas/videoFilmCollection.xsd
 LPCTSTR CSchema::uriVideoSeriesCollection	= L"http://schemas.peerproject.org/VideoSeriesCollection.xsd";	// http://www.shareaza.com/schemas/videoSeriesCollection.xsd
 LPCTSTR CSchema::uriVideoMusicCollection	= L"http://schemas.peerproject.org/VideoMusicCollection.xsd";	// http://www.shareaza.com/schemas/videoMusicCollection.xsd
 
 LPCTSTR CSchema::uriDocumentRoot			= L"http://schemas.peerproject.org/DocumentRoot.xsd";			// http://www.shareaza.com/schemas/documentRoot.xsd
-LPCTSTR CSchema::uriDocumentAll				= L"http://schemas.peerproject.org/DocumentAll.xsd";				// http://www.shareaza.com/schemas/documentAll.xsd
+LPCTSTR CSchema::uriDocumentAll				= L"http://schemas.peerproject.org/DocumentAll.xsd";			// http://www.shareaza.com/schemas/documentAll.xsd
 
 LPCTSTR CSchema::uriUnknown					= L"http://schemas.peerproject.org/Unknown.xsd";
 LPCTSTR CSchema::uriUnknownFolder			= L"http://schemas.peerproject.org/UnknownFolder.xsd";
 
-LPCTSTR CSchema::uriGhostFolder				= L"http://schemas.peerproject.org/GhostFolder.xsd";				// http://www.shareaza.com/schemas/ghostFolder.xsd
+LPCTSTR CSchema::uriGhostFolder				= L"http://schemas.peerproject.org/GhostFolder.xsd";			// http://www.shareaza.com/schemas/ghostFolder.xsd
 
 LPCTSTR CSchema::uriBitTorrent				= L"http://schemas.peerproject.org/BitTorrent.xsd";				// http://www.shareaza.com/schemas/bittorrent.xsd
 LPCTSTR CSchema::uriBitTorrentFolder		= L"http://schemas.peerproject.org/BitTorrentFolder.xsd";

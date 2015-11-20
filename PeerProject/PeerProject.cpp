@@ -169,6 +169,7 @@ void CAppCommandLineInfo::ParseParam(const TCHAR* pszParam, BOOL bFlag, BOOL bLa
 	CCommandLineInfo::ParseParam( pszParam, bFlag, bLast );
 }
 
+
 /////////////////////////////////////////////////////////////////////////////
 // CPeerProjectApp
 
@@ -199,9 +200,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_bClosing				( false )
 	, m_bLive					( false )
 	, m_bInteractive			( false )
-	, m_bIsServer				( false )
-	, m_bIsWin2000				( false )
-	, m_bIsVistaOrNewer			( false )
+	, m_bIsWinXP				( true )
 	, m_bLimitedConnections 	( true )
 	, m_bMenuWasVisible			( FALSE )
 	, m_nLastInput				( 0ul )
@@ -215,24 +214,25 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_hCryptProv				( NULL )
 
 	, m_dlgSplash				( NULL )
-	, m_hTheme					( NULL )
-	, m_pfnSetWindowTheme		( NULL )
-	, m_pfnIsThemeActive		( NULL )
-	, m_pfnOpenThemeData		( NULL )
-	, m_pfnCloseThemeData		( NULL )
-	, m_pfnDrawThemeBackground	( NULL )
+
+//	, m_hTheme					( NULL )
+//	, m_pfnSetWindowTheme		( NULL )	// XP+
+//	, m_pfnIsThemeActive		( NULL )	// XP+
+//	, m_pfnOpenThemeData		( NULL )	// XP+
+//	, m_pfnCloseThemeData		( NULL )	// XP+
+//	, m_pfnDrawThemeBackground	( NULL )	// XP+
 
 	, m_hShlWapi				( NULL )
 	, m_pfnAssocIsDangerous 	( NULL )
 
 	, m_hShell32				( NULL )
-	, m_pfnSHGetFolderPathW 	( NULL )
+//	, m_pfnSHGetFolderPathW 	( NULL )	// 2K+ (XP Only)
 	, m_pfnSHGetKnownFolderPath	( NULL )
 	, m_pfnSHQueryUserNotificationState	( NULL )
 	, m_pfnSHCreateItemFromParsingName  ( NULL )
 	, m_pfnSHGetPropertyStoreFromParsingName ( NULL )
 	, m_pfnSetCurrentProcessExplicitAppUserModelID ( NULL )
-	, m_pfnSHGetImageList		( NULL )
+//	, m_pfnSHGetImageList		( NULL )	// XP+
 
 	, m_hUser32					( NULL )
 	, m_pfnChangeWindowMessageFilter ( NULL )
@@ -716,8 +716,8 @@ int CPeerProjectApp::ExitInstance()
 		SplashStep();
 	}
 
-	if ( m_hTheme != NULL )
-		FreeLibrary( m_hTheme );
+//	if ( m_hTheme != NULL )
+//		FreeLibrary( m_hTheme );	// XP+
 
 	if ( m_hShlWapi != NULL )
 		FreeLibrary( m_hShlWapi );
@@ -727,6 +727,7 @@ int CPeerProjectApp::ExitInstance()
 
 	if ( m_hUser32 != NULL )
 		FreeLibrary( m_hUser32 );
+
 	if ( m_hLibGFL != NULL )
 		FreeLibrary( m_hLibGFL );
 
@@ -866,7 +867,7 @@ BOOL CPeerProjectApp::ParseCommandLine()
 		if ( m_pMutex == NULL )
 		{
 			// Mutex likely created in another multi-user session
-			Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
+			Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );		// Unskinned Banner Workaround
 			Skin.m_nBanner = 50;
 			AfxMessageBox(
 				L"PeerProject appears to be open in another user session."
@@ -1361,10 +1362,10 @@ void CPeerProjectApp::GetVersionNumber()
 	GetModuleFileName( NULL, m_strBinaryPath.GetBuffer( MAX_PATH ), MAX_PATH );
 	m_strBinaryPath.ReleaseBuffer( MAX_PATH );
 
-	// Load version from .exe-file properties
 	m_nVersion[0] = m_nVersion[1] = m_nVersion[2] = m_nVersion[3] = 0;
-	DWORD dwSize = GetFileVersionInfoSize( m_strBinaryPath, &dwSize );
-	if ( dwSize )
+
+	// Load version from .exe-file properties
+	if ( DWORD dwSize = GetFileVersionInfoSize( m_strBinaryPath, &dwSize ) )
 	{
 		if ( BYTE* pBuffer = new BYTE[ dwSize ] )
 		{
@@ -1386,8 +1387,7 @@ void CPeerProjectApp::GetVersionNumber()
 	}
 
 	m_sVersion.Format( L"%u.%u.%u.%u",
-		m_nVersion[0], m_nVersion[1],
-		m_nVersion[2], m_nVersion[3] );
+		m_nVersion[0], m_nVersion[1], m_nVersion[2], m_nVersion[3] );
 
 	m_sSmartAgent = CLIENT_NAME L" ";
 	m_sSmartAgent += m_sVersion;
@@ -1433,14 +1433,15 @@ void CPeerProjectApp::GetVersionNumber()
 	TCHAR* sp = _tcsstr( Windows.szCSDVersion, L"Service Pack" );
 
 	// Determine if it's a server
-	m_bIsServer = Windows.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
+	//m_bIsServer = Windows.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
 
 	// Many supported windows versions have network limiting
-	m_bLimitedConnections = ! m_bIsServer;
+	//m_bLimitedConnections = ! m_bIsServer;
 
 	// Get Major+Minor version (6.1 = 610)
 	//	Major ver 5:	Win2000 = 0, WinXP = 1, WinXP64 = 2, Server2003 = 2
-	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1, Windows8 = 2
+	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1, Windows8 = 2, Windows8.1 = 3
+	//	Major ver 10:	Windows10 = 0 (1000)
 
 	m_nWinVer = Windows.dwMajorVersion * 100 + Windows.dwMinorVersion * 10;		// ( Windows.dwMinorVersion < 9 ? Windows.dwMinorVersion * 10 : 90 );
 	if ( sp )
@@ -1458,12 +1459,13 @@ void CPeerProjectApp::GetVersionNumber()
 	// Set some variables for different Windows OS
 	if ( Windows.dwMajorVersion == 5 )
 	{
+		m_bIsWinXP = true;
+
 #ifndef WIN64
 		// Windows 2000
 		if ( Windows.dwMinorVersion == 0 )
 		{
-			m_bIsWin2000 = true;
-			m_bLimitedConnections = false;
+			// Unsupported
 		}
 		// Windows XP
 		else if ( Windows.dwMinorVersion == 1 )
@@ -1484,7 +1486,7 @@ void CPeerProjectApp::GetVersionNumber()
 	else //if ( Windows.dwMajorVersion >= 6 )
 	{
 		// GUI support
-		m_bIsVistaOrNewer = true;
+		m_bIsWinXP = false;
 
 		if ( Windows.wProductType == VER_NT_SERVER )
 		{
@@ -1507,6 +1509,7 @@ void CPeerProjectApp::GetVersionNumber()
 					nType == REG_DWORD && nResult == 1 )
 				{
 					// ToDo: Request user to modify registry value?
+					theApp.Message( MSG_INFO, L"Windows limited connection rate. See Registry SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters\\EnableConnectionRateLimiting" );
 					m_bLimitedConnections = true;
 				}
 
@@ -1537,19 +1540,19 @@ void CPeerProjectApp::InitResources()
 	}
 
 	// Get pointers to some functions that require Windows XP or greater
-	if ( ( m_hTheme = LoadLibrary( L"UxTheme.dll" ) ) != NULL )
-	{
-		(FARPROC&)m_pfnSetWindowTheme = GetProcAddress( m_hTheme, "SetWindowTheme" );
-		(FARPROC&)m_pfnIsThemeActive  = GetProcAddress( m_hTheme, "IsThemeActive" );
-		(FARPROC&)m_pfnOpenThemeData  = GetProcAddress( m_hTheme, "OpenThemeData" );
-		(FARPROC&)m_pfnCloseThemeData = GetProcAddress( m_hTheme, "CloseThemeData" );
-		(FARPROC&)m_pfnDrawThemeBackground = GetProcAddress( m_hTheme, "DrawThemeBackground" );
+	//if ( ( m_hTheme = LoadLibrary( L"UxTheme.dll" ) ) != NULL )
+	//{
+	//	(FARPROC&)m_pfnSetWindowTheme = GetProcAddress( m_hTheme, "SetWindowTheme" );
+	//	(FARPROC&)m_pfnIsThemeActive  = GetProcAddress( m_hTheme, "IsThemeActive" );
+	//	(FARPROC&)m_pfnOpenThemeData  = GetProcAddress( m_hTheme, "OpenThemeData" );
+	//	(FARPROC&)m_pfnCloseThemeData = GetProcAddress( m_hTheme, "CloseThemeData" );
+	//	(FARPROC&)m_pfnDrawThemeBackground = GetProcAddress( m_hTheme, "DrawThemeBackground" );
 	//	(FARPROC&)m_pfnEnableThemeDialogTexture = GetProcAddress( m_hTheme, "EnableThemeDialogTexture" );
 	//	(FARPROC&)m_pfnDrawThemeParentBackground = GetProcAddress( m_hTheme, "DrawThemeParentBackground" );
 	//	(FARPROC&)m_pfnGetThemeBackgroundContentRect = GetProcAddress( m_hTheme, "GetThemeBackgroundContentRect" );
 	//	(FARPROC&)m_pfnDrawThemeText = GetProcAddress( m_hTheme, "DrawThemeText" );
-		(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
-	}
+	//	(FARPROC&)m_pfnGetThemeSysFont = GetProcAddress( m_hTheme, "GetThemeSysFont" );
+	//}
 
 	// Get pointers to some functions that require Internet Explorer 6.01 or greater
 	if ( ( m_hShlWapi = LoadLibrary( L"shlwapi.dll" ) ) != NULL )
@@ -1560,13 +1563,13 @@ void CPeerProjectApp::InitResources()
 	// Get pointers to shell functions that require Vista or greater
 	if ( ( m_hShell32 = LoadLibrary( L"shell32.dll" ) ) != NULL )
 	{
-		(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );								// Win2K+?	SHGetFolderPath()
+	//	(FARPROC&)m_pfnSHGetFolderPathW = GetProcAddress( m_hShell32, "SHGetFolderPathW" );								// Win2K+	SHGetFolderPath()  (Use directly, XP only)
 		(FARPROC&)m_pfnSHGetKnownFolderPath = GetProcAddress( m_hShell32, "SHGetKnownFolderPath" );						// Vista+	SHGetKnownFolderPath()
 		(FARPROC&)m_pfnSHQueryUserNotificationState = GetProcAddress( m_hShell32, "SHQueryUserNotificationState" );		// Vista+	SHQueryUserNotificationState() for IsUserFullscreen()
 		(FARPROC&)m_pfnSHCreateItemFromParsingName = GetProcAddress( m_hShell32, "SHCreateItemFromParsingName" );		// Vista+	SHCreateItemFromParsingName() for CLibraryFolders::Maintain() (Win7 Libraries)
 		(FARPROC&)m_pfnSHGetPropertyStoreFromParsingName = GetProcAddress( m_hShell32, "SHGetPropertyStoreFromParsingName" );	// Vista+	SHGetPropertyStoreFromParsingName() for CLibraryBuilderInternals::ExtractProperties()
 		(FARPROC&)m_pfnSetCurrentProcessExplicitAppUserModelID = GetProcAddress( m_hShell32, "SetCurrentProcessExplicitAppUserModelID" );
-		(FARPROC&)m_pfnSHGetImageList = GetProcAddress( m_hShell32, MAKEINTRESOURCEA(727) );							// WinXP+	SHGetImageList() for CShellIcons::Get()
+	//	(FARPROC&)m_pfnSHGetImageList = GetProcAddress( m_hShell32, MAKEINTRESOURCEA(727) );							// WinXP+	SHGetImageList() for CShellIcons::Get()  (Use directly)
 	}
 
 	if ( ( m_hUser32 = LoadLibrary( L"user32.dll" ) ) != NULL )
@@ -1608,11 +1611,11 @@ void CPeerProjectApp::InitResources()
 			CLEARTYPE_QUALITY : DEFAULT_QUALITY );
 	}
 
-	if ( Settings.Fonts.DefaultFont.IsEmpty() && m_pfnGetThemeSysFont )
+	if ( Settings.Fonts.DefaultFont.IsEmpty() )
 	{
 		// Get font from current theme
 		LOGFONT pFont = {};
-		if ( m_pfnGetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
+		if ( GetThemeSysFont( NULL, TMT_MENUFONT, &pFont ) == S_OK )
 			Settings.Fonts.DefaultFont = pFont.lfFaceName;
 	}
 
@@ -1666,12 +1669,12 @@ HINSTANCE CPeerProjectApp::CustomLoadLibrary(LPCTSTR pszFileName)
 {
 	HINSTANCE hLibrary = NULL;
 
-	if ( ( hLibrary = LoadLibrary( pszFileName ) ) != NULL || ( hLibrary = LoadLibrary( Settings.General.Path + L"\\" + pszFileName ) ) != NULL )
-		; // Success
-	else
-		TRACE( L"DLL not found: %s\r\n", pszFileName );
+	if ( ( hLibrary = LoadLibrary( pszFileName ) ) != NULL ||
+		 ( hLibrary = LoadLibrary( Settings.General.Path + L"\\" + pszFileName ) ) != NULL )
+		return hLibrary;
 
-	return hLibrary;
+	TRACE( L"DLL not found: %s\r\n", pszFileName );
+	return NULL;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1708,7 +1711,7 @@ void CPeerProjectApp::SetClipboard(const CString& strText, BOOL bShowTray /*=FAL
 				if ( bShowTray )
 				{
 					CString str = strText.Left( 180 );
-					int nBreak = str.GetLength() > 80 ? str.Find( L":" ) : 0;
+					int nBreak = str.GetLength() > 80 ? str.Find( L':' ) : 0;
 					if ( nBreak > 1 && nBreak < 20 )
 						str = L"(" + strText.Left( nBreak + 1 ) + L")";
 					theApp.Message( MSG_TRAY|MSG_NOTICE, LoadString( IDS_COPIED_TO_CLIPBOARD ) + L"\n" + str );
@@ -1806,13 +1809,13 @@ void CPeerProjectApp::Message(WORD nType, UINT nID, ...)
 	if ( IsLogDisabled( nType ) )
 		return;
 
-	// Load the format string from the resource file
-	CString strFormat;
-	LoadString( strFormat, nID );
-
 	// Initialize variable arguments list
 	va_list pArgs;
 	va_start( pArgs, nID );
+
+	// Load the format string from the resource file
+	CString strFormat;
+	LoadString( strFormat, nID );
 
 	// Work out the type of format string and call the appropriate function
 	CString strTemp;
@@ -1931,9 +1934,8 @@ CString GetErrorString(DWORD dwError)
 	CString strMessage;
 	LPTSTR MessageBuffer = NULL;
 
-	if ( FormatMessage(
-		FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
-		NULL, dwError, 0, (LPTSTR)&MessageBuffer, 0, NULL ) )
+	if ( FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_SYSTEM,
+		 NULL, dwError, 0, (LPTSTR)&MessageBuffer, 0, NULL ) )
 	{
 		strMessage = MessageBuffer;
 		strMessage.Trim( L" \t\r\n" );
@@ -1955,8 +1957,7 @@ CString GetErrorString(DWORD dwError)
 	{
 		if ( HMODULE hModule = LoadLibraryEx( szModules[ i ], NULL, LOAD_LIBRARY_AS_DATAFILE ) )
 		{
-			DWORD bResult = FormatMessage(
-				FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_HMODULE,
+			DWORD bResult = FormatMessage( FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_IGNORE_INSERTS | FORMAT_MESSAGE_FROM_HMODULE,
 				hModule, dwError, 0, (LPTSTR)&MessageBuffer, 0, NULL );
 			FreeLibrary( hModule );
 			if ( bResult )
@@ -2617,14 +2618,13 @@ LRESULT CALLBACK MouseHook(int nCode, WPARAM wParam, LPARAM lParam)
 
 CString CPeerProjectApp::GetWindowsFolder() const
 {
-	HRESULT hr;
 	CString strWindows;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		hr = m_pfnSHGetKnownFolderPath( FOLDERID_Windows,
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_Windows,
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
@@ -2635,11 +2635,9 @@ CString CPeerProjectApp::GetWindowsFolder() const
 		if ( SUCCEEDED( hr ) && ! strWindows.IsEmpty() )
 			return strWindows;
 	}
-
-	// XP
-	if ( m_pfnSHGetFolderPathW )
+	else	// XP
 	{
-		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_WINDOWS, NULL, NULL,
+		HRESULT hr = SHGetFolderPath( NULL, CSIDL_WINDOWS, NULL, NULL,
 			strWindows.GetBuffer( MAX_PATH ) );
 		strWindows.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strWindows.IsEmpty() )
@@ -2706,11 +2704,9 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )
 			return strProgramFiles;
 	}
-
-	// XP
-	if ( m_pfnSHGetFolderPathW )
+	else	// XP
 	{
-		HRESULT hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
+		HRESULT hr = SHGetFolderPath( NULL, CSIDL_PROGRAM_FILES, NULL, NULL,
 			strProgramFiles.GetBuffer( MAX_PATH ) );
 		strProgramFiles.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strProgramFiles.IsEmpty() )
@@ -2725,14 +2721,13 @@ CString CPeerProjectApp::GetProgramFilesFolder() const
 
 CString CPeerProjectApp::GetDocumentsFolder() const
 {
-	HRESULT hr;
 	CString strDocuments;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		hr = m_pfnSHGetKnownFolderPath( FOLDERID_Documents,
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_Documents,
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
@@ -2743,11 +2738,9 @@ CString CPeerProjectApp::GetDocumentsFolder() const
 		if ( SUCCEEDED( hr ) && ! strDocuments.IsEmpty() )
 			return strDocuments;
 	}
-
-	// XP
-	if ( m_pfnSHGetFolderPathW )
+	else	// XP
 	{
-		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_PERSONAL, NULL, NULL,
+		HRESULT hr = SHGetFolderPath( NULL, CSIDL_PERSONAL, NULL, NULL,
 			strDocuments.GetBuffer( MAX_PATH ) );
 		strDocuments.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strDocuments.IsEmpty() )
@@ -2797,14 +2790,13 @@ CString CPeerProjectApp::GetDownloadsFolder() const
 
 CString CPeerProjectApp::GetAppDataFolder() const
 {
-	HRESULT hr;
 	CString strAppData;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		hr = m_pfnSHGetKnownFolderPath( FOLDERID_RoamingAppData,
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_RoamingAppData,
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
@@ -2815,11 +2807,9 @@ CString CPeerProjectApp::GetAppDataFolder() const
 		if ( SUCCEEDED( hr ) && ! strAppData.IsEmpty() )
 			return strAppData;
 	}
-
-	// XP
-	if ( m_pfnSHGetFolderPathW )
+	else	// XP
 	{
-		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_APPDATA, NULL, NULL,
+		HRESULT hr = SHGetFolderPath( NULL, CSIDL_APPDATA, NULL, NULL,
 			strAppData.GetBuffer( MAX_PATH ) );
 		strAppData.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strAppData.IsEmpty() )
@@ -2835,14 +2825,13 @@ CString CPeerProjectApp::GetAppDataFolder() const
 
 CString CPeerProjectApp::GetLocalAppDataFolder() const
 {
-	HRESULT hr;
 	CString strLocalAppData;
 
 	// Vista+
 	if ( m_pfnSHGetKnownFolderPath )
 	{
 		PWSTR pPath = NULL;
-		hr = m_pfnSHGetKnownFolderPath( FOLDERID_LocalAppData,
+		HRESULT hr = m_pfnSHGetKnownFolderPath( FOLDERID_LocalAppData,
 			KF_FLAG_CREATE | KF_FLAG_INIT, NULL, &pPath );
 		if ( pPath )
 		{
@@ -2852,11 +2841,9 @@ CString CPeerProjectApp::GetLocalAppDataFolder() const
 		if ( SUCCEEDED( hr ) && ! strLocalAppData.IsEmpty() )
 			return strLocalAppData;
 	}
-
-	// XP
-	if ( m_pfnSHGetFolderPathW )
+	else	// XP
 	{
-		hr = m_pfnSHGetFolderPathW( NULL, CSIDL_LOCAL_APPDATA, NULL, NULL,
+		HRESULT hr = SHGetFolderPath( NULL, CSIDL_LOCAL_APPDATA, NULL, NULL,
 			strLocalAppData.GetBuffer( MAX_PATH ) );
 		strLocalAppData.ReleaseBuffer();
 		if ( SUCCEEDED( hr ) && ! strLocalAppData.IsEmpty() )
@@ -2894,12 +2881,14 @@ void CPeerProjectApp::OnRename(LPCTSTR pszSource, LPCTSTR pszTarget)
 	}
 }
 
-CDatabase* CPeerProjectApp::GetDatabase(int nType) const
+CDatabase* CPeerProjectApp::GetDatabase(BYTE nType /*0*/) const
 {
 	ASSERT( nType < DB_LAST );
+
 	return new CDatabase( Settings.General.DataPath +
 		( nType == DB_THUMBS ? L"Thumbnails.db3" :
-		//nType == DB_SECURITY ? L"Security.db3" :
+		  nType == DB_SECURITY ? L"Security.db3" :
+		  nType == DB_BLACKLIST ? L"Blacklist.db3" :
 		/*nType == DB_DEFAULT ?*/ L"PeerProject.db3" ) );
 }
 
@@ -2917,6 +2906,7 @@ BOOL CPeerProjectApp::GetPropertyStoreFromParsingName(LPCWSTR pszPath, IProperty
 	}
 	return FALSE;
 }
+
 
 #undef SafeLock
 
@@ -3273,7 +3263,7 @@ CString LoadRichHTML(UINT nResourceID, CString& strResponse, CPeerProjectFile* p
 	return strBody;
 }
 
-// Direct Web Browsing Style Resources (About.htm/etc.)
+// Remote web browsing virtual resources, used below only
 const struct
 {
 	LPCTSTR szPath;
@@ -3282,7 +3272,7 @@ const struct
 	LPCTSTR szContentType;
 } WebResources [] =
 {
-	{ L"/remote/header.png",			IDR_HOME_HEADER,		RT_PNG,			L"image/png" },
+	{ L"/remote/header.png",		IDR_HOME_HEADER,		RT_PNG,			L"image/png" },
 	{ L"/remote/header_repeat.png",	IDR_HOME_HEADER_REPEAT,	RT_PNG,			L"image/png" },
 	{ L"/favicon.ico",				IDI_FAVICON,			RT_GROUP_ICON,	L"image/x-icon" },
 	{ NULL, NULL, NULL, NULL }
@@ -3508,8 +3498,8 @@ bool MarkFileAsDownload(const CString& sFilename)
 	if ( hStream != INVALID_HANDLE_VALUE )
 	{
 		DWORD dwWritten = 0;
-		bSuccess = ( WriteFile( hStream, "[ZoneTransfer]\r\nZoneID=3\r\n", 26,
-			&dwWritten, NULL ) && dwWritten == 26 );
+		bSuccess = ( WriteFile( hStream, "[ZoneTransfer]\r\nZoneID=3\r\n", 26, &dwWritten, NULL )
+			&& dwWritten == 26 );
 		CloseHandle( hStream );
 	}
 	else
@@ -3538,8 +3528,8 @@ bool LoadGUID(const CString& sFilename, Hashes::Guid& oGUID)
 	{
 		Hashes::Guid oTmpGUID;
 		DWORD dwReaded = 0;
-		bSuccess = ( ReadFile( hFile, &*oTmpGUID.begin(), oTmpGUID.byteCount,
-			&dwReaded, NULL ) && dwReaded == oTmpGUID.byteCount );
+		bSuccess = ( ReadFile( hFile, &*oTmpGUID.begin(), oTmpGUID.byteCount, &dwReaded, NULL )
+			&& dwReaded == oTmpGUID.byteCount );
 		if ( bSuccess )
 		{
 			oTmpGUID.validate();
@@ -3796,7 +3786,7 @@ BOOL IsUserFullscreen()
 	// Detect system message availability
 
 	// Vista+ (XP-safe: Default SHQueryUserNotificationState inclusion breaks WinXP)
-	if ( theApp.m_pfnSHQueryUserNotificationState )		// theApp.m_bIsVistaOrNewer
+	if ( theApp.m_pfnSHQueryUserNotificationState )		// ! theApp.m_bIsWinXP
 	{
 		QUERY_USER_NOTIFICATION_STATE state;
 		if ( theApp.m_pfnSHQueryUserNotificationState( &state ) == S_OK )
@@ -3817,7 +3807,7 @@ BOOL IsUserFullscreen()
 	return FALSE;
 }
 
-// Unused, ToDo: r9146
+// Unused, ToDo: r9146 Win7 jumplists
 IShellLink* CreateShellLink(LPCWSTR szTargetExecutablePath, LPCWSTR szCommandLineArgs, LPCWSTR szTitle, LPCWSTR szIconPath, int nIconIndex, LPCWSTR szDescription)
 {
 	CComPtr< IShellLink > pLink;
@@ -3876,6 +3866,7 @@ INT_PTR MsgBox(UINT nIDPrompt, UINT nType, UINT nIDHelp, DWORD* pnDefault, DWORD
 {
 	return MsgBox( (LPCTSTR)LoadString( nIDPrompt ), nType, nIDHelp, pnDefault, nTimer );
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CProgressDialog

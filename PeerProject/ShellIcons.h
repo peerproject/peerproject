@@ -1,7 +1,7 @@
 //
 // ShellIcons.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -82,7 +82,7 @@ private:
 	CStringMap	m_MIME;
 	CStringMap	m_Name;
 
-	BOOL		Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon, CString* psName, CString* psMIME, HICON* phHugeIcon = NULL);
+	BOOL		Lookup(LPCTSTR pszType, CString* psName, CString* psMIME, HICON* phSmallIcon, HICON* phLargeIcon = NULL, HICON* phHugeIcon = NULL);
 
 	CShellIcons(const CShellIcons&);
 	CShellIcons& operator=(const CShellIcons&);

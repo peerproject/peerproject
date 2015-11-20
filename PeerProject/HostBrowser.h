@@ -63,7 +63,7 @@ protected:
 	BOOL			m_bCanPush;
 	BOOL			m_bDeflate;
 	z_streamp		m_pInflate;
-	
+
 public:
 	void			Serialize(CArchive& ar, int nVersion = 0);	// BROWSER_SER_VERSION
 	BOOL			Browse();

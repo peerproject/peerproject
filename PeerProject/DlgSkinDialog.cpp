@@ -117,8 +117,7 @@ void CSkinDialog::EnableBanner(BOOL bEnable)
 		SetWindowPos( NULL, 0, 0, rcWindow.Width(), rcWindow.Height() + Skin.m_nBanner, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOZORDER );
 
 		// Move all controls down
-		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ;
-			pChild = pChild->GetNextWindow() )
+		for ( CWnd* pChild = GetWindow( GW_CHILD ) ; pChild ; pChild = pChild->GetNextWindow() )
 		{
 			CRect rc;
 			pChild->GetWindowRect( &rc );

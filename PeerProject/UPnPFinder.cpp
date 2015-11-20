@@ -487,7 +487,7 @@ HRESULT CUPnPFinder::MapPort(const ServicePointer& service)
 
 void CUPnPFinder::StartPortMapping()
 {
-	std::for_each( m_pServices.begin(), m_pServices.end(), boost::bind( &CUPnPFinder::MapPort, this, _1 ) );
+	std::for_each( m_pServices.begin(), m_pServices.end(), std::tr1::bind( &CUPnPFinder::MapPort, this, _1 ) );		// Was boost::bind, is std::bind but tr1 for VS2008
 	if ( m_bADSL && ! Settings.Connection.SkipWANIPSetup &&
 		( Network.m_bUPnPPortsForwarded == TRI_UNKNOWN || m_bADSLFailed ) && m_pWANIPService != NULL )
 	{
@@ -503,7 +503,7 @@ void CUPnPFinder::DeletePorts()
 {
 	if ( ! m_bInited )
 		return;
-	std::for_each( m_pServices.begin(), m_pServices.end(), boost::bind( &CUPnPFinder::DeleteExistingPortMappings, this, _1 ) );
+	std::for_each( m_pServices.begin(), m_pServices.end(), std::tr1::bind( &CUPnPFinder::DeleteExistingPortMappings, this, _1 ) );		// Was boost::bind, is std::bind but tr1 for VS2008
 }
 
 bool CUPnPFinder::IsAsyncFindRunning()

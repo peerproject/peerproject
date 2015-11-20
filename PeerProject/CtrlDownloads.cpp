@@ -1020,9 +1020,9 @@ void CDownloadsCtrl::UpdateDownloadsData(BOOL bForce /*FALSE*/)
 		BOOL bvSuccess;		// Pass/Fail
 		for ( QWORD nvOffset = 0, nvLength = 0 ; pDownload->GetNextVerifyRange( nvOffset, nvLength, bvSuccess ) ; nRange++ )
 		{
-#if defined(_MSC_VER) && (_MSC_VER >= 1600)
+#if defined(_MSC_VER) && (_MSC_VER >= 1800)		// VS2013+
 			pDownloadData.m_pVerifyRanges.SetAtGrow( nRange, { nvOffset, nvLength, bvSuccess } );
-#else	// VS2008
+#else	// VS2008 (VS2012?)
 			CDownloadDisplayData::VERIFYRANGE pVerifyRange = { nvOffset, nvLength, bvSuccess };
 			pDownloadData.m_pVerifyRanges.SetAtGrow( nRange, pVerifyRange );
 #endif

@@ -414,26 +414,18 @@
     <ClCompile Include="PeerProject.cpp" />
     <ClCompile Include="PeerProject_i.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|x64'">4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
@@ -511,29 +503,21 @@
     <ClCompile Include="ZLib.cpp" />
     <ClCompile Include="..\Services\zlib\adler32.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -541,29 +525,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\compress.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -571,29 +547,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\crc32.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -601,29 +569,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\deflate.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -631,29 +591,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\infback.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -661,29 +613,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\inffast.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -691,29 +635,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\inflate.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -721,29 +657,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\inftrees.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -751,29 +679,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\trees.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -781,29 +701,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\uncompr.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -811,29 +723,21 @@
     </ClCompile>
     <ClCompile Include="..\Services\zlib\zutil.c">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">4127;4131;4242;4244;4255;4668;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Level3</WarningLevel>
       <DisableSpecificWarnings Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">4127;4131;4242;4244;4255;4668;4711;4820;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/Wall %(AdditionalOptions)</AdditionalOptions>
-      <TreatWChar_tAsBuiltInType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</TreatWChar_tAsBuiltInType>
-      <ForceConformanceInForLoopScope Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ForceConformanceInForLoopScope>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
       <WarningLevel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Level3</WarningLevel>
@@ -1180,6 +1084,7 @@
     <None Include="Res\LargeLogo.png" />
     <None Include="Res\Library.ico" />
     <None Include="Res\Locked.ico" />
+    <None Include="Res\Manifest.xml" />
     <None Include="Res\Mail.ico" />
     <None Include="Res\Media.ico" />
     <None Include="Res\MediaStates.bmp" />

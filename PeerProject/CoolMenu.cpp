@@ -1,7 +1,7 @@
 //
 // CoolMenu.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -452,14 +452,12 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		{
 			pt.Offset( 1, 1 );
 
-#ifndef WIN64
-			if ( /*! m_bmWatermark.m_hObject ||*/ theApp.m_bIsWin2000 )
-			{
-				pDC->SetTextColor( Colors.m_crShadow );
-				CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
-			}
-			else	// Skinned
-#endif
+			//if ( ! m_bmWatermark.m_hObject )
+			//{
+			//	pDC->SetTextColor( Colors.m_crShadow );
+			//	CoolInterface.Draw( pDC, nIcon, pt, ILD_MASK );
+			//}
+			//else	// Skinned
 			{
 			//	CoolInterface.DrawIndirect( pDC, nIcon, (POINT)pt, (SIZE)(CSize)0,
 			//		CLR_NONE, Colors.m_crShadow, ILD_BLEND50|ILD_BLEND25|ILD_ROP, ILS_SATURATE|ILS_ALPHA, 160 );
@@ -475,8 +473,7 @@ void CCoolMenu::OnDrawItemInternal(LPDRAWITEMSTRUCT lpDrawItemStruct)
 		}
 	}
 
-	CFont* pOld = (CFont*)pDC->SelectObject(
-					( lpDrawItemStruct->itemState & ODS_DEFAULT ) && ! bDisabled ?
+	CFont* pOld = (CFont*)pDC->SelectObject( ( lpDrawItemStruct->itemState & ODS_DEFAULT ) && ! bDisabled ?
 					&CoolInterface.m_fntBold : &CoolInterface.m_fntNormal );
 
 	pDC->SetBkMode( TRANSPARENT );

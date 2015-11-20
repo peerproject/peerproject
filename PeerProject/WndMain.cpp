@@ -133,6 +133,7 @@ BEGIN_MESSAGE_MAP(CMainWnd, CMDIFrameWnd)
 	ON_MESSAGE(WM_IMPORT, OnHandleImport)
 	ON_MESSAGE(WM_TORRENT, OnHandleTorrent)
 	ON_MESSAGE(WM_COLLECTION, OnHandleCollection)
+//	ON_MESSAGE(WM_METALINK, OnHandleMetalink)	// ToDo: .metalink files
 	ON_MESSAGE(WM_VERSIONCHECK, OnVersionCheck)
 	ON_MESSAGE(WM_OPENCHAT, OnOpenChat)
 	ON_MESSAGE(WM_OPENSEARCH, OnOpenSearch)
@@ -308,7 +309,7 @@ CMainWnd::CMainWnd()
 	, m_nAlpha		( 255 )
 {
 	ZeroMemory( &m_pTray, sizeof( NOTIFYICONDATA ) );
-	m_pTray.cbSize				= theApp.m_bIsVistaOrNewer ? sizeof( NOTIFYICONDATA ) : NOTIFYICONDATA_V3_SIZE;
+	m_pTray.cbSize				= theApp.m_bIsWinXP ? NOTIFYICONDATA_V3_SIZE : sizeof( NOTIFYICONDATA );
 	m_pTray.uVersion			= NOTIFYICON_VERSION;	// NOTIFYICON_VERSION_4;
 	m_pTray.uCallbackMessage	= WM_TRAY;
 }
@@ -366,7 +367,6 @@ CMDIChildWnd* CMainWnd::MDIGetActive(BOOL* pbMaximized) const
 //	{
 //		// translate accelerators for frame and any children
 //		if ( m_hAccelTable != NULL && ::TranslateAccelerator( m_hWnd, m_hAccelTable, pMsg ) )
-//
 //			return TRUE;
 //
 //		// Special processing for MDI accelerators last
@@ -541,7 +541,7 @@ int CMainWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	if ( ! m_wndNavBar.IsVisible() && ! m_wndToolBar.IsVisible() )
 	{
-		ShowControlBar( &m_wndNavBar, Settings.General.GUIMode != GUI_WINDOWED, TRUE );
+		ShowControlBar( &m_wndNavBar,  Settings.General.GUIMode != GUI_WINDOWED, TRUE );
 		ShowControlBar( &m_wndToolBar, Settings.General.GUIMode == GUI_WINDOWED, TRUE );
 	}
 
@@ -3131,6 +3131,7 @@ BOOL CMainWnd::OnNcActivate(BOOL bActive)
 	if ( m_pSkin )
 	{
 		m_pSkin->OnNcActivate( this, IsWindowEnabled() && ( bActive || ( m_nFlags & WF_STAYACTIVE ) ) );
+
 		return TRUE;
 	}
 
@@ -3154,9 +3155,10 @@ void CMainWnd::OnNcMouseLeave()
 void CMainWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)
 {
 	if ( m_pSkin && m_pSkin->OnNcLButtonDown( this, nHitTest, point ) ) return;
+
 	CMDIFrameWnd::OnNcLButtonDown( nHitTest, point );
 
-	// Windows Vista skinning workaround (system caption buttons over skin drawing)
+	// Windows Vista+ skinning workaround (system caption buttons over skin drawing)
 	if ( m_pSkin && ! theApp.m_bClosing )	// Window could be destroyed at this point
 		m_pSkin->OnNcPaint( this );
 }
@@ -3164,12 +3166,14 @@ void CMainWnd::OnNcLButtonDown(UINT nHitTest, CPoint point)
 void CMainWnd::OnNcLButtonUp(UINT nHitTest, CPoint point)
 {
 	if ( m_pSkin && m_pSkin->OnNcLButtonUp( this, nHitTest, point ) ) return;
+
 	CMDIFrameWnd::OnNcLButtonUp( nHitTest, point );
 }
 
 void CMainWnd::OnNcLButtonDblClk(UINT nHitTest, CPoint point)
 {
 	if ( m_pSkin && m_pSkin->OnNcLButtonDblClk( this, nHitTest, point ) ) return;
+
 	CMDIFrameWnd::OnNcLButtonDblClk( nHitTest, point );
 }
 
@@ -3384,11 +3388,11 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 	m_pTray.szInfoTitle[ _countof( m_pTray.szInfoTitle ) - 1 ] = L'\0';
 
 	if ( ( dwIcon & NIIF_ICON_MASK ) == NIIF_USER )
-		m_pTray.hBalloonIcon = CoolInterface.ExtractIcon( IDI_USER, FALSE, theApp.m_bIsVistaOrNewer ? LVSIL_NORMAL : LVSIL_SMALL );
+		m_pTray.hBalloonIcon = CoolInterface.ExtractIcon( IDI_USER, FALSE, theApp.m_bIsWinXP ? LVSIL_SMALL : LVSIL_NORMAL );
 	else
 		m_pTray.hBalloonIcon = NULL;
 
-	m_pTray.dwInfoFlags = dwIcon | ( theApp.m_bIsVistaOrNewer ? NIIF_LARGE_ICON : 0 );
+	m_pTray.dwInfoFlags = dwIcon | ( theApp.m_bIsWinXP ? 0 : NIIF_LARGE_ICON );
 	m_pTray.uTimeout = uTimeout * 1000;		// Convert time to ms
 
 	m_bTrayIcon = Shell_NotifyIcon( NIM_MODIFY, &m_pTray );
@@ -3403,7 +3407,7 @@ void CMainWnd::ShowTrayPopup(const CString& sText, const CString& sTitle, DWORD 
 
 #if _MSC_VER < 1800
 UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, UINT nEventData)
-#else
+#else	// VS2013+
 UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam)
 #endif
 {
@@ -3432,7 +3436,7 @@ UINT CMainWnd::OnPowerBroadcast(UINT nPowerEvent, LPARAM lParam)
 
 #if _MSC_VER < 1800
 	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, nEventData );
-#else
+#else	// VS2013+
 	return CMDIFrameWnd::OnPowerBroadcast( nPowerEvent, lParam );
 #endif
 }

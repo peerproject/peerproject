@@ -1,7 +1,7 @@
 //
 // MatchObjects.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1078,14 +1078,12 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 						--nUp;
 					} while ( m_pFiles[ nUp ]->Compare( pPivot ) == m_bSortDir );
 
-					if ( nUp > nDown )
-					{
-						CMatchFile* pTemp = m_pFiles[ nDown ];
-						m_pFiles[ nDown ] = m_pFiles[ nUp ];
-						m_pFiles[ nUp ] = pTemp;
-					}
-					else
+					if ( nUp <= nDown )
 						break;
+
+					CMatchFile* pTemp = m_pFiles[ nDown ];
+					m_pFiles[ nDown ] = m_pFiles[ nUp ];
+					m_pFiles[ nUp ] = pTemp;
 				}
 			}
 
@@ -1107,13 +1105,11 @@ void CMatchList::SetSortColumn(int nColumn, BOOL bDirection)
 			continue;
 		}
 
-		if ( nStack > 0 )
-		{
-			nFirst = nStackFirst[ --nStack ];
-			nLast = nStackLast[ nStack ];
-		}
-		else
+		if ( nStack <= 0 )
 			break;
+
+		nFirst = nStackFirst[ --nStack ];
+		nLast = nStackLast[ nStack ];
 	}
 
 	UpdateRange();
@@ -1539,7 +1535,7 @@ void CMatchFile::RefreshStatus()
 
 		DWORD nVote = 0;
 		oNameRatings.Lookup( pHit->m_sName, nVote );
-		oNameRatings [pHit->m_sName] = ++nVote;
+		oNameRatings[ pHit->m_sName ] = ++nVote;
 		if ( nVote > nBestVote )
 		{
 			nBestVote = nVote;
@@ -1879,9 +1875,9 @@ void CMatchFile::Added(CQueryHit* pHit)
 			{
 				m_bSuspicious = TRUE;
 			}
-			// Small filesize spam/viral
 			else if ( m_nSize < 90 * 1024 )
 			{
+				// Small filesize spam/viral
 				if ( ( _tcsicmp( pszExt, L"exe" ) == 0 ) ||
 					 ( _tcsicmp( pszExt, L"com" ) == 0 ) ||
 					 ( _tcsicmp( pszExt, L"scr" ) == 0 ) ||
@@ -1921,28 +1917,22 @@ void CMatchFile::Added(CQueryHit* pHit)
 			//	else if ( _tcsicmp( pszExt, L"wma" ) == 0 )					//.wma
 			//	{
 			//		if ( ( m_nSize > 525 * 1024 && m_nSize < 530 * 1024 ) ||	// 528kb
-			//			( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	// 1.03mb
-			//			( m_nSize > 1088 * 1024 && m_nSize < 1092 * 1024 ) ||	// 1.06mb
-			//			( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	// 4.58mb
-			//		{
+			//			 ( m_nSize > 1054 * 1024 && m_nSize < 1064 * 1024 ) ||	// 1.03mb
+			//			 ( m_nSize > 1088 * 1024 && m_nSize < 1092 * 1024 ) ||	// 1.06mb
+			//			 ( m_nSize > 4690 * 1024 && m_nSize < 4694 * 1024 ) )	// 4.58mb
 			//			m_bSuspicious = TRUE;
-			//		}
 			//	}
 			//	else if ( _tcsicmp( pszExt, L"mov" ) == 0 )					//.mov
 			//	{
 			//		if ( ( m_nSize > 206 * 1024 && m_nSize < 208 * 1024 ) ||	// 207kb
-			//			( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	// 3.26mb
-			//		{
+			//			 ( m_nSize > 3333 * 1024 && m_nSize < 3344 * 1024 ) )	// 3.26mb
 			//			m_bSuspicious = TRUE;
-			//		}
 			//	}
 			//	else if ( ( _tcsicmp( pszExt, L"au" ) == 0 ) ||				//.au
 			//		( _tcsicmp( pszExt, L"snd" ) == 0 ) )					//.snd
 			//	{
 			//		if ( m_nSize > 4400 * 1024 && m_nSize < 5800 * 1024 )		// 4-5 mb
-			//		{
 			//			m_bSuspicious = TRUE;
-			//		}
 			//	}
 			}
 		}

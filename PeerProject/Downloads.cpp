@@ -1,7 +1,7 @@
 //
 // Downloads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -1231,23 +1231,34 @@ void CDownloads::PreLoad()
 	WIN32_FIND_DATA pFind = {};
 	HANDLE hSearch = FindFirstFile( strRoot + L"*.?d", &pFind );		// .pd files + .sd Shareaza imports
 	if ( hSearch == INVALID_HANDLE_VALUE ) return;
+
 	CString str;
-	UINT nCount = 0;
+	CStringList pList;
+	UINT nCount = 1;
 
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
 
 	do
 	{
-		if ( Load( strRoot + pFind.cFileName ) )
-		{
-			str.Format( L"Downloads (%u)", ++nCount );
-			theApp.SplashUpdate( str );
-
-		}
+		pList.AddTail( strRoot + pFind.cFileName );
 	}
 	while ( FindNextFile( hSearch, &pFind ) );
 
 	FindClose( hSearch );
+
+	if ( pList.GetCount() == 0 )
+		return;
+
+	int nTotal = (int)pList.GetCount();
+	while( ! pList.IsEmpty() )
+	{
+		str.Format( L"Downloads %u/%i", nCount, nTotal );
+		theApp.SplashUpdate( str );
+		if ( Load( pList.RemoveHead() ) )
+			nCount++;
+		else
+			nTotal--;
+	}
 }
 
 void CDownloads::Load()

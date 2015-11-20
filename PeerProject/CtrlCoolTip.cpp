@@ -1,7 +1,7 @@
 //
 // CtrlCoolTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -57,9 +57,8 @@ CCoolTipCtrl::CCoolTipCtrl()
 	, m_bVisible	( FALSE )
 	, m_tOpen		( 0 )
 {
-	if ( m_hClass == NULL )
-		m_hClass = AfxRegisterWndClass( CS_SAVEBITS |
-			( ! Settings.Interface.TipShadow || theApp.m_bIsWin2000 ? 0 : CS_DROPSHADOW ) );
+	if( m_hClass == NULL )
+		m_hClass = AfxRegisterWndClass( CS_SAVEBITS | ( Settings.Interface.TipShadow ? CS_DROPSHADOW : 0 ) );
 }
 
 CCoolTipCtrl::~CCoolTipCtrl()

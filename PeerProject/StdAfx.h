@@ -103,11 +103,11 @@
 #if 0
 #define NTDDI_VERSION	NTDDI_WINXPSP2	// NTDDI_WIN2K Unsupported
 #define _WIN32_WINNT	0x0501			// 0x0500
-//#elif defined(_MSC_VER) && (_MSC_VER >= 1600)	// Features require WinSDK 7.0+ (Assume VS2010)
+//#elif defined(_MSC_VER) && (_MSC_VER >= 1600)	// Features require WinSDK 7.0+ (VS2010+)
 //#define NTDDI_VERSION	NTDDI_WIN7		// Minimum build target Win7
 //#define _WIN32_WINNT	0x0601			// Win7/2008.2
 #else
-#define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista (Support VS2008 rtm)
+#define NTDDI_VERSION	NTDDI_LONGHORN	// Minimum build target Vista  (Longhorn for unsupported VS2008 rtm)
 #define _WIN32_WINNT	0x0600			// Vista/2008
 #endif
 
@@ -150,26 +150,23 @@
 #define _AFX_NO_MFC_CONTROLS_IN_DIALOGS		// Smaller filesize VS2012+ (VS2015 RC error)
 #endif
 
-#define BOOST_USE_WINDOWS_H
-#define BOOST_DISABLE_ASSERTS
-
-#pragma warning ( push, 0 )	// Suppress Microsoft warnings
+#pragma warning ( push, 0 )		// Suppress Microsoft warnings
 
 //
 // MFC
 //
 
-#include <afxwin.h>			// MFC core and standard components
-#include <afxext.h>			// MFC extensions
-#include <afxcmn.h>			// MFC support for Windows Common Controls
-#include <afxdtctl.h>		// MFC date & time controls  (For DlgScheduleTask & PageDownloadEdit)
-#include <afxtempl.h>		// MFC templates
-#include <afxmt.h>			// MFC threads
-#include <afxole.h>			// MFC OLE
-#include <afxpriv.h>		// MFC UI
-#include <afxhtml.h>		// MFC HTML	(For CtrlWeb)
+#include <afxwin.h>				// MFC core and standard components
+#include <afxext.h>				// MFC extensions
+#include <afxcmn.h>				// MFC support for Windows Common Controls
+#include <afxdtctl.h>			// MFC date & time controls  (For DlgScheduleTask & PageDownloadEdit)
+#include <afxtempl.h>			// MFC templates
+#include <afxmt.h>				// MFC threads
+#include <afxole.h>				// MFC OLE
+#include <afxpriv.h>			// MFC UI
+#include <afxhtml.h>			// MFC HTML	(For CtrlWeb)
 //#ifndef VCEXPRESS
-//#include <afxocc.h> 		// MFC OCC	(For CtrlWeb?)
+//#include <afxocc.h> 			// MFC OCC	(For CtrlWeb?)
 #include <../src/mfc/afximpl.h>
 //#endif
 
@@ -177,43 +174,43 @@
 // ATL
 //
 
-#include <atlfile.h>		// Thin file classes
-#include <atltime.h>		// Time classes
-#include <atlsafe.h>		// CComSafeArray class
-//#include <atlenc.h>		// Base64Encode, UUEncode etc.
+#include <atlfile.h>			// Thin file classes
+#include <atltime.h>			// Time classes
+#include <atlsafe.h>			// CComSafeArray class
+//#include <atlenc.h>			// Base64Encode, UUEncode etc.
 
 //
 // WIN32
 //
 
-#include <commoncontrols.h>	// IImageList interfaces (For CShellIcons::Get)
-#include <winsock2.h>		// Windows sockets V2
-#include <wininet.h>		// Internet
-#include <wincrypt.h>		// Cryptographic API
-#include <ddeml.h>			// DDE
-#include <dde.h>			// DDE	(WM_DDE_INITIATE)
-#include <math.h>			// Math
-#include <winsvc.h>			// Services (Excluded by VC_EXTRALEAN)
-#include <shlwapi.h>		// Windows Shell API
-#include <mmsystem.h>		// Multimedia
-#include <exdispid.h>		// Internet Explorer DISPID_ Messages (ctrlweb)
-#include <winioctl.h>		// Sparse files support
+#include <commoncontrols.h>		// IImageList interfaces (For CShellIcons::Get)
+#include <winsock2.h>			// Windows sockets V2
+#include <wininet.h>			// Internet
+#include <wincrypt.h>			// Cryptographic API
+#include <ddeml.h>				// DDE
+#include <dde.h>				// DDE	(WM_DDE_INITIATE)
+#include <math.h>				// Math
+#include <winsvc.h>				// Services (Excluded by VC_EXTRALEAN)
+#include <shlwapi.h>			// Windows Shell API
+#include <mmsystem.h>			// Multimedia
+#include <exdispid.h>			// Internet Explorer DISPID_ Messages (ctrlweb)
+#include <winioctl.h>			// Sparse files support
 
 // If header is not found, install latest Windows SDK from microsoft.com
 // (Vista SDK 6.0 or later -previously XP Platform SDK)
 
-#include <netfw.h>			// Windows Firewall interfaces
-#include <upnp.h>			// Control Point API
-#include <natupnp.h>		// NAT UPnP interfaces
-#include <iphlpapi.h>		// IP Stack
-#include <MsiQuery.h>		// Windows Installer
-#include <MsiDefs.h>		// Windows Installer
-#include <powrprof.h>		// Power policy applicator
+#include <netfw.h>				// Windows Firewall interfaces
+#include <upnp.h>				// Control Point API
+#include <natupnp.h>			// NAT UPnP interfaces
+#include <iphlpapi.h>			// IP Stack
+#include <MsiQuery.h>			// Windows Installer
+#include <MsiDefs.h>			// Windows Installer
+#include <powrprof.h>			// Power policy applicator
 
 // (Windows SDK 7.0 or later, do not assume VS2008)
 #if defined(_MSC_VER) && (_MSC_VER >= 1600)
-#include <propkey.h>		// PKEY_Title (For CreateShellLink)		#ifdef _INC_PROPKEY
-#include <propvarutil.h>	// InitPropVariantFromString (For CreateShellLink)	Requires XP sp2
+#include <propkey.h>			// PKEY_Title (For CreateShellLink)		#ifdef _INC_PROPKEY
+#include <propvarutil.h>		// InitPropVariantFromString (For CreateShellLink)	Requires XP sp2
 #endif
 
 // Intrinsics
@@ -232,17 +229,19 @@
 #include <utility>
 #include <vector>
 
-#if defined(_MSC_VER) && (_MSC_VER < 1600)	// Needed below VS2010 for MinMax.hpp?
-#include <limits>
-#endif
-
-//#include <functional>
+#include <memory>				// For std::shared_ptr
+#include <functional>			// For std::bind
 //#include <iterator>
 //#include <new>
 //#include <queue>
 //#include <deque>
 //#include <stack>
-//#include <memory>
+
+#if defined(_MSC_VER) && (_MSC_VER < 1600)		// VS2008 needed for MinMax.hpp?
+#include <limits>
+#endif
+
+using namespace std::tr1::placeholders;			// For std::bind _1, std::placeholders:: but tr1 for VS2008
 
 //
 // C++11
@@ -254,42 +253,22 @@
 //#endif
 
 //
-// TR1 (std::tr1::)
+// TR1  (std::tr1::)
 //
 // VS2008 SP1 for tr1, VS2012 for std
 // ToDo: See Shareaza r8451 for some tr1 implementation
 
 // _HAS_TR1
-//#include <array>							// In HashDescriptors.hpp
+//#include <array>								// In HashDescriptors.hpp
 //#include <memory>
-//#include <regex>							// In RegExp.cpp
-//#include <type_traits>					// In MinMax.hpp
+//#include <regex>								// In RegExp.cpp
+//#include <type_traits>						// In MinMax.hpp
 //#include <unordered_map>
 
 //
 // Boost
 //
-
-#ifndef WIN64
-	#define BOOST_BIND_ENABLE_STDCALL 1
-	#define BOOST_MEM_FN_ENABLE_STDCALL 1
-#endif
-
-#define BOOST_NO_MEMBER_TEMPLATES				// Require fewer include files
-#define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT	// Require fewer include files
-#define BOOST_TYPEOF_EMULATION_UNSUPPORTED	// VS2008
-
-#include <Boost/bind.hpp>					// For LiveList & UPnPFinder
-#include <Boost/shared_ptr.hpp> 			// For local StdAfx.h
-#include <Boost/ptr_container/ptr_list.hpp>	// For CtrlLibraryTileView
-
-//#include <Boost/array.hpp>				// Was Hashes/HashDescriptors.hpp (TR1)
-//#include <Boost/type_traits.hpp>			// Was MinMax.hpp
-//#include <Boost/checked_delete.hpp>		// In Augment/auto_ptr.hpp
-//#include <Boost/utility.hpp>				// ?
-
-// BOOST_STATIC_ASSERT(false) for compile-time checks (Obsolete)
-//#include <Boost/static_assert.hpp>
+// Removed, except MPL in MinMax.hpp
 
 // Handle static_assert(false,"text") prior to VS2010
 #if defined(_MSC_VER) && (_MSC_VER < 1600)
@@ -312,11 +291,11 @@
 
 #include "MinMax.hpp"
 
-#if defined(_MSC_VER) && (_MSC_VER >= 1500) && (_MSC_VER < 1600)		// Work-around for VC9 (VS2008) where
-	#pragma warning ( pop )					// a (pop) is ifdef'd out in stdio.h
+#if defined(_MSC_VER) && (_MSC_VER < 1600) && (_MSC_VER >= 1500)		// Work-around for VC9 (VS2008) where
+	#pragma warning ( pop )				// a (pop) is ifdef'd out in stdio.h
 #endif
 
-//#pragma warning ( pop )					// Restore warnings
+//#pragma warning ( pop )				// Restore warnings
 
 #include "Augment/Augment.hpp"
 using augment::implicit_cast;
@@ -335,7 +314,7 @@ using augment::IUnknownImplementation;
 #endif
 
 
-//typedef CString StringType;		// Previously for <Hashes>
+//typedef CString StringType;			// Previously for <Hashes>
 
 //! \brief Hash function needed for CMap with const CString& as ARG_KEY.
 //template<>
@@ -498,33 +477,33 @@ inline CArchive& AFXAPI operator>>(CArchive& ar, TRISTATE& n)
 
 typedef struct _ICONDIRENTRY
 {
-	BYTE	bWidth; 		// Width, in pixels, of the image
-	BYTE	bHeight;		// Height, in pixels, of the image
-	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
-	BYTE	bReserved;		// Reserved (must be 0)
-	WORD	wPlanes;		// Color Planes
-	WORD	wBitCount;		// Bits per pixel
-	DWORD	dwBytesInRes;	// How many bytes in this resource?
-	DWORD	dwImageOffset;	// Where in the file is this image?
+	BYTE	bWidth; 			// Width, in pixels, of the image
+	BYTE	bHeight;			// Height, in pixels, of the image
+	BYTE	bColorCount;		// Number of colors in image (0 if >=8bpp)
+	BYTE	bReserved;			// Reserved (must be 0)
+	WORD	wPlanes;			// Color Planes
+	WORD	wBitCount;			// Bits per pixel
+	DWORD	dwBytesInRes;		// How many bytes in this resource?
+	DWORD	dwImageOffset;		// Where in the file is this image?
 } ICONDIRENTRY, *LPICONDIRENTRY;
 
 typedef struct _GRPICONDIRENTRY
 {
-	BYTE	bWidth;			// Width, in pixels, of the image
-	BYTE	bHeight;		// Height, in pixels, of the image
-	BYTE	bColorCount;	// Number of colors in image (0 if >=8bpp)
-	BYTE	bReserved;		// Reserved
-	WORD	wPlanes;		// Color Planes
-	WORD	wBitCount;		// Bits per pixel
-	DWORD	dwBytesInRes;	// How many bytes in this resource?
-	WORD	nID; 			// the ID
+	BYTE	bWidth;				// Width, in pixels, of the image
+	BYTE	bHeight;			// Height, in pixels, of the image
+	BYTE	bColorCount;		// Number of colors in image (0 if >=8bpp)
+	BYTE	bReserved;			// Reserved
+	WORD	wPlanes;			// Color Planes
+	WORD	wBitCount;			// Bits per pixel
+	DWORD	dwBytesInRes;		// How many bytes in this resource?
+	WORD	nID; 				// the ID
 } GRPICONDIRENTRY, *LPGRPICONDIRENTRY;
 
 typedef struct _ICONDIR
 {
-	WORD	idReserved;		// Reserved (must be 0)
-	WORD	idType;			// Resource Type (1 for icons)
-	WORD	idCount;		// How many images?
+	WORD	idReserved;			// Reserved (must be 0)
+	WORD	idType;				// Resource Type (1 for icons)
+	WORD	idCount;			// How many images?
 //	ICONDIRENTRY   idEntries[];	// An entry for each image (idCount of 'em)
 } ICONDIR, *LPICONDIR;
 
@@ -547,7 +526,7 @@ enum PROTOCOLID
 	PROTOCOL_DC   = 6,
 	PROTOCOL_BT   = 7,
 	PROTOCOL_KAD  = 8,
-	PROTOCOL_LAST = 9	// Detection workaround
+	PROTOCOL_LAST = 9			// Detection workaround
 };
 
 // Protocol resource IDs (for icons)
@@ -596,15 +575,15 @@ const LPCTSTR protocolAbbr[] =
 // Protocol default ports (Were defines)
 const WORD protocolPorts[] =
 {
-	6480,	// Unknown (alt)
-	6346,	// G1	GNUTELLA_DEFAULT_PORT
-	6346,	// G2	GNUTELLA_DEFAULT_PORT
-	4661,	// ED2K	ED2K_DEFAULT_PORT
-	80, 	// HTTP
-	21, 	// FTP
-	411,	// DC	DC_DEFAULT_PORT
-	6881,	// BT
-	4662,	// KAD
+	6480,			// Unknown (alt)
+	6346,			// G1	GNUTELLA_DEFAULT_PORT
+	6346,			// G2	GNUTELLA_DEFAULT_PORT
+	4661,			// ED2K	ED2K_DEFAULT_PORT
+	80, 			// HTTP
+	21, 			// FTP
+	411,			// DC	DC_DEFAULT_PORT
+	6881,			// BT
+	4662,			// KAD
 };
 
 // Legacy mapping
@@ -704,7 +683,7 @@ private:
 };
 
 
-typedef boost::shared_ptr< CCriticalSection > CCriticalSectionPtr;
+typedef std::tr1::shared_ptr< CCriticalSection > CCriticalSectionPtr;		// For Connection.h, was boost::shared_ptr, is std::shared_ptr but tr1 for VS2008
 
 template< typename T, typename L >
 class CLocked
@@ -963,9 +942,8 @@ inline bool IsFileNewerThan(LPCTSTR pszFile, const QWORD nMilliseconds)
 	FILETIME ftNow = {};
 	GetSystemTimeAsFileTime( &ftNow );
 
-	if ( ( MAKEQWORD( ftNow.dwLowDateTime, ftNow.dwHighDateTime ) -
-		10000ull * nMilliseconds ) > MAKEQWORD( fd.ftLastWriteTime.dwLowDateTime,
-		fd.ftLastWriteTime.dwHighDateTime ) )
+	if ( ( MAKEQWORD( ftNow.dwLowDateTime, ftNow.dwHighDateTime ) - 10000ull * nMilliseconds )
+		 > MAKEQWORD( fd.ftLastWriteTime.dwLowDateTime, fd.ftLastWriteTime.dwHighDateTime ) )
 		return false;
 
 	return true;

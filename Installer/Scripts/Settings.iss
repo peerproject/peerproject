@@ -115,9 +115,8 @@ Root: HKCU; Subkey: "Software\PeerProject\PeerProject\Toolbars\CoolBar-Bar10"; V
 ; Set Defaults
 Root: HKCU; Subkey: "Software\PeerProject\PeerProject\BitTorrent"; ValueType: string; ValueName: "DefaultTracker"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "001.URL"; ValueData: "udp://tracker.openbittorrent.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
-Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "udp://open.demonii.com:1337"; Flags: createvalueifdoesntexist uninsdeletekey
+Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "002.URL"; ValueData: "udp://open.stealth.si:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
 ;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "003.URL"; ValueData: "http://tracker.publicbt.com:80/announce"; Flags: createvalueifdoesntexist uninsdeletekey
-;Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: string; ValueName: "004.URL"; ValueData: "http://tracker.istole.it/announce"; Flags: createvalueifdoesntexist uninsdeletekey
 Root: HKCU; Subkey: "Software\PeerProject\TorrentWizard\Trackers"; ValueType: dword; ValueName: "Count"; ValueData: 2; Flags: createvalueifdoesntexist uninsdeletekey
 
 ; Disable extensions for plugins that have trouble (?)

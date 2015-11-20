@@ -879,7 +879,7 @@ void CWndTabBar::TabItem::Paint(CWndTabBar* pBar, CDC* pDC, CRect* pRect, BOOL b
 		}
 		else if ( bHot )
 		{
-			if ( crBack != CLR_NONE || theApp.m_bIsWin2000 )
+			if ( crBack != CLR_NONE )
 			{
 				ptImage.Offset( 1, 1 );
 

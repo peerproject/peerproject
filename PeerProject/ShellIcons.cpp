@@ -1,7 +1,7 @@
 //
 // ShellIcons.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -198,8 +198,7 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 		{
 			dwFlags = ( nSize == 16 ) ? SHIL_SMALL : ( ( nSize == 32 ) ? SHIL_LARGE : SHIL_EXTRALARGE );
 			CComPtr< IImageList > pImageList;
-			if ( theApp.m_pfnSHGetImageList &&
-				 SUCCEEDED( theApp.m_pfnSHGetImageList( dwFlags, IID_IImageList, (void**)&pImageList ) ) &&
+			if ( SUCCEEDED( SHGetImageList( dwFlags, IID_IImageList, (void**)&pImageList ) ) &&
 				 SUCCEEDED( pImageList->GetIcon( sfi.iIcon, ILD_NORMAL, &hShellIcon ) ) )
 			{
 				DestroyIcon( sfi.hIcon );
@@ -220,9 +219,9 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 
 	if ( ! hIcon )
 	{
-		Lookup( strType,
+		Lookup( strType, NULL, NULL,
 			( ( nSize == 16 ) ? &hIcon : NULL ),
-			( ( nSize == 32 ) ? &hIcon : NULL ), NULL, NULL,
+			( ( nSize == 32 ) ? &hIcon : NULL ),
 			( ( nSize == 48 ) ? &hIcon : NULL ) );
 	}
 
@@ -252,7 +251,6 @@ int CShellIcons::Get(LPCTSTR pszFile, int nSize)
 
 	return nIndex;
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // CShellIcons add icon
@@ -327,7 +325,7 @@ CString	CShellIcons::GetName(LPCTSTR pszType)
 	CString strName;
 	if ( ! m_Name.Lookup( strType, strName ) )
 	{
-		Lookup( pszType, NULL, NULL, &strName, NULL, NULL );
+		Lookup( pszType, &strName, NULL, NULL, NULL, NULL );
 
 		if ( strName.IsEmpty() )
 		{
@@ -353,7 +351,7 @@ CString	CShellIcons::GetMIME(LPCTSTR pszType)
 	CString strMIME;
 	if ( ! m_MIME.Lookup( strType, strMIME ) )
 	{
-		Lookup( pszType, NULL, NULL, NULL, &strMIME, NULL );
+		Lookup( pszType, NULL, &strMIME, NULL, NULL, NULL );
 
 		if ( strMIME.IsEmpty() )
 			strMIME = L"application/x-binary";
@@ -367,7 +365,7 @@ CString	CShellIcons::GetMIME(LPCTSTR pszType)
 //////////////////////////////////////////////////////////////////////
 // CShellIcons lookup
 
-BOOL CShellIcons::Lookup(LPCTSTR pszType, HICON* phSmallIcon, HICON* phLargeIcon, CString* psName, CString* psMIME, HICON* phHugeIcon)
+BOOL CShellIcons::Lookup(LPCTSTR pszType, CString* psName, CString* psMIME, HICON* phSmallIcon, HICON* phLargeIcon /*NULL*/, HICON* phHugeIcon /*NULL*/)
 {
 	DWORD nType, nResult;
 	TCHAR szResult[ MAX_PATH + 1 ];

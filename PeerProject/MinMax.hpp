@@ -1,7 +1,7 @@
 //
 // MinMax.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2005-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -17,7 +17,7 @@
 //
 
 //! \file	MinMax.hpp
-//! \brief	Defines min und max template functions.
+//! \brief	Defines min and max template functions.
 
 #pragma once
 
@@ -27,10 +27,13 @@
 //#if defined(_MSC_VER) && (_MSC_FULL_VER > 150030000)	// VS2008 SP1 for tr1, VS2012 for std
 #include <type_traits>
 
-//#include <Boost/type_traits.hpp>	// Use tr1 above
+#define BOOST_MPL_CFG_NO_FULL_LAMBDA_SUPPORT	// Require fewer include files
+//#define BOOST_NO_MEMBER_TEMPLATES				// Require fewer include files (unused)
+
 #include <Boost/mpl/apply_wrap.hpp>
 #include <Boost/mpl/arg.hpp>
-#include <Boost/mpl/if.hpp>
+//#include <Boost/mpl/if.hpp>
+//#include <Boost/type_traits.hpp>	// Use tr1 above
 
 const bool PEERPROJECT_RESTRICT_WP64 = true;
 const bool PEERPROJECT_ADVANCED_MIN_TEMPLATE = true;
@@ -170,9 +173,10 @@ namespace min_max_detail
 			CannotIntermixSignedAndUnsignedTypesInForMinMax,
 			ReturnTypeForMinMaxCannotBeDeduced
 		>::type primary;
-		typedef typename boost::mpl::if_c<
-			( ! PEERPROJECT_RESTRICT_WP64 && sizeof( primary ) < 8 ),
-			primary, typename RemoveWarning64< primary >::type >::type type;
+	//	typedef typename boost::mpl::if_c<
+	//		( ! PEERPROJECT_RESTRICT_WP64 && sizeof( primary ) < 8 ),
+	//		primary, typename RemoveWarning64< primary >::type >::type type;
+		typedef typename RemoveWarning64< primary >::type type;		// No need for boost:: here
 	};
 
 	template<typename T, typename U, bool opt = false>

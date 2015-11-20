@@ -704,35 +704,58 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 }
 #endif	// __AFXCOLL_H__
 
-BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen)
+BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
 {
 	if ( strInput[0] != *pszText && //*pszText < L'A' ||
-	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char
+	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char?
 		return FALSE;
 
-	if ( nLen == 0 )
+	if ( ! nLen )
 		nLen = _tcslen( pszText );
 
 	return (size_t)strInput.GetLength() >= nLen &&
 		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 }
 
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen)
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
 {
-	if ( nLen < 1 )
+	if ( ! nLen )
 		nLen = (int)_tcslen( pszText );
 
-	if ( strInput.GetLength() < nLen )
+	if ( (size_t)strInput.GetLength() < nLen )
 		return FALSE;
 
 	const CString str = strInput.Right( nLen );
 	LPCTSTR pszTest = str;
 
-	if ( *pszTest != *pszText && ( *pszText < L'A' ||
-	   ( ( *pszTest & ~0x20 ) != *pszText && *pszTest != ( *pszText & ~0x20 ) ) ) )
-		return FALSE;		// Fast case-insensitive first char
+	if ( *pszTest != *pszText && ( *pszText < L'A' || ( ( *pszTest & ~0x20 ) != *pszText && *pszTest != ( *pszText & ~0x20 ) ) ) )
+		return FALSE;		// Fast case-insensitive first char?
 
 	return _tcsnicmp( pszTest, pszText, nLen ) == 0;
+}
+
+BOOL IsText(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
+{
+	if ( strInput[0] != *pszText && //*pszText < L'A' ||
+		( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char?
+		return FALSE;
+
+	if ( ! nLen )
+		nLen = _tcslen( pszText );
+
+	if ( (size_t)strInput.GetLength() != nLen )
+		return FALSE;
+
+	//return _tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
+
+	for ( size_t n = 0 ; n < nLen ; n++ && pszText++ )
+	{
+		if ( strInput[ n ] != *pszText &&
+			 tolower( strInput[ n ] ) != tolower( *pszText ) )
+			return FALSE;
+	}
+
+	return TRUE;
 }
 
 #ifdef __AFX_H__

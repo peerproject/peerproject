@@ -1,7 +1,7 @@
 //
 // ImageFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -222,10 +222,8 @@ BOOL CImageFile::LoadFromBitmap(HBITMAP hBitmap, BOOL bScanOnly)
 	//	}
 	}
 
-#ifndef WIN64
-	if ( theApp.m_bIsWin2000 && m_nComponents == 4 )
-		AlphaToRGB( RGB( 255,255,255 ) );
-#endif	// No x64
+	//if ( m_nComponents == 4 )
+	//	AlphaToRGB( RGB( 255,255,255 ) );
 
 	m_bLoaded = TRUE;
 
@@ -310,10 +308,8 @@ HBITMAP CImageFile::CreateBitmap(HDC hUseDC)
 {
 	if ( ! m_bLoaded ) return NULL;
 	if ( m_nComponents == 1 ) MonoToRGB();
-#ifndef WIN64
-	if ( theApp.m_bIsWin2000 && m_nComponents != 3 )
-		AlphaToRGB( RGB( 255,255,255 ) );	// EnsureRGB for Win2K to otherwise support Alpha transparency
-#endif
+	//if ( m_nComponents != 3 )
+	//	AlphaToRGB( RGB( 255,255,255 ) );	// EnsureRGB for Win2K to otherwise support Alpha transparency
 
 	BITMAPV5HEADER pV5Header = {};
 
@@ -669,8 +665,8 @@ HBITMAP CImageFile::LoadBitmapFromFile(LPCTSTR pszFile, BOOL bRGB)
 	CImageFile pFile;
 	if ( pFile.LoadFromFile( pszFile, FALSE, FALSE ) )
 	{
-		if ( bRGB || theApp.m_bIsWin2000 )
-			pFile.EnsureRGB();	// Support Alpha otherwise?
+		if ( bRGB )		// Support Alpha otherwise
+			pFile.EnsureRGB();
 		return pFile.CreateBitmap();
 	}
 
@@ -684,11 +680,7 @@ HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance
 	if ( ! hBitmap )
 	{
 		CImageFile pFile;
-		if ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG )
-#ifndef WIN64
-			&& ! theApp.m_bIsWin2000 || pFile.EnsureRGB()	// Allow alpha otherwise?
-#endif
-		)
+		if ( pFile.LoadFromResource( hInstance, nResourceID, RT_PNG ) )		// && pFile.EnsureRGB()
 			hBitmap = pFile.CreateBitmap();
 		else if ( pFile.LoadFromResource( hInstance, nResourceID, RT_JPEG ) )
 			hBitmap = pFile.CreateBitmap();
@@ -709,7 +701,7 @@ HBITMAP CImageFile::LoadBitmapFromResource(UINT nResourceID, HINSTANCE hInstance
 //	for ( int i = 0 ; i < nCount ; ++i )
 //	{
 //		CImageFile pFile;
-//		if ( pFile.LoadFromResource( hInstance, nResourceID, pTypes[ i ] ) && ! theApp.m_bIsWin2000 || pFile.EnsureRGB() )
+//		if ( pFile.LoadFromResource( hInstance, nResourceID, pTypes[ i ] ) )		// && pFile.EnsureRGB()
 //			return pFile.CreateBitmap();
 //	}
 //

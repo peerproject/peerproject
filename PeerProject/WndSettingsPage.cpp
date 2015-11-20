@@ -1,7 +1,7 @@
 //
 // WndSettingsPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -175,11 +175,6 @@ void CSettingsPage::OnSkinChange()
 
 	// Fix Checkbox/Groupbox color skinning if needed (remove modern Windows theming)
 
-#ifndef WIN64
-	if ( theApp.m_bIsWin2000 )
-		return;		// Win2K
-#endif
-
 	CoolInterface.FixThemeControls( this );		// Checkbox/Groupbox text colors (Remove theme if needed)
 
 // Moved to CCoolInterface::FixTheme:
@@ -346,6 +341,7 @@ BOOL CSettingsPage::PreTranslateMessage(MSG* pMsg)
 
 	return CDialog::PreTranslateMessage(pMsg);
 }
+
 
 /////////////////////////////////////////////////////////////////////////////
 // CEditPath	( Launch from double-click aware standard Edit boxes )

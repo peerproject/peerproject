@@ -627,7 +627,7 @@ void CBTTrackerRequest::Process(const CBENode* pRoot)
 		if ( pDownloaded && pDownloaded->IsType( CBENode::beInt ) )
 			m_nDownloaded = (DWORD)( pDownloaded->GetInt() & ~0xFFFF0000 );
 
-		if ( m_nComplete )		
+		if ( m_nComplete )
 			m_pDownload->m_pTorrent.m_nTrackerSeeds = m_nComplete;
 		if ( m_nIncomplete )
 			m_pDownload->m_pTorrent.m_nTrackerPeers = m_nIncomplete;

@@ -1,7 +1,7 @@
 //
 // WizardInterfacePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -174,6 +174,11 @@ LRESULT CWizardInterfacePage::OnWizardNext()
 		{
 			theApp.WriteProfileInt( L"Skins", L"SkinCarbon\\SkinCarbon.xml", 1 );
 			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinEightFrames.xml", 1 );
+		}
+		else if ( theApp.m_nWinVer >= WIN_10 )
+		{
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinTen.xml", 1 );
+			theApp.WriteProfileInt( L"Skins", L"SkinVista\\SkinTenFrames.xml", 1 );
 		}
 		else if ( theApp.m_nWinVer >= WIN_8 )
 		{

@@ -1030,7 +1030,7 @@ void CDownloadTipCtrl::OnTrackerEvent(bool bSuccess, LPCTSTR /*pszReason*/, LPCT
 
 	DWORD nComplete   = pEvent->GetComplete();		// ->m_nSeeders
 	DWORD nIncomplete = pEvent->GetIncomplete();	// ->m_nLeechers
-	
+
 	m_pDownload->m_pTorrent.m_nTrackerSeeds = nComplete;
 	m_pDownload->m_pTorrent.m_nTrackerPeers = nIncomplete;
 

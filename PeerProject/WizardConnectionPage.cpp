@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -337,8 +337,8 @@ LRESULT CWizardConnectionPage::OnWizardNext()
 	Settings.OnChangeConnectionSpeed();
 	UploadQueues.CreateDefault();
 
-	//if ( theApp.m_bLimitedConnections && ! Settings.General.IgnoreXPsp2 )
-	//	CHelpDlg::Show( L"GeneralHelp.XPsp2" );
+	//if ( theApp.m_bLimitedConnections && ! Settings.General.IgnoreXPLimits )
+	//	CHelpDlg::Show( L"GeneralHelp.XPLimits" );
 
 	m_nProgressSteps = 0;
 

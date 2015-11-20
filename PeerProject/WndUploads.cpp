@@ -1,7 +1,7 @@
 //
 // WndUploads.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2015
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -120,10 +120,7 @@ int CUploadsWnd::OnCreate(LPCREATESTRUCT lpCreateStruct)
 
 	m_wndUploads.Create( this, IDC_UPLOADS );
 
-#ifndef WIN64
-	if ( ! theApp.m_bIsWin2000 )
-#endif
-		m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
+	m_wndUploads.ModifyStyleEx( 0, WS_EX_COMPOSITED );	// Stop flicker XP+, CPU intensive
 
 	if ( ! m_wndToolBar.Create( this, WS_CHILD|WS_VISIBLE|CBRS_NOALIGN, AFX_IDW_TOOLBAR ) ) return -1;
 	m_wndToolBar.SetBarStyle( m_wndToolBar.GetBarStyle() | CBRS_TOOLTIPS | CBRS_BORDER_TOP );
@@ -152,10 +149,9 @@ void CUploadsWnd::OnDestroy()
 
 BOOL CUploadsWnd::OnCmdMsg(UINT nID, int nCode, void* pExtra, AFX_CMDHANDLERINFO* pHandlerInfo)
 {
-	if ( m_wndToolBar.m_hWnd )
-	{
-		if ( m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) ) return TRUE;
-	}
+	if ( m_wndToolBar.m_hWnd &&
+		 m_wndToolBar.OnCmdMsg( nID, nCode, pExtra, pHandlerInfo ) )
+		return TRUE;
 
 	return CPanelWnd::OnCmdMsg( nID, nCode, pExtra, pHandlerInfo );
 }
@@ -444,7 +440,8 @@ void CUploadsWnd::OnUpdateUploadsStart(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsStart()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
@@ -485,7 +482,8 @@ void CUploadsWnd::OnUpdateUploadsPriority(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnUploadsPriority()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
 	{
@@ -530,9 +528,8 @@ void CUploadsWnd::OnUploadsClear()
 
 			if ( pUpload != NULL && pUpload->m_nProtocol == PROTOCOL_ED2K && pUpload->m_nState != upsNull )
 			{
-				CString strFormat, strMessage;
-				LoadString( strFormat, IDS_UPLOAD_CANCEL_ED2K );
-				strMessage.Format( strFormat, (LPCTSTR)pUpload->m_sName );
+				CString strMessage;
+				strMessage.Format( LoadString( IDS_UPLOAD_CANCEL_ED2K ), (LPCTSTR)pUpload->m_sName );
 				pLock.Unlock();
 				INT_PTR nResp = MsgBox( strMessage, MB_ICONQUESTION|MB_YESNOCANCEL|MB_DEFBUTTON2 );
 				pLock.Lock();
@@ -736,6 +733,7 @@ void CUploadsWnd::OnUpdateSecurityBan(CCmdUI* pCmdUI)
 void CUploadsWnd::OnSecurityBan()
 {
 	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+
 	CList<CUploadFile*> pList;
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
@@ -769,7 +767,9 @@ void CUploadsWnd::OnUpdateBrowseLaunch(CCmdUI* pCmdUI)
 
 void CUploadsWnd::OnBrowseLaunch()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
+	if ( ! SafeLock( pLock ) ) return;
+
 	CList<CUploadFile*> pList;
 
 	for ( POSITION pos = UploadFiles.GetIterator() ; pos ; )
@@ -796,7 +796,7 @@ void CUploadsWnd::OnBrowseLaunch()
 
 void CUploadsWnd::OnUploadsClearCompleted()
 {
-	CSingleLock pLock( &Transfers.m_pSection, TRUE );
+	CSingleLock pLock( &Transfers.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
 
 	for ( POSITION pos = Uploads.GetIterator() ; pos ; )

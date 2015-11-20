@@ -1,7 +1,7 @@
 //
 // Images.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2014
+// This file is part of PeerProject (peerproject.org) © 2010-2015
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -124,6 +124,7 @@ public:
 	void		DeleteObjects();
 	void		BlendAlpha(CBitmap* bmImage, COLORREF crBlend = RGB(255,255,255));
 	BOOL		PreBlend(HBITMAP hButton);
+	BOOL		SkinImage(CBitmap* bmImage, LPCTSTR pszName, BOOL bAllowAlpha = TRUE, UINT nStates = 1);
 	BOOL		DrawButtonState(CDC* pDC, const CRect* rc, const int nResource);
 	BOOL		DrawButtonMap(CDC* pDC, const CRect* rc, CBitmap* bmButton, const int nState = 0, BOOL bRTL = FALSE);
 	BOOL		DrawButton(CDC* pDC, const CRect* rc, CBitmap* bmButton, CBitmap* bmButtonEdge = NULL, BOOL bRTL = FALSE);

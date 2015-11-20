@@ -165,8 +165,8 @@ BOOL CConnectionSettingsPage::OnInitDialog()
 
 	m_wndInBind.EnableWindow( m_sInHost != strAutomatic );
 
-	// UPnP is not supported on servers?
-	//if ( theApp.m_bIsServer )
+	// UPnP is not supported on servers? (Obsolete)
+	//if ( IsServer )
 	//{
 	//	CButton* pWnd = (CButton*)GetDlgItem( IDC_ENABLE_UPNP );
 	//	pWnd->EnableWindow( FALSE );
