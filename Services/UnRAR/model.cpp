@@ -350,7 +350,6 @@ static const byte ExpEscape[16]={ 25,14, 9, 7, 5, 5, 4, 4, 4, 3, 3, 3, 2, 2, 2, 
 #define GET_MEAN(SUMM,SHIFT,ROUND) ((SUMM+(1 << (SHIFT-ROUND))) >> (SHIFT))
 
 
-
 inline void RARPPM_CONTEXT::decodeBinSymbol(ModelPPM *Model)
 {
   RARPPM_STATE& rs=OneState;
@@ -395,8 +394,6 @@ inline void RARPPM_CONTEXT::update1(ModelPPM *Model,RARPPM_STATE* p)
       rescale(Model);
   }
 }
-
-
 
 
 inline bool RARPPM_CONTEXT::decodeSymbol1(ModelPPM *Model)
@@ -475,8 +472,6 @@ inline RARPPM_SEE2_CONTEXT* RARPPM_CONTEXT::makeEscFreq2(ModelPPM *Model,int Dif
 }
 
 
-
-
 inline bool RARPPM_CONTEXT::decodeSymbol2(ModelPPM *Model)
 {
   int count, HiCnt, i=NumStats-Model->NumMasked;
@@ -528,8 +523,6 @@ inline void ModelPPM::ClearMask()
   EscCount=1;
   memset(CharMask,0,sizeof(CharMask));
 }
-
-
 
 
 // reset PPM variables after data error allowing safe resuming of further data processing

@@ -9,7 +9,7 @@
 #ifndef UPNPERRORS_H_INCLUDED
 #define UPNPERRORS_H_INCLUDED
 
-#include "declspec.h"
+#include "miniupnpc_declspec.h"
 
 #ifdef __cplusplus
 extern "C" {

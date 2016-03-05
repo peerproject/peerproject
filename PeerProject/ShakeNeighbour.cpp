@@ -1,7 +1,7 @@
 //
 // ShakeNeighbour.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -504,7 +504,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 
 			if ( pHost->CanQuote( nTime ) )							// If host is still recent enough
 			{
-				if ( ! strHosts.IsEmpty() ) strHosts += L",";	// Separate each computer's info with a comma
+				if ( ! strHosts.IsEmpty() ) strHosts += L',';		// Separate each computer's info with a comma
 				strHosts += pHost->ToString();						// Add this computer's info to the string
 				nCount--;											// Decrement counter
 			}
@@ -536,7 +536,7 @@ void CShakeNeighbour::SendHostHeaders(LPCSTR pszMessage, size_t nLength)
 			// This host is still recent enough to tell another computer about
 			if ( pHost->CanQuote( nTime ) )
 			{
-				if ( ! strHosts.IsEmpty() ) strHosts += L",";			// Separate each computer's info with a comma
+				if ( ! strHosts.IsEmpty() ) strHosts += L',';				// Separate each computer's info with a comma
 				strHosts += pHost->ToString( m_bClientExtended != FALSE );	// Add this computer's info to the string
 				nCount--;													// Decrement counter
 			}
@@ -574,8 +574,8 @@ BOOL CShakeNeighbour::ReadResponse()
 	if ( m_bInitiated && strLine == L"GNUTELLA OK" )
 	{
 		// (do)
-		OnHandshakeComplete();	// Deletes this CShakeNeighbour object
-		return FALSE;			// Tell the method that called this one not to call us again, we're done here
+		OnHandshakeComplete();		// Deletes this CShakeNeighbour object
+		return FALSE;				// Tell the method that called this one not to call us again, we're done here
 	}
 
 	// The line starts "GNUTELLA/0.6", and says something else after that
@@ -1011,7 +1011,7 @@ BOOL CShakeNeighbour::OnHeadersComplete()
 	else
 	{
 		SendHostHeaders( _P("GNUTELLA/0.6 503 Wrong Protocol\r\n") );
-		DelayClose(IDS_HANDSHAKE_REJECTED);
+		DelayClose( IDS_HANDSHAKE_REJECTED );
 	}
 	return bResult;
 }
@@ -1031,7 +1031,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 	if ( m_nState == nrsRejected )
 	{
 		Close( 0 ); 	// Don't specify an error
-		return FALSE;	// Delete this object
+		return FALSE;	// Delete this object, back to CHandshakes::RunHandshakes
 	}
 
 	// We were reading the final header group from the remote computer
@@ -1050,11 +1050,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			m_nNodeType = ntLeaf;
 		}
 
-		// Turn this CShakeNeighbour object into a CG2Neighbour object
-		OnHandshakeComplete();
-
-		// Delete this object
-		return FALSE;
+		OnHandshakeComplete();		// Turn this CShakeNeighbour object into a CG2Neighbour object, and delete this one
+		return FALSE;				// Delete this object, back to CHandshakes::RunHandshakes
 	}
 
 	// Have we initiated the connection?
@@ -1088,7 +1085,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 					// Tell the remote computer we can't connect (do)
 					SendHostHeaders( _P("GNUTELLA/0.6 503 I have leaves") );
 					DelayClose( IDS_HANDSHAKE_CANTBEPEER ); 	// Send the buffer then close the socket
-					return FALSE;		// Delete this object
+					return FALSE;		// Delete this object, back to CHandshakes::RunHandshakes
 				}
 
 				// If we are a Gnutella2 hub
@@ -1097,7 +1094,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 					// We are a hub, and the remote computer doesn't need any more hub connections, tell it we can't connect
 					SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 					DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Send the buffer then close the socket
-					return FALSE;		// Delete this object
+					return FALSE;		// Delete this object, all the way back to CHandshakes::RunHandshakes
 				}
 
 				// We are or can become an ultrapeer, and the remote computer is an ultrapeer that doesn't need any more ultrapeer connections
@@ -1113,7 +1110,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// (do)
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 				DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Send the buffer then close the socket
-				return FALSE;			// Delete this object
+				return FALSE;			// Delete this object, back to CHandshakes::RunHandshakes
 			}
 
 			// This connection is to a hub above us
@@ -1127,7 +1124,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// Tell the remote computer we can't connect because we need a hub
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 				DelayClose( IDS_HANDSHAKE_NEEDAPEER );	// Send the buffer then close the socket
-				return FALSE;			// Delete this object
+				return FALSE;			// Delete this object, back to CHandshakes::RunHandshakes
 			}
 		}
 		else if ( m_bUltraPeerSet == TRI_UNKNOWN )
@@ -1138,7 +1135,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 				// Tell the remote computer we can't connect because we need a hub
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 				DelayClose( IDS_HANDSHAKE_NEEDAPEER );	// Send the buffer then close the socket
-				return FALSE;			// Delete this object
+				return FALSE;			// Delete this object, back to CHandshakes::RunHandshakes
 			}
 			m_nNodeType = ntNode;
 		}
@@ -1149,11 +1146,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 		if ( bFallback ) Write( _P("X-Ultrapeer: False\r\n") ); // Tell it we're a leaf so we can still connect
 		Write( _P("\r\n") );									// Send a blank line to end this group of headers
 
-		// Turn this CShakeNeighbour object into a CG2Neighbour one, and delete this one
-		OnHandshakeComplete();
-
-		// Delete this object, back in CHandshakes::RunHandshakes
-		return FALSE;
+		OnHandshakeComplete();		// Turn this CShakeNeighbour object into a CG2Neighbour one, and delete this one
+		return FALSE;				// Delete this object, back in CHandshakes::RunHandshakes
 	}
 	else	// Not rejected, not handshake3, not initiated (do)
 	{
@@ -1220,7 +1214,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Send the error code along with more IP addresses the remote computer can try
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Close the connection, but not until we've written the buffered outgoing data first
-			return FALSE;								// Delete this object
+			return FALSE;								// Delete this object, back to CHandshakes::RunHandshakes
 		}
 
 		if ( m_nNodeType != ntHub && Settings.Gnutella2.ClientMode == MODE_LEAF )
@@ -1229,7 +1223,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG2()
 			// Tell the remote computer we can't connect because we need a hub
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 			DelayClose( IDS_HANDSHAKE_NEEDAPEER );		// Send the buffer then close the socket
-			return FALSE;								// Delete this object
+			return FALSE;								// Delete this object, back to CHandshakes::RunHandshakes
 		}
 
 		// Otherwise, the connection is probably alright
@@ -1270,7 +1264,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 		// Close the connection citing not Gnutella2 as the reason, but send the departing buffer first
 		DelayClose( IDS_HANDSHAKE_NOTG2 );
 
-		// Delete this object
+		// Delete this object, back to CHandshakes::RunHandshakes
 		return FALSE;
 	}
 
@@ -1278,7 +1272,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 	if ( m_nState == nrsRejected )
 	{
 		Close( 0 );					// Don't specify an error
-		return FALSE;				// Delete this object
+		return FALSE;				// Delete this object, back to CHandshakes::RunHandshakes
 	}
 
 	if ( m_nState == nrsHandshake3 )	// We're reading the final header group from the remote computer
@@ -1293,9 +1287,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			m_nNodeType = ntLeaf;	// This connection is to a leaf below us
 		}
 
-		// Turn this CShakeNeighbour object into a CG1Neighbour object
-		OnHandshakeComplete();
-		return FALSE;				// Delete this object
+		OnHandshakeComplete();		// Turn this CShakeNeighbour object into a CG1Neighbour object, and delete this one
+		return FALSE;				// Delete this object, back to CHandshakes::RunHandshakes
 	}
 
 	// Have we initiated the connection to the remote computer?
@@ -1328,7 +1321,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 					// Tell the remote computer we can't connect (do)
 					SendHostHeaders( _P("GNUTELLA/0.6 503 I have leaves") );
 					DelayClose( IDS_HANDSHAKE_CANTBEPEER ); // Send the buffer then close the socket
-					return FALSE;							// Delete this object
+					return FALSE;							// Delete this object, back to CHandshakes::RunHandshakes
 				}
 
 				// We are an ultrapeer
@@ -1354,7 +1347,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 				// Tell the remote computer we can't connect
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 				DelayClose( IDS_HANDSHAKE_NOULTRAPEER );	// Send the buffer then close the socket
-				return FALSE;								// Delete this object
+				return FALSE;								// Delete this object, back to CHandshakes::RunHandshakes
 			}
 
 			// This connection is to a hub above us
@@ -1368,7 +1361,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 				// Tell the remote computer that we can't connect because we're both leaves
 				SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 				DelayClose( IDS_HANDSHAKE_NEEDAPEER );		// Send the buffer, close the socket, cite need a peer as the reason
-				return FALSE;								// Delete this object
+				return FALSE;								// Delete this object, back to CHandshakes::RunHandshakes
 			}
 		}
 
@@ -1382,9 +1375,8 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 		// Send a blank line to end this group of headers
 		Write( _P("\r\n") );
 
-		// Turn this CShakeNeighbour object into a CG1Neighbour one, and delete this one
-		OnHandshakeComplete();
-		return FALSE;										// Delete this object
+		OnHandshakeComplete();		// Turn this CShakeNeighbour object into a CG1Neighbour one, and delete this one
+		return FALSE;				// Delete this object, back to CHandshakes::RunHandshakes
 	}
 	else	// Not initiated, not rejected, not handshake3 (do)
 	{
@@ -1398,7 +1390,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			// Tell the remote computer we can't connect because we are a shielded leaf right now
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Shielded leaf node") );
 			DelayClose( IDS_HANDSHAKE_IAMLEAF );			// Send the buffer and then close the socket citing our being a leaf as the reason
-			return FALSE;									// Delete this object
+			return FALSE;									// Delete this object, back to CHandshakes::RunHandshakes
 		}
 		else if ( Neighbours.IsG1Ultrapeer() || Neighbours.IsG1UltrapeerCapable() )
 		{
@@ -1424,7 +1416,7 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			// Already have too many connections, tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Maximum connections reached") );
 			DelayClose( IDS_HANDSHAKE_SURPLUS );			// Send the buffer then close the socket
-			return FALSE;									// Delete this object
+			return FALSE;									// Delete this object, back to CHandshakes::RunHandshakes
 		}
 
 		if ( ( m_nNodeType == ntHub && Settings.Gnutella1.ClientMode == MODE_ULTRAPEER ) ||	// This connection is up to a hub, and we are a hub
@@ -1433,14 +1425,14 @@ BOOL CShakeNeighbour::OnHeadersCompleteG1()
 			// Both in the same role on the network should never happen, tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Ultrapeer disabled") );
 			DelayClose( IDS_HANDSHAKE_NOULTRAPEER );		// Send the buffer then close the socket
-			return FALSE;									// Delete this object
+			return FALSE;									// Delete this object, back to CHandshakes::RunHandshakes
 		}
 		if ( m_nNodeType != ntHub && Settings.Gnutella1.ClientMode == MODE_LEAF )
 		{
 			// Another nonsense combination that should never happen, tell the remote computer we can't connect
 			SendHostHeaders( _P("GNUTELLA/0.6 503 Need an Ultrapeer") );
 			DelayClose( IDS_HANDSHAKE_NEEDAPEER );			// Send the buffer then close the socket
-			return FALSE;									// Delete this object
+			return FALSE;									// Delete this object, back to CHandshakes::RunHandshakes
 		}
 
 		// Otherwise, the connection is probably alright

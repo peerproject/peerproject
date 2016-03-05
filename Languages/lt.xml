@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Lithuanian Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -692,7 +692,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
-				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
+				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -762,7 +762,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
-				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
+				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -854,7 +854,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="„PeerProject“ _forumai"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="Lietuvių forumai"/>
-				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"/>
+				<!--item id="ID_HELP_UPDATE" text="Paskutinės naujienos"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1689,7 +1689,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">PASIRODĖ ATNAUJINIMAS</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1697,7 +1697,7 @@
 			<link target="command:upgrade">Atnaujinkite paspaudę čia</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ĮSPĖJIMAS: JŪS ESATE UŽ UŽKARDOS</heading>
 			<newline gap="8" indent="42"/>
@@ -1760,15 +1760,15 @@
 		<newline indent="42"/>
 		<text align="middle">Čia rasite taisyklingą „MS Trebuchet“ ir kitus šriftus.</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">NUOTOLINĖ PRIEIGA YRA ĮGALINTA</heading>
 			<newline gap="8" indent="42"/>
 			<text>„PeerProject“ nuotolinė prieiga yra įgalinta. Valdykite „PeerProject“ naudodamiesi naršykle:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- arba -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1854,7 +1854,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas sparčiau</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Skaičiuoti maišas lėčiau</link>
 			</group>
 		</para>
@@ -1977,7 +1977,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontaktai</text>
 			<newline gap="1" indent="8"/>
@@ -2012,7 +2012,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interesai</text>
 			<newline gap="2" indent="8"/>
@@ -2290,7 +2290,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Peržiūrėti naudotojo bendrintus failus."/>
 	<tip id="ID_BROWSE_LAUNCH" message="Peržiūrėti pasirinkto naudotojo profilį ir bendrintus failus."/>
 	<tip id="ID_BROWSE_PROFILE" message="Peržiūrėti naudotojo profilį."/>
@@ -2613,13 +2613,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Rodyti natūralaus dydžio paveikslėlį."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Atnaujinti paveikslėlį."/>
 	<tip id="PluginID_ImageViewer_Close" message="Užverti pavekslėlių žiūryklės langą."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Maksimalioje veiksenoje greitaveika bus ribojama iki nurodytos reikšmės. Vidurkio veiksenoje greitaveika svyruos į abi puses nuo šios reikšmės."/>
 	<tip id="IDC_REGEXP" message="Įveskite reguliarųjį reiškinį perlo sintakse.{n}Paieškos raktažodžiai gali būti nurodomi &lt;n&gt; forma, kur n yra skaičius tarp 1 ir 9. Jei norite patalpinti visus raktažodžius vieną po kito, naudokite &lt;_&gt; žymėjimą."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Ši nuostata neturi įtakos anksčiau pradėtiems siųstis failams, o taip pat ji nepaisoma, jei failas turi eDonkey maišą ir aktyvus eDonkey tinkle, arba jei tai torrent failas.{n}Tačiau ši nuostata yra paisoma, jei atsiunčiamas failas pristabdytas.{n}{n}Dėmesio: Naudokitės šia nuostata, jei tai tikrai būtina, nes priešingu atveju jus gali užblokuoti."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3350,9 +3350,10 @@
 	<string id="20891" value="&amp;Užverti"/>
 	<string id="20892" value="Prašome palaukti: Atnaujinamas eDonkey serverių sąrašas..."/>
 	<string id="20893" value="Prašome palaukti: Atnaujinamos paslaugų radimo tarnybos..."/>
-	<string id="20894" value="Jūs nenurodėte ryšio spartos. Prieš tęsdami, pasirinkite arba savo interneto susijungimo tipą, arba susijungimo spartą."/>
-	<!--string id="20895" value="Prašome palaukti: Ieškomi ir konfigūruojami UPnP įrenginiai..."-->
-	<!--string id="20896" value="PeerProject nesugebėjo nukreipti prievado į Jūsų NAT maršrutizatorių ar užkardą.\n\nSukonfigūruokite savo tinklą TCP ir UDP prievado %i nukreipimui į savo vietinį kompiuterį."-->
+	<!--string id="20894" value="Prašome palaukti: Ieškomi ir konfigūruojami UPnP įrenginiai..."-->
+	<!--string id="20894" value="PeerProject nesugebėjo nukreipti prievado į Jūsų NAT maršrutizatorių ar užkardą.\n\nSukonfigūruokite savo tinklą TCP ir UDP prievado %i nukreipimui į savo vietinį kompiuterį."-->
+	<string id="20895" value="4-5 skaitmenų numeris (1050-65500)"/>
+	<string id="20896" value="Jūs nenurodėte ryšio spartos. Prieš tęsdami, pasirinkite arba savo interneto susijungimo tipą, arba susijungimo spartą."/>
 	<string id="20897" value="Aplankas, kurį norite bendrinti, aplankų medyje yra žemiau kito, jau bendrinto, aplanko:\n\n%s"/>
 	<string id="20898" value="Jūs nenurodėte, kokius aplankus bendrinti. Ar tikrai tęsti?"/>
 	<string id="20899" value="m. amžiaus"/>
@@ -3397,7 +3398,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Sistemos juostelė:"/>
 		<control caption="Kai paspaudžiu baigti:"/>
-		<control caption="Paklausti|Patalpinti juostelėn|Iškart užverti|Baigti atsisiuntus"/>
+		<control caption="Paklausti|Patalpinti juostelėn|Patalpinti juostelėn|Baigti atsisiuntus|Iškart užverti"/>
 		<control caption="Kai paspaudžiu sutraukti:"/>
 		<control caption="Įprastas veiksmas|Patalpinti juostelėn"/>
 	</dialog>
@@ -3490,17 +3491,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Bendrija">
-		<control caption="Mano _profilis:"/>
-		<control caption="Jūs galite naudoti savo Gnutella naudotojo profilį dalinantis su kitais informacija apie save, savo interesus ir rekomenduotinus failus bei tinklalapius."/>
-		<control caption="Taisyti profilį"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Bendrija">
 		<control caption="Po_kalbiai:"/>
 		<control caption="Įgalinti lygiaverčio tarptinklinio ryšio pakalbius su suderinamais klientais"/>
 		<control caption="Įgalinti pokalbius visuose tinkluose"/>
 		<control caption="Filtruoti pokalbio tekstus nuo informacinių šiukšlių"/>
 		<control caption="Filtruoti nešvankybes pokalbiuose"/>
+		<control caption="Mano _profilis:"/>
+		<control caption="Įgalinti profilis"/>
+		<control caption="Taisyti profilį"/>
+		<control caption="Info:"/>
+		<control caption="Jūs galite naudoti savo Gnutella naudotojo profilį dalinantis su kitais informacija apie save, savo interesus ir rekomenduotinus failus bei tinklalapius."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Nuotolinė prieiga">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Nuotolinė prieiga">
 		<control caption="Įg_alinti:"/>
 		<control caption="Įgalinti nuotolinę prieigą prie „PeerProject“ programos"/>
 		<control/>
@@ -3509,7 +3512,8 @@
 		<control caption="Slaptažodis:"/>
 		<control/>
 		<control/>
-		<control caption="Pagalba:"/>
+		<control/>
+		<control caption="Info:"/>
 		<control caption="„PeerProject“ nuotolinės prieigos funkcija leidžia jums, naudojantis naršykle, kontroliuoti nuotoliniu būdu „PeerProject“ programą, paliktą veikiančią savo kompiuteryje. Šios funkcijos naudojimuisi reikia, kad kompiuteris priimtų įeinančius susijungimus (t.y. teisingai suderintas maršrutizatorius ir t.t.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Žiniatinklis">
@@ -3828,7 +3832,7 @@
 		<control/>
 		<control caption="Ar Jūs norite automatiškai peradresuoti prievadą naudojant UPnP?"/>
 		<control/>
-		<control caption="Port: &#160; (4-5 skaitmenų numeris)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Atsitiktiniai"/>
 		<control caption="Būklė:"/>
@@ -4377,11 +4381,12 @@
 		<control caption="Jūs buvote anksčiau parsisiuntę ir ištrynėte šį failą. Ką norite daryti?"/>
 		<control caption="Dėmesio: Aptikti vienodi failai. Kai kurios kenkėjiškos programos gali užkrėsti Jūsų kolekciją. Įsitikinkite, jog Jūs tikrai atsisiuntėte šį failą ar įtraukėte į savo kolekciją. Jei ne, baikite darbą ir praskenuokite failus su antivirusine programa."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Mygtukas „Užverti“">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Mygtukas „Užverti“">
 		<control caption="Tai pirmas kartas, kai Jūs paspaudėte „PeerProject“ programos mygtuką „Užverti“. Pasirinkite, ką „PeerProject“ turėtų atlikti nuo šio momento ir ateityje:"/>
+		<control caption="Minimizuoti į taskbar"/>
 		<control caption="Minimizuoti į sistemos juostelę"/>
+		<control caption="Baigti programos darbą, kai visi (iš)siuntimai bus baigti"/>
 		<control caption="Tučtuojau baigti „PeerProject“ programos darbą"/>
-		<control caption="Baigti „PeerProject“ programos darbą, kai visi (iš)siuntimai bus baigti"/>
 		<control caption="Gerai"/>
 		<control caption="Atšaukti"/>
 	</dialog>
@@ -4573,8 +4578,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="„PeerProject“ nuotolinė prieiga"/>
+	<tag find="text_logout" replace="Išeiti"/>
+	<tag find="text_tabhome" replace="Pradžia"/>
+	<tag find="text_tabdownloads" replace="Atsisiuntimai"/>
+	<tag find="text_tabuploads" replace="Išsiuntimai"/>
+	<tag find="text_tabnetworks" replace="Tinklai"/>
+	<tag find="text_tabsearch" replace="Paieška"/>
+	<tag find="text_welcome" replace="Sveiki! Čia <b>„PeerProject“ nuotolinė prieiga</b>."/>
+	<tag find="text_logininfo" replace="Jei ši „PeerProject“ kopija veikia jūsų kompiuteryje, įveskite savo nuotolinės prieigos naudotojo vardą bei slaptažodį ir paspauskite <b>Įėjimas</b>."/>
+	<tag find="text_loginfail" replace="Suvestas naudotojo vardas ar slaptažodis yra neteisingas. Bandykite dar kartą."/>
+	<tag find="text_loginuser" replace="Naudotojo vardas:"/>
+	<tag find="text_loginpass" replace="Slaptažodis:"/>
+	<tag find="text_loginsubmit" replace="Įvesti"/>
+	<tag find="text_homeinfo" replace="Ši konsolė leidžia pilnai valdyti paieškas, atsisiuntimus, išsiuntimus ir tinklų susijungimus."/>
+	<tag find="text_homestart" replace="Pradėti siųstis:"/>
+	<tag find="text_homequick" replace="Greita paieška:"/>
+	<tag find="text_homelinks" replace="Naudingos nuorodos:"/>
+	<tag find="text_directdownload" replace="Magnet/Torrent atsisiuntimas:"/>
+	<tag find="text_downloadcleartip" replace="Pašalinti failą iš atsiuntimų sąrašo (tai neištrins failo)"/>
+	<tag find="text_downloadclear" replace="Valyti"/>
+	<tag find="text_downloadresume" replace="Tęsti"/>
+	<tag find="text_downloadpause" replace="Pristabdyti"/>
+	<tag find="text_downloadcancel" replace="Atšaukti"/>
+	<tag find="text_downloadmoresources" replace="Daugiau šaltinių"/>
+	<tag find="text_downloaddirect" replace="Magnet:"/>
+	<tag find="text_submit" replace="Pirmyn"/>
+	<tag find="text_sourceaccess" replace="Kreiptis"/>
+	<tag find="text_sourceforget" replace="Užmiršti"/>
+	<tag find="text_filter" replace="Filtras:"/>
+	<tag find="text_filteractive" replace="Aktyvūs"/>
+	<tag find="text_filterqueued" replace="Eilėje"/>
+	<tag find="text_filterpaused" replace="Pristabdyta"/>
+	<tag find="text_filternosources" replace="Be šaltinių"/>
+	<tag find="text_filtershowall" replace="Rodyti viską"/>
+	<tag find="text_filtersubmit" replace="Filtruoti"/>
+	<tag find="text_filename" replace="Failas"/>
+	<tag find="text_filesize" replace="Dydis"/>
+	<tag find="text_fileprogress" replace="Eiga"/>
+	<tag find="text_filespeed" replace="Sparta"/>
+	<tag find="text_filesources" replace="Šaltiniai"/>
+	<tag find="text_filestatus" replace="Būklė"/>
+	<tag find="text_fileoptions" replace="Valdikliai"/>
+	<tag find="text_networkenabled" replace="Šis tinklas yra įgalintas"/>
+	<tag find="text_networkdisabled" replace="Šis tinklas <b>nėra</b> įgalintas"/>
+	<tag find="text_networkconnect" replace="Jungtis prie"/>
+	<tag find="text_networkdisconnect" replace="Atsijungti nuo"/>
+	<tag find="text_networkaddress" replace="Adresas"/>
+	<tag find="text_networktime" replace="Laikas"/>
+	<tag find="text_networkpackets" replace="Paketų"/>
+	<tag find="text_networkbandwidth" replace="Greitaveika"/>
+	<tag find="text_networktotal" replace="Viso"/>
+	<tag find="text_networkmode" replace="Veiksena"/>
+	<tag find="text_networkleaves" replace="Atšakų"/>
+	<tag find="text_useragent" replace="Naudotojo agentas"/>
+	<tag find="text_searchnew" replace="Nauja paieška"/>
+	<tag find="text_searchinfo" replace="Naujos paieškos vykdymui įrašykite ieškinį į žemiau esantį laukelį ir paspauskite <b>Pradėti paiešką</b>. Jei norite apriboti paiešką kokiu nors failo tipu, pasirinkite jį iš sąrašo (rekomenduojama)."/>
+	<tag find="text_searchfor" replace="Ko ieškoti:"/>
+	<tag find="text_searchstart" replace="Pradėti paiešką"/>
+	<tag find="text_searchstop" replace="Stabdyti paiešką"/>
+	<tag find="text_searchclose" replace="Užverti paiešką"/>
+	<tag find="text_refreshpage" replace="Atnaujinti pateiktį"/>
+	<tag find="text_file" replace="Failas"/>
+	<tag find="text_user" replace="Naudotojas"/>
+	<tag find="text_submit" replace="Nustatyti"/>
+	<tag find="text_filetype" replace="Failo tipas:"/>
+	<tag find="text_anyfile" replace="Bet kokio tipo"/>
+	<tag find="text_typeapp" replace="Programa"/>
+	<tag find="text_typearchive" replace="Archyvas"/>
+	<tag find="text_typeaudio" replace="Audio"/>
+	<tag find="text_typevideo" replace="Vaizdo įrašai"/>
+	<tag find="text_typeimage" replace="Paveikslėlis"/>
+	<tag find="text_typebook" replace="Knyga"/>
+	<tag find="text_typedoc" replace="Dokumentas"/>
+	<tag find="text_typepresent" replace="Pateiktis"/>
+	<tag find="text_typerom" replace="ROM atvaizdis"/>
+	<tag find="text_typeskin" replace="Apvalkalas"/>
+	<tag find="text_typecode" replace="Pirminis kodas"/>
+	<tag find="text_typespreadsheet" replace="Skaičiuoklė"/>
+	<tag find="text_typesubtitle" replace="Subtitrai"/>
+	<tag find="text_typecollection" replace="Rinkinys"/>
+	<!--tag find="text_" replace="aktyvūs / <%= queue_queued %> eilėje, naudojama <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Parsisiunčiamas failas"/>
 		<column from="Size" to="Dydis"/>
@@ -4719,5 +4808,5 @@
 		<column from="Comments" to="Komentarai"/>
 		<column from="Order" to="Eilė"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

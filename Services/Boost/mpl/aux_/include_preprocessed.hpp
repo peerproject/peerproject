@@ -9,9 +9,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: include_preprocessed.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/compiler.hpp>
 #include <boost/mpl/aux_/config/preprocessor.hpp>
@@ -30,9 +30,9 @@
 #endif
 
 #if BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(700))
-//# define AUX778076_INCLUDE_STRING BOOST_PP_STRINGIZE(boost/mpl/aux_/preprocessed/AUX778076_PREPROCESSED_HEADER)
-//# include AUX778076_INCLUDE_STRING
-//# undef AUX778076_INCLUDE_STRING
+#   define AUX778076_INCLUDE_STRING BOOST_PP_STRINGIZE(boost/mpl/aux_/preprocessed/AUX778076_PREPROCESSED_HEADER)
+#   include AUX778076_INCLUDE_STRING
+#   undef AUX778076_INCLUDE_STRING
 #else
 #   include BOOST_PP_STRINGIZE(boost/mpl/aux_/preprocessed/AUX778076_PREPROCESSED_HEADER)
 #endif

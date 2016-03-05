@@ -1,7 +1,7 @@
 //
 // SharedFolder.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -818,9 +818,7 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 {
 	ASSERT_VALID( this );
 
-#ifndef WIN64
-	if ( theApp.m_nWinVer < WIN_XP ) return;	// Not Win2K icons?
-#endif
+	//if ( theApp.m_nWinVer < WIN_XP ) return;	// No Win2K icons
 
 	if ( ! Settings.Library.UseCustomFolders )
 		bAdd = FALSE;
@@ -831,8 +829,11 @@ void CLibraryFolder::Maintain(BOOL bAdd)
 	CString strIconResource;
 	CString strInfoTip = LoadString( IDS_FOLDER_TIP );
 	CString strIconIndex = L"0";
-	CString strIconFile = Settings.General.Path + ( theApp.m_nWinVer >= WIN_VISTA ?
-		L"\\Schemas\\WindowsFolder.ico" : L"\\Schemas\\WindowsFolder.Safe.ico" );
+	CString strIconFile = Settings.General.Path + (
+#ifndef WIN64
+		theApp.m_nWinVer < WIN_VISTA ? L"\\Schemas\\WindowsFolder.Safe.ico" :
+#endif
+		theApp.m_nWinVer < WIN_10 ? L"\\Schemas\\WindowsFolder.ico" : L"\\Schemas\\WindowsShareFolder.ico" );
 	if ( ! PathFileExists( strIconFile ) )
 	{
 		strIconResource = Skin.GetImagePath( IDI_COLLECTION );

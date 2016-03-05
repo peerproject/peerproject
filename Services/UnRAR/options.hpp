@@ -94,10 +94,14 @@ class RAROptions
     RAR_CHARSET CommentCharset;
     RAR_CHARSET FilelistCharset;
     RAR_CHARSET ErrlogCharset;
+    RAR_CHARSET RedirectCharset;
 
     wchar ArcPath[NM];
     SecPassword Password;
     bool EncryptHeaders;
+
+    bool ManualPassword; // Password entered manually during operation, might need to clean for next archive.
+
     wchar LogName[NM];
     MESSAGE_TYPE MsgStream;
     bool Sound;
@@ -128,6 +132,7 @@ class RAROptions
     bool ProcessOwners;
     bool SaveSymLinks;
     bool SaveHardLinks;
+    bool AbsoluteLinks;
     int Priority;
     int SleepTime;
     bool KeepBroken;

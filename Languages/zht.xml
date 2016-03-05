@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Chinese (Traditional) Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -576,7 +576,7 @@
 				<menu text="網站">
 					<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 					<item id="ID_HELP_UPDATE" text="最新消息"/>
-					<!-- <separator/>
+					<!--separator-->
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
@@ -670,7 +670,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -734,7 +734,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -819,7 +819,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject 討論區"/>
 				<item id="ID_HELP_UPDATE" text="最新消息"/>
-				<!-- <!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="關於 PeerProject..."/>
@@ -1644,7 +1644,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">升級通知</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1652,7 +1652,7 @@
 			<link target="command:upgrade">點選這裡升級</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警告! 你受到防火牆的保護</heading>
 			<newline gap="8" indent="42"/>
@@ -1687,15 +1687,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">本地論壇</link><gap size="6"/>
 		<text align="middle">- 轉到您的中文論壇</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">遠端 監控 已啟用</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject 遠端監控已啟用. 在這裡使用您的瀏覽器操控 PeerProject:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- 或 -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1771,7 +1771,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細慢一點</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">點選這裡讓切細快一點</link>
 			</group>
 		</para>
@@ -1883,7 +1883,7 @@
 			<text id="Age"/>
 			<text>岁</text>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">聯絡資訊</text>
 			<newline gap="1" indent="8"/>
@@ -1918,7 +1918,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">興趣</text>
 			<newline gap="2" indent="8"/>
@@ -2142,7 +2142,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="檢視使用者分享的檔案"/>
 	<tip id="ID_BROWSE_LAUNCH" message="瀏覽選擇的使用者的個人檔案與分享的檔案."/>
 	<tip id="ID_BROWSE_PROFILE" message="瀏覽使用者的個人檔案"/>
@@ -2453,7 +2453,7 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="將開啟的視窗水平並排, 不重疊."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="將開啟的視窗垂直並排, 不重疊."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="顯示或隱藏工具列."/>
-</commandTips>
+</commandtips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3160,9 +3160,10 @@
 	<string id="20891" value="離開"/>
 	<string id="20892" value="请稍候: 更新 edonkey 服务器列表..."/>
 	<string id="20893" value="请稍候: 更新发现服务器..."/>
-	<string id="20894" value="您還沒有具體指定連線速度. 繼續下一步動作前, 請選擇您的網路連線類型或是自行輸入連線速度."/>
-	<!--string id="20895" value="请稍候: 查找 UPnP 驱动器并进行设置..."-->
-	<!--string id="20896" value="您已經示意要自行設定防火牆或是NAT 路由器的連接埠轉送(Port-Forwarding).\n\n請設定您的網路以轉送TCP 與 UDP 連接埠到 %i 您的本機電腦."-->
+	<!--string id="20894" value="请稍候: 查找 UPnP 驱动器并进行设置..."-->
+	<!--string id="20894" value="您已經示意要自行設定防火牆或是NAT 路由器的連接埠轉送(Port-Forwarding).\n\n請設定您的網路以轉送TCP 與 UDP 連接埠到 %i 您的本機電腦."-->
+	<string id="20895" value="任何4-5位數 (1050-65500)"/>
+	<string id="20896" value="您還沒有具體指定連線速度. 繼續下一步動作前, 請選擇您的網路連線類型或是自行輸入連線速度."/>
 	<string id="20897" value="您在分享的資料夾已經是另一個分享資料夾的一部份:\n\n%s"/>
 	<string id="20898" value="您還沒有具體指定任何要分享的資料夾. 您確定要這樣做嗎?"/>
 	<string id="20899" value="歲"/>
@@ -3208,7 +3209,7 @@
 		<control caption="Shadows"/>
 		<control caption="系統列:"/>
 		<control caption="當我點選關閉鈕時:"/>
-		<control caption="詢問我|最小化至系統列|立刻關閉程式|傳輸後關閉"/>
+		<control caption="詢問我|最小化至系統列|最小化至系統列|傳輸後關閉|立刻關閉程式"/>
 		<control caption="當我點選最小化時:"/>
 		<control caption="標準|最小化至系統列"/>
 	</dialog>
@@ -3258,17 +3259,19 @@
 		<control caption="警告: 选择一个额外的媒体滤镜将自动禁用所有的媒体和可视化插件."/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="社群">
-		<control caption="我的個人檔案:"/>
-		<control caption="您能夠使用 Gnutella 使用者個人檔案來分享關於自己的資料, 興趣與推薦的檔案以及網站."/>
-		<control caption="`編輯我的個人檔案"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="社群">
 		<control caption="聊天:"/>
 		<control caption="啟用與相容的客戶端做 P2P 聊天"/>
 		<control caption="允許在所有網路上聊天"/>
 		<control caption="過濾垃圾訊息"/>
 		<control caption="聊天時過濾不雅字眼"/>
+		<control caption="我的個人檔案:"/>
+		<control caption="我的個人檔案"/>
+		<control caption="`編輯我的個人檔案"/>
+		<control caption="信息:"/>
+		<control caption="您能夠使用 G2 使用者個人檔案來分享關於自己的資料, 興趣與推薦的檔案以及網站."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="遠端操控">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="遠端操控">
 		<control caption="啟用:"/>
 		<control caption="啟用 PeerProject 遠端操控:"/>
 		<control/>
@@ -3277,7 +3280,8 @@
 		<control caption="選擇一個密碼:"/>
 		<control/>
 		<control/>
-		<control caption="說明:"/>
+		<control/>
+		<control caption="信息:"/>
 		<control caption="PeerProject 在您的電腦上運作時, 您可以從遠端使用瀏覽器操控它. 您的電腦必須能夠啟用輸入連線以使用這個功能(例: 正確設定的路由器...等等)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="網際網路">
@@ -3596,7 +3600,7 @@
 		<control/>
 		<control caption="不要自動端口轉發，即插即用？"/>
 		<control/>
-		<control caption="Port: &#160; (任何4-5位數)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="隨機"/>
 		<control caption="身份:"/>
@@ -4143,13 +4147,14 @@
 		<control caption="確定"/>
 		<control caption="取消"/>
 		<control caption="您曾經下載過並且刪除這個檔案. 請問你要如何處理?"/>
-		<control caption="警告！检测到重复文件.一些恶意软件可能感染您的收藏.请确认您是手动下载或存放此文件.否则，请关闭 PeerProject 并用杀毒软件扫描您的电脑."/>
+		<control caption="警告:检测到重复文件.一些恶意软件可能感染您的收藏.请确认您是手动下载或存放此文件.否则，请关闭 PeerProject 并用杀毒软件扫描您的电脑."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="關閉鈕">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="關閉鈕">
 		<control caption="本次是您第一次點選 PeerProject 的關閉鈕. 從現在開始, 請問您點選關閉鈕後, 想要做什麼動作:"/>
 		<control caption="最小化至系統列"/>
+		<control caption="最小化至系統列"/>
+		<control caption="在上傳與下載完成後關閉"/>
 		<control caption="立刻關閉 PeerProject"/>
-		<control caption="在上傳與下載完成後關閉 PeerProject"/>
 		<control caption="確定"/>
 		<control caption="取消"/>
 	</dialog>
@@ -4341,8 +4346,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject 远程访问"/>
+	<tag find="text_logout" replace="登出"/>
+	<tag find="text_tabhome" replace="主頁"/>
+	<tag find="text_tabdownloads" replace="下載"/>
+	<tag find="text_tabuploads" replace="上傳"/>
+	<tag find="text_tabnetworks" replace="網路"/>
+	<tag find="text_tabsearch" replace="搜尋"/>
+	<tag find="text_welcome" replace="欢迎来到 <b>PeerProject 远程访问。</b>"/>
+	<tag find="text_logininfo" replace="如果這是你PeerProject客戶的地址，請插入您的用戶名和密碼，然後點擊<b>登錄</b>按鈕。"/>
+	<tag find="text_loginfail" replace="您输入的用户名和密码不正确。请重试。."/>
+	<tag find="text_loginuser" replace="用户:"/>
+	<tag find="text_loginpass" replace="密码:"/>
+	<tag find="text_loginsubmit" replace="登录"/>
+	<tag find="text_homeinfo" replace="该网络界面允许您控制搜索、下载、上传和网络连接。"/>
+	<tag find="text_homestart" replace="开始下载:"/>
+	<tag find="text_homequick" replace="快速搜索:"/>
+	<tag find="text_homelinks" replace="可用链接:"/>
+	<tag find="text_directdownload" replace="磁力/种子下载:"/>
+	<tag find="text_downloadcleartip" replace="从列表中清除下载 (这将会删除您的文件)"/>
+	<tag find="text_downloadclear" replace="清除"/>
+	<tag find="text_downloadresume" replace="续传"/>
+	<tag find="text_downloadpause" replace="暂停"/>
+	<tag find="text_downloadcancel" replace="取消"/>
+	<tag find="text_downloadmoresources" replace="更多资源"/>
+	<tag find="text_downloaddirect" replace="磁力下载:"/>
+	<tag find="text_submit" replace="开始"/>
+	<tag find="text_sourceaccess" replace="访问"/>
+	<tag find="text_sourceforget" replace="退出"/>
+	<tag find="text_filter" replace="过滤:"/>
+	<tag find="text_filteractive" replace="活动的"/>
+	<tag find="text_filterqueued" replace="队列中"/>
+	<tag find="text_filterpaused" replace="已暂停"/>
+	<tag find="text_filternosources" replace="无资源"/>
+	<tag find="text_filtershowall" replace="显示所有资源"/>
+	<tag find="text_filtersubmit" replace="过滤"/>
+	<tag find="text_filename" replace="下载文件"/>
+	<tag find="text_filesize" replace="大小"/>
+	<tag find="text_fileprogress" replace="进程"/>
+	<tag find="text_filespeed" replace="速度"/>
+	<tag find="text_filesources" replace="资源"/>
+	<tag find="text_filestatus" replace="状态"/>
+	<tag find="text_fileoptions" replace="控制"/>
+	<tag find="text_networkenabled" replace="此网络已启用"/>
+	<tag find="text_networkdisabled" replace="此网络<b>未</b>启用"/>
+	<tag find="text_networkconnect" replace="连接到"/>
+	<tag find="text_networkdisconnect" replace="禁用"/>
+	<tag find="text_networkaddress" replace="地址"/>
+	<tag find="text_networktime" replace="时间"/>
+	<tag find="text_networkpackets" replace="数据包"/>
+	<tag find="text_networkbandwidth" replace="带宽"/>
+	<tag find="text_networktotal" replace="总计"/>
+	<tag find="text_networkmode" replace="模式"/>
+	<tag find="text_networkleaves" replace="叶"/>
+	<tag find="text_useragent" replace="用户代理"/>
+	<tag find="text_searchnew" replace="新建搜索"/>
+	<tag find="text_searchinfo" replace="要开始一个新的搜索，请将您要搜索的关键词输入到下面的输入框中并单击<b>开始搜索</b>。如果您想要限制您搜索的文件类型，请在下面的列表中选择。."/>
+	<tag find="text_searchfor" replace="搜索:"/>
+	<tag find="text_searchstart" replace="开始搜索"/>
+	<tag find="text_searchstop" replace="停止搜索"/>
+	<tag find="text_searchclose" replace="关闭搜索"/>
+	<tag find="text_refreshpage" replace="刷新页面"/>
+	<tag find="text_file" replace="文件"/>
+	<tag find="text_user" replace="用户"/>
+	<tag find="text_submit" replace="设置"/>
+	<tag find="text_filetype" replace="类型:"/>
+	<tag find="text_anyfile" replace="任何文件类型"/>
+	<tag find="text_typeapp" replace="程序"/>
+	<tag find="text_typearchive" replace="档案"/>
+	<tag find="text_typeaudio" replace="音频"/>
+	<tag find="text_typevideo" replace="视频"/>
+	<tag find="text_typeimage" replace="图片"/>
+	<tag find="text_typebook" replace="书籍"/>
+	<tag find="text_typedoc" replace="字符处理"/>
+	<tag find="text_typepresent" replace="介绍"/>
+	<tag find="text_typerom" replace="ROM 镜像"/>
+	<tag find="text_typeskin" replace="皮肤"/>
+	<tag find="text_typecode" replace="源代码"/>
+	<tag find="text_typespreadsheet" replace="电子表格"/>
+	<tag find="text_typesubtitle" replace="字幕"/>
+	<tag find="text_typecollection" replace="Collection"/>
+	<tag find="text_" replace="活动 / <%= queue_queued %> 列队，使用中 <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="已下載檔"/>
 		<column from="Size" to="大小"/>
@@ -4470,7 +4559,7 @@
 		<column from="URL" to="链接"/>
 	</list>
 	<list name="CFileSourcesPageList">
-		<column from="URL" to="链接" />
+		<column from="URL" to="链接"/>
 		<column from="Expires" to="有效期限"/>
 	</list>
 	<list name="CTorrentFileList">
@@ -4489,5 +4578,5 @@
 		<column from="Comments" to="意見"/>
 		<column from="Order" to="順序"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

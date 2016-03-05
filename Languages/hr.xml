@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Croatian Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -535,7 +535,7 @@
 				<menu text="_Web stranice">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
 					<separator/>
-					<!--item id="ID_HELP_UPDATE" text="Novosti"/>
+					<!--item id="ID_HELP_UPDATE" text="Novosti"-->
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
@@ -628,7 +628,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Novosti"/>
+				<!--item id="ID_HELP_UPDATE" text="Novosti"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -692,7 +692,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Novosti"/>
+				<!--item id="ID_HELP_UPDATE" text="Novosti"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -775,7 +775,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Novosti"/>
+				<!--item id="ID_HELP_UPDATE" text="Novosti"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1553,7 +1553,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">OBAVJEST O NADOOGRADNJI</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Nadogradi"/>
@@ -1561,7 +1561,7 @@
 			<link target="command:upgrade">Klikni ovdje za nadogradnju</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">UPOZORENJE - VI STE POD VATROZIDOM</heading>
 			<newline gap="8" indent="42"/>
@@ -1596,15 +1596,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalni Forum</link><gap size="6"/>
 		<text align="middle">- Idi na hrvatski jezik tribini</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">PRISTUP NA DALJINU - UKLUČEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject pristup na daljinu je omogučen. Kontroliraj PeerProject koristeći web preglednik na:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- ili -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1690,7 +1690,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikni ovdje za brži hash</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikni ovdje za hash slower</link>
 			</group>
 		</para>
@@ -1811,7 +1811,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontakt Informacije</text>
 			<newline gap="1" indent="8"/>
@@ -1846,7 +1846,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Zanimacije</text>
 			<newline gap="2" indent="8"/>
@@ -2127,7 +2127,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text.The "message" is displayed in the status bar, while the "tip" is shown in a tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Pogledaj koje datoteke djeli"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Pogledaj profil i datoteke koje djeli odabrani korisnik."/>
 	<tip id="ID_BROWSE_PROFILE" message="Pogledaj profil."/>
@@ -2288,7 +2288,7 @@
 	<tip id="ID_SEARCHMONITOR_PAUSE" message="Pause search monitoring."/>
 	<!-- MISSING Security/Scheduler Tips -->
 	<tip id="ID_TAB_CONNECT" message="Spoji se ili isključi sa mreže."/>
-	<!--tip id="ID_TAB_HELP" message="Potraži pomoć u korištenju PeerProject."/>
+	<!--tip id="ID_TAB_HELP" message="Potraži pomoć u korištenju PeerProject."-->
 	<tip id="ID_TAB_HOME" message="Vrača PeerProject na početnu stranicu"/>
 	<tip id="ID_TAB_LIBRARY" message="Pregledajte ili sredite vašu kolekciju datoteka."/>
 	<tip id="ID_TAB_MEDIA" message="Pustite vašu omiljenu pjesmi ili film iz vaše kolekcije."/>
@@ -2302,7 +2302,7 @@
 	<tip id="ID_UPLOADS_FILTER_ALL" message="Pokaži sva davanja."/>
 	<tip id="ID_UPLOADS_PRIORITY" message="Prioritet."/>
 	<!-- MISSING Uploads/View/Window+ Tips -->
-</commandTips>
+</commandtips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -2886,7 +2886,8 @@
 	<string id="20886" value="Changing interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="Dobrodošli u PeerProject"/>
 	<string id="20891" value="Izlaz"/>
-	<string id="20894" value="Još mi niste zadali brzinu spajanja. Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
+	<string id="20895" value="4-5 znamenkasti broj (1050-65500)"/>
+	<string id="20896" value="Još mi niste zadali brzinu spajanja. Molim Vas da odaberete tip veze prema internetu, ili ručno upišete brzinu."/>
 	<string id="20897" value="Mapu koju djelite je već na listi za djeljenje kao dio druge mape:\n\n%s"/>
 	<string id="20898" value="Niste odabrali mape za djeljenje. Jeste li sigurni da želite nastaviti?"/>
 	<string id="20899" value="godina"/>
@@ -2932,7 +2933,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Tray:"/>
 		<control caption="Kada pritisnem zatvori:"/>
-		<control caption="Pitaj|Spusti u Tray|Odmah Zatvori|Zatvori tek kada završiš"/>
+		<control caption="Pitaj|Spusti u Taskbar|Spusti u Tray|Zatvori tek kada završiš|Odmah Zatvori"/>
 		<control caption="Kada pritisnem spusti:"/>
 		<control caption="Normalno|Spusti u Tray"/>
 	</dialog>
@@ -2981,23 +2982,26 @@
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Zajednica">
-		<control caption="Moj _Profil:"/>
-		<control caption="Možete koristiti vaš Gnutella Profil kako biste dali informacije o vama, što vas zanima i koje datoteke i web stranice preporučate"/>
-		<control caption="Promjenite vaš Profil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Zajednica">
 		<control caption="Razgovor:"/>
 		<control caption="Omogući razgovor sa ostalim kompatibilnim klijentima"/>
 		<control caption="Dopusti razgovor na svim mrežama"/>
 		<control caption="Filtriraj poruke koje sadrže smeće"/>
 		<control caption="Cenzuriraj prostačenje"/>
+		<control caption="Moj _Profil:"/>
+		<control caption="Profil"/>
+		<control caption="Promjenite vaš Profil"/>
+		<control caption="Pomoć:"/>
+		<control caption="Možete koristiti vaš Gnutella Profil kako biste dali informacije o vama, što vas zanima i koje datoteke i web stranice preporučate"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Pristup na Daljinu">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Pristup na Daljinu">
 		<control caption="Omogući:"/>
 		<control caption="Omogući Daljinski Pristup PeerProject"/>
 		<control/>
 		<control caption="Uvjerenja:"/>
 		<control caption="Odaberi Ime:"/>
 		<control caption="Odaberi Lozinku:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control caption="Pomoć:"/>
@@ -3316,7 +3320,7 @@
 		<control/>
 		<control caption="Ali ću podesiti port-forwarding za UPnP?"/>
 		<control/>
-		<control caption="Port: (4-5 znamenkasti broj)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Stanje:"/>
@@ -3863,11 +3867,12 @@
 		<control caption="Ovu datoteku ste već skinuli, pa obrisali. Što želite učiniti?"/>
 		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zatvaranje">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Zatvaranje">
 		<control caption="Ovo je prvi puta da zatvarate PeerProject.Molim da odaberete što će PeerProject učiniti kada ubuduće kliknete na zatvori:"/>
 		<control caption="Spusti u tray"/>
+		<control caption="Spusti u tray"/>
+		<control caption="Zatvori tek nakon što završi skidanje/davanje u tjeku"/>
 		<control caption="Odmah zatvori PeerProject"/>
-		<control caption="Zatvori PeerProject tek nakon što završi skidanje/davanje u tjeku"/>
 		<control caption="OK"/>
 		<control caption="Odustani"/>
 	</dialog>
@@ -4059,8 +4064,19 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface (Missing) -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Odjaviti se"/>
+	<tag find="text_tabhome" replace="Početak"/>
+	<tag find="text_tabdownloads" replace="Razmjena"/>
+	<tag find="text_tabuploads" replace="Dajem"/>
+	<tag find="text_tabnetworks" replace="Mreža"/>
+	<tag find="text_tabsearch" replace="Traži"/>
+	<tag find="text_" replace=""/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Skinuta Datoteka"/>
 		<column from="Size" to="Veličina"/>
@@ -4207,5 +4223,5 @@
 		<column from="Comments" to="Komentari"/>
 		<column from="Order" to="Naredba"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

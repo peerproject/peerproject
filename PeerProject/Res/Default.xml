@@ -1773,9 +1773,9 @@
 			<link target="command:upgrade">Click here to upgrade</link>
 			<newline gap="20" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
-			<heading align="middle">Warning: You Are Firewalled!</heading>
+			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
 			<text color="FF0000">PeerProject has detected that you are hidden behind a router or firewall,
 			and are unable to receive active connections from the Internet. &#160;</text>
@@ -1839,17 +1839,21 @@
 		<icon res="201" width="16" height="16" target="command:ID_HELP_FORUMS_LOCAL"/><gap size="8"/>
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
 		<text align="middle">- Go to the English local forum</text>
---> 	<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+-->
+		<newline gap="18" indent="0"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
 			<text>Control PeerProject using your web browser at:</text>
 			<newline gap="4"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160; or &#160;</text>
-			<link id="RemoteAccessURL2"/>
-			<newline gap="18" indent="0"/>
+			<link id="RemoteAccessLocal"/>
+		<!--newline gap="4" indent="0"-->
+		<!--bitmap path="/data/QRCodeRemote.bmp" width="116" height="116"-->
+		<gap size="8"/>
+		<newline gap="18" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
 	</document>

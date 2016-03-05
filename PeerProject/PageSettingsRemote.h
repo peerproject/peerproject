@@ -1,7 +1,7 @@
 //
 // PageSettingsRemote.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -34,9 +34,10 @@ public:
 protected:
 	BOOL		m_bEnable;
 	CStatic		m_wndURL;
+	CStatic		m_wndQRCode;
 	CEdit		m_wndUsername;
-	CString		m_sUsername;
 	CEdit		m_wndPassword;
+	CString		m_sUsername;
 	CString		m_sPassword;
 
 	BOOL		m_bOldEnable;
@@ -46,13 +47,14 @@ protected:
 protected:
 	virtual void DoDataExchange(CDataExchange* pDX);
 	virtual BOOL OnInitDialog();
-	virtual void OnCancel();
 	virtual void OnSkinChange();
+	virtual void OnCancel();
+
 	afx_msg void OnNewPassword();
 	afx_msg void OnBnClickedRemoteEnable();
-	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
-	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
 	afx_msg void OnLButtonUp(UINT nFlags, CPoint point);
+	afx_msg BOOL OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message);
+	afx_msg HBRUSH OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor);
 
 	DECLARE_MESSAGE_MAP()
 };

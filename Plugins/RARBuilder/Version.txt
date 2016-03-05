@@ -1,6 +1,6 @@
-5.30.5
+5.30.100 (5.3.8)
 
-10.10.2015
+11.18.2015
 
 DLL Source:
 www.rarlab.com/rar/UnRARDLL.exe

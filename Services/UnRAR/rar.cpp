@@ -54,6 +54,7 @@ int main(int argc, char *argv[])
     }
     Cmd->AddArcName(ModuleName);
     Cmd->ParseDone();
+    Cmd->AbsoluteLinks=true; // If users runs SFX, he trusts an archive source.
 #else // !SFX_MODULE
     Cmd->ParseCommandLine(true,argc,argv);
     if (!Cmd->ConfigDisabled)
@@ -69,10 +70,9 @@ int main(int argc, char *argv[])
 #endif
 
     uiInit(Cmd->Sound);
-    InitConsoleOptions(Cmd->MsgStream);
+    InitConsoleOptions(Cmd->MsgStream,Cmd->RedirectCharset);
     InitLogOptions(Cmd->LogName,Cmd->ErrlogCharset);
     ErrHandler.SetSilent(Cmd->AllYes || Cmd->MsgStream==MSG_NULL);
-    ErrHandler.SetShutdown(Cmd->Shutdown);
 
     Cmd->OutTitle();
     Cmd->ProcessCommand();
@@ -93,7 +93,7 @@ int main(int argc, char *argv[])
   }
 
 #if defined(_WIN_ALL) && !defined(SFX_MODULE) && !defined(SHELL_EXT)
-  if (ShutdownOnClose)
+  if (ShutdownOnClose && ErrHandler.IsShutdownEnabled())
     Shutdown();
 #endif
   ErrHandler.MainExit=true;

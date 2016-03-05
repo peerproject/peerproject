@@ -1,7 +1,7 @@
 //
 // PageSettingsRemote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -23,6 +23,8 @@
 #include "Colors.h"
 #include "Network.h"
 #include "Handshakes.h"
+#include "QRCode.h"
+#include "QRCode.cpp"	// Why does this need to be included?
 
 #ifdef _DEBUG
 #undef THIS_FILE
@@ -60,9 +62,10 @@ void CRemoteSettingsPage::DoDataExchange(CDataExchange* pDX)
 	CSettingsPage::DoDataExchange(pDX);
 	DDX_Check(pDX, IDC_REMOTE_ENABLE, m_bEnable);
 	DDX_Control(pDX, IDC_REMOTE_URL, m_wndURL);
+	DDX_Control(pDX, IDC_REMOTE_QRCODE, m_wndQRCode);
 	DDX_Control(pDX, IDC_REMOTE_USERNAME, m_wndUsername);
-	DDX_Text(pDX, IDC_REMOTE_USERNAME, m_sUsername);
 	DDX_Control(pDX, IDC_REMOTE_PASSWORD, m_wndPassword);
+	DDX_Text(pDX, IDC_REMOTE_USERNAME, m_sUsername);
 	DDX_Text(pDX, IDC_REMOTE_PASSWORD, m_sPassword);
 }
 
@@ -73,9 +76,9 @@ BOOL CRemoteSettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
-	m_bEnable	= m_bOldEnable		= Settings.Remote.Enable;
-	m_sUsername	= m_sOldUsername	= Settings.Remote.Username;
-	m_sOldPassword					= Settings.Remote.Password;
+	m_bEnable	= m_bOldEnable   = Settings.Remote.Enable;
+	m_sUsername	= m_sOldUsername = Settings.Remote.Username;
+				  m_sOldPassword = Settings.Remote.Password;
 
 	if ( ! m_sOldPassword.IsEmpty() ) m_sPassword = L"      ";
 
@@ -114,7 +117,10 @@ void CRemoteSettingsPage::OnBnClickedRemoteEnable()
 {
 	UpdateData();
 
-	Settings.Remote.Enable		= m_bEnable != FALSE;
+	if ( m_sUsername.FindOneOf( L"\\\"/?&=") >= 0 )
+		m_sUsername.Empty();
+
+	Settings.Remote.Enable		= m_bEnable != FALSE && ! m_sUsername.IsEmpty();
 	Settings.Remote.Username	= m_sUsername;
 
 	m_wndUsername.EnableWindow( m_bEnable );
@@ -158,6 +164,19 @@ void CRemoteSettingsPage::OnBnClickedRemoteEnable()
 	}
 
 	m_wndURL.SetWindowText( strURL );
+
+	if ( m_bEnable && strURL[0] == L'h' && ! StartsWith( strURL, _P( L"http://localhost" ) ) )	// http:
+	{
+		CString strToken = L"/?username=" + m_sUsername;
+		if ( strURL.GetLength() + strToken.GetLength() < 53 )
+			strURL += strToken;
+		QREncode.UpdateRemote( strURL );
+		m_wndQRCode.SetBitmap( (HBITMAP)QREncode.m_bmRemote.m_hObject );
+	}
+	else // Disabled
+	{
+		m_wndQRCode.SetBitmap( Skin.LoadBitmap( IDB_QRCODE ) );
+	}
 }
 
 HBRUSH CRemoteSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
@@ -175,15 +194,18 @@ HBRUSH CRemoteSettingsPage::OnCtlColor(CDC* pDC, CWnd* pWnd, UINT nCtlColor)
 
 BOOL CRemoteSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 {
-	CPoint point;
-	GetCursorPos( &point );
-	CRect rect;
-	m_wndURL.GetWindowRect( &rect );
-
-	if ( rect.PtInRect( point ) && m_wndURL.IsWindowEnabled() )
+	if ( m_wndURL.IsWindowEnabled() )
 	{
-		SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
-		return TRUE;
+		CPoint point;
+		GetCursorPos( &point );
+		CRect rect;
+		m_wndURL.GetWindowRect( &rect );
+
+		if ( rect.PtInRect( point ) )
+		{
+			SetCursor( AfxGetApp()->LoadCursor( IDC_HAND ) );
+			return TRUE;
+		}
 	}
 
 	return CSettingsPage::OnSetCursor( pWnd, nHitTest, message );
@@ -191,15 +213,19 @@ BOOL CRemoteSettingsPage::OnSetCursor(CWnd* pWnd, UINT nHitTest, UINT message)
 
 void CRemoteSettingsPage::OnLButtonUp(UINT nFlags, CPoint point)
 {
-	CRect rect;
-	m_wndURL.GetWindowRect( &rect );
-	ScreenToClient( &rect );
-
-	if ( rect.PtInRect( point ) && m_wndURL.IsWindowEnabled() )
+	if ( m_wndURL.IsWindowEnabled() )
 	{
-		CString strURL;
-		m_wndURL.GetWindowText( strURL );
-		ShellExecute( GetSafeHwnd(), NULL, strURL, NULL, NULL, SW_SHOWNORMAL );
+		CRect rect;
+		m_wndURL.GetWindowRect( &rect );
+		ScreenToClient( &rect );
+
+		if ( rect.PtInRect( point ) )
+		{
+			CString strURL;
+			m_wndURL.GetWindowText( strURL );
+			strURL += L"/?username=" + m_sUsername;
+			ShellExecute( GetSafeHwnd(), NULL, strURL, NULL, NULL, SW_SHOWNORMAL );
+		}
 	}
 
 	CSettingsPage::OnLButtonUp( nFlags, point );

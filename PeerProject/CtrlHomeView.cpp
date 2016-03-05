@@ -1,7 +1,7 @@
 //
 // CtrlHomeView.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -45,8 +45,8 @@ END_MESSAGE_MAP()
 #define GROUP_DISCONNECTED		1
 #define GROUP_CONNECTED			2
 #define GROUP_UPGRADE			3
-#define GROUP_FIREWALLED		4
-#define GROUP_REMOTE			5
+#define GROUP_REMOTE			4
+#define GROUP_FIREWALLED		5
 #define GROUP_FIREWALLED_TCP	6
 #define GROUP_FIREWALLED_UDP	7
 
@@ -109,9 +109,9 @@ void CHomeViewCtrl::OnSkinChange()
 	pMap.Lookup( L"Header", m_peHeader );
 	pMap.Lookup( L"SearchBox", m_peSearch );
 	pMap.Lookup( L"Upgrade", m_peUpgrade );
-	pMap.Lookup( L"RemoteAccessURL1", m_peRemote1 );
-	pMap.Lookup( L"RemoteAccessURL2", m_peRemote2 );
 	pMap.Lookup( L"RemoteBrowseURL", m_peRemoteBrowse );
+	pMap.Lookup( L"RemoteAccessURL", m_peRemote1 );
+	pMap.Lookup( L"RemoteAccessLocal", m_peRemote2 );
 
 	m_wndSearch.OnSkinChange( m_pDocument.m_crBackground, m_pDocument.m_crText );
 
@@ -167,25 +167,27 @@ void CHomeViewCtrl::Update()
 		m_peRemoteBrowse->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
 	}
 
-	if ( Settings.Remote.Enable && ! Settings.Remote.Username.IsEmpty() &&
-		 ! Settings.Remote.Password.IsEmpty() && Network.IsListening() )
+	if ( Settings.Remote.Enable &&
+		 ! Settings.Remote.Username.IsEmpty() &&
+		 ! Settings.Remote.Password.IsEmpty() &&
+		 Network.IsListening() )
 	{
-		CString strURL;
-
 		if ( m_peRemote1 )
 		{
-			strURL.Format( L"http://%s:%i/remote/",
+			CString strURL;
+			strURL.Format( L"http://%s:%i/remote",
 				(LPCTSTR)CString( inet_ntoa( Network.m_pHost.sin_addr ) ),
 				(int)ntohs( Network.m_pHost.sin_port ) );
 			m_peRemote1->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
-			m_peRemote1->m_sLink = strURL;
+			m_peRemote1->m_sLink = strURL + L"/?username=" + Settings.Remote.Username;
 		}
 		if ( m_peRemote2 )
 		{
-			strURL.Format( L"http://localhost:%i/remote/",
+			CString strURL;
+			strURL.Format( L"http://localhost:%i/remote",
 				(int)ntohs( Network.m_pHost.sin_port ) );
 			m_peRemote2->SetText( Settings.General.LanguageRTL ? L"\x202A" + strURL : strURL );
-			m_peRemote2->m_sLink = strURL;
+			m_peRemote2->m_sLink = strURL + L"/?username=" + Settings.Remote.Username;
 		}
 
 		m_pDocument.ShowGroup( GROUP_REMOTE, TRUE );

@@ -33,6 +33,9 @@
     <ClInclude Include="upnpcommands.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="upnpdev.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="upnperrors.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -40,6 +43,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="minisoap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="minissdpc.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="miniupnpc.h">
@@ -51,7 +57,7 @@
     <ClInclude Include="receivedata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="declspec.h">
+    <ClInclude Include="miniupnpc_declspec.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="miniupnpctypes.h">
@@ -77,6 +83,9 @@
     <ClCompile Include="upnpcommands.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="upnpdev.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="upnperrors.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -87,6 +96,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="minisoap.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="minissdpc.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="miniupnpc.c">
@@ -101,6 +113,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="MiniUPnPc.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+    <ResourceCompile Include="miniupnpc.def">
       <Filter>Resource Files</Filter>
     </ResourceCompile>
   </ItemGroup>

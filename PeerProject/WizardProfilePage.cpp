@@ -1,7 +1,7 @@
 //
 // WizardProfilePage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -273,6 +273,8 @@ LRESULT CWizardProfilePage::OnWizardNext()
 			pHandle->AddAttribute( L"primary", m_sNick );
 			if ( m_sNick.IsEmpty() )
 				pHandle->Delete();
+			else if ( Settings.Remote.Username.IsEmpty() )
+				Settings.Remote.Username = m_sNick;
 		}
 	}
 
@@ -308,7 +310,8 @@ LRESULT CWizardProfilePage::OnWizardNext()
 			pVitals->DeleteAttribute( L"gender" );
 
 		if ( pVitals->GetElementCount() == 0 &&
-			 pVitals->GetAttributeCount() == 0 ) pVitals->Delete();
+			 pVitals->GetAttributeCount() == 0 )
+			pVitals->Delete();
 	}
 
 	if ( CXMLElement* pLocation = MyProfile.GetXML( L"location", TRUE ) )

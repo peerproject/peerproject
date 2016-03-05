@@ -39,12 +39,12 @@
     <ConfigurationType>Utility</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Utility</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v140_xp</PlatformToolset>
+    <PlatformToolset>v140</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -87,22 +87,22 @@
     <CustomBuild Include="Scripts\Main.iss">
       <FileType>Document</FileType>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"InnoSetup\ISCC.exe" "/Ssigntoolparams=signtool.exe $p" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"InnoSetup\ISCC.exe" "/Ssigntoolparams=signtool.exe $p" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"InnoSetup\ISCC.exe" "/Ssigntoolparams=signtool.exe $p" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Performing Installer Build</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"InnoSetup\ISCC.exe" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"InnoSetup\ISCC.exe" "/Ssigntoolparams=signtool.exe $p" "%(FullPath)" "/dConfigurationName=$(Configuration)" "/dPlatformName=$(Platform)" /v9
 </Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\PeerProject\$(Platform) $(Configuration)\PeerProject.exe;%(AdditionalInputs)</AdditionalInputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Scripts\Preprocessed.iss;%(Outputs)</Outputs>
@@ -156,10 +156,6 @@
       <Project>{c2f61d04-be35-4ae3-84a8-be140613e26d}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\Plugins\RatDVDPlugin\RatDVDReader.vcxproj">
-      <Project>{86944913-9269-4b41-aa2f-c2a37e68c50e}</Project>
-      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
-    </ProjectReference>
     <ProjectReference Include="..\Plugins\SearchExport\SearchExport.vcxproj">
       <Project>{5386dff4-2e92-4932-8706-ab5bd79e04fe}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
@@ -188,18 +184,20 @@
       <Project>{dfab04e0-9275-42fb-bcbb-2f153eb7d253}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\SkinBuilder\SkinBuilder.vcxproj">
-      <Project>{40448da0-0373-4bfb-8a21-2c7f3a02a327}</Project>
+    <ProjectReference Include="..\TorrentWizard\TorrentWizard.vcxproj">
+      <Project>{f02ede36-e2ac-40e8-b6dc-76b1d53f9a5a}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
     <ProjectReference Include="..\SkinInstaller\SkinInstaller.vcxproj">
       <Project>{caa6fcc8-27b1-42b9-b647-976e7be79c70}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
-    <ProjectReference Include="..\TorrentWizard\TorrentWizard.vcxproj">
-      <Project>{f02ede36-e2ac-40e8-b6dc-76b1d53f9a5a}</Project>
+<!--
+    <ProjectReference Include="..\SkinBuilder\SkinBuilder.vcxproj">
+      <Project>{40448da0-0373-4bfb-8a21-2c7f3a02a327}</Project>
       <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
     </ProjectReference>
+-->
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -10,30 +10,30 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: preprocessor.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-//#if !defined(BOOST_MPL_CFG_BROKEN_PP_MACRO_EXPANSION) \
-//  && (   BOOST_WORKAROUND(__MWERKS__, <= 0x3003) \
-//      || BOOST_WORKAROUND(__BORLANDC__, < 0x582) \
-//      || BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(502)) \
-//      )
-//
-//# define BOOST_MPL_CFG_BROKEN_PP_MACRO_EXPANSION
-//
-//#endif
+#if !defined(BOOST_MPL_CFG_BROKEN_PP_MACRO_EXPANSION) \
+    && (   BOOST_WORKAROUND(__MWERKS__, <= 0x3003) \
+        || BOOST_WORKAROUND(__BORLANDC__, < 0x582) \
+        || BOOST_WORKAROUND(__IBMCPP__, BOOST_TESTED_AT(502)) \
+        )
+
+#   define BOOST_MPL_CFG_BROKEN_PP_MACRO_EXPANSION
+
+#endif
 
 #if !defined(BOOST_MPL_CFG_NO_OWN_PP_PRIMITIVES)
 #   define BOOST_MPL_CFG_NO_OWN_PP_PRIMITIVES
 #endif
 
-//#if !defined(BOOST_NEEDS_TOKEN_PASTING_OP_FOR_TOKENS_JUXTAPOSING) \
-//  && BOOST_WORKAROUND(__DMC__, BOOST_TESTED_AT(0x840))
-//# define BOOST_NEEDS_TOKEN_PASTING_OP_FOR_TOKENS_JUXTAPOSING
-//#endif
+#if !defined(BOOST_NEEDS_TOKEN_PASTING_OP_FOR_TOKENS_JUXTAPOSING) \
+    && BOOST_WORKAROUND(__DMC__, BOOST_TESTED_AT(0x840))
+#   define BOOST_NEEDS_TOKEN_PASTING_OP_FOR_TOKENS_JUXTAPOSING
+#endif
 
 
 #endif // BOOST_MPL_AUX_CONFIG_PREPROCESSOR_HPP_INCLUDED

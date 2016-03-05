@@ -1,7 +1,7 @@
 /* $Id: miniwget.h,v 1.9 2014/06/10 09:44:55 nanard Exp $ */
 /* Project : miniupnp
  * Author : Thomas Bernard
- * Copyright (c) 2005-2012 Thomas Bernard
+ * Copyright (c) 2005-2015 Thomas Bernard
  * This software is subject to the conditions detailed in the
  * LICENCE file provided in this distribution.
  * */
@@ -9,7 +9,7 @@
 #ifndef MINIWGET_H_INCLUDED
 #define MINIWGET_H_INCLUDED
 
-#include "declspec.h"
+#include "miniupnpc_declspec.h"
 
 #ifdef __cplusplus
 extern "C" {

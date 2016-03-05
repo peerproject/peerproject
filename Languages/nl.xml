@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Dutch Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -594,8 +594,9 @@
 				<menu text="_Websites">
 					<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-					<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+					<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"-->
+					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+					<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
@@ -693,8 +694,9 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -760,8 +762,9 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
-				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"-->
+				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
+				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
 			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Over PeerProject..."/>
@@ -849,7 +852,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Nederlands forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"/>
+				<!--item id="ID_HELP_UPDATE" text="Laatste nieuws"--
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				<item id="ID_HELP_VERSION_CHECK" text="Check voor een beschikbare update"/>
 			</menu>
@@ -1682,7 +1685,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Upgrade Mededeling</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1690,7 +1693,7 @@
 			<link target="command:upgrade">Klik hier om te upgraden</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Waarschuwing: Je Hebt een Slecht Ingestelde Router of Firewall</heading>
 			<newline gap="8" indent="42"/>
@@ -1747,15 +1750,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
 		<text align="middle">- Ga naar je Nederlandse taal discussieforum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Besturing via Internet is Ingeschakeld</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject's afstandsbediening is ingeschakeld. Bedien PeerProject met je browser via:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- of -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1840,7 +1843,7 @@
 				<group id="3">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Klik hier om sneller te verwerken</link>
 				</group>
-				<group id="4">
+				<group id="5">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Klik hier om langzamer te verwerken</link>
 				</group>
 			</group>
@@ -1962,7 +1965,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Contactinformatie</text>
 			<newline gap="1" indent="8"/>
@@ -1997,7 +2000,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interesses</text>
 			<newline gap="2" indent="8"/>
@@ -2044,7 +2047,7 @@
 	<document name="DownloadHelp.Seeding">
 		<text format="b">Deze Torrent is aan het Seeden</text>
 		<newline gap="8"/>
-		<text>Shareaza heeft deze complete download geverifieerd, en is het actief aan het
+		<text>PeerProject heeft deze complete download geverifieerd, en is het actief aan het
 		verspreiden met andere downloaders via BitTorrent. Verspreid het alstublieft ten miste 100% </text>
 	</document>
 	<document name="DownloadHelp.Completed">
@@ -2284,7 +2287,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Bekijk de gedeelde bestanden van deze gebruiker."/>
 	<tip id="ID_BROWSE_LAUNCH" message="De gedeelde bestanden van de geselecteerde gebruiker en zijn profiel bekijken."/>
 	<tip id="ID_BROWSE_PROFILE" message="Bekijk het profiel van deze gebruiker."/>
@@ -2603,13 +2606,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Toon de afbeelding met zijn oorspronkelijke grootte."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Vernieuw de afbeelding."/>
 	<tip id="PluginID_ImageViewer_Close" message="Sluit de afbeelding bekijker."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="In de maximale modus, zal de uploadsnelheid de ingevulde waarde nooit voorbijgaan. Wanneer de modus Ongeveer is, zal de uploadsnelheid rond de ingevulde snelheid schommelen.."/>
 	<tip id="IDC_REGEXP" message="Voer regiere expressies in in perl syntaxis.{n}De zoek woorden kunnen worden gespecificeerd in een voor van &lt;n&gt;, waar n is het aantal tussen 1 en 9. Als je alle zoekwoorden achter elkaar wilt, gebruik &lt;_&gt; opmaak."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Deze instelling heeft geen effect op reeds gestarte downloads, bestanden waarvan men de eDonkeyhash weet en op torrents.{n}Maar toch wordt deze instelling gerespecteerd als je download gepauzeerd is.{n}{n}Waarschuwing: Gebruik deze optie alleen als het echt nodig is. Misbruik hiervan kan ervoor zorgen dat u wordt uitgesloten."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -2632,27 +2635,8 @@
 	<string id="WINDOW_DISCOVERY" value="Discovery services"/>
 	<string id="WINDOW_BROWSEHOST" value="Bekijken"/>
 	<string id="WINDOW_MEDIA" value="Media"/>
-	<!--string id="WINDOW_HELP" value="PeerProject help"-->
 	<string id="WINDOW_IRC" value="PeerProject chat"/>
-<!--
-	<string id="X154" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
-	<string id="X156" value="Geplande tijd is voorbij.\n\nSelecteer alstublieft een tijd in de toekomst."/>
-	<string id="X157" value="Bandbreedte: Volledige Snelheid"/>
-	<string id="X158" value="Bandbreedte: Gereduceerde Snelheid"/>
-	<string id="X159" value="Bandbreedte: Stop"/>
-	<string id="X160" value="Systeem: Shareaza Afsluiten"/>
-	<string id="X161" value="Systeem: Verbreek Dial-up Verbinding"/>
-	<string id="X162" value="Systeem: De Computer Uitzetten"/>
-	<string id="X163" value="Selecteer alsjeblieft een taak."/>
-	<string id="X164" value="Specifieke dag(en) van de week"/>
-	<string id="X165" value="Actief"/>
-	<string id="X166" value="Werkeloos"/>
-	<string id="X167" value="Gedaan"/>
-	<string id="X168" value="Wachten..."/>
-	<string id="X169" value="Er Zijn Momenteel Geen Taken Gepland"/>
-	<string id="X172" value="Vandaag Gedaan"/>
-	<string id="X173" value="Je moet ten minste een dag van de week selecteren."/>
--->
+	<!--string id="WINDOW_HELP" value="PeerProject help"-->
 	<string id="20001" value="Ja"/>
 	<string id="20002" value="Nee"/>
 	<string id="20003" value="OK"/>
@@ -3124,7 +3108,26 @@
 	<string id="20587" value="Bron %s heeft een pong pakket met een ongeldig data adres doorgestuurd, het wordt genegeerd."/>
 	<string id="20588" value="Bron %s heeft een pushaanvraag doorgestuurd naar een adres met een firewall, het wordt genegeerd."/>
 	<string id="20598" value="Ben je zeker dat je deze veiligheidsregels wilt verwijderen?"/>
-	<!-- Missing Scheduler/Security Strings -->
+	<!-- Missing Security Strings -->
+	<string id="20600" value="Bandbreedte: Volledige"/>
+	<string id="20601" value="Bandbreedte: Gereduceerde"/>
+	<string id="20602" value="Bandbreedte: Stop"/>
+	<string id="20603" value="Systeem: PeerProject Afsluiten"/>
+	<string id="20604" value="Systeem: De Computer Uitzetten"/>
+	<string id="20605" value="Systeem: Verbreek Dial-up Verbinding"/>
+	<string id="20606" value="Systeem: Herinnering Kennisgeving"/>
+	<string id="20607" value="Geplande herinnering kennisgeving."/>
+	<string id="20608" value="Weet je zeker dat je alle geplande taken wilt verwijderen? Dit kan niet ongedaan worden gemaakt."/>
+	<string id="20609" value="Geplande tijd is voorbij.\nSelecteer alstublieft een tijd in de toekomst."/>
+	<string id="20610" value="Je moet ten minste een dag van de week selecteren."/>
+	<string id="20611" value="Selecteer alsjeblieft een taak."/>
+	<!--string id="20610" value="Specifieke dag(en) van de week"-->
+	<!--string id="2061X" value="Werkeloos"-->
+	<!--string id="2061X" value="Actief"-->
+	<string id="20614" value="Wachten"/>
+	<string id="20615" value="Vandaag Gedaan"/>
+	<string id="20616" value="Gedaan"/>
+	<string id="20618" value="Geen Taken Gepland."/>
 	<string id="20620" value="PeerProject is actief aan het zoeken op het netwerk..."/>
 	<string id="20621" value="Klik hier om opnieuw te zoeken"/>
 	<string id="20622" value="Alle netwerken"/>
@@ -3352,9 +3355,10 @@
 	<string id="20891" value="&amp;Sluiten"/>
 	<string id="20892" value="Even wachten: De eDonkey server lijst aan het vernieuwen..."/>
 	<string id="20893" value="Even wachten: Discovery services aan het vernieuwen..."/>
-	<string id="20894" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
-	<!--string id="20895" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."-->
-	<!--string id="20896" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."-->
+	<!--string id="20894" value="Even wachten: Aan het proberen om je router automatisch in te stellen ..."-->
+	<!--string id="20894" value="Je hebt aangegeven dat je je poorten wilt delen (port-forwarding) op je NAT-router of firewall.\n\nConfigureer alsjeblieft je netwerk zo, dat TCP poort %i wordt doorgestuurd naar je lokale PC."-->
+	<string id="20895" value="Elk 4-5 cijfers (1050-65500)"/>
+	<string id="20896" value="Je hebt geen verbindingssnelheid aangegeven. Kies voordat je verdergaat alsjeblieft ofwel je soort internetverbinding, of vul een verbindingssnelheid in."/>
 	<string id="20897" value="De map die je wilt delen is al vrijgegeven als deel van een andere vrijgegeven map:\n\n%s"/>
 	<string id="20898" value="Je hebt geen mappen aangegeven om vrij te geven. Weet je het zeker?"/>
 	<string id="20899" value="jaar oude"/>
@@ -3402,7 +3406,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Systeembalk:"/>
 		<control caption="Als ik op Afsluiten klik:"/>
-		<control caption="Vraag me|Minimaliseer|Sluit direct|Sluit na verzenden"/>
+		<control caption="Vraag me|Minimaliseer|Minimaliseer|Sluit na verzenden|Sluit direct"/>
 		<control caption="Als ik minimaliseer:"/>
 		<control caption="Normaal|Minimaliseer"/>
 	</dialog>
@@ -3495,23 +3499,26 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemeenschap">
-		<control caption="Gnutella gebruikersprofiel:"/>
-		<control caption="Je kunt je profiel gebruiken om informatie met anderen uit te wisselen over jezelf, je interesses en favoriete bestanden en internetsites."/>
-		<control caption="Profiel aanpassen"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Gemeenschap">
 		<control caption="_Chatten:"/>
 		<control caption="P2P chatten mogelijk maken met passende cliënten"/>
 		<control caption="Chatten mogelijk maken op alle netwerken"/>
 		<control caption="Filter chatberichten op spam"/>
 		<control caption="Verberg scheldwoorden in chatberichten"/>
+		<control caption="Gnutella gebruikersprofiel:"/>
+		<control caption="Profiel mogelijk"/>
+		<control caption="Profiel aanpassen"/>
+		<control caption="Info:"/>
+		<control caption="Je kunt je profiel gebruiken om informatie met anderen uit te wisselen over jezelf, je interesses en favoriete bestanden en internetsites."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Toegang vanaf afstand">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Toegang vanaf afstand">
 		<control caption="_Inschakelen:"/>
 		<control caption="PeerProject's afstandsbediening inschakelen:"/>
 		<control/>
 		<control caption="_Gegevens:"/>
 		<control caption="Kies pseudoniem:"/>
 		<control caption="Kies wachtwoord:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control caption="Handleiding:"/>
@@ -3833,7 +3840,7 @@
 		<control/>
 		<control caption="Wil je automatisch je router forwarden via UPNP?"/>
 		<control/>
-		<control caption="Port: &#160; (Elk 4-5 cijfers)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Status:"/>
@@ -4380,13 +4387,14 @@
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 		<control caption="Je hebt dit bestand al een keer gedownload en verwijderd. Wat wil je doen?"/>
-		<control caption="Waarschuwing! Dubbele bestanden gevonden. Sommige malifide software heeft misschien je Bibliotheek gewijzigd. Wees zeker dat je dit bestand werkelijk hebt. Anders, sluit PeerProject en scan je computer met beveilingssoftware."/>
+		<control caption="Waarschuwing: Dubbele bestanden gevonden. Sommige malifide software heeft misschien je Bibliotheek gewijzigd. Wees zeker dat je dit bestand werkelijk hebt. Anders, sluit PeerProject en scan je computer met beveilingssoftware."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Afsluiten knop">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Afsluiten knop">
 		<control caption="Dit is de eerste keer dat je op de afsluiten knop van PeerProject gedrukt hebt. Selecteer alsjeblieft welke handeling PeerProject vanaf nu zou moeten uitvoeren wanneer op de afsluiten knop gedrukt wordt:"/>
+		<control caption="Verkleinen taskbar"/>
 		<control caption="Verkleinen naar de systeembalk"/>
+		<control caption="Afsluiten nadat alle downloads en uploads beëindigd zijn"/>
 		<control caption="PeerProject onmiddellijk afsluiten"/>
-		<control caption="PeerProject afsluiten nadat alle downloads en uploads beëindigd zijn"/>
 		<control caption="OK"/>
 		<control caption="Annuleren"/>
 	</dialog>
@@ -4578,8 +4586,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Logout"/>
+	<tag find="text_tabhome" replace="Home"/>
+	<tag find="text_tabdownloads" replace="Downloads"/>
+	<tag find="text_tabuploads" replace="Uploads"/>
+	<tag find="text_tabnetworks" replace="Netwerk"/>
+	<tag find="text_tabsearch" replace="Zoeken"/>
+	<tag find="text_welcome" replace="Welkom bij de <b>PeerProject Web Interface.</b>"/>
+	<tag find="text_logininfo" replace="Als dit jouw PeerProject client adres is, voer dan je gebruikersnaam en wachtwoord in, en druk op de <b>Login</b>-knop."/>
+	<tag find="text_loginfail" replace="De gebruikersnaam of het wachtwoord was incorrect, probeer het opnieuw."/>
+	<tag find="text_loginuser" replace="Gebruikersnaam:"/>
+	<tag find="text_loginpass" replace="Wachtwoord:"/>
+	<tag find="text_loginsubmit" replace="Login"/>
+	<tag find="text_homeinfo" replace="Deze web interface laat je toe zoekopdrachten, downloads, uploads en netwerkverbindingen te beheren."/>
+	<tag find="text_homestart" replace="Start downloaden:"/>
+	<tag find="text_homequick" replace="Snel zoeken:"/>
+	<tag find="text_homelinks" replace="Handige links:"/>
+	<tag find="text_directdownload" replace="Magnet/Torrent download:"/>
+	<tag find="text_downloadcleartip" replace="wis de download van de lijst (dit zal het bestand niet verwijderen)"/>
+	<tag find="text_downloadclear" replace="Wissen"/>
+	<tag find="text_downloadresume" replace="Hervatten"/>
+	<tag find="text_downloadpause" replace="Pauzeren"/>
+	<tag find="text_downloadcancel" replace="Annuleren"/>
+	<tag find="text_downloadmoresources" replace="Meer bronnen"/>
+	<tag find="text_downloaddirect" replace="Download magnet:"/>
+	<tag find="text_submit" replace="Ga"/>
+	<tag find="text_sourceaccess" replace="Toegang"/>
+	<tag find="text_sourceforget" replace="Vergeten"/>
+	<tag find="text_filter" replace="Filter:"/>
+	<tag find="text_filteractive" replace="Actief"/>
+	<tag find="text_filterqueued" replace="Wachtrij"/>
+	<tag find="text_filterpaused" replace="Gepauzeerd"/>
+	<tag find="text_filternosources" replace="Geen bronnen"/>
+	<tag find="text_filtershowall" replace="Alle bronnen tonen"/>
+	<tag find="text_filtersubmit" replace="Filter:"/>
+	<tag find="text_filename" replace="Bestandsnaam"/>
+	<tag find="text_filesize" replace="Grootte"/>
+	<tag find="text_fileprogress" replace="Vooruitgang"/>
+	<tag find="text_filespeed" replace="Snelheid"/>
+	<tag find="text_filesources" replace="Bronnen"/>
+	<tag find="text_filestatus" replace="Status"/>
+	<tag find="text_fileoptions" replace="Opties"/>
+	<tag find="text_networkenabled" replace="Dit netwerk is geactiveerd"/>
+	<tag find="text_networkdisabled" replace="Dit netwerk is <b>niet</b> geactiveerd"/>
+	<tag find="text_networkconnect" replace="Verbinden met"/>
+	<tag find="text_networkdisconnect" replace="Deactiveer"/>
+	<tag find="text_networkaddress" replace="Adres"/>
+	<tag find="text_networktime" replace="Tijd"/>
+	<tag find="text_networkpackets" replace="Pakketten"/>
+	<tag find="text_networkbandwidth" replace="Bandbreedte"/>
+	<tag find="text_networktotal" replace="Totaal"/>
+	<tag find="text_networkmode" replace="Mode"/>
+	<tag find="text_networkleaves" replace="Leaves"/>
+	<tag find="text_useragent" replace="User-Agent"/>
+	<tag find="text_searchnew" replace="Nieuwe zoekopdracht"/>
+	<tag find="text_searchinfo" replace="Typ een zoekterm in de box hieronder om een nieuwe zoekopdracht te beginnen en klik op <b>Start zoeken</b>. Als je de zoektocht wil beperken tot een bepaald bestandstype, selecteer deze dan in de lijst (aanbevolen)."/>
+	<tag find="text_searchfor" replace="Zoek naar:"/>
+	<tag find="text_searchstart" replace="Start zoeken"/>
+	<tag find="text_searchstop" replace="Stop zoeken"/>
+	<tag find="text_searchclose" replace="Zoekopdracht sluiten"/>
+	<tag find="text_refreshpage" replace="Pagina herladen"/>
+	<tag find="text_file" replace="Bestand"/>
+	<tag find="text_user" replace="Gebruiker"/>
+	<tag find="text_submit" replace="Instellen"/>
+	<tag find="text_filetype" replace="Bestandstype:"/>
+	<tag find="text_anyfile" replace="Alle bestandstypen"/>
+	<tag find="text_typeapp" replace="Programma"/>
+	<tag find="text_typearchive" replace="Archief"/>
+	<tag find="text_typeaudio" replace="Audio"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Afbeelding"/>
+	<tag find="text_typebook" replace="Boek"/>
+	<tag find="text_typedoc" replace="Documenten"/>
+	<tag find="text_typepresent" replace="Presentatie"/>
+	<tag find="text_typerom" replace="ROM Afbeelding"/>
+	<tag find="text_typeskin" replace="Skin"/>
+	<tag find="text_typecode" replace="Broncode"/>
+	<tag find="text_typespreadsheet" replace="Rekenblad"/>
+	<tag find="text_typesubtitle" replace="Ondertiteling"/>
+	<tag find="text_typecollection" replace="Collectie"/>
+	<!--tag find="text_" replace="actief / <%= queue_queued %> in wachtrij, aan <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Bestandsnaam"/>
 		<column from="Size" to="Grootte"/>
@@ -4727,5 +4819,5 @@
 		<column from="Comments" to="Commentaar"/>
 		<column from="Order" to="Volgorde"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

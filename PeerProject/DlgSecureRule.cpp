@@ -1,7 +1,7 @@
 //
 // DlgSecureRule.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -102,10 +102,10 @@ BOOL CSecureRuleDlg::OnInitDialog()
 
 	if ( m_ToolTip.Create(this) )
 	{
-		m_ToolTip.AddTool( &m_wndMask1, IDS_SECURITY_NETMASK );
-		m_ToolTip.AddTool( &m_wndMask2, IDS_SECURITY_NETMASK );
-		m_ToolTip.AddTool( &m_wndMask3, IDS_SECURITY_NETMASK );
-		m_ToolTip.AddTool( &m_wndMask4, IDS_SECURITY_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask1, IDS_SECURITY_TIP_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask2, IDS_SECURITY_TIP_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask3, IDS_SECURITY_TIP_NETMASK );
+		m_ToolTip.AddTool( &m_wndMask4, IDS_SECURITY_TIP_NETMASK );
 
 		m_ToolTip.Activate( TRUE );
 	}
@@ -397,7 +397,7 @@ BOOL CSecureRuleDlg::GetClipboardAddress()
 					( strIP[2] != L"255" && strIP[3] != L"0" ) ||
 					( strIP[3] != L"255" && strIP[3] != L"254" && strIP[3] != L"252" && strIP[3] != L"248" && strIP[3] != L"240" && strIP[3] != L"224" && strIP[3] != L"192" && strIP[3] != L"128" && strIP[3] != L"0" ) ||
 					( strIP[2] != L"254" && strIP[2] != L"252" && strIP[2] != L"248" && strIP[2] != L"240" && strIP[2] != L"224" && strIP[2] != L"192" && strIP[2] != L"128" && strIP[2] != L"0" ) ) )
-					MsgBox( IDS_SECURITY_NETMASK );
+					MsgBox( IDS_SECURITY_TIP_NETMASK );
 			}
 			return TRUE;
 		}
@@ -459,7 +459,7 @@ void CSecureRuleDlg::OnOK()
 			}
 		}
 		if ( bWarning )
-			MsgBox( IDS_SECURITY_NETMASK );
+			MsgBox( IDS_SECURITY_TIP_NETMASK );
 	}
 	else if ( m_nType == 1 && ! m_sContent.IsEmpty() )	// sr... (by dropdown index)
 	{

@@ -1,7 +1,7 @@
 //
 // BTTrackerRequest.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -455,7 +455,7 @@ void CBTTrackerRequest::Cancel()
 
 	Exit();
 
-	if ( m_pRequest )
+	if ( m_pRequest && m_pRequest->IsThreadAlive() )
 		m_pRequest->Cancel();
 	//	theApp.Message( MSG_DEBUG, L"[BT] Canceled tracker request for %s", m_sName );
 }

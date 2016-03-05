@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hungarian Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1653,7 +1653,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">FRISSÍTÉSI FIGYELMEZTETÉS</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1661,7 +1661,7 @@
 			<link target="command:upgrade">Kattintson ide a frissítéshez.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">FIGYELEM: TŰZFAL MÖGÖTT VAN</heading>
 			<newline gap="8" indent="42"/>
@@ -1718,15 +1718,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Helyi Fórum</link><gap size="6"/>
 		<text align="middle">- Menj el a magyar nyelv vitafórum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">TÁVOLI ELÉRÉS BEKAPCSOLVA</heading>
 			<newline gap="8" indent="42"/>
 			<text>A távoli használat be van kapcsolva. Használja a PeerProject a böngészőjén keresztül. Címek:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- vagy -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1812,7 +1812,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a gyorsabb hasheléshez</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kattintson ide a lassabb hasheléshez</link>
 			</group>
 		</para>
@@ -1931,7 +1931,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kapcsolat</text>
 			<newline gap="1" indent="8"/>
@@ -1966,7 +1966,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Érdeklődési kör</text>
 			<newline gap="2" indent="8"/>
@@ -2226,7 +2226,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="A felhasználó megosztásának böngészése"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Fájllista letöltése és adatlap megtekintése."/>
 	<tip id="ID_BROWSE_PROFILE" message="A felhasználó adatlapjának böngészése."/>
@@ -2548,13 +2548,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Eredeti méretben mutatja a képet."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Frissíti a képet."/>
 	<tip id="PluginID_ImageViewer_Close" message="Bezárja a képnézegető ablakot."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Maximum módban a sávszél nem fogja túllépni a megadott értéket. Átlagos módban csak a megadott érték körül fog ingadozni."/>
 	<tip id="IDC_REGEXP" message="Reguláris kifejezések használata perl szintaxisban.{n}A keresőszavak a &lt;n&gt; formában adhatók meg, ahol az n egy 1 és 9 közötti szám. Ha egymás után akarja beírni a keresőszavakat, akkor használja a &lt;_&gt; megoldást."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Ez a beállítás nincs hatással a régebben indított letöltésekre. Érvénytelen a beállítás, ha a fájlnak van eDonkey hash értéke és az eDonkey hálózat be van kapcsolva vagy a fájl egy torrent.{n}Azonban érvényes a beállítás, ha a fájl letöltése szüneteltetve van.{n}{n}Figyelem: Csak akkor használja ezt a beállítást, ha tényleg szüksége van rá. Ettől esetleg kitiltásban részesülhet."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3279,9 +3279,10 @@
 	<string id="20891" value="Kilépés"/>
 	<string id="20892" value="Várakozás: eDonkey szerverlista frissítése..."/>
 	<string id="20893" value="Várakozás: Szerverkereső szolgáltatás frissítése..."/>
-	<string id="20894" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
-	<!--string id="20895" value="Várakozás: UPnP eszközök keresése és beállítása..."-->
-	<!--string id="20896" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."-->
+	<!--string id="20894" value="Várakozás: UPnP eszközök keresése és beállítása..."-->
+	<!--string id="20894" value="A PeerProject nem tudta forwardolni a portokat a NAT router vagy a tűzfal felé.\n\nÁllítsa be a hálózatát, hogy a TCP és UDP %i számú portot forwardolja."-->
+	<string id="20895" value="4-5 jegyű szám (1050-65500)"/>
+	<string id="20896" value="Nem választott ki kapcsolatot. Válasszon egy kapcsolattípust vagy írja be a kapcsolata sebességét."/>
 	<string id="20897" value="A mappa, amit meg akar osztani egy másik mappában már meg van osztva:\n\n%s"/>
 	<string id="20898" value="Nem választott ki megosztani való mappákat. Biztos, hogy ezt akarja?"/>
 	<string id="20899" value="éves"/>
@@ -3326,7 +3327,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Tálca"/>
 		<control caption="Bezárás gomb:"/>
-		<control caption="Rákérdez|Leküldi az óra mellé|Azonnal bezár|Forgalom után bezár"/>
+		<control caption="Rákérdez|Leküldi az óra mellé|Leküldi az óra mellé|Forgalom után bezár|Azonnal bezár"/>
 		<control caption="Kis méret gomb:"/>
 		<control caption="Normál|Leküldi az óra mellé"/>
 	</dialog>
@@ -3419,17 +3420,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Közösség">
-		<control caption="Saját adatla_p"/>
-		<control caption="Az adatlap segítségével információkat közölhet magáról, ami az egész hálózaton elérhető lesz."/>
-		<control caption="Adatlap szerkesztése"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Közösség">
 		<control caption="_Csevegés"/>
 		<control caption="Csevegés engedélyezése az arra alkalmas kliensekkel"/>
 		<control caption="Csevegés engedélyezése az összes hálózaton"/>
 		<control caption="Kéretlen üzenetek kiszűrése"/>
 		<control caption="Trágár szövegek kiszűrése"/>
+		<control caption="Saját adatla_p:"/>
+		<control caption="Adatlap engedélyezése"/>
+		<control caption="Adatlap szerkesztése"/>
+		<control caption="Info:"/>
+		<control caption="Az adatlap segítségével információkat közölhet magáról, ami az egész hálózaton elérhető lesz."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Távoli elérés">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Távoli elérés">
 		<control caption="_Engedélyezés"/>
 		<control caption="Távoli használat engedélyezése"/>
 		<control caption="..."/>
@@ -3438,7 +3441,8 @@
 		<control caption="Felhasználó jelszava:"/>
 		<control/>
 		<control/>
-		<control caption="Súgó:"/>
+		<control/>
+		<control caption="Info:"/>
 		<control caption="Ezzel a szolgáltatással egy webböngészőn keresztül távolról is irányíthatja a PeerProject. Ehhez azonban a PeerProject futtató gépnek tudnia kell fogadni a bejövő kapcsolatokat."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3757,7 +3761,7 @@
 		<control/>
 		<control caption="Akar automatikus UPnP port-forwardot?"/>
 		<control/>
-		<control caption="Port: (4-5 jegyű szám)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Szúrópróbaszerű"/>
 		<control caption="Állapot:"/>
@@ -4304,13 +4308,14 @@
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 		<control caption="Egyszer már letöltötte és utána törölte ezt a fájlt. Mi legyen?"/>
-		<control caption="Figyelem! Két egyforma fájlt találtam! Néhány kártékony program megfertőzheti a megosztását. Bizonyosodjon meg róla, hogy ön duplázta meg a fájlt.. Ha nem ön volt, zárja be a PeerProject és futtasson le egy vírusellenőrzést."/>
+		<control caption="Figyelem: Két egyforma fájlt találtam. Néhány kártékony program megfertőzheti a megosztását. Bizonyosodjon meg róla, hogy ön duplázta meg a fájlt.. Ha nem ön volt, zárja be a PeerProject és futtasson le egy vírusellenőrzést."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Bezárás gomb">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Bezárás gomb">
 		<control caption="Ez az első alkalom, hogy a Bezárás gombra kattintott. Ezentúl mit csináljon a PeerProject?"/>
 		<control caption="Leküldés a tálcára (az óra mellé)"/>
-		<control caption="Bezárás azonnal"/>
+		<control caption="Leküldés a tálcára (az óra mellé)"/>
 		<control caption="A fel- és letöltések befejezése után bezárás"/>
+		<control caption="Bezárás azonnal"/>
 		<control caption="OK"/>
 		<control caption="Mégse"/>
 	</dialog>
@@ -4502,8 +4507,19 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface (Missing) -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Kijelentkezés"/>
+	<tag find="text_tabhome" replace="Kezdőlap"/>
+	<tag find="text_tabdownloads" replace="Letöltések"/>
+	<tag find="text_tabuploads" replace="Feltöltés"/>
+	<tag find="text_tabnetworks" replace="Hálózat"/>
+	<tag find="text_tabsearch" replace="Keresés"/>
+	<tag find="text_" replace=""/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Letöltendő fájl"/>
 		<column from="Size" to="Méret"/>
@@ -4650,5 +4666,5 @@
 		<column from="Comments" to="Vélemény"/>
 		<column from="Order" to="Sorszám"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

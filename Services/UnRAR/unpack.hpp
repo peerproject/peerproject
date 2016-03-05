@@ -8,7 +8,7 @@
 #define MAX_UNPACK_FILTERS       8192
 
 // Maximum number of filters per entire data block for RAR3 unpack.
-#define MAX3_FILTERS             1024
+#define MAX3_UNPACK_FILTERS      8192
 
 // Write data in 4 MB or smaller blocks.
 #define UNPACK_MAX_WRITE     0x400000
@@ -146,7 +146,7 @@ struct UnpackFilter30
   unsigned int ExecCount;
   bool NextWindow;
 
-  // position of parent filter in Filters array used as prototype for filter
+  // Position of parent filter in Filters array used as prototype for filter
   // in PrgStack array. Not defined for filters in Filters array.
   unsigned int ParentFilter;
 
@@ -309,7 +309,7 @@ class Unpack:PackDef
 
     void UnpInitData30(bool Solid);
     void Unpack29(bool Solid);
-    void InitFilters30();
+    void InitFilters30(bool Solid);
     bool ReadEndOfBlock();
     bool ReadVMCode();
     bool ReadVMCodePPM();
@@ -325,7 +325,7 @@ class Unpack:PackDef
     ModelPPM PPM;
     int PPMEscChar;
 
-    byte UnpOldTable[HUFF_TABLE_SIZE];
+    byte UnpOldTable[HUFF_TABLE_SIZE30];
     int UnpBlockType;
 
     bool TablesRead;

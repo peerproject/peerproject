@@ -12,6 +12,9 @@ bool IsRemovable(const wchar *Name);
 int64 GetFreeDisk(const wchar *Name);
 #endif
 
+#if defined(_WIN_ALL) && !defined(SFX_MODULE) && !defined(SILENT)
+bool IsFAT(const wchar *Root);
+#endif
 
 bool FileExist(const wchar *Name);
 bool WildFileExist(const wchar *Name);
@@ -36,7 +39,6 @@ bool DelDir(const wchar *Name);
 #if defined(_WIN_ALL) && !defined(SFX_MODULE)
 bool SetFileCompression(const wchar *Name,bool State);
 #endif
-
 
 
 #endif

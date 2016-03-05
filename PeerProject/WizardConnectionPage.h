@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -44,6 +44,7 @@ protected:
 	CStatic		m_wndStatus;
 	CStatic		m_wndTest;
 	CProgressCtrl m_wndProgress;
+	CToolTipCtrl m_ToolTip;		// Port hint
 
 	bool		m_bQueryDiscoveries;
 	bool		m_bUpdateServers;
@@ -59,6 +60,7 @@ protected:
 	void		OnRun();
 
 	virtual void DoDataExchange(CDataExchange* pDX);
+	virtual BOOL PreTranslateMessage(MSG* pMsg);
 	virtual BOOL OnInitDialog();
 	virtual BOOL OnSetActive();
 	virtual BOOL OnQueryCancel();

@@ -1,7 +1,7 @@
 //
 // Remote.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -160,7 +160,8 @@ BOOL CRemote::OnHeadersComplete()
 	{
 		Write( _P("HTTP/1.1 302 Found\r\n") );
 		Write( _P("Content-Length: 0\r\n") );
-		if ( ! m_sHeader.IsEmpty() ) Write( m_sHeader );
+		if ( ! m_sHeader.IsEmpty() )
+			Write( m_sHeader );
 		Write( _P("Location: ") );
 		Write( m_sRedirect );
 		Write( _P("\r\n") );
@@ -169,13 +170,14 @@ BOOL CRemote::OnHeadersComplete()
 	{
 		CString strLength;
 		Prepare();
-		Output( L"commonFooter" );
+		Output( L"tail" );
 		int nBytes = WideCharToMultiByte( CP_UTF8, 0, m_sResponse, m_sResponse.GetLength(), NULL, 0, NULL, NULL );
 		strLength.Format( L"Content-Length: %i\r\n", nBytes );
 		Write( _P("HTTP/1.1 200 OK\r\n") );
 		Write( _P("Content-Type: text/html; charset=UTF-8\r\n") );
 		Write( strLength );
-		if ( ! m_sHeader.IsEmpty() ) Write( m_sHeader );
+		if ( ! m_sHeader.IsEmpty() )
+			Write( m_sHeader );
 	}
 	else if ( m_pResponse.m_nLength > 0 )
 	{
@@ -233,8 +235,7 @@ CString CRemote::GetKey(LPCTSTR pszName)
 		strPair = m_sHandshake.Tokenize( L"&?", nStart );
 	}
 
-	strPair.Empty();
-	return strPair;
+	return CString();
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -304,13 +305,7 @@ BOOL CRemote::RemoveCookie()
 
 void CRemote::Prepare(LPCTSTR pszPrefix)
 {
-	if ( pszPrefix == NULL )
-	{
-		m_pKeys.RemoveAll();
-		if ( m_sResponse.IsEmpty() )
-			Output( L"commonHeader" );
-	}
-	else
+	if ( pszPrefix )
 	{
 		for ( POSITION pos = m_pKeys.GetStartPosition() ; pos != NULL ; )
 		{
@@ -319,7 +314,135 @@ void CRemote::Prepare(LPCTSTR pszPrefix)
 			if ( strKey.Find( pszPrefix ) == 0 )
 				m_pKeys.RemoveKey( strKey );
 		}
+		return;
 	}
+
+	m_pKeys.RemoveAll();
+	if ( ! m_sResponse.IsEmpty() )
+		return;
+
+	// Header
+	AddText( L"text_metatitle", L"PeerProject Remote Access" );
+	AddText( L"text_peerproject", L"PeerProject" );
+	AddText( L"text_logout", L"Log out" );
+	AddText( L"text_tabhome", L"Home" );
+	AddText( L"text_tabdownloads", L"Downloads" );
+	AddText( L"text_tabuploads", L"Uploads" );
+	AddText( L"text_tabnetworks", L"Network" );
+	AddText( L"text_tabsearch", L"Search" );
+	Add( L"tabstyle_home", m_nTab == tabHome ? L"active" : L"inactive" );
+	Add( L"tabstyle_downloads", m_nTab == tabDownloads ? L"active" : L"inactive" );
+	Add( L"tabstyle_uploads", m_nTab == tabUploads ? L"active" : L"inactive" );
+	Add( L"tabstyle_networks", m_nTab == tabNetwork ? L"active" : L"inactive" );
+	Add( L"tabstyle_search", m_nTab == tabSearch ? L"active" : L"inactive" );
+	Add( L"tablink_home", m_nTab == tabNone ? L"#" : L"home" );
+	Add( L"tablink_downloads", m_nTab == tabNone ? L"#" : L"downloads" );
+	Add( L"tablink_uploads", m_nTab == tabNone ? L"#" : L"uploads" );
+	Add( L"tablink_networks", m_nTab == tabNone ? L"#" : L"network" );
+	Add( L"tablink_search", m_nTab == tabNone ? L"#" : L"search" );
+	Output( L"head" );
+	m_pKeys.RemoveAll();
+
+	// Set translatable text
+	switch ( m_nTab )
+	{
+	case tabNone:
+		AddText( L"text_welcome", L"Welcome to the <b>PeerProject Web Interface</b>." );
+		AddText( L"text_logininfo", L"If this is your PeerProject client's address, please enter your username and password, and click the <b>Login</b> button." );
+		AddText( L"text_loginfail", L"Username or password was incorrect, please try again." );
+		AddText( L"text_loginuser", L"Username:" );
+		AddText( L"text_loginpass", L"Password:" );
+		AddText( L"text_loginsubmit", L"Login" );
+		break;
+	case tabHome:
+		AddText( L"text_welcome", L"Welcome to the <b>PeerProject Web Interface</b>." );
+		AddText( L"text_homeinfo", L"This web interface allows you to control searches, downloads, uploads and network connections." );
+		AddText( L"text_homestart", L"Start downloading:" );
+		AddText( L"text_homequick", L"Quick search:" );
+		AddText( L"text_anyfile", L"Any File" );
+		AddText( L"text_submit", L"Go" );
+		AddText( L"text_directdownload", L"Magnet/Torrent download:" );
+		AddText( L"text_homelinks", L"Useful links:" );
+		AddText( L"text_customlink" );
+		AddText( L"text_typetorrent", L"BitTorrent" );
+		AddText( L"text_typeapp", L"Application" );
+		AddText( L"text_typearchive", L"Archive" );
+		AddText( L"text_typeaudio", L"Audio" );
+		AddText( L"text_typevideo", L"Video" );
+		AddText( L"text_typeimage", L"Image" );
+		AddText( L"text_typedoc", L"Text Document" );
+		AddText( L"text_typerom", L"ROM Image" );
+		AddText( L"text_typeskin", L"Skin" );
+		AddText( L"text_typecode", L"Source Code" );
+		AddText( L"text_typespreadsheet", L"Spreadsheet" );
+		AddText( L"text_typesubtitle", L"Subtitle" );
+		AddText( L"text_typecollection", L"Collection" );
+		break;
+	case tabDownloads:
+		AddText( L"text_refreshpage", L"Refresh page" );
+		AddText( L"text_downloadcleartip", L"Clear the download from the list (this will not delete your file)" );
+		AddText( L"text_downloadclear", L"Clear" );
+		AddText( L"text_downloadcancel", L"Cancel" );
+		AddText( L"text_downloadpause", L"Pause" );
+		AddText( L"text_downloadresume", L"Resume" );
+		AddText( L"text_downloadmoresources", L"More Sources" );
+		AddText( L"text_directdownload", L"Magnet/Torrent download:" );
+		AddText( L"text_sourceaccess", L"Access" );
+		AddText( L"text_sourceforget", L"Forget" );
+		AddText( L"text_filetype", L"File Type:" );
+		AddText( L"text_filename", L"Filename" );	// Skin.GetHeaderTranslation( L"CMatchCtrl", L"File" )
+		AddText( L"text_filesize", L"Size" );
+		AddText( L"text_fileprogress", L"Progress" );
+		AddText( L"text_filespeed", L"Speed" );
+		AddText( L"text_filesources", L"Sources" );
+		AddText( L"text_filestatus", L"Status" );
+		AddText( L"text_fileoptions", L"Options" );
+		AddText( L"text_filter", L"Filter:" );
+		AddText( L"text_filteractive", L"Active" );
+		AddText( L"text_filterqueued", L"Queued" );
+		AddText( L"text_filternosources", L"No Sources" );
+		AddText( L"text_filterpaused", L"Paused" );
+		AddText( L"text_filtershowall", L"Show all sources" );
+		AddText( L"text_filtersubmit", L"Filter" );
+		AddText( L"text_submit", L"Go" );
+		break;
+	case tabUploads:
+		AddText( L"text_refreshpage", L"Refresh page" );
+		AddText( L"text_file", L"File" );
+		AddText( L"text_filesize", L"Size" );
+		AddText( L"text_filespeed", L"Speed" );
+		AddText( L"text_useragent", L"User-Agent" );
+		AddText( L"text_user", L"User" );
+		break;
+	case tabNetwork:
+		AddText( L"text_refreshpage", L"Refresh page" );
+		AddText( L"text_networkdisabled", L"This network is <b>not</b> enabled" );
+		AddText( L"text_networkenabled", L"This network is enabled" );
+		AddText( L"text_networkconnect", L"Connect to" );
+		AddText( L"text_networkdisconnect", L"Disable" );
+		AddText( L"text_networkaddress", L"Address" );
+		AddText( L"text_networktime", L"Time" );
+		AddText( L"text_networkpackets", L"Packets" );
+		AddText( L"text_networkbandwidth", L"Bandwidth" );
+		AddText( L"text_networktotal", L"Total" );
+		AddText( L"text_networkmode", L"Mode" );
+		AddText( L"text_networkleaves", L"Leaves" );
+		AddText( L"text_useragent", L"User-Agent" );
+		break;
+	case tabSearch:
+		AddText( L"text_searchinfo", L"To start a new search, type your search term in the box below and click <strong>Start search</strong>. If you want to restrict your search to a particular file type, select it from the list (recommended)." );
+		AddText( L"text_searchstart", L"Start Search" );
+		AddText( L"text_searchnew", L"New Search" );
+		AddText( L"text_searchfor", L"Search for:" );
+		AddText( L"text_searchstop", L"Stop Searching" );
+		AddText( L"text_searchclose", L"Close Search" );
+		AddText( L"text_anyfile", L"Any File" );
+		AddText( L"text_filter", L"Filter:" );
+		break;
+	default:
+		;
+	}
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -333,16 +456,27 @@ void CRemote::Add(LPCTSTR pszKey, LPCTSTR pszValue)
 	m_pKeys.SetAt( strKey, pszValue );
 }
 
+void CRemote::AddText(LPCTSTR pszKey, LPCTSTR pszDefault /*NULL*/)
+{
+	CString strKey( pszKey ), str;
+	ToLower( strKey );
+
+	if ( Skin.LoadRemoteText( str, strKey ) )
+		m_pKeys.SetAt( strKey, str );
+	else if ( pszDefault )
+		m_pKeys.SetAt( strKey, pszDefault );
+}
+
 /////////////////////////////////////////////////////////////////////////////
 // CRemote output a HTML segment
 
 void CRemote::Output(LPCTSTR pszName)
 {
-	CString strBody, strValue;
-	CFile hFile;
+	if ( _tcsstr( pszName, L".." ) || _tcschr( pszName, L'/' ) ) return;
 
-	if ( _tcsstr( pszName, L".." ) || _tcschr( pszName, '/' ) ) return;
-	strValue = Settings.General.Path + L"\\Remote\\" + pszName + L".htm";
+	CString strValue = Settings.General.Path + L"\\Remote\\" + pszName + L".html";
+
+	CFile hFile;
 	if ( ! hFile.Open( strValue, CFile::modeRead ) ) return;
 
 	int nBytes = (int)hFile.GetLength();
@@ -356,7 +490,8 @@ void CRemote::Output(LPCTSTR pszName)
 		pBody  += 3;
 		nBytes -= 3;
 	}
-	strBody = UTF8Decode( pBody, nBytes );
+
+	CString strBody = UTF8Decode( pBody, nBytes );
 
 	CList<BOOL> pDisplayStack;
 
@@ -390,14 +525,14 @@ void CRemote::Output(LPCTSTR pszName)
 		{
 			// Nothing
 		}
-		else if ( strKey.GetAt( 0 ) == '=' && bDisplay )
+		else if ( strKey.GetAt( 0 ) == L'=' && bDisplay )
 		{
 			strKey = strKey.Mid( 1 );
 			strKey.Trim();
 			if ( m_pKeys.Lookup( strKey, strValue ) )
 				m_sResponse += strValue;
 		}
-		else if ( strKey.GetAt( 0 ) == '?' )
+		else if ( strKey.GetAt( 0 ) == L'?' )
 		{
 			strKey = strKey.Mid( 1 );
 			strKey.Trim();
@@ -409,7 +544,7 @@ void CRemote::Output(LPCTSTR pszName)
 			}
 			else
 			{
-				if ( strKey.GetAt( 0 ) == '!' )
+				if ( strKey.GetAt( 0 ) == L'!' )
 				{
 					strKey = strKey.Mid( 1 );
 					strKey.Trim();
@@ -464,36 +599,47 @@ void CRemote::PageSwitch(CString& strPath)
 
 void CRemote::PageLogin()
 {
-	CString strPassword = GetKey( L"password" );
+	if ( ! Settings.Remote.Username.IsEmpty() &&
+		 ! Settings.Remote.Password.IsEmpty() )
+	{
+		CString strUsername = GetKey( L"username" );
+		CString strPassword = GetKey( L"password" );
 
-	if ( ! strPassword.IsEmpty() )
-	{
-		CSHA pSHA1;
-		pSHA1.Add( (LPCTSTR)strPassword, strPassword.GetLength() * sizeof(TCHAR) );
-		pSHA1.Finish();
-		Hashes::Sha1Hash tmp;
-		pSHA1.GetHash( &tmp[ 0 ] );
-		tmp.validate();
-		strPassword = tmp.toString();
+		if ( strUsername.IsEmpty() )
+			strUsername = GetKey( L"name" );
+		if ( strPassword.IsEmpty() )
+			strPassword = GetKey( L"pass" );
+
+		if ( strUsername == Settings.Remote.Username && ! strPassword.IsEmpty() )
+		{
+			CSHA pSHA1;
+			pSHA1.Add( (LPCTSTR)strPassword, strPassword.GetLength() * sizeof(TCHAR) );
+			pSHA1.Finish();
+			Hashes::Sha1Hash tmp;
+			pSHA1.GetHash( &tmp[ 0 ] );
+			tmp.validate();
+			strPassword = tmp.toString();
+
+			if ( strPassword == Settings.Remote.Password )
+			{
+				// Success:
+				__int32 nCookie = GetRandomNum( 0i32, _I32_MAX );
+				m_pCookies.AddTail( nCookie );
+				m_sHeader.Format( L"Set-Cookie: PeerProjectRemote=%i; path=/remote\r\n", nCookie );
+				m_sRedirect.Format( L"/remote/home?%i", GetRandomNum( 0i32, _I32_MAX ) );
+				return;
+			}
+		}
 	}
 
-	if ( GetKey( L"username" ) == Settings.Remote.Username &&
-					  strPassword == Settings.Remote.Password &&
-					! Settings.Remote.Username.IsEmpty() &&
-					! Settings.Remote.Password.IsEmpty() )
-	{
-		__int32 nCookie = GetRandomNum( 0i32, _I32_MAX );
-		m_pCookies.AddTail( nCookie );
-		m_sHeader.Format( L"Set-Cookie: PeerProjectRemote=%i; path=/remote\r\n", nCookie );
-		m_sRedirect.Format( L"/remote/home?%i", GetRandomNum( 0i32, _I32_MAX ) );
-	}
-	else
-	{
-		Prepare();
-		if ( ! GetKey( L"submit" ).IsEmpty() )
-			Add( L"failure", L"true" );
-		Output( L"login" );
-	}
+	// Pre-fill or Failure:
+	m_nTab = tabNone;
+	Prepare();		// Header
+	if ( ! GetKey( L"submit" ).IsEmpty() )
+		Add( L"failure", L"true" );
+	else if ( GetKey( L"username" ) == Settings.Remote.Username )
+		Add( L"user_name", Settings.Remote.Username );
+	Output( L"login" );
 }
 
 void CRemote::PageLogout()
@@ -512,8 +658,9 @@ void CRemote::PageLogout()
 void CRemote::PageHome()
 {
 	if ( CheckCookie() ) return;
+	m_nTab = tabHome;
 
-	Prepare();
+	Prepare();		// Header
 	Output( L"home" );
 }
 
@@ -523,6 +670,7 @@ void CRemote::PageHome()
 void CRemote::PageSearch()
 {
 	if ( CheckCookie() ) return;
+	m_nTab = tabSearch;
 
 	CMainWnd* pMainWnd = static_cast< CMainWnd* >( theApp.m_pMainWnd );
 	if ( pMainWnd == NULL || ! pMainWnd->IsKindOf( RUNTIME_CLASS(CMainWnd) ) ) return;
@@ -538,7 +686,7 @@ void CRemote::PageSearch()
 	_stscanf( GetKey( L"id" ), L"%Ii", &nSearchID );
 	_stscanf( GetKey( L"close" ), L"%Ii", &nCloseID );
 
-	Prepare();
+	Prepare();		// Header
 	Output( L"searchHeader" );
 
 	for ( CSearchWnd* pFindWnd = NULL ; ( pFindWnd = static_cast< CSearchWnd* >( pMainWnd->m_pWindows.Find( RUNTIME_CLASS(CSearchWnd), pFindWnd ) ) ) != NULL ; )
@@ -579,7 +727,7 @@ void CRemote::PageSearch()
 			}
 		}
 
-		Prepare();
+		Prepare();		// Header
 		Add( L"schema_option_list", str );
 		Output( L"searchNew" );
 		Output( L"searchFooter" );
@@ -600,17 +748,10 @@ void CRemote::PageSearch()
 		int nColumn = 0;
 		_stscanf( str, L"%i", &nColumn );
 
-		if ( pMatches->m_nSortColumn == nColumn )
-		{
-			if ( pMatches->m_bSortDir == 1 )
-				pMatches->SetSortColumn( nColumn, TRUE );
-			else
-				pMatches->SetSortColumn( nColumn, FALSE );
-		}
+		if ( pMatches->m_bSortDir != 1 && pMatches->m_nSortColumn == nColumn )
+			pMatches->SetSortColumn( nColumn, FALSE );
 		else
-		{
 			pMatches->SetSortColumn( nColumn, TRUE );
-		}
 
 		pSearchWnd->PostMessage( WM_TIMER, 7 );
 	}
@@ -654,7 +795,7 @@ void CRemote::PageSearch()
 		pSearchWnd->PostMessage( WM_TIMER, 7 );
 	}
 
-	Prepare();
+	Prepare();		// Header
 	str.Format( L"%Ii", nSearchID );
 	Add( L"search_id", str );
 	str.Format( L"%i", GetRandomNum( 0i32, _I32_MAX ) );
@@ -683,41 +824,34 @@ void CRemote::PageSearch()
 
 		Add( L"row_urn", pFile->GetURN() );
 		Add( L"row_filename", pFile->m_sName );
-		if ( pFile->GetFilteredCount() > 1 )
-		{
-			if ( pFile->m_bExpanded )
-				Add( L"row_expanded", L"true" );
-			else
-				Add( L"row_collapsed", L"true" );
-		}
-		else
-		{
+		if ( pFile->GetFilteredCount() <= 1 )
 			Add( L"row_single", L"true" );
-		}
+		else if ( pFile->m_bExpanded )
+			Add( L"row_expanded", L"true" );
+		else
+			Add( L"row_collapsed", L"true" );
+
 		Output( L"searchRowStart" );
 
 		PageSearchRowColumn( MATCH_COL_SIZE, pFile, Settings.SmartVolume( pFile->m_nSize ) );
 
 		str.Empty();
-		for ( INT_PTR nStar = pFile->m_nRating / max( 1, pFile->m_nRated ) ; nStar > 1 ; nStar -- ) str += L"*";
+		for ( INT_PTR nStar = pFile->m_nRating / max( 1, pFile->m_nRated ) ; nStar > 1 ; nStar -- ) str += L'*';
 		PageSearchRowColumn( MATCH_COL_RATING, pFile, str );
 
 		str.Empty();
-		if ( pFile->m_bBusy == TRI_TRUE ) str += 'B'; else str += '-';
-		if ( pFile->m_bPush == TRI_TRUE ) str += 'F'; else str += '-';
-		if ( pFile->m_bStable == TRI_FALSE ) str += 'U'; else str += '-';
+		str += pFile->m_bBusy == TRI_TRUE ? L'B' : L'-';
+		str += pFile->m_bPush == TRI_TRUE ? L'F' : L'-';
+		str += pFile->m_bStable == TRI_FALSE ? L'U' : L'-';
 		PageSearchRowColumn( MATCH_COL_STATUS, pFile, str );
 
+		str.Empty();
 		if ( pFile->GetFilteredCount() > 1 )
-		{
-			str.Format( L"(%u sources)", pFile->GetFilteredCount() );
-			PageSearchRowColumn( MATCH_COL_COUNT, pFile, str );
-		}
+			str.Format(L"(%u sources)", pFile->GetFilteredCount());
 		else
-		{
-			PageSearchRowColumn( MATCH_COL_COUNT, pFile,
-				CString( inet_ntoa( pFile->GetBestAddress() ) ) );
-		}
+			str = (CString)inet_ntoa( pFile->GetBestAddress() );
+		PageSearchRowColumn( MATCH_COL_COUNT, pFile, str );
+
 
 		PageSearchRowColumn( MATCH_COL_SPEED, pFile, pFile->m_sSpeed );
 		PageSearchRowColumn( MATCH_COL_CLIENT, pFile, pFile->GetFilteredCount() == 1 ? pFile->GetBestVendorName() : L"" );
@@ -741,13 +875,14 @@ void CRemote::PageSearch()
 				str.Empty();
 				for ( int nStar = pHit->m_nRating ; nStar > 1 ; nStar -- ) str += L"*";
 				PageSearchRowColumn( MATCH_COL_RATING, pFile, str );
+
 				str.Empty();
-				if ( pHit->m_bBusy == TRI_TRUE ) str += 'B'; else str += '-';
-				if ( pHit->m_bPush == TRI_TRUE ) str += 'F'; else str += '-';
-				if ( pHit->m_bStable == TRI_FALSE ) str += 'U'; else str += '-';
+				str += pFile->m_bBusy == TRI_TRUE ? L'B' : L'-';
+				str += pFile->m_bPush == TRI_TRUE ? L'F' : L'-';
+				str += pFile->m_bStable == TRI_FALSE ? L'U' : L'-';
 				PageSearchRowColumn( MATCH_COL_STATUS, pFile, str );
-				PageSearchRowColumn( MATCH_COL_COUNT, pFile,
-					CString( inet_ntoa( pHit->m_pAddress ) ) );
+
+				PageSearchRowColumn( MATCH_COL_COUNT, pFile, (CString)inet_ntoa( pHit->m_pAddress ) );
 				PageSearchRowColumn( MATCH_COL_SPEED, pFile, pHit->m_sSpeed );
 				PageSearchRowColumn( MATCH_COL_CLIENT, pFile, pHit->m_pVendor->m_sName );
 
@@ -832,12 +967,14 @@ void CRemote::PageNewSearch()
 void CRemote::PageDownloads()
 {
 	if ( CheckCookie() ) return;
+	m_nTab = tabDownloads;
+
+	CString str;
+	str.Format( L"%i", GetRandomNum( 0i32, _I32_MAX ) );
 
 	CSingleLock pLock( &DownloadGroups.m_pSection, TRUE );
-	CString str;
 
-	Prepare();
-	str.Format( L"%i", GetRandomNum( 0i32, _I32_MAX ) );
+	Prepare();		// Header
 	Add( L"random", str );
 	Output( L"downloadsHeader" );
 
@@ -853,18 +990,13 @@ void CRemote::PageDownloads()
 		Add( L"group_id", strGroupID );
 
 		if ( bExclusive )
-		{
 			pGroup->m_bRemoteSelected = ( GetKey( L"group_exclusive" ) == strGroupID );
-		}
-		else
-		{
-			if ( bReveal )
-				pGroup->m_bRemoteSelected = TRUE;
-			else if ( GetKey( L"group_select" ) == strGroupID )
-				pGroup->m_bRemoteSelected = TRUE;
-			else if ( GetKey( L"group_deselect" ) == strGroupID )
-				pGroup->m_bRemoteSelected = FALSE;
-		}
+		else if ( bReveal )
+			pGroup->m_bRemoteSelected = TRUE;
+		else if ( GetKey( L"group_select" ) == strGroupID )
+			pGroup->m_bRemoteSelected = TRUE;
+		else if ( GetKey( L"group_deselect" ) == strGroupID )
+			pGroup->m_bRemoteSelected = FALSE;
 
 		Add( L"group_caption", pGroup->m_sName );
 		if ( pGroup->m_bRemoteSelected )
@@ -1089,12 +1221,13 @@ void CRemote::PageNewDownload()
 void CRemote::PageUploads()
 {
 	if ( CheckCookie() ) return;
+	m_nTab = tabUploads;
 
 	CSingleLock pLock( &UploadQueues.m_pSection, FALSE );
 	if ( ! SafeLock( pLock ) )
 		return;
 
-	Prepare();
+	Prepare();		// Header
 
 	CString strRandom;
 	strRandom.Format( L"%i", GetRandomNum( 0i32, _I32_MAX ) );
@@ -1215,6 +1348,7 @@ void CRemote::PageUploads()
 void CRemote::PageNetwork()
 {
 	if ( CheckCookie() ) return;
+	m_nTab = tabNetwork;
 
 	CSingleLock pLock( &Network.m_pSection );
 	if ( ! SafeLock( pLock ) ) return;
@@ -1228,7 +1362,7 @@ void CRemote::PageNetwork()
 			pNeighbour->Close( IDS_CONNECTION_CLOSED );
 	}
 
-	Prepare();
+	Prepare();		// Header
 
 	CString str;
 	str.Format( L"%i", GetRandomNum( 0i32, _I32_MAX ) );
@@ -1437,9 +1571,9 @@ void CRemote::PageImage(CString& strPath)
 	if ( strPath.Find( L'/' ) >= 0 ) return;
 	if ( strPath.Find( L'\\' ) >= 0 ) return;
 
-	CFile hFile;
 	strPath = Settings.General.Path + L"\\Remote\\Resources\\" + strPath;
 
+	CFile hFile;
 	if ( hFile.Open( strPath, CFile::modeRead ) )
 	{
 		m_pResponse.EnsureBuffer( (DWORD)hFile.GetLength() );

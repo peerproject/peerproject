@@ -34,13 +34,12 @@ bool LowAscii(const wchar *Str);
 
 int wcsicompc(const wchar *Str1,const wchar *Str2);
 
-void itoa(int64 n,char *Str);
-void itoa(int64 n,wchar *Str);
+void itoa(int64 n,char *Str,size_t MaxSize);
+void itoa(int64 n,wchar *Str,size_t MaxSize);
 const wchar* GetWide(const char *Src);
 const wchar* GetCmdParam(const wchar *CmdLine,wchar *Param,size_t MaxSize);
 #ifndef SILENT
 void PrintfPrepareFmt(const wchar *Org,wchar *Cvt,size_t MaxSize);
 #endif
-
 
 #endif

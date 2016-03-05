@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Albanian Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -846,7 +846,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="Trualli i _PeerProject-s"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forumet e PeerProject-s"/>
-				<!--item id="ID_HELP_UPDATE" text="Lajme të Reja"/>
+				<!--item id="ID_HELP_UPDATE" text="Lajme të Reja"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1680,7 +1680,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">LAJMËRIM PËR PËRMIRËSIM</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Përmirësoni"/>
@@ -1688,7 +1688,7 @@
 			<link target="command:upgrade">Klikoni që të përmirësoni</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">KUJDES: KENI NJË FAJRUOLL</heading>
 			<newline gap="8" indent="42"/>
@@ -1749,15 +1749,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forum</link><gap size="6"/>
 		<text align="middle">- Shko tek forumi shqiptar tuaj diskutim gjuhën</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">HYRJA E LARGËT ËSHTË AKTIVIZUAR</heading>
 			<newline gap="8" indent="42"/>
 			<text>Hyrja në Largësi e PeerProject-s është aktivizuar. Kontrolloni atë duke përdorur shfletuesin e rrjetit në:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- or -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1842,7 +1842,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më shpejt</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikoni që të grini më ngadalë</link>
 			</group>
 		</para>
@@ -1963,7 +1963,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Informacioni i Kontaktit</text>
 			<newline gap="1" indent="8"/>
@@ -1998,7 +1998,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interesa</text>
 			<newline gap="2" indent="8"/>
@@ -2293,7 +2293,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Shikon skedat që shpërndan përdoruesi"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Shfleton profilin e përdoruesit dhe skedat që ai shpërndan."/>
 	<tip id="ID_BROWSE_PROFILE" message="Shfleton profilin e përdoruesit."/>
@@ -2615,13 +2615,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Tregon figurën në masën e saj natyrale."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Rifreskon figurën."/>
 	<tip id="PluginID_ImageViewer_Close" message="Mbyll dritaren e shikuesit të figurave."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Në mënyrën maksimale shtrirja e bandës nuk do e kalojë vlerën e përcaktuar. Në mënyrën mesatare ka një luhatje midis vlerës në të dyja anët."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Ky kuadro nuk ka efekt në shkarkesat që kanë nisur më parë, gjithashtu përbuzet nëse skeda ka hash eDonkey dhe nëse aktivizohet rrjeti eDonkey ose nëse është një torrent.{n}Gjithsesi, ky kuadro nuk përbuzet nëse shkarkesa pushon.{n}{n}KUJDES: Përdoreni këtë mundësi vetëm në rast nevoje të vërtetë. Nëse abuzoni me mundësinë, mund të dëboheni."/>
 	<tip id="IDC_REGEXP" message="Shkruaj shprehje të rregullta sipas sintaksës perl.{n}Fjalët kyçe mund të përcaktohen sipas një forme &lt;n&gt;, ku n është numri midis 1 dhe 9. Nëse doni t'i vendosni gjithë fjalët kyçe mbrapa njëra-tjetrës, përdor &lt;_&gt; shenjim."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3060,8 +3060,9 @@
 	<string id="20891" value="Dalje"/>
 	<string id="20892" value="Palun oodake: Updating eDonkey server list..."/>
 	<string id="20893" value="Palun oodake: Updating discovery services..."/>
-	<string id="20894" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
-	<!--string id="20895" value="Palun oodake: Finding UPnP devices and setting them up..."-->
+	<!--string id="20894" value="Palun oodake: Finding UPnP devices and setting them up..."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Ju nuk e keni përcaktuar shpejtësinë e lidhjes. Përpara se të vijoni, ju lutemi zgjidheni llojin e lidhjes tuaj me Internetin, ose shkruani shpejtësinë e lidhjes."/>
 	<string id="20897" value="Dosja që po shpërndani shpërndahet që më parë si pjesë e një tjetër dosje të shpërndarë:\n\n%s"/>
 	<string id="20898" value="Ju nuk keni përcaktuar asnjë dosje për shpërndarje. A jeni i sigurt?"/>
 	<string id="20899" value="vjeç"/>
@@ -3104,7 +3105,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Brezi:"/>
 		<control caption="Kur klikoj mbylle:"/>
-		<control caption="Më Pyet|Minimizohu në Brez|Mbylle Menjëherë|Mbylle Pas Transferimit"/>
+		<control caption="Më Pyet|Minimizohu|Minimizohu në Brez|Mbylle Pas Transferimit|Mbylle Menjëherë"/>
 		<control caption="Kur klikoj minimizo:"/>
 		<control caption="Normale|Minimizohu në Brez"/>
 	</dialog>
@@ -3195,17 +3196,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komuniteti">
-		<control caption="_Profili Im:"/>
-		<control caption="Profili si Përdorues i Gnutella-s mund të përdoret që të ndani me të tjerët informacione rreth vetes, interesave dhe skedave/trojeve që rekomandoni."/>
-		<control caption="Edito Profilin Tim"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Komuniteti">
 		<control caption="_Chat:"/>
 		<control caption="Lejo chat-in pikë më pikë me klientët e pajtueshëm"/>
 		<control caption="Lejo chat-in në të gjitha rrjetet"/>
 		<control caption="Filtro mesazhet me spame"/>
 		<control caption="Censuro blasfeminë në chat"/>
+		<control caption="_Profili Im:"/>
+		<control caption="Lejo Profili"/>
+		<control caption="Edito Profilin"/>
+		<control caption="Info:"/>
+		<control caption="Profili si Përdorues i Gnutella-s mund të përdoret që të ndani me të tjerët informacione rreth vetes, interesave dhe skedave/trojeve që rekomandoni."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Largësi">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Largësi">
 		<control caption="_Aktivizo:"/>
 		<control caption="Lejo Hyrjen në Largësi të PeerProject-s:"/>
 		<control/>
@@ -3214,7 +3217,8 @@
 		<control caption="Fjalëkalimi:"/>
 		<control/>
 		<control/>
-		<control caption="Ndihmë:"/>
+		<control/>
+		<control caption="Info:"/>
 		<control caption="Hyrja në Largësi bën që PeerProject të lihet të veprojë në PC e të kontrollohet me një shfletues rrjeti të jashtëm. Që kjo veçori të përdoret, duhet të jeni i aftë të pranoni lidhjet hyrëse (d.m.th. konfiguroni routerin si duhet etj.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Rrjeti">
@@ -3533,7 +3537,7 @@
 		<control/>
 		<control caption="A doni që port-përparimi të ndërtohet automatikisht me UPnP?"/>
 		<control/>
-		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Rastit"/>
 		<control caption="Statusi:"/>
@@ -4080,13 +4084,14 @@
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 		<control caption="Këtë skedë e keni shkarkuar dhe e keni fshirë më parë. Çfarë mendoni të bëni?"/>
-		<control caption="Kujdes! Po diktohet një skedë dyfishe. Një softuer keqbërës mund të infektojë Librarinë tuaj. Sigurohuni që këtë skedë e keni shkarkuar dhe vendosur vetë. Përndryshe, mbylleni PeerProject-n dhe skanoni kompjuterin me një antivirus."/>
+		<control caption="Kujdes: Po diktohet një skedë dyfishe. Një softuer keqbërës mund të infektojë Librarinë tuaj. Sigurohuni që këtë skedë e keni shkarkuar dhe vendosur vetë. Përndryshe, mbylleni PeerProject-n dhe skanoni kompjuterin me një antivirus."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Butoni i Mbylljes">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Butoni i Mbylljes">
 		<control caption="Kjo është hera e parë që klikoni butonin e mbylljes në PeerProject. Ju lutemi zgjidhni si doni të sillet PeerProject kur e bëni këtë tani e tutje:"/>
 		<control caption="Minimizohu në tabaka"/>
+		<control caption="Minimizohu në tabaka"/>
+		<control caption="Fike kur çdo shkarkim/ngarkim të përfundojë"/>
 		<control caption="Fike PeerProject-n menjëherë"/>
-		<control caption="Fike PeerProject-n kur çdo shkarkim/ngarkim të përfundojë"/>
 		<control caption="OK"/>
 		<control caption="Anulo"/>
 	</dialog>
@@ -4277,8 +4282,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="Ndërfaqe e Rrjetit të PeerProject-s"/>
+	<tag find="text_logout" replace="Mbylle llogarinë"/>
+	<tag find="text_tabhome" replace="Shtëpi"/>
+	<tag find="text_tabsearch" replace="Kërko"/>
+	<tag find="text_tabdownloads" replace="Shkarkesat"/>
+	<tag find="text_tabuploads" replace="Ngarkesat"/>
+	<tag find="text_tabnetworks" replace="Rrjetet"/>
+	<tag find="text_welcome" replace="Mirë se erdhët në <b>Ndërfaqen e Rrjetit të PeerProject-s</b>."/>
+	<tag find="text_logininfo" replace="Nëse kjo adresë është e klientit tuaj me PeerProject, ju lutemi shkruani emrin e përdoruesit dhe fjalëkalimin, dhe klikoni butonin <b>Hyr</b>."/>
+	<tag find="text_loginfail" replace="Emri i përdoruesit ose fjalëkalimi është jokorrekt, ju lutemi provoni përsëri."/>
+	<tag find="text_loginuser" replace="Përdoruesi:"/>
+	<tag find="text_loginpass" replace="Fjalëkalimi:"/>
+	<tag find="text_loginsubmit" replace="Hyr"/>
+	<tag find="text_homeinfo" replace="Kjo ndërfaqe rrjeti ju lejon të kontrolloni kërkimet, shkarkesat, ngarkesat dhe lidhjet në rrjet."/>
+	<tag find="text_homestart" replace="Nise shkarkimin:"/>
+	<tag find="text_homequick" replace="Kërkim i shpejtë:"/>
+	<tag find="text_homelinks" replace="Linket e dobishme:"/>
+	<tag find="text_anyfile" replace="Çdo skedë"/>
+	<tag find="text_typeapp" replace="Aplikim"/>
+	<tag find="text_typeaudio" replace="Audio"/>
+	<tag find="text_typebook" replace="Libër"/>
+	<tag find="text_typecollection" replace="Koleksioni"/>
+	<tag find="text_typeimage" replace="Figurë"/>
+	<tag find="text_typepresent" replace="Prezantimi"/>
+	<tag find="text_typerom" replace="Imazh ROM"/>
+	<tag find="text_typeskin" replace="Lëvore"/>
+	<tag find="text_typecode" replace="Kodburimi"/>
+	<tag find="text_typespreadsheet" replace="Faqe e Palosur"/>
+	<tag find="text_typesubtitle" replace="Titrat"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typedoc" replace="Procesimi i Fjalës"/>
+	<tag find="text_directdownload" replace="Shkarkesë Magnet/Torrent:"/>
+	<tag find="text_downloadcleartip" replace="pastro shkarkesën prej listës (skeda nuk do të fshihet)"/>
+	<tag find="text_downloadclear" replace="Pastro"/>
+	<tag find="text_downloadresume" replace="Rimerre"/>
+	<tag find="text_downloadpause" replace="Pusho"/>
+	<tag find="text_downloadmoresources" replace="Më Tepër Burime"/>
+	<tag find="text_downloadcancel" replace="Anulo"/>
+	<tag find="text_downloaddirect" replace="Shkarko Magnet:"/>
+	<tag find="text_submit" replace="Shko"/>
+	<tag find="text_sourceaccess" replace="Hyrje"/>
+	<tag find="text_sourceforget" replace="Harro"/>
+	<tag find="text_refreshpage" replace="Rifresko faqen"/>
+	<tag find="text_filter" replace="Filtër:"/>
+	<tag find="text_filteractive" replace="Aktiv"/>
+	<tag find="text_filterqueued" replace="Në radhë"/>
+	<tag find="text_filternosources" replace="Pa burime"/>
+	<tag find="text_filterpaused" replace="I pushuar"/>
+	<tag find="text_filtershowall" replace="Shfaqi gjithë burimet"/>
+	<tag find="text_filtersubmit" replace="Filtër"/>
+	<tag find="text_filename" replace="Emri i skedës"/>
+	<tag find="text_filesize" replace="Përmasa"/>
+	<tag find="text_fileprogress" replace="Progresi"/>
+	<tag find="text_filespeed" replace="Shpejtësi"/>
+	<tag find="text_filesources" replace="Burimet"/>
+	<tag find="text_filestatus" replace="Statusi"/>
+	<tag find="text_fileoptions" replace="Mundësi"/>
+	<tag find="text_networkdisabled" replace="Ky rrjet <b>nuk është</b> aktivizuar"/>
+	<tag find="text_networkconnect" replace="Lidhu me"/>
+	<tag find="text_networkdisconnect" replace="Çaktivizo"/>
+	<tag find="text_networkenabled" replace="Ky rrjet është aktivizuar"/>
+	<tag find="text_networkaddress" replace="Adresa"/>
+	<tag find="text_networktime" replace="Ora"/>
+	<tag find="text_networkpackets" replace="Paketat"/>
+	<tag find="text_networkbandwidth" replace="Shtrirja e bandës"/>
+	<tag find="text_networktotal" replace="Totali"/>
+	<tag find="text_networkmode" replace="Mënyra"/>
+	<tag find="text_networkleaves" replace="Gjethet"/>
+	<tag find="text_useragent" replace="Agjenti Përdorues"/>
+	<tag find="text_searchnew" replace="Kërkim i ri"/>
+	<tag find="text_searchinfo" replace="Për të nisur një kërkim të ri, shkruani termin e kërkuar në kutinë më poshtë dhe klikoni <b>Nise Kërkimin</b>. Nëse doni që kërkimi të kufizohet në një lloj të caktuar skede, zgjidheni atë në listë (rekomandohet)."/>
+	<tag find="text_searchfor" replace="Kërko për:"/>
+	<tag find="text_filetype" replace="Lloji i skedës:"/>
+	<tag find="text_anyfile" replace="Çdolloj Skede"/>
+	<tag find="text_searchstart" replace="Nise Kërkimin"/>
+	<tag find="text_searchstop" replace="Ndale Kërkimin"/>
+	<tag find="text_searchclose" replace="Mbylle Kërkimin"/>
+	<tag find="text_file" replace="Skedë"/>
+	<tag find="text_user" replace="Përdoruesi"/>
+	<tag find="text_submit" replace="Vendose"/>
+	<!--tag find="text_" replace="aktivë / <%= queue_queued %> në radhë, po përdoret <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Skedë në Shkarkim"/>
 		<column from="Size" to="Përmasa"/>
@@ -4425,5 +4514,5 @@
 		<column from="Comments" to="Komente"/>
 		<column from="Order" to="Rendi"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

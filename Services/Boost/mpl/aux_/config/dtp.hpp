@@ -10,9 +10,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: dtp.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/workaround.hpp>
 
@@ -22,25 +22,25 @@
 // the owner class is a class template), and Borland 5.6 isn't even
 // able to compile a definition of nested class template with DTP
 
-//#if  !defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
-//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//  && BOOST_WORKAROUND(__BORLANDC__, >= 0x560) \
-//  && BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610))
-//
-//# define BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES
-//
-//#endif
+#if    !defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && BOOST_WORKAROUND(__BORLANDC__, >= 0x560) \
+    && BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610))
+
+#   define BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES
+
+#endif
 
 
-//#if  !defined(BOOST_MPL_CFG_BROKEN_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
-//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//  && (   BOOST_WORKAROUND(__MWERKS__, <= 0x3001) \
-//      || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610)) \
-//      || defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
-//      )
-//
-//# define BOOST_MPL_CFG_BROKEN_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES
-//
-//#endif
+#if    !defined(BOOST_MPL_CFG_BROKEN_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && (   BOOST_WORKAROUND(__MWERKS__, <= 0x3001) \
+        || BOOST_WORKAROUND(__BORLANDC__, BOOST_TESTED_AT(0x610)) \
+        || defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES) \
+        )
+
+#   define BOOST_MPL_CFG_BROKEN_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES
+
+#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_DTP_HPP_INCLUDED

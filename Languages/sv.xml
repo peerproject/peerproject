@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Swedish Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -550,7 +550,7 @@
 					<separator/>
 					<item id="ID_HELP_DONATE" text="_Donera till PeerProject projektet."/>
 					<item id="ID_HELP_VERSION_CHECK" text="Leta efter ny version"/>
-					<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+					<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"-->
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<separator/>
@@ -649,7 +649,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -718,7 +718,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Senaste _nyheter"/>
+				<!--item id="ID_HELP_UPDATE" text="Senaste _nyheter"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -809,7 +809,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjects hemsida"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forum"/>
-				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"/>
+				<!--item id="ID_HELP_UPDATE" text="Senaste nyheter"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1634,7 +1634,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Uppgraderingsnotis</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Uppgradera"/>
@@ -1642,7 +1642,7 @@
 			<link target="command:upgrade">Klicka här för att uppgradera</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Varning: Du Är Bakom Brandvägg</heading>
 			<newline gap="8" indent="42"/>
@@ -1699,15 +1699,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link><gap size="6"/>
 		<text align="middle">- Gå till din svenska språket diskussionsforum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Fjärråtkomst Är Aktiverad</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjects fjärråtkomst är aktiverad. Kontrollera PeerProject via din webbläsare här:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- eller -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1793,7 +1793,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer fortare</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klicka här för att granska filer långsammare</link>
 			</group>
 		</para>
@@ -1914,7 +1914,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontaktinformation</text>
 			<newline gap="1" indent="8"/>
@@ -1949,7 +1949,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Intressen</text>
 			<newline gap="2" indent="8"/>
@@ -2230,7 +2230,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Visa användarens utdelade filer."/>
 	<tip id="ID_BROWSE_LAUNCH" message="Visa den valda användarens profil och utdelade filer."/>
 	<tip id="ID_BROWSE_PROFILE" message="Visa användarens profil."/>
@@ -2551,12 +2551,12 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Visa bilden i originalstorlek."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Uppdatera bilden."/>
 	<tip id="PluginID_ImageViewer_Close" message="Stäng bildvisningsfönstret."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="I maxläget kommer bandbredden inte att överskrida det valda värdet. I medelläget kommer den att variera kring det valda värdet."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Den här inställningen på verkar inte redan påbörjade nedladdningar och ignoreras ifall filen har en eDonkey hash och eDonkey nätverket är anslutet eller om det är en torrent.{n}Inställningen ignoreras inte om nedladdningen är pausad.{n}{n}VARNING: Använd denna inställning enbart vid behov, om den missbrukas kan du bli bannlyst."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3279,9 +3279,10 @@
 	<string id="20891" value="Avsluta"/>
 	<string id="20892" value="Var god vänta: Uppdaterar eDonkey serverlista..."/>
 	<string id="20893" value="Var god vänta: Uppdaterar upptäckstjänster..."/>
-	<string id="20894" value="Du har ännu inte valt en anslutningshastighet. Innan du kan fortsätta ska du välja den typ av Internetanslutning du använder eller din anslutningshastighet."/>
-	<!--string id="20895" value="Var god vänta: Hittar och installerar UPnP-enheter..."-->
-	<!--string id="20896" value="Du har angett att du vill sätta upp porteftersändning i din NAT-router eller brandvägg.\n\nAnpassa ditt nätverk för att eftersända TCP-port %i till din lokala dator."-->
+	<!--string id="20894" value="Var god vänta: Hittar och installerar UPnP-enheter..."-->
+	<!--string id="20894" value="Du har angett att du vill sätta upp porteftersändning i din NAT-router eller brandvägg.\n\nAnpassa ditt nätverk för att eftersända TCP-port %i till din lokala dator."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Du har ännu inte valt en anslutningshastighet. Innan du kan fortsätta ska du välja den typ av Internetanslutning du använder eller din anslutningshastighet."/>
 	<string id="20897" value="Mappen du försöker dela ut ingår redan i denna utdelade mapp:\n\n%s"/>
 	<string id="20898" value="Du har inte valt någon mapp att dela ut. Vill du fortsätta?"/>
 	<string id="20899" value="år gammal"/>
@@ -3326,7 +3327,7 @@
 		<control caption="Shadows"/>
 		<control caption="A_ktivitetsfält:"/>
 		<control caption="När jag klickar stäng:"/>
-		<control caption="Fråga mig|Minimera till aktivitetsfältet|Stäng omedelbart|Stäng efter överföringar"/>
+		<control caption="Fråga mig|Minimera|Minimera till aktivitetsfältet|Stäng efter överföringar|Stäng omedelbart"/>
 		<control caption="När jag klickar minimera."/>
 		<control caption="Normal|Minimera till aktivitetsfltet"/>
 	</dialog>
@@ -3419,17 +3420,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Gemenskap">
-		<control caption="Min _profil:"/>
-		<control caption="Du kan använda Gnutellas användarprofil för att dela med dig av information om dig själv, intressen och rekommenderade filer och webbplatser med andra."/>
-		<control caption="Redigera min profil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Gemenskap">
 		<control caption="_Chat:"/>
 		<control caption="Tillåt P2P chat med kompatibla klienter"/>
-		<control caption="Till åt chat på samtliga nätverk"/>
+		<control caption="Tillåt chat på samtliga nätverk"/>
 		<control caption="Filtrera spam från chatmeddelanden"/>
 		<control caption="Censurera chatten"/>
+		<control caption="Min _profil:"/>
+		<control caption="Tillåt profil"/>
+		<control caption="Redigera min profil"/>
+		<control caption="Info:"/>
+		<control caption="Du kan använda Gnutellas användarprofil för att dela med dig av information om dig själv, intressen och rekommenderade filer och webbplatser med andra."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Fjärråtkomst">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Fjärråtkomst">
 		<control caption="_Aktivera:"/>
 		<control caption="Aktivera PeerProjects fjärråtkomst:"/>
 		<control/>
@@ -3438,10 +3441,11 @@
 		<control caption="Lösenord:"/>
 		<control/>
 		<control/>
+		<control/>
 		<control caption="Hjälp:"/>
-		<control caption="PeerProjects fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
+		<control caption="Fjärråtkomst tillåter dig att lämna PeerProject igång på din PC och kontrollera det med en webbläsare. Du måste kunna acceptera inkommande anslutningar för att använda denna funktion (d.v.s. en ordentligt anpassad router eller dylikt)."/>
 	</dialog>
-	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Webb">
+	<3 cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Webb">
 		<control caption="_Hantering av P2P-länkar:"/>
 		<control caption="Använd PeerProject för att öppna filer av typen:"/>
 		<control caption="Magnet (magnet:)"/>
@@ -3757,7 +3761,7 @@
 		<control/>
 		<control caption="Villd du ställa in portmapping via uPnP automatiskt?"/>
 		<control/>
-		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Slumpmässiga"/>
 		<control caption="Status:"/>
@@ -4304,13 +4308,14 @@
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 		<control caption="Du har tidigare laddat ned och raderat denna fil. Vad vill du göra?"/>
-		<control caption="Varning! Dubbla filer upptcktes. Skadlig programvara kan infektera ditt bibliotek. Om du inte har laddat ner eller flyttat den h�r filen sj�lv, st�ng PeerProject och skanna datorn med ett antivirusprogram."/>
+		<control caption="Varning: Dubbla filer upptcktes. Skadlig programvara kan infektera ditt bibliotek. Om du inte har laddat ner eller flyttat den h�r filen sj�lv, st�ng PeerProject och skanna datorn med ett antivirusprogram."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Stängkommandot">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Stängkommandot">
 		<control caption="Detta är första gången du har valt PeerProjects stängkommando. Välj den handling du vill att PeerProject ska utföra när du väljer stängkommandot från och med nu."/>
 		<control caption="Minimera till aktivitetsfältet"/>
+		<control caption="Minimera till aktivitetsfältet"/>
+		<control caption="Avsluta när pågående överföringar har slutförts"/>
 		<control caption="Avsluta PeerProject direkt"/>
-		<control caption="Avsluta PeerProject när pågående överföringar har slutförts"/>
 		<control caption="OK"/>
 		<control caption="Avbryt"/>
 	</dialog>
@@ -4502,8 +4507,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProjects webbgränssnitt"/>
+	<tag find="text_logout" replace="Logga ut"/>
+	<tag find="text_tabhome" replace="Hem"/>
+	<tag find="text_tabdownloads" replace="Nedladdningar"/>
+	<tag find="text_tabuploads" replace="Uppladdningar"/>
+	<tag find="text_tabnetworks" replace="Nätverk"/>
+	<tag find="text_tabsearch" replace="Sök"/>
+	<tag find="text_welcome" replace="Välkommen till <b>PeerProjects webbgränssnitt.</b>."/>
+	<tag find="text_logininfo" replace="Om detta är adressen till din PeerProjectklient, skriv ditt användarnamn och lösenord och klicka på <b>Logga in</b> knappen."/>
+	<tag find="text_loginfail" replace="Användarnamnet eller lösenordet var felaktigt, försök igen."/>
+	<tag find="text_loginuser" replace="Användarnamn:"/>
+	<tag find="text_loginpass" replace="Lösenord:"/>
+	<tag find="text_loginsubmit" replace="Logga in"/>
+	<tag find="text_homeinfo" replace="Detta webbgränssnitt låter dig kontrollera sökningar, nedladdningar, uppladdningar och nätverksanslutningar."/>
+	<tag find="text_homestart" replace="Börja ladda ner:"/>
+	<tag find="text_homequick" replace="Snabbsökning:"/>
+	<tag find="text_homelinks" replace="Nyttiga länkar:"/>
+	<tag find="text_directdownload" replace="Magnet/torrent nedladdning:"/>
+	<tag find="text_downloadcleartip" replace="ta bort nedladdningen från listan (filen kommer inte att raderas)"/>
+	<tag find="text_downloadclear" replace="Rensa"/>
+	<tag find="text_downloadresume" replace="Återgå"/>
+	<tag find="text_downloadpause" replace="Pausa"/>
+	<tag find="text_downloadcancel" replace="Avbryt"/>
+	<tag find="text_downloadmoresources" replace="Fler källor"/>
+	<tag find="text_downloaddirect" replace="Ladda ner magnet:"/>
+	<tag find="text_submit" replace="Gå"/>
+	<tag find="text_sourceaccess" replace="Access"/>
+	<tag find="text_sourceforget" replace="Glöm"/>
+	<tag find="text_filter" replace="Filter:"/>
+	<tag find="text_filteractive" replace="Aktiv"/>
+	<tag find="text_filterqueued" replace="Kölagd"/>
+	<tag find="text_filterpaused" replace="Pausad"/>
+	<tag find="text_filternosources" replace="Inga källor"/>
+	<tag find="text_filtershowall" replace="Visa alla källor"/>
+	<tag find="text_filtersubmit" replace="Filter:"/>
+	<tag find="text_filename" replace="Filnamn"/>
+	<tag find="text_filesize" replace="Storlek"/>
+	<tag find="text_fileprogress" replace="Förlopp"/>
+	<tag find="text_filespeed" replace="Hastighet"/>
+	<tag find="text_filesources" replace="Källor"/>
+	<tag find="text_filestatus" replace="Status"/>
+	<tag find="text_fileoptions" replace="Alternativ"/>
+	<tag find="text_networkenabled" replace="Detta nätverk är aktiverat"/>
+	<tag find="text_networkdisabled" replace="Detta nätverk är <b>inte</b> aktiverat"/>
+	<tag find="text_networkconnect" replace="Anslut till"/>
+	<tag find="text_networkdisconnect" replace="Inaktivera"/>
+	<tag find="text_networkaddress" replace="Adress"/>
+	<tag find="text_networktime" replace="Tid"/>
+	<tag find="text_networkpackets" replace="Paket"/>
+	<tag find="text_networkbandwidth" replace="Bandbredd"/>
+	<tag find="text_networktotal" replace="Totalt"/>
+	<tag find="text_networkmode" replace="Läge"/>
+	<tag find="text_networkleaves" replace="Löv"/>
+	<tag find="text_useragent" replace="Användarklient"/>
+	<tag find="text_searchnew" replace="Ny sökning"/>
+	<tag find="text_searchinfo" replace="För att starta en ny sökning, skriv din sökterm i sökrutan och klicka på <b>Börja sökning</b>. Om du vill begränsa sökningen till en viss filtyp, välj den från listan (rekommenderas)."/>
+	<tag find="text_searchfor" replace="Sök efter:"/>
+	<tag find="text_searchstart" replace="Börja sökning"/>
+	<tag find="text_searchstop" replace="Avbryt sökning"/>
+	<tag find="text_searchclose" replace="Stäng sökning"/>
+	<tag find="text_refreshpage" replace="Uppdatera sidan"/>
+	<tag find="text_file" replace="Fil"/>
+	<tag find="text_user" replace="Användare"/>
+	<tag find="text_submit" replace="Välj"/>
+	<tag find="text_filetype" replace="Filtyp:"/>
+	<tag find="text_anyfile" replace="Alla filtyper"/>
+	<tag find="text_typeapp" replace="Applikation"/>
+	<tag find="text_typearchive" replace="Arkiv"/>
+	<tag find="text_typeaudio" replace="Ljud"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Bild"/>
+	<tag find="text_typebook" replace="Bok"/>
+	<tag find="text_typedoc" replace="Ordbehandling"/>
+	<tag find="text_typepresent" replace="Presentation"/>
+	<tag find="text_typerom" replace="ROM-avbild"/>
+	<tag find="text_typeskin" replace="Skinn"/>
+	<tag find="text_typecode" replace="Källkod"/>
+	<tag find="text_typespreadsheet" replace="Kalkylark"/>
+	<tag find="text_typesubtitle" replace="Undertext"/>
+	<tag find="text_typecollection" replace="Samling"/>
+	<!--tag find="text_" replace="aktiv / <%= queue_queued %> kölagda, använder <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Nedladdad fil"/>
 		<column from="Size" to="Storlek"/>
@@ -4650,5 +4739,5 @@
 		<column from="Comments" to="Kommentarer"/>
 		<column from="Order" to="Ordna"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

@@ -61,9 +61,9 @@ turns out to be wrong, the DHT will eventually recover; still, inserting
 massive amounts of incorrect information into your routing table is
 certainly not a good idea.
 
-An additionaly difficulty with dht_insert_node is that, for various
-reasons, a Kademlia routing table cannot absorb nodes faster than a certain
-rate.  Dumping a large number of nodes into a table using dht_insert_node
+An additionaly difficulty with dht_insert_node is that, for various reasons,
+a Kademlia routing table cannot absorb nodes faster than a certain rate.
+Dumping a large number of nodes into a table using dht_insert_node
 will probably cause most of these nodes to be discarded straight away.
 (The tolerable rate is difficult to estimate; it is probably on the order
 of one node every few seconds per node already in the table divided by 8,
@@ -114,15 +114,14 @@ a search; a search is likely to be successful as long as we have a few good
 nodes; however, in order to avoid overloading your bootstrap nodes, you may
 want to wait until good is at least 4 and good + doubtful is at least 30 or so.
 
-It also includes the number of nodes that recently send us an unsolicited request;
+It also includes the number of nodes that recently sent us an unsolicited request;
 this can be used to determine if the UDP port used for the DHT is firewalled.
 
 If you want to display a single figure to the user, you should display
 good + doubtful, which is the total number of nodes in your routing table.
 Some clients try to estimate the total number of nodes, but this doesn't
-make much sense -- since the result is exponential in the number of nodes
-in the routing table, small variations in the latter cause huge jumps in
-the former.
+make much sense -- since the result is exponential in the number of nodes in
+the routing table, small variations in the latter cause huge jumps in the former.
 
 * dht_get_nodes
 
@@ -184,7 +183,6 @@ make most full cone NATs happy.
 
 Some of the code has had very little testing.
 If it breaks, you get to keep both pieces.
-
 
 										Juliusz Chroboczek
 										<jch@pps.jussieu.fr>

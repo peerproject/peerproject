@@ -1,7 +1,7 @@
 //
 // PeerProject.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -249,7 +249,7 @@ CPeerProjectApp::CPeerProjectApp()
 	, m_pfnGeoIP_country_name_by_ipnum ( NULL )
 {
 	// Determine the version of Windows
-	GetVersionEx( (OSVERSIONINFO*)&Windows );
+	//GetVersionEx( (OSVERSIONINFO*)&Windows );		// Obsolete
 	GetSystemInfo( (SYSTEM_INFO*)&System );
 
 	ZeroMemory( m_nVersion, sizeof( m_nVersion ) );
@@ -819,13 +819,17 @@ BOOL CPeerProjectApp::ParseCommandLine()
 		Images.m_bmBanner.Attach( CImageFile::LoadBitmapFromResource( IDB_BANNER ) );
 		Skin.m_nBanner = 50;
 
+#ifdef WIN64
+		const BOOL bIsXP = FALSE;
+#else // Win32 (Obsolete)
 		OSVERSIONINFOEX pVersion = { sizeof( OSVERSIONINFOEX ) };
-		GetVersionEx( (OSVERSIONINFO*)&pVersion );
-		const BOOL bVistaOrNewer = pVersion.dwMajorVersion > 5;
+		GetVersionEx( (OSVERSIONINFO*)&pVersion );	// Deprecated
+		const BOOL bIsXP = pVersion.dwMajorVersion < 6;
+#endif // WIN64
 
 		CoolInterface.m_fntNormal.CreateFont( -11, 0, 0, 0, FW_NORMAL, FALSE, FALSE, FALSE,
 		DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY,
-		DEFAULT_PITCH|FF_DONTCARE, bVistaOrNewer ? L"Segoe UI" : L"Tahoma" );
+		DEFAULT_PITCH|FF_DONTCARE, bIsXP ? L"Tahoma" : L"Segoe UI" );
 
 		MsgBox( //IDS_COMMANDLINE,	// No translation available yet
 			L"\nPeerProject command-line options:\n\n"
@@ -1430,7 +1434,6 @@ void CPeerProjectApp::GetVersionNumber()
 	//SYSTEM_INFO System
 
 	// Get Service Pack version
-	TCHAR* sp = _tcsstr( Windows.szCSDVersion, L"Service Pack" );
 
 	// Determine if it's a server
 	//m_bIsServer = Windows.wProductType != VER_NT_WORKSTATION;	// VER_NT_SERVER
@@ -1443,7 +1446,11 @@ void CPeerProjectApp::GetVersionNumber()
 	//	Major ver 6:	Vista = 0, Server2008 = 0, Windows7 = 1, Windows8 = 2, Windows8.1 = 3
 	//	Major ver 10:	Windows10 = 0 (1000)
 
-	m_nWinVer = Windows.dwMajorVersion * 100 + Windows.dwMinorVersion * 10;		// ( Windows.dwMinorVersion < 9 ? Windows.dwMinorVersion * 10 : 90 );
+#ifndef WIN64
+	GetVersionEx( (OSVERSIONINFO*)&Windows );	// Deprecated
+	m_bIsWinXP = Windows.dwMajorVersion == 5;
+	m_nWinVer = Windows.dwMajorVersion * 100 + Windows.dwMinorVersion * 10;
+	TCHAR* sp = _tcsstr( Windows.szCSDVersion, L"Service Pack" );
 	if ( sp )
 	{
 		if ( sp[ 13 ] == '1' )
@@ -1455,20 +1462,71 @@ void CPeerProjectApp::GetVersionNumber()
 		else if ( sp[ 13 ] == '4' )
 			m_nWinVer += 4;
 	}
+#else // WinSDK8.1
 
-	// Set some variables for different Windows OS
-	if ( Windows.dwMajorVersion == 5 )
+	OSVERSIONINFOEX osvi = { sizeof( osvi ) };
+	const DWORDLONG dwlMajorMinorPack = VerSetConditionMask( VerSetConditionMask( VerSetConditionMask( 0, VER_MAJORVERSION, VER_GREATER_EQUAL ),
+		VER_MINORVERSION, VER_GREATER_EQUAL ), VER_SERVICEPACKMAJOR, VER_GREATER_EQUAL );
+
+	m_nWinVer = WIN_XP;							// 510 (Minimum Supported)
+	m_bIsWinXP = false;
+
+	osvi.dwMajorVersion = 10;
+	osvi.dwMinorVersion = 0;
+	if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
 	{
-		m_bIsWinXP = true;
+		m_nWinVer = WIN_10;						// 1000 (Windows 10+)
+	}
+	else
+	{
+		osvi.dwMajorVersion = 6;
+		osvi.dwMinorVersion = 0;
+		if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+		{
+			m_nWinVer = WIN_VISTA;				// 600
+			osvi.dwMinorVersion = 1;
+			if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+			{
+				m_nWinVer = WIN_7;				// 610
+				osvi.dwMinorVersion = 2;
+				if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+				{
+					m_nWinVer = WIN_8;			// 620
+					osvi.dwMinorVersion = 3;
+					if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+						m_nWinVer = WIN_8_1;	// 630
+				}
+			}
+			else
+			{
+				osvi.dwMinorVersion = 0;
+				osvi.wServicePackMajor = 2;
+				if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+					m_nWinVer = WIN_VISTA_SP2;	// 602
+			}
+		}
+		else	// Should never be reachable (XP Unsupported on x64)
+		{
+			m_bIsWinXP = true;
+			osvi.dwMajorVersion = 5;
+			osvi.dwMinorVersion = 1;
+			osvi.wServicePackMajor = 2;
+			if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+			{
+				m_nWinVer = WIN_XP_SP2;			// 512
+				osvi.dwMajorVersion = 5;
+				osvi.dwMinorVersion = 2;
+				osvi.wServicePackMajor = 0;
+				if ( VerifyVersionInfo( &osvi, VER_MAJORVERSION | VER_MINORVERSION | VER_SERVICEPACKMAJOR, dwlMajorMinorPack ) )
+					m_nWinVer = WIN_XP_64;		// 520
+			}
+		}
+	}
+#endif
 
 #ifndef WIN64
-		// Windows 2000
-		if ( Windows.dwMinorVersion == 0 )
-		{
-			// Unsupported
-		}
 		// Windows XP
-		else if ( Windows.dwMinorVersion == 1 )
+		if ( Windows.dwMinorVersion == 1 )
 		{
 			// No network limiting for original XP or SP1
 			if ( m_nWinVer < WIN_XP_SP2 )
@@ -1476,18 +1534,15 @@ void CPeerProjectApp::GetVersionNumber()
 		}
 		// Windows XP64 or 2003
 		else if ( Windows.dwMinorVersion == 2 )
-#endif
 		{
 			// No network limiting for Vanilla Win2003/XP64
-			if ( ! sp )
+			//if ( ! sp )
 				m_bLimitedConnections = false;
 		}
 	}
 	else //if ( Windows.dwMajorVersion >= 6 )
+#endif
 	{
-		// GUI support
-		m_bIsWinXP = false;
-
 		if ( Windows.wProductType == VER_NT_SERVER )
 		{
 			m_bLimitedConnections = false;
@@ -1590,7 +1645,7 @@ void CPeerProjectApp::InitResources()
 		VERIFY( theApp.m_pfnChangeWindowMessageFilter( WM_CLOSE, MSGFLT_ADD ) );
 	}
 
-	LoadCountry();	// GeoIP
+	LoadCountry();	// GeoIP Initialization
 
 	// Load LibGFL in a custom way, so PeerProject plugins can use this library too when not in their search path (From Plugins folder, and when running inside Visual Studio)
 	m_hLibGFL = CustomLoadLibrary( L"LibGFL340.dll" );
@@ -2013,34 +2068,34 @@ void CPeerProjectApp::LoadCountry()
 
 void CPeerProjectApp::FreeCountry()
 {
-	if ( m_hGeoIP )
+	if ( ! m_hGeoIP )
+		return;
+
+	if ( m_pGeoIP && m_pfnGeoIP_delete )
 	{
-		if ( m_pGeoIP && m_pfnGeoIP_delete )
+		__try
 		{
-			__try
-			{
-				m_pfnGeoIP_delete( m_pGeoIP );
-			}
-			__except( EXCEPTION_EXECUTE_HANDLER )
-			{
-			}
-			m_pGeoIP = NULL;
+			m_pfnGeoIP_delete( m_pGeoIP );
 		}
-
-		if ( m_pfnGeoIP_cleanup )
+		__except( EXCEPTION_EXECUTE_HANDLER )
 		{
-			__try
-			{
-				m_pfnGeoIP_cleanup();
-			}
-			__except( EXCEPTION_EXECUTE_HANDLER )
-			{
-			}
 		}
-
-		FreeLibrary( m_hGeoIP );
-		m_hGeoIP = NULL;
+		m_pGeoIP = NULL;
 	}
+
+	if ( m_pfnGeoIP_cleanup )
+	{
+		__try
+		{
+			m_pfnGeoIP_cleanup();
+		}
+		__except( EXCEPTION_EXECUTE_HANDLER )
+		{
+		}
+	}
+
+	FreeLibrary( m_hGeoIP );
+	m_hGeoIP = NULL;
 }
 
 

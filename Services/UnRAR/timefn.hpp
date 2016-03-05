@@ -31,6 +31,7 @@ class RarTime
     RarTime& operator =(time_t ut);
     time_t GetUnix();
     bool operator == (RarTime &rt) {return itime==rt.itime;}
+    bool operator != (RarTime &rt) {return itime!=rt.itime;}
     bool operator < (RarTime &rt)  {return itime<rt.itime;}
     bool operator <= (RarTime &rt) {return itime<rt.itime || itime==rt.itime;}
     bool operator > (RarTime &rt)  {return itime>rt.itime;}
@@ -41,7 +42,7 @@ class RarTime
     void SetRaw(uint64 RawTime);
     uint GetDos();
     void SetDos(uint DosTime);
-    void GetText(wchar *DateStr,size_t MaxSize,bool FullYear,bool FullMS);
+    void GetText(wchar *DateStr,size_t MaxSize,bool FullMS);
     void SetIsoText(const wchar *TimeText);
     void SetAgeText(const wchar *TimeText);
     void SetCurrentTime();

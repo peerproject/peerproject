@@ -10,38 +10,38 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: eti.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
 
 // flags for MSVC 6.5's so-called "early template instantiation bug"
-//#if    !defined(BOOST_MPL_CFG_MSVC_60_ETI_BUG) \
-//    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//    && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//
-//#   define BOOST_MPL_CFG_MSVC_60_ETI_BUG
-//
-//#endif
+#if    !defined(BOOST_MPL_CFG_MSVC_60_ETI_BUG) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
 
-//#if    !defined(BOOST_MPL_CFG_MSVC_70_ETI_BUG) \
-//    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//    && BOOST_WORKAROUND(BOOST_MSVC, == 1300)
-//
-//#   define BOOST_MPL_CFG_MSVC_70_ETI_BUG
-//
-//#endif
+#   define BOOST_MPL_CFG_MSVC_60_ETI_BUG
 
-//#if    !defined(BOOST_MPL_CFG_MSVC_ETI_BUG) \
-//    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//    && ( defined(BOOST_MPL_CFG_MSVC_60_ETI_BUG) \
-//        || defined(BOOST_MPL_CFG_MSVC_70_ETI_BUG) \
-//        )
-//
-//#   define BOOST_MPL_CFG_MSVC_ETI_BUG
-//
-//#endif
+#endif
+
+#if    !defined(BOOST_MPL_CFG_MSVC_70_ETI_BUG) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && BOOST_WORKAROUND(BOOST_MSVC, == 1300)
+
+#   define BOOST_MPL_CFG_MSVC_70_ETI_BUG
+
+#endif
+
+#if    !defined(BOOST_MPL_CFG_MSVC_ETI_BUG) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && ( defined(BOOST_MPL_CFG_MSVC_60_ETI_BUG) \
+        || defined(BOOST_MPL_CFG_MSVC_70_ETI_BUG) \
+        )
+
+#   define BOOST_MPL_CFG_MSVC_ETI_BUG
+
+#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_ETI_HPP_INCLUDED

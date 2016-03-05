@@ -1,7 +1,7 @@
 //
 // PageSettingsCommunity.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -40,6 +40,7 @@ END_MESSAGE_MAP()
 
 CCommunitySettingsPage::CCommunitySettingsPage()
 	: CSettingsPage(CCommunitySettingsPage::IDD)
+	, m_bProfileEnable	( FALSE )
 	, m_bChatEnable 	( FALSE )
 	, m_bChatAllNetworks ( FALSE )
 	, m_bChatFilter 	( FALSE )
@@ -54,6 +55,7 @@ CCommunitySettingsPage::~CCommunitySettingsPage()
 void CCommunitySettingsPage::DoDataExchange(CDataExchange* pDX)
 {
 	CSettingsPage::DoDataExchange(pDX);
+	DDX_Check(pDX, IDC_ENABLE, m_bProfileEnable);
 	DDX_Check(pDX, IDC_CHAT_ENABLE, m_bChatEnable);
 	DDX_Check(pDX, IDC_CHAT_ALLNETWORKS, m_bChatAllNetworks);
 	DDX_Check(pDX, IDC_CHAT_FILTER, m_bChatFilter);
@@ -67,6 +69,7 @@ BOOL CCommunitySettingsPage::OnInitDialog()
 {
 	CSettingsPage::OnInitDialog();
 
+	m_bProfileEnable	= Settings.Community.ServeProfile;
 	m_bChatEnable		= Settings.Community.ChatEnable;
 	m_bChatAllNetworks	= Settings.Community.ChatAllNetworks;
 	m_bChatFilter		= Settings.Community.ChatFilter;
@@ -87,6 +90,7 @@ void CCommunitySettingsPage::OnOK()
 {
 	UpdateData();
 
+	Settings.Community.ServeProfile		= m_bProfileEnable != FALSE;
 	Settings.Community.ChatEnable		= m_bChatEnable != FALSE;
 	Settings.Community.ChatAllNetworks	= m_bChatAllNetworks != FALSE;
 	Settings.Community.ChatFilter		= m_bChatFilter != FALSE;

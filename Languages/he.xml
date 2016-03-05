@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Hebrew Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -619,9 +619,9 @@ gap i newline
 					<item id="ID_HELP_FORUMS" text="_פורומים של שרזה"/>
 					<separator/>
 					<item id="ID_HELP_VERSION_CHECK" text="_בדוק אם קיימות גרסאות חדשות"/>
-					<!-- <item id="ID_HELP_DONATE" text="_תרום לפרוייקט שרזה"/>
+					<!--item id="ID_HELP_DONATE" text="_תרום לפרוייקט שרזה"-->
 					<item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
-					<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
+					<!--item id="ID_HELP_WEB_1" text="‪Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="‪_אתר הבית של שרזה"/>
 				<separator/>
@@ -717,7 +717,7 @@ gap i newline
 				<item id="ID_HELP_HOMEPAGE" text="‪_אתר הבית של שרזה"/>
 				<item id="ID_HELP_FORUMS" text="_פורומים של שרזה"/>
 				<separator/>
-				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
+				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"-->
 				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
@@ -786,7 +786,7 @@ gap i newline
 				<item id="ID_HELP_HOMEPAGE" text="‪_אתר הבית של שרזה"/>
 				<item id="ID_HELP_FORUMS" text="_פורומים של שרזה"/>
 				<separator/>
-				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
+				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"-->
 				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
@@ -876,7 +876,7 @@ gap i newline
 				<item id="ID_HELP_HOMEPAGE" text="‪_אתר הבית של שרזה"/>
 				<item id="ID_HELP_FORUMS" text="‪_פורומים של שרזה"/>
 				<separator/>
-				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"/>
+				<!--item id="ID_HELP_UPDATE" text="‪חדשות אחרונות"-->
 				<item id="ID_HELP_WEB_1" text="‪Zeropaid.com"/> -->
 			</menu>
 			<separator/> <!--
@@ -1712,7 +1712,7 @@ gap i newline
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">הודעת ש ד ר וג</heading>
 			<newline gap="8" indent="42"/>
 			<text id="שדרוג"/>
@@ -1720,7 +1720,7 @@ gap i newline
 			<link target="command:upgrade">.לחץ כאן לשדרוג</link>
 			<newline gap="18" indent="16"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">א ז ה ר ה &#160; - &#160; א ת ה &#160; ח ס ו ם &#160; ב ח ו מ ת  א ש</heading>
 			<newline gap="8" indent="42"/>
@@ -1776,15 +1776,15 @@ gap i newline
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">מקומי פורום</link><gap size="6"/>
 		<text align="middle">- עברית עבור השפה שלך לדיון בפורום</text>
 		<newline gap="18" indent="16"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">ג י ש ה &#160; מ ר ח ו ק &#160; ב מ צ ב &#160; מ א ו פ ש ר</heading>
 			<newline gap="8" indent="42"/>
 			<text>שליטה מרחוק בשרזה במצב מאופשר, שלוט בשרזה עם הדפדפן שלך דרך:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- או -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="16"/>
 		</group>
 		</para>
@@ -1870,7 +1870,7 @@ gap i newline
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">מהיר יותר hash לחץ כאן לביצוע.</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">איטי יותר hash לחץ כאן לביצוע.</link>
 			</group>
 		</para>
@@ -1993,7 +1993,7 @@ gap i newline
 			<text>,</text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">מידע ליצירת קשר:</text>
 			<newline gap="1" indent="8"/>
@@ -2028,7 +2028,7 @@ gap i newline
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">תחומי עניין:</text>
 			<newline gap="2" indent="8"/>
@@ -2162,7 +2162,7 @@ gap i newline
 	<!-- Missing Documents -->
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="הצג את הקבצים שהמשתמש משתף"/>
 	<tip id="ID_BROWSE_LAUNCH" message="‪עיין בפרופיל המשתמש שבחרת ובקבציו"/>
 	<tip id="ID_BROWSE_PROFILE" message="‪עיין בפרופיל המשתמש"/>
@@ -2477,7 +2477,7 @@ gap i newline
 	<tip id="ID_WINDOW_TILE_VERT" message="Arrange open windows as vertical, non-overlapping tiles."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="הראה או הסתר את סרגל הכלים"/>
 	<!-- Missing PLUGIN TIPS -->
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
 	<!-- Missing controlTips -->
 <!-- Localized Strings -->
@@ -2630,7 +2630,7 @@ gap i newline
 	<string id="20382" value="‪כולל לשליחה UDP רוחב פס"/>
 	<string id="20383" value="‪רוחב-פס להעברות"/>
 	<string id="20384" value="‪סכום העלאות שהועברו"/>
-	<string id="20400" value="‪PeerProject is creating hashes for %Iu files:" />
+	<string id="20400" value="‪PeerProject is creating hashes for %Iu files:"/>
 	<string id="20410" value="‪סייר בספריית השיתוף שלך בשרזה"/>
 	<string id="20411" value="‪סיור"/>
 	<string id="20412" value="תיקיות ‪%i סייר בתכנים של"/>
@@ -2923,6 +2923,7 @@ gap i newline
 	<string id="20886" value=" שינוי הכיוון של ממשק מחייב הפעלה מחדש. \n\n צא עכשיו? \n\n\nChanging interface direction requires restart.\n\nExit now?"/>
 	<string id="20890" value="‪ברוכים הבאים לשרזה"/>
 	<string id="20891" value="‪יציאה"/>
+	<string id="20895" value="(1050-65500)"/>
 	<string id="20898" value="‪?לא בחרת אף תיקייה לשיתוף, האם הינך מעוניין להמשיך"/>
 	<string id="20899" value="‪בגיל"/>
 	<!--Missing Wizard Strings-->
@@ -3015,17 +3016,19 @@ gap i newline
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<!--dialog name="CIRCSettingsPage" cookie="BuBuBuBuStEdmsStStEdmsCoBuBuStBuStBuStBuStBuStBuStBuStBuStBuStEdStEdStEdStEdStCoStEdStEd" caption="חדר שיחה"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="קהילה">
-		<control caption="הפרופיל שלי"/>
-		<control caption=".‏‏ניתן להשתמש בפרופיל המשתמש שלך בגנוטלה לשיתוף מידע אודות עצמך כמו תחביבים והקבצים המועדפים שלך עם משתמשים אחרים"/>
-		<control caption="ערוך את הפרופיל"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="קהילה">
 		<control caption=":צ'אט"/>
 		<control caption="אפשר שיחות בתקשורת ישירה באפליקציות תומכות"/>
 		<control caption="אפשר שיחות לכל הרשתות"/>
 		<control caption="...סינון הודעות זבל"/>
 		<control caption="צינזור חומר פוגעני בצ'אט"/>
+		<control caption="הפרופיל שלי"/>
+		<control caption="הפרופיל שלי"/>
+		<control caption="ערוך את הפרופיל"/>
+		<control caption="מידע:"/>
+		<control caption=".‏‏ניתן להשתמש בפרופיל המשתמש שלך בגנוטלה לשיתוף מידע אודות עצמך כמו תחביבים והקבצים המועדפים שלך עם משתמשים אחרים"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="גישה מרחוק">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="גישה מרחוק">
 		<control caption=":אפשר"/>
 		<control caption=".אפשר גישה מרחוק לשרזה"/>
 		<control/>
@@ -3034,7 +3037,8 @@ gap i newline
 		<control caption=":בחר סיסמא"/>
 		<control/>
 		<control/>
-		<control caption=":מדריך"/>
+		<control/>
+		<control caption=":מידע"/>
 		<control caption="אפשרות השליטה מרחוק של שרזה מאפשרת לך להשאיר את שרזה פועלת על המחשב, ולשלוט בה מרחוק בעזרת דפדפן האינטרנט, יהיה עלייך לדאוג שתוכל לקבל התקשרויות נכנסות - ראוטר מוגדר וכדומה"/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="רשת">
@@ -3353,7 +3357,7 @@ gap i newline
 		<control/>
 		<control caption="?UPnP-ברצונך להגדיר פתחה (פורט) אוטומטית עי שימוש ב"/>
 		<control/>
-		<control caption="Port: (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="אקראיים"/>
 		<control caption="מצב:"/>
@@ -3902,11 +3906,12 @@ gap i newline
 		<control caption="?הורדת ומחקת את קובץ זה בעבר. מה תרצה לעשות"/>
 		<control caption="אזהרה! התגלו קבצים משוכפלים. ייתכן ותוכנה זדונית תפגע בספרייה שלך. וודא שהורגת את הקובץ הזה או שמת אותו באופן ידני. אחרת, סגור את שרזה וסרוק את מחשבך עם תוכנת אנטי-וירוס."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="כפתור סגירה">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="כפתור סגירה">
 		<control caption="זוהי הפעם הראשונה בה לחצת על לחצן הסגירה של שרזה. אנא בחר את הפעולה אותה תרצה ששרזה תעשה בכל פעם שתלחץ על כפתור זה מעכשיו והלאה"/>
 		<control caption="מזער לשורת המשימות"/>
-		<control caption="סגור את שרזה באופן מיידי"/>
+		<control caption="מזער לשורת המשימות"/>
 		<control caption="סגור את שרזה לאחר שכל ההורדות והעלאות מסתיימות"/>
+		<control caption="סגור את שרזה באופן מיידי"/>
 		<control caption="אישור"/>
 		<control caption="ביטול"/>
 	</dialog>
@@ -4099,7 +4104,7 @@ gap i newline
 	</dialog>
 </dialogs>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="קובץ בהורדה"/>
 		<column from="Size" to="גודל"/>
@@ -4246,5 +4251,5 @@ gap i newline
 		<column from="Comments" to="הערות"/>
 		<column from="Order" to="סדר"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

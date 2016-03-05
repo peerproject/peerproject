@@ -1,8 +1,8 @@
-/* $Id: miniwget.c,v 1.65 2014/11/04 22:31:55 nanard Exp $ */
+/* $Id: miniwget.c,v 1.70 2015/07/15 12:41:13 nanard Exp $ */
 /* Project : miniupnp
  * Website : http://miniupnp.free.fr/
  * Author : Thomas Bernard
- * Copyright (c) 2005-2014 Thomas Bernard
+ * Copyright (c) 2005-2015 Thomas Bernard
  * This software is subject to the conditions detailed in the
  * LICENCE file provided in this distribution. */
 
@@ -89,7 +89,24 @@ getHTTPResponse(int s, int * size)
 	unsigned int chunksize_buf_index;
 
 	header_buf = malloc(header_buf_len);
+	if(header_buf == NULL)
+	{
+#ifdef DEBUG
+		fprintf(stderr, "%s: Memory allocation error\n", "getHTTPResponse");
+#endif /* DEBUG */
+		*size = -1;
+		return NULL;
+	}
 	content_buf = malloc(content_buf_len);
+	if(content_buf == NULL)
+	{
+		free(header_buf);
+#ifdef DEBUG
+		fprintf(stderr, "%s: Memory allocation error\n", "getHTTPResponse");
+#endif /* DEBUG */
+		*size = -1;
+		return NULL;
+	}
 	chunksize_buf[0] = '\0';
 	chunksize_buf_index = 0;
 
@@ -401,6 +418,11 @@ miniwget3(const char * host,
 
 				 "\r\n",
 			   path, httpversion, host, port);
+	if ((unsigned int)len >= sizeof(buf))
+	{
+		closesocket(s);
+		return NULL;
+	}
 	sent = 0;
 	/* sending the HTTP request */
 	while(sent < len)

@@ -1,7 +1,7 @@
 //
 // Strings.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2015
+// This file is part of PeerProject (peerproject.org) © 2010-2016
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -704,25 +704,25 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 }
 #endif	// __AFXCOLL_H__
 
-BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
+BOOL StartsWith(const CString& strInput, LPCTSTR pszText, int nLen /*0*/)
 {
 	if ( strInput[0] != *pszText && //*pszText < L'A' ||
 	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char?
 		return FALSE;
 
 	if ( ! nLen )
-		nLen = _tcslen( pszText );
+		nLen = (int)_tcslen( pszText );
 
-	return (size_t)strInput.GetLength() >= nLen &&
+	return strInput.GetLength() >= nLen &&
 		_tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 }
 
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen /*0*/)
 {
 	if ( ! nLen )
 		nLen = (int)_tcslen( pszText );
 
-	if ( (size_t)strInput.GetLength() < nLen )
+	if ( strInput.GetLength() < nLen )
 		return FALSE;
 
 	const CString str = strInput.Right( nLen );
@@ -734,21 +734,21 @@ BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
 	return _tcsnicmp( pszTest, pszText, nLen ) == 0;
 }
 
-BOOL IsText(const CString& strInput, LPCTSTR pszText, size_t nLen /*0*/)
+BOOL IsText(const CString& strInput, LPCTSTR pszText, int nLen /*0*/)
 {
 	if ( strInput[0] != *pszText && //*pszText < L'A' ||
-		( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char?
+	   ( strInput[0] & ~0x20 ) != *pszText && strInput[0] != ( *pszText & ~0x20 ) )		// Fast case-insensitive first char?
 		return FALSE;
 
 	if ( ! nLen )
-		nLen = _tcslen( pszText );
+		nLen = (int)_tcslen( pszText );
 
-	if ( (size_t)strInput.GetLength() != nLen )
+	if ( strInput.GetLength() != nLen )
 		return FALSE;
 
 	//return _tcsnicmp( (LPCTSTR)strInput, pszText, nLen ) == 0;
 
-	for ( size_t n = 0 ; n < nLen ; n++ && pszText++ )
+	for ( int n = 0 ; n < nLen ; n++ && pszText++ )
 	{
 		if ( strInput[ n ] != *pszText &&
 			 tolower( strInput[ n ] ) != tolower( *pszText ) )

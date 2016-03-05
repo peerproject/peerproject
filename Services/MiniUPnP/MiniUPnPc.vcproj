@@ -319,6 +319,10 @@
 				>
 			</File>
 			<File
+				RelativePath="minissdpc.c"
+				>
+			</File>
+			<File
 				RelativePath="miniupnpc.c"
 				>
 			</File>
@@ -342,6 +346,9 @@
 				RelativePath="upnpcommands.c"
 				>
 			</File>
+				RelativePath="upnpdev.c"
+				>
+			</File>
 			<File
 				RelativePath="upnperrors.c"
 				>
@@ -361,7 +368,7 @@
 				>
 			</File>
 			<File
-				RelativePath="declspec.h"
+				RelativePath="miniupnpc_declspec.h"
 				>
 			</File>
 			<File
@@ -370,6 +377,10 @@
 			</File>
 			<File
 				RelativePath="minisoap.h"
+				>
+			</File>
+			<File
+				RelativePath="minissdpc.h"
 				>
 			</File>
 			<File
@@ -402,6 +413,10 @@
 			</File>
 			<File
 				RelativePath="upnpcommands.h"
+				>
+			</File>
+			<File
+				RelativePath="upnpdev.h"
 				>
 			</File>
 			<File

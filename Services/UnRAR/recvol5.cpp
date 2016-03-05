@@ -40,7 +40,6 @@ RecVolumes5::~RecVolumes5()
 }
 
 
-
 #ifdef RAR_SMP
 THREAD_PROC(RecThreadRS)
 {
@@ -121,7 +120,6 @@ void RecVolumes5::ProcessAreaRS(RecRSThreadData *td)
   for (uint I=0;I<Count;I++)
     td->RS->UpdateECC(td->DataNum, I, td->Data+td->StartPos, Buf+I*RecBufferSize+td->StartPos, td->Size);
 }
-
 
 
 bool RecVolumes5::Restore(RAROptions *Cmd,const wchar *Name,bool Silent)
@@ -290,6 +288,7 @@ bool RecVolumes5::Restore(RAROptions *Cmd,const wchar *Name,bool Silent)
     {
       wcsncpyz(Item->Name,FirstVolName,ASIZE(Item->Name));
       uiMsg(UIMSG_CREATING,Item->Name);
+      uiMsg(UIEVENT_NEWARCHIVE,Item->Name);
       File *NewVol=new File;
       bool UserReject;
       if (!FileCreate(Cmd,NewVol,Item->Name,ASIZE(Item->Name),&UserReject))

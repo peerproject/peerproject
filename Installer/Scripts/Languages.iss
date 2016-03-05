@@ -132,50 +132,6 @@ Source: "Languages\zhs.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignorevers
 Source: "Languages\zht.xml"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
 Source: "Languages\zht.ico"; DestDir: "{app}\Skins\Languages"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Languages: zht; Tasks: not language
 
-
-; Common remote files
-Source: "Remote\Resources\*"; DestDir: "{app}\Remote\Resources"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
-Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"
-
-; Install localized remote otherwise
-; English-UK
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: en_uk
-; Czech
-Source: "Remote\cz\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: cz
-; German
-Source: "Remote\de\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: de
-; Spanish
-Source: "Remote\es\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: es es_mx
-; French
-Source: "Remote\fr\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: fr
-; Greek
-Source: "Remote\gr\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: gr
-; Hungarian
-Source: "Remote\hu\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: hu
-; Italian
-Source: "Remote\it\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: it
-; Lithuanian
-Source: "Remote\lt\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: lt
-; Dutch
-Source: "Remote\nl\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: nl
-; Norwegian
-Source: "Remote\no\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: no
-; Portuguese
-Source: "Remote\pt\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: pt pt_br
-; Russian
-Source: "Remote\ru\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ru
-; Swedish
-Source: "Remote\sv\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sv
-; Albanian
-Source: "Remote\sq\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sq
-; Serbian, Slovenian, Polish, Turkish, Hebrew, Catalan, Korean
-;Source: "Remote\en\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: sr sl pl tr ca he ko
-; Japanese
-Source: "Remote\ja\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: ja
-; Chinese Simp/Trad
-Source: "Remote\zhs\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn"; Languages: zhs zht
-
-
 ; Common License file
 Source: "Installer\License\Default.rtf"; DestDir: "{app}\Uninstall"; DestName: "AGPL License.rtf"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
@@ -286,7 +242,7 @@ en.WelcomeLabel1=%nWelcome to the%n[name] Setup Wizard
 en.WelcomeLabel2=This will install [name/ver]%nP2P filesharing on your computer.%n%nIt is recommended to close applications before continuing.
 en.FinishedHeadingLabel=%nCompleting the [name]%nInstaller Wizard
 en.FinishedLabel=Setup has finished installing [name] on your computer.%nIt can be launched from the installed shortcut icons.
-en.LicenseLabel3=Please read the following license summary.%nYou should understand the basic terms of this License before continuing installation.
+en.LicenseLabel3=Please read the following open-source license summary.%nYou should understand the basic terms of this License before continuing installation.
 
 
 [CustomMessages]
@@ -299,10 +255,11 @@ components_skins=Skins
 tasks_allusers=All users
 tasks_selectusers=Install %1 for:
 tasks_currentuser=%1 only
+tasks_pintaskbar=Pin icon to taskbar
 tasks_languages=Install multi-language support
 tasks_multisetup=Setup Windows multi-user data
 ;tasks_upnp=Enable Plug'n'Play port-forwarding
-tasks_firewall=Add an exception to the Windows Firewall
+;tasks_firewall=Add an exception to the Windows Firewall
 tasks_webhook=Enable IE web browser integration
 tasks_resetdiscoveryhostcache=Reset network sources  (Discovery/Hostcache)
 tasks_deleteoldsetup=Delete old installers
@@ -326,7 +283,7 @@ dialog_firewall=Setup failed to add PeerProject to the Windows Firewall.%nPlease
 dialog_malwaredetected=Malware is been detected on your system at %1, please remove it with an anti-virus before installing PeerProject.  Do you wish to exit now?
 page_safetywarning_title=Safety Awareness
 page_safetywarning_subtitle=Do you have an AntiVirus program running?
-page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that anti-p2p companies will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright work may be liable in some countries.%nThe best policy is to boycott big corporate copyright-abusers entirely:%nSimply don't promote those who won't appreciate it, many others do.%n
+page_safetywarning_text=Filesharing is a home server with browser to find others like you.%n%nWhen downloading, always have an updated virus scanner to protect yourself from malicious files.  Be aware that spammers will return fake results to searches, but can easily be banned.%n%nWhen uploading, recognize Permissive and Restrictive material.%nSharing unlicensed copyright work may be liable in many countries.%nThe best policy is to boycott corporate copyright maximalists entirely:%nSimply don't promote those who won't appreciate it, many others do.%n
 ; Don't copy these last 2 messages, they are just links.
 page_safetywarning_link=http://security.peerproject.org
 page_safetywarning_destination=http://security.peerproject.org
@@ -343,7 +300,7 @@ af.tasks_selectusers=Installeer %1 vir die volgende gebruikers:
 af.tasks_currentuser=Vir %1 alleenlik
 af.tasks_multisetup=Skakel ondersteuning vir veelvuldige gebruikers aan
 ;af.tasks_upnp=Enable Plug'n'Play port-forwarding
-af.tasks_firewall=Voeg 'n uitsondering by die Windows Netskans
+;af.tasks_firewall=Voeg 'n uitsondering by die Windows Netskans
 af.tasks_webhook=Aktiveer webblaaier integrasie
 af.tasks_resetdiscoveryhostcache=Herstel netwerk bronne  (Ontdekking / Gasheer kas)
 af.tasks_deleteoldsetup=Skrap ou opstellerslêers
@@ -373,7 +330,7 @@ ar.tasks_selectusers=ãä ÃÌá %1 ÊÑßíÈ:
 ar.tasks_currentuser=%1 İŞØ
 ar.tasks_multisetup=Êãßíä ÇáÏÚã áÚÏÉ ãÓÊÎÏãíä
 ;ar.tasks_upnp=Enable Plug'n'Play port-forwarding
-ar.tasks_firewall=ÅÖÇİÉ ÅÓÊËäÇÁ Åáì ÌÏÇÑ ÇáæíäÏæÒ ÇáäÇÑí
+;ar.tasks_firewall=ÅÖÇİÉ ÅÓÊËäÇÁ Åáì ÌÏÇÑ ÇáæíäÏæÒ ÇáäÇÑí
 ;ar.tasks_webhook=Êãßíä ÊßÇãá ÇáãÊÕİÍ Úáì ÔÈßÉ ÇáÅäÊÑäÊ
 ar.tasks_resetdiscoveryhostcache=ÅÚÇÏÉ ÊÚííä ãÕÇÏÑ ÇáÔÈßÉ (ÇßÊÔÇİ / ÊÓÊÖíİ)
 ar.tasks_deleteoldsetup=ÍĞİ ãáİÇÊ ÇáÊÑßíÈ ÇáŞÏíãÉ
@@ -403,7 +360,7 @@ ca.tasks_selectusers=Instal·lar %1 per a:
 ca.tasks_currentuser=%1 únicament
 ca.tasks_multisetup=Habilita el suport multi-usuari
 ;ca.tasks_upnp=Habilita el descobriment de dispositius Plug'n'Play
-ca.tasks_firewall=Afegeix una excepció al tallafocs del Windows
+;ca.tasks_firewall=Afegeix una excepció al tallafocs del Windows
 ca.tasks_webhook=Permetre la integració del navegador web
 ca.tasks_resetdiscoveryhostcache=Reestableix els serveis de descobriment i caxè de servidors
 ca.tasks_deleteoldsetup=Esborra instal·lacions antigues
@@ -434,7 +391,7 @@ cz.tasks_selectusers=Instalovat %1 pro:
 cz.tasks_currentuser=jen %1
 cz.tasks_multisetup=Povolit pøístup více uivatelù
 ;cz.tasks_upnp=Povolit zjišování Plug'n'Play zaøízení
-cz.tasks_firewall=Pøidat pravidlo do Windows firewallu
+;cz.tasks_firewall=Pøidat pravidlo do Windows firewallu
 cz.tasks_webhook=Povolit webovı prohlíec integrace
 cz.tasks_resetdiscoveryhostcache=Obnovit seznamy serverù
 cz.tasks_deleteoldsetup=Smazat staré instalátory
@@ -464,7 +421,7 @@ de.tasks_selectusers=Installieren %1 für:
 de.tasks_currentuser=Nur für %1
 de.tasks_multisetup=Mehrbenutzerunterstützung aktivieren
 ;de.tasks_upnp=Automatische Routerkonfiguration benutzen (Plug'n'Play)
-de.tasks_firewall=Eine Ausnahme zur Windows-Firewall hinzufügen
+;de.tasks_firewall=Eine Ausnahme zur Windows-Firewall hinzufügen
 de.tasks_webhook=Aktivieren Sie Web Browser-Integration
 de.tasks_resetdiscoveryhostcache=Service-Provider und Host-Cache zurücksetzen
 de.tasks_deleteoldsetup=Alte Installer löschen
@@ -495,7 +452,7 @@ ee.tasks_selectusers=Installi %1 jaoks:
 ee.tasks_currentuser=%1 ainult
 ee.tasks_multisetup=Võimalda mitmekasutaja tugi
 ;ee.tasks_upnp=Enable Plug'n'Play port-forwarding
-ee.tasks_firewall=Lisa erand Windowsi Tulemüüri
+;ee.tasks_firewall=Lisa erand Windowsi Tulemüüri
 ee.tasks_webhook=Luba brauseri integratsioon
 ee.tasks_resetdiscoveryhostcache=Taasta võrgu allikatest  (Avastus/Puhvri vahemälu)
 ee.tasks_deleteoldsetup=Kustuta vanad installerid
@@ -525,7 +482,7 @@ es.tasks_selectusers=Instalar %1 para:
 es.tasks_currentuser=%1 solamente
 es.tasks_multisetup=Habilitar soporte multi-usuario
 ;es.tasks_upnp=Habilitar reenvío de puertos Plug'n'Play
-es.tasks_firewall=Agregar una excepción al Firewall de Windows
+;es.tasks_firewall=Agregar una excepción al Firewall de Windows
 es.tasks_webhook=Permitir la integración del navegador web
 es.tasks_resetdiscoveryhostcache=Resetear las fuentes de red  (Descubrimiento/Hosts)
 es.tasks_deleteoldsetup=Borrar archivos de instaladores viejos
@@ -555,7 +512,7 @@ es_mx.tasks_selectusers=Instalar %1 para:
 es_mx.tasks_currentuser=%1 solamente
 es_mx.tasks_multisetup=Habilitar soporte multi-usuario
 ;es_mx.tasks_upnp=Habilitar reenvío de puertos Plug'n'Play
-es_mx.tasks_firewall=Agregar una excepción al Firewall de Windows
+;es_mx.tasks_firewall=Agregar una excepción al Firewall de Windows
 es_mx.tasks_webhook=Permitir la integración del navegador web
 es_mx.tasks_resetdiscoveryhostcache=Resetear las fuentes de red  (Descubrimiento/Hosts)
 es_mx.tasks_deleteoldsetup=Borrar archivos de instaladores viejos
@@ -585,7 +542,7 @@ fr.tasks_selectusers=Installer %1 pour:
 fr.tasks_currentuser=%1 seulement
 fr.tasks_multisetup=Activer le support multi-utilisateurs
 ;fr.tasks_upnp=Activer UPnP pour essayer de découvrir les pare-feux/routeurs.
-fr.tasks_firewall=Ajouter une exception au Pare-feu Windows
+;fr.tasks_firewall=Ajouter une exception au Pare-feu Windows
 fr.tasks_webhook=Activer l'intégration au navigateur Web
 fr.tasks_resetdiscoveryhostcache=Remettre à zéro les services de découverte et le tampon pour les hôtes
 fr.tasks_deleteoldsetup=Voulez-vous supprimer les anciens fichiers d'installation de PeerProject ?
@@ -615,7 +572,7 @@ fi.tasks_selectusers=Asenna %1 käyttäjille:
 fi.tasks_currentuser=%1 vain
 fi.tasks_multisetup=Asenna kaikille koneen käyttäjille
 ;fi.tasks_upnp=Enable Plug'n'Play port-forwarding
-fi.tasks_firewall=Lisää poikkeus Windowsin palomuuriin
+;fi.tasks_firewall=Lisää poikkeus Windowsin palomuuriin
 fi.tasks_webhook=Ota selaimen integrointi
 fi.tasks_resetdiscoveryhostcache=Palauta verkon lähteet (Löytö/Hosts)
 fi.tasks_deleteoldsetup=Poista vanhat asennusohjelmat
@@ -645,7 +602,7 @@ gr.tasks_selectusers=ÅãêáôÜóôáóç %1 ãéá:
 gr.tasks_currentuser=%1 ìüíï
 gr.tasks_multisetup=Åíåñãïğïßçóç ôçò âïŞèåéáò ğïëëáğëşí ÷ñçóôşí
 ;gr.tasks_upnp=Enable Plug'n'Play port-forwarding
-gr.tasks_firewall=ÂÜëå ìéá åîáßñåóç óôï ôåß÷ïò ğñïóôáóßáò ôùí Windows
+;gr.tasks_firewall=ÂÜëå ìéá åîáßñåóç óôï ôåß÷ïò ğñïóôáóßáò ôùí Windows
 ;gr.tasks_webhook=Åíåñãïğïßçóç ğñïãñÜììáôïò ğåñéŞãçóçò web İíôáîç
 gr.tasks_resetdiscoveryhostcache=ÅğáíáöïñÜ ğçãİò ôïõ äéêôıïõ (áíáêÜëõøç/Õğïëïãéóôİò)
 gr.tasks_deleteoldsetup=Äéİãñáøå ôçí ğáëéÜ åãêáôÜóôáóç
@@ -675,7 +632,7 @@ he.tasks_selectusers=äú÷ï àú %1 òáåø
 he.tasks_currentuser=%1 ø÷
 he.tasks_multisetup=àôùø úîéëä ìîùúîùéí îøåáéí
 ;he.tasks_upnp=Enable Plug'n'Play port-forwarding
-he.tasks_firewall=äåñó ëìì ìçåîú äàù ìàéôùåø ùøæä
+;he.tasks_firewall=äåñó ëìì ìçåîú äàù ìàéôùåø ùøæä
 ;he.tasks_webhook=ìàôùø ùéìåá ãôãôï àéğèøğè
 he.tasks_resetdiscoveryhostcache=àéôåñ î÷åøåú øùú  (âéìåé/îàøçéí)
 he.tasks_deleteoldsetup=îç÷ äú÷ğåú éùğåú
@@ -705,7 +662,7 @@ hu.tasks_selectusers=Megadott felhaszáló:
 hu.tasks_currentuser=Jelenlegi felhasználó
 hu.tasks_multisetup=Többfelhasználós mód engedélyezése
 ;hu.tasks_upnp=Automatikus routerbeállítás (UPnP szolgáltatás)
-hu.tasks_firewall=Felvétel a Windows tûzfal kivételeihez
+;hu.tasks_firewall=Felvétel a Windows tûzfal kivételeihez
 hu.tasks_webhook=Engedélyezze a böngészo integrációja
 hu.tasks_resetdiscoveryhostcache=A Szerverkeresõ és a Kiszolgálók listájának alaphelyzetbe állítása
 hu.tasks_deleteoldsetup=Régi telepítõk törlése
@@ -736,7 +693,7 @@ it.tasks_selectusers=Installa %1 per:
 it.tasks_currentuser=Solo %1
 it.tasks_multisetup=Abilita il supporto multi-utente
 ;it.tasks_upnp=Abilita il rilevamento dei dispositivi Plug'n'Play
-it.tasks_firewall=Aggiungi un'eccezione a Windows Firewall
+;it.tasks_firewall=Aggiungi un'eccezione a Windows Firewall
 it.tasks_webhook=Abilitare l'integrazione del browser web
 it.tasks_resetdiscoveryhostcache=Resetta i servizi di connessione e la cache host
 it.tasks_deleteoldsetup=Cancella installer vecchi
@@ -767,7 +724,7 @@ lt.tasks_selectusers=Ádiegti „%1“ ğiems vartotojams:
 lt.tasks_currentuser=Tik vartotojui %1
 lt.tasks_multisetup=Ágalinti keliø vartotojø palaikymà
 ;lt.tasks_upnp=Ágalinti Plug'n'Play árenginiø aptikimà
-lt.tasks_firewall=Pridëti prie Windows ugniasienës iğimèiø sàrağo
+;lt.tasks_firewall=Pridëti prie Windows ugniasienës iğimèiø sàrağo
 lt.tasks_webhook=Ijungti interneto naršykles integracija
 lt.tasks_resetdiscoveryhostcache=Apnulinti tarnybas ir adresatø talpyklas
 lt.tasks_deleteoldsetup=Trinti senas diegimo programas
@@ -798,7 +755,7 @@ nl.tasks_selectusers=Installeer %1 voor:
 nl.tasks_currentuser=Alleen %1
 nl.tasks_multisetup=Ondersteuning voor meerdere gebruikers inschakelen
 ;nl.tasks_upnp=Configureer automatisch mijn router (Plug'n'Play)
-nl.tasks_firewall=Een uitzondering aan de Windows Firewall toevoegen
+;nl.tasks_firewall=Een uitzondering aan de Windows Firewall toevoegen
 nl.tasks_webhook=Schakel webbrowser integratie
 nl.tasks_resetdiscoveryhostcache=Herstel de Discovery- en Hostcachelist
 nl.tasks_deleteoldsetup=Oude installatieprogramma's wissen
@@ -828,7 +785,7 @@ no.tasks_selectusers=Installer %1 for:
 no.tasks_currentuser=Kun %1
 no.tasks_multisetup=Flere brukere
 ;no.tasks_upnp=Enable Plug'n'Play port-forwarding
-no.tasks_firewall=Lag nytt unntak i Windows brannmur
+;no.tasks_firewall=Lag nytt unntak i Windows brannmur
 no.tasks_webhook=Aktiver nettleser integrasjon
 no.tasks_resetdiscoveryhostcache=Nullstiller nettverksinnstillingene kilder (Verter)
 no.tasks_deleteoldsetup=Slett eldre installasjonsfiler
@@ -858,7 +815,7 @@ pl.tasks_selectusers=Instaluj dla %1:
 pl.tasks_currentuser=tylko %1
 pl.tasks_multisetup=W³¹cz obs³ugê wielu u¿ytkowników
 ;pl.tasks_upnp=Enable Plug'n'Play port-forwarding
-pl.tasks_firewall=Dodaj wyj¹tek do Firewall'a Windows'a
+;pl.tasks_firewall=Dodaj wyj¹tek do Firewall'a Windows'a
 pl.tasks_webhook=Wlacz integracje przegladarki internetowej
 pl.tasks_resetdiscoveryhostcache=Reset network sources  (Discovery/Hostcache)
 pl.tasks_deleteoldsetup=Usuñ stare instalatory
@@ -888,7 +845,7 @@ pt.tasks_selectusers=Instalar %1 para:
 pt.tasks_currentuser=somente %1
 pt.tasks_multisetup=Ativar o suporte a vários usuários
 ;pt.tasks_upnp=Ativar a descoberta de dispositivos Plug'n'Play
-pt.tasks_firewall=Adicionar exceção ao Firewall do Windows
+;pt.tasks_firewall=Adicionar exceção ao Firewall do Windows
 pt.tasks_webhook=Permitir a integração navegador
 pt.tasks_resetdiscoveryhostcache=Resetar o Cache de Armazenamento e Descoberta
 pt.tasks_deleteoldsetup=Apagar os instaladores antigos
@@ -918,7 +875,7 @@ pt_br.tasks_selectusers=Instalar o %1 para:
 pt_br.tasks_currentuser=só para o %1
 pt_br.tasks_multisetup=Ativar suporte para vários usuários
 ;pt_br.tasks_upnp=Ativar o descobrimento de dispositivos Plug'n'Play
-pt_br.tasks_firewall=Adicionar uma exceção ao Firewall do Windows
+;pt_br.tasks_firewall=Adicionar uma exceção ao Firewall do Windows
 pt_br.tasks_webhook=Permitir a integração navegador
 pt_br.tasks_resetdiscoveryhostcache=Resetar o Descobrimento e o Cache dos Hosts
 pt_br.tasks_deleteoldsetup=Apagar os instaladores antigos
@@ -949,7 +906,7 @@ ru.tasks_selectusers=Óñòàíîâèòü %1 äëÿ:
 ru.tasks_currentuser=Òîëüêî äëÿ %1
 ru.tasks_multisetup=Ğàçğåøèòü ïîääåğæêó íåñêîëüêèõ ïîëüçîâàòåëåé
 ;ru.tasks_upnp=Âêëş÷èòü íàõîæäåíèå óñòğîéñâ Plug'n'Play
-ru.tasks_firewall=Äîáàâèòü â ñïèñîê èñêëş÷åíèé áğàíìàóığà Windows
+;ru.tasks_firewall=Äîáàâèòü â ñïèñîê èñêëş÷åíèé áğàíìàóığà Windows
 ru.tasks_webhook=Âêëş÷åíèå èíòåãğàöèè âåá-áğàóçåğà
 ru.tasks_resetdiscoveryhostcache=Ñáğîñèòü ğåñóğñû ñîåäèíåíèé è êıø õîñòîâ
 ru.tasks_deleteoldsetup=Óäàëèòü ñòàğûå èíñòàëëÿòîğû
@@ -980,7 +937,7 @@ sl.tasks_selectusers=Namesti %1 za:
 sl.tasks_currentuser=Samo %1
 sl.tasks_multisetup=Omogoèi veè-uporabniško podporo
 ;sl.tasks_upnp=Enable Plug'n'Play port-forwarding
-sl.tasks_firewall=Dodaj izjemo v Windows poarni zid
+;sl.tasks_firewall=Dodaj izjemo v Windows poarni zid
 sl.tasks_webhook=Omogocajo integracijo spletnega brskalnika
 sl.tasks_resetdiscoveryhostcache=Reset network sources  (Discovery/Hostcache)
 sl.tasks_deleteoldsetup=Briši stare namešèevalce
@@ -1010,7 +967,7 @@ sq.tasks_selectusers=Instalo %1 për:
 sq.tasks_currentuser=%1 vetëm
 sq.tasks_multisetup=Lejo përkrahjen më shumë përdorues
 ;sq.tasks_upnp=Lejo zbulimin e pajisjeve Plug'n'Play
-sq.tasks_firewall=Shto një përjashtim te Fajruolli i Windows-it
+;sq.tasks_firewall=Shto një përjashtim te Fajruolli i Windows-it
 sq.tasks_webhook=Mundësojë integrimin shfletuesit web
 sq.tasks_resetdiscoveryhostcache=Rivendos Zbulimin dhe Depon me Hostet
 sq.tasks_deleteoldsetup=Fshiji instaluesit e vjetër
@@ -1041,7 +998,7 @@ sr.tasks_selectusers=Instaliraj %1 za:
 sr.tasks_currentuser=%1 samo
 sr.tasks_multisetup=Omoguæi više-korisnièku podršku
 ;sr.tasks_upnp=Enable Plug'n'Play port-forwarding
-sr.tasks_firewall=Dodaj izuzetak u Windows Vatrozid
+;sr.tasks_firewall=Dodaj izuzetak u Windows Vatrozid
 ;sr.tasks_webhook=Enable web browser integration
 sr.tasks_resetdiscoveryhostcache=Reset network sources  (Discovery/Hostcache)
 sr.tasks_deleteoldsetup=Ukloni stare instalere
@@ -1071,7 +1028,7 @@ sv.tasks_selectusers=Installera %1 för:
 sv.tasks_currentuser=%1 endast
 sv.tasks_multisetup=Aktivera stöd för flera användare
 ;sv.tasks_upnp=Tillåt upptäckt av UPnP-enheter
-sv.tasks_firewall=Lägg till ett undantag till Windows brandvägg
+;sv.tasks_firewall=Lägg till ett undantag till Windows brandvägg
 sv.tasks_webhook=Aktivera integrering webbläsare
 sv.tasks_resetdiscoveryhostcache=Återställ upptäckstjänster och värdcache
 sv.tasks_deleteoldsetup=Radera gamla installationer
@@ -1102,7 +1059,7 @@ tr.tasks_selectusers=%1 Kuruldu:
 tr.tasks_currentuser=Sadece %1
 tr.tasks_multisetup=Çoklu kullanıcı desteğini etkinleştir
 ;tr.tasks_upnp=Plug'n'Play cihazlarin kesfini etkinlestir
-tr.tasks_firewall=Windows Güvenlik Duvarına bir değişiklik ekle
+;tr.tasks_firewall=Windows Güvenlik Duvarına bir değişiklik ekle
 tr.tasks_webhook=Web tarayicisi entegrasyonu etkinlestir
 tr.tasks_resetdiscoveryhostcache=Kesif servisleri ile host bellegini sifirla
 tr.tasks_deleteoldsetup=Eski kurulumları sil
@@ -1132,7 +1089,7 @@ zht.tasks_selectusers=¬°³o¨Ç¨Ï¥ÎªÌ¦w¸Ë %1:
 zht.tasks_currentuser=¥u¦³ %1
 zht.tasks_multisetup=±Ò¥Î¦h­«¨Ï¥ÎªÌ¤ä´©
 ;zht.tasks_upnp=Enable Plug'n'Play port-forwarding
-zht.tasks_firewall=¼W¥[¨Ò¥~¦Ü Windows ¨¾¤õÀğ (XP)
+;zht.tasks_firewall=¼W¥[¨Ò¥~¦Ü Windows ¨¾¤õÀğ (XP)
 zht.tasks_webhook=±Ò¥ÎWebÂsÄı¾¹¶°¦¨
 zht.tasks_resetdiscoveryhostcache=­«¸mºôµ¸·½¡]´r´º/¥D¾÷¡^
 zht.tasks_deleteoldsetup=§R°£ÂÂªº¦w¸Ëµ{¦¡
@@ -1162,7 +1119,7 @@ zhs.tasks_selectusers=°²×° %1 Îª:
 zhs.tasks_currentuser=½ö %1
 zhs.tasks_multisetup=ÆôÓÃ¶àÓÃ»§Ö§³Ö
 ;zhs.tasks_upnp=ÆôÓÃ UPnP Çı¶¯Æ÷²éÑ¯
-zhs.tasks_firewall=Ìí¼ÓÒ»¸öÀıÍâµ½ Windows ·À»ğÇ½
+;zhs.tasks_firewall=Ìí¼ÓÒ»¸öÀıÍâµ½ Windows ·À»ğÇ½
 zhs.tasks_webhook=ÆôÓÃWebä¯ÀÀÆ÷¼¯³É
 zhs.tasks_resetdiscoveryhostcache=ÖØÖÃÍøÂçÔ´£¨Óä¾°/Ö÷»ú£©
 zhs.tasks_deleteoldsetup=É¾³ı¾ÉµÄ°²×°ÎÄ¼ş
@@ -1192,7 +1149,7 @@ ja.tasks_selectusers=%1‚ğ‚µ‚æ‚¤‚·‚éƒ†[ƒU[:
 ja.tasks_currentuser=%1‚Ì‚İ
 ja.tasks_multisetup=ƒ}ƒ‹ƒ`ƒ†[ƒU[ƒTƒ|[ƒg
 ;ja.tasks_upnp=UPnP‘Î‰‹@Ší‚ÌŒŸo‚ğ—LŒø‚É‚·‚é
-ja.tasks_firewall=Windowsƒtƒ@ƒCƒ„[ƒEƒH[ƒ‹‚Ì—áŠO‚Éİ’è
+;ja.tasks_firewall=Windowsƒtƒ@ƒCƒ„[ƒEƒH[ƒ‹‚Ì—áŠO‚Éİ’è
 ja.tasks_webhook=Webƒuƒ‰ƒEƒU‚Ì“‡‚ğ—LŒø‚É‚·‚é
 ja.tasks_resetdiscoveryhostcache=ƒlƒbƒgƒ[ƒNƒ\[ƒX‚ğƒŠƒZƒbƒg‚µ‚Ü‚·B iƒfƒBƒXƒJƒoƒŠ[/ƒzƒXƒgj
 ja.tasks_deleteoldsetup=ŒÃ‚¢ƒCƒ“ƒXƒg[ƒ‰[‚Ìíœ

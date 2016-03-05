@@ -10,25 +10,25 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: msvc_never_true.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
 
-//#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
-//
-//namespace boost { namespace mpl { namespace aux {
-//
-//template< typename T >
-//struct msvc_never_true
-//{
-//  enum { value = false };
-//};
-//
-//}}}
-//
-//#endif // BOOST_MSVC
+#if BOOST_WORKAROUND(BOOST_MSVC, <= 1300)
+
+namespace boost { namespace mpl { namespace aux {
+
+template< typename T >
+struct msvc_never_true
+{
+    enum { value = false };
+};
+
+}}}
+
+#endif // BOOST_MSVC
 
 #endif // BOOST_MPL_AUX_MSVC_NEVER_TRUE_HPP_INCLUDED

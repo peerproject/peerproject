@@ -1,7 +1,7 @@
 /* $Id: minisoap.c,v 1.22 2012/01/21 13:30:31 nanard Exp $ */
 /* Project : miniupnp
  * Author : Thomas Bernard
- * Copyright (c) 2005-2014 Thomas Bernard
+ * Copyright (c) 2005-2015 Thomas Bernard
  * This software is subject to the conditions detailed in the
  * LICENCE file provided in this distribution.
  *
@@ -43,10 +43,10 @@ httpWrite(int fd, const char * body, int bodysize, const char * headers, int hea
 	/* Note : my old linksys router only took into account
 	 * soap request that are sent into only one packet */
 	char * p;
-	/* TODO: AVOID MALLOC */
+	/* ToDo: AVOID MALLOC, we could use writev() for that */
 	p = malloc(headerssize+bodysize);
 	if(!p)
-	  return 0;
+	  return -1;
 	memcpy(p, headers, headerssize);
 	memcpy(p+headerssize, body, bodysize);
 	/*n = write(fd, p, headerssize+bodysize);*/
@@ -104,12 +104,11 @@ int soapPostSubmit(int fd,
 						"Pragma: no-cache\r\n"
 						"\r\n",
 						url, httpversion, host, portstr, bodysize, action);
+	if ((unsigned int)headerssize >= sizeof(headerbuf))
+		return -1;
 #ifdef DEBUG
-	/*printf("SOAP request : headersize=%d bodysize=%d\n",
-			headerssize, bodysize);
-	*/
-	printf("SOAP request : POST %s HTTP/%s - Host: %s%s\n",
-			url, httpversion, host, portstr);
+	/*printf("SOAP request : headersize=%d bodysize=%d\n", headerssize, bodysize);*/
+	printf("SOAP request : POST %s HTTP/%s - Host: %s%s\n", url, httpversion, host, portstr);
 	printf("SOAPAction: \"%s\" - Content-Length: %d\n", action, bodysize);
 	printf("Headers :\n%s", headerbuf);
 	printf("Body :\n%s\n", body);

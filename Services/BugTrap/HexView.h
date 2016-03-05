@@ -56,7 +56,7 @@ private:
 	/// Load cache from file.
 	void LoadCache(void);
 	/// Load line to the cache.
-	void CacheLine(DWORD dw—achedLineNum);
+	void CacheLine(DWORD dwCachedLineNum);
 	/// Get current font metrics.
 	void GetTextMetrics(PTEXTMETRIC pTextMetric);
 

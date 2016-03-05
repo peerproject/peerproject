@@ -126,6 +126,7 @@
 	<resource code="308" id="IDB_SOCIAL"/>
 	<resource code="309" id="IDB_CHILDFRAME"/>
 	<resource code="309" id="WINDOW_CHILD"/>
+	<resource code="315" id="IDB_QRCODE"/>
 	<resource code="320" id="IDB_MEDIA_STATES"/>
 	<resource code="321" id="IDB_SORT_ASC"/>
 	<resource code="322" id="IDB_SORT_DESC"/>

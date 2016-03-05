@@ -1,7 +1,7 @@
 //
 // DownloadWithFile.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -542,33 +542,37 @@ QWORD CDownloadWithFile::GetVolumeRemaining() const
 
 DWORD CDownloadWithFile::GetTimeRemaining() const
 {
-	QWORD nRemaining	= GetVolumeRemaining();
-	DWORD nSpeed		= GetAverageSpeed();
-	if ( nSpeed == 0 || nRemaining == SIZE_UNKNOWN ) return 0xFFFFFFFF;
+	DWORD nSpeed = GetAverageSpeed();
+	if ( nSpeed == 0 ) return 0xFFFFFFFF;
+
+	QWORD nRemaining = GetVolumeRemaining();
+	if ( nRemaining == SIZE_UNKNOWN ) return 0xFFFFFFFF;
+
 	QWORD nTimeRemaining = nRemaining / nSpeed;
-	return ( ( nTimeRemaining > 0xFFFFFFFF ) ? 0xFFFFFFFF : (DWORD)nTimeRemaining );
+	if ( nTimeRemaining > 0xFFFFFFFF ) return 0xFFFFFFFF;
+
+	return (DWORD)nTimeRemaining;
 }
 
 CString CDownloadWithFile::GetDisplayName() const
 {
-	if ( ! m_sName.IsEmpty() ) return m_sName;
-
-	CString strName;
+	if ( ! m_sName.IsEmpty() )
+		return m_sName;
 
 	if ( m_oSHA1 )
-		strName = m_oSHA1.toShortUrn();
-	else if ( m_oTiger )
-		strName = m_oTiger.toShortUrn();
-	else if ( m_oED2K )
-		strName = m_oED2K.toShortUrn();
-	else if ( m_oBTH )
-		strName = m_oBTH.toShortUrn();
-	else if ( m_oMD5 )
-		strName = m_oMD5.toShortUrn();
-	else
-		strName = L"Unknown File";
+		return m_oSHA1.toShortUrn();
+	if ( m_oTiger )
+		return m_oTiger.toShortUrn();
+	if ( m_oED2K )
+		return m_oED2K.toShortUrn();
+	if ( m_oBTH )
+		return m_oBTH.toShortUrn();
+	if ( m_oMD5 )
+		return m_oMD5.toShortUrn();
 
-	return strName;
+	return Settings.General.LanguageDefault ?
+		CString( L"Unknown File" ) :
+		LoadString( IDS_STATUS_UNKNOWN );
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -709,7 +713,8 @@ CString CDownloadWithFile::GetDisplayName() const
 
 BOOL CDownloadWithFile::IsPositionEmpty(QWORD nOffset)
 {
-	return m_pFile.get() && m_pFile->IsValid() &&
+	return m_pFile.get() &&
+		m_pFile->IsValid() &&
 		m_pFile->IsPositionRemaining( nOffset );
 }
 
@@ -760,8 +765,9 @@ bool CDownloadWithFile::GetAvailableRanges(CString& strRanges) const
 	if ( oAvailable.empty() )
 		return false;
 
-	CString strRange;
 	strRanges = L"bytes ";
+
+	CString strRange;
 	Fragments::List::const_iterator pItr = oAvailable.begin();
 	const Fragments::List::const_iterator pEnd = oAvailable.end();
 	for ( ; pItr != pEnd && strRanges.GetLength() < HTTP_HEADER_MAX_LINE - 256 ; ++pItr )
@@ -783,10 +789,7 @@ BOOL CDownloadWithFile::ClipUploadRange(QWORD nOffset, QWORD& nLength) const
 	if ( ! m_pFile.get() || ! m_pFile->IsValid() )
 		return FALSE;
 
-	if ( nOffset >= m_nSize )
-		return FALSE;
-
-	if ( m_pFile->IsPositionRemaining( nOffset ) )
+	if ( nOffset >= m_nSize || m_pFile->IsPositionRemaining( nOffset ) )
 		return FALSE;
 
 	if ( nOffset + nLength > m_nSize )
@@ -815,7 +818,8 @@ BOOL CDownloadWithFile::GetRandomRange(QWORD& nOffset, QWORD& nLength) const
 	if ( ! m_pFile.get() || ! m_pFile->IsValid() )
 		return FALSE;
 
-	if ( m_pFile->GetCompleted() == 0 ) return FALSE;
+	if ( m_pFile->GetCompleted() == 0 )
+		return FALSE;
 
 	Fragments::List oFilled = inverse( GetEmptyFragmentList() );
 	Fragments::List::const_iterator pRandom = oFilled.random_range();
@@ -831,9 +835,12 @@ BOOL CDownloadWithFile::GetRandomRange(QWORD& nOffset, QWORD& nLength) const
 
 QWORD CDownloadWithFile::EraseRange(QWORD nOffset, QWORD nLength)
 {
-	if ( ! m_pFile.get() ) return 0;
-	QWORD nCount = m_pFile->InvalidateRange( nOffset, nLength );
-	if ( nCount > 0 ) SetModified();
+	if ( ! m_pFile.get() )
+		return 0;
+
+	const QWORD nCount = m_pFile->InvalidateRange( nOffset, nLength );
+	if ( nCount > 0 )
+		SetModified();
 	return nCount;
 }
 
@@ -865,6 +872,22 @@ BOOL CDownloadWithFile::SetSize(QWORD nSize)
 BOOL CDownloadWithFile::MakeComplete()
 {
 	return m_pFile.get() && m_pFile->MakeComplete();
+}
+
+//////////////////////////////////////////////////////////////////////
+// CDownloadWithFile verification handler
+
+BOOL CDownloadWithFile::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
+{
+	if ( ! pFile || ! m_pFile.get() || ! m_pFile->FindByPath( pFile->GetPath() ) )
+		return FALSE;
+
+	if ( bVerified != TRI_UNKNOWN )
+		m_bVerify = bVerified;
+
+	SetModified();
+
+	return TRUE;
 }
 
 //////////////////////////////////////////////////////////////////////
@@ -1001,21 +1024,4 @@ void CDownloadWithFile::SerializeFile(CArchive& ar, int nVersion)
 {
 	if ( m_pFile.get() )
 		m_pFile->Serialize( ar, nVersion );
-}
-
-
-//////////////////////////////////////////////////////////////////////
-// CDownloadWithFile verification handler
-
-BOOL CDownloadWithFile::OnVerify(const CLibraryFile* pFile, TRISTATE bVerified)
-{
-	if ( ! pFile || ! m_pFile.get() || ! m_pFile->FindByPath( pFile->GetPath() ) )
-		return FALSE;
-
-	if ( bVerified != TRI_UNKNOWN )
-		m_bVerify = bVerified;
-
-	SetModified();
-
-	return TRUE;
 }

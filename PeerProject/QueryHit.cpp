@@ -1,7 +1,7 @@
 //
 // QueryHit.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -426,7 +426,7 @@ CQueryHit* CQueryHit::FromG2Packet(CG2Packet* pPacket, int* pnHops)
 							strNick = pPacket->ReadString( nInner );
 							CT2A pszIP( (LPCTSTR)strNick );
 							ip = inet_addr( (LPCSTR)pszIP );
-							if ( ip != INADDR_NONE && strcmp( inet_ntoa( *(IN_ADDR*)&ip ), (LPCSTR)pszIP ) == 0 && nAddress != ip )
+							if ( ip != INADDR_NONE && _tcscmp( (LPCTSTR)CString( inet_ntoa( *(IN_ADDR*)&ip ) ), (LPCTSTR)strNick ) == 0 && nAddress != ip )
 								bSpam = true;
 							else if ( ! strNick.CompareNoCase( _T(VENDOR_CODE) ) )
 								bSpam = true;	// VendorCode Nick Spam

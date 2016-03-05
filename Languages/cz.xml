@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Czech Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.5.7) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.5.7) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -546,7 +546,7 @@
 				<menu text="_Webové stránky">
 					<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
 					<separator/>
-					<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+					<!--item id="ID_HELP_UPDATE" text="Poslední novinky"-->
 					<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
@@ -645,7 +645,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"-->
 				<item id="ID_HELP_WEB_1" text="Zeropaid.com"/>	-->
 			</menu>
 			<separator/>
@@ -714,7 +714,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -802,7 +802,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Diskus_e PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"/>
+				<!--item id="ID_HELP_UPDATE" text="Poslední novinky"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1603,7 +1603,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">OZNÁMENÍ AKTUALIZACE</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1611,7 +1611,7 @@
 			<link target="command:upgrade">Pro aktualizaci klikněte zde</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">POZOR - MÁTE ZAPNUTÝ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
@@ -1668,15 +1668,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Místní Fórum</link><gap size="6"/>
 		<text align="middle">- Přejít na české diskusní fórum jazyk</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">VZDÁLENÝ PŘÍSTUP JE ZAPNUTÝ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Je umožněn vzdálený přístup PeerProject. Pro ovládání PeerProject používejte vašeho internetového prohlížeče:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160; nebo &#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1762,7 +1762,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikněte zde pro rychlý kontrolní součet</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Klikněte zde pro pomalejší kontrolní součet</link>
 			</group>
 		</para>
@@ -1883,7 +1883,7 @@
 			<text>,</text>
 			<text id="Věk"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontaktní informace</text>
 			<newline gap="1" indent="8"/>
@@ -1918,7 +1918,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Zájmy</text>
 			<newline gap="2" indent="8"/>
@@ -2203,7 +2203,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Prohlížet sdílené soubory uživatele"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Prohlížet profil uživatele a jeho sdílené soubory."/>
 	<tip id="ID_BROWSE_PROFILE" message="Prohlédnout profil uživatele."/>
@@ -2521,12 +2521,12 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Zobrazit obrázek v původní velikosti."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Znovu načíst obrázek."/>
 	<tip id="PluginID_ImageViewer_Close" message="Zavřít okno prohlížeče obrázků."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Pokud je nastaveno maxium, pak rychlost stahování nepřekročí zadanou rychlost. Pokud je nastaven průměr, pak rychlost stahování může být mírně vyšší nebo nižší než rychlost zadaná."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Toto nastavení nemá vliv na již započatá stahování, stejně tak nemá toto stahování vliv na soubory s eDonkey hashem pokud je eDonkey síť povoelená ani na torrenty.\nToto nastavení ale ovlivňuje stahování, která jsou zastavená.\n\nPOZOR: Používejte toto nastavení jen v případě nutnosti, při zneužívání můžete dostat ban."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3242,9 +3242,10 @@
 	<string id="20891" value="K&amp;onec"/>
 	<string id="20892" value="Prosím čekejte, aktualizuji seznam eDonkey serverů..."/>
 	<string id="20893" value="Prosím čekejte, aktualizuji vyhledávací služby..."/>
-	<string id="20894" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
-	<!--string id="20895" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."-->
-	<!--string id="20896" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."-->
+	<!--string id="20894" value="Prosím čekejte, hledám UPnP zařízení a nastavuji je..."-->
+	<!--string id="20894" value="Zadali jste že chcete nastavit přenosový port na vašem firewallu nebo routeru.\n\nProsím nastavte si přenos vaší sítě na port TCP %i ve vašem počítači."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Ještě jste nezadali vaši rychlost připojení. Aby jste mohli pokračovat, buď vyberte vaše připojení k Internetu, nebo zadejte rychlost připojení."/>
 	<string id="20897" value="Část složky je již sdílená jako další sdílený podadresář\n\n%s"/>
 	<string id="20898" value="Nezadali jste žádné složky ke sdílení. Opravdu nechcete nic sdílet?"/>
 	<string id="20899" value="rok starý"/>
@@ -3289,7 +3290,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Lišta:"/>
 		<control caption="Když kliknu zavřít:"/>
-		<control caption="Zeptej se mě|Shodit do lišty|Ihned zavřít|Zavít po dokončení přenosu"/>
+		<control caption="Zeptej se mě|Shodit do lišty|Shodit do lišty|Zavít po dokončení přenosu|Ihned zavřít"/>
 		<control caption="Když kliknu minimalizovat:"/>
 		<control caption="Normálně na lištu|Shodit do ikony v liště"/>
 	</dialog>
@@ -3339,23 +3340,26 @@
 		<control caption="Pozor: Pokud je vybraný externí přehrávač multimédii nebudou dostupné rozšíření a vizualiazace PeerProject."/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Komunita">
-		<control caption="Můj _profil:"/>
-		<control caption="Můžete použít profil uživatele Gnutella ke sdělení informací o vás a vašich zájmech, a k doporučení zajímavých souborů a webových stránek."/>
-		<control caption="Upravit profil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Komunita">
 		<control caption="_Chat:"/>
 		<control caption="Umožnit přímý chat s kompatibilními klienty"/>
 		<control caption="Umožnit chatování na všech sítích"/>
 		<control caption="Filtrovat zprávy chatu na spam"/>
 		<control caption="Cenzurovat vulgárnost v chatu"/>
+		<control caption="Můj _profil:"/>
+		<control caption="Umožnit _profil"/>
+		<control caption="Upravit profil"/>
+		<control caption="Nápověda:"/>
+		<control caption="Můžete použít profil uživatele Gnutella ke sdělení informací o vás a vašich zájmech, a k doporučení zajímavých souborů a webových stránek."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Vzdálený přístup">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Vzdálený přístup">
 		<control caption="_Povolit přístup:"/>
 		<control caption="Povolit vzdálený přístup k PeerProject:"/>
 		<control/>
 		<control caption="_Osobní data:"/>
 		<control caption="Zadejte login:"/>
 		<control caption="Zadejte heslo:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control caption="Nápověda:"/>
@@ -3677,7 +3681,7 @@
 		<control/>
 		<control caption="Checte automaticky nastavit UPnP router na otevření portů?"/>
 		<control/>
-		<control caption="Port: (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Stav:"/>
@@ -4224,13 +4228,14 @@
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 		<control caption="Tento soubor jste již jednou stáhli a smazali. Co chcete udělat?"/>
-		<control caption="Pozor! Byl nalezeno více kopií téhož souboru. Je možné že se nějaký program snaží infikovat knihovnu virem. Ujistěte se, že jste tento soubor chtěli stáhnout, nebo, že jste jej do knihovny umístili ručně. Pokud ne, pak ukončetě PeerProject a spusťte anitvirovou kontrolu."/>
+		<control caption="Pozor: Byl nalezeno více kopií téhož souboru. Je možné že se nějaký program snaží infikovat knihovnu virem. Ujistěte se, že jste tento soubor chtěli stáhnout, nebo, že jste jej do knihovny umístili ručně. Pokud ne, pak ukončetě PeerProject a spusťte anitvirovou kontrolu."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Tlačítko Zavřít">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Tlačítko Zavřít">
 		<control caption="Je to poprvé co jste kliknuli na tlačítko Zavřít program PeerProject. Prosím zvolte si akci kterou PeerProject provede, když příště kliknete na tlačítko Zavřít:"/>
 		<control caption="Minimalizovat do dolní lišty"/>
+		<control caption="Minimalizovat do dolní lišty"/>
+		<control caption="Ukončit po dokončení mého stahování a odesílání"/>
 		<control caption="Ihned ukončit program PeerProject"/>
-		<control caption="Ukončit PeerProject po dokončení mého stahování a odesílání"/>
 		<control caption="OK"/>
 		<control caption="Zrušit"/>
 	</dialog>
@@ -4421,8 +4426,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="Webové rozhraní PeerProject"/>
+	<tag find="text_logout" replace="Odhlásit se"/>
+	<tag find="text_tabhome" replace="Domů"/>
+	<tag find="text_tabdownloads" replace="Stahování"/>
+	<tag find="text_tabuploads" replace="Odesílání"/>
+	<tag find="text_tabnetworks" replace="Sítě"/>
+	<tag find="text_tabsearch" replace="Hledání"/>
+	<tag find="text_welcome" replace="Vítejte ve <b>webovém rozhraní PeerProject</b>."/>
+	<tag find="text_logininfo" replace="Pokud je toto vaše instalace PeerProjecty, tak zadejte svůj login a heslo a klikněte na tlačítko <b>Přihlásit se</b>."/>
+	<tag find="text_loginfail" replace="Zadali jste nesprávný login nebo heslo, zkuste to prosím znovu."/>
+	<tag find="text_loginuser" replace="Login:"/>
+	<tag find="text_loginpass" replace="Heslo:"/>
+	<tag find="text_loginsubmit" replace="Přihlásit se"/>
+	<tag find="text_homeinfo" replace="Můžete zde ovládat síťová připojení, stahování a vyhledávat nové soubory."/>
+	<tag find="text_homestart" replace="Stáhnout"/>
+	<tag find="text_homequick" replace="Rychlé hledání:"/>
+	<tag find="text_homelinks" replace="Užitečné odkazy:"/>
+	<tag find="text_directdownload" replace="stažení Magnet/Torrent:"/>
+	<tag find="text_downloadcleartip" replace="Odebrat ze seznamu stahovaných souborů (stažený soubor nebude smazán)"/>
+	<tag find="text_downloadclear" replace="Odebrat"/>
+	<tag find="text_downloadresume" replace="Obnovit"/>
+	<tag find="text_downloadpause" replace="Pozastavit"/>
+	<tag find="text_downloadcancel" replace="Zrušit"/>
+	<tag find="text_downloadmoresources" replace="Více zdrojů"/>
+	<tag find="text_downloaddirect" replace="Stáhnout odkaz Magnet:"/>
+	<tag find="text_submit" replace="Ok"/>
+	<tag find="text_sourceaccess" replace="Přístup"/>
+	<tag find="text_sourceforget" replace="Zapomenout"/>
+	<tag find="text_filter" replace="Filtr:"/>
+	<tag find="text_filteractive" replace="Aktivní"/>
+	<tag find="text_filterqueued" replace="Ve frontě"/>
+	<tag find="text_filterpaused" replace="Pozastaveno"/>
+	<tag find="text_filternosources" replace="Nejsou zdroje"/>
+	<tag find="text_filtershowall" replace="Zobrazit všechny zdroje"/>
+	<tag find="text_filtersubmit" replace="Filtr"/>
+	<tag find="text_filename" replace="Jméno souboru"/>
+	<tag find="text_filesize" replace="Velikost"/>
+	<tag find="text_fileprogress" replace="Postup"/>
+	<tag find="text_filespeed" replace="Rychlost"/>
+	<tag find="text_filesources" replace="Zdroje"/>
+	<tag find="text_filestatus" replace="Stav"/>
+	<tag find="text_fileoptions" replace="Možnosti"/>
+	<tag find="text_networkenabled" replace="Tato síť je povolena"/>
+	<tag find="text_networkdisabled" replace="Tato síť <b>není</b> povolena"/>
+	<tag find="text_networkconnect" replace="Připojit se k"/>
+	<tag find="text_networkdisconnect" replace="Zakázat"/>
+	<tag find="text_networkaddress" replace="Adresa"/>
+	<tag find="text_networktime" replace="Čas"/>
+	<tag find="text_networkpackets" replace="Pakety"/>
+	<tag find="text_networkbandwidth" replace="Rychlost"/>
+	<tag find="text_networktotal" replace="Celkem"/>
+	<tag find="text_networkmode" replace="Mód"/>
+	<tag find="text_networkleaves" replace="Uživatelů"/>
+	<tag find="text_useragent" replace="Klient"/>
+	<tag find="text_searchnew" replace="Nové hledání"/>
+	<tag find="text_searchinfo" replace="Zadejte klíčová slova pro hledání do následujícího pole a klikněte na tlačítko <b>Vyhledat</b>. Pokud víte jaký typ soboru hledáte vyberte také typ souboru z nabídky."/>
+	<tag find="text_searchfor" replace="Hledat:"/>
+	<tag find="text_searchstart" replace="Vyhledat"/>
+	<tag find="text_searchstop" replace="Zastavit hledání"/>
+	<tag find="text_searchclose" replace="Zavřít hledání"/>
+	<tag find="text_refreshpage" replace="Obnovit"/>
+	<tag find="text_file" replace="Soubor"/>
+	<tag find="text_user" replace="Uživatel"/>
+	<tag find="text_submit" replace="Set"/>
+	<tag find="text_filetype" replace="Typ soubru:"/>
+	<tag find="text_anyfile" replace="Jakýkoliv soubor"/>
+	<tag find="text_typeapp" replace="Aplikace"/>
+	<tag find="text_typearchive" replace="Archiv"/>
+	<tag find="text_typeaudio" replace="Zvuk"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Obrázek"/>
+	<tag find="text_typebook" replace="Kniha"/>
+	<tag find="text_typedoc" replace="Textový soubor"/>
+	<tag find="text_typepresent" replace="Prezentace"/>
+	<tag find="text_typerom" replace="ROM Image"/>
+	<tag find="text_typeskin" replace="Skin"/>
+	<tag find="text_typecode" replace="Zdrojový kód"/>
+	<tag find="text_typespreadsheet" replace="Tabulka"/>
+	<tag find="text_typesubtitle" replace="Titulky"/>
+	<tag find="text_typecollection" replace="Sbírka"/>
+	<!--tag find="text_" replace="aktivních / <%= queue_queued %> ve frontě, využívá <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Stahovaný soubor"/>
 		<column from="Size" to="Velikost"/>
@@ -4569,5 +4658,5 @@
 		<column from="Comments" to="Poznámky"/>
 		<column from="Order" to="Pořadí"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

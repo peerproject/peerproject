@@ -93,7 +93,8 @@
 #  define BOOST_HAS_PRAGMA_DETECT_MISMATCH
 #endif
 //
-// disable Win32 API's if compiler extensions are turned off:
+// disable Win32 API's if compiler extensions are
+// turned off:
 //
 #if !defined(_MSC_EXTENSIONS) && !defined(BOOST_DISABLE_WIN32)
 #  define BOOST_DISABLE_WIN32
@@ -107,7 +108,7 @@
 //
 #if _MSC_VER >= 1700
 // # define BOOST_HAS_TR1_HASH			// don't know if this is true yet.
-# define BOOST_HAS_TR1_TYPE_TRAITS		// don't know if this is true yet.
+// # define BOOST_HAS_TR1_TYPE_TRAITS	// don't know if this is true yet.
 # define BOOST_HAS_TR1_UNORDERED_MAP
 # define BOOST_HAS_TR1_UNORDERED_SET
 #endif
@@ -143,7 +144,7 @@
 
 // C++11 features supported by VC++ 12 (aka 2013).
 //
-#if _MSC_FULL_VER < 180020800
+#if _MSC_FULL_VER < 180020827
 #  define BOOST_NO_CXX11_DEFAULTED_FUNCTIONS
 #  define BOOST_NO_CXX11_DELETED_FUNCTIONS
 #  define BOOST_NO_CXX11_EXPLICIT_CONVERSION_OPERATORS
@@ -223,10 +224,10 @@
 
 #ifndef BOOST_COMPILER
 // TODO:
-// these things are mostly bogus. 1200 means version 12.0 of the compiler.
-// The artificial versions assigned to them only refer to the versions of some IDE
-// these compilers have been shipped with, and even that is not all of it.
-// Some were shipped with freely downloadable SDKs, others as crosscompilers in eVC.
+// these things are mostly bogus. 1200 means version 12.0 of the compiler. The
+// artificial versions assigned to them only refer to the versions of some IDE
+// these compilers have been shipped with, and even that is not all of it. Some
+// were shipped with freely downloadable SDKs, others as crosscompilers in eVC.
 // IOW, you can't use these 'versions' in any sensible way. Sorry.
 # if defined(UNDER_CE)
 #   if _MSC_VER < 1400

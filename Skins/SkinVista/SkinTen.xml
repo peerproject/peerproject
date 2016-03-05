@@ -544,11 +544,11 @@
 <!-- ICONS -->
 
 <icons>
- <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtf="0"-->
- <!--icon id="IDI_POINTER_ARROW_IN" path="PointerArrowIn.ico" types="16" rtf="0"-->
- <!--icon id="IDI_POINTER_ARROW_OUT" path="PointerArrowOut.ico" types="16" rtf="0"-->
- <!--icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtf="0"-->
- <!--icon id="WINDOW_NEIGHBOURS" path="Ten\IconConnection.ico" types="16" rtf="0"-->
+ <!--icon id="IDI_UPDOWN_ARROW" path="UpDownArrow.ico" types="16" rtl="0"-->
+ <!--icon id="IDI_POINTER_ARROW_IN" path="PointerArrowIn.ico" types="16" rtl="0"-->
+ <!--icon id="IDI_POINTER_ARROW_OUT" path="PointerArrowOut.ico" types="16" rtl="0"-->
+ <!--icon id="IDI_WIZARD_DOT" path="WizardDot.ico" types="16" rtl="0"-->
+ <!--icon id="WINDOW_NEIGHBOURS" path="Ten\IconConnection.ico" types="16" rtl="0"-->
 </icons>
 
 <commandImages>
@@ -558,6 +558,7 @@
  <image />
  <image />
  <image id="ID_TOOLS_SETTINGS"/>
+ <image id="ID_TOOLS_PROFILE"/>
 </bitmap>
 
 <bitmap path="IconsMedia.png" mask="CLR_NONE">

@@ -1,7 +1,7 @@
 //
 // DlgSettingsManager.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -112,11 +112,11 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	CAutoPtr< CRichSettingsPage >		gGeneral( new CRichSettingsPage( L"CGeneralSettingsGroup" ) );
 	CAutoPtr< CGeneralSettingsPage >	pGeneral( new CGeneralSettingsPage );
 	CAutoPtr< CLibrarySettingsPage >	pLibrary( new CLibrarySettingsPage );
+	CAutoPtr< CWebSettingsPage >		pWeb( new CWebSettingsPage );
 	CAutoPtr< CMediaSettingsPage >		pMedia( new CMediaSettingsPage );
 	CAutoPtr< CIRCSettingsPage >		pIRC( new CIRCSettingsPage );
 	CAutoPtr< CCommunitySettingsPage >	pCommunity( new CCommunitySettingsPage );
 	CAutoPtr< CRemoteSettingsPage >		pRemote( new CRemoteSettingsPage );
-	CAutoPtr< CWebSettingsPage >		pWeb( new CWebSettingsPage );
 	CAutoPtr< CRichSettingsPage >		gInternet( new CRichSettingsPage( L"CInternetSettingsGroup" ) );
 	CAutoPtr< CConnectionSettingsPage >	pConnection( new CConnectionSettingsPage );
 	CAutoPtr< CDownloadsSettingsPage >	pDownloads( new CDownloadsSettingsPage );
@@ -134,12 +134,14 @@ INT_PTR CSettingsManagerDlg::DoModal(LPCTSTR pszWindow)
 	AddGroup( gGeneral );			// Richdoc CGeneralSettingsGroup
 	AddPage( pGeneral );			// IDD_SETTINGS_GENERAL
 	AddPage( pLibrary );			// IDD_SETTINGS_LIBRARY
-	AddPage( pMedia ); 				// IDD_SETTINGS_MEDIA
-	AddPage( pIRC );				// IDD_SETTINGS_IRC
-	AddPage( pCommunity );			// IDD_SETTINGS_COMMUNITY
 	if ( bAdvanced )
+	{
+		AddPage( pWeb );			// IDD_SETTINGS_WEB
+		AddPage( pMedia ); 			// IDD_SETTINGS_MEDIA
+		AddPage( pIRC );			// IDD_SETTINGS_IRC
+		AddPage( pCommunity );		// IDD_SETTINGS_COMMUNITY
 		AddPage( pRemote );			// IDD_SETTINGS_REMOTE
-	AddPage( pWeb );				// IDD_SETTINGS_WEB
+	}
 
 	AddGroup( gInternet ); 			// Richdoc CInternetSettingsGroup
 	AddPage( pConnection );			// IDD_SETTINGS_CONNECTION

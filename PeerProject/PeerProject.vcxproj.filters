@@ -444,6 +444,12 @@
     <ClCompile Include="PongCache.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="qrencode.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QRCode.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="QueryHashGroup.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -1482,6 +1488,9 @@
     <None Include="Res\Protocols.png">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="Res\QRCode.bmp">
+      <Filter>Resource Files</Filter>
+    </None>
     <None Include="Res\RatingAverage.ico">
       <Filter>Resource Files</Filter>
     </None>
@@ -1968,6 +1977,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PongCache.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="qrencode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QRCode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="QueryHashGroup.h">

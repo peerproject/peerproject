@@ -2,7 +2,7 @@
 
 File::File()
 {
-  hFile=BAD_HANDLE;
+  hFile=FILE_BAD_HANDLE;
   *FileName=0;
   NewFile=false;
   LastWrite=false;
@@ -22,7 +22,7 @@ File::File()
 
 File::~File()
 {
-  if (hFile!=BAD_HANDLE && !SkipClose)
+  if (hFile!=FILE_BAD_HANDLE && !SkipClose)
     if (NewFile)
       Delete();
     else
@@ -52,14 +52,14 @@ bool File::Open(const wchar *Name,uint Mode)
   uint Access=WriteMode ? GENERIC_WRITE:GENERIC_READ;
   if (UpdateMode)
     Access|=GENERIC_WRITE;
-  uint ShareMode=FILE_SHARE_READ;
+  uint ShareMode=(Mode & FMF_OPENEXCLUSIVE) ? 0 : FILE_SHARE_READ;
   if (OpenShared)
     ShareMode|=FILE_SHARE_WRITE;
   uint Flags=NoSequentialRead ? 0:FILE_FLAG_SEQUENTIAL_SCAN;
   hNewFile=CreateFile(Name,Access,ShareMode,NULL,OPEN_EXISTING,Flags,NULL);
 
   DWORD LastError;
-  if (hNewFile==BAD_HANDLE)
+  if (hNewFile==FILE_BAD_HANDLE)
   {
     LastError=GetLastError();
 
@@ -76,7 +76,7 @@ bool File::Open(const wchar *Name,uint Mode)
     }
   }
 
-  if (hNewFile==BAD_HANDLE && LastError==ERROR_FILE_NOT_FOUND)
+  if (hNewFile==FILE_BAD_HANDLE && LastError==ERROR_FILE_NOT_FOUND)
     ErrorType=FILE_NOTFOUND;
 #else
   int flags=UpdateMode ? O_RDWR:(WriteMode ? O_WRONLY:O_RDONLY);
@@ -103,7 +103,7 @@ bool File::Open(const wchar *Name,uint Mode)
   }
 #endif
   if (handle==-1)
-    hNewFile=BAD_HANDLE;
+    hNewFile=FILE_BAD_HANDLE;
   else
   {
 #ifdef FILE_USE_OPEN
@@ -112,13 +112,18 @@ bool File::Open(const wchar *Name,uint Mode)
     hNewFile=fdopen(handle,UpdateMode ? UPDATEBINARY:READBINARY);
 #endif
   }
-  if (hNewFile==BAD_HANDLE && errno==ENOENT)
+#ifdef _ANDROID
+  // If we open an existing file in r&w mode and external card is read-only for usual file API.
+  if (hNewFile==FILE_BAD_HANDLE && UpdateMode && errno!=ENOENT)
+    hNewFile=JniOpenFile(Name);
+#endif
+  if (hNewFile==FILE_BAD_HANDLE && errno==ENOENT)
     ErrorType=FILE_NOTFOUND;
 #endif
   NewFile=false;
   HandleType=FILE_HANDLENORMAL;
   SkipClose=false;
-  bool Success=hNewFile!=BAD_HANDLE;
+  bool Success=hNewFile!=FILE_BAD_HANDLE;
   if (Success)
   {
     hFile=hNewFile;
@@ -158,9 +163,18 @@ bool File::Create(const wchar *Name,uint Mode)
   CreateMode=Mode;
   uint Access=WriteMode ? GENERIC_WRITE:GENERIC_READ|GENERIC_WRITE;
   DWORD ShareMode=ShareRead ? FILE_SHARE_READ:0;
-  hFile=CreateFile(Name,Access,ShareMode,NULL,CREATE_ALWAYS,0,NULL);
 
-  if (hFile==BAD_HANDLE)
+  // Windows automatically removes dots and spaces in the end of file name,
+  // So we detect such names and process them with \\?\ prefix.
+  wchar *LastChar=PointToLastChar(Name);
+  bool Special=*LastChar=='.' || *LastChar==' ';
+
+  if (Special)
+    hFile=FILE_BAD_HANDLE;
+  else
+    hFile=CreateFile(Name,Access,ShareMode,NULL,CREATE_ALWAYS,0,NULL);
+
+  if (hFile==FILE_BAD_HANDLE)
   {
     wchar LongName[NM];
     if (GetWinLongPath(Name,LongName,ASIZE(LongName)))
@@ -172,6 +186,12 @@ bool File::Create(const wchar *Name,uint Mode)
   WideToChar(Name,NameA,ASIZE(NameA));
 #ifdef FILE_USE_OPEN
   hFile=open(NameA,(O_CREAT|O_TRUNC) | (WriteMode ? O_WRONLY : O_RDWR));
+//#ifdef _ANDROID
+//if (hFile==FILE_BAD_HANDLE)
+//  hFile=JniCreateFile(Name); // If external card is read-only for usual file API.
+//if (hFile!=FILE_BAD_HANDLE)
+//  JniFileNotify(Name,false);
+//#endif
 #else
   hFile=fopen(NameA,WriteMode ? WRITEBINARY:CREATEBINARY);
 #endif
@@ -180,7 +200,7 @@ bool File::Create(const wchar *Name,uint Mode)
   HandleType=FILE_HANDLENORMAL;
   SkipClose=false;
   wcsncpyz(FileName,Name,ASIZE(FileName));
-  return hFile!=BAD_HANDLE;
+  return hFile!=FILE_BAD_HANDLE;
 }
 
 
@@ -206,7 +226,7 @@ bool File::Close()
 {
   bool Success=true;
 
-  if (hFile!=BAD_HANDLE)
+  if (hFile!=FILE_BAD_HANDLE)
   {
     if (!SkipClose)
     {
@@ -223,7 +243,7 @@ bool File::Close()
 #endif
 #endif
     }
-    hFile=BAD_HANDLE;
+    hFile=FILE_BAD_HANDLE;
   }
   HandleType=FILE_HANDLENORMAL;
   if (!Success && AllowExceptions)
@@ -236,7 +256,7 @@ bool File::Delete()
 {
   if (HandleType!=FILE_HANDLENORMAL)
     return false;
-  if (hFile!=BAD_HANDLE)
+  if (hFile!=FILE_BAD_HANDLE)
     Close();
   if (!AllowDelete)
     return false;
@@ -259,17 +279,17 @@ bool File::Rename(const wchar *NewName)
 }
 
 
-void File::Write(const void *Data,size_t Size)
+bool File::Write(const void *Data,size_t Size)
 {
   if (Size==0)
-    return;
+    return true;
   if (HandleType==FILE_HANDLESTD)
   {
 #ifdef _WIN_ALL
     hFile=GetStdHandle(STD_OUTPUT_HANDLE);
 #else
     // Cannot use the standard stdout here, because it already has wide orientation.
-    if (hFile==BAD_HANDLE)
+    if (hFile==FILE_BAD_HANDLE)
     {
 #ifdef FILE_USE_OPEN
       hFile=dup(STDOUT_FILENO); // Open new stdout stream.
@@ -279,9 +299,10 @@ void File::Write(const void *Data,size_t Size)
     }
 #endif
   }
+  bool Success;
   while (1)
   {
-    bool Success=false;
+    Success=false;
 #ifdef _WIN_ALL
     DWORD Written=0;
     if (HandleType!=FILE_HANDLENORMAL)
@@ -330,6 +351,7 @@ void File::Write(const void *Data,size_t Size)
     break;
   }
   LastWrite=true;
+  return Success; // It can return false only if AllowExceptions is disabled.
 }
 
 
@@ -381,8 +403,8 @@ int File::DirectRead(void *Data,size_t Size)
   if (HandleType==FILE_HANDLESTD)
   {
 #ifdef _WIN_ALL
-    if (Size>MaxDeviceRead)
-      Size=MaxDeviceRead;
+//    if (Size>MaxDeviceRead)
+//      Size=MaxDeviceRead;
     hFile=GetStdHandle(STD_INPUT_HANDLE);
 #else
 #ifdef FILE_USE_OPEN
@@ -393,6 +415,8 @@ int File::DirectRead(void *Data,size_t Size)
 #endif
   }
 #ifdef _WIN_ALL
+  // For pipes like 'type file.txt | rar -si arcname' ReadFile may return
+  // data in small ~4KB blocks. It may slightly reduce the compression ratio.
   DWORD Read;
   if (!ReadFile(hFile,Data,(DWORD)Size,&Read,NULL))
   {
@@ -445,7 +469,7 @@ void File::Seek(int64 Offset,int Method)
 
 bool File::RawSeek(int64 Offset,int Method)
 {
-  if (hFile==BAD_HANDLE)
+  if (hFile==FILE_BAD_HANDLE)
     return true;
   if (Offset<0 && Method!=SEEK_SET)
   {
@@ -476,7 +500,7 @@ bool File::RawSeek(int64 Offset,int Method)
 
 int64 File::Tell()
 {
-  if (hFile==BAD_HANDLE)
+  if (hFile==FILE_BAD_HANDLE)
     if (AllowExceptions)
       ErrHandler.SeekError(FileName);
     else
@@ -541,7 +565,20 @@ bool File::Truncate()
 #ifdef _WIN_ALL
   return SetEndOfFile(hFile)==TRUE;
 #else
-  return false;
+  return ftruncate(GetFD(),(off_t)Tell())==0;
+#endif
+}
+
+
+void File::Flush()
+{
+#ifdef _WIN_ALL
+  FlushFileBuffers(hFile);
+#else
+#ifndef FILE_USE_OPEN
+  fflush(hFile);
+#endif
+  fsync(GetFD());
 #endif
 }
 
@@ -627,7 +664,7 @@ int64 File::FileLength()
 
 bool File::IsDevice()
 {
-  if (hFile==BAD_HANDLE)
+  if (hFile==FILE_BAD_HANDLE)
     return false;
 #ifdef _WIN_ALL
   uint Type=GetFileType(hFile);
@@ -641,7 +678,7 @@ bool File::IsDevice()
 #ifndef SFX_MODULE
 int64 File::Copy(File &Dest,int64 Length)
 {
-  Array<char> Buffer(0x10000);
+  Array<char> Buffer(0x40000);
   int64 CopySize=0;
   bool CopyAll=(Length==INT64NDF);
 
@@ -649,10 +686,26 @@ int64 File::Copy(File &Dest,int64 Length)
   {
     Wait();
     size_t SizeToRead=(!CopyAll && Length<(int64)Buffer.Size()) ? (size_t)Length:Buffer.Size();
-    int ReadSize=Read(&Buffer[0],SizeToRead);
+    char *Buf=&Buffer[0];
+    int ReadSize=Read(Buf,SizeToRead);
     if (ReadSize==0)
       break;
-    Dest.Write(&Buffer[0],ReadSize);
+    size_t WriteSize=ReadSize;
+#ifdef _WIN_ALL
+    // For FAT32 USB flash drives in Windows if first write is 4 KB or more,
+    // write caching is disabled and "write through" is enabled, resulting
+    // in bad performance, especially for many small files. It happens when
+    // we create SFX archive on USB drive, because SFX module is written first.
+    // So we split the first write to small 1 KB followed by rest of data.
+    if (CopySize==0 && WriteSize>=4096)
+    {
+      const size_t FirstWrite=1024;
+      Dest.Write(Buf,FirstWrite);
+      Buf+=FirstWrite;
+      WriteSize-=FirstWrite;
+    }
+#endif
+    Dest.Write(Buf,WriteSize);
     CopySize+=ReadSize;
     if (!CopyAll)
       Length-=ReadSize;

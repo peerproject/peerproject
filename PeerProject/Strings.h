@@ -1,7 +1,7 @@
 //
 // Strings.h
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2015
+// This file is part of PeerProject (peerproject.org) © 2010-2016
 // Portions copyright Shareaza Development Team, 2010.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -100,13 +100,13 @@ void Split(const CString& strSource, TCHAR cDelimiter, CStringArray& pAddIt, BOO
 #endif	// __AFXCOLL_H__
 
 // StartsWith("Hello World", _P( L"hello" )) is true
-BOOL StartsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+BOOL StartsWith(const CString& strInput, LPCTSTR pszText, int nLen = 0);
 
 // EndsWith("Hello World", _P( L" world" )) is true
-BOOL EndsWith(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+BOOL EndsWith(const CString& strInput, LPCTSTR pszText, int nLen = 0);
 
 // IsText("Hello World", _P( L"hello world" )) is true
-BOOL IsText(const CString& strInput, LPCTSTR pszText, size_t nLen = 0);
+BOOL IsText(const CString& strInput, LPCTSTR pszText, int nLen = 0);
 
 #ifdef __AFX_H__
 // Load all text from file (Unicode-compatible)

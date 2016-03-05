@@ -1,9 +1,32 @@
 // Purely user interface function. Gets and returns user input.
 UIASKREP_RESULT uiAskReplace(wchar *Name,size_t MaxNameSize,int64 FileSize,RarTime *FileTime,uint Flags)
 {
+  wchar SizeText1[20],DateStr1[50],SizeText2[20],DateStr2[50];
+
+  FindData ExistingFD;
+  memset(&ExistingFD,0,sizeof(ExistingFD)); // In case find fails.
+  FindFile::FastFind(Name,&ExistingFD);
+  itoa(ExistingFD.Size,SizeText1,ASIZE(SizeText1));
+  ExistingFD.mtime.GetText(DateStr1,ASIZE(DateStr1),false);
+
+  if (FileSize==INT64NDF || FileTime==NULL)
+  {
+    eprintf(L"\n");
+    eprintf(St(MAskOverwrite),Name);
+  }
+  else
+  {
+    itoa(FileSize,SizeText2,ASIZE(SizeText2));
+    FileTime->GetText(DateStr2,ASIZE(DateStr2),false);
+    eprintf(St(MAskReplace),Name,SizeText1,DateStr1,SizeText2,DateStr2);
+  }
+
   bool AllowRename=(Flags & UIASKREP_F_NORENAME)==0;
-  eprintf(St(MFileExists),Name);
-  int Choice=Ask(St(AllowRename ? MYesNoAllRenQ : MYesNoAllQ));
+  int Choice=0;
+  do
+  {
+    Choice=Ask(St(AllowRename ? MYesNoAllRenQ : MYesNoAllQ));
+  } while (Choice==0); // 0 means invalid input.
   switch(Choice)
   {
     case 1:
@@ -21,11 +44,10 @@ UIASKREP_RESULT uiAskReplace(wchar *Name,size_t MaxNameSize,int64 FileSize,RarTi
     if (getwstr(Name,MaxNameSize))
       return UIASKREP_R_RENAME;
     else
-      return UIASKREP_R_SKIP;	// Process fwgets failure as if user answered 'No'.
+      return UIASKREP_R_SKIP; // Process fwgets failure as if user answered 'No'.
   }
   return UIASKREP_R_CANCEL;
 }
-
 
 
 void uiStartArchiveExtract(bool Extract,const wchar *ArcName)
@@ -111,6 +133,7 @@ void uiMsgStore::Msg()
       break;
     case UIERROR_FILECOPYHINT:
       Log(Str[0],St(MCopyErrorHint));
+      mprintf(L"     "); // For progress percent.
       break;
     case UIERROR_DIRCREATE:
       Log(Str[0],St(MExtrErrMkDir),Str[1]);
@@ -294,9 +317,13 @@ void uiMsgStore::Msg()
     case UIMSG_CHECKSUM:
       mprintf(St(MCRCFailed),Str[0]);
       break;
+    case UIMSG_FAT32SIZE:
+      mprintf(St(MFAT32Size));
+      mprintf(L"     "); // For progress percent.
+      break;
 
 
-    case UIEVENT_RRTESTING:
+    case UIEVENT_RRTESTINGSTART:
       mprintf(L"%s      ",St(MTestingRR));
       break;
   }
@@ -313,19 +340,18 @@ void uiAlarm(UIALARM_TYPE Type)
 {
   if (uiSoundEnabled)
   {
-    static clock_t LastTime=clock();
-    if ((clock()-LastTime)/CLOCKS_PER_SEC>5)
+    static clock_t LastTime=-10; // Negative to always beep first time.
+    if ((MonoClock()-LastTime)/CLOCKS_PER_SEC>5)
     {
 #ifdef _WIN_ALL
       MessageBeep(-1);
 #else
       putwchar('\007');
 #endif
+      LastTime=MonoClock();
     }
   }
 }
-
-
 
 
 bool uiAskNextVolume(wchar *VolName,size_t MaxSize)

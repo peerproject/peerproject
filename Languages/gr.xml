@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Greek Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -584,15 +584,15 @@
 				<menu text="_Ιστοσελίδες">
 					<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-					<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+					<!--item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"-->
 					<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_Ιστοσελίδα_PeerProject"/>
-				<separator/> <!--
-				<item id="ID_HELP_VERSION_CHECK" text="_Έλεγχος για νέα έκδοση"/>
-				<item id="ID_HELP_DONATE" text="_Δωρεά στο PeerProject"/>
-				<separator/> -->
+				<!--separator-->
+				<!--item id="ID_HELP_VERSION_CHECK" text="_Έλεγχος για νέα έκδοση"-->
+				<!--item id="ID_HELP_DONATE" text="_Δωρεά στο PeerProject"-->
+				<separator/>
 				<item id="ID_HELP_ABOUT" text="_Σχετικά με το PeerProject..."/>
 			</menu>
 			<item id="ID_NETWORK_EXIT" text="Έξοδος"/>
@@ -687,7 +687,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<!--item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"-->
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
@@ -758,7 +758,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<!--item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"-->
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
@@ -851,7 +851,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums Ελληνικά"/>
-				<!-- <item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"/>
+				<!--item id="ID_HELP_WEB_SKINS" text="Φ_λοιοί PeerProject"-->
 				<item id="ID_HELP_UPDATE" text="Τελευταία νέα"/>
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
@@ -1687,7 +1687,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">ΕΙΔΟΠΟΙΗΣΗ ΑΝΑΒΑΘΜΙΣΗΣ</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1695,7 +1695,7 @@
 			<link target="command:upgrade">Κλικ εδώ για την αναβάθμιση</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">ΠΡΟΕΙΔΟΠΟΙΗΣΗ: ΕΝΟΧΛΗΤΙΚΟ FIREWALL</heading>
 			<newline gap="8" indent="42"/>
@@ -1752,15 +1752,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Τοπική Forum</link><gap size="6"/>
 		<text align="middle">- GΜετάβαση στο ελληνικό φόρουμ συζήτησης σας γλώσσα</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Η ΑΠΟΜΑΚΡΥΣΜΕΝΗ ΠΡΟΣΒΑΣΗ ΕΙΝΑΙ ΕΝΕΡΓΗ</heading>
 			<newline gap="8" indent="42"/>
 			<text>Η Απομακρυσμένη Πρόσβαση του PeerProject είναι ενεργή. Τηλεχειριστείτε το PeerProject, δείνοντας σε ένα πρόγραμμα περιήγησης τη διεύθυνση:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- ή -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1846,7 +1846,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για γρηγορότερη σάρωση</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Κλικ εδώ για πιο αργή σάρωση</link>
 			</group>
 		</para>
@@ -1972,7 +1972,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Πληροφορίες Επαφής</text>
 			<newline gap="1" indent="8"/>
@@ -2007,7 +2007,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Ενδιαφέροντα</text>
 			<newline gap="2" indent="8"/>
@@ -2302,7 +2302,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Προβολή κοινοποιημένων αρχείων χρήστη."/>
 	<tip id="ID_BROWSE_LAUNCH" message="Περιήγηση στο προφίλ και τα κοινοποιημένα αρχεία του επιλεγμένου χρήστη."/>
 	<tip id="ID_BROWSE_PROFILE" message="Περιήγηση στο προφίλ του χρήστη."/>
@@ -2622,13 +2622,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Προβολή της εικόνας στο φυσικό της μέγεθος."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Ανανέωση της εικόνας."/>
 	<tip id="PluginID_ImageViewer_Close" message="Κλείσιμο του παραθύρου προβολής εικόνων."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Στη μέγιστη λειτουργία, το εύρος ζώνης δεν θα ξεπεράσει την καθορισμένη τιμή. Στη λειτουργία μέσου όρου, θα διακυμαίνεται γύρω από την τιμή."/>
 	<tip id="IDC_REGEXP" message="Εισάγετε κανονικοποιημένες εκφράσεις σε σύνταξη perl.{n}Οι λέξεις κλειδιά της αναζήτησης μπορούν να οριστούν με τη μορφή &lt;n&gt;, όπου n αριθμός από 1 ως 9. Για συνεχόμενη χρήση λέξεων κλειδιών, χρησιμοποιείστε τα σύμβολα &lt;_&gt;."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Αυτή η ρύθμιση δεν επιδρά σε αρχεία με ED2K hash (εφόσον το δίκτυο ED2K είναι ενεργό), ούτε σε μη σταματημένες λήψεις, ούτε σε torrent.{n}ΠΡΟΣΟΧΗ: Χρησιμοποιείστε τη μόνο σε περίπτωση πραγματικής ανάγκης. Αν την καταχραστείτε, ενδέχεται να σας αποκλείσουν."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3353,9 +3353,10 @@
 	<string id="20891" value="E&amp;xit"/>
 	<string id="20892" value="Παρακαλώ περιμένετε: Ενημέρωση λίστας ED2K server..."/>
 	<string id="20893" value="Παρακαλώ περιμένετε: Ενημέρωση υπηρεσιών ανακάλυψης..."/>
-	<string id="20894" value="Δεν καθορίσατε ακόμη μια ταχύτητα σύνδεσης. Πριν συνεχίσετε, παρακαλώ επιλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο ή εισάγετε μια ταχύτητα σύνδεσης."/>
-	<!--string id="20895" value="Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."-->
-	<!--string id="20896" value="Το PeerProject δεν κατάφερε να ρυθμίσει την προώθηση θύρας στον NAT router ή firewall σας.\n\nΠαρακαλώ ρυθμίστε το δίκτυό σας να προωθεί τις TCP και UDP θύρες %i στον τοπικό υπολογιστή σας."-->
+	<!--string id="20894" value="Παρακαλώ περιμένετε: Αναζήτηση συσκευών UPnP και ρύθμισή τους..."-->
+	<!--string id="20894" value="Το PeerProject δεν κατάφερε να ρυθμίσει την προώθηση θύρας στον NAT router ή firewall σας.\n\nΠαρακαλώ ρυθμίστε το δίκτυό σας να προωθεί τις TCP και UDP θύρες %i στον τοπικό υπολογιστή σας."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Δεν καθορίσατε ακόμη μια ταχύτητα σύνδεσης. Πριν συνεχίσετε, παρακαλώ επιλέξτε τον τύπο της σύνδεσής σας στο Διαδίκτυο ή εισάγετε μια ταχύτητα σύνδεσης."/>
 	<string id="20897" value="Αυτός ο φάκελος είναι ήδη κοινοποιημένος ως τμήμα του κοινοποιημένου φακέλου:\n\n%s"/>
 	<string id="20898" value="Δεν καθορίσατε φακέλους για κοινοποίηση. Είστε σίγουροι;"/>
 	<string id="20899" value="ετών"/>
@@ -3400,7 +3401,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Γραμμή Συστήματος:"/>
 		<control caption="Με εντολή κλεισίματος:"/>
-		<control caption="Ερώτηση|Ελαχιστ. στη Γραμμή Συστήματος|Άμεσο Κλείσιμο|Κλείσιμο Μετά τις Μεταφορές"/>
+		<control caption="Ερώτηση|Ελαχιστ. στη Γραμμή Συστήματος|Ελαχιστ. στη Γραμμή Συστήματος|Κλείσιμο Μετά τις Μεταφορές|Άμεσο Κλείσιμο"/>
 		<control caption="Με εντολή ελαχιστοποίησης:"/>
 		<control caption="Ελαχιστ. στην Μπάρα Έναρξης|Ελαχιστ. στη Γραμμή Συστήματος"/>
 	</dialog>
@@ -3493,17 +3494,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Κοινότητα">
-		<control caption="_Προφίλ:"/>
-		<control caption="Χρησιμοποιήστε το Προφίλ για να κοινοποιήσετε πληροφορίες για τον εαυτό σας και τα ενδιαφέροντά σας, και να συστήσετε αρχεία και ιστοσελίδες."/>
-		<control caption="Επεξεργασία Προφίλ"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Κοινότητα">
 		<control caption="_Συνομιλία:"/>
 		<control caption="Ενεργοποίηση συνομιλίας peer-to-peer με συμβατά προγράμματα"/>
 		<control caption="Ενεργοποίηση συνομιλίας σε όλα τα δίκτυα"/>
 		<control caption="Φιλτράρισμα ενοχλητικών μηνυμάτων"/>
 		<control caption="Φιλτράρισμα αισχρόλογων"/>
+		<control caption="_Προφίλ:"/>
+		<control caption="Προφίλ"/>
+		<control caption="Επεξεργασία Προφίλ"/>
+		<control caption="πληροφορίες:"/>
+		<control caption="Χρησιμοποιήστε το Προφίλ για να κοινοποιήσετε πληροφορίες για τον εαυτό σας και τα ενδιαφέροντά σας, και να συστήσετε αρχεία και ιστοσελίδες."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Απομακρυσμένη Πρόσβαση">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Απομακρυσμένη Πρόσβαση">
 		<control caption="_Ενεργοποίηση:"/>
 		<control caption="Ενεργοποίηση Απομακρυσμένης Πρόσβασης PeerProject:"/>
 		<control caption="..."/>
@@ -3512,7 +3515,9 @@
 		<control caption="Κωδικός (Password):"/>
 		<control/>
 		<control/>
-		<control caption="Περιγραφή:"/>
+		<control/>
+		<control/>
+		<control caption="πληροφορίες:"/>
 		<control caption="Η Απομακρυσμένη Πρόσβαση επιτρέπει, κατά την εκτέλεση του PeerProject στον υπολογιστή σας, τον χειρισμό του από απομακρυσμένα προγράμματα περιήγησης. Για να χρησιμοποιήσετε αυτήν τη δυνατότητα, πρέπει να δέχεστε εισερχόμενες συνδέσεις (π.χ. κατάλληλα ρυθμισμένο router κτλ)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Ιστός">
@@ -3831,7 +3836,7 @@
 		<control/>
 		<control caption="Θέλετε αυτόματη ρύθμιση της προώθησης θυρών με χρήση UPnP;"/>
 		<control/>
-		<control caption="Port: (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Τυχαία"/>
 		<control caption="Κατάσταση:"/>
@@ -4378,13 +4383,14 @@
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 		<control caption="Έχετε λάβει και διαγράψει αυτό το αρχείο παλαιότερα. Τι θέλετε να κάνετε;"/>
-		<control caption="Προειδοποίηση! Εντοπισμός πανομοιότυπου αρχείου. Κάποιο κακόβουλο λογισμικό ίσως μολύνει τη Βιβλιοθήκη. Εξετάστε μήπως εσείς λάβατε αυτό το αρχείο ή το προσθέσατε χειροκίνητα. Αν όχι, τερματίστε το PeerProject και σαρώστε τον υπολογιστή σας με ένα αντιβιοτικό πρόγραμμα."/>
+		<control caption="Προειδοποίηση: Εντοπισμός πανομοιότυπου αρχείου. Κάποιο κακόβουλο λογισμικό ίσως μολύνει τη Βιβλιοθήκη. Εξετάστε μήπως εσείς λάβατε αυτό το αρχείο ή το προσθέσατε χειροκίνητα. Αν όχι, τερματίστε το PeerProject και σαρώστε τον υπολογιστή σας με ένα αντιβιοτικό πρόγραμμα."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Κουμπί Κλεισίματος">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Κουμπί Κλεισίματος">
 		<control caption="Αυτή είναι η πρώτη φορά που κάνατε κλικ στο κουμπί κλεισίματος του PeerProject. Παρακαλώ διαλέξτε την ενέργεια αυτού του κουμπιού από δω και στο εξής:"/>
 		<control caption="Ελαχιστοποίηση στη γραμμή συστήματος"/>
+		<control caption="Ελαχιστοποίηση στη γραμμή συστήματος"/>
+		<control caption="Τερματισμός του μετά την ολοκλήρωση τυχόν αποστολών και λήψεων"/>
 		<control caption="Άμεσος τερματισμός του PeerProject"/>
-		<control caption="Τερματισμός του PeerProject μετά την ολοκλήρωση τυχόν αποστολών και λήψεων"/>
 		<control caption="OK"/>
 		<control caption="Άκυρο"/>
 	</dialog>
@@ -4575,8 +4581,92 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="Περιβάλλον Ιστού του PeerProject"/>
+	<tag find="text_logout" replace="Έξοδος"/>
+	<tag find="text_tabhome" replace="Αρχική"/>
+	<tag find="text_tabdownloads" replace="Λήψεις"/>
+	<tag find="text_tabuploads" replace="Αποστολές"/>
+	<tag find="text_tabnetworks" replace="Δίκτυα"/>
+	<tag find="text_tabsearch" replace="Αναζήτηση"/>
+	<tag find="text_welcome" replace="Καλώς ήρθατε στο <b>Περιβάλλον Ιστού του PeerProject.</b>"/>
+	<tag find="text_logininfo" replace="Αν αυτή η διεύθυνση είναι του δικού σας PeerProject, παρακαλώ εισάγετε όνομα χρήστη (username) και κωδικό (password), και κάντε κλικ στο κουμπί <b>Είσοδος</b>."/>
+	<tag find="text_loginfail" replace="Λάθος όνομα χρήστη ή κωδικός. Παρακαλώ ξαναδοκιμάστε."/>
+	<tag find="text_loginuser" replace="Όνομα Χρήστη:"/>
+	<tag find="text_loginpass" replace="Κωδικός:"/>
+	<tag find="text_loginsubmit" replace="Είσοδος"/>
+	<tag find="text_homeinfo" replace="Αυτό το περιβάλλον δίνει τη δυνατότητα διαχείρισης των αναζητήσεων, λήψεων, αποστολών και δικτύων."/>
+	<tag find="text_homestart" replace="Έναρξη λήψης:"/>
+	<tag find="text_homequick" replace="Αναζήτηση:"/>
+	<tag find="text_homelinks" replace="Χρήσιμες ιστοσελίδες:"/>
+	<tag find="text_directdownload" replace="Λήψη Magnet/Torrent:"/>
+	<tag find="text_downloadcleartip" replace="απόσυρση λήψης (αφαίρεση από τη λίστα χωρίς διαγραφή του αρχείου)"/>
+	<tag find="text_downloadclear" replace="Απόσυρση"/>
+	<tag find="text_downloadresume" replace="Συνέχεια"/>
+	<tag find="text_downloadpause" replace="Παύση"/>
+	<tag find="text_downloadcancel" replace="Διαγραφή"/>
+	<tag find="text_downloadmoresources" replace="Επιπλέον Πηγές"/>
+	<tag find="text_downloaddirect" replace="Λήψη Magnet:"/>
+	<tag find="text_submit" replace="Πάμε"/>
+	<tag find="text_sourceaccess" replace="Σύνδεση"/>
+	<tag find="text_sourceforget" replace="Απολησμόνηση"/>
+	<tag find="text_filter" replace="Φίλτρο:"/>
+	<tag find="text_filteractive" replace="Ενεργό"/>
+	<tag find="text_filterqueued" replace="Σε ουρά"/>
+	<tag find="text_filterpaused" replace="Σταματημένο"/>
+	<tag find="text_filternosources" replace="Χωρίς πηγές"/>
+	<tag find="text_filtershowall" replace="Προβολή όλων των πηγών"/>
+	<tag find="text_filtersubmit" replace="Φίλτρο"/>
+	<tag find="text_filename" replace="Όνομα Αρχείου"/>
+	<tag find="text_filesize" replace="Μέγεθος"/>
+	<tag find="text_fileprogress" replace="Πρόοδος"/>
+	<tag find="text_filespeed" replace="Ταχύτητα"/>
+	<tag find="text_filesources" replace="Πηγές"/>
+	<tag find="text_filestatus" replace="Κατάσταση"/>
+	<tag find="text_fileoptions" replace="Επιλογές"/>
+	<tag find="text_networkenabled" replace="Αυτό το δίκτυο είναι ενεργό"/>
+	<tag find="text_networkdisabled" replace="Αυτό το δίκτυο <b>δεν</b> είναι ενεργό"/>
+	<tag find="text_networkconnect" replace="Σύνδεση στο"/>
+	<tag find="text_networkdisconnect" replace="Απενεργοποίηση"/>
+	<tag find="text_networkaddress" replace="Διεύθυνση"/>
+	<tag find="text_networktime" replace="Διάρκεια"/>
+	<tag find="text_networkpackets" replace="Πακέτα"/>
+	<tag find="text_networkbandwidth" replace="Εύρος Ζώνης"/>
+	<tag find="text_networktotal" replace="Σύνολο"/>
+	<tag find="text_networkmode" replace="Λειτουργία"/>
+	<tag find="text_networkleaves" replace="Φύλλα"/>
+	<tag find="text_useragent" replace="Πρόγραμμα"/>
+	<tag find="text_searchnew" replace="Νέα Αναζήτηση"/>
+	<tag find="text_searchinfo" replace="Για νέα αναζήτηση, εισάγετε τους όρους στο παρακάτω πεδίο και κάντε κλικ στο <b>Έναρξη αναζήτησης</b>. Αν επιθυμείτε να περιορίσετε την αναζήτηση σε έναν συγκεκριμένο τύπο αρχείου, επιλέξτε τον από τη λίστα (συστείνεται)."/>
+	<tag find="text_searchfor" replace="Αναζήτηση για:"/>
+	<tag find="text_searchstart" replace="Έναρξη Αναζήτησης"/>
+	<tag find="text_searchstop" replace="Διακοπή Αναζήτησης"/>
+	<tag find="text_searchclose" replace="Κλείσιμο Αναζήτησης"/>
+	<tag find="text_refreshpage" replace="Ανανέωση σελίδας"/>
+	<tag find="text_file" replace="Αρχείο"/>
+	<tag find="text_user" replace="Χρήστης"/>
+	<tag find="text_submit" replace="Ορισμός"/>
+	<tag find="text_filetype" replace="Τύπος αρχείου:"/>
+	<tag find="text_anyfile" replace="Οτιδήποτε"/>
+	<tag find="text_typeapp" replace="Εφαρμογή"/>
+	<tag find="text_typearchive" replace="Αρχείο"/>
+	<tag find="text_typeaudio" replace="Ήχος"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Εικόνα"/>
+	<tag find="text_typebook" replace="Βιβλίο"/>
+	<tag find="text_typedoc" replace="Έγγραφο"/>
+	<tag find="text_typepresent" replace="Παρουσίαση"/>
+	<tag find="text_typerom" replace="Εικόνα ROM"/>
+	<tag find="text_typeskin" replace="Φλοιός"/>
+	<tag find="text_typecode" replace="Πηγαίος Κώδικας"/>
+	<tag find="text_typespreadsheet" replace="Λογιστικό Φύλλο"/>
+	<tag find="text_typesubtitle" replace="Υπότιτλοι"/>
+	<tag find="text_typecollection" replace="Συλλογή"/>
+	<!--tag find="text_" replace="ενεργά / <%= queue_queued %> στην ουρά, χρήση <%= queue_bandwidth %>"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Λήψη"/>
 		<column from="Size" to="Μέγεθος"/>
@@ -4723,5 +4813,5 @@
 		<column from="Comments" to="Σχόλια"/>
 		<column from="Order" to="Σειρά"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

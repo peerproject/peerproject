@@ -27,8 +27,6 @@ typedef struct _REPARSE_DATA_BUFFER {
 } REPARSE_DATA_BUFFER, *PREPARSE_DATA_BUFFER;
 
 
-
-
 bool CreateReparsePoint(CommandData *Cmd,const wchar *Name,FileHeader *hd)
 {
   static bool PrivSet=false;
@@ -38,23 +36,6 @@ bool CreateReparsePoint(CommandData *Cmd,const wchar *Name,FileHeader *hd)
     // Not sure if we really need it, but let's request anyway.
     SetPrivilege(SE_CREATE_SYMBOLIC_LINK_NAME);
     PrivSet=true;
-  }
-
-  CreatePath(Name,true);
-
-  // 'DirTarget' check is important for Unix symlinks to directories.
-  // Unix symlinks do not have their own 'directory' attribute.
-  if (hd->Dir || hd->DirTarget)
-  {
-    if (!CreateDirectory(Name,NULL))
-      return false;
-  }
-  else
-  {
-    HANDLE hFile=CreateFile(Name,GENERIC_WRITE,0,NULL,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,NULL);
-    if (hFile == INVALID_HANDLE_VALUE)
-      return false;
-    CloseHandle(hFile);
   }
 
   const DWORD BufSize=sizeof(REPARSE_DATA_BUFFER)+2*NM+1024;
@@ -79,6 +60,30 @@ bool CreateReparsePoint(CommandData *Cmd,const wchar *Name,FileHeader *hd)
   size_t PrintLength=wcslen(PrintName);
 
   bool AbsPath=WinPrefix;
+  // IsFullPath is not really needed here, AbsPath check is enough.
+  // We added it just for extra safety, in case some Windows version would
+  // allow to create absolute targets with SYMLINK_FLAG_RELATIVE.
+  if (!Cmd->AbsoluteLinks && (AbsPath || IsFullPath(hd->RedirName) ||
+      !IsRelativeSymlinkSafe(hd->FileName,hd->RedirName)))
+    return false;
+
+  CreatePath(Name,true);
+
+  // 'DirTarget' check is important for Unix symlinks to directories.
+  // Unix symlinks do not have their own 'directory' attribute.
+  if (hd->Dir || hd->DirTarget)
+  {
+    if (!CreateDirectory(Name,NULL))
+      return false;
+  }
+  else
+  {
+    HANDLE hFile=CreateFile(Name,GENERIC_WRITE,0,NULL,CREATE_NEW,FILE_ATTRIBUTE_NORMAL,NULL);
+    if (hFile == INVALID_HANDLE_VALUE)
+      return false;
+    CloseHandle(hFile);
+  }
+
 
   if (hd->RedirType==FSREDIR_JUNCTION)
   {

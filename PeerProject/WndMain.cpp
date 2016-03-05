@@ -1,7 +1,7 @@
 //
 // WndMain.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -903,7 +903,7 @@ void CMainWnd::OnTimer(UINT_PTR nIDEvent)
 	m_wndHashProgressBar.Run();
 
 	// Switch tray icon
-	if ( m_bTrayHide || Settings.General.TrayMinimise || Settings.General.CloseMode == 1 )
+	if ( m_bTrayHide || Settings.General.TrayMinimise || Settings.General.CloseMode == 2 || Settings.General.CloseMode == 3 )
 		AddTray();
 	else if ( ! m_bTrayNotify )
 		DeleteTray();
@@ -1165,30 +1165,35 @@ void CMainWnd::OnSysCommand(UINT nID, LPARAM lParam)
 	case SC_CLOSE:
 		{
 			const BOOL bShift = ( GetAsyncKeyState( VK_SHIFT ) & 0x8000 ) != 0;
-			if ( Settings.General.CloseMode == 0 && ! bShift )
+			if ( ! bShift )
 			{
-				CCloseModeDlg dlg;
-				if ( dlg.DoModal() != IDOK )
+				if ( Settings.General.CloseMode == 0 )
 				{
-					if ( Settings.General.CloseMode == 1 )
+					CCloseModeDlg dlg;
+					if ( dlg.DoModal() != IDOK )
+						return;
+				}
+
+				if ( Settings.General.CloseMode == 1 )
+				{
+					PostMessage( WM_SYSCOMMAND, SC_MINIMIZE );
+					return;
+				}
+
+				if ( Settings.General.CloseMode == 2 )
+				{
+					CloseToTray();
+					return;
+				}
+
+				if ( Settings.General.CloseMode == 3 )
+				{
+					if ( Settings.Live.AutoClose )
 						CloseToTray();
-					else if ( Settings.General.CloseMode == 3 )
+					else
 						OnNetworkAutoClose();
 					return;
 				}
-			}
-			else if ( Settings.General.CloseMode == 1 && ! bShift )
-			{
-				CloseToTray();
-				return;
-			}
-			else if ( Settings.General.CloseMode == 3 && ! bShift )
-			{
-				if ( Settings.Live.AutoClose )
-					CloseToTray();
-				else
-					OnNetworkAutoClose();
-				return;
 			}
 		}
 	//	break;

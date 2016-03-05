@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Japanese Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.0.2) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.0.2) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -550,7 +550,7 @@
 				<menu text="ウェブサイト">
 					<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
 					<separator/>
-					<!--item id="ID_HELP_UPDATE" text="最新ニュース"/>
+					<!--item id="ID_HELP_UPDATE" text="最新ニュース"-->
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
@@ -643,7 +643,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
-				<!--item id="ID_HELP_UPDATE" text="最新ニュース"/>
+				<!--item id="ID_HELP_UPDATE" text="最新ニュース"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -708,7 +708,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
-				<!--item id="ID_HELP_UPDATE" text="最新ニュース"/>
+				<!--item id="ID_HELP_UPDATE" text="最新ニュース"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -795,7 +795,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProjectフォーラム"/>
-				<!--item id="ID_HELP_UPDATE" text="最新ニュース"/>
+				<!--item id="ID_HELP_UPDATE" text="最新ニュース"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1589,7 +1589,7 @@
 			<newline gap="24" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">アップグレード 通 知</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1597,7 +1597,7 @@
 			<link target="command:upgrade">ここをクリックするとアップグレードします</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">警 告 - あ な た は フ ァ イ アー ウ ォ ー ル の 中 に い ま す</heading>
 			<newline gap="8" indent="42"/>
@@ -1654,15 +1654,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">ローカルフォーラム</link><gap size="6"/>
 		<text align="middle">- あなたの日本語のディスカッションフォーラムへ</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">リ モ ー ト ア ク セ ス 有 効</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjectリモートアクセスが有効になっています。 次のアドレスでブラウザからPeerProjectをコントロールできます:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- または -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
@@ -1740,7 +1740,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして高速ハッシュを行います</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">ここをクリックして低速ハッシュを行います</link>
 			</group>
 		</para>
@@ -1851,7 +1851,7 @@
 			<text>,</text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">連絡先</text>
 			<newline gap="1" indent="8"/>
@@ -1886,7 +1886,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">興味</text>
 			<newline gap="2" indent="8"/>
@@ -2172,7 +2172,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="ユーザの共有ファイルを参照します"/>
 	<tip id="ID_BROWSE_LAUNCH" message="選択したユーザのプロフィールと共有ファイルを参照します"/>
 	<tip id="ID_BROWSE_PROFILE" message="ユーザのプロフィールを参照します"/>
@@ -2486,7 +2486,7 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="イメージを原寸大で表示します"/>
 	<tip id="PluginID_ImageViewer_Refresh" message="イメージを更新します"/>
 	<tip id="PluginID_ImageViewer_Close" message="イメージビュアーを閉じます"/>
-</commandTips>
+</commandtips>
 
 <!-- Localized Strings -->
 <strings>
@@ -3195,9 +3195,10 @@
 	<string id="20891" value="終了(&amp;X)"/>
 	<string id="20892" value="暫くお待ち下さい: Donkey2000サーバーリストを更新しています..."/>
 	<string id="20893" value="暫くお待ち下さい: ディスカバリサービスを更新しています..."/>
-	<string id="20894" value="まだ接続速度を設定していません。 続けるにはインターネット接続形式を選択するか、接続速度を入力して下さい"/>
-	<!--string id="20895" value="暫くお待ち下さい: UPnPデバイスを検索してセットアップしています..."-->
-	<!--string id="20896" value="NATルータ又はファイアーウォール上でポートフォワードを設定するように指定しました\n\nTCPとUDPの両方でポート %i への接続をローカルPCへフォワード(転送)するようにネットワークを構成して下さい"-->
+	<!--string id="20894" value="暫くお待ち下さい: UPnPデバイスを検索してセットアップしています..."-->
+	<!--string id="20894" value="NATルータ又はファイアーウォール上でポートフォワードを設定するように指定しました\n\nTCPとUDPの両方でポート %i への接続をローカルPCへフォワード(転送)するようにネットワークを構成して下さい"-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="まだ接続速度を設定していません。 続けるにはインターネット接続形式を選択するか、接続速度を入力して下さい"/>
 	<string id="20897" value="このフォルダは別の共有フォルダの一部として既に共有されています:\n\n%s"/>
 	<string id="20898" value="共有フォルダが指定されていません。宜しいですかですか?"/>
 	<string id="20899" value="歳"/>
@@ -3242,7 +3243,7 @@
 		<control caption="Shadows"/>
 		<control caption="トレイ:"/>
 		<control caption="閉じるをクリックした時:"/>
-		<control caption="確認する|タスクトレイに最小化|直ぐに終了|転送後に終了"/>
+		<control caption="確認する|タスクトレイに最小化|タスクトレイに最小化|転送後に終了|直ぐに終了"/>
 		<control caption="最小化をクリックした時:"/>
 		<control caption="通常|タスクトレイに最小化"/>
 	</dialog>
@@ -3267,12 +3268,12 @@
 		<control caption="履歴をクリア"/>
 		<control caption="安全な拡張子:"/>
 		<control/>
-		<control caption="追加(_A)"/>
-		<control caption="削除(_R)"/>
+		<control caption="追加"/>
+		<control caption="削除"/>
 		<control caption="共有しない拡張子:"/>
 		<control/>
-		<control caption="追加(_A)"/>
-		<control caption="削除(_R)"/>
+		<control caption="追加"/>
+		<control caption="削除"/>
 		<control caption="コレクションの格納先:"/>
 		<control/>
 		<control/>
@@ -3285,24 +3286,26 @@
 		<control caption="下のﾘｽﾄ内のﾌｧｲﾙﾀｲﾌﾟのPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ再生ﾘｽﾄへの追加を許可"/>
 		<control caption="ファイルタイプ:"/>
 		<control/>
-		<control caption="追加(_A)"/>
-		<control caption="削除(_R)"/>
+		<control caption="追加"/>
+		<control caption="削除"/>
 		<control caption="オーディオ視覚プラグイン:"/>
-		<control caption="プラグインを選択(_S)..."/>
+		<control caption="プラグインを選択..."/>
 		<control caption="注意:外部のメディアプレーヤーを選択すると内臓のPeerProjectﾒﾃﾞｨｱﾌﾟﾚｰﾔｰ、オーディオ視覚プラグインは共に自動的に無効になります。"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="コミュニティ">
-		<control caption="プロフィール:"/>
-		<control caption="Gnutellaユーザプロフィールを共有することによって、あなたについての情報やあなたの興味、お勧めのファイルやウェブサイトを他の人に公開することができます"/>
-		<control caption="プロフィールを編集"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="コミュニティ">
 		<control caption="チャット:"/>
 		<control caption="互換性のあるクライアントとピア・ツー・ピアチャットを行う"/>
 		<control caption="全てのネットワークでチャットを有効にする"/>
 		<control caption="スパム用のチャットメッセージをフィルタリングする"/>
 		<control caption="差別・侮辱発言を監視する"/>
+		<control caption="プロフィール:"/>
+		<control caption="プロフィール"/>
+		<control caption="プロフィールを編集"/>
+		<control caption="インフォ:"/>
+		<control caption="G2ユーザプロフィールを共有することによって、あなたについての情報やあなたの興味、お勧めのファイルやウェブサイトを他の人に公開することができます"/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuStd" caption="リモートアクセス">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="リモートアクセス">
 		<control caption="有効:"/>
 		<control caption="PeerProjectリモートアクセスを有効にする:"/>
 		<control/>
@@ -3311,7 +3314,8 @@
 		<control caption="パスワード:"/>
 		<control/>
 		<control/>
-		<control caption="ガイド:"/>
+		<control/>
+		<control caption="インフォ:"/>
 		<control caption="PeerProjectリモートアクセスはあなたがPCの前を離れていても、ウェブブラウザを使用してPeerProjectを遠隔操作することができるようにします。この機能を利用するには(ルータを適切に設定する等して)入力接続を受け付けることができるようにする必要があります"/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="ウェブ">
@@ -3326,8 +3330,8 @@
 		<control caption="ダウンロードマネージャ:"/>
 		<control caption="全てのウェブダウンロードにPeerProjectを使用する:"/>
 		<control/>
-		<control caption="追加(_A)"/>
-		<control caption="削除(_R)"/>
+		<control caption="追加"/>
+		<control caption="削除"/>
 		<control caption="ダウンロードマネージャプラグインはここにリストされた種類のファイルだけをダウンロードします。他のファイルタイプのダウンロードにはウェブブラウザが使用されることになります。ダウンロードを処理するためにはPeerProjectを起動していなければなりません"/>
 	</dialog>
 	<dialog name="CConnectionSettingsPage" cookie="BuStCoStCoStEdBuBuBuStCoStCoBuStCoBuBuBuStEdmsStEdms" caption="接続">
@@ -3529,7 +3533,7 @@
 		<control/>
 		<control caption="スキン情報:"/>
 		<control caption="名前:"/>
-		<control />
+		<control/>
 		<control caption="作者:"/>
 		<control/>
 		<control caption="説明:"/>
@@ -3630,7 +3634,7 @@
 		<control/>
 		<control caption="Plug'n'Playを使用して自動的にポートを空けますか?"/>
 		<control/>
-		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="状態:"/>
@@ -4177,13 +4181,14 @@
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 		<control caption="あなたは以前このファイルをダウンロードして、削除したことがあります。どうしますか?"/>
-		<control caption="警告! ファイルのコピーが検出されました。 いくつかの悪意のあるソフトウェアがあなたのライブラリを汚染させる可能性があります。 あなたがこのファイルをダウンロードしたか手動でライブラリに追加したかどうかを必ず確認して下さい。 もし記憶に無ければ直ちにPeerProjectを終了させ、コンピュータをアンチウイルスプログラムでスキャンして下さい。"/>
+		<control caption="警告: ファイルのコピーが検出されました。 いくつかの悪意のあるソフトウェアがあなたのライブラリを汚染させる可能性があります。 あなたがこのファイルをダウンロードしたか手動でライブラリに追加したかどうかを必ず確認して下さい。 もし記憶に無ければ直ちにPeerProjectを終了させ、コンピュータをアンチウイルスプログラムでスキャンして下さい。"/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="終了ボタン">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="終了ボタン">
 		<control caption="初めてPeerProjectの終了ボタンをクリックしました。 次回から終了ボタンをクリックした時にPeerProjectがどういう挙動をするかを選択して下さい:"/>
 		<control caption="タスクトレイに最小化する"/>
+		<control caption="タスクトレイに最小化する"/>
+		<control caption="全てのダウンロードとアップロードが完了すればを終了する"/>
 		<control caption="即座にPeerProjectを終了する"/>
-		<control caption="全てのダウンロードとアップロードが完了すればPeerProjectを終了する"/>
 		<control caption="OK"/>
 		<control caption="キャンセル"/>
 	</dialog>
@@ -4376,9 +4381,92 @@
 		<control/>
 	</dialog>
 </dialogs>
-
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject リモートアクセス"/>
+	<tag find="text_logout" replace="ログアウト"/>
+	<tag find="text_tabhome" replace="ホーム"/>
+	<tag find="text_tabdownloads" replace="ダウンロード"/>
+	<tag find="text_tabuploads" replace="アップロード"/>
+	<tag find="text_tabnetworks" replace="ネットワーク"/>
+	<tag find="text_tabsearch" replace="検索"/>
+	<tag find="text_welcome" replace="PeerProjectリモートアクセス</b>へようこそ"/>
+	<tag find="text_logininfo" replace="もしPeerProjectをあなたのPC上で起動させているなら、あなたのリモートアクセスユーザー名とパスワードを入力して<b>ログイン</b>をクリックして下さい。"/>
+	<tag find="text_loginfail" replace="入力されたユーザー名とパスワードが間違っています。 もう一度入力して下さい。"/>
+	<tag find="text_loginuser" replace="ユーザー名:"/>
+	<tag find="text_loginpass" replace="パスワード:"/>
+	<tag find="text_loginsubmit" replace="ログイン"/>
+	<tag find="text_homeinfo" replace="このウェブページを使用してPeerProjectの検索・ダウンロード・アップロード・ネットワーク接続を完全に制御することができます。"/>
+	<tag find="text_homestart" replace="クイック検索:"/>
+	<tag find="text_homequick" replace="クイック検索:"/>
+	<tag find="text_homelinks" replace="便利なリンク"/>
+	<tag find="text_directdownload" replace="Magnet/Torrentダウンロード:"/>
+	<tag find="text_downloadcleartip" replace="リストからダウンロードをクリア （これはあなたのファイルは削除されません）"/>
+	<tag find="text_downloadclear" replace="クリア"/>
+	<tag find="text_downloadresume" replace="再開"/>
+	<tag find="text_downloadpause" replace="一時停止"/>
+	<tag find="text_downloadcancel" replace="キャンセル"/>
+	<tag find="text_downloadmoresources" replace="追加ソース"/>
+	<tag find="text_downloaddirect" replace="Magnetダウンロード:"/>
+	<tag find="text_submit" replace="行きます"/>
+	<tag find="text_sourceaccess" replace="アクセス"/>
+	<tag find="text_sourceforget" replace="破棄"/>
+	<tag find="text_filter" replace="フィルタ:"/>
+	<tag find="text_filteractive" replace="アクティブ"/>
+	<tag find="text_filterqueued" replace="キュー"/>
+	<tag find="text_filterpaused" replace="一時停止"/>
+	<tag find="text_filternosources" replace="ソース無し"/>
+	<tag find="text_filtershowall" replace="全てのソースを表示"/>
+	<tag find="text_filtersubmit" replace="フィルタ"/>
+	<tag find="text_filename" replace="ダウンロードファイル"/>
+	<tag find="text_filesize" replace="サイズ"/>
+	<tag find="text_fileprogress" replace="進行"/>
+	<tag find="text_filespeed" replace="速度"/>
+	<tag find="text_filesources" replace="ソース"/>
+	<tag find="text_filestatus" replace="状態"/>
+	<tag find="text_fileoptions" replace="コントロール"/>
+	<tag find="text_networkenabled" replace="このネットワークは有効です -"/>
+	<tag find="text_networkdisabled" replace="このネットワークは<b>無効</b>です -"/>
+	<tag find="text_networkconnect" replace="へ接続する"/>
+	<tag find="text_networkdisconnect" replace="から切断する"/>
+	<tag find="text_networkaddress" replace="アドレス"/>
+	<tag find="text_networktime" replace="時間"/>
+	<tag find="text_networkpackets" replace="パケット"/>
+	<tag find="text_networkbandwidth" replace="帯域幅"/>
+	<tag find="text_networktotal" replace="合計"/>
+	<tag find="text_networkmode" replace="モード"/>
+	<tag find="text_networkleaves" replace="リーフ"/>
+	<tag find="text_useragent" replace="ユーザーエージェント"/>
+	<tag find="text_searchnew" replace="新規検索"/>
+	<tag find="text_searchinfo" replace="検索を開始するにはキーワードを下のボックス内に入力して<b>検索開始</b>をクリックして下さい。<br/>検索結果を特定のファイルの種類に制限したいなら、リストからそれを選択して下さい。"/>
+	<tag find="text_searchfor" replace="検索:"/>
+	<tag find="text_searchstart" replace="検索開始"/>
+	<tag find="text_searchstop" replace="検索を中止"/>
+	<tag find="text_searchclose" replace="検索を閉じる"/>
+	<tag find="text_refreshpage" replace="ページを更新"/>
+	<tag find="text_file" replace="ファイル"/>
+	<tag find="text_user" replace="ユーザー"/>
+	<tag find="text_submit" replace=""/>
+	<tag find="text_filetype" replace="ファイルの種類:"/>
+	<tag find="text_anyfile" replace="全てのファイルタイプ"/>
+	<tag find="text_typeapp" replace="アプリケーション"/>
+	<tag find="text_typearchive" replace="アーカイブ"/>
+	<tag find="text_typeaudio" replace="オーディオ"/>
+	<tag find="text_typevideo" replace="動画"/>
+	<tag find="text_typeimage" replace="静止画像"/>
+	<tag find="text_typebook" replace="書籍"/>
+	<tag find="text_typedoc" replace="ワープロ文章"/>
+	<tag find="text_typepresent" replace="プレゼンテーション"/>
+	<tag find="text_typerom" replace="ROM"/>
+	<tag find="text_typeskin" replace="スキン"/>
+	<tag find="text_typecode" replace="ソースコード"/>
+	<tag find="text_typespreadsheet" replace="スプレッドシート"/>
+	<tag find="text_typesubtitle" replace="字幕"/>
+	<tag find="text_typecollection" replace=""/>
+	<!--tag find="text_" replace="アクティブ / <%= queue_queued %> キュー / 使用帯域:"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="ダウンロードファイル"/>
 		<column from="Size" to="サイズ"/>
@@ -4525,5 +4613,5 @@
 		<column from="Comments" to="コメント"/>
 		<column from="Order" to="順番"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

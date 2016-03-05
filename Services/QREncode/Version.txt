@@ -1,9 +1,0 @@
-LibQREncode 3.4.4
-
-May 12 2015 (Git)
-
-http://fukuchi.org/works/qrencode/
-https://github.com/fukuchi/libqrencode
-
-http://code.google.com/p/qrencode-win32/
-http://www.codeproject.com/Articles/593591/Simple-C-Cplusplus-QRCode-Library

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Estonian Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.2.9) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.2.9) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -1573,7 +1573,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Uuendus Teade</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1581,7 +1581,7 @@
 			<link target="command:upgrade">Kliki siia, et uuendada</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Hoiatus: Sa Oled Tulemüüritud</heading>
 			<newline gap="8" indent="42"/>
@@ -1616,15 +1616,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Kohalik Foorum</link><gap size="6"/>
 		<text align="middle">- Mine oma eesti keele foorum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Kaugtöö On Lubatud</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject Kaugtöö on lubatud. Kontrolli PeerProject, kasutades oma browserit:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- või -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1711,7 +1711,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et kiiremini</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliki siia, et aeglasemalt</link>
 			</group>
 		</para>
@@ -1832,7 +1832,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontaktandmed</text>
 			<newline gap="1" indent="8"/>
@@ -1867,7 +1867,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Huvid</text>
 			<newline gap="2" indent="8"/>
@@ -2149,7 +2149,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Sirvi kasutaja jagatud faile"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Sirvi kasutaja profiili ja faile."/>
 	<tip id="ID_BROWSE_PROFILE" message="Vaata kasutaja profiili."/>
@@ -2459,7 +2459,7 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="Reasta avatud aknad horisontaalselt."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Reasta avatud aknad vertikaalselt."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Näita või peida tööriistariba."/>
-</commandTips>
+</commandtips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3152,8 +3152,9 @@
 	<string id="20886" value="Kasutajaliidese suundade muutmine nõuab taaskäivitust.\n\nVälju nüüd?"/>
 	<string id="20890" value="Teretulemast PeerProjectsse"/>
 	<string id="20891" value="Välju"/>
-	<string id="20894" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
-	<!--string id="20896" value="Sa oled näidanud, et tahad kasutada Portide suunamist, oma NAT ruuteri või tulemüüriga.\n\nPalun seadista oma võrk läbima TCP ja UDP porte %i oma PCl."-->
+	<!--string id="20894" value="Sa oled näidanud, et tahad kasutada Portide suunamist, oma NAT ruuteri või tulemüüriga.\n\nPalun seadista oma võrk läbima TCP ja UDP porte %i oma PCl."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Sa ei ole veel oma internetiühenduse kiirust täpsustanud. Enne jätkamist, vali kas Interneti ühenduse tüüp või kiirus."/>
 	<string id="20897" value="Kaust mida jagad on juba jagatud, kui osa teisest kaustast:\n\n%s"/>
 	<string id="20898" value="Sa ei ole veel täpsustanud oma jagatavaid kausu. Oled kindel?"/>
 	<string id="20899" value="aastat vana"/>
@@ -3200,7 +3201,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Tööriistariba:"/>
 		<control caption="Kui ma klikin Sulge:"/>
-		<control caption="Küsi|Vähenda Tööriistaribale|Sule Kohe|Sule peale ülekandeid"/>
+		<control caption="Küsi|Vähenda Tööriistaribale|Vähenda Tööriistaribale|Sule peale ülekandeid|Sule Kohe"/>
 		<control caption="Kui klikin minimeeri:"/>
 		<control caption="Tavaline|Vähenda Tööriistaribale"/>
 	</dialog>
@@ -3250,23 +3251,26 @@
 		<control caption="Note: Choosing an external Meedia Handler will automatically disable all Meedia and Visualisation Plugins"/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Kogukond">
-		<control caption="Minu _Profiil:"/>
-		<control caption="Sa saad kasutada Gnutella Kasutaja Profiili, et enda kohta informatsiooni, oma huvide, lemmikfailide ja weebilehtede kohta."/>
-		<control caption="Muuda Minu Profiili"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Kogukond">
 		<control caption="_Vestlus:"/>
 		<control caption="Võimalda P2P vestlus sobivate klientidega"/>
 		<control caption="Võimalda P2P vestlus kõikide võrkudega"/>
 		<control caption="Filtreeri Spämm"/>
 		<control caption="Praagi labased väljendid"/>
+		<control caption="Minu _Profiil:"/>
+		<control caption="Võimalda Profiil"/>
+		<control caption="Muuda Minu Profiili"/>
+		<control caption="Info:"/>
+		<control caption="Sa saad kasutada Gnutella Kasutaja Profiili, et enda kohta informatsiooni, oma huvide, lemmikfailide ja weebilehtede kohta."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Kaugtöö">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Kaugtöö">
 		<control caption="_Käivitus:"/>
 		<control caption="Võimalda PeerProject Kaugtöö:"/>
 		<control/>
 		<control caption="_Andmed:"/>
 		<control caption="Vali Kasutajanimi:"/>
 		<control caption="Vali Salasõna:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control caption="Abi:"/>
@@ -3585,7 +3589,7 @@
 		<control/>
 		<control caption="Kas sinu võrk on kaitstud tulemüüri või ruuteriga?"/>
 		<control/>
-		<control caption="Port: (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Või vali:"/>
@@ -4132,13 +4136,14 @@
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 		<control caption="Sa oled varem selle faili juba tõmmanud ja siis kustutanud. Mida sa soovid edasi teha?"/>
-		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Sule Nupp">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Sule Nupp">
 		<control caption="See on esimene kord kui oled PeerProject sule nuppu klikkinud. Palun vali, mida PeerProject peaks tegema:"/>
 		<control caption="Minimeeri tööriistaribale"/>
-		<control caption="Sulge PeerProject kohe"/>
+		<control caption="Minimeeri tööriistaribale"/>
 		<control caption="Sulge PeerProject pärast alla- või üleslaadimiste lõppu"/>
+		<control caption="Sulge PeerProject kohe"/>
 		<control caption="OK"/>
 		<control caption="Tühista"/>
 	</dialog>
@@ -4275,7 +4280,7 @@
 		<control/>
 		<control caption="_Lisa"/>
 		<control caption="_Eemalda"/>
-		<control caption="Faili _tüüp:" />
+		<control caption="Faili _tüüp:"/>
 		<control/>
 		<control caption="*Drag&apos;n&apos;drop any download later."/>
 		<control caption="OK"/>
@@ -4330,8 +4335,19 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface (Missing) -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Logi välja"/>
+	<tag find="text_tabhome" replace="Kodu"/>
+	<tag find="text_tabdownloads" replace="Allalaadimised""/>
+	<tag find="text_tabuploads" replace="Üleslaadimised"/>
+	<tag find="text_tabnetworks" replace="Võrk"/>
+	<tag find="text_tabsearch" replace="Otsing"/>
+	<tag find="text_" replace=""/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Allalaaditud fail"/>
 		<column from="Size" to="Suurus"/>
@@ -4478,5 +4494,5 @@
 		<column from="Comments" to="Kommentaarid"/>
 		<column from="Order" to="Järjekord"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

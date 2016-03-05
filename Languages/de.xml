@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default German Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -452,8 +452,8 @@
 		<button id="ID_HOSTCACHE_G1_CACHE" text="G1-Cache"/>
 		<button id="ID_HOSTCACHE_ED2K_CACHE" text="Servers"/>
 		<button id="ID_HOSTCACHE_DC_CACHE" text="DC-Hubs"/>
-		<!-- <button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent-Cache"/> -->
-		<!-- <button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia-Cache"/> -->
+		<!--button id="ID_HOSTCACHE_BT_CACHE" text="BitTorrent-Cache"-->
+		<!--button id="ID_HOSTCACHE_KAD_CACHE" text="Kademlia-Cache"-->
 	</toolbar>
 	<!-- PRIVATE CHAT WINDOW -->
 	<toolbar name="CPrivateChatWnd">
@@ -472,22 +472,22 @@
 	</toolbar>
 	<!-- WEBSERVICES -->
 	<toolbar name="WebServices.MusicBrainz">
-		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen" />
-		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen" />
-		<separator />
+		<button id="ID_MUSICBRAINZ_MATCHES" text="Treffer anzeigen"/>
+		<button id="ID_MUSICBRAINZ_ALBUMS" text="Alle Alben ansehen"/>
+		<separator/>
 	</toolbar>
 	<!--
 	<toolbar name="WebServices.ShareMonkey">
-		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen" />
-		<button id="ID_SHAREMONKEY_SAVE" text="Speichern" />
+		<button id="ID_SHAREMONKEY_DOWNLOAD" text="Daten holen"/>
+		<button id="ID_SHAREMONKEY_SAVE" text="Speichern"/>
 		<control id="ID_SHAREMONKEY_SAVE_OPTION" text="Vorschau speichern" width="100" checked="true"/>
-		<separator />
-		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück" />
-		<button id="ID_SHAREMONKEY_NEXT" text="Vor" />
-		<separator />
-		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage" />
-		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen" />
-		<button id="ID_SHAREMONKEY_BUY" text="Kaufen" />
+		<separator/>
+		<button id="ID_SHAREMONKEY_PREVIOUS" text="Zurück"/>
+		<button id="ID_SHAREMONKEY_NEXT" text="Vor"/>
+		<separator/>
+		<button id="ID_SHAREMONKEY_PRICES" text="Preisanfrage"/>
+		<button id="ID_SHAREMONKEY_COMPARE" text="Vergleichen"/>
+		<button id="ID_SHAREMONKEY_BUY" text="Kaufen"/>
 	</toolbar>
 	-->
 	<!-- IMAGE VIEWER PLUGIN WINDOW -->
@@ -617,13 +617,13 @@
 				<menu text="_Websites">
 					<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 					<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-					<!-- <separator/>
-					<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
+					<!--separator-->
+					<!--item id="ID_HELP_WEB_1" text="File Sharing Portal"-->
 				</menu>
-				<separator/> <!--
-				<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
-				<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
-				<separator/> -->
+				<!--separator-->
+				<!--item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"-->
+				<!--item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"-->
+				<separator/>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<separator/>
 				<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
@@ -723,13 +723,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
+				<!--separator->
+				<!--item id="ID_HELP_WEB_1" text="File Sharing Portal"-->
 			</menu>
-			<separator/> <!--
-			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
-			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
-			<separator/> -->
+			<!--separator-->
+			<!--item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"-->
+			<!--item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"-->
+			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
 	</menu>
@@ -795,13 +795,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forums"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
+				<!--separator->
+				<!--item id="ID_HELP_WEB_1" text="File Sharing Portal"-->
 			</menu>
-			<separator/> <!--
-			<item id="ID_HELP_VERSION_CHECK" text="Auf neuere _Version prüfen"/>
-			<item id="ID_HELP_DONATE" text="_Spenden an das PeerProjekt"/>
-			<separator/> -->
+			<!--separator-->
+			<!--item id="ID_HELP_VERSION_CHECK" text="Auf neuere _Version prüfen"-->
+			<!--item id="ID_HELP_DONATE" text="_Spenden an das PeerProjekt"-->
+			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
 	</menu>
@@ -890,13 +890,13 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProjekt's Homepage"/>
 				<item id="ID_HELP_FORUMS" text="PeerProjekt-_Forum"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Deutsch Forum"/>
-				<!-- <separator/>
-				<item id="ID_HELP_WEB_1" text="File Sharing Portal"/> -->
+				<!--separator-->
+				<!--item id="ID_HELP_WEB_1" text="File Sharing Portal"-->
 			</menu>
-			<separator/> <!--
-			<item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"/>
-			<item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"/>
-			<separator/> -->
+			<!--separator-->
+			<!--item id="ID_HELP_VERSION_CHECK" text="Nach _Update suchen"-->
+			<!--item id="ID_HELP_DONATE" text="_An das PeerProjekt spenden"-->
+			<separator/>
 			<item id="ID_HELP_ABOUT" text="_Über PeerProjekt..."/>
 		</menu>
 	</menu>
@@ -1737,7 +1737,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Update - Hinweis</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1745,7 +1745,7 @@
 			<link target="command:upgrade">Zum Aktualisieren hier klicken</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warnung: Keine Eingehenden Verbindungen Möglich</heading>
 			<newline gap="8" indent="42"/>
@@ -1812,15 +1812,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokale Foren</link><gap size="6"/>
 		<text align="middle">- Gehen Sie zu Ihrem deutschen Sprache Diskussionsforum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Remote Access Ist Aktiviert</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProjekt-Remote-Access ist aktiviert. Sie können PeerProjekt über ihren Webbrowser steuern:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160; oder &#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
@@ -1907,7 +1907,7 @@
 				<group id="3">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Schneller hashen</link>
 				</group>
-				<group id="4">
+				<group id="5">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Langsamer hashen</link>
 				</group>
 			</group>
@@ -2029,7 +2029,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontakt</text>
 			<newline gap="1" indent="8"/>
@@ -2064,7 +2064,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interessen</text>
 			<newline gap="2" indent="8"/>
@@ -2357,7 +2357,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Die Dateien des Benutzers anzeigen."/>
 	<tip id="ID_BROWSE_LAUNCH" message="Die Dateien und das Profil des markierten Benutzers durchsuchen." tip="Benutzer durchsuchen"/>
 	<tip id="ID_BROWSE_PROFILE" message="Das Profil des Benutzers anzeigen."/>
@@ -2679,13 +2679,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Das Bild in Originalgröße anzeigen."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Das Bild neu laden."/>
 	<tip id="PluginID_ImageViewer_Close" message="Das Bildbetrachterfenster schließen."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Im Maximum-Modus wird die genutzte Bandbreite nie den eingegebenen Wert überschreiten. Im Durchschnitts-Modus fluktuiert die genutzte Bandbreite um den eingegebenen Richtwert."/>
 	<tip id="IDC_REGEXP" message="Regulären Ausdruck in perl eingeben.{n}Das Suchwort kann in folgender Form definiert werden &lt;n&gt;, wobei n eine Zahl zwischen 1 und 9 ist. Wenn Sie alle Suchworte nacheinander durchsuchen wollen, benutzen Sie &lt;_&gt; markieren."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Diese Einstellung hat keinen Einfluss auf bereits gestartete Downloads. In den eD2k- und BitTorrent-Netzwerken kann mit diese Option lediglich der Upload von pausierten Downloads verhindert werden.{n}{n}ACHTUNG: Benutzen Sie diese Option nur wenn unbedingt nötig - der Missbrauch kann zur Verbannung führen."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProjekt"/>
@@ -3433,9 +3433,10 @@
 	<string id="20891" value="&amp;Schließen"/>
 	<string id="20892" value="Bitte warten: eDonkey-Server-Liste wird aktualisiert..."/>
 	<string id="20893" value="Bitte warten: Service Provider werden aktualisiert..."/>
-	<string id="20894" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
-	<!--string id="20895" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."-->
-	<!--string id="20896" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."-->
+	<!--string id="20894" value="Bitte warten: UPnP-Geräte werden erkannt und konfiguriert..."-->
+	<!--string id="20894" value="Sie haben angegeben, dass Sie in Ihrem NAT-Router oder Firewall die Port-Freigabe benutzen möchten.\n\nBitte konfigurieren Sie ihr Netzwerk um Port %i (TCP und UDP)an ihren PC weiterzuleiten."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Sie haben Ihre Verbindungsgeschwindigkeit noch nicht angegeben. Bevor Sie fortfahren stellen Sie bitte ihre Verbindungsart oder Geschwindigkeit ein."/>
 	<string id="20897" value="Der Ordner, den Sie freigegeben möchten, ist bereits als Teil eines anderen Ordners freigegeben:\n\n%s"/>
 	<string id="20898" value="Sie haben keine Ordner freigegeben. Sind Sie sicher?"/>
 	<string id="20899" value="Jahre alt"/>
@@ -3481,7 +3482,7 @@
 		<control caption="Schatten"/>
 		<control caption="_Tray:"/>
 		<control caption="Bei Klick auf [X]:"/>
-		<control caption="Fragen|In den Tray minimieren|Sofort beenden|Nach Transfers beenden"/>
+		<control caption="Fragen|In den Taskbar minimieren|In den Tray minimieren|Nach Transfers beenden|Sofort beenden"/>
 		<control caption="Bei Klick auf [-]:"/>
 		<control caption="Minimieren (normal)|In den Tray minimieren"/>
 	</dialog>
@@ -3574,17 +3575,19 @@
 		<control caption="On-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Community">
-		<control caption="Mein _Profil:"/>
-		<control caption="Sie können das Profil benutzen, um Informationen über Sie selbst, Internetlinks und empfohlene Dateien für Andere zugänglich zu machen."/>
-		<control caption="Profil bearbeiten"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Community">
 		<control caption="_Chat:"/>
 		<control caption="Chat mit Gnutella-Clients aktivieren"/>
 		<control caption="Chat mit eDonkey-Clients aktivieren"/>
 		<control caption="Spamnachrichten im Chat filtern"/>
 		<control caption="Vulgäre Sprache im Chat filtern"/>
+		<control caption="Mein _Profil:"/>
+		<control caption="Profil aktivieren"/>
+		<control caption="Profil bearbeiten"/>
+		<control caption="Info:"/>
+		<control caption="Sie können das Profil benutzen, um Informationen über Sie selbst, Internetlinks und empfohlene Dateien für Andere zugänglich zu machen."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Remote-Access">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Remote-Access">
 		<control caption="_Aktivieren:"/>
 		<control caption="Remote-Access aktivieren:"/>
 		<control caption="..."/>
@@ -3593,7 +3596,8 @@
 		<control caption="Passwort:"/>
 		<control/>
 		<control/>
-		<control caption="Hilfe:"/>
+		<control/>
+		<control caption="Info:"/>
 		<control caption="PeerProjekt's Remote-Access erlaubt es Ihnen, PeerProjekt auf ihrem PC laufen zu lassen und es über einen Webbrowser zu bedienen. Sie müssen eingehende Verbindungen akzeptieren können, um diese Funktion zu benutzen. (Korrekt konfigurierter Router, usw.)"/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3912,7 +3916,7 @@
 		<control/>
 		<control caption="Die benötigten Portfreigaben mit Hilfe von UPnP?"/>
 		<control/>
-		<control caption="Port: (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Fortschritt:"/>
@@ -4459,13 +4463,14 @@
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 		<control caption="Sie haben diese Datei schon einmal heruntergeladen und gelöscht. Was möchten Sie tun?"/>
-		<control caption="Achtung. Doppelte Dateien erkannt! Installierte Programme könnten Ihre Bibliothek gefährden. Sind Sie sicher, dass Sie diese Datei herunterladen möchten ? Haben Sie diese Datei manuell eingefügt ? Wenn Sie unsicher sind, schalten Sie ihren Computer aus und überprüfen sie diesen mit einem Anitivirusprogramm."/>
+		<control caption="Achtung: Doppelte Dateien erkannt. Installierte Programme könnten Ihre Bibliothek gefährden. Sind Sie sicher, dass Sie diese Datei herunterladen möchten ? Haben Sie diese Datei manuell eingefügt ? Wenn Sie unsicher sind, schalten Sie ihren Computer aus und überprüfen sie diesen mit einem Anitivirusprogramm."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Schließen">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Schließen">
 		<control caption="Sie haben auf das Schließen-Symbol geklickt. Bitte wählen Sie die Aktion aus, die in Zukunft bei einem Klick auf das Schließen-Symbol ausgefûhrt werden soll:"/>
+		<control caption="In den Taskbar schicken"/>
 		<control caption="In den Tray schicken"/>
-		<control caption="Sofort beenden"/>
 		<control caption="PeerProjekt nach Abschluß aller Tranfers beenden."/>
+		<control caption="Sofort beenden"/>
 		<control caption="OK"/>
 		<control caption="Abbrechen"/>
 	</dialog>
@@ -4657,8 +4662,91 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProjekt Web"/>
+	<tag find="text_logout" replace="Ausloggen"/>
+	<tag find="text_tabhome" replace="Home"/>
+	<tag find="text_tabdownloads" replace="Downloads"/>
+	<tag find="text_tabuploads" replace="Uploads"/>
+	<tag find="text_tabnetworks" replace="Netzwerk"/>
+	<tag find="text_tabsearch" replace="Suchen"/>
+	<tag find="text_welcome" replace="Willkommen beim <b>PeerProjekt Remote Access.</b>"/>
+	<tag find="text_logininfo" replace="Falls dieser PeerProject-Client auf ihrem PC läuft, geben Sie bitte ihren Benutzernamen und das Passwort für den Remote Access ein und klicken Sie dann auf <b>Login</b>."/>
+	<tag find="text_loginfail" replace="Der Benutzername oder das Passwort das Sie eingegeben haben ist falsch, Bitte versuchen Sie es noch einmal."/>
+	<tag find="text_loginuser" replace="Benutzername:"/>
+	<tag find="text_loginpass" replace="Passwort:"/>
+	<tag find="text_loginsubmit" replace="Login"/>
+	<tag find="text_homeinfo" replace="Diese Web-Konsole bietet ihnen volle Kontrolle über ihre Suchen, Downloads, Uploads und Netzwerkverbindungen."/>
+	<tag find="text_homestart" replace="Starten Sie den Download:"/>
+	<tag find="text_homequick" replace="Schnellsuche:"/>
+	<tag find="text_homelinks" replace="Nützliche Links:"/>
+	<tag find="text_directdownload" replace="Magnet Herunterladen:"/>
+	<tag find="text_downloadcleartip" replace="Deaktivieren Sie den Download aus der Liste (dies wird nicht löschen Sie Ihre Datei)"/>
+	<tag find="text_downloadclear" replace="Entfernen"/>
+	<tag find="text_downloadresume" replace="Starte"/>
+	<tag find="text_downloadpause" replace="Pause"/>
+	<tag find="text_downloadcancel" replace="Abbrechen"/>
+	<tag find="text_downloadmoresources" replace="Mehr Quellen"/>
+	<tag find="text_downloaddirect" replace=""/>
+	<tag find="text_submit" replace=""/>
+	<tag find="text_sourceaccess" replace="Starten"/>
+	<tag find="text_sourceforget" replace="Entfernen"/>
+	<tag find="text_filter" replace="Filter:"/>
+	<tag find="text_filteractive" replace="Aktiv"/>
+	<tag find="text_filterqueued" replace="Warteschlange"/>
+	<tag find="text_filterpaused" replace="Angehalten"/>
+	<tag find="text_filternosources" replace="Keine Quellen"/>
+	<tag find="text_filtershowall" replace="Alle Quellen anzeigen"/>
+	<tag find="text_filtersubmit" replace="Set"/>
+	<tag find="text_filename" replace="Dateiname"/>
+	<tag find="text_filesize" replace="Größe"/>
+	<tag find="text_fileprogress" replace="Fortschritt"/>
+	<tag find="text_filespeed" replace="Geschw."/>
+	<tag find="text_filesources" replace="Quellen"/>
+	<tag find="text_filestatus" replace="Status"/>
+	<tag find="text_fileoptions" replace="Bedienung"/>
+	<tag find="text_networkenabled" replace="Dieses Netzwerk ist aktiviert"/>
+	<tag find="text_networkdisabled" replace=""/>
+	<tag find="text_networkconnect" replace=""/>
+	<tag find="text_networkdisconnect" replace=""/>
+	<tag find="text_networkaddress" replace="Adresse"/>
+	<tag find="text_networktime" replace="Zeit"/>
+	<tag find="text_networkpackets" replace="Pakete"/>
+	<tag find="text_networkbandwidth" replace="Bandbreite"/>
+	<tag find="text_networktotal" replace="Gesamt"/>
+	<tag find="text_networkmode" replace="Modus"/>
+	<tag find="text_networkleaves" replace="Leaves"/>
+	<tag find="text_useragent" replace="User-Agent"/>
+	<tag find="text_searchnew" replace="Neue Suche"/>
+	<tag find="text_searchinfo" replace="Um eine neue Suche zu starten, geben Sie ihren Suchbegriff in das Feld unten ein und klicken Sie auf <b>Suche starten</b>. Wenn Sie ihre Suche auf einen bestimmten Dateityp beschränken wollen, so können Sie ihn in der Liste auswählen."/>
+	<tag find="text_searchfor" replace="Suche nach:"/>
+	<tag find="text_searchstart" replace="Suche starten"/>
+	<tag find="text_searchstop" replace="Suche stoppen"/>
+	<tag find="text_searchclose" replace="Suche schließen"/>
+	<tag find="text_refreshpage" replace="Seite aktualisieren"/>
+	<tag find="text_file" replace=""/>
+	<tag find="text_user" replace=""/>
+	<tag find="text_submit" replace="Set"/>
+	<tag find="text_filetype" replace="Dateityp:"/>
+	<tag find="text_anyfile" replace="Jeder Dateityp"/>
+	<tag find="text_typeapp" replace="Anwendung"/>
+	<tag find="text_typearchive" replace="Archiv"/>
+	<tag find="text_typeaudio" replace="Audio"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Bild"/>
+	<tag find="text_typebook" replace="Buch"/>
+	<tag find="text_typedoc" replace="Textverarbeitung"/>
+	<tag find="text_typepresent" replace="Präsentation"/>
+	<tag find="text_typerom" replace="ROM-Image"/>
+	<tag find="text_typeskin" replace="Skin"/>
+	<tag find="text_typecode" replace="Quellcode"/>
+	<tag find="text_typespreadsheet" replace="Tabellenkalkulation"/>
+	<tag find="text_typesubtitle" replace="Untertitel"/>
+	<tag find="text_typecollection" replace="Kollektion"/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Dateiname"/>
 		<column from="Size" to="Größe"/>
@@ -4806,5 +4894,5 @@
 		<column from="Comments" to="Kommentare"/>
 		<column from="Order" to="Reihenfolge"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

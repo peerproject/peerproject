@@ -1,7 +1,7 @@
 //
 // CtrlDownloadTip.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -101,11 +101,9 @@ void CDownloadTipCtrl::OnShow()
 	m_pGraph->AddItem( m_pItem );
 
 	CSingleLock pLock( &Transfers.m_pSection );
-	if ( pLock.Lock( 500 ) )
-	{
+	if ( SafeLock( pLock ) )
 		TrackerRequests.Request( m_pDownload, BTE_TRACKER_SCRAPE, 0, this );
 	//	pLock.Unlock();
-	}
 }
 
 void CDownloadTipCtrl::OnHide()
@@ -245,12 +243,10 @@ void CDownloadTipCtrl::OnCalcSize(CDC* pDC, CDownload* pDownload)
 	}
 
 	// Position dynamic numbers offset based on max static text label width
-	CString str;
-	LoadString( str, IDS_MONITOR_TOTAL_SPEED );
-	m_nStatWidth = pDC->GetTextExtent( str ).cx + 12;
-	LoadString( str, IDS_MONITOR_ESTIMATED_TIME );
-	if ( m_nStatWidth < ( pDC->GetTextExtent( str ).cx + 10 ) )
-		m_nStatWidth = pDC->GetTextExtent( str ).cx + 12;
+	m_nStatWidth = pDC->GetTextExtent( LoadString( IDS_MONITOR_TOTAL_SPEED ) ).cx + 12;
+	const int nWidth = pDC->GetTextExtent( LoadString( IDS_MONITOR_ESTIMATED_TIME ) ).cx + 12;
+	if ( m_nStatWidth < nWidth )
+		m_nStatWidth = nWidth;
 }
 
 void CDownloadTipCtrl::OnPaint(CDC* pDC, CDownload* pDownload)

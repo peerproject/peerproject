@@ -10,9 +10,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: nttp.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/aux_/config/msvc.hpp>
 #include <boost/mpl/aux_/config/workaround.hpp>
@@ -29,12 +29,12 @@
 //    template< int > struct arg;
 //    }}
 
-//#if    !defined(BOOST_MPL_CFG_NTTP_BUG) \
-//  && !defined(BOOST_MPL_PREPROCESSING_MODE) \
-//  && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//
-//# define BOOST_MPL_CFG_NTTP_BUG
-//
-//#endif
+#if    !defined(BOOST_MPL_CFG_NTTP_BUG) \
+    && !defined(BOOST_MPL_PREPROCESSING_MODE) \
+    && BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+
+#   define BOOST_MPL_CFG_NTTP_BUG
+
+#endif
 
 #endif // BOOST_MPL_AUX_CONFIG_NTTP_HPP_INCLUDED

@@ -1,7 +1,7 @@
 //
 // Skin.h
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -56,12 +56,15 @@ public:
 	void		AddString(const CString& strString, UINT nStringID);
 	BOOL		LoadString(CString& str, UINT nStringID) const;
 	BOOL		LoadControlTip(CString& str, UINT nCtrlID);
+	BOOL		LoadRemoteText(CString& str, const CString& strTag);
 	int			GetTextFlowChange(LPCTSTR pszText, BOOL* bIsRTL);
 protected:
 	BOOL		LoadStrings(CXMLElement* pBase);
 	BOOL		LoadControlTips(CXMLElement* pBase);
-	CMap<UINT, UINT, CString, const CString&>	m_pStrings;
-	CMap<UINT, UINT, CString, const CString&>	m_pControlTips;
+	BOOL		LoadRemoteInterface(CXMLElement* pBase);
+	CMap< UINT, UINT, CString, const CString& >		m_pStrings;
+	CMap< UINT, UINT, CString, const CString& >		m_pControlTips;
+	CMap< CString, const CString&, CString, const CString& >	m_pRemote;
 
 // Menus
 public:

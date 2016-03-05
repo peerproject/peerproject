@@ -8,6 +8,8 @@
  * Note: Portions of this code are based on Bugslayer code developed by John Robbins.
  */
 
+#pragma warning ( disable : 4477 )		// 'swprintf_s' : format string '%016lX' requires an argument of type 'unsigned long', but variadic argument 1 has type 'DWORD64'
+
 #include "StdAfx.h"
 #include "SymEngine.h"
 #include "BugTrap.h"
@@ -17,17 +19,14 @@
 #include "MemStream.h"
 #include "FileStream.h"
 
-// VS2008:
-#ifndef VER_SUITE_WH_SERVER
-#define VER_SUITE_WH_SERVER 0x00008000
-#endif
-
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
 
-/* Note: _MANAGED Code Sections Removed */
-/* Note: _M_X64 and _M_IX86 Sections Reordered for x64 Access */
+ // VS2008:
+#ifndef VER_SUITE_WH_SERVER
+#define VER_SUITE_WH_SERVER 0x00008000
+#endif
 
 /// Maximum number of traced frames.
 #define MAX_FRAME_COUNT			1000
@@ -41,6 +40,9 @@
 #else
  #error CPU architecture is not supported.
 #endif
+
+/* Note: _MANAGED Code Sections Removed */
+/* Note: _M_X64 and _M_IX86 Sections Reordered for x64 Access */
 
 CSymEngine::CEngineParams::CEngineParams(void)
 {

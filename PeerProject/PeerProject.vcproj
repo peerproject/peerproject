@@ -960,6 +960,10 @@
 				>
 			</File>
 			<File
+				RelativePath="QRCode.cpp"
+				>
+			</File>
+			<File
 				RelativePath="QueryHashGroup.cpp"
 				>
 			</File>
@@ -3166,6 +3170,10 @@
 			</File>
 			<File
 				RelativePath="PongCache.h"
+				>
+			</File>
+			<File
+				RelativePath="QRCode.h"
 				>
 			</File>
 			<File

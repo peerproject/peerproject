@@ -37,7 +37,8 @@
 // define this to disable all config options,
 // excluding the user config.  Use if your
 // setup is fully ISO compliant, and has no
-// useful extensions, or for autoconf generated setups:
+// useful extensions, or for autoconf generated
+// setups:
 // #define BOOST_NO_CONFIG
 
 // define this to make the config "optimistic"
@@ -56,8 +57,8 @@
 // #define BOOST_ASSERT_CONFIG
 
 
-// define if you want to disable threading support,
-// even when available:
+// define if you want to disable threading support, even
+// when available:
 // #define BOOST_DISABLE_THREADS
 
 // define when you want to disable Win32 specific features
@@ -114,6 +115,18 @@
 // for example BOOST_DATE_TIME_NO_LIB or BOOST_REGEX_NO_LIB.
 // Normally if a compiler supports #pragma lib, then the correct library
 // build variant will be automatically selected and linked against, simply
-// by the act of including one of that library's headers.
-// This macro turns that feature off.
+// by the act of including one of that library's headers.  This macro turns
+// that feature off.
 // #define BOOST_WHATEVER_NO_LIB
+
+// BOOST_LIB_BUILDID: Set to the same value as the value passed to Boost.Build's
+// --buildid command line option.  For example if you built using:
+//
+// bjam address-model=64 --buildid=amd64
+//
+// then compile your code with:
+//
+// -DBOOST_LIB_BUILDID = amd64
+//
+// to ensure the correct libraries are selected at link time.
+// #define BOOST_LIB_BUILDID amd64

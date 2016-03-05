@@ -11,17 +11,19 @@
 CryptData::CryptData()
 {
   Method=CRYPT_NONE;
-  memset(KDFCache,0,sizeof(KDFCache));
-  KDFCachePos=0;
+  memset(KDF3Cache,0,sizeof(KDF3Cache));
+  memset(KDF5Cache,0,sizeof(KDF5Cache));
+  KDF3CachePos=0;
+  KDF5CachePos=0;
   memset(CRCTab,0,sizeof(CRCTab));
 }
 
 
 CryptData::~CryptData()
 {
-  cleandata(KDFCache,sizeof(KDFCache));
+  cleandata(KDF3Cache,sizeof(KDF3Cache));
+  cleandata(KDF5Cache,sizeof(KDF5Cache));
 }
-
 
 
 void CryptData::DecryptBlock(byte *Buf,size_t Size)
@@ -86,7 +88,6 @@ bool CryptData::SetCryptKeys(bool Encrypt,CRYPT_METHOD Method,
   cleandata(PwdW,sizeof(PwdW));
   return true;
 }
-
 
 
 // Fill buffer with random data.

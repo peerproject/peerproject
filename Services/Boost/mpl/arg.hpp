@@ -15,9 +15,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: arg.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #if !defined(BOOST_MPL_PREPROCESSING_MODE)
 #   include <boost/mpl/arg_fwd.hpp>
@@ -38,46 +38,47 @@
 
 #else
 
-//#   include <boost/mpl/limits/arity.hpp>
-//#   include <boost/mpl/aux_/preprocessor/default_params.hpp>
-//#   include <boost/mpl/aux_/preprocessor/params.hpp>
-//#   include <boost/mpl/aux_/config/lambda.hpp>
-//#   include <boost/mpl/aux_/config/dtp.hpp>
-//#   include <boost/mpl/aux_/nttp_decl.hpp>
-//
-//#   include <boost/preprocessor/iterate.hpp>
-//#   include <boost/preprocessor/inc.hpp>
-//#   include <boost/preprocessor/cat.hpp>
-//
-//BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_OPEN
-//
-//// local macro, #undef-ined at the end of the header
-//#if !defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES)
-//#   define AUX778076_ARG_N_DEFAULT_PARAMS(param,value) \
-//    BOOST_MPL_PP_DEFAULT_PARAMS( \
-//          BOOST_MPL_LIMIT_METAFUNCTION_ARITY \
-//        , param \
-//        , value \
-//        ) \
-//    /**/
-//#else
-//#   define AUX778076_ARG_N_DEFAULT_PARAMS(param,value) \
-//    BOOST_MPL_PP_PARAMS( \
-//          BOOST_MPL_LIMIT_METAFUNCTION_ARITY \
-//        , param \
-//        ) \
-//    /**/
-//#endif
-//
-//#define BOOST_PP_ITERATION_PARAMS_1 \
-//    (3,(0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <boost/mpl/arg.hpp>))
-//#include BOOST_PP_ITERATE()
-//
-//#   undef AUX778076_ARG_N_DEFAULT_PARAMS
-//
-//BOOST_MPL_AUX_NONTYPE_ARITY_SPEC(1,int,arg)
-//
-//BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_CLOSE
+#   include <boost/mpl/limits/arity.hpp>
+#   include <boost/mpl/aux_/preprocessor/default_params.hpp>
+#   include <boost/mpl/aux_/preprocessor/params.hpp>
+#   include <boost/mpl/aux_/config/lambda.hpp>
+#   include <boost/mpl/aux_/config/dtp.hpp>
+#   include <boost/mpl/aux_/nttp_decl.hpp>
+
+#   include <boost/preprocessor/iterate.hpp>
+#   include <boost/preprocessor/inc.hpp>
+#   include <boost/preprocessor/cat.hpp>
+
+BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_OPEN
+
+// local macro, #undef-ined at the end of the header
+#if !defined(BOOST_MPL_CFG_NO_DEFAULT_PARAMETERS_IN_NESTED_TEMPLATES)
+#   define AUX778076_ARG_N_DEFAULT_PARAMS(param,value) \
+    BOOST_MPL_PP_DEFAULT_PARAMS( \
+          BOOST_MPL_LIMIT_METAFUNCTION_ARITY \
+        , param \
+        , value \
+        ) \
+    /**/
+#else
+#   define AUX778076_ARG_N_DEFAULT_PARAMS(param,value) \
+    BOOST_MPL_PP_PARAMS( \
+          BOOST_MPL_LIMIT_METAFUNCTION_ARITY \
+        , param \
+        ) \
+    /**/
+#endif
+
+#define BOOST_PP_ITERATION_PARAMS_1 \
+    (3,(0, BOOST_MPL_LIMIT_METAFUNCTION_ARITY, <boost/mpl/arg.hpp>))
+#include BOOST_PP_ITERATE()
+
+
+#   undef AUX778076_ARG_N_DEFAULT_PARAMS
+
+BOOST_MPL_AUX_NONTYPE_ARITY_SPEC(1,int,arg)
+
+BOOST_MPL_AUX_ADL_BARRIER_NAMESPACE_CLOSE
 
 #endif // BOOST_MPL_CFG_NO_PREPROCESSED_HEADERS
 #endif // BOOST_MPL_ARG_HPP_INCLUDED

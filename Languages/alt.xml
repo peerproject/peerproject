@@ -3,7 +3,7 @@
 
 <!-- PeerProject UK English Skin File -->
 
-<!-- Translation based on default en.xml r120 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -327,7 +327,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forums"/>
-				<!-- <item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"/>
+				<!--item id="ID_HELP_WEB_SKINS" text="PeerProject S_kin Site"-->
 				<item id="ID_HELP_UPDATE" text="Latest news"/>
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
@@ -503,7 +503,7 @@
 			<link target="command:upgrade">Click here to upgrade</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Warning: You Are Firewalled</heading>
 			<newline gap="8" indent="42"/>
@@ -570,15 +570,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Local Forums</link><gap size="6"/>
 		<text align="middle">- Go to the local English language forum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Remote Access Enabled</heading>
 			<newline gap="8" indent="42"/>
 			<text>Control PeerProject using your web browser at:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160; or &#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="18" indent="0"/>
 		</group>
 		<newline gap="16" indent="0"/>
@@ -656,7 +656,7 @@
 	</document>
 </documents>
 <!-- Localised Command Tip Text."Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_CHAT_COLOR" message="Select a text colour (Ctrl+K)"/>
 	<tip id="ID_CHILD_MINIMISE" message="Minimise the selected window to the tab bar."/>
 	<tip id="ID_HOSTCACHE_DISCONNECT" message="Disconnect from the selected neighbour(s)."/>
@@ -666,7 +666,7 @@
 	<tip id="ID_NEIGHBOURS_VIEW_INCOMING" message="Open a new Packet Dump window monitoring incoming traffic from this neighbour."/>
 	<tip id="ID_NEIGHBOURS_VIEW_OUTGOING" message="Open a new Packet Dump window monitoring outgoing traffic to this neighbour."/>
 	<tip id="ID_VIEW_NEIGHBOURS" message="Show or hide the NEIGHBOURS window."/>
-</commandTips>
+</commandtips>
 <!-- Localised Strings -->
 <strings>
 	<string id="WINDOW_NEIGHBOURS" value="Neighbours"/>
@@ -814,7 +814,7 @@
 		<control/>
 		<control caption="_Remove"/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Close Button">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Close Button">
 		<control caption="This is the first time you have clicked PeerProject's close button. Please choose what action you would like to take from now on:"/>
 		<control caption="Minimise to the tray area"/>
 		<control caption="Shut down PeerProject immediately"/>

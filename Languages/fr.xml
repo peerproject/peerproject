@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default French Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -736,7 +736,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
-				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
+				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
@@ -904,7 +904,7 @@
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="_Forums de PeerProject"/>
 				<item id="ID_HELP_FORUMS_LOCAL" text="_Forum de Français"/>
-				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"/>
+				<!--item id="ID_HELP_UPDATE" text="Dernières nouvelles"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
@@ -1766,7 +1766,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Miseà Jour Disponible</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Mise à jour"/>
@@ -1774,7 +1774,7 @@
 			<link target="command:upgrade">Cliquez ici pour mettre à jour PeerProject</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Attention : Vous Êtes Derrière Un Pare-feu</heading>
 			<newline gap="8" indent="42"/>
@@ -1841,15 +1841,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Forums Locaux</link><gap size="6"/>
 		<text align="middle">- Accédez à votre forum de discussion en langue française</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">L'accèsà Distance Est Activé</heading>
 			<newline gap="8" indent="42"/>
 			<text>L'accès à distance de PeerProject est activé. Prenez le contrôle de PeerProject depuis votre navigateur Web à partir de l'adresse:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160; ou &#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 		<newline gap="4" indent="0"/>
@@ -1936,7 +1936,7 @@
 				<group id="3">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Accélérer le hachage</link>
 				</group>
-				<group id="4">
+				<group id="5">
 					<link target="command:ID_LIBRARY_HASH_PRIORITY">Ralentir le hachage</link>
 				</group>
 			</group>
@@ -2058,7 +2058,7 @@
 			<text>, </text>
 			<text id="Age"/><text> ans</text>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Information de contact</text>
 			<newline gap="1" indent="8"/>
@@ -2093,7 +2093,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Centres d'intérêt</text>
 			<newline gap="2" indent="8"/>
@@ -2380,7 +2380,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Voir les fichiers partagés par l'utilisateur."/>
 	<tip id="ID_BROWSE_LAUNCH" message="Parcourir les fichiers partagés et le profil de l'utilisateur sélectionné."/>
 	<tip id="ID_BROWSE_PROFILE" message="Parcourir le profil de l'utilisateur."/>
@@ -2703,13 +2703,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Mettre l'image à sa taille réelle."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Rafraîchir l'image."/>
 	<tip id="PluginID_ImageViewer_Close" message="Fermer cette image."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Sur maximum, la bande passante ne dépassera pas la limite. Sur moyenne, elle variera autour de la limite."/>
 	<tip id="IDC_REGEXP" message="Entrez des expression régulières selon la syntaxe de Perl.{n}Les mots-clefs pour la recherche peuvent être spécifiés sous la forme de &lt;n&gt;, où n est un chiffre entre 1 et 9. Si vous voulez entrer tous les mots-clés les uns après les autres, utilisez la balise &lt;_&gt;."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Cette configuration n'a pas d'effet sur les téléchargements commencés antérieurement&#160;; de plus cette configuration est ignorée si le fichier a le hash eDonkey et que le reseau eDonkey est activé, ou si c'est un torrent.{n}Cette configuration n'est pas ignorée si le téléchargement est en pause.{n}{n}ATTENTION : N'utilisez pas cette option qu'en cas de vraie nécessité, si vous abusez de cette option vous pourriez être banni."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3446,9 +3446,10 @@
 	<string id="20891" value="&amp;Quitter"/>
 	<string id="20892" value="Veuillez patienter : mise à jour de la liste d'hôtes eDonkey ..."/>
 	<string id="20893" value="Veuillez patienter : mise à jour des services de découverte ..."/>
-	<string id="20894" value="Vous n'avez pas encore spécifié une vitesse de connexion. Avant de continuer, choisissez un type de connexion Internet, ou entrez une vitesse de connexion."/>
-	<!--string id="20895" value="Veuillez patienter : découverte et réglage des services UPnP ..."-->
-	<!--string id="20896" value="PeerProject n'a pas réussi à configurer votre routeur NAT ou votre pare-feu.\n\nVeillez à configurer votre réseau pour rediriger le port TCP et UDP %i vers votre PC local."-->
+	<!--string id="20894" value="Veuillez patienter : découverte et réglage des services UPnP ..."-->
+	<!--string id="20894" value="PeerProject n'a pas réussi à configurer votre routeur NAT ou votre pare-feu.\n\nVeillez à configurer votre réseau pour rediriger le port TCP et UDP %i vers votre PC local."-->
+	<string id="20895" value="Tout 4-5 chiffres (1050-65500)"/>
+	<string id="20896" value="Vous n'avez pas encore spécifié une vitesse de connexion. Avant de continuer, choisissez un type de connexion Internet, ou entrez une vitesse de connexion."/>
 	<string id="20897" value="Le dossier que vous souhaitez partager l'est déjà car il est contenu dans un dossier précédemment partagé :\n\n%s"/>
 	<string id="20898" value="Vous n'avez choisi aucun dossier à partager.\n\nÊtes-vous certain de vouloir continuer ?"/>
 	<string id="20899" value="ans"/>
@@ -3493,7 +3494,7 @@
 		<control caption="Ombres"/>
 		<control caption="_Icône système :"/>
 		<control caption="Quand je clique sur Fermer :"/>
-		<control caption="Me demander|Minimiser dans la barre des tâches|Fermer immédiatement|Fermer à la fin des transferts"/>
+		<control caption="Me demander|Minimiser dans la barre des tâches|Minimiser dans la barre des tâches|Fermer à la fin des transferts|Fermer immédiatement"/>
 		<control caption="Qd je clique sur Minimiser :"/>
 		<control caption="Normal|Minimiser dans la barre des tâches"/>
 	</dialog>
@@ -3586,17 +3587,19 @@
 		<control caption="Commande exécuter dans le cadre"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Communauté">
-		<control caption="Mon _Profil :"/>
-		<control caption="Utiliser votre Profil Utilisateur Gnutella afin de vous faire connaître des autres utilisateurs, partager vos centres d'intérêt, vos fichiers recommandés, etc."/>
-		<control caption="Éditer Mon Profil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Communauté">
 		<control caption="_Discussion :"/>
 		<control caption="Activer la discussion avec les clients P2P compatibles"/>
 		<control caption="Activer la discussion sur tous les réseaux"/>
 		<control caption="Filtrer le spam sur les messages de discussion"/>
 		<control caption="Censurer les grossièretés dans les discussions"/>
+		<control caption="Mon _Profil :"/>
+		<control caption="Activer Profil"/>
+		<control caption="Éditer Profil"/>
+		<control caption="Info :"/>
+		<control caption="Utiliser votre Profil Utilisateur Gnutella afin de vous faire connaître des autres utilisateurs, partager vos centres d'intérêt, vos fichiers recommandés, etc."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès à distance">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Accès à distance">
 		<control caption="Activ_er :"/>
 		<control caption="Activer l'accès à distance PeerProject :"/>
 		<control caption="..."/>
@@ -3605,7 +3608,8 @@
 		<control caption="Mot de passe :"/>
 		<control/>
 		<control/>
-		<control caption="Aide :"/>
+		<control/>
+		<control caption="Info :"/>
 		<control caption="L'accès à distance vous permet de laisser PeerProject en exécution sur votre PC, et de contrôler PeerProject à distance depuis n'importe quel autre ordinateur en utilisant un navigateur Internet. Vous devez pouvoir accepter les connexions entrantes (routeur, pare-feu, etc. correctement configurés)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
@@ -3924,7 +3928,7 @@
 		<control/>
 		<control caption="Configurer votre routeur en utilisant UPnP ?"/>
 		<control/>
-		<control caption="Port :&#160; (Numéro 4-5 chiffres)"/>
+		<control caption="Port :"/>
 		<control/>
 		<control caption="Aléatoire"/>
 		<control caption="Statut :"/>
@@ -4472,13 +4476,14 @@
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 		<control caption="Vous avez déjà téléchargé puis supprimé ce fichier. Que voulez-vous faire ?"/>
-		<control caption="Attention ! Fichiers multiples détectés. Il existe des logiciels malveillants qui peuvent infecter vos dossiers. Soyez certain que vous connaissez bien ces fichiers. Sinon, fermer PeerProject et scannez votre système avec un logiciel antivirus/antispyware."/>
+		<control caption="Attention : Fichiers multiples détectés. Il existe des logiciels malveillants qui peuvent infecter vos dossiers. Soyez certain que vous connaissez bien ces fichiers. Sinon, fermer PeerProject et scannez votre système avec un logiciel antivirus/antispyware."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Bouton Fermer">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Bouton Fermer">
 		<control caption="C'est la première fois que vous cliquez sur le bouton &#171;&#160;Quitter&#160;&#187;. Sélectionnez ce que PeerProject doit faire lorsque vous cliquerez sur ce même bouton à l'avenir:"/>
+		<control caption="Minimiser en tant taskbar"/>
 		<control caption="Minimiser en tant qu'icône système"/>
+		<control caption="Fermer à la fin des téléchargements et envois"/>
 		<control caption="Fermer PeerProject immédiatement"/>
-		<control caption="Fermer PeerProject à la fin des téléchargements et envois"/>
 		<control caption="Valider"/>
 		<control caption="Annuler"/>
 	</dialog>
@@ -4679,8 +4684,92 @@
 		<control caption="Valider"/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="Accès à distance PeerProject"/>
+	<tag find="text_logout" replace="Sortir"/>
+	<tag find="text_tabhome" replace="Accueil"/>
+	<tag find="text_tabdownloads" replace="Téléchargements"/>
+	<tag find="text_tabuploads" replace="Envois"/>
+	<tag find="text_tabnetworks" replace="Réseaux"/>
+	<tag find="text_tabsearch" replace="Recherche"/>
+	<tag find="text_welcome" replace="Bienvenue dans l'<b>Accès à Distance PeerProject</b>."/>
+	<tag find="text_logininfo" replace="Si cette copie de PeerProject est en cours d'éxécution sur votre PC, merci de taper vos nom d'utilisateur et mot de passe, puis de cliquez sur <b>Enregistrement</b>."/>
+	<tag find="text_loginfail" replace="Le nom d'utilisateur et le mot de passe que vous avez entrés sont incorrects.<br>Merci d'essayer à nouveau."/>
+	<tag find="text_loginuser" replace="Nom d'utilisateur :"/>
+	<tag find="text_loginpass" replace="Mot de passe :"/>
+	<tag find="text_loginsubmit" replace="Enregistrement"/>
+	<tag find="text_homeinfo" replace="Cette console web fournit le plein contrôle sur vos recherches, téléchargements, envois et connections réseau."/>
+	<tag find="text_homestart" replace="Commencer un téléchargement :"/>
+	<tag find="text_homequick" replace="Recherche :"/>
+	<tag find="text_homelinks" replace="Liens :"/>
+	<tag find="text_directdownload" replace="Téléchargement Magnet/Torrent :"/>
+	<tag find="text_downloadcleartip" replace="Nettoyer le téléchargement complet de la liste"/>
+	<tag find="text_downloadclear" replace="Nettoyer"/>
+	<tag find="text_downloadresume" replace="Reprendre"/>
+	<tag find="text_downloadpause" replace="Pause"/>
+	<tag find="text_downloadcancel" replace="Annuler"/>
+	<tag find="text_downloadmoresources" replace="Trouver des sources"/>
+	<tag find="text_downloaddirect" replace="Téléchargement Magnet/Torrent :"/>
+	<tag find="text_submit" replace=""/>
+	<tag find="text_sourceaccess" replace="Accéder"/>
+	<tag find="text_sourceforget" replace="Oublier"/>
+	<tag find="text_filter" replace="Filtrer :"/>
+	<tag find="text_filteractive" replace="Actif"/>
+	<tag find="text_filterqueued" replace="En suspens"/>
+	<tag find="text_filterpaused" replace="En Pause"/>
+	<tag find="text_filternosources" replace="Pas de sources"/>
+	<tag find="text_filtershowall" replace="Afficher toutes les sources"/>
+	<tag find="text_filtersubmit" replace="Valider"/>
+	<tag find="text_filename" replace="Fichier téléchargé"/>
+	<tag find="text_filesize" replace="Taille"/>
+	<tag find="text_fileprogress" replace="Progression"/>
+	<tag find="text_filespeed" replace="Vitesse"/>
+	<tag find="text_filesources" replace="Sources"/>
+	<tag find="text_filestatus" replace="Statut"/>
+	<tag find="text_fileoptions" replace="Contrôles"/>
+	<tag find="text_networkenabled" replace="Ce réseau est activé"/>
+	<tag find="text_networkdisabled" replace="Ce réseau <b>n'est pas</b> activé"/>
+	<tag find="text_networkconnect" replace="Se connecter à"/>
+	<tag find="text_networkdisconnect" replace="Désactiver"/>
+	<tag find="text_networkaddress" replace="Adresse"/>
+	<tag find="text_networktime" replace="Temps"/>
+	<tag find="text_networkpackets" replace="Packets"/>
+	<tag find="text_networkbandwidth" replace="Bande passante"/>
+	<tag find="text_networktotal" replace="Total"/>
+	<tag find="text_networkmode" replace="Mode"/>
+	<tag find="text_networkleaves" replace="Leaves"/>
+	<tag find="text_useragent" replace="Client"/>
+	<tag find="text_searchnew" replace="Nouvelle recherche"/>
+	<tag find="text_searchinfo" replace="Pour commencer une nouvelle recherche, tapez des mots-clés ci-dessous puis cliquez sur <b>Rechercher</b>. Si vous voulez restreindre votre recherche à un type de fichier en particulier, sélectionnez-le dans la liste."/>
+	<tag find="text_searchfor" replace="Recherche:"/>
+	<tag find="text_searchstart" replace="Rechercher"/>
+	<tag find="text_searchstop" replace="Arrêter la recherche"/>
+	<tag find="text_searchclose" replace="Fermer la recherche"/>
+	<tag find="text_refreshpage" replace="Rafraîchir la page"/>
+	<tag find="text_file" replace="Fichier"/>
+	<tag find="text_user" replace="Utilisateur"/>
+	<tag find="text_submit" replace="Valider"/>
+	<tag find="text_filetype" replace="Type de fichier:"/>
+	<tag find="text_anyfile" replace="Général"/>
+	<tag find="text_typeapp" replace="Application"/>
+	<tag find="text_typearchive" replace="Archive"/>
+	<tag find="text_typeaudio" replace="Audio"/>
+	<tag find="text_typevideo" replace="Vidéo"/>
+	<tag find="text_typeimage" replace="Image"/>
+	<tag find="text_typebook" replace="Livre"/>
+	<tag find="text_typedoc" replace="Traitement de texte"/>
+	<tag find="text_typepresent" replace="Présentation"/>
+	<tag find="text_typerom" replace="Image ROM"/>
+	<tag find="text_typeskin" replace="Skin"/>
+	<tag find="text_typecode" replace="Code source"/>
+	<tag find="text_typespreadsheet" replace="Bilan"/>
+	<tag find="text_typesubtitle" replace="Sous-titres"/>
+	<tag find="text_typecollection" replace="Collection"/>
+	<!--tag find="text_" replace="actifs / <%= queue_queued %> en suspens, utilisant"-->
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Fichier téléchargé"/>
 		<column from="Size" to="Taille"/>
@@ -4828,5 +4917,5 @@
 		<column from="Comments" to="Commentaires"/>
 		<column from="Order" to="Ordre"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Catalan Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -557,7 +557,7 @@
 				<separator/>
 				<menu text="_Llocs Web">
 					<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-					<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+					<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"-->
 					<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 				</menu>
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
@@ -661,7 +661,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"/>
+				<!--item id="ID_HELP_UPDATE" text="Darreres Notícies"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -730,7 +730,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="Lloc web de _PeerProject"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums de _PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"/>
+				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -822,7 +822,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject site"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="Fòrums del _PeerProject"/>
-				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"/>
+				<!--item id="ID_HELP_UPDATE" text="Darreres notícies"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/>
@@ -1627,7 +1627,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Advertiment D'Actualització</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1635,7 +1635,7 @@
 			<link target="command:upgrade">Prem aquí per A actualitzar PeerProject</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Advertiment: Problema amb Connexions Entrants</heading>
 			<newline gap="8" indent="42"/>
@@ -1696,15 +1696,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Fòrum Local</link><gap size="6"/>
 		<text align="middle">- Vés a la teva llengua català fòrum de discussió</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Accès Remot Habilitat</heading>
 			<newline gap="8" indent="42"/>
 			<text>Accès remot de PeerProject habilitat. Controla PeerProject usant el teu navegador en:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- o -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1790,7 +1790,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més ràpidament</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Fes clic aquí per a processar els hash més lentament</link>
 			</group>
 		</para>
@@ -1911,7 +1911,7 @@
 			<text>, </text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Informació del contacte</text>
 			<newline gap="1" indent="8"/>
@@ -1946,7 +1946,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interessos</text>
 			<newline gap="2" indent="8"/>
@@ -2220,7 +2220,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Mostra els arxius compartits de l'usuari"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Explora l'usuari: el seu perfil i els arxius compartits."/>
 	<tip id="ID_BROWSE_PROFILE" message="Explora el perfil de l'usuari."/>
@@ -2384,7 +2384,7 @@
 	<tip id="ID_MEDIA_NEXT" message="Va al siguiente arxiu de la llista de reproducció." tip="Següent arxiu"/>
 	<tip id="ID_MEDIA_OPEN" message="Obre i reprodueix un arxiu multimèdia o llista de reproducció..."/>
 	<tip id="ID_MEDIA_PAUSE" message="Posa en pausa la reproducció."/>
-	<tip id="ID_MEDIA_PLAY" message="Inicia la reproducció del fitxer actual." tip="Reprodueix" />
+	<tip id="ID_MEDIA_PLAY" message="Inicia la reproducció del fitxer actual." tip="Reprodueix"/>
 	<tip id="ID_MEDIA_PLAYLIST" message="Mostra la llista de reproducció."/>
 	<tip id="ID_MEDIA_PREVIOUS" message="Va a l'arxiu anterior de la llista de reproducció." tip="Anterior arxiu"/>
 	<tip id="ID_MEDIA_PROPERTIES" message="Mostra i edita les propietats dels fitxers seleccionats."/>
@@ -2537,12 +2537,12 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Mostra la imatge amb sa mida original."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Actualitza la imatge."/>
 	<tip id="PluginID_ImageViewer_Close" message="Tanca la finestra del visor de imatges."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Al mode de valor màxim l'ample de banda no excedirà el valor especificat. Al mode de mitjana fluctuarà en els dos sentits."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Aquesta configuració no té efecte sobre descàrregues anteriorment iniciades i serà ignorada si l'arxiu té el hash eDonkey i la xarxa eDonkey està habilitada o és una descàrrega BitTorrent.{n}No obstant, aquesta configuració no és ignorada si la descàrrega està pausada.{n}{n}ATENCIÓ: Usa aquesta opció únicament en cas de necessitat ja que si abuses d'ella pots ser bloquejat."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3261,9 +3261,10 @@
 	<string id="20891" value="Sortir"/>
 	<string id="20892" value="Si us plau, esperi: Actualitzant la llista de servidors d'eDonkey..."/>
 	<string id="20893" value="Si us plau, esperi: Actualitzant serveis de descobriment..."/>
-	<string id="20894" value="encara no ha especificat la velocitat de Connexió. Abans de continuar, per favor escull o escriu la velocitat de la teva Connexió."/>
-	<!--string id="20895" value="Si us plau, esperi: Cercant dispositius UPnP i configurant-los..."-->
-	<!--string id="20896" value="Has seleccionat utilitzar reenviament de ports en el teu NAT router o tallafocs.\n\nSi us Plau configura la teva Xarxa per a reenviar el port TCP %i al teu PC."-->
+	<!--string id="20894" value="Si us plau, esperi: Cercant dispositius UPnP i configurant-los..."-->
+	<!--string id="20894" value="Has seleccionat utilitzar reenviament de ports en el teu NAT router o tallafocs.\n\nSi us Plau configura la teva Xarxa per a reenviar el port TCP %i al teu PC."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="encara no ha especificat la velocitat de Connexió. Abans de continuar, per favor escull o escriu la velocitat de la teva Connexió."/>
 	<string id="20897" value="Aquesta carpeta ja està compartida com part de:\n\n%s"/>
 	<string id="20898" value="No has especificat cap carpeta per a compartir. Recorda que la qualitat de la Xarxa està basada a la quantitat d'arxius que els demés comparteixen, per tant si comparteixes les teves carpetes, la Xarxa tindrà més contingut. ¿Estàs segur(a) de no compartir les teves carpetes?"/>
 	<string id="20899" value="anys"/>
@@ -3309,7 +3310,7 @@
 		<control caption="L'ombras"/>
 		<control caption="_Barra de tasques:"/>
 		<control caption="Quant fas clic al botó de tancament:"/>
-		<control caption="Pregunta|Minimitza a barra de tasques|Tanca inmediatament|Tanca després de les transferències"/>
+		<control caption="Pregunta|Minimitza a barra de tasques|Minimitza a barra de tasques|Tanca després de les transferències|Tanca inmediatament"/>
 		<control caption="Quant es fa clic a minimitzar:"/>
 		<control caption="Normal|Minimitza a la barra de tasques"/>
 	</dialog>
@@ -3359,23 +3360,26 @@
 		<control caption="Advertència: Triar un manejador de multimèdia extern deshabilitarà tots els efectes de so i les visualitzacions d'aquest programa."/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Comunitat">
-		<control caption="El meu _perfil:"/>
-		<control caption="El perfil de PeerProject serveix per a compartir informació teva, els teus interessos, els teus arxius i pàgines web favorites."/>
-		<control caption="Edita el meu perfil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Comunitat">
 		<control caption="_Xat:"/>
 		<control caption="Habilita la funció de xat amb clients compatibles"/>
 		<control caption="Habilita el xat a totes les xarxes"/>
 		<control caption="Filtra els missatges de xat per a spam"/>
 		<control caption="Censura coses obscenes al xat"/>
+		<control caption="El meu _perfil:"/>
+		<control caption="Habilita el _perfil"/>
+		<control caption="Edita el perfil"/>
+		<control caption="Info:"/>
+		<control caption="El perfil de PeerProject serveix per a compartir informació teva, els teus interessos, els teus arxius i pàgines web favorites."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Accès Remot">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Accès Remot">
 		<control caption="_Habilita:"/>
 		<control caption="Habilita l'accès remot de PeerProject:"/>
 		<control/>
 		<control caption="_Credencials:"/>
 		<control caption="Tria un usuari:"/>
 		<control caption="Tria un mot de pas:"/>
+		<control/>
 		<control/>
 		<control/>
 		<control caption="Ajuda:"/>
@@ -3697,7 +3701,7 @@
 		<control/>
 		<control caption="Configurar el readreçament de ports amb UPnP?"/>
 		<control/>
-		<control caption="Port: (4-5 numeros)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Random"/>
 		<control caption="Estat:"/>
@@ -4244,13 +4248,14 @@
 		<control caption="Continua"/>
 		<control caption="Cancel·la"/>
 		<control caption="Ja has descarregat i esborrat aquest arxiu anteriorment. Qué vols fer?"/>
-		<control caption="Atenció!! S'han detectat arxius duplicats. Potser algun programa maliciós hagi infectat la teva col·lecció. Assegura't que has sigut tu. Si no és així, tanca el PeerProject i escaneja els teus discos durs amb un programa antivíric."/>
+		<control caption="Atenció: S'han detectat arxius duplicats. Potser algun programa maliciós hagi infectat la teva col·lecció. Assegura't que has sigut tu. Si no és així, tanca el PeerProject i escaneja els teus discos durs amb un programa antivíric."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Botó de tancament">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Botó de tancament">
 		<control caption="Aquesta és la primera vegada que el botó de tancar ha estat premut. Per favor, selecciona l'acció desitjada a efectuar cada vegada que aquest botó sigui premut:"/>
 		<control caption="Minimitza al costat del rellotge"/>
-		<control caption="Tanca el PeerProject de forma inmediata"/>
+		<control caption="Minimitza al costat del rellotge"/>
 		<control caption="Tanca el PeerProject després que les transferències finalitzin"/>
+		<control caption="Tanca el PeerProject de forma inmediata"/>
 		<control caption="Accepta"/>
 		<control caption="Cancel·la"/>
 	</dialog>
@@ -4442,8 +4447,19 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface (Missing) -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Tancar sessió"/>
+	<tag find="text_tabhome" replace="Inici"/>
+	<tag find="text_tabdownloads" replace="Descàrregues"/>
+	<tag find="text_tabuploads" replace="Pujades"/>
+	<tag find="text_tabnetworks" replace="Xarxa"/>
+	<tag find="text_tabsearch" replace="Cerca"/>
+	<tag find="text_" replace=""/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Arxiu descarregat"/>
 		<column from="Size" to="Mida"/>
@@ -4591,5 +4607,5 @@
 		<column from="Comments" to="Comentaris"/>
 		<column from="Order" to="Ordre"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

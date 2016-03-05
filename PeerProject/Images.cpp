@@ -1,7 +1,7 @@
 //
 // Images.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2010-2015
+// This file is part of PeerProject (peerproject.org) © 2010-2016
 // All work here is original and released as-is under Persistent Public Domain [PPD]
 //
 
@@ -494,7 +494,7 @@ BOOL CImages::PreBlend(HBITMAP hButton)
 	BITMAP pInfo;
 	CBitmap::FromHandle( hButton )->GetObject( sizeof( BITMAP ), &pInfo );		// CBitmap*
 	if ( pInfo.bmBitsPixel != 32 )
-		return FALSE;	
+		return FALSE;
 
 	// Pre-multiply for AlphaBlend transparency support (rgba from PNG)
 

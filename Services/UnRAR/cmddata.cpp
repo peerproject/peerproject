@@ -13,7 +13,6 @@ void CommandData::Init()
   *Command=0;
   *ArcName=0;
   FileLists=false;
-  NoMoreSwitches=false;
 
   ListMode=RCLM_AUTO;
 
@@ -47,10 +46,13 @@ static const wchar *AllocCmdParam(const wchar *CmdLine,wchar **Par)
 #if !defined(SFX_MODULE) && !defined(_ANDROID)
 void CommandData::ParseCommandLine(bool Preprocess,int argc, char *argv[])
 {
+  *Command=0;
+  NoMoreSwitches=false;
 #ifdef CUSTOM_CMDLINE_PARSER
   // In Windows we may prefer to implement our own command line parser
   // to avoid replacing \" by " in standard parser. Such replacing corrupts
   // destination paths like "dest path\" in extraction commands.
+  // Also our own parser is Unicode compatible.
   const wchar *CmdLine=GetCommandLine();
 
   wchar *Par;
@@ -58,15 +60,12 @@ void CommandData::ParseCommandLine(bool Preprocess,int argc, char *argv[])
   {
     if ((CmdLine=AllocCmdParam(CmdLine,&Par))==NULL)
       break;
-    bool Code=true;
     if (!FirstParam) // First parameter is the executable name.
       if (Preprocess)
-        Code=PreprocessSwitch(Par);
+        PreprocessArg(Par);
       else
         ParseArg(Par);
     free(Par);
-    if (Preprocess && !Code)
-      break;
   }
 #else
   Array<wchar> Arg;
@@ -75,10 +74,7 @@ void CommandData::ParseCommandLine(bool Preprocess,int argc, char *argv[])
     Arg.Alloc(strlen(argv[I])+1);
     CharToWide(argv[I],&Arg[0],Arg.Size());
     if (Preprocess)
-    {
-      if (!PreprocessSwitch(&Arg[0]))
-        break;
-    }
+      PreprocessArg(&Arg[0]);
     else
       ParseArg(&Arg[0]);
   }
@@ -93,7 +89,7 @@ void CommandData::ParseCommandLine(bool Preprocess,int argc, char *argv[])
 void CommandData::ParseArg(wchar *Arg)
 {
   if (IsSwitch(*Arg) && !NoMoreSwitches)
-    if (Arg[1]=='-')
+    if (Arg[1]=='-' && Arg[2]==0)
       NoMoreSwitches=true;
     else
       ProcessSwitch(Arg+1);
@@ -195,41 +191,40 @@ void CommandData::ParseEnvVar()
 #endif
 
 
-
 #if !defined(SFX_MODULE) && !defined(_ANDROID)
 // Preprocess those parameters, which must be processed before the rest of
 // command line. Return 'false' to stop further processing.
-bool CommandData::PreprocessSwitch(const wchar *Switch)
+void CommandData::PreprocessArg(const wchar *Arg)
 {
-  if (IsSwitch(Switch[0]))
+  if (IsSwitch(Arg[0]) && !NoMoreSwitches)
   {
-    Switch++;
-    char SwitchA[1024];
-    WideToChar(Switch,SwitchA,ASIZE(SwitchA));
-    if (wcsicomp(Switch,L"-")==0) // Switch "--".
-      return false;
-    if (wcsicomp(Switch,L"cfg-")==0)
+    Arg++;
+    if (Arg[0]=='-' && Arg[1]==0) // Switch "--".
+      NoMoreSwitches=true;
+    if (wcsicomp(Arg,L"cfg-")==0)
       ConfigDisabled=true;
 #ifndef GUI
-    if (wcsnicomp(Switch,L"ilog",4)==0)
+    if (wcsnicomp(Arg,L"ilog",4)==0)
     {
       // Ensure that correct log file name is already set
       // if we need to report an error when processing the command line.
-      ProcessSwitch(Switch);
+      ProcessSwitch(Arg);
       InitLogOptions(LogName,ErrlogCharset);
     }
 #endif
-    if (wcsnicomp(Switch,L"sc",2)==0)
+    if (wcsnicomp(Arg,L"sc",2)==0)
     {
       // Process -sc before reading any file lists.
-      ProcessSwitch(Switch);
+      ProcessSwitch(Arg);
 #ifndef GUI
       if (*LogName!=0)
         InitLogOptions(LogName,ErrlogCharset);
 #endif
     }
   }
-  return true;
+  else
+    if (*Command==0)
+      wcsncpy(Command,Arg,ASIZE(Command)); // Need for rar.ini.
 }
 #endif
 
@@ -247,6 +242,22 @@ void CommandData::ReadConfig()
         Str++;
       if (wcsnicomp(Str,L"switches=",9)==0)
         ProcessSwitchesString(Str+9);
+      if (*Command!=0)
+      {
+        wchar Cmd[16];
+        wcsncpyz(Cmd,Command,ASIZE(Cmd));
+        wchar C0=toupperw(Cmd[0]);
+        wchar C1=toupperw(Cmd[1]);
+        if (C0=='I' || C0=='L' || C0=='M' || C0=='S' || C0=='V')
+          Cmd[1]=0;
+        if (C0=='R' && (C1=='R' || C1=='V'))
+          Cmd[2]=0;
+        wchar SwName[16+ASIZE(Cmd)];
+        swprintf(SwName,ASIZE(SwName),L"switches_%s=",Cmd);
+        size_t Length=wcslen(SwName);
+        if (wcsnicomp(Str,SwName,Length)==0)
+          ProcessSwitchesString(Str+Length);
+      }
     }
   }
 }
@@ -605,6 +616,8 @@ void CommandData::ProcessSwitch(const wchar *Switch)
 #ifdef SAVE_LINKS
         case 'L':
           SaveSymLinks=true;
+          if (toupperw(Switch[2])=='A')
+            AbsoluteLinks=true;
           break;
 #endif
         case 'R':
@@ -752,6 +765,9 @@ void CommandData::ProcessSwitch(const wchar *Switch)
                         break;
                       case 'L':
                         FilelistCharset=rch;
+                        break;
+                      case 'R':
+                        RedirectCharset=rch;
                         break;
                       default:
                         BadSwitch(Switch);
@@ -947,7 +963,7 @@ void CommandData::OutHelp(RAR_EXIT ExitCode)
     MCHelpSwCm,MCHelpSwCFGm,MCHelpSwCL,MCHelpSwCU,
     MCHelpSwDH,MCHelpSwEP,MCHelpSwEP3,MCHelpSwF,MCHelpSwIDP,MCHelpSwIERR,
     MCHelpSwINUL,MCHelpSwIOFF,MCHelpSwKB,MCHelpSwN,MCHelpSwNa,MCHelpSwNal,
-    MCHelpSwO,MCHelpSwOC,MCHelpSwOR,MCHelpSwOW,MCHelpSwP,
+    MCHelpSwO,MCHelpSwOC,MCHelpSwOL,MCHelpSwOR,MCHelpSwOW,MCHelpSwP,
     MCHelpSwPm,MCHelpSwR,MCHelpSwRI,MCHelpSwSC,MCHelpSwSL,MCHelpSwSM,
     MCHelpSwTA,MCHelpSwTB,MCHelpSwTN,MCHelpSwTO,MCHelpSwTS,MCHelpSwU,
     MCHelpSwVUnr,MCHelpSwVER,MCHelpSwVP,MCHelpSwX,MCHelpSwXa,MCHelpSwXal,
@@ -1006,17 +1022,17 @@ void CommandData::OutHelp(RAR_EXIT ExitCode)
 // the include list created with -n switch.
 bool CommandData::ExclCheck(const wchar *CheckName,bool Dir,bool CheckFullPath,bool CheckInclList)
 {
-  if (ExclCheckArgs(&ExclArgs,Dir,CheckName,CheckFullPath,MATCH_WILDSUBPATH))
+  if (CheckArgs(&ExclArgs,Dir,CheckName,CheckFullPath,MATCH_WILDSUBPATH))
     return true;
   if (!CheckInclList || InclArgs.ItemsCount()==0)
     return false;
-  if (ExclCheckArgs(&InclArgs,Dir,CheckName,false,MATCH_WILDSUBPATH))
+  if (CheckArgs(&InclArgs,Dir,CheckName,CheckFullPath,MATCH_WILDSUBPATH))
     return false;
   return true;
 }
 
 
-bool CommandData::ExclCheckArgs(StringList *Args,bool Dir,const wchar *CheckName,bool CheckFullPath,int MatchMode)
+bool CommandData::CheckArgs(StringList *Args,bool Dir,const wchar *CheckName,bool CheckFullPath,int MatchMode)
 {
   wchar *Name=ConvertPath(CheckName,NULL);
   wchar FullName[NM];
@@ -1051,9 +1067,9 @@ bool CommandData::ExclCheckArgs(StringList *Args,bool Dir,const wchar *CheckName
     {
       // If we process a file inside of directory excluded by "dirmask\".
       // we want to exclude such file too. So we convert "dirmask\" to
-      // "dirmask\*". It is important for operations other than archiving.
-      // When archiving, directory matched by "dirmask\" is excluded
-      // from further scanning.
+      // "dirmask\*". It is important for operations other than archiving
+      // with -x. When archiving with -x, directory matched by "dirmask\"
+      // is excluded from further scanning.
 
       if (DirMask)
         wcscat(CurMask,L"*");
@@ -1077,7 +1093,12 @@ bool CommandData::ExclCheckArgs(StringList *Args,bool Dir,const wchar *CheckName
 #endif
     {
       wchar NewName[NM+2],*CurName=Name;
-      if (CurMask[0]=='*' && IsPathDiv(CurMask[1]))
+
+      // Important to convert before "*\" check below, so masks like
+      // d:*\something are processed properly.
+      wchar *CmpMask=ConvertPath(CurMask,NULL);
+
+      if (CmpMask[0]=='*' && IsPathDiv(CmpMask[1]))
       {
         // We want "*\name" to match 'name' not only in subdirectories,
         // but also in the current directory. We convert the name
@@ -1089,7 +1110,7 @@ bool CommandData::ExclCheckArgs(StringList *Args,bool Dir,const wchar *CheckName
         CurName=NewName;
       }
 
-      if (CmpName(ConvertPath(CurMask,NULL),CurName,MatchMode))
+      if (CmpName(CmpMask,CurName,MatchMode))
         return true;
     }
   }
@@ -1114,7 +1135,6 @@ bool CommandData::ExclDirByAttr(uint FileAttr)
   return false;
 }
 #endif
-
 
 
 #ifndef SFX_MODULE
@@ -1143,10 +1163,11 @@ bool CommandData::SizeCheck(int64 Size)
 #endif
 
 
-
-
-int CommandData::IsProcessFile(FileHeader &FileHead,bool *ExactMatch,int MatchType)
+int CommandData::IsProcessFile(FileHeader &FileHead,bool *ExactMatch,int MatchType,
+                               wchar *MatchedArg,uint MatchedArgSize)
 {
+  if (MatchedArg!=NULL && MatchedArgSize>0)
+    *MatchedArg=0;
   if (wcslen(FileHead.FileName)>=NM)
     return 0;
   bool Dir=FileHead.Dir;
@@ -1167,6 +1188,8 @@ int CommandData::IsProcessFile(FileHeader &FileHead,bool *ExactMatch,int MatchTy
     {
       if (ExactMatch!=NULL)
         *ExactMatch=wcsicompc(ArgName,FileHead.FileName)==0;
+      if (MatchedArg!=NULL)
+        wcsncpyz(MatchedArg,ArgName,MatchedArgSize);
       return StringCount;
     }
   return 0;
@@ -1296,7 +1319,6 @@ uint CommandData::GetExclAttr(const wchar *Str)
   return Attr;
 }
 #endif
-
 
 
 #ifndef SFX_MODULE

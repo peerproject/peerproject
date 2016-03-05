@@ -15,11 +15,15 @@ const wchar *NullToEmpty(const wchar *Str)
 void IntToExt(const char *Src,char *Dest,size_t DestSize)
 {
 #ifdef _WIN_ALL
+  // OemToCharBuff does not stop at 0, so let's check source length.
+  size_t SrcLength=strlen(Src)+1;
+  if (DestSize>SrcLength)
+    DestSize=SrcLength;
   OemToCharBuffA(Src,Dest,(DWORD)DestSize);
   Dest[DestSize-1]=0;
 //#elif defined(_ANDROID)
 //  wchar DestW[NM];
-//  UnkToWide(Src,DestW,ASIZE(DestW));
+//  JniCharToWide(Src,DestW,ASIZE(DestW),true);
 //  WideToChar(DestW,Dest,DestSize);
 #else
   if (Dest!=Src)
@@ -160,8 +164,6 @@ bool IsAlpha(int ch)
 }
 
 
-
-
 void BinToHex(const byte *Bin,size_t BinSize,char *HexA,wchar *HexW,size_t HexSize)
 {
   uint A=0,W=0; // ASCII and Unicode hex output positions.
@@ -264,8 +266,9 @@ wchar* wcsncpyz(wchar *dest, const wchar *src, size_t maxlen)
 char* strncatz(char* dest, const char* src, size_t maxlen)
 {
   size_t Length = strlen(dest);
-  if (Length + 1 < maxlen)
-    strncat(dest, src, maxlen - Length - 1);
+  int avail=int(maxlen - Length - 1);
+  if (avail > 0)
+    strncat(dest, src, avail);
   return dest;
 }
 
@@ -276,22 +279,32 @@ char* strncatz(char* dest, const char* src, size_t maxlen)
 wchar* wcsncatz(wchar* dest, const wchar* src, size_t maxlen)
 {
   size_t Length = wcslen(dest);
-  if (Length + 1 < maxlen)
-    wcsncat(dest, src, maxlen - Length - 1);
+  int avail=int(maxlen - Length - 1);
+  if (avail > 0)
+    wcsncat(dest, src, avail);
   return dest;
 }
 
 
-void itoa(int64 n,char *Str)
+void itoa(int64 n,char *Str,size_t MaxSize)
 {
   char NumStr[50];
   size_t Pos=0;
 
+  int Neg=n < 0 ? 1 : 0;
+  if (Neg)
+    n=-n;
+
   do
   {
+    if (Pos+1>=MaxSize-Neg)
+      break;
     NumStr[Pos++]=char(n%10)+'0';
     n=n/10;
   } while (n!=0);
+
+  if (Neg)
+    NumStr[Pos++]='-';
 
   for (size_t I=0;I<Pos;I++)
     Str[I]=NumStr[Pos-I-1];
@@ -299,16 +312,25 @@ void itoa(int64 n,char *Str)
 }
 
 
-void itoa(int64 n,wchar *Str)
+void itoa(int64 n,wchar *Str,size_t MaxSize)
 {
   wchar NumStr[50];
   size_t Pos=0;
 
+  int Neg=n < 0 ? 1 : 0;
+  if (Neg)
+    n=-n;
+
   do
   {
+    if (Pos+1>=MaxSize-Neg)
+      break;
     NumStr[Pos++]=wchar(n%10)+'0';
     n=n/10;
   } while (n!=0);
+
+  if (Neg)
+    NumStr[Pos++]='-';
 
   for (size_t I=0;I<Pos;I++)
     Str[I]=NumStr[Pos-I-1];

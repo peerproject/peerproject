@@ -1,7 +1,7 @@
 //
 // WizardConnectionPage.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -187,9 +187,15 @@ BOOL CWizardConnectionPage::OnInitDialog()
 			nErrorCode = SHRegGetUSValue( (LPCTSTR)strRegPath, (LPCTSTR)strRegName,
 				&nType, (PBYTE)&nPort, &nSize, FALSE, NULL, 0 );
 
-			if ( nErrorCode == ERROR_SUCCESS && nPort > 1030 && nPort < 65535 ) 	//&& nType == REG_DWORD && nSize == sizeof( nPort ) )
+			if ( nErrorCode == ERROR_SUCCESS && nPort > 1024 && nPort <= 65535 ) 	//&& nType == REG_DWORD && nSize == sizeof( nPort ) )
 				m_nPort	= nPort;
 		}
+	}
+
+	if ( m_ToolTip.Create(this) )
+	{
+		m_ToolTip.AddTool( &m_wndPort, IDS_WIZARD_TIP_PORT );
+		m_ToolTip.Activate( TRUE );
 	}
 
 	// 3 steps with 30 sub-steps each
@@ -576,4 +582,11 @@ void CWizardConnectionPage::OnRButtonDown(UINT nFlags, CPoint point)
 	const CString strTestSite = L"http://www.speedtest.net/switch_language.php?lang=" + Settings.General.Language.Left(2);
 
 	theApp.SetClipboard( strTestSite, TRUE );
+}
+
+BOOL CWizardConnectionPage::PreTranslateMessage(MSG* pMsg)
+{
+	m_ToolTip.RelayEvent( pMsg );
+
+	return CWizardPage::PreTranslateMessage( pMsg );
 }

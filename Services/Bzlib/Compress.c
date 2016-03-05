@@ -8,8 +8,8 @@
 	This file is part of bzip2/libbzip2,
 	a library for lossless block-sorting data compression.
 
-	bzip2/libbzip2 version 1.0.5 of 10 December 2007
-	Copyright (C) 1996-2007 Julian Seward <jseward@bzip.org>
+	bzip2/libbzip2 version 1.0.6 of 6 September 2010
+	Copyright (C) 1996-2010 Julian Seward <jseward@bzip.org>
 
 	This program is released under terms contained in License.txt.
 	-------------------------------------------------------------- */
@@ -224,7 +224,7 @@ static
 void sendMTFValues ( EState* s )
 {
 	Int32 v, t, i, j, gs, ge, totc, bt, bc, iter;
-	Int32 nSelectors = 0, alphaSize, minLen, maxLen, selCtr;
+	Int32 nSelectors, alphaSize, minLen, maxLen, selCtr;
 	Int32 nGroups, nBytes;
 
 	/*--
@@ -259,7 +259,7 @@ void sendMTFValues ( EState* s )
 	if (s->nMTF < 600)  nGroups = 3; else
 	if (s->nMTF < 1200) nGroups = 4; else
 	if (s->nMTF < 2400) nGroups = 5; else
-							  nGroups = 6;
+						nGroups = 6;
 
 	/*--- Generate an initial set of coding tables ---*/
 	{
@@ -286,9 +286,9 @@ void sendMTFValues ( EState* s )
 
 			if (s->verbosity >= 3)
 				VPrintf5( "      initial group %d, [%d .. %d], "
-							 "has %d syms (%4.1f%%)\n",
-							 nPart, gs, ge, aFreq,
-							 (100.0 * (float)aFreq) / (float)(s->nMTF) );
+						  "has %d syms (%4.1f%%)\n",
+						  nPart, gs, ge, aFreq,
+						  (100.0 * (float)aFreq) / (float)(s->nMTF) );
 
 			for (v = 0; v < alphaSize; v++)
 				if (v >= gs && v <= ge)

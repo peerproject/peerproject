@@ -1,7 +1,7 @@
 //
 // DlgCloseMode.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -27,6 +27,13 @@ static char THIS_FILE[] = __FILE__;
 #define new DEBUG_NEW
 #endif	// Debug
 
+// Settings.General.CloseMode Options:
+// 0 Unknown
+// 1 Minimize
+// 2 Tray
+// 3 Close after
+// 4 Close now
+
 //BEGIN_MESSAGE_MAP(CCloseModeDlg, CSkinDialog)
 //END_MESSAGE_MAP()
 
@@ -42,7 +49,7 @@ CCloseModeDlg::CCloseModeDlg(CWnd* pParent) : CSkinDialog( CCloseModeDlg::IDD, p
 void CCloseModeDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CSkinDialog::DoDataExchange(pDX);
-	DDX_Radio(pDX, IDC_CLOSE_0, m_nMode);
+	DDX_Radio(pDX, IDC_CLOSE, m_nMode);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -57,7 +64,7 @@ BOOL CCloseModeDlg::OnInitDialog()
 	if ( Settings.General.CloseMode )
 		m_nMode = Settings.General.CloseMode - 1;
 	else
-		m_nMode = 0;
+		m_nMode = 1;
 
 	UpdateData( FALSE );
 
@@ -70,8 +77,8 @@ void CCloseModeDlg::OnOK()
 
 	Settings.General.CloseMode = m_nMode + 1;
 
-	if ( Settings.General.CloseMode == 2 )
-		CSkinDialog::OnOK();
-	else
+	if ( Settings.General.CloseMode == 4 )
 		CSkinDialog::OnCancel();
+	else
+		CSkinDialog::OnOK();
 }

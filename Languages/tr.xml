@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Turkish Skin File -->
 
-<!-- Translation based on default en.xml r125 -->
+<!-- Translation based on default en.xml r130 -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -666,7 +666,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
@@ -735,7 +735,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject Sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
@@ -826,7 +826,7 @@
 				<item id="ID_HELP_HOMEPAGE" text="_PeerProject sitesi"/>
 				<separator/>
 				<item id="ID_HELP_FORUMS" text="PeerProject _Forumları"/>
-				<!--item id="ID_HELP_UPDATE" text="Son Haberler"/>
+				<!--item id="ID_HELP_UPDATE" text="Son Haberler"-->
 				<!--item id="ID_HELP_WEB_1" text="Zeropaid.com"-->
 			</menu>
 			<separator/> <!--
@@ -1655,7 +1655,7 @@
 			<newline gap="20" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Güncelleneyi Bildir</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Upgrade"/>
@@ -1663,7 +1663,7 @@
 			<link target="command:upgrade">Güncelleme için tıklayınız.</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">Uyari: Güvenlik Duvari Açik</heading>
 			<newline gap="8" indent="42"/>
@@ -1726,15 +1726,15 @@
 		<text>İndirmeler klasörünü açmak için</text>
 		<link target="command:shell:downloads">Tıklayın</link>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">Uzaktan Erişim Etkin</heading>
 			<newline gap="8" indent="42"/>
 			<text>PeerProject uzaktan erişim etkindir. PeerProject kontrolü web tarayıcınızda kullanır:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- ya da -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1820,7 +1820,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Hızlı hash yaratmak için buraya tıklayın</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Yavaş hash yaratmak için buraya tıklayın</link>
 			</group>
 		</para>
@@ -1941,7 +1941,7 @@
 			<text>,</text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Bağlantı Bilgisi</text>
 			<newline gap="1" indent="8"/>
@@ -1976,7 +1976,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">İlgi Alanlarım</text>
 			<newline gap="2" indent="8"/>
@@ -2232,7 +2232,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Kullanıcının paylaşılan dosyalarını göster"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Seçilmiş kullanıcının profiline ve paylaşılan dosyalarına gözat."/>
 	<tip id="ID_BROWSE_PROFILE" message="Kullanıcının profiline gözat."/>
@@ -2384,7 +2384,7 @@
 	<tip id="ID_LIBRARY_VIEW_HOME" message="Kütüphane ana sayfa görüntüsü" tip="Ana Sayfayı Göster"/>
 	<tip id="ID_LIBRARY_VIEW_ICON" message="Dosyaları ikon şeklinde göster" tip="İkon Göster"/>
 	<tip id="ID_LIBRARY_VIEW_LIST" message="Dosyaları yatay liste şeklinde göster" tip="Liste Göster"/>
-	<tip id="ID_LIBRARY_VIEW_THUMBNAIL" message="Dosyalar için ana unsuru göster" tip="Küçük Resim Göster" />
+	<tip id="ID_LIBRARY_VIEW_THUMBNAIL" message="Dosyalar için ana unsuru göster" tip="Küçük Resim Göster"/>
 	<tip id="ID_LIBRARY_VIEW_TILE" message="Albüm klasörlerini liste şeklinde göster." tip="Genişletilmiş Göster"/>
 	<tip id="ID_MEDIA_ADD" message="Oynatma listesine ortam dosyası ekle..."/>
 	<tip id="ID_MEDIA_ADD_FOLDER" message="Oynatma listesine ortam dosyası içeren bir klasör ekle..."/>
@@ -2555,13 +2555,13 @@
 	<tip id="PluginID_ImageViewer_FullSize" message="Resmi temel boyutlarında göster."/>
 	<tip id="PluginID_ImageViewer_Refresh" message="Resmi tazele."/>
 	<tip id="PluginID_ImageViewer_Close" message="Resmi gösteren pencereyi kapat."/>
-</commandTips>
+</commandtips>
 <!-- Tips displayed when mouse is moved over controls in the dialogs -->
-<controlTips>
+<controltips>
 	<tip id="IDC_THROTTLE_MODE" message="Maksimum modunda bant genişliği belirtilen değeri geçmeyecektir. Ortalama modunda bu değere yakın olarak onun altına inebilecek ya da onu aşabilecektir."/>
 	<tip id="IDC_REGEXP" message="Perl diline uygun düzenlemeli ifadeler (regexp) giriniz.{n}Anahtar kelimeler n değişkenini 0 ila 9 arasında bir sayı olmak üzere &lt;n&gt; şeklinde belirtilinebilir. Tüm anahtar kelimeleri birbiri ardına koymak istiyorsanız, &lt;_&gt; bir örnek olarak yardımcı olabilir."/>
 	<tip id="IDC_SHARE_PARTIALS" message="Bu seçeneğin halihazırda başlamış olan indirmelere etkisi olmayacaktır; ayrıca dosyanın bir eDonkey hash değeri varsa ve eDonkey ağı etkinse, ya da bir torrent söz konusuysa bu seçenek görmezden gelinecektir.{n}Ancak bu seçenek indirim sadece duraklatıldıysa görmezden gelinmeyecektir.{n}{n}UYARI: Bu seçeneği sadece gerçekten ihtiyaç duyduğunuzda kullanınız, fazla kullanım yasaklanmanıza yol açabilir."/>
-</controlTips>
+</controltips>
 <!-- Localized Strings -->
 <strings>
 	<string id="WINDOW_MAIN" value="PeerProject"/>
@@ -3294,9 +3294,10 @@
 	<string id="20891" value="Çıkış"/>
 	<string id="20892" value="Lütfen bekleyiniz: eDonkey sunucu listesi güncellenmektedir..."/>
 	<string id="20893" value="Lütfen bekleyiniz: Keşif servisleri güncellenmektedir..."/>
-	<string id="20894" value="Henüz bir bağlantı hızı belirlemediniz. Devam etmeden önce lütfen internet bağlantı hızını ya da internet bağlantı tipini seçiniz."/>
-	<!--string id="20895" value="Lütfen bekleyiniz: PeerProject UPnP cihazları bulmakta ve onları kurmaktatadır..."-->
-	<!--string id="20896" value="Güvenlik duvarı ya da NAT yönlendiricide port-forwarding kurmak istediğinizi belirttiniz.\n\nLütfen yerel PC'nizden TCP ve UDP %i portlara gidecek ağı yapılandırın."-->
+	<!--string id="20894" value="Lütfen bekleyiniz: PeerProject UPnP cihazları bulmakta ve onları kurmaktatadır..."-->
+	<!--string id="20894" value="Güvenlik duvarı ya da NAT yönlendiricide port-forwarding kurmak istediğinizi belirttiniz.\n\nLütfen yerel PC'nizden TCP ve UDP %i portlara gidecek ağı yapılandırın."-->
+	<string id="20895" value="4-5 basamaklı bir sayı (1050-65500)"/>
+	<string id="20896" value="Henüz bir bağlantı hızı belirlemediniz. Devam etmeden önce lütfen internet bağlantı hızını ya da internet bağlantı tipini seçiniz."/>
 	<string id="20897" value="Paylaştığınız klasör başka bir paylaşım klasörünün parçasıdır:\n\n%s"/>
 	<string id="20898" value="Paylaşım için açıkça bir klasör belirtmediniz. Bundan emin misiniz?"/>
 	<string id="20899" value="Yıl"/>
@@ -3343,7 +3344,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Boyut:"/>
 		<control caption="Kapattığımda:"/>
-		<control caption="Bana Sor|Boyutu Küçült|Hemen Kapat|Transferden sonra Kapat"/>
+		<control caption="Bana Sor|Boyutu Küçült|Boyutu Küçült|Transferden sonra Kapat|Hemen Kapat"/>
 		<control caption="Tıklandığında Küçült:"/>
 		<control caption="Normal|Boyut Küçült"/>
 	</dialog>
@@ -3436,17 +3437,19 @@
 		<control caption="on-connect"/>
 		<control/>
 	</dialog>
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Camia">
-		<control caption="_Profilim:"/>
-		<control caption="Kendi bilgilerinizi, hobilerinizi, önerilen dosyaları ve websitelerini paylaşmak için Gnutella Kullanıcı Profili kullanabilirsiniz."/>
-		<control caption="Profilimi Düzenle"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Camia">
 		<control caption="_Sohbet:"/>
 		<control caption="Uyumlu istemcilerle eşli sohbete olanak ver"/>
 		<control caption="Tüm ağda sohbet olanağı ver"/>
 		<control caption="Spam için sohbet mesajlarını filtrele"/>
 		<control caption="Saygısızlıkları sansürle"/>
+		<control caption="_Profilim:"/>
+		<control caption="Profilim"/>
+		<control caption="Profilimi Düzenle"/>
+		<control caption="Bilgi:"/>
+		<control caption="Kendi bilgilerinizi, hobilerinizi, önerilen dosyaları ve websitelerini paylaşmak için Gnutella Kullanıcı Profili kullanabilirsiniz."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Uzaktan Erişim">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Uzaktan Erişim">
 		<control caption="_Olanak Ver:"/>
 		<control caption="PeerProject Uzaktan Erişime olanak ver:"/>
 		<control/>
@@ -3455,8 +3458,9 @@
 		<control caption="Şifre Seçiniz:"/>
 		<control/>
 		<control/>
-		<control caption="Yardım:"/>
-		<control caption="PeerProject Uzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
+		<control/>
+		<control caption="Bilgi:"/>
+		<control caption="Puzaktan Erişim PC'nizde çalışan PeerProject'dan ayrılmanıza ve uzaktaki web tarayıcısını kontrol etmenize izin verir. Gelen bağlantıları kabul etmek için bu özellikleri kullanmaya ihtiyaç duyacaksınız (i.e. düzgün yönlendirme yapılandırması, vb)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Web">
 		<control caption="E_şli bağlantı kullanılıyor:"/>
@@ -3774,7 +3778,7 @@
 		<control/>
 		<control caption="Port açma işlemini UPnP kullanarak otomatik olarak yapmak istiyor musunuz?"/>
 		<control/>
-		<control caption="Port: &#160; (4-5 basamaklı bir sayı)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Rasgele"/>
 		<control caption="Durum:"/>
@@ -4321,13 +4325,14 @@
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 		<control caption="Bu dosyayı daha önce indirdiniz ve sildiniz. Ne yapmak istersiniz?"/>
-		<control caption="Uyarı! Kopya - eş dosyalar tespit edilmiştir. Bazı kötücül yazılımlar kütüphanenizdeki dosyalara bulaşabilir. Bu dosyayı indirdiğinizden ya da sizin koyduğunuzdan emin olun. Aksi takdirde PeerProject'yı kapatıp bilgisayarınızı bir antivirüs programıyla tarayın."/>
+		<control caption="Uyarı: Kopya - eş dosyalar tespit edilmiştir. Bazı kötücül yazılımlar kütüphanenizdeki dosyalara bulaşabilir. Bu dosyayı indirdiğinizden ya da sizin koyduğunuzdan emin olun. Aksi takdirde PeerProject'yı kapatıp bilgisayarınızı bir antivirüs programıyla tarayın."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Kapat Düğmesi">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Kapat Düğmesi">
 		<control caption="Bu PeerProject'nın kapat butonuna ilk basışınızdır. Lütfen bundan böyle bu butona bastığınızda PeerProject'nın yapmasını istediğiniz faaliyeti seçiniz:"/>
 		<control caption="Alanı Küçült"/>
+		<control caption="Alanı Küçült"/>
+		<control caption="İndirme ve yükleme bittikten sonra kapat."/>
 		<control caption="PeerProject'yı hemen kapat"/>
-		<control caption="İndirme ve yükleme bittikten sonra PeerProject'yı kapat."/>
 		<control caption="Tamam"/>
 		<control caption="İptal"/>
 	</dialog>
@@ -4518,8 +4523,91 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Uzak Web Arayüzü"/>
+	<tag find="text_logout" replace="Çıkış Yap"/>
+	<tag find="text_tabhome" replace="Ana Sayfa"/>
+	<tag find="text_tabdownloads" replace="İndirmeler"/>
+	<tag find="text_tabuploads" replace="Gönderiler"/>
+	<tag find="text_tabnetworks" replace="Ağ"/>
+	<tag find="text_tabsearch" replace="Arama"/>
+	<tag find="text_welcome" replace="<b>PeerProject Uzak Web Arayüzü hoş geldiniz.</b>"/>
+	<!--tag find="text_logininfo"-->
+	<!--tag find="text_loginfail"-->
+	<tag find="text_loginuser" replace="Kullanıcı adı:"/>
+	<tag find="text_loginpass" replace="Parola:"/>
+	<tag find="text_loginsubmit" replace="Oturum aç"/>
+	<!--tag find="text_homeinfo"-->
+	<!--tag find="text_homestart"-->
+	<!--tag find="text_homequick"-->
+	<!--tag find="text_homelinks"-->
+	<!--tag find="text_directdownload"-->
+	<tag find="text_downloadcleartip" replace="Listeden indir temizleyin. (Bu dosyayı silmez)"/>
+	<tag find="text_downloadclear" replace="Kaldırmak"/>
+	<tag find="text_downloadresume" replace="Devam et"/>
+	<tag find="text_downloadpause" replace="Durma"/>
+	<tag find="text_downloadcancel" replace="Iptal etmek"/>
+	<tag find="text_downloadmoresources" replace="Daha fazla kaynak"/>
+	<!--tag find="text_downloaddirect"-->
+	<!--tag find="text_submit"-->
+	<!--tag find="text_sourceaccess"-->
+	<!--tag find="text_sourceforget"-->
+	<!--tag find="text_filter"-->
+	<!--tag find="text_filteractive"-->
+	<!--tag find="text_filterqueued"-->
+	<!--tag find="text_filterpaused"-->
+	<!--tag find="text_filternosources"-->
+	<!--tag find="text_filtershowall"-->
+	<!--tag find="text_filtersubmit"-->
+	<!--tag find="text_filename"-->
+	<!--tag find="text_filesize"-->
+	<!--tag find="text_fileprogress"-->
+	<!--tag find="text_filespeed"-->
+	<!--tag find="text_filesources"-->
+	<!--tag find="text_filestatus"-->
+	<!--tag find="text_fileoptions"-->
+	<!--tag find="text_networkenabled"-->
+	<!--tag find="text_networkdisabled"-->
+	<!--tag find="text_networkconnect"-->
+	<!--tag find="text_networkdisconnect"-->
+	<tag find="text_networkaddress" replace="Adres"/>
+	<tag find="text_networktime" replace="Süre"/>
+	<tag find="text_networkpackets" replace="Paketler"/>
+	<!--tag find="text_networkbandwidth"-->
+	<tag find="text_networktotal" replace="Toplam"/>
+	<tag find="text_networkmode" replace="Mod"/>
+	<!--tag find="text_networkleaves"-->
+	<!--tag find="text_useragent"-->
+	<!--tag find="text_searchnew"-->
+	<!--tag find="text_searchinfo"-->
+	<!--tag find="text_searchfor"-->
+	<!--tag find="text_searchstart"-->
+	<!--tag find="text_searchstop"-->
+	<!--tag find="text_searchclose"-->
+	<tag find="text_refreshpage" replace="Sayfayı yenile"/>
+	<!--tag find="text_file"-->
+	<!--tag find="text_user"-->
+	<!--tag find="text_submit"-->
+	<!--tag find="text_filetype"-->
+	<!--tag find="text_anyfile"-->
+	<tag find="text_typeapp" replace="Uygulama"/>
+	<tag find="text_typearchive" replace="Arşiv"/>
+	<tag find="text_typeaudio" replace="Ses"/>
+	<tag find="text_typevideo" replace="Video"/>
+	<tag find="text_typeimage" replace="Görüntü"/>
+	<tag find="text_typebook" replace="Kitap"/>
+	<tag find="text_typedoc" replace="Kelime İşlemci"/>
+	<tag find="text_typepresent" replace="Tanıtım"/>
+	<tag find="text_typerom" replace="ROM Görüntü"/>
+	<tag find="text_typeskin" replace="Arayüz"/>
+	<tag find="text_typecode" replace="Kaynak Kod"/>
+	<tag find="text_typespreadsheet" replace="Çalışma Alanlarına Bölmek"/>
+	<tag find="text_typesubtitle" replace="Altyazı"/>
+	<tag find="text_typecollection" replace="Collection"/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Dosya"/>
 		<column from="Size" to="Boyut"/>
@@ -4666,5 +4754,5 @@
 		<column from="Comments" to="Yorumlar"/>
 		<column from="Order" to="Düzen"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

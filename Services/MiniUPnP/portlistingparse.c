@@ -1,12 +1,15 @@
-/* $Id: portlistingparse.c,v 1.7 2014/11/01 10:37:32 nanard Exp $ */
+/* $Id: portlistingparse.c,v 1.9 2015/07/15 12:41:13 nanard Exp $ */
 /* MiniUPnP project
  * http://miniupnp.free.fr/ or http://miniupnp.tuxfamily.org/
- * (c) 2011 Thomas Bernard
+ * (c) 2011-2015 Thomas Bernard
  * This software is subject to the conditions detailed
  * in the LICENCE file provided within the distribution */
 
 #include <string.h>
 #include <stdlib.h>
+//#ifdef DEBUG
+//#include <stdio.h>
+//#endif /* DEBUG */
 #include "portlistingparse.h"
 #include "minixml.h"
 
@@ -63,6 +66,11 @@ startelt(void * d, const char * name, int l)
 	{
 		struct PortMapping * pm;
 		pm = calloc(1, sizeof(struct PortMapping));
+		if(pm == NULL)
+		{
+			/* malloc error */
+			return;
+		}
 		pm->l_next = pdata->l_head;	/* insert in list */
 		pdata->l_head = pm;
 	}

@@ -1,7 +1,7 @@
 //
 // Skin.cpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2015
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions copyright Shareaza Development Team, 2002-2008.
 //
 // PeerProject is free software. You may redistribute and/or modify it
@@ -403,8 +403,9 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 		Text[ L"options" ]		= 'o';
 		Text[ L"navbar" ]		= 'v';	// Legacy
 		Text[ L"fonts" ] 		= 'f';
-		Text[ L"strings" ]		= 'r';
-		Text[ L"commandtips" ]	= 'r';
+		Text[ L"remote" ]		= 'r';
+		Text[ L"strings" ]		= 's';
+		Text[ L"commandtips" ]	= 's';
 		Text[ L"controltips" ]	= 'n';
 		Text[ L"commandmap" ]	= 'p';
 		Text[ L"resourcemap" ]	= 'p';
@@ -420,7 +421,7 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 
 		switch ( Text[ strElement ] )
 		{
-		case 'w':	// windowSkins, windows
+		case 'w':	// windowskins, windows
 			if ( ! LoadWindowSkins( pSub, strPath ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"WindowSkins" );
 			break;
@@ -428,11 +429,11 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			if ( ! LoadWatermarks( pSub, strPath ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Watermarks" );
 			break;
-		case 'i':	// commandImages, icons
+		case 'i':	// commandimages, icons
 			if ( ! LoadCommandImages( pSub, strPath ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"CommandImages" );
 			break;
-		case 'c':	// colorScheme, colourScheme, colors
+		case 'c':	// colorscheme, colourscheme, colors
 			if ( ! LoadColorScheme( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ColorScheme" );
 			break;
@@ -452,7 +453,11 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			if ( ! LoadDocuments( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Documents" );
 			break;
-		case 'r':	// strings, commandTips
+		case 'r':	// remote
+			if ( ! LoadRemoteInterface( pSub ) )
+				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Remote" );
+			break;
+		case 's':	// strings, commandtips
 			if ( ! LoadStrings( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"Strings" );
 			break;
@@ -460,11 +465,11 @@ BOOL CSkin::LoadFromXML(CXMLElement* pXML, const CString& strPath)
 			if ( ! LoadControlTips( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ControlTips" );
 			break;
-		case 'p':	// commandMap, resourceMap, tipMap
+		case 'p':	// commandmap, resourcemap, tipmap
 			if ( ! LoadResourceMap( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ResourceMap" );
 			break;
-		case 'l':	// listColumns
+		case 'l':	// listcolumns
 			if ( ! LoadListColumns( pSub ) )
 				theApp.Message( MSG_ERROR, IDS_SKIN_ERROR, L"Failed section", L"ListColumns" );
 			break;
@@ -838,6 +843,40 @@ BOOL CSkin::LoadControlTips(CXMLElement* pBase)
 
 	return TRUE;
 }
+
+
+//////////////////////////////////////////////////////////////////////
+// CSkin dialog control tips
+
+BOOL CSkin::LoadRemoteText(CString& str, const CString& strTag)
+{
+	if ( m_pRemote.Lookup( strTag, str ) ) return TRUE;
+	str.Empty();
+	return FALSE;
+}
+
+BOOL CSkin::LoadRemoteInterface(CXMLElement* pBase)
+{
+	for ( POSITION pos = pBase->GetElementIterator() ; pos ; )
+	{
+		CXMLElement* pXML = pBase->GetNextElement( pos );
+		if ( pXML->IsNamed( L"tag" ) )
+		{
+			CString strTag = pXML->GetAttributeValue( L"find" );
+			if ( StartsWith( strTag, _P( L"text_" ) ) )
+			{
+				ToLower( strTag );
+				CString str = pXML->GetAttributeValue( L"replace" );
+				//strTo.Replace( L"{n}", L"\r\n" );
+				if ( ! str.IsEmpty() )
+					m_pRemote.SetAt( strTag, str );
+			}
+		}
+	}
+
+	return TRUE;
+}
+
 
 //////////////////////////////////////////////////////////////////////
 // CSkin menus

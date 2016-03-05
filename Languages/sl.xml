@@ -3,7 +3,7 @@
 
 <!-- PeerProject Default Slovenian Skin File -->
 
-<!-- Translation based on default en.xml r125 --> <!-- (Shareaza 2.2.2.12) -->
+<!-- Translation based on default en.xml r130 --> <!-- (Shareaza 2.2.2.12) -->
 <!-- http://svn.code.sf.net/p/peerproject/code/trunk/Languages/en.xml -->
 
 <!-- This skin template represents current PeerProject defaults. -->
@@ -844,8 +844,8 @@
 		<separator/>
 		<menu text="_Napredno">
 			<item id="ID_VIEW_NEIGHBOURS" text="Sose_dje"/>
-			<item id="ID_VIEW_UPLOADS" text="_Uploads"/>
-			<item id="ID_VIEW_SECURITY" text="_Naložki (uploads)"/>
+			<item id="ID_VIEW_UPLOADS" text="_Naložki (uploads)"/>
+			<item id="ID_VIEW_SECURITY" text="_Varnost"/>
 			<item id="ID_VIEW_HOSTS" text="_Predpomnilnik gostitelja"/>
 		</menu>
 	</menu>
@@ -1556,7 +1556,7 @@
 			<newline gap="18" indent="0"/>
 		</group>
 		<group id="3">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">OBVESTILO O POSODOBITVAH</heading>
 			<newline gap="8" indent="42"/>
 			<text id="Posodobi"/>
@@ -1564,7 +1564,7 @@
 			<link target="command:upgrade">Kliknite sem za posodobitev</link>
 			<newline gap="18" indent="0"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<icon res="180" width="32" height="32" target="command:ID_TOOLS_WIZARD"/><gap size="8"/>
 			<heading align="middle">POZOR: STE ZA POŽARNIM ZIDOM</heading>
 			<newline gap="8" indent="42"/>
@@ -1599,15 +1599,15 @@
 		<link target="command:ID_HELP_FORUMS_LOCAL" align="middle">Lokalna Forums</link><gap size="6"/>
 		<text align="middle">- Pojdite na slovenski jezik debatni forum</text>
 		<newline gap="18" indent="0"/>
-		<group id="5">
-			<icon res="120" width="32" height="32"/><gap size="8"/>
+		<group id="4">
+			<icon res="120" width="32" height="32" target="command:ID_TOOLS_SETTINGS"/><gap size="8"/>
 			<heading align="middle">ODDALJEN DOSTOP JE OMOGOČEN</heading>
 			<newline gap="8" indent="42"/>
 			<text>Oddaljen dostop do PeerProject je omogočen. S PeerProject lahko uporavljate z uporabo spletnega brskalnika na naslovu:</text>
 			<newline gap="6"/>
-			<link id="RemoteAccessURL1"/>
+			<link id="RemoteAccessURL"/>
 			<text>&#160;- ali -&#160;</text>
-			<link id="RemoteAccessURL2"/>
+			<link id="RemoteAccessLocal"/>
 			<newline gap="16" indent="0"/>
 		</group>
 	</document>
@@ -1693,7 +1693,7 @@
 			<group id="3">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za hitrejšo zgoščevanje (hashing)</link>
 			</group>
-			<group id="4">
+			<group id="5">
 				<link target="command:ID_LIBRARY_HASH_PRIORITY">Kliknite sem za počasnejše zgoščevanje (hashing)</link>
 			</group>
 		</para>
@@ -1814,7 +1814,7 @@
 			<text>,</text>
 			<text id="Age"/>
 		</group>
-		<group id="4">
+		<group id="5">
 			<newline gap="8" indent="0"/>
 			<text format="b">Kontaktni podatki</text>
 			<newline gap="1" indent="8"/>
@@ -1849,7 +1849,7 @@
 			<icon res="204"/><gap size="5"/>
 			<link id="ContactJabber"/>
 		</group>
-		<group id="5">
+		<group id="4">
 			<newline gap="8" indent="0"/>
 			<text format="b">Interesi</text>
 			<newline gap="2" indent="8"/>
@@ -2134,7 +2134,7 @@
 	</document>
 </documents>
 <!-- Localized Command Tip Text. "Message" displayed in status bar, "Tip" shown in tooltip -->
-<commandTips>
+<commandtips>
 	<tip id="ID_BROWSE_FILES" message="Poglejte datoteke, ki jih uporabnik deli"/>
 	<tip id="ID_BROWSE_LAUNCH" message="Brskajte po uporabnškem profilu in deljenih datotekah izbranega uporabnika."/>
 	<tip id="ID_BROWSE_PROFILE" message="Brskajte po uporabniškem profilu."/>
@@ -2445,7 +2445,7 @@
 	<tip id="ID_WINDOW_TILE_HORZ" message="Razvrsti odprta okna, kot vodoravna polja, ki se ne prekrivajo."/>
 	<tip id="ID_WINDOW_TILE_VERT" message="Razvrsti odprta okna, kot navpična polja, ki se ne prekrivajo."/>
 	<tip id="ID_WINDOW_TOOLBAR" message="Pokaži ali skrij orodno vrstico."/>
-</commandTips>
+</commandtips>
 
 <!-- Localized Strings -->
 <strings>
@@ -3144,8 +3144,9 @@
 	<string id="20886" value="Sprememba smeri vmesnika zahteva ponovni zagon.\n\nŽelite končati program?"/>
 	<string id="20890" value="Dobrodošli v PeerProject"/>
 	<string id="20891" value="Izhod"/>
-	<string id="20894" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>
-	<!--string id="20896" value="Nakazali ste, da želite nastaviti posredovanje na vratih (port-forwarding) na NAT usmerjevalniku ali požarnem zidu.\n\nNastavite svoje omrežje, da bo posredovalo TCP in UDP varta %i na vaš lokalni PC."-->
+	<!--string id="20894" value="Nakazali ste, da želite nastaviti posredovanje na vratih (port-forwarding) na NAT usmerjevalniku ali požarnem zidu.\n\nNastavite svoje omrežje, da bo posredovalo TCP in UDP varta %i na vaš lokalni PC."-->
+	<string id="20895" value="(1050-65500)"/>
+	<string id="20896" value="Niste še določili hitrosti za povezavo. Pred nadaljevanjem boste morali ali izbrati tip medmrežne povezave ali ročno vnesti hitrost povezave."/>
 	<string id="20897" value="Mapa, ki jo delite, je že deljena, kot del druge mape za deljenje:\n\n%s"/>
 	<string id="20898" value="Niste izbrali map za deljenje. Ste prepričani?"/>
 	<string id="20899" value="let (starost)"/>
@@ -3192,7 +3193,7 @@
 		<control caption="Shadows"/>
 		<control caption="_Opravilna vrstica:"/>
 		<control caption="Ko kliknem zapri:"/>
-		<control caption="Vprašaj me|Minimiziraj v opravilno vrstico|Takoj zapri|Zapri po prenosih"/>
+		<control caption="Vprašaj me|Minimiziraj|Minimiziraj v opravilno vrstico|Zapri po prenosih|Takoj zapri"/>
 		<control caption="Ko izberem minimizranje:"/>
 		<control caption="Navadno|Minimiziraj v opravilno vrstico"/>
 	</dialog>
@@ -3242,17 +3243,19 @@
 		<control caption="Note: Choosing an external Media Handler will disable Media/Visualization Plugins."/>
 	</dialog>
 	<!--Missing dialog name="CIRCSettingsPage"-->
-	<dialog name="CCommunitySettingsPage" cookie="BuStBuBuBuBuBuBu" caption="Družba">
-		<control caption="Moj _Profil:"/>
-		<control caption="Uporabljate lahko vaš Gnutella uporabniški profil za prikaz vaših informacij drugim kot npr. interesi, priporočene datoteke, spletne strani itd."/>
-		<control caption="Uredi profil"/>
+	<dialog name="CCommunitySettingsPage" cookie="BuBuBuBuBuBuBuBuBuSt" caption="Družba">
 		<control caption="_Kramljaj:"/>
 		<control caption="Omogoči P2P kramljanje s združljivimi odjemalci"/>
 		<control caption="Omogoči kramljanje na vseh omrežjih"/>
 		<control caption="Filtriraj e-slamo (spam) v klepetalniških sporočilih"/>
 		<control caption="Cenzuriraj psovke v klepetalnici"/>
+		<control caption="Moj _Profil:"/>
+		<control caption="Omogoči Profil"/>
+		<control caption="Uredi profil"/>
+		<control caption="Info:"/>
+		<control caption="Uporabljate lahko vaš Gnutella uporabniški profil za prikaz vaših informacij drugim kot npr. interesi, priporočene datoteke, spletne strani itd."/>
 	</dialog>
-	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdBuSt" caption="Oddaljen dostop">
+	<dialog name="CRemoteSettingsPage" cookie="BuBuStBuStStEdEdStBuSt" caption="Oddaljen dostop">
 		<control caption="_Omogoči:"/>
 		<control caption="Omogoči oddaljen dostop do programa PeerProject:"/>
 		<control/>
@@ -3261,7 +3264,8 @@
 		<control caption="Geslo:"/>
 		<control/>
 		<control/>
-		<control caption="Pomoč:"/>
+		<control/>
+		<control caption="Info:"/>
 		<control caption="PeerProject oddaljen dostop vam omogoča, da z zagnanim programom upravljate oddaljeno s pomočjo spletnega brskalnika. Za to boste morali najprej dovoliti vhodne povezave (npr. ustrezno nastavljen usmerjevalnik in požarni zid, itd.)."/>
 	</dialog>
 	<dialog name="CWebSettingsPage" cookie="BuStBuBuBuBuBuBuBuBuCoBuBuSt" caption="Splet">
@@ -3580,7 +3584,7 @@
 		<control/>
 		<control caption="Vendar bom nastavil usmerjanje vrat (UPnP) za PeerProject?"/>
 		<control/>
-		<control caption="Port: &#160; (Any 4-5 digit number)"/>
+		<control caption="Port:"/>
 		<control/>
 		<control caption="Naključno"/>
 		<control caption="Status"/>
@@ -4127,13 +4131,14 @@
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 		<control caption="To datoteko ste že prenesli in zbrisali. Kaj želite storiti?"/>
-		<control caption="Warning! Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
+		<control caption="Warning: Duplicate files detected. Some malicious software may infect your Library. Make sure that you downloaded this file or placed it manually. Otherwise, shutdown PeerProject and scan your computer with an antivirus program."/>
 	</dialog>
-	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBu" caption="Zapri gumb">
+	<dialog name="CCloseModeDlg" cookie="StBuBuBuBuBuBu" caption="Zapri gumb">
 		<control caption="To je prvič, da ste uporabili PeerProject gumb za zapiranje. Izberite dejanje, ki želite da ga izvede PeerProject, od sedaj naprej, ko boste ponovno klinili na ta-isti gumb:"/>
 		<control caption="Minimiziraj v opravilno vrstico"/>
-		<control caption="Zaključi program"/>
+		<control caption="Minimiziraj v opravilno vrstico"/>
 		<control caption="Zaključi program potem, ko so končani vsi prenosi in nalaganja"/>
+		<control caption="Zaključi program"/>
 		<control caption="V redu"/>
 		<control caption="Prekliči"/>
 	</dialog>
@@ -4325,8 +4330,19 @@
 		<control/>
 	</dialog>
 </dialogs>
+<!-- Remote Accesss Web Interface (Missing) -->
+<remote>
+	<tag find="text_metatitle" replace="PeerProject Web Interface"/>
+	<tag find="text_logout" replace="Izpisati"/>
+	<tag find="text_tabhome" replace="Domov"/>
+	<tag find="text_tabdownloads" replace="Prenosi"/>
+	<tag find="text_tabuploads" replace="Naložki"/>
+	<tag find="text_tabnetworks" replace="Omrežje"/>
+	<tag find="text_tabsearch" replace="Iskanje"/>
+	<tag find="text_" replace=""/>
+</remote>
 <!-- Columns Definitions -->
-<listColumns>
+<listcolumns>
 	<list name="CDownloadCtrl">
 		<column from="Downloaded File" to="Prenešena datoteka"/>
 		<column from="Size" to="Velikost"/>
@@ -4473,5 +4489,5 @@
 		<column from="Comments" to="Komentarji"/>
 		<column from="Order" to="Zaporedje"/>
 	</list>
-</listColumns>
+</listcolumns>
 </skin>

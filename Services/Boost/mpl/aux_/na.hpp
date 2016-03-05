@@ -10,9 +10,9 @@
 //
 // See http://www.boost.org/libs/mpl for documentation.
 
-// $Id: na.hpp 49239 2008-10-10 09:10:26Z agurtovoy $
-// $Date: 2008-10-10 05:10:26 -0400 (Fri, 10 Oct 2008) $
-// $Revision: 49239 $
+// $Id$
+// $Date$
+// $Revision$
 
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/aux_/na_fwd.hpp>
@@ -25,36 +25,36 @@ template< typename T >
 struct is_na
     : false_
 {
-//#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//  using false_::value;
-//#endif
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+    using false_::value;
+#endif
 };
 
 template<>
 struct is_na<na>
     : true_
 {
-//#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//  using true_::value;
-//#endif
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+    using true_::value;
+#endif
 };
 
 template< typename T >
 struct is_not_na
     : true_
 {
-//#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//  using true_::value;
-//#endif
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+    using true_::value;
+#endif
 };
 
 template<>
 struct is_not_na<na>
     : false_
 {
-//#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
-//  using false_::value;
-//#endif
+#if BOOST_WORKAROUND(BOOST_MSVC, < 1300)
+    using false_::value;
+#endif
 };
 
 #if !defined(BOOST_NO_TEMPLATE_PARTIAL_SPECIALIZATION)

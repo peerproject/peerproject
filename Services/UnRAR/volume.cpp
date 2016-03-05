@@ -6,7 +6,6 @@ static bool DllVolNotify(RAROptions *Cmd,wchar *NextName);
 #endif
 
 
-
 bool MergeArchive(Archive &Arc,ComprDataIO *DataIO,bool ShowFileName,wchar Command)
 {
   RAROptions *Cmd=Arc.GetRAROptions();
@@ -169,8 +168,6 @@ bool MergeArchive(Archive &Arc,ComprDataIO *DataIO,bool ShowFileName,wchar Comma
 }
 
 
-
-
 #ifdef RARDLL
 #if defined(RARDLL) && defined(_MSC_VER) && !defined(_WIN_64)
 // Disable the run time stack check for unrar.dll, so we can manipulate
@@ -185,25 +182,28 @@ bool DllVolChange(RAROptions *Cmd,wchar *NextName,size_t NameSize)
 
   if (Cmd->Callback!=NULL)
   {
-    wchar CurName[NM];
-    wcscpy(CurName,NextName);
+    wchar OrgNextName[NM];
+    wcscpy(OrgNextName,NextName);
     if (Cmd->Callback(UCM_CHANGEVOLUMEW,Cmd->UserData,(LPARAM)NextName,RAR_VOL_ASK)==-1)
       DllVolAborted=true;
     else
-      if (wcscmp(CurName,NextName)!=0)
+      if (wcscmp(OrgNextName,NextName)!=0)
         DllVolChanged=true;
       else
       {
-        char NextNameA[NM];
+        char NextNameA[NM],OrgNextNameA[NM];
         WideToChar(NextName,NextNameA,ASIZE(NextNameA));
+        strcpy(OrgNextNameA,NextNameA);
         if (Cmd->Callback(UCM_CHANGEVOLUME,Cmd->UserData,(LPARAM)NextNameA,RAR_VOL_ASK)==-1)
           DllVolAborted=true;
         else
-        {
-          CharToWide(NextNameA,NextName,NameSize);
-          if (wcscmp(CurName,NextName)!=0)
+          if (strcmp(OrgNextNameA,NextNameA)!=0)
+          {
+            // We can damage some Unicode characters by U->A->U conversion,
+            // so set Unicode name only if we see that ANSI name is changed.
+            CharToWide(NextNameA,NextName,NameSize);
             DllVolChanged=true;
-        }
+          }
       }
   }
   if (!DllVolChanged && Cmd->ChangeVolProc!=NULL)
@@ -235,13 +235,14 @@ bool DllVolChange(RAROptions *Cmd,wchar *NextName,size_t NameSize)
     if (RetCode==0)
       DllVolAborted=true;
     else
-      CharToWide(NextNameA,NextName,ASIZE(NextName));
+      CharToWide(NextNameA,NextName,NameSize);
   }
 
   // We quit only on 'abort' condition, but not on 'name not changed'.
   // It is legitimate for program to return the same name when waiting
   // for currently non-existent volume.
-  if (DllVolAborted)
+  // Also we quit to prevent an infinite loop if no callback is defined.
+  if (DllVolAborted || Cmd->Callback==NULL && Cmd->ChangeVolProc==NULL)
   {
     Cmd->DllError=ERAR_EOPEN;
     return false;

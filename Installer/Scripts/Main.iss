@@ -3,6 +3,9 @@
 ; Change from "Yes" to "No" on the next line for public releases.
 #define alpha "Yes"
 
+; Change to match signing certificate password, if available
+#define signpass "XXXXXX"
+
 #if VER < 0x05030500
   #error Inno Setup version 5.3.5 or higher (2009) is needed for this script
 #endif
@@ -14,8 +17,8 @@
 #define name          internal_name
 #define build         PlatformName + " " + ConfigurationName + " Build"
 #define version       GetFileVersion("..\..\PeerProject\" + ConfigurationName + " " + PlatformName + "\PeerProject.exe")
-#define Publisher     "PeerProject.org"
-#define Description   internal_name + " P2P Filesharing"
+#define publisher     "PeerProject.org"
+#define description   internal_name + " P2P Filesharing"
 #define date          GetDateTimeString('yyyy/mm/dd', '-', '')
 
 #if ConfigurationName == "Debug"
@@ -37,7 +40,7 @@
 #endif
 
 [Setup]
-AppComments={#Description}
+AppComments={#description}
 AppId={#internal_name}
 AppName={#name}
 AppVersion={#version}
@@ -68,13 +71,14 @@ SetupIconFile=Installer\Res\Install.ico
 WizardSmallImageFile=Installer\Res\CornerLogo.bmp
 WizardImageFile=Installer\Res\Sidebar.bmp
 WizardImageStretch=no
-WizardImageBackColor=clWhite
+;WizardImageBackColor=clWhite
+DisableWelcomePage=no
 ShowComponentSizes=no
 ChangesAssociations=yes
 ChangesEnvironment=yes
 CloseApplications=no
 OutputManifestFile=Manifest ({#ConfigurationName} {#PlatformName}).txt
-MinVersion=0,5.0
+MinVersion=0,5.01
 #if PlatformName == "x64"
   ArchitecturesAllowed=x64
   ArchitecturesInstallIn64BitMode=x64
@@ -84,8 +88,8 @@ MinVersion=0,5.0
 SourceDir=..\..
 
 VersionInfoVersion={#version}
-VersionInfoDescription={#Description}
-AppPublisher={#Publisher}
+VersionInfoDescription={#description}
+AppPublisher={#publisher}
 AppCopyright=© PeerProject Development Team
 
 ; Links to website for software panel
@@ -93,13 +97,21 @@ AppPublisherURL=http://PeerProject.org
 AppSupportURL=http://support.peerproject.org/
 AppUpdatesURL=http://download.peerproject.org/
 
+#if signpass != "XXXXXX"
+; Dual-signing /as parameter requires a recent signtool.exe and a SHA256 (SHA-2) certificate
+SignTool=signtoolparams sign /f cert.pfx /p "{#signpass}" /fd sha1 /t http://timestamp.verisign.com/scripts/timstamp.dll /d $qPeerProject$q $f
+SignTool=signtoolparams sign /f cert.pfx /p "{#signpass}" /as /fd sha256 /td sha256 /tr http://timestamp.geotrust.com/tsa /d $qPeerProject$q $f
+#endif
+
 [Tasks]
-Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"; OnlyBelowVersion: 6.1,6.01;
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}";
 Name: "desktopiconwizard"; Description: "{cm:CreateDesktopIconWizard}"; Languages: en en_uk;
+Name: "quicklaunch"; Description: "{cm:CreateQuickLaunchIcon}"; OnlyBelowVersion: 6.1,6.01;
+;Name: "pintaskbar"; Description: "{cm:tasks_pintaskbar}"; MinVersion: 0,6.1;
+;Name: "pinstartmenu"; Description: "{cm:tasks_pinstartmenu}"; MinVersion: 0,6.1;
 Name: "language"; Description: "{cm:tasks_languages}";
 Name: "multiuser"; Description: "{cm:tasks_multisetup}"; Flags: unchecked;
-Name: "webhook"; Description: "{cm:tasks_webhook}"; Flags: unchecked;
+Name: "webhook"; Description: "{cm:tasks_webhook}"; Flags: unchecked; OnlyBelowVersion: 10.0,10.0;
 ;Name: "firewall"; Description: "{cm:tasks_firewall}"; MinVersion: 0,5.01sp2;
 ;Name: "upnp"; Description: "{cm:tasks_upnp}"; MinVersion: 0,5.01; Check: CanUserModifyServices;
 Name: "resetdiscoveryhostcache"; Description: "{cm:tasks_resetdiscoveryhostcache}"; Check: WasInstalled; Flags: unchecked;
@@ -118,7 +130,8 @@ Source: "SkinInstaller\{#ConfigurationName} {#PlatformName}\SkinInstaller.exe";	
 Source: "Services\SaveSettings.bat"; DestDir: "{app}"; DestName: "SaveSettings.bat"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension skipifsourcedoesntexist
 Source: "Services\RestoreSettings.bat"; DestDir: "{app}"; DestName: "RestoreSettings.bat"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension skipifsourcedoesntexist
 
-; ZLib
+; Services:
+
 ;#if ConfigurationName == "Debug"
 Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
@@ -131,29 +144,28 @@ Source: "Services\zlib\{#ConfigurationName} {#PlatformName}\zlibwapi.dll"; DestD
 ;Source: "Services\zlibwapi.dll"; DestDir: "{app}\Plugins"; DestName: "zlibwapi.dll"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 ;#endif
 
-; BZlib
 Source: "Services\Bzlib\{#ConfigurationName} {#PlatformName}\Bzlib.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-; HashLib
 Source: "HashLib\{#ConfigurationName} {#PlatformName}\HashLib.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-; SQLite
 Source: "Services\SQLite\{#ConfigurationName} {#PlatformName}\SQLite.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-; GeoIP
 Source: "Services\GeoIP\{#ConfigurationName} {#PlatformName}\GeoIP.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 ;Source: "Data\GeoIP.dat"; DestDir: "{app}\Data"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-; MiniUPnP
 Source: "Services\MiniUPnP\{#ConfigurationName} {#PlatformName}\MiniUPnPc.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
 
-; Plugins
+;Source: "Services\QREncode\{#ConfigurationName} {#PlatformName}\QREncode.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+
+Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
+Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
+
+; Plugins:
+
 Source: "Plugins\DocumentReader\{#ConfigurationName} {#PlatformName}\DocumentReader.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
 Source: "Plugins\ImageViewer\{#ConfigurationName} {#PlatformName}\ImageViewer.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
-Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
-Source: "Services\LibGFL\{#PlatformName}\LibGFL340.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion uninsremovereadonly sortfilesbyextension deleteafterinstall
 Source: "Plugins\GFLImageServices\{#ConfigurationName} {#PlatformName}\GFLImageServices.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 Source: "Plugins\GFLLibraryBuilder\{#ConfigurationName} {#PlatformName}\GFLLibraryBuilder.dll"; DestDir: "{app}\Plugins"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension regserver
 
@@ -198,7 +210,8 @@ Source: "Plugins\WebHook\{#ConfigurationName} x64\WebHook64.dll"; DestDir: "{app
 Source: "Plugins\WebHook\{#ConfigurationName} Win32\WebHook32.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension regserver; Tasks: webhook
 Source: "Plugins\WebHook\{#ConfigurationName} x64\WebHook64.dll"; DestDir: "{app}\Plugins"; Flags: noregerror overwritereadonly replacesameversion restartreplace uninsrestartdelete uninsremovereadonly sortfilesbyextension regserver; Tasks: webhook
 
-; == Debug Databases ==
+; Debug Databases:
+
 #if ConfigurationName == "Debug"
 
 Source: "PeerProject\{#ConfigurationName} {#PlatformName}\PeerProject.pdb"; DestDir: "{app}"; Flags: overwritereadonly replacesameversion restartreplace uninsremovereadonly sortfilesbyextension
@@ -216,8 +229,7 @@ Source: "Services\BugTrap\dbghelp.dll"; DestDir: "{sys}"; DestName: "dbghelp.dll
 
 #endif
 
-
-; == Include Files ==
+; Include Files:
 
 ; Main Data Files
 Source: "Data\*"; DestDir: "{app}\Data"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.bak,*.bak.*,*GPL*,WorldGPS.xml"
@@ -237,6 +249,10 @@ Source: "Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion overwritereadonl
 ; Templates
 Source: "Templates\*"; DestDir: "{app}\Templates"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn,*.bak"
 
+; Remote files
+Source: "Remote\*"; DestDir: "{app}\Remote"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension; Excludes: ".svn,*.xlsx,Readme.txt"
+;Source: "Remote\Resources\*"; DestDir: "{app}\Remote\Resources"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension recursesubdirs; Excludes: ".svn"
+
 ; Icons
 Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
@@ -244,8 +260,7 @@ Source: "Installer\Res\Uninstall.ico"; DestDir: "{app}\Uninstall"; Flags: ignore
 ; Source: "Installer\License\LICENSE-GeoIP.txt"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 Source: "Installer\License\License (AGPLv3).html"; DestDir: "{app}"; Flags: ignoreversion overwritereadonly uninsremovereadonly sortfilesbyextension
 
-
-; == Copy Files ==
+; Copy Files:
 
 ; Copy skins back from {userappdata}\PeerProject\Skins
 Source: "{userappdata}\PeerProject\Skins\*"; DestDir: "{app}\Skins"; Flags: ignoreversion uninsremovereadonly sortfilesbyextension external onlyifdoesntexist skipifsourcedoesntexist recursesubdirs; AfterInstall: DeleteFolder('{userappdata}\PeerProject\Skins')
@@ -303,7 +318,6 @@ Source: "{srcexe}"; DestDir: "{app}\Uninstall"; DestName: "setup.exe"; Flags: ig
 Source: "Data\DefaultSecurity.dat"; DestDir: "{userappdata}\PeerProject\Data"; DestName: "Security.dat"; Flags: onlyifdoesntexist uninsremovereadonly sortfilesbyextension; Tasks: multiuser
 Source: "Data\DefaultSecurity.dat"; DestDir: "{app}\Data"; DestName: "Security.dat"; Flags: onlyifdoesntexist uninsremovereadonly sortfilesbyextension; Tasks: not multiuser
 
-
 [Icons]
 ; PeerProject Start Menu Shortcuts
 Name: "{group}\{#internal_name}"; Filename: "{app}\PeerProject.exe"; WorkingDir: "{app}"; Comment: "{cm:reg_apptitle}"; AppUserModelID: "PeerProject"
@@ -330,7 +344,7 @@ Name: "{group}\{cm:icons_uninstall}"; Filename: "{uninstallexe}"; WorkingDir: "{
 [Messages]
 ; Overwrite standard ISL entries  (Do not use localized messages)
 BeveledLabel=PeerProject.org
-SetupAppTitle=Setup | {#internal_name}
+SetupAppTitle=Setup • {#internal_name}
 
 [Run]
 ; Register EXE servers
@@ -607,6 +621,11 @@ const
 //SERVICE_DEMAND_START   = $3;
 //SERVICE_RUNNING        = $4;
 //SERVICE_NO_CHANGE      = $ffffffff;
+// Constants not defined for Windows 7+:
+  SHELL32_STRING_ID_PIN_TASKBAR = 5386;
+  SHELL32_STRING_ID_PIN_STARTMENU = 5381;
+  SHELL32_STRING_ID_UNPIN_TASKBAR = 5387;
+  SHELL32_STRING_ID_UNPIN_STARTMENU = 5382;
 var
   CurrentPath: string;
   Installed: Boolean;
@@ -644,15 +663,6 @@ var
 //Begin
 //  Result := RegKeyExists(HKEY_LOCAL_MACHINE, KeyLoc2);
 //End;
-
-// Check if the current install path exists
-Function DoesPathExist(): boolean;
-Begin
-    if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\PeerProject','', CurrentPath) then
-        Result := DirExists(CurrentPath)
-    else
-        Result := False;
-End;
 
 //Function OpenServiceManager(): HANDLE;
 //begin
@@ -748,6 +758,15 @@ End;
 //  end;
 //end;
 
+// Check if current install path exists
+Function DoesPathExist(): boolean;
+Begin
+    if RegQueryStringValue(HKEY_LOCAL_MACHINE, 'SOFTWARE\PeerProject','', CurrentPath) then
+        Result := DirExists(CurrentPath)
+    else
+        Result := False;
+End;
+
 Function NextButtonClick(CurPageID: integer): Boolean;
 var
   Wnd: HWND;
@@ -791,7 +810,7 @@ Begin
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\Shareaza*') ); End;
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{win}\PeerProject*') ); End;
   if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{sys}\PeerProject*') ); End;
-  if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{pf}\PeerProject\vc2.dll') ); End;
+  //if Result then Begin Result := NOT MalwareCheck( ExpandConstant('{pf}\PeerProject\vc2.dll') ); End;
 End;
 
 Function IsMalwareDetected: Boolean;
@@ -905,6 +924,8 @@ Begin
   End;
 End;
 
+// Languages:
+
 Function IsLanguageRTL(LangCode: String): String;
 Begin
   if ( (LangCode = 'he') or (LangCode = 'ar') ) then
@@ -954,6 +975,52 @@ begin
   Result := True;
 end;
 
+// Taskbar Pinning
+
+//#ifdef UNICODE
+//Function LoadString(hInstance: LongInt; uID: UINT; lpBuffer: string; nBufferMax: Integer): Integer;
+//  external 'LoadStringW@user32.dll stdcall delayload';
+//Function LoadLibrary(lpFileName: string): LongInt;
+//  external 'LoadLibraryW@kernel32.dll stdcall delayload';
+//#else
+//Function LoadString(hInstance: LongInt; uID: UINT; lpBuffer: string; nBufferMax: Integer): Integer;
+//  external 'LoadStringA@user32.dll stdcall delayload';
+//Function LoadLibrary(lpFileName: string): LongInt;
+//  external 'LoadLibraryA@kernel32.dll stdcall delayload delayload';
+//#endif
+//Function FreeLibrary(hModule: LongInt): BOOL;
+//  external 'FreeLibrary@kernel32.dll stdcall delayload';
+
+//procedure PinAppTaskbar; 
+//var 
+//  vShell, vFolder, vFolderItem, vItemVerbs: Variant; 
+//  vPath, vApp: Variant; 
+//  i: Integer;
+//  h: LongInt;
+//  VerbName: String;
+// sItem: String;
+//  szPinName: String;
+//  filenameEnd: Integer;
+//  filename: String;
+//  strEnd: String;
+//begin
+//  vShell := CreateOleObject('Shell.Application');
+//  vFolder := vShell.Namespace(ExpandConstant('{app}'));
+//  vFolderItem := vFolder.ParseName('PeerProject.exe');
+//  vItemVerbs := vFolderItem.Verbs();
+//  for i := 0 to vItemVerbs.count() do
+//  begin
+//     VerbName := lowercase(vItemVerbs.item(i).name);
+//     StringChangeEx(VerbName,'&','',true);
+//     if (CompareText(VerbName, 'Pin to Taskbar') = 0) then
+//       vItemVerbs.item(i).DoIt
+//  // if (CompareText(Verbname, 'Pin to Start Menu') = 0) then
+//  //   vItemVerbs.item(i).DoIt
+//  end;
+//end;
+
+// Do Tasks (Pinning, Firewall, Download Paths):
+
 Procedure CurStepChanged(CurStep: TSetupStep);
 var
   InstallFolder: string;
@@ -966,7 +1033,7 @@ var
 Begin
   if CurStep=ssPostInstall then begin
 //  if IsTaskSelected('firewall') then begin
-//  if (not Installed) then begin
+    if (not Installed) then begin
       if WizardSilent = True then begin
         try
           FirewallObject := CreateOleObject('HNetCfg.FwAuthorizedApplication');
@@ -998,7 +1065,8 @@ Begin
           MsgBox(FirewallFailed, mbInformation, MB_OK);
         End;
       End;
-//  End;
+    End;
+
 //  if IsTaskSelected('upnp') then begin
 //    if (HasUserPrivileges) then begin
 //      Success := false;
@@ -1021,19 +1089,28 @@ Begin
 //    end;
 //  end;
   End;
-  if CurStep=ssInstall then begin
-    if not IsTaskSelected('firewall') then begin
-      if InstallOnThisVersion('0,5.01sp2','0,0') = irInstall then begin
-        try
-          InstallFolder := ExpandConstant('{app}\PeerProject.exe');
-          FirewallManager := CreateOleObject('HNetCfg.FwMgr');
-          FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
-          FirewallProfile.AuthorizedApplications.Remove(InstallFolder);
-        except
-        End;
-      End;
-    End;
-  End;
+
+  // XP Firewall
+//if CurStep=ssInstall then begin
+//  if not IsTaskSelected('firewall') then begin
+//    if InstallOnThisVersion('0,5.01sp2','0,0') = irInstall then begin
+//      try
+//        InstallFolder := ExpandConstant('{app}\PeerProject.exe');
+//        FirewallManager := CreateOleObject('HNetCfg.FwMgr');
+//        FirewallProfile := FirewallManager.LocalPolicy.CurrentProfile;
+//        FirewallProfile.AuthorizedApplications.Remove(InstallFolder);
+//      except
+//      End;
+//    End;
+//  End;
+//End;
+
+  // Win 7+ Shortcut Pinning
+  //if CurStep=ssPostInstall then begin
+  //  if IsTaskSelected('pintaskbar') then begin
+  //    PinAppTaskbar;
+  //  End;
+  //End;
 
   // Check if the needed paths exist otherwise delete it from the registry (They will be recreated later in the installation process)
   if CurStep=ssInstall then begin
