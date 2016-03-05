@@ -1,7 +1,7 @@
 //
 // Augment/IUnknownImplementation.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2014
+// This file is part of PeerProject (peerproject.org) © 2008-2016
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -26,54 +26,44 @@ namespace augment
 
 	struct NoInterface : public IUnknown {};
 
-	template<typename I0, typename I1, typename I2, typename I3, typename I4,
-			typename I5, typename I6, typename I7, typename I8, typename I9>
+	template<typename I0, typename I1, typename I2, typename I3, typename I4, typename I5, typename I6, typename I7, typename I8, typename I9>
 	struct InheritAll
 		: public I0, public I1, public I2, public I3, public I4, public I5, public I6, public I7, public I8, public I9
 	{};
-	template<typename I0, typename I1, typename I2, typename I3, typename I4,
-			typename I5, typename I6, typename I7, typename I8>
+	template<typename I0, typename I1, typename I2, typename I3, typename I4, typename I5, typename I6, typename I7, typename I8>
 	struct InheritAll< I0, I1, I2, I3, I4, I5, I6, I7, I8, NoInterface >
 		: public I0, public I1, public I2, public I3, public I4, public I5, public I6, public I7, public I8
 	{};
-	template<typename I0, typename I1, typename I2, typename I3, typename I4,
-			typename I5, typename I6, typename I7>
+	template<typename I0, typename I1, typename I2, typename I3, typename I4, typename I5, typename I6, typename I7>
 	struct InheritAll< I0, I1, I2, I3, I4, I5, I6, I7, NoInterface, NoInterface >
 		: public I0, public I1, public I2, public I3, public I4, public I5, public I6, public I7
 	{};
-	template<typename I0, typename I1, typename I2, typename I3, typename I4,
-			typename I5, typename I6>
+	template<typename I0, typename I1, typename I2, typename I3, typename I4, typename I5, typename I6>
 	struct InheritAll< I0, I1, I2, I3, I4, I5, I6, NoInterface, NoInterface, NoInterface >
 		: public I0, I1, public I2, public I3, public I4, public I5, public I6
 	{};
-	template<typename I0, typename I1, typename I2, typename I3, typename I4,
-			typename I5>
+	template<typename I0, typename I1, typename I2, typename I3, typename I4, typename I5>
 	struct InheritAll< I0, I1, I2, I3, I4, I5, NoInterface, NoInterface, NoInterface, NoInterface >
 		: public I0, public I1, public I2, public I3, public I4, public I5
 	{};
 	template<typename I0, typename I1, typename I2, typename I3, typename I4>
-	struct InheritAll< I0, I1, I2, I3, I4,
-			NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
+	struct InheritAll< I0, I1, I2, I3, I4, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
 		: public I0, public I1, public I2, public I3, public I4
 	{};
 	template<typename I0, typename I1, typename I2, typename I3>
-	struct InheritAll< I0, I1, I2, I3, NoInterface,
-			NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
-		: publicI0, public I1, public I2, public I3
+	struct InheritAll< I0, I1, I2, I3, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
+		: public I0, public I1, public I2, public I3
 	{};
 	template<typename I0, typename I1, typename I2>
-	struct InheritAll< I0, I1, I2, NoInterface, NoInterface,
-			NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
+	struct InheritAll< I0, I1, I2, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
 		: public I0, public I1, public I2
 	{};
 	template<typename I0, typename I1>
-	struct InheritAll< I0, I1, NoInterface, NoInterface, NoInterface,
-			NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
+	struct InheritAll< I0, I1, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
 		: public I0, public I1
 	{};
 	template<typename I0>
-	struct InheritAll< I0, NoInterface, NoInterface, NoInterface, NoInterface,
-			NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
+	struct InheritAll< I0, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface, NoInterface >
 		: public I0
 	{};
 
@@ -83,8 +73,7 @@ namespace augment
 			typename I7 = NoInterface, typename I8 = NoInterface, typename I9 = NoInterface>
 	class IUnknownImplementation : public InheritAll< I0, I1, I2, I3, I4, I5, I6, I7, I8, I9 >
 	{
-#if defined(_MSC_VER) && (_MSC_VER >= 1600)	// _HAS_TR1		// static_assert set in StdAfx.h prior to VS2010
-		// ToDo: Are these compile-time checks needed?
+		// ToDo: Are these compile-time checks needed?  (std::is_convertible tr1 for VS2008, was boost)
 		static_assert( std::tr1::is_convertible< I0*, IUnknown* >::value, "static assert" );
 		static_assert( std::tr1::is_convertible< I1*, IUnknown* >::value, "static assert" );
 		static_assert( std::tr1::is_convertible< I2*, IUnknown* >::value, "static assert" );
@@ -95,7 +84,7 @@ namespace augment
 		static_assert( std::tr1::is_convertible< I7*, IUnknown* >::value, "static assert" );
 		static_assert( std::tr1::is_convertible< I8*, IUnknown* >::value, "static assert" );
 		static_assert( std::tr1::is_convertible< I9*, IUnknown* >::value, "static assert" );
-#endif
+
 	protected:
 		IUnknownImplementation()
 			: ref_count_( 0 )

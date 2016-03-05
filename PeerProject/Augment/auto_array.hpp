@@ -1,7 +1,7 @@
 //
 // Augment/Auto_array.hpp
 //
-// This file is part of PeerProject (peerproject.org) © 2008-2010
+// This file is part of PeerProject (peerproject.org) © 2008-2010,2016
 // Portions Copyright Shareaza Development Team, 2002-2007.
 //
 // PeerProject is free software; you can redistribute it and/or
@@ -24,11 +24,23 @@
 namespace augment
 {
 
+// delete, with compile-time type check, from boost::checked_delete.hpp:
+template<class T> inline void checked_array_delete(T * x)
+{
+	typedef char type_must_be_complete[ sizeof(T)? 1: -1 ];
+	(void) sizeof(type_must_be_complete);
+	delete [] x;
+}
+
 template<typename T>
 class auto_array
 {
 public:
 	typedef T element_type;
+
+private:
+	element_type* ptr_;
+
 private:
 	struct auto_array_ref
 	{
@@ -43,6 +55,7 @@ private:
 		}
 		element_type** ref_;
 	};
+
 public:
 	explicit auto_array(element_type* ptr = NULL) throw()
 		: ptr_( ptr )
@@ -56,7 +69,7 @@ public:
 	~auto_array() throw()
 	{
 		if ( get() != NULL )
-			boost::checked_array_delete( get() );
+			checked_array_delete( get() );		// Was boost::
 	};
 
 	auto_array& operator=(auto_array& other) throw()
@@ -84,10 +97,11 @@ public:
 		ptr_ = NULL;
 		return ptr;
 	}
+
 	void reset(element_type* ptr = NULL) throw()
 	{
 		if ( ptr != get() && get() != NULL )
-			boost::checked_array_delete( get() );
+			checked_array_delete( get() );		// Was boost::
 		ptr_ = ptr;
 	}
 
@@ -95,9 +109,6 @@ public:
 	{
 		return auto_array_ref( &ptr_ );
 	}
-private:
-	element_type* ptr_;
 };
 
 } // namespace augment
-
